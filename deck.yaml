@@ -1,0 +1,10 @@
+id: cpp-core
+name: C++ Core
+description: Fundamentals through C++23, plus interview depth.
+language: cpp
+format: 1
+defaults:
+  compile:
+    compiler: g142
+    std: c++23
+    flags: [-Wall, -Wextra]
