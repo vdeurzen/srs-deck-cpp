@@ -10,6 +10,8 @@ refs:
 
 ## What are the three primary value categories in C++11 and later, and how do `glvalue` and `rvalue` relate to them?
 
+---
+
 Every expression is exactly one of **lvalue**, **xvalue**, or **prvalue** —
 the three primary categories. Two composite categories group them:
 

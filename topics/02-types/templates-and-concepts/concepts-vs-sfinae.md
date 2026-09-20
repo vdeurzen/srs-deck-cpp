@@ -10,6 +10,8 @@ refs:
 
 ## What do C++20 concepts give you that pre-C++20 SFINAE-based constraints did not?
 
+---
+
 Three things, all from making the constraint a first-class, named
 language construct instead of an accident of substitution failure:
 

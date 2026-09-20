@@ -24,7 +24,7 @@ Sort `people` by age without writing a comparator, using `std::ranges::sort`'s
 struct Person { int age; };
 constexpr bool sorted_by_age() {
     std::array<Person, 3> people{{ {30}, {10}, {20} }};
-    std::ranges::sort(people, {}, {{c1::&Person::age}});
+    std::ranges::sort(people, {}, {{c1::&Person\::age}});
     return people[0].age == 10 && people[1].age == 20 && people[2].age == 30;
 }
 ```

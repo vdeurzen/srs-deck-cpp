@@ -10,6 +10,8 @@ refs:
 
 ## What makes a C++ function a coroutine, purely syntactically?
 
+---
+
 Using at least one of `co_await`, `co_yield`, or `co_return` anywhere in
 its body. There is no keyword on the function's declaration itself — the
 compiler decides a function is a coroutine entirely from what appears

@@ -23,7 +23,7 @@ call a free function or a lambda through it.
 struct Greeter { constexpr int shout(int volume) const { return volume * 2; } };
 constexpr bool check() {
     Greeter g;
-    return std::invoke({{c1::&Greeter::shout}}, g, 3) == 6;
+    return std::invoke({{c1::&Greeter\::shout}}, g, 3) == 6;
 }
 ```
 

@@ -10,6 +10,8 @@ refs:
 
 ## Is initializing a function-local `static` thread-safe, and what does the standard call this guarantee?
 
+---
+
 Yes, since C++11: if control enters the declaration of a function-local
 `static` concurrently while it is being initialized, the other threads
 **block** until initialization completes. This is informally called

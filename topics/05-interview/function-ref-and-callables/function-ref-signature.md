@@ -27,7 +27,7 @@ Complete the parameter type so `call` accepts any callable matching
 
 ```cpp
 #include <functional>
-int call({{c1::std::function_ref<int(int)>}} f) { return f(1); }
+int call({{c1::std\::function_ref<int(int)>}} f) { return f(1); }
 ```
 
 ---

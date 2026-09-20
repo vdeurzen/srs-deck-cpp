@@ -11,6 +11,8 @@ refs:
 
 ## What does a `shared_ptr`'s control block hold, and why do two `shared_ptr`s constructed separately from the same raw pointer cause a double free?
 
+---
+
 The control block holds the strong reference count, the weak reference
 count, and (unless `make_shared` folded it into the same allocation) a
 pointer to the managed object and, often, its deleter. Every `shared_ptr`

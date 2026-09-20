@@ -12,6 +12,6 @@ refs:
 adaptors with the {{c1::pipe operator::`operator|`}}, read left to right
 as "take `v`, then filter it, then transform the result". This mirrors
 shell pipelines and is equivalent to the more nested
-{{c2::std::views::transform(std::views::filter(v, pred), fn)::function-call
+{{c2::std\::views\::transform(std\::views\::filter(v, pred), fn)::function-call
 form}}, which is why the pipe syntax exists at all: it reads in the same
 order the data actually flows.

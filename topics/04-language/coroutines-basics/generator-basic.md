@@ -10,6 +10,8 @@ refs:
 
 ## In C++23's `std::generator<T>`, what happens to the coroutine's execution when the caller does not advance the range past the first `co_yield`?
 
+---
+
 Nothing past that first suspension point ever runs. A coroutine using
 `co_yield` is **lazy**: the body executes only up to the next
 `co_yield` (or `co_return`) each time the caller resumes it — by

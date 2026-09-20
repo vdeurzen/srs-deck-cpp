@@ -24,7 +24,7 @@ Complete the compound requirement so `Hashable<T>` also constrains what
 #include <functional>
 template<typename T>
 concept Hashable = requires(T t) {
-    { std::hash<T>{}(t) } -> {{c1::std::convertible_to<std::size_t>}};
+    { std::hash<T>{}(t) } -> {{c1::std\::convertible_to<std\::size_t>}};
 };
 ```
 

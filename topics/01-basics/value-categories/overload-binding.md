@@ -11,6 +11,8 @@ refs:
 
 ## Given both `void f(const T&)` and `void f(T&&)` overloads, which one binds for a named parameter `T&& x` used inside the function body?
 
+---
+
 The `const T&` overload — even though `x`'s declared *type* is `T&&`, `x`
 itself is a named entity, so as an expression it is an **lvalue**. Only the
 type of a declaration is a reference; the value category of using that

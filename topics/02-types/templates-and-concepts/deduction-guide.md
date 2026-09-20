@@ -24,7 +24,7 @@ template<typename T>
 struct Box {
     T value;
 };
-Box(const char*) -> Box<{{c1::std::string}}>;
+Box(const char*) -> Box<{{c1::std\::string}}>;
 ```
 
 ---

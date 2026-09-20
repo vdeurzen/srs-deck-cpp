@@ -10,6 +10,8 @@ refs:
 
 ## Why does calling a member function through a dependent type sometimes need the `template` keyword, as in `obj.template method<T>()`?
 
+---
+
 Template code is checked in two phases. At **definition time**, names
 that do not depend on a template parameter are looked up immediately;
 names that do depend on one (a **dependent name**) are deferred to

@@ -10,6 +10,8 @@ refs:
 
 ## What ownership model does `std::unique_ptr<T>` enforce, and what does that mean for copying it?
 
+---
+
 **Exclusive ownership**: at any moment, at most one `unique_ptr` owns a
 given object, and that owner deletes it when the `unique_ptr` is
 destroyed. Enforcing exclusivity means `unique_ptr` has no copy

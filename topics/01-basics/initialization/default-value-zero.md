@@ -11,6 +11,8 @@ refs:
 
 ## For `int x;` versus `int x{};`, what is `x`'s value in each case, and why?
 
+---
+
 `int x;` is **default-initialization**: for a built-in type at block scope
 this performs *no* initialization at all — `x` holds indeterminate memory,
 and reading it before writing is undefined behaviour.

@@ -11,6 +11,8 @@ refs:
 
 ## What distinguishes `std::strong_ordering`, `std::weak_ordering`, and `std::partial_ordering`?
 
+---
+
 **`strong_ordering`**: equivalent means substitutable — if `a` and `b`
 compare equivalent, they are interchangeable in every observable way an
 ordering could depend on. Total order: every pair compares.

@@ -10,6 +10,8 @@ refs:
 
 ## What is template instantiation, and what triggers it implicitly?
 
+---
+
 Instantiation is the compiler generating an actual function or class from
 a template by substituting concrete template arguments for its
 parameters. **Implicit instantiation** happens the first time a

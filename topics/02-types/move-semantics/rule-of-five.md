@@ -10,6 +10,8 @@ refs:
 
 ## What is the "Rule of Five", and when does a class need to obey it?
 
+---
+
 If a class manages a resource directly (owns a raw pointer, a file
 handle, and so on) and therefore needs a user-defined **destructor**, it
 almost certainly also needs a user-defined **copy constructor**, **copy

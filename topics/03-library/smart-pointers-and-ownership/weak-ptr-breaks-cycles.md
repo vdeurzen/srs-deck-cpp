@@ -10,6 +10,8 @@ refs:
 
 ## Why does a parent/child pair of `shared_ptr`s pointing at each other leak, and how does `weak_ptr` fix it?
 
+---
+
 If a `Parent` holds a `shared_ptr<Child>` and that `Child` holds a
 `shared_ptr<Parent>` back, each object's strong reference count never
 reaches zero — the parent keeps the child alive, and the child keeps the

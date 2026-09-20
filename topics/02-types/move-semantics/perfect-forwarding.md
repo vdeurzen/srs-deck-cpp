@@ -29,7 +29,7 @@ constexpr int inner(int&) { return 1; }
 constexpr int inner(int&&) { return 2; }
 template<typename T>
 constexpr int wrapper(T&& arg) {
-    return inner({{c1::std::forward<T>(arg)}});
+    return inner({{c1::std\::forward<T>(arg)}});
 }
 ```
 

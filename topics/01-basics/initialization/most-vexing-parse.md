@@ -10,6 +10,8 @@ refs:
 
 ## Why does `Widget w(Gadget());` declare a function instead of constructing a `Widget` from a default-constructed `Gadget`?
 
+---
+
 Because `Gadget()` inside the parentheses is grammatically ambiguous with a
 parameter declaration, and C++ resolves the ambiguity in favour of a
 declaration — this is the "most vexing parse". `w` becomes a function

@@ -10,6 +10,8 @@ refs:
 
 ## What does `a <=> b` return, and how do you get a `bool` out of it?
 
+---
+
 `a <=> b` returns a value of a **comparison category type** —
 `std::strong_ordering`, `std::weak_ordering`, or `std::partial_ordering`
 — not a `bool` or an `int`. That value compares against the literal `0`

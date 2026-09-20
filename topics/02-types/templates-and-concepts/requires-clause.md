@@ -19,7 +19,7 @@ Constrain `T` so `add_one` only accepts integer types.
 
 ```cpp
 #include <concepts>
-template<{{c1::std::integral}} T>
+template<{{c1::std\::integral}} T>
 constexpr T add_one(T x) { return x + 1; }
 ```
 

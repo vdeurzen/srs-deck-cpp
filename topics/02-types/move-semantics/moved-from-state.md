@@ -10,6 +10,8 @@ refs:
 
 ## After `auto b = std::move(a);`, what does the standard guarantee about `a`?
 
+---
+
 Only that `a` is left in a **valid but unspecified state**. It is safe to
 destroy or assign a new value to `a` — every standard-library type's
 destructor and copy/move-assignment work on a moved-from object — but
