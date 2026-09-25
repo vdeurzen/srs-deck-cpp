@@ -1,0 +1,10 @@
+id: algo-systems # the namespace every Card Id in this Deck lives under
+name: Algorithms & Systems
+description: Data structures and algorithms, basics to advanced, aimed at compiler, database and low-latency work.
+language: cpp # default highlight.js id; a fence's own info string wins
+format: 1
+defaults:
+  compile:
+    compiler: g142 # GCC 14.2 on Compiler Explorer
+    std: c++23
+    flags: [-Wall, -Wextra]
