@@ -22,10 +22,10 @@ moved-from error, not a run-time surprise.
 
 `split(sndr)` turns it into a **multi-shot** sender: it allocates a
 shared state, starts the underlying operation once, records the
-completion, and delivers it to every consumer that connects — those
-that connect before it finishes are resumed on completion, and those
-that connect afterwards get the stored result immediately. The values
-are shared, so each consumer sees them by `const&`.
+completion, and replays it to every consumer — those still waiting
+when it finishes are completed then, and one that starts after the
+fact is completed from the stored result. The values are shared, so
+each consumer sees them by `const&`.
 
 That shared state is the cost, and it is exactly the allocation the
 rest of the model works to avoid, so `split` is a deliberate choice
