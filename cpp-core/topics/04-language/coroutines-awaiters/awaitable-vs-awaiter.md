@@ -24,7 +24,4 @@ expression}} looked up on it.
 
 The distinction matters in practice: a `task` is an awaitable that
 returns a *separate* awaiter holding the continuation handle, while
-`std::suspend_always` is both at once. And because a single
-`await_transform` declaration captures every `co_await` in the
-coroutine, a promise that declares one must handle {{c4::every type that
-coroutine awaits::there is no fall-back to the untransformed operand}}.
+`std::suspend_always` is both at once.

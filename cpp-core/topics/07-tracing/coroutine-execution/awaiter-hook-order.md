@@ -59,4 +59,5 @@ produces its value, the body finishes (`E`), and the coroutine suspends
 at `final_suspend`, so `done()` is `true`. Note the asymmetry worth
 remembering: `await_ready` runs once per `co_await`, `await_suspend`
 only when it returns false, and `await_resume` always. Verified by
-compiling and running this program under GCC 13.3 (`g++ -std=c++23`).
+compiling and running this program under GCC 13.3 and again under
+GCC 16.2 (`g++ -std=c++23`); the values are identical.

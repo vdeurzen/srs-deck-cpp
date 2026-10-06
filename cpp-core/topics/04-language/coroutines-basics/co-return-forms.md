@@ -17,8 +17,8 @@ which GCC does not diagnose — requires its promise to declare
 value}}. One that ends with `co_return expr;` instead requires
 {{c2::return_value(expr)::the hook that receives the co_returned
 expression}}. A promise that declares **both** is
-{{c3::ill-formed::GCC says the promise "declares both return_value and
-return_void"}}, so a coroutine type commits to one shape or the other —
+{{c3::ill-formed::what the standard says of such a promise}},
+so a coroutine type commits to one shape or the other —
 which is why a generator-style promise, whose values all come out
 through `co_yield`, declares the first and a task-style promise that
 produces one result declares the second.

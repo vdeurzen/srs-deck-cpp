@@ -92,28 +92,28 @@ Only `initial_suspend` decides the start. Removed `/final_suspend`.
 
 It is C++26 (P2300), absent from GCC 14. Marked as such.
 
-#### m6 — `chunks-coroutine-frame-owner` — explanation says the pattern is "why every real task type is move-only", but the snippet is non-movable *(not fixed)*
+#### m6 — `chunks-coroutine-frame-owner` — explanation says the pattern is "why every real task type is move-only", but the snippet is non-movable *(fixed, Phase 4: prose now says the minimal owner is non-movable and a real type adds a move ctor; snippet unchanged)*
 
 Copy ops deleted, no move ctor/assignment declared, so `FrameOwner` cannot be
 moved either. Not wrong as a minimal RAII owner; prose slightly overstates.
 Adding a move ctor would change the memorised snippet, so left for Phase 4.
 
-#### m7 — `coroutines-co-return-forms` — hint for c3 nearly restates the answer *(not fixed)*
+#### m7 — `coroutines-co-return-forms` — hint for c3 nearly restates the answer *(fixed, Phase 4: hint is now "a diagnosed error, not merely undefined behaviour")*
 
 Hint quotes GCC's diagnostic ("declares both return_value and return_void");
 answer is "ill-formed". Borderline leak; Phase 4 hint pass.
 
-#### m8 — `coroutines-promise-type-cloze` — c3 hint "eager vs lazy start" is a near-synonym of the answer *(not fixed)*
+#### m8 — `coroutines-promise-type-cloze` — c3 hint "eager vs lazy start" is a near-synonym of the answer *(fixed, Phase 4: hint is now "its first scheduling decision")*
 
 Phase 4.
 
-#### m9 — `coroutines-generator-elements-of` — "quadratic" is loose *(not fixed)*
+#### m9 — `coroutines-generator-elements-of` — "quadratic" is loose *(fixed, Phase 4: now "d resumes per element, O(n·d) for the traversal")*
 
 Nested hand-written loops cost O(depth) resumes per element, i.e. O(n·d)
 overall — quadratic only for a degenerate (list-shaped) tree. Phrasing, not a
 wrong fact.
 
-#### m10 — `coroutines-generator-explain` / `coroutines-generator-no-co-await` / `coroutines-await-transform-hook` — "`await_transform` is deleted" *(not fixed)*
+#### m10 — `coroutines-generator-explain` / `coroutines-generator-no-co-await` / `coroutines-await-transform-hook` — "`await_transform` is deleted" *(fixed, Phase 4: all three now say a deleted `await_transform()` overload is declared, so any `co_await e` finds a declaration and no viable call)*
 
 Precisely, `std::generator::promise_type` declares `void await_transform() = delete;`
 (a nullary, deleted overload); any `co_await e` then finds a declaration and

@@ -56,4 +56,5 @@ use-after-free.
 The two suspensions at the ends are the ones you never write: the body
 contains a single statement, and four of the five letters come from the
 protocol around it. Verified by compiling and running this program
-under GCC 13.3 (`g++ -std=c++23`) and printing `hooks` at each Probe.
+under GCC 13.3 and again under GCC 16.2 (`g++ -std=c++23`), printing
+`hooks` at each Probe; the values are identical.

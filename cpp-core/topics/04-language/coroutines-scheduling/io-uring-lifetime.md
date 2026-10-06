@@ -16,31 +16,9 @@ refs:
 
 ---
 
-Because the kernel is holding pointers into that frame. When the read
-was submitted, the SQE captured the buffer address and the `user_data`
-pointing at the awaiter — both of which live in the coroutine frame.
-`destroy()` frees the frame immediately; the operation is still queued.
-When it completes, the kernel writes the bytes into freed memory and
-the completion loop dereferences a dangling `user_data`.
-
-Cancellation in a completion-based API is therefore **asynchronous**,
-in three steps:
-
-1. submit a cancel request — `io_uring_prep_cancel(sqe, op, 0)`, naming
-   the same `user_data`;
-2. **wait for the original operation's completion** to arrive. It will,
-   exactly once: either with `-ECANCELED`, or with a successful result
-   because the read had already finished before the cancel landed;
-3. only then let the frame be destroyed.
-
-The invariant to hold on to: every submitted operation owns a slot in
-the frame until its completion is observed, and "cancelled" is a way
-for an operation to *finish*, not a way to make it un-happen. That is
-the same reason `std::jthread`'s destructor joins rather than detaches,
-and the same reason `std::execution` models cancellation as the
-`set_stopped` completion channel instead of an out-of-band kill.
-
-Structured concurrency is what makes this liveable: if a parent
-coroutine always awaits its children, a child's frame cannot outlive
-the parent's `co_await`, and the only place that needs this cancel-then-
-join dance is the runtime's own shutdown path.
+**The kernel still holds pointers into that frame.** The SQE holds the
+buffer address and the awaiter's address as `user_data`; `destroy()`
+frees both while the read is queued. Cancel is asynchronous: submit
+`io_uring_prep_cancel` for the same `user_data`, *await the original
+completion* (exactly once: `-ECANCELED` or a late success), then
+destroy. "Cancelled" is a way to finish, never to un-happen.

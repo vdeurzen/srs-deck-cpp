@@ -1,26 +1,21 @@
 ---
 id: coroutines-explain-transformation
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [coroutines]
 requires:
-  - coroutines-return-object-timing
-  - coroutines-frame-allocation
-  - coroutines-awaitable-vs-awaiter
+  - coroutines-explain-frame-setup
+  - coroutines-explain-body-lowering
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---
-A colleague asks what the compiler actually does to a function once you
-put a `co_await` in it. Explain the transformation end to end.
+Put it together: the setup and the body rewriting of a coroutine
+constrain each other. Name five things that follow from how the two
+parts fit, not the parts themselves.
 ---
-- [ ] The return type names a `promise_type` (directly or through `std::coroutine_traits`); without one the function does not compile
-- [ ] A frame is allocated — by `promise_type::operator new` if it declares one, else global `operator new` — and holds the promise, the copied parameters, and every local that is live across a suspension point
-- [ ] Parameters are copied (or moved) into the frame; a *reference* parameter copies the reference, not the referent
-- [ ] `get_return_object()` is called before `initial_suspend()`, and its result is what the caller gets at the first suspension
-- [ ] The body is wrapped in `try`/`catch(...)`, whose handler calls `unhandled_exception()`
-- [ ] Every exit path runs `return_void()`/`return_value(expr)` and then `co_await promise.final_suspend()`
-- [ ] `co_await e` becomes: `await_transform` if the promise has one, then `operator co_await` if there is one, then `await_ready` / `await_suspend` / `await_resume`
-- [ ] `co_yield e` is exactly `co_await promise.yield_value(e)`
-- [ ] Resuming means jumping back to a state machine's saved resume point — `coroutine_handle::resume()` is an ordinary call, and it returns when the coroutine next suspends or finishes
-- [ ] The frame is freed when the coroutine runs off the end without suspending at `final_suspend`, or when someone calls `destroy()`
+- [ ] Because the body is lowered into calls on the promise, the return type must be fixed before anything runs — which is why a deduced return type and a plain `return` are both impossible
+- [ ] Because `initial_suspend` is awaited after `get_return_object` but before the body, a lazy coroutine returns to its caller with no user code run — which is exactly why a reference parameter copied into the frame can dangle later
+- [ ] Because a suspension returns to the resumer and `resume()` is an ordinary call, every local live across a `co_await` must sit in the allocated frame, not on any stack: the frame is the coroutine's only stack
+- [ ] Because every exit — `co_return`, running off the end, `unhandled_exception()` — funnels into `co_await final_suspend()`, whether the frame outlives the body is one promise decision, not one per exit path
+- [ ] Because `co_yield` is `co_await yield_value(e)` and every `co_await` passes through `await_transform`, a promise decides at compile time what its body may say: a generator forbids awaiting with one deleted overload

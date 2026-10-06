@@ -1,26 +1,22 @@
 ---
 id: coroutines-explain-promise-protocol
 kind: explain
-version: 1
+version: 2
 level: 5
 tags: [coroutines]
 requires:
-  - coroutines-done-and-destroy-preconditions
-  - coroutines-frame-allocation
+  - coroutines-explain-promise-hooks
+  - coroutines-explain-promise-extensions
   - coroutines-symmetric-transfer
 refs:
-  - https://en.cppreference.com/w/cpp/language/coroutines
+  - https://en.cppreference.com/w/cpp/language/coroutines#Promise
 ---
-You are designing a coroutine return type from scratch. Explain what its
-`promise_type` must provide, and what each decision buys you.
+Put it together: a generator type and a task type use the same promise
+hooks. Explain how the same hooks give each its behaviour, and why both
+end up owning their frame through the return type.
 ---
-- [ ] `get_return_object()` — builds what the caller receives, usually from `coroutine_handle<promise_type>::from_promise(*this)`, and runs before `initial_suspend()`
-- [ ] `initial_suspend()` — `suspend_always` for a lazy type (generator, task), `suspend_never` for an eager one; decides who chooses the starting thread
-- [ ] `final_suspend()` — must be `noexcept`; `suspend_always` keeps the frame alive so the caller can read the result and destroy it, `suspend_never` makes the coroutine free itself
-- [ ] Exactly one of `return_void()` or `return_value(v)`, never both
-- [ ] `unhandled_exception()` — usually stores `std::current_exception()` for the consumer to rethrow
-- [ ] `yield_value(v)` if the type supports `co_yield`; it returns an awaitable, so it can suspend *and* transport a value
-- [ ] `await_transform(e)` if awaits should be intercepted — to inject a scheduler, or deleted to forbid `co_await` entirely
-- [ ] `operator new`/`operator delete` if frames should come from a pool, plus `get_return_object_on_allocation_failure()` for nothrow allocation
-- [ ] The return type itself must own the frame: destroy it in the destructor, and be move-only, or two handles will `destroy()` the same frame
-- [ ] A task-shaped type also stores the awaiting coroutine's handle and returns it from `final_suspend`'s awaiter, so the continuation resumes by symmetric transfer
+- [ ] They differ in who resumes: a generator is resumed by its consumer's `operator++`, a task by its own `final_suspend` awaiter handing on the stored continuation — so `yield_value` is the generator's channel out and the continuation handle is the task's
+- [ ] Both start lazily for the same reason: `suspend_always` from `initial_suspend` hands the caller the return object before any body runs, so the caller decides when, and on which thread, work begins
+- [ ] Both suspend at the end for the same reason: `suspend_always` from `final_suspend` keeps the frame alive so the result — `return_value`, the last `yield_value`, or a stored exception — can be read; therefore the return type must be the one that calls `destroy()`
+- [ ] Because `final_suspend` is `noexcept` and runs after `unhandled_exception()`, failure is a promise *member*, not an unwinding path: the consumer rethrows what the promise stored, at `operator++` or at the awaiting `co_await`
+- [ ] A fire-and-forget type inverts both choices — `suspend_never` at both ends — and that is exactly why nobody may hold a handle to it: the frame frees itself, so the return type owns nothing

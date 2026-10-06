@@ -49,5 +49,6 @@ type that does not is a frame leak on every call.
 The two deleted members are the point, not boilerplate: copying a
 handle is legal and cheap, so two owners would each destroy the same
 frame. This is the rule of five applied to a resource the language
-hands you unwrapped, and it is why every real task and generator type
-is move-only.
+hands you unwrapped. This minimal owner is not movable either; a real
+task or generator type adds a move constructor that nulls the source's
+handle — same rule, one more member — and is therefore move-only.

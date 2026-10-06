@@ -52,5 +52,6 @@ plain descriptor such as `read(fd, buf)` to it.
 It is all or nothing. Declaring one overload means every `co_await` in
 that coroutine goes through `await_transform`, with no fall-back for
 types it does not accept — deliberately so: `std::generator`'s promise
-declares `await_transform` **deleted**, which is how a synchronous pull
+declares a **deleted** `await_transform()` overload, so any `co_await e`
+finds a declaration and no viable call, which is how a synchronous pull
 generator forbids `co_await` outright.

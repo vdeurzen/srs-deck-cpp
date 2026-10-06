@@ -15,33 +15,19 @@ refs:
 
 ---
 
-By making the context part of the coroutine's promise, and letting
-`await_transform` marry the two:
+**Store the context in the promise; `await_transform` binds each
+operation description to it.**
 
 ```cpp
 struct promise_type {
-  IoContext* io;                       // set when the task was created
+  IoContext* io;                       // from the coroutine's own arguments
   explicit promise_type(IoContext& c, auto&&...) : io(&c) {}
   auto await_transform(ReadOp op) { return BoundRead{*io, op}; }
   // ...
 };
 ```
 
-`read(fd, buf)` now returns a *description* — a plain value with no
-context in it — and the awaiter that actually submits the operation is
-built by the promise, which knows where to submit it. Callers write
-`co_await read(fd, buf)` and never mention the context; nothing is
-looked up in a global.
-
-Two details make it work. The promise's constructor receives the
-coroutine's own arguments, so a task declared as
-`task run(IoContext& io, int fd)` gets its context without the body
-doing anything. And `await_transform` also lets the promise *refuse*
-things: an operation description that this task's context cannot serve
-simply has no overload, and the `co_await` fails to compile rather than
-reaching for a default runtime at run time.
-
-The cost is that the promise now owns the vocabulary of awaitables, so
-awaiting a foreign awaitable needs an explicit pass-through overload —
-usually `template <typename A> A&& await_transform(A&& a) { return
-static_cast<A&&>(a); }`.
+`read(fd, buf)` returns a plain description; the promise, which knows
+the context, builds the awaiter that submits it. Callers never name the
+context and nothing is looked up. A description the context cannot
+serve has no overload and fails to compile.

@@ -1,25 +1,21 @@
 ---
 id: coroutines-generator-explain
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [coroutines, ranges]
 requires:
-  - coroutines-generator-is-a-view
-  - coroutines-generator-dangling-parameter
-  - coroutines-generator-no-co-await
+  - coroutines-generator-explain-why
+  - coroutines-generator-explain-costs
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator
 ---
-An interviewer asks when you would reach for `std::generator` instead of
-returning a `std::vector`, and what it costs. Explain both sides.
+Put it together: show how `std::generator`'s upside and its costs both
+follow from two facts — it is lazy, and it is pulled — then state the
+rule against `std::vector`.
 ---
-- [ ] It is lazy: the body runs only as far as the consumer pulls, so an infinite or expensive sequence costs only what is consumed
-- [ ] Peak memory is one element rather than the whole sequence — the win for large or streamed data
-- [ ] It inverts control without a callback: the producer keeps its loop and its local state, instead of being turned inside out into a state machine or a visitor
-- [ ] It is an `input_range` and move-only, so it composes with `views::take`, `views::filter` and friends but cannot be traversed twice
-- [ ] Cost: one heap allocation for the frame unless HALO elides it, plus a resume per element — measurably slower than filling a `vector` when the whole sequence is wanted anyway
-- [ ] Cost: elements are references into the frame, valid until the next increment; storing one for later is a dangling reference
-- [ ] Reference parameters are borrows the caller must outlive; pass by value when the generator outlives the call
-- [ ] Recursion needs `co_yield std::ranges::elements_of(sub)` to stay linear rather than paying one resume per level
-- [ ] It is synchronous by construction — `await_transform` is deleted, so no `co_await`; an async stream needs a different type
+- [ ] Laziness means the body runs after the call has returned — which is why a reference parameter is a borrow that must outlive the whole iteration, not just the call
+- [ ] Because elements are yielded by reference from a frame that resumes on `++`, "one element of memory" and "copy before advancing" are the same fact seen from two sides
+- [ ] Because the consumer pulls through a blocking `operator++`, the generator is synchronous — and `begin()` doing work, possibly throwing, is that same pull happening once at the start
+- [ ] Because each level of a recursive generator is its own suspended frame, nesting costs one resume per level unless `elements_of` splices the child onto the parent by symmetric transfer
+- [ ] The deciding property against `vector` is who decides how much is produced: when the producer does (the whole sequence is wanted anyway), the frame allocation and the per-element resume buy nothing

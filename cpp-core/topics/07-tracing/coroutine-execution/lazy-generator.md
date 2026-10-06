@@ -55,4 +55,5 @@ everything after the final `co_yield` and then stops, which is where
 cleanup code in a generator body actually runs.
 
 Verified by compiling and running this program, with the parsons Card's
-`Generator<T>`, under GCC 13.3 (`g++ -std=c++23`).
+`Generator<T>`, under GCC 13.3 and again under GCC 16.2
+(`g++ -std=c++23`); the values are identical.

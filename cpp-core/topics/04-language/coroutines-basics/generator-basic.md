@@ -14,14 +14,9 @@ refs:
 
 ---
 
-Nothing past that first suspension point ever runs. A coroutine using
-`co_yield` is **lazy**: the body executes only up to the next
-`co_yield` (or `co_return`) each time the caller resumes it — by
-incrementing the `generator`'s iterator, in practice. If the caller
-stops iterating early, code after the last reached `co_yield` simply
-never executes, and the coroutine's frame is destroyed (running any
-pending destructors) when the `generator` itself is destroyed.
-
-This is why a generator can lazily produce values from an unbounded
-sequence — `co_yield`ing forever from `while (true)` — without ever
-looping past whatever the caller actually consumed.
+**Nothing past that `co_yield` ever runs.** Each time the consumer
+increments the iterator, the body runs only to the next `co_yield` or
+`co_return`. Code never reached never executes, and destroying the
+`generator` destroys the frame, running the destructors of its live
+locals. Why it matters: `while (true) co_yield next();` is fine — an
+unbounded sequence costs only what is consumed.
