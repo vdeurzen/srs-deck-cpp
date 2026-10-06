@@ -7,6 +7,7 @@ tags: [transfer, misconception, containers, memory-hierarchy]
 elaborate: Where in your own code did you pick a list because insertion "should" be cheap? What would the vector version actually have cost?
 requires:
   - seq-vector-vs-deque
+  - seq-array-insert-shift
 refs:
   - https://en.cppreference.com/w/cpp/container/vector
   - https://en.cppreference.com/w/cpp/container/list

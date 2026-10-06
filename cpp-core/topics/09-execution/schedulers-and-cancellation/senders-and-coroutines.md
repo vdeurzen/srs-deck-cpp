@@ -10,22 +10,16 @@ refs:
 requires:
   - coroutines-await-transform-hook
   - execution-connect-and-start
+  - execution-as-awaitable-channels
 ---
 
 ## How do senders and coroutines fit together, and which one should a given piece of code be?
 
 ---
 
-They are two spellings of one model, and P2300 makes the bridge
-explicit. `as_awaitable(sndr, promise)` turns a sender into something
-awaitable, and a promise type that inherits from
-`with_awaitable_senders<Promise>` gets an `await_transform` that
-applies it to everything — so inside such a coroutine,
-`co_await schedule(pool)` and `co_await when_all(a, b)` just work. The
-three channels map onto the three things a `co_await` can do: a value
-completion becomes the expression's result, an error completion throws
-at the resume point, and a stopped completion transfers to the
-promise's `unhandled_stopped()`.
+They are two spellings of one model, and P2300's `as_awaitable` /
+`with_awaitable_senders` bridge means `co_await schedule(pool)` and
+`co_await when_all(a, b)` just work inside such a coroutine.
 
 The correspondence runs all the way down. A sender is a coroutine that
 has not been called; an operation state is a coroutine frame; `connect`

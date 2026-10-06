@@ -17,6 +17,8 @@ compile:
     static_assert(lower_index(kData, 13) == 5);
     static_assert(lower_index(kData, 14) == 6);  // past the end
     int main() {}
+requires:
+  - ordered-binary-search-trace
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/lower_bound
   - https://en.wikipedia.org/wiki/Binary_search_algorithm#Procedure_for_finding_the_leftmost_element

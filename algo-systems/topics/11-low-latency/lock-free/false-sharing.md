@@ -15,6 +15,7 @@ compile:
 requires:
   - ll-hardware-numbers
   - cpp-core/layout-alignas-sizeof
+  - ll-shared-counter-scaling
 refs:
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, codegen, dynamic-programming]
+requires:
+  - compiler-tiling-dp
 refs:
   - https://en.wikipedia.org/wiki/Instruction_selection
   - https://llvm.org/docs/CodeGenerator.html

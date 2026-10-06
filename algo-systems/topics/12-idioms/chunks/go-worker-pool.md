@@ -6,6 +6,9 @@ level: 3
 tags: [idioms, go, concurrency]
 expose_ms: 8000
 compile: null
+requires:
+  - ll-go-waitgroup-add
+  - ll-go-close-by-sender
 refs:
   - https://go.dev/doc/effective_go#channels
   - https://pkg.go.dev/sync#WaitGroup

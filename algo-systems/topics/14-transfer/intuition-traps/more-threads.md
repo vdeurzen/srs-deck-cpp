@@ -5,6 +5,9 @@ version: 1
 level: 4
 tags: [transfer, misconception, concurrency, throughput]
 elaborate: In a system you know, what is the one shared mutable thing every thread touches? What would partitioning it look like?
+requires:
+  - ll-amdahl-speedup
+  - ll-shared-counter-scaling
 refs:
   - https://en.wikipedia.org/wiki/Amdahl%27s_law
   - https://en.wikipedia.org/wiki/Universal_Scalability_Law

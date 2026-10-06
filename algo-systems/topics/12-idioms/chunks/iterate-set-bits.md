@@ -8,6 +8,7 @@ expose_ms: 6000
 compile: null
 requires:
   - graph-iterate-set-bits
+  - foundations-bits-trace
 refs:
   - https://en.cppreference.com/w/cpp/numeric/countr_zero
   - https://graphics.stanford.edu/~seander/bithacks.html

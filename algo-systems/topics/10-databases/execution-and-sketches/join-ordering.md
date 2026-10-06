@@ -6,6 +6,7 @@ level: 5
 tags: [databases, optimisation, dynamic-programming]
 requires:
   - db-sort-merge-join
+  - foundations-dp-optimal-substructure
 refs:
   - https://dl.acm.org/doi/10.1145/582095.582099
   - https://www.vldb.org/pvldb/vol9/p204-leis.pdf

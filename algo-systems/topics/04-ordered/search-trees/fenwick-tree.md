@@ -21,6 +21,8 @@ compile:
     static_assert(build().prefix(7) == 28);  // three slots read
     static_assert(build().prefix(8) == 36);  // 1..8
     int main() {}
+requires:
+  - foundations-bits-lowest-set-bit
 refs:
   - https://dl.acm.org/doi/10.1002/spe.4380240306
   - https://en.wikipedia.org/wiki/Fenwick_tree

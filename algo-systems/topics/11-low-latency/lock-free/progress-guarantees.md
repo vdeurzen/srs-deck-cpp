@@ -5,6 +5,9 @@ version: 1
 level: 4
 tags: [low-latency, lock-free, concurrency, misconception]
 elaborate: Think of a lock in code you own. Is the problem it causes throughput, or the tail when its holder is descheduled?
+requires:
+  - cpp-core/atomics-lock-free-is-per-type
+  - cpp-core/atomics-chunk-cas-loop
 refs:
   - https://dl.acm.org/doi/10.1145/114005.102808
   - https://doi.org/10.1109/ICDCS.2003.1203503
@@ -45,10 +48,6 @@ So the decision is about requirements, not speed. Ask: does a stalled
 participant have to stop the others? Must this run without syscalls?
 Is the contention real, and measured?
 
-Two footnotes worth carrying. `std::atomic<T>::is_lock_free()` is
-per-type and per-platform — a lock-free algorithm built on an atomic
-the platform implements with a hidden mutex is not lock-free at all,
-which is why `is_always_lock_free` is the compile-time check to
-`static_assert` on. And the simplest lock-free design is usually the
-right one: single-writer structures (SPSC queues, seqlocks) need no
+One footnote worth carrying: the simplest lock-free design is usually
+the right one: single-writer structures (SPSC queues, seqlocks) need no
 CAS at all, and avoid the whole ABA-and-reclamation edifice.

@@ -5,6 +5,9 @@ version: 1
 level: 4
 tags: [transfer, misconception, go, memory]
 elaborate: Where does a goroutine in your service block on a channel? Who guarantees that channel is eventually closed or the context cancelled?
+requires:
+  - ll-go-goroutine-leak
+  - ll-go-substring-retention
 refs:
   - https://go.dev/blog/slices-intro
   - https://pkg.go.dev/context

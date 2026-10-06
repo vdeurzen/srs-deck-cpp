@@ -5,6 +5,7 @@ version: 1
 level: 2
 requires:
   - foundations-cache-cost-model
+  - seq-array-vs-list-index
 tags: [containers, memory-hierarchy]
 refs:
   - https://en.cppreference.com/w/cpp/container/deque

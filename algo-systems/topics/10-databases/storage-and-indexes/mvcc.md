@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [databases, concurrency, transactions]
+requires:
+  - db-isolation-snapshots
 refs:
   - https://www.vldb.org/pvldb/vol10/p781-Wu.pdf
   - https://www.postgresql.org/docs/current/mvcc-intro.html
