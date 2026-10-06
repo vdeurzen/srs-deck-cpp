@@ -31,12 +31,15 @@ byte offset:
 - **Variable-length data needs no per-row scanning**: the slot array is
   a directory, so accessing slot 37 is arithmetic, not a walk.
 
-Within a tuple the layout matters too: a null bitmap, then fixed-length
-columns, then variable-length ones with their offsets — so accessing a
-fixed column is a constant offset and only the variable ones need the
-directory. Column order is therefore not cosmetic; grouping fixed
-columns first and ordering by alignment reduces padding measurably
-(Postgres users rediscover this as "column tetris").
+Within a tuple the layout matters too. Some engines (SQL Server, DB2)
+store a null bitmap, then fixed-length columns, then a
+variable-length offset array, so a fixed column is at a constant
+offset. Postgres keeps declared order with no per-column offsets: a
+column's position is cacheable only up to the first variable-length
+or NULL value, after which access walks past each preceding value.
+Column order is therefore not cosmetic there; putting fixed-width
+columns first helps access, and ordering them by alignment removes
+padding (Postgres users rediscover the latter as "column tetris").
 
 Large values do not live in the page at all: they are **TOASTed** or
 stored as overflow/BLOB pages, with a pointer inline — otherwise one

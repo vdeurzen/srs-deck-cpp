@@ -23,12 +23,12 @@ cache-friendly layouts with the same formula.
 Three bounds:
 
 - **Scan**: reading `N` items costs `Θ(N/B)` I/Os, not `Θ(N)`. Sequential
-  access is free in the model's units, which is why "just scan it" beats
+  access spreads each transfer over `B` items, which is why "just scan it" beats
   a clever index far more often than the RAM model suggests.
 - **Sort**: `Θ((N/B)·log_(M/B)(N/B))` — the external merge sort bound.
   The logarithm is base `M/B`, the number of runs you can merge at once,
-  so with a 1 GiB sort buffer and 4 KiB pages the fan-in is in the tens of
-  thousands and essentially any real dataset sorts in **two passes**.
+  so with a 1 GiB sort buffer and 4 KiB pages the fan-in is
+  `M/B` ≈ 260 000 and essentially any real dataset sorts in **two passes**.
 - **Search**: `Θ(log_B N)` for a B-tree — the reason the fanout, not the
   balance scheme, is the whole design. A red-black tree does `Θ(log N)`
   block transfers for the same data.

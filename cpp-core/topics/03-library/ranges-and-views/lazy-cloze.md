@@ -8,7 +8,7 @@ refs:
   - https://en.cppreference.com/w/cpp/ranges
 ---
 
-A view, unlike a container, does not {{c1::own its elements::no allocation,
+A view, unlike a container, typically does not {{c1::own its elements::no allocation,
 no copy of the data}}. Adapting a range with `std::views::filter` or
 `std::views::transform` is {{c2::lazy}}: no element is actually touched
 until the view is iterated, so building a long pipeline of adaptors costs

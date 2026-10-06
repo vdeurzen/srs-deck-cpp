@@ -68,8 +68,8 @@ consumed.
 The amortisation argument is worth being able to state: `k` increases
 by at most one per character of input, so the total number of times the
 `while` loop decreases it is bounded by the number of increments. The
-inner loop can run many times at one position, but at most once per
-position overall.
+inner loop can run many times at one position, but its total over the
+whole run is at most the number of characters.
 
 Read the table as an **automaton** and you have the bridge to the rest
 of this topic: state `k` means "k characters matched", the failure link

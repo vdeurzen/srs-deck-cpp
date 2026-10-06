@@ -11,13 +11,13 @@ refs:
 
 The numbers a hot-path design is argued from. Memory moves in lines of
 {{c1::64 bytes::on x86-64 and most AArch64 parts}}, an L1 hit costs
-about 1 ns, a random DRAM access about {{c2::80 ns::two orders of
-magnitude, which is the whole argument for locality}}, and a branch
+about 1 ns, a random DRAM access about {{c2::80 ns::roughly 80× an L1
+hit, which is the whole argument for locality}}, and a branch
 misprediction about 15–20 cycles.
 
 Two cores writing different variables in the same line pay a coherence
-miss of {{c3::40-100 ns::false sharing, worse than the DRAM access it
-was meant to avoid}} — which is why per-core state is padded to a line
+miss of {{c3::40-100 ns::false sharing — a DRAM-class cost, paid on
+every write to the line}} — which is why per-core state is padded to a line
 and why one `alignas` can change a scaling curve. Virtual addresses
 are translated through a TLB covering only a few megabytes at 4 KiB
 pages, so a large random-access structure spends real time in

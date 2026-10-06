@@ -44,6 +44,8 @@ the algorithm needs predecessors — which for a compiler is most of
 them.
 
 The numbers are worth internalising: a BFS over a 100 M-edge graph in
-CSR is a streaming scan; the same BFS over a vector-of-vectors is 100 M
-dependent loads. Same algorithm, same complexity, an order of magnitude
-apart.
+CSR reads every neighbour list as a contiguous run of one flat array;
+over a vector-of-vectors each vertex adds a pointer chase to a
+separately allocated list scattered across the heap, plus the
+headers' extra memory traffic. Same algorithm, same complexity, and
+commonly several times apart.

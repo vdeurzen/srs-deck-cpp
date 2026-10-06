@@ -44,8 +44,10 @@ point: rules can be written independently, including ones that look
 like pessimisations in isolation.
 
 What it costs: memory and time (saturation on a large function is not
-free — the `egg` line of work is largely about making the rebuild
-incremental), and the fact that many useful transformations are not
+free — the `egg` line of work is largely about *deferring* the
+rebuild, breaking congruence across a batch of merges and restoring it
+once per iteration with an amortised `rebuild()` instead of repairing
+it eagerly after every union), and the fact that many useful transformations are not
 equalities at all (control flow, memory effects, anything with side
 conditions). Current practice uses e-graphs where the domain is
 algebraic and bounded — Cranelift's mid-end, floating-point expression

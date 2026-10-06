@@ -34,7 +34,9 @@ std::string describe(T value) {
 ---
 
 Compile-time branch dispatch inside a template: `if constexpr` discards
-the untaken branch entirely for each instantiation, so `describe<double>`
-never has to compile `std::to_string(value)` against a `double`-shaped
-call it does not need — an ordinary `if` would have to compile both
-branches for every `T`.
+the untaken branch for each instantiation, so it is never instantiated.
+For `double` an ordinary `if` would also compile, since `std::to_string`
+has a `double` overload; the difference shows for a `T` like
+`std::string`, where `std::to_string(value)` has no overload at all — an
+ordinary `if` instantiates both branches and fails, `if constexpr` lets
+`describe(std::string{})` compile.

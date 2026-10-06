@@ -29,9 +29,9 @@ Box(const char*) -> Box<{{c1::std\::string}}>;
 
 ---
 
-Without this guide, CTAD on the aggregate `Box` deduces `T` from the
-constructor argument's own type, giving `Box<const char*>` — the pointer
-outlives the temporary it points at exactly as long as the string literal
-does, which is usually not what the author wanted. A deduction guide lets
+Without this guide, C++20 aggregate CTAD deduces `T` from the
+initializer's own (decayed) type, giving `Box<const char*>` — a
+non-owning pointer to the literal rather than an owning string, which is
+usually not what the author wanted. A deduction guide lets
 the author say explicitly what type the deduced specialization should be,
 independent of the argument's own type.

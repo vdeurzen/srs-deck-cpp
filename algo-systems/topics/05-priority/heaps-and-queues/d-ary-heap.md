@@ -6,7 +6,7 @@ level: 4
 tags: [heaps, memory-hierarchy, graphs]
 refs:
   - https://en.wikipedia.org/wiki/D-ary_heap
-  - https://en.wikipedia.org/wiki/Fibonacci_heap
+  - https://dl.acm.org/doi/10.1145/28869.28874
 ---
 
 ## When is a 4-ary heap faster than a binary one, and what do Fibonacci heaps actually buy?
@@ -37,7 +37,9 @@ bound means consolidations arrive in bursts.
 The engineering answer for shortest paths is usually neither: use a
 flat d-ary heap and **lazy deletion** (push a new entry, skip stale pops)
 instead of decrease-key, or — when edge weights are small integers — a
-bucket queue / radix heap, which is O(1) per operation and beats both.
+bucket queue (O(1) per operation, plus a scan over at most C empty
+buckets for weights bounded by C) or a radix heap (O(log C) amortised),
+which beats both.
 
 Pairing heaps sit in between: much simpler than Fibonacci, decrease-key
 that is fast in practice, and the usual choice when you genuinely need

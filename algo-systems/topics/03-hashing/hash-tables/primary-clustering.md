@@ -7,6 +7,7 @@ tags: [hashing, open-addressing]
 refs:
   - https://en.wikipedia.org/wiki/Primary_clustering
   - https://en.wikipedia.org/wiki/Quadratic_probing
+  - https://github.com/facebook/folly/blob/main/folly/container/detail/F14Table.h
 ---
 
 ## What is primary clustering, and what do quadratic and double hashing change about it?
@@ -36,8 +37,9 @@ second hash computation and, fatally for modern hardware, a probe
 sequence that jumps all over memory. Every probe is a new cache line.
 
 Which is why the modern answer is neither: keep linear probing *within* a
-group of slots that shares one or two cache lines, and probe
-quadratically *between* groups. Swiss tables and F14 both do this, so
+group of slots that shares one or two cache lines, and move to another
+group only when one is exhausted — quadratically in Swiss tables, with
+a key-derived double-hashing stride in F14. Either way
 clustering inside a group costs almost nothing (the line is already
 loaded, and a SIMD compare tests 16 slots at once) while clusters cannot
 merge across groups.

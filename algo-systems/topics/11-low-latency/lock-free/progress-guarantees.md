@@ -6,7 +6,8 @@ level: 4
 tags: [low-latency, lock-free, concurrency, misconception]
 elaborate: Think of a lock in code you own. Is the problem it causes throughput, or the tail when its holder is descheduled?
 refs:
-  - https://en.wikipedia.org/wiki/Non-blocking_algorithm
+  - https://dl.acm.org/doi/10.1145/114005.102808
+  - https://doi.org/10.1109/ICDCS.2003.1203503
   - https://en.cppreference.com/w/cpp/atomic/atomic/is_lock_free
 ---
 

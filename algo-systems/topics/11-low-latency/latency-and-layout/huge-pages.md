@@ -24,10 +24,14 @@ unless you look at the right counters (`dTLB-load-misses`,
 `page-walk-duration`).
 
 **Huge pages** (2 MiB, and 1 GiB on x86-64) make each TLB entry cover
-512× or 262144× more memory, so the same table needs a few thousand
-times fewer entries — often turning a table that thrashed the TLB into
-one that fits. Secondary benefits: shorter page walks (one fewer
-level), fewer page faults at startup, and contiguous physical memory.
+512× or 262144× more memory. The 8 GB table needs 4096 entries at
+2 MiB instead of two million at 4 KiB — still more than the ~1500 the
+TLB holds, so random probes still miss the TLB often. What changes is
+the miss: the walk is one level shorter, and the leaf entries it reads
+are 32 KB of page tables that stay cached, instead of 16 MB that
+themselves miss to DRAM. At 1 GiB the table needs 8 entries and fits
+outright. Secondary benefits: fewer page faults at startup, and
+contiguous physical memory.
 
 The two ways to get them, and their trade-offs:
 

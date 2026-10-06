@@ -18,7 +18,9 @@ the two sorts plus a linear merge; if both inputs are **already
 sorted** — read from a clustered index, produced by an earlier merge
 join, or emitted in order by a previous sort — the sorts vanish and
 the join is a single sequential pass over both sides with no hash table
-and no random access at all.
+and no random access at all. The merge is linear when the key is unique
+on at least one side; with duplicates on both sides it buffers or
+rewinds the inner group, so its cost becomes |R| + |S| + |output|.
 
 That is the case where it wins outright. Others:
 

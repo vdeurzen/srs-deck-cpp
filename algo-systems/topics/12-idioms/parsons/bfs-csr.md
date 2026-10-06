@@ -9,7 +9,7 @@ distractors:
   - "if (dist[v] > dist[u] + 1) dist[v] = dist[u] + 1;"
 compile:
   harness: |
-    static_assert(bfs(0) == std::array<int, 6>{0, 1, 1, 2, 2, 3});
+    static_assert(bfs(0) == std::array<int, 6>{0, 1, 1, 2, 2, 2});
     static_assert(bfs(2) == std::array<int, 6>{-1, -1, 0, -1, 1, 2});
     int main() {}
 refs:
@@ -20,8 +20,8 @@ refs:
 ```cpp
 #include <array>
 #include <cstddef>
-inline constexpr std::array<std::size_t, 7> kOffset{0, 2, 4, 5, 6, 7, 7};
-inline constexpr std::array<std::size_t, 7> kTarget{1, 2, 3, 4, 4, 5, 5};
+inline constexpr std::array<std::size_t, 7> kOffset{0, 2, 5, 6, 7, 8, 8};
+inline constexpr std::array<std::size_t, 8> kTarget{1, 2, 3, 4, 5, 4, 5, 5};
 constexpr std::array<int, 6> bfs(std::size_t source) {
   std::array<int, 6> dist{-1, -1, -1, -1, -1, -1};
   std::array<std::size_t, 6> queue{};

@@ -27,10 +27,12 @@ amplification is moderate (pages are ~70 % full after random inserts).
 
 **LSM tree**: writes go to an in-memory memtable and a sequential WAL,
 and are later flushed as immutable sorted files, then merged by
-compaction. Writes are **sequential** and initially cheap, but every
-byte is rewritten once per level it passes through, so write
-amplification is 10–30× in a levelled configuration (better with
-tiering, at the cost of reads). Reads may consult the memtable plus one
+compaction. Writes are **sequential** and initially cheap, but a level
+is rewritten roughly once per merge from the level above, so a byte
+costs about the size ratio T (~10) in writes at each level it passes
+through — write amplification of 10–30× in a levelled configuration.
+Tiering rewrites a byte only about once per level, which is cheaper,
+at the cost of reads. Reads may consult the memtable plus one
 file per level, so read amplification is high — which is exactly what
 per-file **Bloom filters** are for, cutting most of those lookups to a
 single in-memory test.

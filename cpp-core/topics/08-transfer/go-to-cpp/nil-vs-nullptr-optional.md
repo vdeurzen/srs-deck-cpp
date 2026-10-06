@@ -20,11 +20,10 @@ is free to assume it never happens, and optimise accordingly, rather
 than trap it at runtime}} the instant it happens, whether or not the
 dereferenced value is ever used. Calling a non-static member function
 through a null pointer is the same trap in different clothes: the call
-itself is fine, but if the body touches `this` — reads a member, calls
-another member function — that touch is {{c2::undefined behaviour, not
-a safe read of a zero value::same rule: only a body that never
-dereferences `this` happens to "work", and even that is technically
-UB}}. When "no value" is a real, expected case rather than a
+itself is {{c2::undefined behaviour, even if the body never touches
+`this`::same rule: a body that never reads a member may happen to
+"work", but nothing makes it valid}}, and in practice it usually only
+crashes once the body reads a member. When "no value" is a real, expected case rather than a
 programmer error, {{c3::std\::optional<T>::makes the absence a distinct,
 checkable state instead of a special pointer value at all}} is usually
 the closer match to what Go's `nil` was doing.

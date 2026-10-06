@@ -32,15 +32,17 @@ What the tree answers cheaply:
   only into a block that dominates all its uses and is dominated by its
   operands' definitions).
 - **Loop structure**: a back edge is an edge `n → h` where `h`
-  dominates `n`, and that is the definition of a natural loop.
+  dominates `n`; the **natural loop** of that back edge is `h` plus
+  every block that can reach `n` without passing through `h`.
 - **φ placement**, via the dominance frontier.
 
 How it is computed: **Lengauer–Tarjan** is the classic near-linear
 algorithm (O(E·α(E,V))) and is what textbooks present. In practice the
 **Cooper–Harvey–Kennedy** iterative algorithm wins for real CFGs: keep
-an `idom` array indexed by reverse-postorder-numbered blocks, repeatedly
-recompute each block's idom as the pairwise "intersect" of its
-processed predecessors' idoms, and iterate to a fixpoint — a couple of
+an `idom` array indexed by **postorder** number, walk the blocks in
+*reverse* postorder, recompute each block's idom as the pairwise
+"intersect" of its already-processed predecessors' idoms, and iterate
+to a fixpoint — a couple of
 passes, a few dozen lines, and better constants than Lengauer–Tarjan on
 the graph sizes compilers actually see.
 

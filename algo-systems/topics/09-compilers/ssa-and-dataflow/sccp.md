@@ -42,8 +42,8 @@ assume ⊥ there.
 
 Two properties to remember. It is **sparse**: work is proportional to
 SSA edges actually re-evaluated, not to blocks × variables, and the
-lattice's finite height (⊤, constants, ⊥ — three steps per value)
-bounds the iterations. And it is a general template: substitute another
+lattice's finite height (⊤, constants, ⊥ — at most two lowerings per
+value) bounds the iterations. And it is a general template: substitute another
 finite-height lattice for "constant" — known bits, value ranges,
 nullness, type refinement — and you get range propagation and the
 family of sparse conditional analyses a modern optimiser is mostly

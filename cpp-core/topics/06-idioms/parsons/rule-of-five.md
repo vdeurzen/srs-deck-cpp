@@ -28,11 +28,11 @@ class Buffer {
     for (std::size_t i = 0; i < size_; ++i) data_[i] = other.data_[i];
   }
   Buffer& operator=(const Buffer& other) {
-    if (this == &other) return *this;
+    int* fresh = new int[other.size_];
+    for (std::size_t i = 0; i < other.size_; ++i) fresh[i] = other.data_[i];
     delete[] data_;
-    data_ = new int[other.size_];
+    data_ = fresh;
     size_ = other.size_;
-    for (std::size_t i = 0; i < size_; ++i) data_[i] = other.data_[i];
     return *this;
   }
   Buffer(Buffer&& other) noexcept : data_(other.data_), size_(other.size_) {
@@ -62,3 +62,8 @@ all five of destructor, copy constructor, copy assignment, move
 constructor and move assignment together, because the compiler-generated
 default for any of them assumes member-wise copying, which is wrong for
 an owning raw pointer.
+
+The copy assignment allocates and copies into `fresh` **before** releasing
+the old array: if `new` throws, `*this` is untouched (strong guarantee),
+and self-assignment needs no `this == &other` check because the old data
+is only deleted after it has been copied.

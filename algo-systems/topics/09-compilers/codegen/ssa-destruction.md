@@ -5,7 +5,8 @@ version: 1
 level: 5
 tags: [compilers, ssa, codegen]
 refs:
-  - https://en.wikipedia.org/wiki/Static_single-assignment_form#Converting_out_of_SSA_form
+  - https://doi.org/10.1002/(SICI)1097-024X(19980710)28:8%3C859::AID-SPE188%3E3.0.CO;2-8
+  - https://doi.org/10.1109/CGO.2009.19
   - https://llvm.org/docs/CodeGenerator.html
 ---
 
@@ -42,10 +43,12 @@ allocation**: keep φs through the allocator (whose interference graph
 on SSA is chordal, hence optimally colourable), then resolve each φ
 into register-to-register moves or spill-slot moves, and finally run
 copy coalescing to delete the ones that turned out to be moves from a
-register to itself. LLVM approximates this with `PHIElimination`
-inserting copies into a pre-allocation form, followed by the
-`TwoAddressInstructionPass` and coalescing, with the machine
-verifier enforcing that critical edges have been split.
+register to itself. LLVM does not do this: it destroys SSA *before*
+allocation with `PHIElimination`, which splits the critical edges it
+needs (all of them only under `-phi-elim-split-all-critical-edges`)
+and then inserts the copies, followed by the
+`TwoAddressInstructionPass` and the register coalescer to delete the
+copies that turn out to be redundant.
 
 The transferable lesson: φ is a *semantic* device that assumes
 simultaneity, and the translation to sequential machine code has to

@@ -26,11 +26,13 @@ node's neighbours often share colours. **Coalescing** merges
 the copy disappears, and must be conservative or it raises degrees and
 causes spills.
 
-Two structural facts underpin modern allocators. Pre-coloured nodes
-represent registers the ABI fixes — argument, return and
-{{c5::caller-saved::clobbered across a call, so anything live across
-one must be callee-saved or spilled}} registers are the usual
-constraints. And the interference graph of a program **in SSA form** is
+Two structural facts underpin allocator design. Pre-coloured nodes
+represent registers the ABI or ISA fixes for a specific value —
+argument and return registers, x86 `div`'s EDX:EAX. Calls are modelled
+differently: a call clobbers every
+{{c5::caller-saved::the registers a callee may overwrite without
+restoring}} register, so anything live across one must sit in a
+callee-saved register or be spilled. And the interference graph of a program **in SSA form** is
 chordal, so it can be coloured optimally in polynomial time, which
 moves the allocator's real difficulty from colouring to deciding what
 to spill and how to resolve φs.

@@ -30,5 +30,6 @@ won the race}}, so the coroutine resumes normally and decides what a
 cancelled result means — there is no unwinding out of a suspended
 frame from outside.
 
-Prefer `std::inplace_stop_token` where the source and the token share a
-scope: it avoids the shared-state allocation `std::stop_token` needs.
+Prefer `std::inplace_stop_token` (C++26, from P2300; not in GCC 14)
+where the source and the token share a scope: it avoids the shared-state
+allocation `std::stop_token` needs.

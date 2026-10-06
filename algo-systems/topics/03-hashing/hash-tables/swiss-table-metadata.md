@@ -32,8 +32,8 @@ group.
 Why it wins:
 
 - **One cache line answers 16 slots.** The metadata array is 1 byte per
-  entry, so 16 slots' worth of filtering fits where a single 8-byte
-  pointer would have gone.
+  entry, so 16 slots' worth of filtering fits in the space of two
+  8-byte pointers, and one cache line of metadata covers 64 slots.
 - **H2 filters ~127 of every 128 non-matching keys** before any key is
   read, so the expensive comparison (and the miss on the key's own cache
   line) happens about once per lookup.

@@ -8,6 +8,7 @@ elaborate: Which of these three properties would break code you have written in 
 refs:
   - https://go.dev/blog/maps
   - https://go.dev/ref/spec#Map_types
+  - https://go.dev/blog/swisstable
 ---
 
 ## Three things Go's built-in `map` does that `std::unordered_map` does not. What are they, and what is each for?
@@ -29,10 +30,12 @@ container's order is also unspecified, but it is stable within a run,
 which is exactly the property that lets bugs hide. To iterate in order
 in Go you collect the keys and sort them.
 
-**3. Growth is incremental.** Rather than rehashing everything on one
-unlucky insert, the map allocates the new table and evacuates a couple
-of old buckets per write until the old table is drained. The worst-case
-insert stays bounded — the same trade a latency-sensitive C++ table has
+**3. Growth is bounded per insert.** Rather than rehashing everything on
+one unlucky insert, the map is split into independent tables of at most
+1024 entries (extendible hashing, since Go 1.24); a table that fills is
+grown or split on its own, so the worst insert copies 1024 entries, not
+the whole map. (Before 1.24 the map grew incrementally, evacuating a
+couple of old buckets per write.) The worst-case insert stays bounded — the same trade a latency-sensitive C++ table has
 to make by hand, usually by reserving up front.
 
 Two more differences worth holding: reading a missing key returns the
@@ -40,8 +43,8 @@ zero value rather than inserting one (`m[k]` never grows the map;
 `m[k]++` does, via the assignment), and the comma-ok form `v, ok := m[k]`
 is how you tell "absent" from "present and zero" — the distinction
 `find() != end()` makes in C++. Concurrent access is unprotected and
-*checked*: the runtime detects concurrent map writes and aborts the
-process, which is friendlier than C++'s undefined behaviour.
+*checked*, best-effort: the runtime usually detects concurrent map
+writes and aborts the process, which is friendlier than C++'s undefined behaviour.
 
 Under the hood, Go 1.24 replaced the historical bucket-of-8-with-tophash
 layout with Swiss tables, so the two languages' default maps now differ

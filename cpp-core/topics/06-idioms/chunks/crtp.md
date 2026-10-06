@@ -17,6 +17,7 @@ compile:
       return c.area() > 0 ? 0 : 1;
     }
 refs:
+  - https://en.cppreference.com/w/cpp/language/crtp
   - https://wg21.link/p0847
 ---
 

@@ -7,6 +7,7 @@ tags: [databases, storage, lsm]
 refs:
   - https://github.com/facebook/rocksdb/wiki/Compaction
   - https://arxiv.org/abs/1812.07527
+  - https://dl.acm.org/doi/10.1145/3035918.3064054
 ---
 
 ## Trace a write through an LSM tree, then contrast levelled and tiered compaction.
@@ -25,8 +26,9 @@ file to avoid touching files that cannot contain the key.
 run, partitioned into files with disjoint key ranges, and is ~10× the
 size of the one above. A compaction picks a file and merges it into the
 overlapping files of the next level. Read amplification is low (at most
-one file per level to check), space amplification is low (~1.1×, since
-each key appears roughly once per level), and write amplification is
+one file per level to check), space amplification is low (~1.1×: the
+bottom level holds ~90 % of the bytes, so every obsolete version above
+it together can only be ~1/T of the store), and write amplification is
 high — roughly the fanout per level, summed over levels.
 
 **Tiered** (Cassandra's default, RocksDB's "universal"): each level
@@ -38,9 +40,11 @@ obsolete versions survive longer, so read and space amplification rise.
 The dials in between: **partial/lazy levelling** (tiered at the small
 levels, levelled at the largest), **size ratio**, and **Bloom bits per
 key allocated per level** — Monkey's result is that giving more filter
-bits to the *smaller* levels minimises total false positives for a
-fixed memory budget, because the large bottom level is consulted only
-once.
+bits per key to the *smaller* levels minimises the cost of a lookup
+for a fixed memory budget, because expected I/Os are the *sum* of the
+per-level false-positive rates while memory cost scales with the keys
+at each level — the bottom level holds almost all the keys, so bits
+are dearest there and nearly free at the tiny top levels.
 
 Two operational facts that dominate production experience: compaction
 is a background process competing for I/O and CPU with foreground

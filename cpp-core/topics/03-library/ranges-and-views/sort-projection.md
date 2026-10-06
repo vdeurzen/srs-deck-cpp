@@ -36,4 +36,4 @@ The third argument is a projection applied to each element before the
 pointer-to-member, `&Person::age`, is `std::invocable` on a `Person` and
 yields its `age`, so `std::ranges::sort` compares ages without a
 hand-written `[](auto& a, auto& b){ return a.age < b.age; }` lambda —
-every range algorithm in `<algorithm>` accepts one.
+most range algorithms that compare or test elements accept one.

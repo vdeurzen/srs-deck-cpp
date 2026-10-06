@@ -39,10 +39,12 @@ The two consumers:
 Implementation notes that matter at scale. Represent the sets as **bit
 vectors** indexed by variable, so the equations are OR and AND-NOT over
 machine words; for very large functions, switch to sparse sets. In SSA
-form you can skip the dense analysis altogether and compute liveness
-**per value** by walking its uses up the dominator tree ("liveness
-without dataflow", Boissinot et al.), which is faster and easier to
-keep incrementally correct while the IR is being changed.
+form you can skip the dense analysis altogether: compute liveness
+**per value** by walking backwards from each use to its single
+definition, or answer "is `v` live here?" queries directly from the
+dominator tree plus precomputed CFG reachability (Boissinot et al.'s
+fast liveness checking), which is faster and easier to keep
+incrementally correct while the IR is being changed.
 
 Two subtleties that bite: a φ's operand is live at the **end of the
 corresponding predecessor block**, not at the top of the φ's block —

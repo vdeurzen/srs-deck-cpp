@@ -29,13 +29,14 @@ memorise, not the digits:
 | NVMe random read                       | ~20–100 µs      |
 | In-datacentre TCP round trip           | ~100 µs–1 ms    |
 
-Three things follow. **A DRAM miss is ~100 instructions' worth of time**,
+Three things follow. **A DRAM miss is ~300 cycles — several hundred
+instructions' worth of time**,
 which is why a structure that trades a few extra comparisons for one
 fewer miss — a B-tree node over a red-black node, open addressing over
 chaining — wins even though it looks worse in big-O constants.
-**Sharing a cache line between two writing cores costs more than the DRAM
-miss it was meant to avoid**, which is what makes false sharing so
-expensive and why per-core state is padded. And **the gaps are where the
+**Sharing a cache line between two writing cores costs about as much as a
+DRAM miss — and more than one across sockets — on every write**, which
+is what makes false sharing so expensive and why per-core state is padded. And **the gaps are where the
 design decisions live**: batching matters at the µs boundary, layout
 matters at the ns boundary, and nothing you do to instruction count
 matters if the access pattern is wrong.

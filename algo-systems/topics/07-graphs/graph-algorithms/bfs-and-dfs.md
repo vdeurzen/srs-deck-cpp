@@ -33,9 +33,10 @@ detection, which is exactly "a back edge to a dominating header".
 
 Two practical notes that matter more than the theory:
 
-- **Mark on push, not on pop.** A vertex reachable from several
-  frontier vertices otherwise enters the queue multiple times. The bug
-  is invisible on small graphs and quadratic on large ones.
+- **In BFS, mark on push, not on pop.** A vertex reachable from
+  several frontier vertices otherwise enters the queue multiple times,
+  so the queue holds up to E entries instead of V. The bug is invisible
+  on small graphs and expensive on dense ones.
 - **Iterative DFS, always, in production.** Recursion depth is the
   graph's depth, and a 100 k-node chain will blow a default stack. An
   explicit stack of (vertex, edge-iterator) pairs is the standard

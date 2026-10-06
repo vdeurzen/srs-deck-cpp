@@ -53,8 +53,9 @@ the size, so "empty" is `0` and "full" is `4`, with no ambiguity and no
 sacrificed slot — the design the ring-buffer Cards argue for.
 
 Probe 3 is the one to sit with. After popping once, `head` is 1, so
-pushing 40 and 50 takes `tail` to 5, and `5 & 3 == 1`, `4 & 3 == 0` —
-the buffer has wrapped, and `slot[0]` now holds **50**, overwriting the
+pushing 40 and 50 takes `tail` to 5: 40 goes to `slot[3 & 3] ==
+slot[3]` and 50 to `slot[4 & 3] == slot[0]` — the buffer has wrapped,
+and `slot[0]` now holds **50**, overwriting the
 10 that was consumed at probe 2. Nothing is shifted or moved; the
 overwrite is the whole point of a ring.
 

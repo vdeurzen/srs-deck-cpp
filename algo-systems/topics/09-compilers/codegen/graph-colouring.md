@@ -23,7 +23,7 @@ The phases:
 
 1. **Build** the interference graph from liveness. Pre-coloured nodes
    represent physical registers forced by the ABI (arguments, return
-   values, `div`'s fixed operands).
+   values) or by the ISA (x86 `div`'s fixed EDX:EAX operands).
 2. **Coalesce** copy-related nodes (`a = b` disappears if `a` and `b`
    get the same register) — but only conservatively: Briggs'
    rule merges only if the merged node has fewer than K neighbours of
@@ -50,4 +50,7 @@ pressure is high and keep it in a register elsewhere. And **SSA-based
 allocation**: the interference graph of a program in SSA form is
 *chordal*, so it can be coloured optimally in polynomial time, and the
 allocator's real problem reduces to deciding what to spill and how to
-resolve φs — the basis of modern allocators in LLVM and elsewhere.
+resolve φs — the basis of the SSA-form allocators in libFirm and the
+Hack & Goos / Bouchez research line. LLVM and GCC both destroy SSA
+first (LLVM's `PHIElimination` runs before its `RAGreedy` allocator),
+so they get none of this for free.

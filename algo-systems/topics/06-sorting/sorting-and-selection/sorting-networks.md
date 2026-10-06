@@ -5,6 +5,7 @@ version: 1
 level: 5
 tags: [sorting, branchless, simd, low-latency]
 refs:
+  - https://dl.acm.org/doi/10.1145/1468075.1468121
   - https://en.wikipedia.org/wiki/Sorting_network
   - https://en.algorithmica.org/hpc/algorithms/sorting/
 ---
@@ -34,9 +35,10 @@ That is precisely why it wins for n ≤ 32 or so:
 
 The classic constructions are Batcher's **bitonic** and
 **odd-even merge** networks, both O(n log² n) comparators, plus
-hand-optimised optimal networks for each small n (published up to about
-n = 17). The AKS network reaches O(n log n) depth and is famous for
-being entirely impractical.
+hand-optimised networks for each small n (proven size-optimal up to
+n = 12, depth-optimal up to n = 17). The AKS network reaches O(log n)
+depth (O(n log n) comparators) and is famous for being entirely
+impractical.
 
 Where they appear: the base case of a larger sort (replacing insertion
 sort below the cutoff), median filters in signal and image processing,

@@ -10,6 +10,10 @@ choices:
 compile:
   harness: |
     static_assert(add_one(5) == 6);
+    template<class U>
+    concept Accepts = requires(U u) { add_one(u); };
+    static_assert(Accepts<int>);
+    static_assert(!Accepts<double>);
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/concepts/integral

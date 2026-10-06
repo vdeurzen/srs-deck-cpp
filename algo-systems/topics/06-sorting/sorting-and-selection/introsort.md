@@ -6,7 +6,7 @@ level: 3
 tags: [sorting, complexity]
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/sort
-  - https://en.wikipedia.org/wiki/Introsort
+  - https://www.cs.rpi.edu/~musser/gp/introsort.ps
 ---
 
 ## `std::sort` is required to be O(n log n) worst case, but quicksort is O(n²). How is the guarantee met?
@@ -42,7 +42,7 @@ of the array, because partitioning uses the comparator itself as the
 loop's bound check. That is a genuine, exploitable crash, not a
 hypothetical.
 
-`pdqsort` (the default in Rust's `sort_unstable` and in Go since 1.19)
-refines the same idea further: pattern defeating, with median-of-three
+`pdqsort` (Go's default since 1.19; Rust's `sort_unstable` was pdqsort
+until 1.81 and is now ipnsort, a pdqsort descendant) refines the same idea further: pattern defeating, with median-of-three
 pivots, a shuffle when a bad pattern is detected, and a branchless
 partition.

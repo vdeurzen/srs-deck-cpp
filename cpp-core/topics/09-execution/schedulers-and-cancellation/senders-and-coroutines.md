@@ -39,7 +39,7 @@ Which to write is an engineering trade, not a philosophy:
   chain's storage is one statically-sized operation state, while each
   coroutine is a frame the compiler is only sometimes able to elide.
   They are also the composable vocabulary: `when_all`, `bulk` and
-  `split` are algorithms over senders, not over coroutines.
+  `let_value` are algorithms over senders, not over coroutines.
 
 A healthy codebase does both: coroutines for the business logic,
 senders for the plumbing that starts, joins and cancels it.

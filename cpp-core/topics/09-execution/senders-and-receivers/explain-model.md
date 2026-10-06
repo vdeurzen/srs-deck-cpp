@@ -13,7 +13,7 @@ who knows callbacks and `std::future` but has not read P2300.
 ---
 - [ ] A **sender** describes work that has not started; building one runs nothing and allocates nothing
 - [ ] A **receiver** is the callback bundle the result goes to, with three channels: `set_value`, `set_error`, `set_stopped`
-- [ ] Exactly one channel is signalled, exactly once; `set_error` and `set_stopped` are `noexcept`
+- [ ] Exactly one channel is signalled, exactly once; all three completion functions are `noexcept` (an adaptor whose work throws reports it on `set_error`)
 - [ ] `connect(sndr, rcvr)` produces an **operation state**; `start(op)` launches it, once, and is `noexcept`
 - [ ] The operation state is immovable and must outlive the operation — composition nests child states inside parent ones, so a whole pipeline is one object the caller places
 - [ ] A **scheduler** is a handle to an execution context; `schedule(sched)` is the sender that completes on it, and `starts_on`/`continues_on` say where work begins and resumes

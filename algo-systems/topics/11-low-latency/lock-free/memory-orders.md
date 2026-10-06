@@ -28,13 +28,13 @@ sequence all threads agree on}} over all such operations, which is what
 Dekker-style algorithms and most "obviously correct" reasoning need. It
 is the default for a reason, and on x86 a seq_cst *store* costs a
 locked instruction or a fence (~20+ cycles), while acquire/release
-loads and stores are {{c4::free::ordinary MOVs, because x86 is already
-TSO}} — so on that architecture the cost is entirely in the store side
+loads and stores are {{c4::plain MOVs::x86 is already TSO, so no fence instruction
+is emitted}} — so on that architecture the cost is entirely in the store side
 and in what the *compiler* is allowed to reorder.
 
 Two rules keep this survivable. Write the pairing down at the
 declaration: every relaxed access needs a comment saying why no
 ordering is required. And remember that a data race is
-{{c5::undefined behaviour::not "a stale value", the whole program is
-ill-formed}}, so "it works on x86" is not evidence — use a
+{{c5::undefined behaviour::not "a stale value" — the whole
+*execution* loses meaning, including code that ran before the race}}, so "it works on x86" is not evidence — use a
 thread sanitiser, and reach for seq_cst until a profile says otherwise.

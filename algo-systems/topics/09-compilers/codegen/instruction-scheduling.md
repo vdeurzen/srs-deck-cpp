@@ -18,8 +18,10 @@ pipelines busy: hiding load latency, avoiding structural hazards
 (only so many load ports, one divider), and filling delay slots on
 architectures that have them. The input is the **dependence DAG** —
 nodes are instructions, edges are true dependences (read-after-write),
-plus anti- and output dependences on registers and memory, each edge
-labelled with the producer's latency.
+plus anti- and output dependences on registers and memory.
+True-dependence edges are labelled with the producer's latency; anti-
+and output-dependence edges carry weight 0 or 1, since they only order
+a write after an earlier read or write.
 
 **List scheduling** is the standard algorithm: maintain a ready list of
 instructions whose predecessors have completed by the current cycle,

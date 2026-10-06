@@ -8,6 +8,7 @@ elaborate: Where does a goroutine in your service block on a channel? Who guaran
 refs:
   - https://go.dev/blog/slices-intro
   - https://pkg.go.dev/context
+  - https://go.dev/doc/go1.23#timer-changes
 ---
 
 ## True or false: a garbage-collected language like Go cannot leak memory, so the ownership reasoning C++ forces on you is unnecessary.
@@ -34,8 +35,10 @@ The four ways Go leaks, all of them reachability, not corruption:
   leak with a nicer name; so is an append-only slice of finished
   requests. The GC cannot know you are done with an entry you can
   still reach.
-- **Un-stopped timers, tickers and subscriptions**, which keep a
-  reference from the runtime's side.
+- **Callbacks and subscriptions registered with a long-lived object**,
+  which keep a reference from the other side. (Un-stopped timers and
+  tickers used to be the classic case; since Go 1.23 unreferenced ones
+  are collected even without `Stop`.)
 
 So the discipline transfers, just under a different name: in C++ you
 ask *who owns this*; in Go you ask *who still references this, and what

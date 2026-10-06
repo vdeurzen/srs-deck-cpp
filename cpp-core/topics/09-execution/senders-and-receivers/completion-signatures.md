@@ -9,8 +9,9 @@ refs:
   - https://wg21.link/p2300
 ---
 
-A sender's type carries its contract: `get_completion_signatures(sndr,
-env)` yields a `completion_signatures<...>` listing every way the work
+A sender's type carries its contract: `get_completion_signatures<Sndr,
+Env>()` (a `consteval` function in C++26; P2300R10 spelled it as a
+call `get_completion_signatures(sndr, env)`) yields a `completion_signatures<...>` listing every way the work
 can finish, written as function types —
 {{c1::set_value_t(int)::one entry per distinct set of value types the
 sender may complete with}}, `set_error_t(std::exception_ptr)`,

@@ -32,8 +32,9 @@ observes a *stopped* result and unwinds its own way. An in-flight
 kernel read is not abandoned; it is told to cancel and then waited for.
 
 Where a stop request comes from is equally ordinary. `when_all` makes
-its own `inplace_stop_source` and fires it when one child fails; a
-timeout is a `when_all` with a timer; an application's shutdown path
+its own `inplace_stop_source` and fires it when one child fails or is
+stopped; a timeout is a timer whose expiry calls `request_stop()` on a
+source the work's token comes from; an application's shutdown path
 owns the source in `main`. Adapting the outcome back into a value is
 `stopped_as_optional`, and `upon_stopped(f)` runs a handler on that
 channel.

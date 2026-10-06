@@ -47,5 +47,6 @@ Two refinements that build on this:
 The wider lesson is one of the most transferable in compiler
 engineering: for an iterative fixpoint, **the visiting order does not
 change the answer, only how fast you reach it** — the result is the
-least fixpoint either way, provided the transfer functions are
+same fixpoint either way (Kildall's maximal fixpoint, for the usual
+meet-based formulation), provided the transfer functions are
 monotone.

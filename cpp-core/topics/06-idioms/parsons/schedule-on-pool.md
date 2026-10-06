@@ -5,11 +5,14 @@ version: 1
 level: 4
 tags: [idioms, coroutines, scheduling]
 distractors:
-  - "void await_suspend(std::coroutine_handle<> h) const { h.resume(); }"
-  - "bool await_ready() const noexcept { return true; }"
-  - "void enqueue(std::coroutine_handle<> h) { h.destroy(); }"
+  - "std::coroutine_handle<> await_suspend(std::coroutine_handle<> h) const { return h; }"
+  - "constexpr bool await_ready() const noexcept { return true; }"
+  - "void enqueue(std::coroutine_handle<> h) { ready.push_back(h.promise()); }"
 compile:
   harness: |
+    inline Pool gp;
+    static_assert(!ScheduleOn{gp}.await_ready());
+    static_assert(std::is_void_v<decltype(ScheduleOn{gp}.await_suspend({}))>);
     struct Task {
       struct promise_type {
         Task get_return_object() { return {}; }
@@ -51,7 +54,7 @@ struct Pool {
 };
 struct ScheduleOn {
   Pool& pool;
-  bool await_ready() const noexcept { return false; }
+  constexpr bool await_ready() const noexcept { return false; }
   void await_suspend(std::coroutine_handle<> h) const { pool.enqueue(h); }
   void await_resume() const noexcept {}
 };
@@ -65,12 +68,14 @@ the queue instead of resuming it. `co_await ScheduleOn{pool};` inside
 any coroutine means "everything after this line runs from `pool.run()`
 rather than here".
 
-The Distractors are the two tempting wrong turns. `h.resume()` inside
-`await_suspend` compiles and appears to work, but it runs the
-continuation on the suspending thread and nests one `resume()` inside
-another — the opposite of scheduling. An `await_ready()` that returns
-`true` skips the hand-off altogether, so the coroutine never reaches
-the pool at all.
+The Distractors are the tempting wrong turns. An `await_ready()` that
+returns `true` skips the hand-off altogether, so the coroutine never
+reaches the pool at all. An `await_suspend` that returns the handle it
+was given uses symmetric transfer to resume the same coroutine at once,
+which is the opposite of scheduling (a `void` `await_suspend` that calls
+`h.resume()` has the same flaw, and nests one `resume()` inside another).
+`std::coroutine_handle<>` is type-erased, so it has no `promise()`; only
+`coroutine_handle<P>` does.
 
 Replace the `std::deque` with a lock-free intrusive list whose nodes
 live in the awaiters, and give `run()` to several `std::jthread`s, and

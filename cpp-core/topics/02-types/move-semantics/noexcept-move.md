@@ -39,6 +39,7 @@ computed from its subobjects: since `ThrowingMovable`'s move constructor
 is not `noexcept`, `Widget`'s would be inferred as potentially-throwing
 too. This matters beyond documentation: `std::vector` only moves its
 elements during reallocation when their move constructor is `noexcept`
-(via `std::move_if_noexcept`) — otherwise it copies them, to preserve the
-strong exception guarantee. A type with a throwing move constructor is
-silently copied by containers that would otherwise have moved it.
+(via `std::move_if_noexcept`) — otherwise, if the type is copyable, it
+copies them, to preserve the strong exception guarantee. A copyable type
+with a throwing move constructor is silently copied by containers that
+would otherwise have moved it.

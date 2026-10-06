@@ -34,8 +34,10 @@ and it finds the boundary. The precondition is exactly that monotonicity
 `a[i] == key` is not monotone, so it is not merely wrong on some inputs,
 it is outside the contract and the result is meaningless. `a[i] > key`
 is monotone and gives `upper_bound` instead, and `a[i] < key` is
-monotone the wrong way round (true then false), so the search returns 0
-whenever the array is non-empty and the first element is smaller.
+monotone the wrong way round (true then false), so the result is
+whatever the halving happens to land on: 0 only in the degenerate case
+where `key` exceeds every element, and otherwise something unrelated to
+the answer — `LowerBound([]int{1, 10, 20, 30}, 5)` returns 4.
 
 The predicate form is more general than it looks: the array need not be
 in memory at all. `sort.Search(1e9, func(i int) bool { return cost(i) >=

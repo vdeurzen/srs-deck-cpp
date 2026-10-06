@@ -14,7 +14,7 @@ refs:
 ---
 
 A sender is a **description of work**, not work in progress. It is a
-value — usually a small, trivially-copyable aggregate of the pieces it
+value — usually a small, cheaply movable aggregate of the pieces it
 was built from — that knows what should happen and on what, but has no
 thread, no allocation and no shared state behind it.
 

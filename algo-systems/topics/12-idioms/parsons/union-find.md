@@ -6,7 +6,7 @@ level: 4
 tags: [union-find, amortised, compilers]
 distractors:
   - "if (rank[a] < rank[b]) std::swap(a, b);"
-  - "parent[find(b)] = find(a);"
+  - "parent[a] = b;"
 compile:
   harness: |
     constexpr DisjointSet built() {
@@ -58,14 +58,15 @@ themselves would build a chain and lose the existing sets), bail out if
 they are already together, then orient the merge so the smaller tree
 hangs under the larger, and finally maintain the size of the new root.
 
-Updating `size[a]` *after* the link is not arbitrary either — it reads
-`size[b]`, which is still the old subtree's count, and `b` is no longer
-a root afterwards.
+The `find` calls must also run *before* the size comparison: comparing
+the sizes of non-roots orients the merge on meaningless counts.
 
 The distractors are the rank-based variant's line (`rank`, not `size`,
-and this structure keeps sizes) and a one-liner that links without
-checking whether the sets are already merged or which is larger — it
-compiles happily and degrades the structure to a list.
+and this structure keeps sizes) and the merge oriented the wrong way
+round (`parent[a] = b;`), which still compiles and still connects the
+right vertices, but hangs the larger tree under the smaller and
+maintains `size` on a node that is no longer a root — it shows up only
+in the size the Harness asserts on.
 
 Note that `find` here is the plain version, without path compression,
 because it is `const`: the compressing variant is the subject of its

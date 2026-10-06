@@ -53,9 +53,11 @@ classic implementation bug, and it hides until a value happens to be
 reused across a block boundary.
 
 Note that `use` and `def` are defined relative to the block's internal
-order: `def` holds variables written **before any read** of them here,
-which is exactly what makes them "killed". Computing `use`/`def`
-correctly by walking the block backwards is half the work.
+order: `use` holds variables **read before being written** here, while
+`def` holds **every** variable the block writes — including one that
+was read first. That overlap is exactly why the order of gen and kill
+matters. Computing `use`/`def` correctly by walking the block backwards
+is half the work.
 
 In production this operates on whole arrays of words — `live_in`,
 `use`, `def` and `live_out` are bit vectors with one bit per variable

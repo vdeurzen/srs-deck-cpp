@@ -25,5 +25,9 @@ language construct instead of an accident of substitution failure:
   concept logically implies another and prefer the more specific overload,
   which SFINAE has no principled way to express.
 
-Concepts do not add any expressive power SFINAE lacked — anything checkable
-with `enable_if` was checkable, just unreadably.
+As for *what* can be checked, concepts add little: almost any predicate
+expressible as a constraint was checkable with `enable_if`, just
+unreadably. The real gains beyond readability are subsumption (above) and
+constraining non-template members of a class template — e.g. a special
+member function that is trivial only when `T`'s is — which SFINAE cannot
+reach because there is nothing to substitute into.

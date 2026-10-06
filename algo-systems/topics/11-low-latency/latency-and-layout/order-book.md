@@ -32,8 +32,11 @@ The standard layout is three structures:
   no allocation, since the node lives inside the order object.
 - **Order id → order: an open-addressed hash map** (or a slab indexed
   by a handle, if you allocate the ids). Cancel is: hash the id, follow
-  the pointer, unlink, decrement the level's aggregate — all O(1), and
-  three cache misses at most.
+  the pointer, unlink, decrement the level's aggregate — all O(1), and four or five
+  lines: the bucket, the order, its two list neighbours, and the
+  level. The two neighbour stores are writes into lines nothing else
+  just touched, which is why keeping neighbours pool-adjacent is worth
+  the effort.
 
 The remaining trick is the **best bid/offer**: cache the current best
 level index and move it only when a level empties or a better one

@@ -38,8 +38,9 @@ Where it appears:
 - **Exchanges and order books**: the depth of a price level (how much
   volume is ahead of this order) is a rank query, and it has to be
   answered per event.
-- **Schedulers and load balancers**: weighted random choice is a rank
-  query against a Fenwick tree of weights.
+- **Schedulers and load balancers**: weighted random choice is a
+  select query against a Fenwick tree of weights — find the slot where
+  the running weight passes a random threshold.
 
 Know the cheaper alternatives: for a *static* array, a sorted array
 plus `lower_bound` gives rank in O(log n) with no augmentation, and

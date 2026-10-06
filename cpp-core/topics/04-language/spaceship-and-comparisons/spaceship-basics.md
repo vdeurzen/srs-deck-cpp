@@ -19,6 +19,8 @@ with the ordinary relational operators: `(a <=> b) < 0` means "`a` is
 less than `b`", `== 0` means equivalent, `> 0` means greater.
 
 You rarely write `a <=> b` directly for a bool result. Defining
-`operator<=>` is usually enough on its own: the compiler synthesizes
-`<`, `<=`, `>`, `>=` (and, unless you also declared `operator==`,
-`==`/`!=` too) as rewritten expressions in terms of it.
+`operator<=>` is enough for `<`, `<=`, `>`, `>=`: the compiler rewrites
+them in terms of it. Equality is separate: `==`/`!=` come only from an
+`operator==`, which is implicitly declared when `operator<=>` is
+**defaulted** and no `operator==` is declared. A hand-written `<=>` gives
+you no `==` at all.

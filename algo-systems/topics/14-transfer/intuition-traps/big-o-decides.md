@@ -33,7 +33,8 @@ Cases where the "worse" algorithm wins:
   astronomical.
 
 And cases where the same complexity hides an order of magnitude: a
-hash join and a nested loop join are both "linear per output row"; an
+hash join whose table fits in cache and one whose table does not are
+both O(|R| + |S|); an
 AoS scan and an SoA scan are both O(n); `std::map` and
 `absl::btree_map` are both O(log n).
 

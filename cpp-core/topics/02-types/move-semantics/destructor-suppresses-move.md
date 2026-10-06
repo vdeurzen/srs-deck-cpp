@@ -6,11 +6,12 @@ level: 3
 tags: [move-semantics, rule-of-five]
 input: chips
 choices:
-  c1: ["= default", "= delete", "{}", "noexcept"]
+  c1: ["= default", "= delete", "{}", "noexcept(false) = default"]
 compile:
   harness: |
     static_assert(std::is_move_constructible_v<Buffer>);
     static_assert(!std::is_copy_constructible_v<Buffer>);
+    static_assert(std::is_nothrow_move_constructible_v<Buffer>);
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/language/rule_of_three

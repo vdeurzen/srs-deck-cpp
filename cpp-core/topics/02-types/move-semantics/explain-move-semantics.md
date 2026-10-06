@@ -12,7 +12,7 @@ mechanism, and at least two pitfalls.
 ---
 - [ ] Motivation: avoid deep-copying resource-owning types when the source is about to be discarded anyway
 - [ ] `T&&` is an rvalue reference type; `std::move` is a cast to it, not a function that moves anything itself
-- [ ] Moved-from state is valid but unspecified — destructible and assignable, nothing else guaranteed
+- [ ] Moved-from state (standard types) is valid but unspecified — invariants hold, so destroy, assign and precondition-free calls work; the value is unknown
 - [ ] Rule of Five / Rule of Zero: a user-declared destructor suppresses the implicit move members
 - [ ] Pitfall: `return std::move(x);` on a local variable can pessimise by disabling NRVO
 - [ ] Pitfall: a `const` member or base blocks moving — the compiler silently falls back to copying

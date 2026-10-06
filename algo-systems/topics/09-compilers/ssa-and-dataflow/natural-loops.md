@@ -5,7 +5,8 @@ version: 1
 level: 4
 tags: [compilers, cfg, loops, optimisation]
 refs:
-  - https://en.wikipedia.org/wiki/Control-flow_graph#Loops
+  - https://en.wikipedia.org/wiki/Control-flow_graph#Reducibility
+  - https://dl.acm.org/doi/10.1145/262004.262005
   - https://llvm.org/docs/LoopTerminology.html
 ---
 

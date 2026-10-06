@@ -22,14 +22,16 @@ last block partly filled. That layout buys three things `vector` cannot:
   new block and possibly reallocates the *pointer map*, so pointers and
   references to existing elements stay valid across `push_back` and
   `push_front` — a genuinely useful guarantee that `vector` lacks.
-- **Bounded worst case per push**: a `vector`'s occasional O(n) move of
-  everything becomes a bounded O(1) block allocation, which matters when
+- **Bounded element work per push**: a `vector`'s occasional O(n) move
+  of every element becomes one block allocation plus, rarely, a copy of
+  the pointer map — `n / block` pointers, not `n` elements, which matters when
   the requirement is a latency percentile rather than a throughput
   average.
 
 The cost shows up on iteration and on indexing. Element access is
-`map[i / block][i % block]` — an extra indirection and a division the
-compiler turns into shifts — and a scan crosses a block boundary every
+`map[i / block][i % block]` — an extra indirection and a division that
+becomes a shift only when the elements per block are a power of two
+(libstdc++'s 512 / `sizeof(T)` often is not: 21 for a 24-byte `T`) — and a scan crosses a block boundary every
 few dozen elements, so the hardware prefetcher restarts and the compiler
 struggles to vectorise. On a pure traversal a `vector` is usually
 several times faster.

@@ -16,19 +16,22 @@ refs:
 Two separate problems. Every iteration ends in a **data-dependent
 branch** the predictor cannot learn, and every iteration's address
 depends on the previous comparison, so the misses **serialise** — the
-CPU cannot prefetch the next cache line because it does not know it yet.
+CPU cannot know the next cache line until the comparison resolves, and
+at best fetches one guessed side speculatively.
 
 - **Branchless**: replace the `if` with a conditional move.
   `base += (a[base + half] < key) * half` keeps a running base and a
   halving length, compiles to a `cmov`, and removes the misprediction
   entirely. Now the loop is a fixed number of iterations with no
-  control-flow surprises — typically 2–3× faster on large arrays even
-  though it does the same comparisons.
+  control-flow surprises — typically 2–3× faster on arrays that fit in
+  cache even though it does the same comparisons. On arrays far larger
+  than cache it can be *slower*: the branchy version's speculation was
+  acting as an implicit prefetch, and a `cmov` waits for its load.
 - **Prefetching**: with a branchless loop, *both* candidate addresses
   for the next step are computable now, so you can issue
   `__builtin_prefetch` for them. The misses start overlapping instead of
-  queueing — this is the step that turns a latency-bound loop into a
-  throughput-bound one.
+  queueing — this is the step that wins back the large-array case, and
+  in a batch of independent searches lets their latency overlap.
 - **Layout**: the real problem is that a sorted array's binary search
   touches indices n/2, n/4, 3n/4 … — far apart, one cache line each,
   and the first few levels of the implicit tree are the only ones that

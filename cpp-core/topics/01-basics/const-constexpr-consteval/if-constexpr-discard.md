@@ -35,6 +35,7 @@ constexpr auto value_of(T t) {
 
 An ordinary `if` still type-checks both branches of a template body at
 instantiation time; only `if constexpr` removes the untaken branch from
-translation entirely, so `*t` is never even parsed for `T = int`. This is
+instantiation (a *discarded statement*), so `*t` is never instantiated
+for `T = int` — it is still parsed, so it must be syntactically valid. This is
 why `if constexpr` is the standard way to branch on a compile-time trait
 inside a template without SFINAE.

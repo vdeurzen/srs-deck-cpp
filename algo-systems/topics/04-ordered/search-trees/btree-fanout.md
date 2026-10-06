@@ -19,11 +19,12 @@ levels — and since every level except the leaves is usually
 point lookup costs one or two actual I/Os.
 
 Two consequences fall straight out of the arithmetic. Raising the page
-size raises the fanout only {{c5::logarithmically::halving the height
-needs squaring the fanout}}, so 4 KiB, 8 KiB and 16 KiB pages give
+size raises the fanout linearly but lowers the height only
+{{c5::logarithmically::halving the height needs squaring the fanout}},
+so 4 KiB, 8 KiB and 16 KiB pages give
 heights of 4, 4 and 3 — the page size is chosen for write amplification
 and I/O granularity, not for height. And **key size matters more than
 anything else you control**: 64-byte keys cut the fanout to ~57 and add
-a level, which is the real argument for prefix compression, for keeping
+**two** levels (4 → 6), which is the real argument for prefix compression, for keeping
 variable-length keys out of the internal nodes, and for surrogate
 integer keys in a wide index.

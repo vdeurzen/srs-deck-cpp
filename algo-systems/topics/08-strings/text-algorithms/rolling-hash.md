@@ -31,9 +31,12 @@ The two applications that matter more in systems work:
   cut a chunk boundary wherever the low `n` bits of the hash are zero.
   Boundaries then depend on *content*, not offset, so inserting a byte
   at the start shifts only one chunk instead of every chunk — which is
-  exactly what makes rsync, borg, restic, Docker layer dedup and most
-  backup systems efficient. Fixed-size blocks would re-transmit
-  everything after the insertion.
+  exactly what makes borg, restic, casync and most backup systems
+  efficient. Fixed-size blocks would re-transmit everything after the
+  insertion. rsync uses a rolling hash differently: it keeps
+  fixed-size blocks of the old file and searches for them at every byte
+  offset of the new one, so an insertion costs one shifted match rather
+  than a full re-transmit.
 - **Substring equality in O(1) after O(n) preprocessing.** Precompute
   prefix hashes and powers, and any substring's hash is a subtraction
   and a multiply — the basis of suffix comparison, longest-common-prefix

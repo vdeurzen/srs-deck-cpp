@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [databases, durability, storage]
 refs:
-  - https://en.wikipedia.org/wiki/Algorithms_for_Recovery_and_Isolation_Exploiting_Semantics
+  - https://cs.stanford.edu/people/chrismre/cs345/rl/aries.pdf
   - https://www.postgresql.org/docs/current/wal-intro.html
 ---
 
@@ -29,10 +29,10 @@ barrier — independent of whether the transaction dirtied one page or a
 thousand, and independent of where those pages are in the file.
 
 **Group commit** is the direct consequence: if several transactions are
-waiting to flush, one `fsync` durably commits all of them. Throughput
-under concurrency is therefore bounded by the *device's* sync rate,
-not by the transaction rate — which is why adding concurrency raises
-throughput dramatically on a slow-sync device, and why a benchmark with
+waiting to flush, one `fsync` durably commits all of them. What the
+device bounds is the number of *fsyncs* per second, not the number of
+transactions: throughput is sync rate × group size — which is why
+adding concurrency raises throughput dramatically on a slow-sync device, and why a benchmark with
 one client tells you almost nothing.
 
 The rest of the machinery follows from making recovery bounded:

@@ -53,8 +53,9 @@ that is stated, each branch writes itself — `a[mid] < key` proves
 
 The two classic bugs are both visible in the invariant. `lo = mid` does
 not shrink the range when `hi == lo + 1` and loops forever; `hi = mid −
-1` discards a candidate and returns an index one too far for some
-inputs. And `mid = lo + (hi − lo) / 2` rather than `(lo + hi) / 2`
+1` discards a candidate and returns an index one too *small* for some
+inputs (key 3 gives 0, not 1) — and when `mid` is 0 it wraps `hi` round
+to `SIZE_MAX`, sending the next probe out of bounds. And `mid = lo + (hi − lo) / 2` rather than `(lo + hi) / 2`
 avoids overflow — famously the bug that sat in the JDK's binary search
 for nine years.
 

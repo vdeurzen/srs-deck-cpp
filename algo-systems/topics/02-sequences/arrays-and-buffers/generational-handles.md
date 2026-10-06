@@ -6,7 +6,7 @@ level: 4
 tags: [arena, handles, compilers, low-latency]
 refs:
   - https://floooh.github.io/2018/06/17/handles-vs-pointers.html
-  - https://llvm.org/docs/ProgrammersManual.html#dss-arrayref
+  - https://docs.rs/slotmap/latest/slotmap/
 ---
 
 ## Why do compilers, ECS engines and order books store 32-bit *handles* into an arena instead of pointers, and what does the generation counter add?

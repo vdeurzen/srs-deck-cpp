@@ -24,8 +24,10 @@ transaction's (or statement's) start: the set of transactions committed
 at that instant. A version is visible if its creator is in the snapshot
 and its deleter is not. The result is the property that pays for all of
 this: **readers never block writers and writers never block readers**,
-and a read-only transaction takes no locks at all — it just walks
-version chains and filters.
+and a read-only transaction takes no **row** locks at all — it just
+walks version chains and filters (it still takes a table-level
+`ACCESS SHARE` lock in Postgres, and SIREAD predicate locks under
+`SERIALIZABLE`).
 
 The costs, which are substantial and rarely stated:
 

@@ -38,8 +38,12 @@ already bandwidth-bound. The patterns where it wins:
   their second-level ones. This turns 8 serialised miss chains into 8
   overlapping ones — often a 3–4× speedup, and it is why modern
   engines batch their index lookups.
-- **Eytzinger binary search**: prefetch both possible next nodes (they
-  are adjacent, so one line covers them).
+- **Eytzinger binary search**: prefetch the block of descendants
+  several levels down (`b + k * 16` for 4-byte keys). Because the
+  descendants of `k` at each level are contiguous, one 64-byte line
+  holds all 16 of them four levels down, so the prefetch is issued four
+  iterations before the load that needs it — prefetching just the two
+  children would have no lead time at all.
 - **Linked structures you control**: store a "next next" hint, or
   prefetch the node after next during traversal.
 

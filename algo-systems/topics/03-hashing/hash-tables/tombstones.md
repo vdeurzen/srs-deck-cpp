@@ -41,6 +41,7 @@ Two practical consequences. A delete-heavy open-addressed table needs its
 tombstone policy checked, not assumed. And in Swiss tables, this is
 exactly why `erase` must write the `kDeleted` control byte (0b1111'1110)
 rather than `kEmpty` (0b1000'0000) — with one exception the
-implementation does exploit: if the group you erased from has an empty
-slot, the run cannot extend past it, and the slot can go straight back to
-empty with no tombstone at all.
+implementation does exploit: if every 16-slot window that contains the
+erased slot also contains an empty slot, no probe can ever have passed
+through it on the way to another key, and the slot can go straight back
+to empty with no tombstone at all.

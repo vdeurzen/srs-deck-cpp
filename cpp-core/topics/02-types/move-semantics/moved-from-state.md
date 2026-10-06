@@ -12,14 +12,14 @@ refs:
 
 ---
 
-Only that `a` is left in a **valid but unspecified state**. It is safe to
-destroy or assign a new value to `a` — every standard-library type's
-destructor and copy/move-assignment work on a moved-from object — but
-reading `a`'s value is not required to give anything predictable, and for
-most standard containers it will typically be empty, though that is a
-common implementation choice, not a promise.
+For a standard-library type, only that `a` is left in a **valid but
+unspecified state**: its invariants hold, so any operation without
+preconditions works — destroy it, assign to it, call `size()`, `empty()`
+or `clear()` — but its *value* is not specified. A moved-from container is
+typically empty, but that is an implementation choice, not a promise.
 
-Using `a` for anything other than destruction or reassignment after moving
-from it is a logic error even when it happens not to crash: the class
-author decides what "moved-from" means for their type, and standard types
-only promise the object is left in *some* destructible, assignable state.
+What you must not do is call something with a precondition (`front()`,
+`operator[]`, `pop_back()`) without first establishing it, e.g. by
+checking `empty()` or reassigning. A few types do specify the moved-from
+value: a moved-from `std::unique_ptr` or `std::shared_ptr` is null. For
+your own types, the class author decides what "moved-from" means.

@@ -38,4 +38,6 @@ std::string describe(const std::variant<int, std::string>& v) {
 lambda per alternative of the `variant`, chosen by ordinary overload
 resolution rather than a chain of `if (std::holds_alternative<...>(v))`
 checks — and unlike that chain, the compiler rejects it outright if a new
-alternative is added to the `variant` and no lambda covers it.
+alternative is added to the `variant` and no lambda accepts it (beware: an
+existing lambda can silently accept it by implicit conversion, as
+`[](int)` would a `double`).

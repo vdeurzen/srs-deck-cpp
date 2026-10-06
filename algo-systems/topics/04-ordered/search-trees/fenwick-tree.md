@@ -70,7 +70,8 @@ array does not. That combination (point update, range sum) is how
 databases maintain running aggregates and approximate quantile
 sketches, and how schedulers keep weighted-random selection tables.
 
-Its limits are worth stating too: it needs an invertible operation
-(sums, xor — not max) and a fixed size. For range-update/range-query or
+Its limits are worth stating too: arbitrary range queries need an
+invertible operation (sums, xor — not max, which works only as a prefix
+query over values that only grow) and a fixed size. For range-update/range-query or
 non-invertible operations, a segment tree is the structure, at roughly
 twice the memory and a larger constant.

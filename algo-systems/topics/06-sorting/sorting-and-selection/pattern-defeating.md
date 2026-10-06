@@ -25,8 +25,9 @@ segments — the common shape when you append a new batch to a sorted
 file — merge in O(n log k) for k runs. It is stable, which is why it is
 the default for objects.
 
-**pdqsort** (Rust's `sort_unstable`, Go's `slices.Sort` since 1.19)
-takes the unstable branch. It is introsort plus: median-of-three (or
+**pdqsort** (Go's `sort` package since 1.19 and `slices.Sort` since
+1.21; Rust's `sort_unstable` was pdqsort until 1.81 and is now ipnsort,
+a pdqsort descendant) takes the unstable branch. It is introsort plus: median-of-three (or
 ninther) pivots; detection of already-partitioned inputs, which are
 handled by insertion sort; a **branchless partition** using a block of
 offsets so the inner loop has no unpredictable branch; and, when a bad

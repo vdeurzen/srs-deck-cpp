@@ -33,8 +33,9 @@ The costs, precisely:
 - **The queue can hold up to E entries instead of V**, so memory is
   O(E) and each operation is O(log E) rather than O(log V). Since
   log E ≤ 2 log V, the asymptotic bound O((V+E) log V) is unchanged.
-- **Every vertex is popped possibly several times**, but the `continue`
-  guard makes stale pops O(1), and each push produces at most one pop.
+- **Every vertex is popped possibly several times.** Each stale pop
+  still pays the O(log E) pop itself, but the `continue` guard skips
+  its edge relaxation, and each push produces at most one pop.
 
 What you get in exchange is worth more than the constant: no handle
 bookkeeping. A real `decrease_key` needs a stable handle *into* the

@@ -7,6 +7,7 @@ tags: [low-latency, lock-free, memory, concurrency]
 refs:
   - https://www.kernel.org/doc/html/latest/RCU/whatisRCU.html
   - https://en.cppreference.com/w/cpp/header/hazard_pointer
+  - https://docs.rs/crossbeam-epoch/latest/crossbeam_epoch/
 ---
 
 ## In a lock-free structure, when is it safe to `delete` a node another thread may be reading? Compare the three answers.
@@ -28,7 +29,10 @@ nodes), and it is now standardised as `std::hazard_pointer` (C++26).
 **Epoch-based reclamation (EBR).** A global epoch counter; each thread
 announces the epoch it entered a critical section in. A node retired in
 epoch `e` may be freed once every thread has been observed in epoch
-`e+2`. Reads cost almost nothing (one relaxed store on entry), which is
+`e+2`. Reads cost almost nothing (a store plus one store-load fence on
+entry — paid once per critical section, not once per dereference as
+with hazard pointers; a relaxed store alone would let the thread's
+first pointer load overtake its announcement), which is
 why EBR is the choice for read-heavy structures (crossbeam in Rust,
 most C++ lock-free libraries). The failure mode is unbounded memory: a
 single thread that stalls inside a critical section pins the epoch and
@@ -38,7 +42,7 @@ nothing can be freed.
 rather than by counters — on the kernel's classic implementation,
 readers are free (literally no instructions) and a grace period ends
 when every CPU has context-switched. Unbeatable read side; writers
-must `synchronise_rcu()` or defer via callback, and it depends on
+must `synchronize_rcu()` or defer via callback, and it depends on
 cooperation from the runtime, hence userspace RCU needing explicit
 `rcu_read_lock()`.
 

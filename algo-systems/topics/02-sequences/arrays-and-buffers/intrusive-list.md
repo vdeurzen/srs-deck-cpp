@@ -26,7 +26,8 @@ Three consequences:
    lists that is not an optimisation but a requirement — you cannot
    allocate memory inside the allocator.
 2. **O(1) unlink from the element itself.** Given a `T*` you already have
-   the hook, so removal is four pointer stores with no search and no
+   the hook, so removal is two pointer stores (four if you also clear the
+   element's own hooks) with no search and no
    iterator. An order book cancels by order id: hash to the `Order*`,
    unlink it from its price level, done — no walking the level's queue.
 3. **One object, one identity.** The element is not copied into a node,

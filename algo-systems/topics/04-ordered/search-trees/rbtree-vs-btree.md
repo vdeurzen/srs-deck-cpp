@@ -24,11 +24,11 @@ cache miss because the nodes have no spatial relationship. Each miss
 loads 64 bytes to use about 16 of them.
 
 A B-tree of the same million elements, with nodes sized to a few cache
-lines (say 256 bytes holding ~30 keys), has depth ~4. Each node visit
+lines (say 256 bytes holding ~30 keys), has depth 4–5. Each node visit
 reads keys that are *contiguous*, so one or two lines answer 30
 comparisons, and a linear or SIMD scan within the node is faster in
 practice than the binary search its size would suggest. Roughly 20
-misses become 4, plus far less memory overhead: children are implied by
+misses become 4 or 5, plus far less memory overhead: children are implied by
 the node array rather than by a pointer per element.
 
 `absl::btree_map` is exactly this as a drop-in-ish replacement for

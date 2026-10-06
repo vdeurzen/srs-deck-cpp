@@ -18,7 +18,7 @@ compile:
       return got == 42 ? 0 : 1;
     }
 refs:
-  - https://en.cppreference.com/w/cpp/language/coroutines#co_return
+  - https://en.cppreference.com/w/cpp/language/coroutines#Execution
 ---
 
 Give the promise the hook that `co_return 42;` needs.

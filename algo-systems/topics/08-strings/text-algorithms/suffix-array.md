@@ -45,7 +45,8 @@ Where these appear outside bioinformatics: full-text search indexes
 where the query is a substring rather than a word (so an inverted index
 will not do), `grep`-like tooling over a fixed corpus, code clone and
 plagiarism detection, and compression — the **Burrows–Wheeler
-transform** is a suffix array read column-wise, which is what makes
+transform** is the character preceding each suffix, read in
+suffix-array order, which is what makes
 bzip2 and the FM-index work. The FM-index in turn gives you a
 *compressed* self-index: substring search in space close to the
 compressed text, which is how modern read aligners and some

@@ -16,9 +16,10 @@ refs:
 Both walk a path per element; the difference is **which** path, and how
 many elements have a long one.
 
-Pushing sifts *up* from a leaf: the cost is the depth of the node being
-added, and half the elements of a heap are leaves, so half the
-insertions pay the full log n. Total Θ(n log n).
+Pushing sifts *up* from a leaf: the cost is at most the depth of the
+node being added, and in the worst case (an increasing input into a
+max-heap) half the insertions, the leaves, pay the full log n.
+Worst-case total Θ(n log n); a random insertion order averages Θ(n).
 
 Bottom-up building sifts *down* from each internal node, starting at the
 last one. The cost of sifting down node `i` is the height of its
@@ -26,7 +27,7 @@ subtree, not its depth — and that is the reverse distribution: half the
 nodes are leaves with height 0 and cost nothing, a quarter have height
 1, an eighth height 2. The total is
 
-    n · Σ (h / 2^(h+1)) over h ≥ 0 = n · 2 = Θ(n)
+    n · Σ (h / 2^(h+1)) over h ≥ 0 = n · 1 = Θ(n)
 
 because the series converges. The intuition to keep: **most nodes are
 near the bottom, and sifting down is cheap exactly there**, while

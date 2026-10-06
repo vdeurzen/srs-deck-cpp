@@ -9,6 +9,42 @@ dropped is listed in **Findings → Dropped under the variation policy**.
 
 ---
 
+## Status after Phase 1 (2026-10-06)
+
+"What to do first" steps 1–10 are done: every MAJOR, MINOR, NIT and refs
+finding has been worked, each re-verified against primary sources first (LLVM
+`TargetPassConfig`/`PHIElimination.cpp`, the Linux seqlock, Go 1.23/1.24 docs,
+folly F14, Rust RELEASES.md, Crossref DOIs). No `version` was bumped.
+
+- **Fixed as proposed:** M1–M19, M21, M22 and the minors/nits/refs in scope.
+- **Fixed differently, because the proposed fix was itself wrong:**
+  `huge-pages` (the gain is a shorter, cached page walk, not "orders of
+  magnitude" fewer misses), M20 `branchless-select` (`-(x<y)` never negates
+  `INT_MIN`; the real unsigned cases are `x & -x`, `x & (x-1)`), `hash-join`
+  (absolute figures dropped, ratio kept).
+- **Partly applied:** `trace-heap-operations` gained an `h.back()` column; the
+  program really returns to its starting state, and the Card now says that round
+  trip is the point.
+- **Deferred to Phase 4** (would change what the item asks): `hardware-numbers`
+  c3/c5 re-blanked as ratios.
+- **New errors found and fixed** beyond this review: `aba-problem`,
+  `busy-polling`, `external-memory-model`, `vector-vs-deque`, `intrusive-list`,
+  `swiss-table-metadata`, `primary-clustering`, `tombstones`,
+  `go-map-semantics`, `go-gc-and-leaks`, `big-o-decides`, `bloom-false-negative`,
+  `vectorised-execution`, `branchless-search`, `timer-wheel`, `lazy-deletion`,
+  `d-ary-heap`, `sorting-networks`, `simd-scanning`, `stability`, Rust
+  `sort_unstable` (ipnsort since 1.81), Linux timer cascading (gone since 4.8).
+- **Tooling:** `scripts/check-code` replaces `compile_check`; it now
+  substitutes `parsons` Distractors properly. `parsons-bfs-csr` and
+  `parsons-union-find` no longer pass a wrong line. Four `parsons` Cards stay
+  LOOSE (a Distractor passes as an *extra* line) until the app's pre-filled
+  `parsons` lines land.
+
+Steps 11–12 (new Cards, hands-on Cards for prose-only topics) are PLAN.md
+Phases 3–4.
+
+---
+
 ## Verdict
 
 **What this Deck is strong at.** The arithmetic. Across 18 Topics the reviewers

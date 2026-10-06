@@ -14,7 +14,7 @@ refs:
 ```cpp
 std::uint64_t h1 = hash(key), h2 = h1 >> 32 | 1;
 for (int i = 0; i < k; ++i) {
-  bits.set((h1 + i * h2) % bits.size());
+  bits.set(h1 % bits.size());
   h1 += h2;
 }
 ```
@@ -26,6 +26,10 @@ Mitzenmacher's result is that `g_i(x) = h1(x) + i·h2(x)` behaves, for
 Bloom-filter purposes, as well as `k` independent hash functions — so a
 filter costs one hash computation instead of `k`, which is most of its
 insert and query cost.
+
+The loop is the formula in incremental form: `h1` after `i` additions
+of `h2` *is* `h1 + i·h2`, so the index needs no multiply — and `h2`
+must not also be multiplied by `i`, which would double the stride.
 
 The `| 1` matters: `h2` must be odd (coprime with a power-of-two table)
 or the probe sequence covers only a fraction of the bits.

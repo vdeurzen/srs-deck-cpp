@@ -29,8 +29,9 @@ The requirement that needs it:
 - **Radix sort's correctness.** LSD radix sort *is* a sequence of stable
   counting sorts, one digit at a time. Without stability at each pass
   the earlier digits' work is destroyed.
-- **Reproducibility.** A stable sort gives byte-identical output for
-  identical input, which matters for deterministic builds, replayable
+- **Reproducibility.** A stable sort's output is fully determined by
+  the input and the comparator — every correct stable sort, on every
+  library and version, produces the same order — which matters for deterministic builds, replayable
   test fixtures and comparing two runs of a query plan.
 
 What it costs: `std::stable_sort` allocates a temporary buffer of n/2

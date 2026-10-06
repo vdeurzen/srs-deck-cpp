@@ -5,7 +5,6 @@ version: 1
 level: 4
 tags: [queues, sliding-window, low-latency, amortised]
 refs:
-  - https://en.wikipedia.org/wiki/Sliding_window_protocol
   - https://cp-algorithms.com/data_structures/stack_queue_modification.html
 ---
 

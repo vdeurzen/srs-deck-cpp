@@ -2,9 +2,9 @@
 
 Data structures and algorithms — basics to advanced — aimed squarely at the
 three kinds of work that pay for them: **compilers**, **databases**, and
-**low-latency systems**. The second Deck authored in this repository
-(`decks/algo-systems/`, gitignored — see the end of this file), a sibling of
-`decks/cpp-core/` rather than a replacement for any part of it.
+**low-latency systems**. It declares `relations: builds-on cpp-core` in
+`deck.yaml`, so its Cards may `require` `cpp-core/<id>`; it is a sibling of
+`cpp-core`, not a replacement for any part of it.
 
 `cpp-core` teaches a language. This Deck teaches what to build with it, and
 deliberately reaches past C++ where a second syntax makes the idea clearer.
@@ -34,10 +34,9 @@ defaults:
     flags: [-Wall, -Wextra]
 ```
 
-Read `documentation/SPEC.md` §4 for the authoritative grammar and
-`decks/cpp-core/README.md` for the per-Kind walkthrough — the two Decks use
-the same loader and the same conventions. What follows is only what is
-specific to this one.
+Read `docs/FORMAT.md` for the authoritative grammar and its per-Kind guide;
+`cpp-core/README.md` covers the conventions the two Decks share. What follows
+is only what is specific to this one.
 
 ## Two languages
 
@@ -49,11 +48,11 @@ remembered.
 - `language: cpp` in `deck.yaml` is only the default. A fenced block's own
   info string wins, so a ```` ```go ```` block is highlighted as Go
   (`parseCodeBody`, `deckLanguage` fallback).
-- **Go Cards carry no `compile` block.** SPEC §9's compile service builds
+- **Go Cards carry no `compile` block.** The compile service builds
   C++ on Compiler Explorer, and there is no Go toolchain in this workspace to
   verify a Harness against, so `seq-go-slice-window` and
   `ordered-go-sort-search` set `compile: null` and are graded by
-  whitespace-normalised equality (SPEC §4.5). Each of those Cards says so on
+  whitespace-normalised equality (`docs/FORMAT.md` §4.5). Each of those Cards says so on
   its own face rather than leaving the reader to wonder.
 - Go therefore appears as `basic`, `cloze`, `chunk` and no-compile `code`
   Cards: slices and aliasing, map semantics, `container/heap`'s interface
@@ -62,8 +61,8 @@ remembered.
 
 ## Compile-checked Cards discriminate on **values**, not just on syntax
 
-ADR-0005 makes correctness "compiles cleanly", and SPEC §9 sends
-`filters: { execute: false }` — the program is compiled and never run. For an
+Correctness is "compiles cleanly": the app's compile service builds the
+program and never runs it. For an
 algorithms Deck that would be nearly useless on its own, since almost any
 plausible answer compiles. So every `code`, `parsons` and compile-checked
 `chunk` Card here is built the same way:
@@ -74,24 +73,22 @@ wrong, not because the syntax is. Infinite loops from a wrong update
 (`lo = mid` in a binary search) fail too — a non-terminating loop is not a
 constant expression, and GCC says so.
 
-All 22 compile-checked Cards were verified locally with
-`g++ -std=c++23 -Wall -Wextra -fsyntax-only` (GCC 13.3), assembled exactly as
-the app assembles them (reference answers substituted, Harness appended), and
-**every Distractor on every `code` Card was confirmed to fail**. Two Cards
-were tightened during that pass because a Distractor slipped through:
-`ordered-fenwick-tree` (a wrong step that happens to give the right answer at
-powers of two — the Harness now probes `prefix(3)` and `prefix(7)`) and
-`str-kmp-failure-function` (the three test patterns did not exercise a
-two-step border chain; `ababaab` and `aabaaab` now do).
+Verification is `scripts/check-code algo-systems`, which assembles each
+compile-graded Card as the app does (reference answers substituted, Harness
+appended) and checks that the reference compiles and that every Distractor
+is rejected both in place of the line it mimics (a failure there is reported
+as `WEAK`) and as an extra line (`LOOSE`, advisory: a Distractor that is
+harmless wherever it is inserted cannot be pinned by a Harness).
 
-The same trick makes `parsons` Cards meaningful. SPEC §4.8 grades a Card with
-a `compile` block by compilation, which for shuffled statements is weak — most
-orderings still compile. Here the Harness evaluates the assembled program at
-compile time, so an ordering that builds but computes the wrong heap, the
-wrong partition or the wrong BFS distances still fails. Two of the five also
-use Distractor lines chosen to be *semantically* wrong rather than
-syntactically (popping the BFS queue from the back, an inclusive prefix sum),
-which the value assertions catch.
+The same trick makes `parsons` Cards meaningful. `docs/FORMAT.md` §4.8
+grades a Card with a `compile` block by compilation, which for shuffled
+statements is weak — most orderings still compile. Here the Harness
+evaluates the assembled program at compile time, so an ordering that builds
+but computes the wrong heap, the wrong partition or the wrong BFS distances
+still fails. Some Distractors are *semantically* wrong rather than
+syntactically (popping the BFS queue from the back, an inclusive prefix
+sum, a union oriented the wrong way round); `check-code` is what confirms
+the Harness catches them.
 
 ## `trace` Cards were run, not reasoned
 
@@ -164,18 +161,14 @@ in the order book; union-find appears as a `code` Card, a `chunk`, a
 `parsons` and as type unification in the compiler Topic. Seeing the same
 mechanism from several angles is the point.
 
-## Validating before pushing
+## Validating
+
+From the repository root, passing both Decks in one run so the `requires`
+edges into `cpp-core` are checked:
 
 ```sh
-dart run tools/validate.dart decks/algo-systems
+tool/validate cpp-core algo-systems
+scripts/check-code algo-systems            # compile-graded Cards
 ```
 
-Runs the same `DeckLoader` the app does, pure Dart, no Flutter. Add
-`--strict` to escalate warnings for CI. As of this writing the Deck loads
-with **0 errors and 0 warnings**, strict included.
-
-## `decks/` stays untracked
-
-`/decks/` is gitignored in this repository on purpose (SPEC §11): each Deck is
-its own git repository, migrated out by hand once it has a remote. Do not
-`git add` anything under `decks/algo-systems/` here.
+Add `--id <card-id>...` to `check-code` to check only the Cards you touched.

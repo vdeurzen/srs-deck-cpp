@@ -27,7 +27,8 @@ Three ways to keep depth logarithmic:
   every path). AVL is more tightly balanced, so lookups are slightly
   faster and rebalancing on update slightly more frequent; red-black
   does fewer rotations per update, which is why it is the usual library
-  choice (`std::map`, Java's `TreeMap`, the Linux CFS runqueue).
+  choice (`std::map`, Java's `TreeMap`, the Linux scheduler's runqueue
+under both CFS and its successor EEVDF).
 - **Multi-way nodes**: B-trees and B⁺-trees keep *all* leaves at the
   same depth by splitting and merging nodes rather than rotating. Depth
   is log_B n, which is the only one of these three that changes the

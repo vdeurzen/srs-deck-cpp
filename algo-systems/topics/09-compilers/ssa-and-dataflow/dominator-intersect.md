@@ -46,12 +46,14 @@ Two fingers walking up the tree: whichever is *lower* in postorder is
 further from the entry, so it takes a step towards the root, and they
 meet at the nearest common ancestor. Postorder numbering is what makes
 "which one is deeper?" a single integer comparison — the entry block
-has the highest number, and `idom[x] > x` always holds.
+has the highest number, and `idom[x] > x` holds for every block except
+the entry, where `idom[entry] == entry` — that self-loop is what stops
+the two fingers walking off the top of the tree.
 
 This tiny function is the whole reason the iterative algorithm is
-practical. The full pass is: number the blocks in reverse postorder,
-set `idom[entry] = entry`, then repeatedly walk the blocks in reverse
-postorder and set each block's idom to the fold of `intersect` over its
+practical. The full pass is: number the blocks in **postorder** (so
+`intersect`'s comparisons work), set `idom[entry] = entry`, then
+repeatedly walk the blocks in **reverse** postorder and set each block's idom to the fold of `intersect` over its
 already-processed predecessors, until nothing changes. Two or three
 passes over a real CFG; a few dozen lines; no dominator forest, no
 semidominators, no path compression.

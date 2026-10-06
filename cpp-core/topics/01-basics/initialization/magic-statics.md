@@ -14,8 +14,8 @@ refs:
 
 Yes, since C++11: if control enters the declaration of a function-local
 `static` concurrently while it is being initialized, the other threads
-**block** until initialization completes. This is informally called
-"magic statics".
+**block** until initialization completes ([stmt.dcl]/3). The standard
+gives the guarantee no name; it is informally called "magic statics".
 
 It makes the classic lazy Meyers' singleton safe without a hand-written
 mutex:

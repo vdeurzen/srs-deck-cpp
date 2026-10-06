@@ -20,7 +20,8 @@ tree per predicate, and no chance of vectorisation. Tens to hundreds of
 cycles of overhead for a few cycles of real work.
 
 **Vectorised** (MonetDB/X100, DuckDB, ClickHouse, Velox): `next()`
-returns a **batch** of ~1024 values per column. The virtual call is
+returns a **batch** of values per column — ~1024 in X100, 2048 in
+DuckDB (ClickHouse's blocks are far larger). The virtual call is
 amortised over a thousand rows, the inner loop over a primitive
 (`add_int32_vec`, `compare_lt_vec`) is a tight, branch-free, SIMD-able
 loop over contiguous memory, and intermediate results fit in L1/L2 by
@@ -29,8 +30,10 @@ branching per row. Typically 10–100× faster than tuple-at-a-time, for
 a moderate implementation cost: you write a kernel per (operation,
 type) pair.
 
-**Compiled** (HyPer, Spark's whole-stage codegen, Umbra): generate
-machine code for the whole pipeline with LLVM, so a tuple stays in
+**Compiled** (HyPer via LLVM, Umbra via its own IR and a custom
+single-pass backend with LLVM only for the optimising tier, Spark's
+whole-stage codegen via generated Java that Janino and the JVM's JIT
+compile): generate code for the whole pipeline, so a tuple stays in
 registers from the scan to the aggregation with no materialisation
 between operators at all. Best possible data movement; costs are
 compilation latency (mitigated by an interpreter for short queries and
@@ -46,7 +49,7 @@ primitives.
 
 Two things worth transferring beyond databases. The **batch size is
 chosen to fit the cache, not the problem** — 1024 rows × a few columns
-sits comfortably in L1, which is the same reason tiling works in
+sits in L1 or L2, which is the same reason tiling works in
 numerics. And "amortise dispatch over a batch" is the general cure for
 interpretation overhead: the same move turns a slow tree-walking
 interpreter into a bytecode VM, and a bytecode VM into a JIT.

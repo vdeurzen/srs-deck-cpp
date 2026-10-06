@@ -20,8 +20,9 @@ A B⁺-tree updates in place, so a one-row update eventually writes a
 whole {{c3::page::4-16 KiB for a 100-byte row}} — high write
 amplification, and randomly placed — in exchange for a read
 amplification of about one traversal. An LSM tree appends, so writes
-are sequential and initially cheap, but every byte is rewritten once
-per level it passes through, and a read may consult one run per level
+are sequential and initially cheap, but a level is rewritten each time
+the level above merges into it, so under levelling a byte costs about
+the size ratio T in writes at every level it passes through, and a read may consult one run per level
 — mitigated by a per-file {{c4::Bloom filter::a negative answer skips
 the file entirely}}.
 

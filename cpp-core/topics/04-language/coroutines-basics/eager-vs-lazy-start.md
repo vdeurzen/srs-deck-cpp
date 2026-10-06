@@ -28,6 +28,9 @@ surprises people — a coroutine called for its side effects has already
 performed half of them before the caller holds anything.
 
 The two differ in error handling too: with an eager start, an exception
-thrown before the first `co_await` reaches `unhandled_exception()` while
-the caller has no handle yet, so a promise that stores the exception for
-later has no one to hand it to.
+thrown before the first `co_await` reaches `unhandled_exception()` before
+the call that created the coroutine has even returned. The return object
+already exists (`get_return_object()` ran first), so a promise that
+stores `std::current_exception()` can still hand it over — but only if
+`final_suspend()` suspends; a self-destroying frame takes the stored
+exception with it, and the caller sees a silently failed call.

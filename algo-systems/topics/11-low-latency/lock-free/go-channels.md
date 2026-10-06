@@ -8,6 +8,7 @@ elaborate: In a Go service you know, which channel is on the hot path — and is
 refs:
   - https://go.dev/ref/mem
   - https://go.dev/doc/effective_go#channels
+  - https://go.dev/src/runtime/chan.go
 ---
 
 ## What does a Go channel actually cost per send, and when should a hot path use something else?
@@ -19,10 +20,12 @@ two wait queues of blocked goroutines. A send takes the lock, and then
 either hands the value directly to a waiting receiver (the fast path —
 one copy straight into the receiver's stack, then mark it runnable),
 copies into the buffer, or parks the sender. So the cost per operation
-is a lock/unlock pair, a value copy, and — whenever the channel
-transitions between empty and non-empty — a **goroutine
-park/unpark**, which is a scheduler operation costing hundreds of
-nanoseconds and often a cross-core wakeup.
+is a lock/unlock pair, a value copy, and — only when the other side
+had actually parked (a receiver already waiting, or a sender blocked
+on a full buffer) — a **goroutine park/unpark**, which is a scheduler
+operation costing hundreds of nanoseconds and often a cross-core
+wakeup. A producer and consumer that both keep up cross between
+empty and non-empty constantly with no scheduler work at all.
 
 That is a fine price for coordination and a poor one for a data path
 carrying millions of items a second. What to do instead, in order of

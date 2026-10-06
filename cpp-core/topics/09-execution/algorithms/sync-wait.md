@@ -20,8 +20,9 @@ translates the three channels into ordinary C++ results:
 
 - `set_value(vals...)` → `std::optional<std::tuple<Vals...>>` holding
   the values;
-- `set_error(e)` → the error is thrown (an `exception_ptr` is
-  rethrown);
+- `set_error(e)` → the error is thrown: an `exception_ptr` is
+  rethrown, an `error_code` becomes `system_error`, anything else is
+  thrown as itself;
 - `set_stopped()` → `std::nullopt`.
 
 The namespace is the documentation: `sync_wait` is a property of *this

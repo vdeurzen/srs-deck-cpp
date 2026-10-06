@@ -26,8 +26,8 @@ mask**. simdjson is the canonical demonstration:
 
 - classify all 64 bytes at once into quotes, backslashes, structural
   characters and whitespace, producing one bitmask each;
-- resolve escaped quotes by a carry-less multiply that propagates the
-  effect of backslash runs across the mask;
+- resolve escaped quotes by finding odd-length backslash runs with
+  shifts and an addition whose carry propagates along each run;
 - turn the quote mask into an "inside a string" mask with a prefix-XOR
   (again a carry-less multiply), so string contents can be excluded
   from structural detection *branchlessly*;

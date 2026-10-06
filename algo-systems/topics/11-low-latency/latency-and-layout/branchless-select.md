@@ -60,6 +60,10 @@ The related idioms worth recognising: `x & (x - 1)` clears the lowest
 set bit, `x & -x` isolates it, `(x ^ y) & -(x < y)` builds a
 conditional swap (the compare-exchange of a sorting network), and
 `(x >> 31)` broadcasts a sign bit into a mask for `abs`. They all rely
-on two's complement, so keep them on **unsigned** types where
-overflow is defined — the one place this style of code quietly becomes
-undefined behaviour.
+on two's complement, but not on the same signedness: `x & -x` and
+`x & (x - 1)` want **unsigned** operands, since negating or
+decrementing `INT_MIN` is undefined; `x >> 31` must stay **signed**,
+since only a signed right shift is arithmetic and broadcasts the sign
+bit (guaranteed since C++20, [expr.shift]) — on an unsigned `x` it
+yields 0 or 1 and the `abs` idiom silently breaks. Getting that
+backwards is where this style of code quietly goes wrong.

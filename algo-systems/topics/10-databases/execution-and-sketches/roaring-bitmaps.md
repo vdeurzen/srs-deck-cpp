@@ -14,14 +14,15 @@ refs:
 ---
 
 It splits the 32-bit universe into chunks of 2¹⁶ and picks a
-**container type per chunk**, based on that chunk's actual density:
+**container type per chunk**, based on that chunk's actual density
+and shape:
 
-- **Array container** — a sorted `uint16` array, used when the chunk
-  holds fewer than 4096 values (below that, 2 bytes per value beats a
-  bitmap's fixed 8 KiB).
+- **Array container** — a sorted `uint16` array, used while the chunk
+  holds at most 4096 values (up to that, 2 bytes per value is no more
+  than a bitmap's fixed 8 KiB).
 - **Bitmap container** — a plain 8 KiB bitset, for dense chunks.
-- **Run container** — (start, length) pairs, for chunks that are long
-  consecutive runs, which is the common case for sorted or clustered
+- **Run container** — (start, length) pairs, chosen by *number of
+  runs* rather than count, for chunks that are long consecutive runs, which is the common case for sorted or clustered
   data.
 
 So the structure adapts to whatever distribution it is given, rather

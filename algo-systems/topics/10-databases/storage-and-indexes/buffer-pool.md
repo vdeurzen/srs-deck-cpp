@@ -5,6 +5,7 @@ version: 1
 level: 4
 tags: [databases, caching, memory-hierarchy]
 refs:
+  - https://www.cs.cmu.edu/~christos/courses/721-resources/p297-o_neil.pdf
   - https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU-K
   - https://15445.courses.cs.cmu.edu/
 ---

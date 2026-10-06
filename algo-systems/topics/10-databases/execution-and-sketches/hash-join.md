@@ -35,8 +35,8 @@ single pass writes to more partitions than there are TLB entries and
 write-combining buffers (the "fan-out limit", typically ~64–512 per
 pass). The partitioning cost is a histogram pass plus a scatter pass,
 and it is repaid many times over in probe misses avoided. Done well,
-this is the difference between a join running at 10 M and 100 M rows/s
-per core.
+this is a several-fold difference in rows per second per core once the
+table outgrows the cache.
 
 Two more things a production implementation needs:
 

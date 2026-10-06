@@ -32,8 +32,11 @@ wheels, each with a coarser tick (milliseconds, seconds, minutes, hours
 wheel that can hold it, and when a coarse wheel's cursor advances, its
 bucket's timers **cascade** down into the finer wheel. Insert and cancel
 stay O(1); cascading is the amortised cost, paid once per level per
-timer. This is Varghese and Lauck's design, and it is what the Linux
-kernel, Netty, Kafka and most event loops use.
+timer. This is Varghese and Lauck's design. Kafka's request purgatory
+uses the hierarchical form, Netty's `HashedWheelTimer` a single hashed
+wheel, and the Linux kernel a multi-level wheel that since 4.8 drops
+cascading altogether, accepting coarser expiry for far-off timeouts
+because almost none of them ever fire.
 
 When the heap is still right: few timers, or when you need the *exact*
 next expiry time to program a one-shot hardware timer or a poll
@@ -42,6 +45,6 @@ this tick". Hybrids are common: a wheel for the mass of connection
 timeouts, plus a small heap of precise deadlines.
 
 The property that makes it the low-latency answer is the absence of
-allocation and of ordering work: on the hot path a timer is two pointer
-stores in, four out, no comparisons, no rebalancing, no cache misses
+allocation and of ordering work: on the hot path a timer is a few
+pointer stores to link in and two to unlink, no comparisons, no rebalancing, no cache misses
 beyond the object you already have in hand.

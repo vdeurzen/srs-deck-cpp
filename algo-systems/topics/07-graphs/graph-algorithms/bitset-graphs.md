@@ -22,8 +22,8 @@ available expressions, dominator sets, register interference rows, and
 alias sets.
 
 The cost model is different from a hash set's: a bit vector is O(n/64)
-per operation regardless of how many elements are *in* it, and n/64
-bytes of memory regardless of occupancy. So:
+per operation regardless of how many elements are *in* it, and n/8
+bytes (⌈n/64⌉ words) of memory regardless of occupancy. So:
 
 - **Dense sets, small universe** → bit vector wins outright. 1000
   variables is 16 words; unioning two such sets is 16 instructions where

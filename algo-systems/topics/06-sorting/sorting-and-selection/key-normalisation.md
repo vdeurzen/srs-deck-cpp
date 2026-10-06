@@ -5,8 +5,7 @@ version: 1
 level: 5
 tags: [sorting, databases, layout]
 refs:
-  - https://en.wikipedia.org/wiki/Key_normalization
-  - https://db.in.tum.de/~leis/papers/morsels.pdf
+  - https://dl.acm.org/doi/10.1145/1132960.1132964
 ---
 
 ## A database sorts 200-byte rows by `(country, ts DESC, price)`. What do the good implementations sort instead, and why?

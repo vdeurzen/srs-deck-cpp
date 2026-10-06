@@ -12,7 +12,9 @@ refs:
 Two adaptors place work in time, and the difference is which end of the
 sender they touch. `starts_on(sched, sndr)` transitions to `sched`
 {{c1::before starting sndr::so the predecessor's work begins on that
-context}}, and is what you reach for at the top of a pipeline.
+context}}, and is what you reach for at the top of a pipeline (it was called `on`
+until P3175, which reused that name for an adaptor that hops to a
+scheduler and back).
 `continues_on(sndr, sched)` instead transitions
 {{c2::after sndr completes::so everything downstream of it runs on the
 new context}} — the adaptor formerly proposed as `transfer`, and the

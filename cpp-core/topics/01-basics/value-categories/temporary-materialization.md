@@ -13,8 +13,9 @@ refs:
 ---
 
 The implicit conversion from a prvalue to an xvalue of the same type,
-inserted whenever a prvalue needs a result object — for instance, binding
-`const T&` to a prvalue, or calling a member function on `T{}`. A temporary
+inserted whenever a prvalue is used where a glvalue is needed — for
+instance, binding `const T&` to a prvalue, or calling a member function on
+`T{}`. A temporary
 object is created ("materialized") at that point and the expression
 becomes an xvalue denoting it.
 

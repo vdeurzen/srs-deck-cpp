@@ -181,12 +181,39 @@ Topic by topic, in study order: coroutines, move semantics and smart pointers
 first (already in review, so fixes reach you soonest), then by depth. Each batch: edit → `validate` →
 `check-code` → `graph` → commit.
 
+### Code-building cards (`parsons`, `chunk`): every line has one right place
+
+Problem: `parsons` cards run 8–34 lines, and every one has 1–3 `#include`s that
+can go anywhere, plus interchangeable members. Grading compiles, but the
+*suggested rating* counts moves beyond the authored order (§4.8), so a valid
+different order is still marked Hard or Again. 13 of 18 `chunk` cards are
+`compile: null`, graded by exact text match, so any reordering fails outright.
+
+Rules:
+- **≤ 9 movable lines** per `parsons`, all order-determined. A bigger program
+  becomes several cards (e.g. `parsons-rule-of-five` → one per special member,
+  or the copy-assignment body alone), chained with `requires`.
+- **Includes and scaffolding** (class shell, other members) will move into the
+  app's upcoming pre-filled `parsons` lines. Wait for the FORMAT.md re-export
+  that defines them, then convert; don't restructure cards around the missing
+  feature before that.
+- **`chunk`** stays ≤ 7 lines, order-determined, and gets a `constexpr` harness
+  where possible, so a correct reproduction is never failed on text alone.
+
+
+App-side requests (FORMAT.md is exported from the app, not ours to change):
+1. Pre-filled lines for `parsons`: **coming** (2026-10-06). Parsons
+   restructuring for includes/scaffolding waits for it.
+2. Rating a compile-correct `parsons` answer by moves away from one authored
+   order penalises valid alternatives: when `compile` passes, grade on
+   compile alone.
+
 ### Splitting `explain` cards
 
 All 14 `explain` cards carry 8–13 rubric items: too many points to hold while
-answering aloud. Each splits into 2–3 focused `explain` cards of **5–6 items**
-(the Deck's ≥5 convention, and with 5+ items every rating band in §4.6 is
-reachable; at 3 items "Good" is not). The original id becomes a short
+answering aloud. Each splits into 2–3 focused `explain` cards of **5 items**
+(the Deck's ≥5 convention; learning research puts the ideal at 4–5 distinct,
+checkable claims, and at 5 every rating band in §4.6 is still reachable). The original id becomes a short
 synthesis capstone — "put it together" — with ≤5 items about how the parts
 connect, `requires` on the parts, `version` bumped.
 

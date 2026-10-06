@@ -40,8 +40,8 @@ trie, a hash per state, or keep the failure links and accept the
 amortised walk.
 
 Where it shows up: intrusion detection and antivirus signature matching
-(Snort, ClamAV), `grep -F` with many patterns (which is where the
-algorithm came from), tokenising against a keyword set, dictionary
+(Snort, ClamAV), `grep -F` with many patterns (Aho's own `fgrep` was
+an early implementation), tokenising against a keyword set, dictionary
 matching in a lexer, and content filtering. When the pattern set is
 *small*, prefer Commentz-Walter/Boyer–Moore-style skipping or plain
 SIMD scanning — Aho–Corasick reads every byte, and a skipping algorithm

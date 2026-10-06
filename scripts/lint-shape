@@ -6,7 +6,7 @@
   many-blanks    cloze with more than 3 cloze numbers
   hint-answers   a cloze hint contains its own answer
   front-answers  a code Card's prose states a blank's reference answer
-  big-rubric     explain rubric with more than 6 items
+  big-rubric     explain rubric with more than 5 items
 
 These are heuristics: a flag means "look at this", not "this is wrong".
 
@@ -21,7 +21,7 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cards import FENCE, Deck, clozes  # noqa: E402
 
-MAX_WORDS, MAX_BLANKS, MAX_RUBRIC = 60, 3, 6
+MAX_WORDS, MAX_BLANKS, MAX_RUBRIC = 60, 3, 5
 JOINED = re.compile(r"[,;]?\s+and\s+(why|when|how|what|which|where)\b", re.I)
 
 

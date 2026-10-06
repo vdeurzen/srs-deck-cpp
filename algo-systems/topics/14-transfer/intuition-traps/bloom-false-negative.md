@@ -25,7 +25,9 @@ That one-sidedness is what lets a filter be used as a *skip*:
 - An LSM engine asks the per-SSTable filter before reading the file.
   "No" means skip it, with certainty — and false positives cost a
   wasted read, never a missing row.
-- A CDN or crawler asks before fetching an origin or a URL.
+- A CDN asks before caching an object, so only objects requested
+  twice are cached ("one-hit wonders" are not) — a false positive
+  wastes some cache space, never a response.
 - A database join asks a semi-join filter before scanning the probe
   side.
 

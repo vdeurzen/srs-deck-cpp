@@ -35,8 +35,11 @@ The standard defences:
   Pointer-packing into unused high bits is the 64-bit variant, at the
   cost of tag wraparound being possible in principle.
 - **Load-linked/store-conditional** (ARM, POWER): SC fails if the line
-  was written at all, so ABA cannot occur — one reason lock-free code
-  ported from ARM to x86 sometimes grows a bug.
+  was written at all, so ABA cannot occur — *provided* the LL is the
+  original read. C++'s `compare_exchange` on ARM issues its LL inside
+  the CAS, long after the algorithm read the value, so portable C++
+  code is just as ABA-prone there as on x86; only hand-written LL/SC
+  loops get the protection.
 - **Don't reuse the memory**: most ABA instances are really
   use-after-free in disguise, so a safe reclamation scheme (hazard
   pointers, epochs, RCU) removes both problems at once. This is the

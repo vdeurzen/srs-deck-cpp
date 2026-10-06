@@ -37,8 +37,9 @@ completing on can disappear entirely.
 
 The standard ships `run_loop` as a context you drive yourself
 (`loop.get_scheduler()`, `loop.run()`, `loop.finish()`) and
-`sync_wait` uses one internally; thread pools come from the
-implementation or a library. The contract is what matters: any type
+`sync_wait` uses one internally; for a thread pool C++26 adds
+`parallel_scheduler` (from `get_parallel_scheduler()`, P2079), and
+anything else comes from a library. The contract is what matters: any type
 satisfying `scheduler` slots into the same pipelines, which is what
 makes "no global executor" practical — the scheduler arrives as an
 argument, like any other dependency.

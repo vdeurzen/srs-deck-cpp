@@ -34,7 +34,7 @@ void work(std::stop_token token) {
 ---
 
 `std::jthread` (C++20) does two things `std::thread` never did: it joins
-automatically in its destructor, so a `jthread` going out of scope cannot
+automatically in its destructor (after calling `request_stop()`), so a `jthread` going out of scope cannot
 leak or `std::terminate` on an un-joined thread, and it hands the thread
 function a `std::stop_token` for free — no `std::atomic<bool>` and no
 manual shared state needed to ask it to stop cooperatively.

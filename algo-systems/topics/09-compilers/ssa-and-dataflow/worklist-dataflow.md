@@ -12,8 +12,8 @@ refs:
 A dataflow analysis is three things plus a loop. A **lattice** of facts
 with a meet operator, a **transfer function** per instruction or block,
 and a **direction**; the loop then iterates until nothing changes — the
-{{c1::least fixpoint::the most precise solution the framework can
-prove}}.
+{{c1::maximum fixpoint::Kildall's MFP — the most precise solution the
+framework can prove, reached by descending from the optimistic top}}.
 
 Termination is guaranteed by two properties together: the lattice has
 {{c2::finite height::no infinite descending chains}}, and every transfer

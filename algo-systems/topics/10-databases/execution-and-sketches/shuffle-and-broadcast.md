@@ -37,7 +37,8 @@ cost is zero. That is why distributed stores let you declare a
 distribution key and why picking the same key for tables that are
 joined together is the highest-leverage schema decision in a warehouse.
 The same idea appears one level down as **morsel-driven parallelism**
-inside a single machine: partition work into cache-sized morsels,
+inside a single machine: partition work into constant-sized morsels (~100 K tuples — sized for
+work-stealing overhead, not for cache),
 schedule them NUMA-locally, and keep the hash table's partitions on the
 socket that owns them.
 

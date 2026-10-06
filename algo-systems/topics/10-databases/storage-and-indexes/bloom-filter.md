@@ -21,6 +21,7 @@ compile:
 refs:
   - https://dl.acm.org/doi/10.1145/362686.362692
   - https://github.com/facebook/rocksdb/wiki/RocksDB-Bloom-Filter
+  - https://dl.acm.org/doi/10.1145/2805789.2805800
 ---
 
 A Bloom filter with `m` bits for `n` keys minimises false positives at
@@ -46,8 +47,9 @@ depends only on bits *per key* — not on how many keys there are.
 The guarantee that makes the structure usable is one-sided: **no false
 negatives**. "Not present" is certain; "present" is a maybe. That is
 what lets an LSM engine skip an SSTable entirely on a negative answer,
-a CDN skip an origin fetch, or a crawler skip a URL — the expensive
-operation only happens on a positive, and a false positive costs
+or a CDN decline to cache an object on its first request (Akamai's
+"one-hit wonder" filter) — the expensive operation only happens on a
+positive, and a false positive costs
 performance, never correctness.
 
 What it cannot do: delete (clearing bits would break other keys — use
@@ -57,9 +59,13 @@ implementation costs `k` **random** memory accesses per query, which is
 `k` cache misses; production filters therefore use **blocked** layouts
 (all k bits inside one cache line, chosen by a first hash) trading a
 slightly worse rate for one miss — which is what RocksDB's
-`FullFilter`/Ribbon filters do.
+cache-line-local Bloom (`FastLocalBloom`) does. Its Ribbon filter is a
+different trade again: a static filter built by solving a banded
+linear system, spending more CPU for ~30 % less space at the same
+rate.
 
 Practical rule: size it from the *expected* n. A Bloom filter that
 receives twice the keys it was sized for does not fail loudly, it just
-quietly stops filtering — its rate goes to nearly 1 and every lookup
-becomes a full search.
+degrades silently and superlinearly — at 10 bits per key its rate
+goes from ~0.8 % to ~14 %, and at four times the keys to ~64 %, with
+the fixed `k` (optimal for the old n) making it worse still.

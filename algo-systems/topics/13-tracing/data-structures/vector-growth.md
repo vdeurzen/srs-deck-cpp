@@ -12,6 +12,9 @@ probes:
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://en.cppreference.com/w/cpp/container/vector/reserve
+  - https://github.com/gcc-mirror/gcc/blob/master/libstdc++-v3/include/bits/stl_vector.h
+  - https://github.com/llvm/llvm-project/blob/main/libcxx/include/__vector/vector.h
+  - https://github.com/microsoft/STL/blob/main/stl/inc/vector
 ---
 
 ```cpp
@@ -29,8 +32,9 @@ int main() {
 
 ---
 
-`reserve(2)` sets capacity to exactly 2 — `reserve` never rounds up
-and never shrinks. The first two pushes fit, so capacity does not move
+`reserve(2)` guarantees capacity **at least** 2 and never shrinks it;
+libstdc++ and libc++ allocate exactly what you ask for, which is why
+probe 1 reads 2. The first two pushes fit, so capacity does not move
 and no element is copied.
 
 The third push is the interesting one: capacity is exhausted, so the
@@ -46,8 +50,9 @@ The `insert` at the front costs a `memmove` of every element but does
 element: size goes to 4, capacity stays 4, and `v[0]` becomes the newly
 inserted 0 while everything else shifts up one slot.
 
-Note what is implementation-defined here: the **growth factor**.
-libstdc++ and libc++ double; MSVC grows by 1.5×; nothing in the
+Note what is implementation-defined here: the **growth factor**, and
+whether `reserve` rounds up. libstdc++ (`_M_check_len`) and libc++
+(`__recommend`) double; MSVC (`_Calculate_growth`) grows by 1.5×; nothing in the
 standard requires either, only that `push_back` is amortised O(1),
 which any geometric factor satisfies. The values above are GCC 13.3's
 libstdc++, verified by compiling and running this program with

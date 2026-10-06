@@ -38,7 +38,7 @@ the actual latency comes from:
 - **Pre-fault and lock memory** (`mlockall`), disable swap, use huge
   pages, and avoid page faults on the hot path.
 - **Disable frequency scaling and deep C-states** — waking from C6
-  takes tens of microseconds, and a core that has been idle is slow for
+  takes tens to over a hundred microseconds, and a core that has been idle is slow for
   its first work.
 - **Warm the path**: run dummy messages through the same code
   periodically so caches, branch predictors and the TLB stay hot. A

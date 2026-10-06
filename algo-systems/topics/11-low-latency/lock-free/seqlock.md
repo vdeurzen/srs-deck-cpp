@@ -6,6 +6,7 @@ level: 5
 tags: [low-latency, concurrency, market-data]
 refs:
   - https://www.kernel.org/doc/html/latest/locking/seqlock.html
+  - https://dl.acm.org/doi/10.1145/2247684.2247688
   - https://en.wikipedia.org/wiki/Seqlock
 ---
 
@@ -30,18 +31,24 @@ Properties to state precisely:
 
 - **Writers block writers** (one writer, or an ordinary mutex among
   them) — this is not a general-purpose lock.
-- **Readers are wait-free only if the writer is slow**; a fast enough
-  writer can starve a reader into retrying forever. In practice the
-  data is small and the window tiny.
+- **Readers are non-blocking but unbounded** — a reader never waits on
+  a lock, but it is not wait-free, lock-free or obstruction-free; a
+  fast enough writer can starve a reader into retrying forever. In
+  practice the data is small and the window tiny.
 - **Readers must tolerate reading torn data** before discovering the
   retry. Strictly, that is a data race in C++ unless the payload is
   read with relaxed atomics (or `memcpy` of trivially copyable data,
   which most implementations do and sanitisers complain about).
   `std::atomic_ref` over the payload is the standards-clean route.
-- The ordering is a **release** on the counter's second increment, an
-  **acquire** on the reader's first load, and an acquire fence before
-  the reader's second load, so the payload reads cannot be hoisted past
-  the check.
+- The ordering has four parts. The writer stores the odd counter
+  **relaxed**, then issues a **release fence** (the kernel's
+  `smp_wmb()`), then writes the payload, then stores the even counter
+  with **release**. The reader loads the counter with **acquire**,
+  reads the payload, issues an **acquire fence**, then re-loads the
+  counter **relaxed**. Without the writer's fence a payload store can
+  move above the odd store, and a reader sees an even, unchanged
+  counter around torn data; without the reader's fence the payload
+  loads can sink below the check.
 
 Where it fits: the Linux kernel uses it for `jiffies` and timekeeping;
 trading systems use it for order book snapshots and for
