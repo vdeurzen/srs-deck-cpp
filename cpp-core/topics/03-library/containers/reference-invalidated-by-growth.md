@@ -13,7 +13,7 @@ compile:
     int main() {}
 requires:
   - containers-default-to-vector
-  - value-categories-reference-binding-cloze
+  - ptr-dangling
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://en.cppreference.com/w/cpp/container#Iterator_invalidation

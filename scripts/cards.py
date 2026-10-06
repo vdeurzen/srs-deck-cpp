@@ -100,7 +100,10 @@ def in_topic(card, prefix):
     `<deck-id>/<topic prefix>` to pick one Deck."""
     if not prefix:
         return True
+    prefix = prefix.rstrip("/")
     deck, _, rest = prefix.partition("/")
+    rest = rest.removeprefix("topics/")
+    prefix = prefix.removeprefix("topics/")
     if deck == card.deck.id:
         return card.topic.startswith(rest)
     return card.topic.startswith(prefix)

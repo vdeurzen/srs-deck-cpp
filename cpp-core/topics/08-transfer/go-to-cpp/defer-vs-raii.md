@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 2
 tags: [transfer, misconception, raii]
+requires:
+  - raii-owner-in-destructor
 elaborate: Go's defer runs at function exit, LIFO, no matter which return statement fires. Where exactly does a C++ destructor run instead, and why does that make RAII strictly more general than defer?
 refs:
   - https://en.cppreference.com/w/cpp/language/raii

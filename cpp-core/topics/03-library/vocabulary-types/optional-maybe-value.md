@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [vocabulary-types, optional, error-handling]
+requires:
+  - ptr-reference-vs-pointer
 refs:
   - https://en.cppreference.com/w/cpp/utility/optional
 ---

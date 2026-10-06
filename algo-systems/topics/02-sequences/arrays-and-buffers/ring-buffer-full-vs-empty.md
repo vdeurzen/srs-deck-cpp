@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [ring-buffer, low-latency, queues]
+requires:
+  - cpp-core/ptr-element-count
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html
   - https://en.wikipedia.org/wiki/Circular_buffer

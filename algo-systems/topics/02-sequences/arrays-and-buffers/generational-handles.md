@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [arena, handles, compilers, low-latency]
+requires:
+  - cpp-core/ptr-dangling
 refs:
   - https://floooh.github.io/2018/06/17/handles-vs-pointers.html
   - https://docs.rs/slotmap/latest/slotmap/

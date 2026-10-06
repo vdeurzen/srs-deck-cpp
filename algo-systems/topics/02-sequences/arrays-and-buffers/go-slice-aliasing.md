@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [go, slices, aliasing, misconception]
+requires:
+  - cpp-core/ptr-array-decay
 elaborate: Where in your own code does a function take a slice and append to it? What would happen if the caller had spare capacity?
 refs:
   - https://go.dev/blog/slices-intro

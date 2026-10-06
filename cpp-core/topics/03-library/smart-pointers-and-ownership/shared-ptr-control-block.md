@@ -6,6 +6,7 @@ level: 2
 tags: [smart-pointers]
 requires:
   - smart-pointers-unique-ptr-ownership
+  - raii-copy-double-close
 refs:
   - https://en.cppreference.com/w/cpp/memory/shared_ptr
   - https://en.cppreference.com/w/cpp/memory/enable_shared_from_this

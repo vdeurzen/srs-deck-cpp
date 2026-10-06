@@ -13,6 +13,7 @@ compile:
     int main() {}
 requires:
   - strings-string-view-parameter
+  - ptr-dangling
 refs:
   - https://en.cppreference.com/w/cpp/string/basic_string_view
   - https://en.cppreference.com/w/cpp/string/basic_string
