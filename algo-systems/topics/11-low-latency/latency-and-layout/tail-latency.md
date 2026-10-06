@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [low-latency, measurement, distributed]
+requires:
+  - ll-measurement
 refs:
   - https://dl.acm.org/doi/10.1145/2408776.2408794
   - https://github.com/HdrHistogram/HdrHistogram

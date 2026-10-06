@@ -19,6 +19,8 @@ compile:
     constexpr std::array<int, 8> kSorted{1, 2, 3, 4, 5, 6, 7, 8};
     static_assert(partitioned(kSorted) == kSorted);
     int main() {}
+requires:
+  - sort-introsort
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/partition
   - https://en.wikipedia.org/wiki/Quicksort#Lomuto_partition_scheme

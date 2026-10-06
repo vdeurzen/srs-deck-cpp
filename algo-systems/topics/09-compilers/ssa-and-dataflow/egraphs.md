@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, optimisation, rewriting, union-find]
+requires:
+  - compiler-gvn-hash-consing
+  - graph-union-find
 refs:
   - https://arxiv.org/abs/2004.03082
   - https://egraphs-good.github.io/

@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [low-latency, hft, data-structures, layout]
+requires:
+  - ll-memory-pools
+  - seq-intrusive-list
 refs:
   - https://web.archive.org/web/20110219155647/http://howtohft.wordpress.com/2011/02/15/how-to-build-a-fast-limit-order-book/
   - https://en.wikipedia.org/wiki/Order_book

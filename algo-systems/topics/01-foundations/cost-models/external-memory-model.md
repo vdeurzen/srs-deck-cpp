@@ -3,6 +3,8 @@ id: foundations-external-memory-model
 kind: basic
 version: 1
 level: 4
+requires:
+  - foundations-cache-cost-model
 tags: [complexity, cost-model, databases]
 refs:
   - https://dl.acm.org/doi/10.1145/48529.48535

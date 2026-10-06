@@ -5,6 +5,8 @@ version: 1
 level: 2
 tags: [transfer, misconception, ownership]
 elaborate: In Go you can hand a pointer to three different goroutines and never think about who frees it. Name the one C++ owner-tracking tool that gets closest to that experience, and what it costs you that Go's GC does not.
+requires:
+  - smart-pointers-unique-ptr-ownership
 refs:
   - https://en.cppreference.com/w/cpp/memory/new/operator
   - https://en.cppreference.com/w/cpp/memory/unique_ptr

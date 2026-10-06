@@ -10,6 +10,8 @@ probes:
   3: { "dq.size()": "3", "dq.front()": "0", win: "5" }
   4: { "dq.size()": "1", "dq.front()": "3", win: "4" }
   5: { "dq.size()": "2", "dq.front()": "3", win: "4" }
+requires:
+  - heap-monotonic-deque
 refs:
   - https://cp-algorithms.com/data_structures/stack_queue_modification.html
   - https://en.cppreference.com/w/cpp/container/deque

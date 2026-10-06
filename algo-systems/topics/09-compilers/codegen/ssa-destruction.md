@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, ssa, codegen]
+requires:
+  - compiler-ssa-form
+  - compiler-allocation-vocabulary
 refs:
   - https://doi.org/10.1002/(SICI)1097-024X(19980710)28:8%3C859::AID-SPE188%3E3.0.CO;2-8
   - https://doi.org/10.1109/CGO.2009.19

@@ -5,6 +5,8 @@ version: 1
 level: 3
 tags: [go, strings, memory]
 elaborate: In a Go service you know, where does a `[]byte`→`string` conversion sit on the hot path — and could the value be used as a map key instead?
+requires:
+  - seq-go-slice-aliasing
 refs:
   - https://go.dev/blog/strings
   - https://pkg.go.dev/strings#Builder

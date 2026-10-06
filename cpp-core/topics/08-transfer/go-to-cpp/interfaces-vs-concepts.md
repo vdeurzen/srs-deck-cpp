@@ -5,6 +5,8 @@ version: 1
 level: 4
 tags: [transfer, misconception, templates]
 elaborate: Go's interface values carry a hidden type tag so a slice of `Shape` can hold mixed concrete types at runtime. What would the equivalent of that hidden tag be in C++, and which of today's tools actually gives you one?
+requires:
+  - templates-requires-clause
 refs:
   - https://en.cppreference.com/w/cpp/language/constraints
 ---

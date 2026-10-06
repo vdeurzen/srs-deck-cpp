@@ -4,6 +4,8 @@ kind: parsons
 version: 1
 level: 4
 tags: [idioms, variant]
+requires:
+  - chunks-visit-overload-set
 compile:
   harness: |
     int main() {

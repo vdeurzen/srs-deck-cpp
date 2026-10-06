@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 4
 tags: [coroutines, ranges]
+requires:
+  - coroutines-generator-basic
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator
 ---

@@ -6,6 +6,8 @@ level: 2
 tags: [idioms, binary-search, containers]
 expose_ms: 5000
 compile: null
+requires:
+  - ordered-lower-bound-loop
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/lower_bound
   - https://en.cppreference.com/w/cpp/container/vector

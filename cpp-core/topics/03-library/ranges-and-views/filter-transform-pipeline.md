@@ -11,6 +11,8 @@ compile:
   harness: |
     static_assert(sums_to_60());
     int main() {}
+requires:
+  - ranges-views-composition-cloze
 refs:
   - https://en.cppreference.com/w/cpp/ranges/filter_view
   - https://en.cppreference.com/w/cpp/ranges/transform_view

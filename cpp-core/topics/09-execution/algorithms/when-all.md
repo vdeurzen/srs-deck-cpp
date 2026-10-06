@@ -7,6 +7,9 @@ tags: [execution, async, c++26]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-just-and-then
+  - execution-stopped-channel
 ---
 
 ## What does `when_all(a, b)` do when `a` fails while `b` is still running?

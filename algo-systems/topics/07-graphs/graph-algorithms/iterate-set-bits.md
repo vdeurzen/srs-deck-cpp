@@ -15,6 +15,8 @@ compile:
     static_assert(sum_of_indices(~0ULL) == 64 * 63 / 2);
     static_assert(sum_of_indices(1ULL << 63) == 63);
     int main() {}
+requires:
+  - graph-bitset-graphs
 refs:
   - https://en.cppreference.com/w/cpp/numeric/countr_zero
   - https://graphics.stanford.edu/~seander/bithacks.html

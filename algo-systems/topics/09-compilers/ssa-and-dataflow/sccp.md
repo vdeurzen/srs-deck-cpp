@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, ssa, dataflow, optimisation]
+requires:
+  - compiler-ssa-form
+  - compiler-worklist-dataflow
 refs:
   - https://dl.acm.org/doi/10.1145/103135.103136
   - https://llvm.org/docs/Passes.html

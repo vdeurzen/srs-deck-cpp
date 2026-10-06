@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [low-latency, concurrency, market-data]
+requires:
+  - ll-memory-orders
 refs:
   - https://www.kernel.org/doc/html/latest/locking/seqlock.html
   - https://dl.acm.org/doi/10.1145/2247684.2247688

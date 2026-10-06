@@ -4,6 +4,10 @@ kind: explain
 version: 1
 level: 5
 tags: [coroutines]
+requires:
+  - coroutines-done-and-destroy-preconditions
+  - coroutines-frame-allocation
+  - coroutines-symmetric-transfer
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---

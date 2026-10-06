@@ -19,6 +19,8 @@ compile:
     static_assert(select(false, 0, -1) == -1);
     static_assert(select(true, 0, 0) == 0);
     int main() {}
+requires:
+  - foundations-branch-misprediction
 refs:
   - https://en.algorithmica.org/hpc/pipelining/branchless/
   - https://graphics.stanford.edu/~seander/bithacks.html

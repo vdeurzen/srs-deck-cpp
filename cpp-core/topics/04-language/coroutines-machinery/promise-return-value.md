@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 3
 tags: [coroutines]
+requires:
+  - coroutines-co-return-forms
 input: chips
 choices:
   c1: ["return_value", "return_void", "yield_value", "await_transform"]

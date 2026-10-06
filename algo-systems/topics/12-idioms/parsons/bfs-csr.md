@@ -12,6 +12,9 @@ compile:
     static_assert(bfs(0) == std::array<int, 6>{0, 1, 1, 2, 2, 2});
     static_assert(bfs(2) == std::array<int, 6>{-1, -1, 0, -1, 1, 2});
     int main() {}
+requires:
+  - graph-bfs-and-dfs
+  - graph-representations
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search
   - https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)

@@ -7,6 +7,8 @@ tags: [execution, async, c++26, scheduling]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-sender-is-a-description
 ---
 
 ## What is a scheduler, and how does one get into a pipeline?

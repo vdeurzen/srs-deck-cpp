@@ -3,6 +3,8 @@ id: hash-quality-low-bits
 kind: basic
 version: 1
 level: 3
+requires:
+  - hash-chaining-vs-open-addressing
 tags: [hashing, avalanche]
 refs:
   - https://en.cppreference.com/w/cpp/utility/hash

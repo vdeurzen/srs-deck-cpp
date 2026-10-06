@@ -11,6 +11,8 @@ compile:
   harness: |
     static_assert(check());
     int main() {}
+requires:
+  - spaceship-basics
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_comparison#Rewritten_candidates
 ---

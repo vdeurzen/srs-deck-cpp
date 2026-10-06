@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 3
 tags: [coroutines]
+requires:
+  - coroutines-promise-type-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#Execution
 ---

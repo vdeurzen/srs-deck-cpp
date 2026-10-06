@@ -4,6 +4,10 @@ kind: explain
 version: 1
 level: 4
 tags: [move-semantics]
+requires:
+  - move-semantics-destructor-suppresses-move
+  - move-semantics-noexcept-move
+  - move-semantics-perfect-forwarding
 refs:
   - https://en.cppreference.com/w/cpp/language/move_constructor
 ---

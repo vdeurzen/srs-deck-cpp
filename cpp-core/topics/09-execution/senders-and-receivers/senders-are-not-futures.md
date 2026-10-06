@@ -9,6 +9,8 @@ refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://en.cppreference.com/w/cpp/thread/future
   - https://wg21.link/p2300
+requires:
+  - execution-sender-is-a-description
 ---
 
 ## "A sender is basically `std::future` with a working `.then()`." What does this miss?

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 2
 tags: [move-semantics]
+requires:
+  - value-categories-std-move-cloze
 refs:
   - https://en.cppreference.com/w/cpp/utility/move
 ---

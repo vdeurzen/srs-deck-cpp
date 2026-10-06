@@ -3,6 +3,8 @@ id: seq-invalidation-rules
 kind: cloze
 version: 1
 level: 3
+requires:
+  - seq-vector-vs-deque
 tags: [containers, lifetime]
 refs:
   - https://en.cppreference.com/w/cpp/container#Iterator_invalidation

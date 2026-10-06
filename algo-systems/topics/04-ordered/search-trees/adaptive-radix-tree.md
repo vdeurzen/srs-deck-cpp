@@ -3,6 +3,8 @@ id: ordered-adaptive-radix-tree
 kind: basic
 version: 1
 level: 5
+requires:
+  - ordered-radix-trie
 tags: [tries, databases, memory-hierarchy]
 refs:
   - https://db.in.tum.de/~leis/papers/ART.pdf

@@ -4,6 +4,9 @@ kind: cloze
 version: 1
 level: 4
 tags: [sorting, selection, databases]
+requires:
+  - sort-introsort
+  - sort-stability
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/sort
   - https://en.cppreference.com/w/cpp/algorithm/partial_sort

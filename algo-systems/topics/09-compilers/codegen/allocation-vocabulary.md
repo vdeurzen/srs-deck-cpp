@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 5
 tags: [compilers, codegen, registers]
+requires:
+  - compiler-liveness
 refs:
   - https://dl.acm.org/doi/10.1145/177492.177575
   - https://llvm.org/docs/CodeGenerator.html

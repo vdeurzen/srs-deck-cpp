@@ -3,6 +3,8 @@ id: heap-top-k
 kind: basic
 version: 1
 level: 3
+requires:
+  - heap-vocabulary
 tags: [heaps, selection, databases]
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/partial_sort

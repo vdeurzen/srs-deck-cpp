@@ -7,6 +7,9 @@ tags: [execution, async, c++26, coroutines]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - coroutines-await-transform-hook
+  - execution-connect-and-start
 ---
 
 ## How do senders and coroutines fit together, and which one should a given piece of code be?

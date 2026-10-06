@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [databases, distributed, joins]
+requires:
+  - db-hash-join
 refs:
   - https://db.in.tum.de/~leis/papers/morsels.pdf
   - https://spark.apache.org/docs/latest/sql-performance-tuning.html

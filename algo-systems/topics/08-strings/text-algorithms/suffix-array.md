@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [strings, indexing, databases]
+requires:
+  - ordered-lower-bound-loop
 refs:
   - https://en.wikipedia.org/wiki/Suffix_array
   - https://en.wikipedia.org/wiki/LCP_array

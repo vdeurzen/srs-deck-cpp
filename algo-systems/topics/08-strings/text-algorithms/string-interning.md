@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [strings, compilers, databases, memory]
+requires:
+  - hash-chaining-vs-open-addressing
 refs:
   - https://llvm.org/docs/ProgrammersManual.html#the-stringmap-class
   - https://pkg.go.dev/unique

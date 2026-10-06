@@ -3,6 +3,9 @@ id: ordered-branchless-search
 kind: basic
 version: 1
 level: 5
+requires:
+  - ordered-lower-bound-loop
+  - foundations-branch-misprediction
 tags: [binary-search, branchless, memory-hierarchy, low-latency]
 refs:
   - https://en.algorithmica.org/hpc/data-structures/binary-search/

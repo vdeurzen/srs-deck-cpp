@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, codegen, registers, jit]
+requires:
+  - compiler-graph-colouring
 refs:
   - https://dl.acm.org/doi/10.1145/330249.330250
   - https://dl.acm.org/doi/10.1145/1064979.1064998

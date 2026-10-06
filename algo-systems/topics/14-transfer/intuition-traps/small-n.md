@@ -5,6 +5,8 @@ version: 1
 level: 2
 tags: [transfer, misconception, engineering, cost-model]
 elaborate: What is the largest n your "clever" structure will actually see this year? What would the boring version cost at that size?
+requires:
+  - foundations-cache-cost-model
 refs:
   - https://en.algorithmica.org/hpc/
   - https://en.cppreference.com/w/cpp/algorithm/find

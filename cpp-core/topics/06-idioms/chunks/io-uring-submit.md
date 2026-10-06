@@ -4,6 +4,8 @@ kind: chunk
 version: 1
 level: 5
 tags: [idioms, coroutines, io]
+requires:
+  - coroutines-scheduling-io-uring-completion
 expose_ms: 7000
 compile: null
 refs:

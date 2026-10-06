@@ -18,6 +18,8 @@ compile:
     concept Callable = requires(A& a) { call(a); };
     static_assert(Callable<NoCopy>);
     int main() {}
+requires:
+  - move-semantics-perfect-forwarding
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/function_ref
   - https://wg21.link/P0792

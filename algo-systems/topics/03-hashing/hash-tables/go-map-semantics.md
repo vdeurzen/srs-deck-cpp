@@ -3,6 +3,8 @@ id: hash-go-map-semantics
 kind: basic
 version: 1
 level: 3
+requires:
+  - hash-chaining-vs-open-addressing
 tags: [go, hashing, containers]
 elaborate: Which of these three properties would break code you have written in C++ if `unordered_map` adopted it tomorrow?
 refs:

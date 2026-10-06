@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 4
 tags: [coroutines]
+requires:
+  - coroutines-generator-basic
+  - coroutines-await-transform-hook
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator
 ---

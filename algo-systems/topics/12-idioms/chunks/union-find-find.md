@@ -6,6 +6,8 @@ level: 3
 tags: [idioms, union-find, compilers]
 expose_ms: 5000
 compile: null
+requires:
+  - graph-union-find
 refs:
   - https://dl.acm.org/doi/10.1145/321879.321884
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure

@@ -8,6 +8,8 @@ refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://en.cppreference.com/w/cpp/thread/stop_token
   - https://wg21.link/p2300
+requires:
+  - execution-environment-queries
 ---
 
 ## How does cancellation actually travel through a sender chain?

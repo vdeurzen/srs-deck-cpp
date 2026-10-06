@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [graphs, compilers, dataflow]
+requires:
+  - graph-topological-order
 refs:
   - https://www.cs.rice.edu/~keith/EMBED/dom.pdf
   - https://en.wikipedia.org/wiki/Data-flow_analysis#Iterative_algorithm

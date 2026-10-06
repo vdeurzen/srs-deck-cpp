@@ -7,6 +7,9 @@ tags: [execution, async, c++26]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-connect-and-start
+  - execution-just-and-then
 ---
 
 ## What does `std::this_thread::sync_wait(sndr)` return, and why does it live in `std::this_thread` rather than `std::execution`?

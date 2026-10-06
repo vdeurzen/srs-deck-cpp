@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [sorting, branchless, simd, low-latency]
+requires:
+  - foundations-branch-misprediction
 refs:
   - https://dl.acm.org/doi/10.1145/1468075.1468121
   - https://en.wikipedia.org/wiki/Sorting_network

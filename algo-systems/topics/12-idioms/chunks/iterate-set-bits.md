@@ -6,6 +6,8 @@ level: 3
 tags: [idioms, bit-tricks, compilers]
 expose_ms: 6000
 compile: null
+requires:
+  - graph-iterate-set-bits
 refs:
   - https://en.cppreference.com/w/cpp/numeric/countr_zero
   - https://graphics.stanford.edu/~seander/bithacks.html

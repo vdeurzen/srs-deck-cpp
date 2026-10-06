@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 5
 tags: [coroutines]
+requires:
+  - coroutines-awaitable-vs-awaiter
 input: chips
 choices:
   c1: ["await_transform", "await_ready", "transform", "yield_value"]

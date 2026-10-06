@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [low-latency, lock-free, memory, concurrency]
+requires:
+  - ll-aba-problem
 refs:
   - https://www.kernel.org/doc/html/latest/RCU/whatisRCU.html
   - https://en.cppreference.com/w/cpp/header/hazard_pointer

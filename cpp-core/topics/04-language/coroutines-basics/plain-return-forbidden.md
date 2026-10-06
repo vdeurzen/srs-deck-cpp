@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [coroutines]
+requires:
+  - coroutines-what-makes-a-coroutine
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---

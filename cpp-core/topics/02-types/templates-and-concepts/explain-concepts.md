@@ -4,6 +4,9 @@ kind: explain
 version: 1
 level: 4
 tags: [templates, concepts]
+requires:
+  - templates-requires-expression
+  - templates-two-phase-lookup
 refs:
   - https://en.cppreference.com/w/cpp/language/constraints
 ---

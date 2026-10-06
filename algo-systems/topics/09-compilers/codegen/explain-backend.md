@@ -4,6 +4,10 @@ kind: explain
 version: 1
 level: 5
 tags: [compilers, codegen, interview]
+requires:
+  - compiler-instruction-selection
+  - compiler-ssa-destruction
+  - compiler-instruction-scheduling
 refs:
   - https://llvm.org/docs/CodeGenerator.html
   - https://en.wikipedia.org/wiki/Compiler#Back_end

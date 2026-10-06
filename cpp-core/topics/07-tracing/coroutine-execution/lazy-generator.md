@@ -4,6 +4,9 @@ kind: trace
 version: 1
 level: 3
 tags: [tracing, coroutines]
+requires:
+  - parsons-coroutine-generator-skeleton
+  - coroutines-eager-vs-lazy-start
 probes:
   1: { produced: "0" }
   2: { produced: "1", "gen.value()": "10", more: "true" }

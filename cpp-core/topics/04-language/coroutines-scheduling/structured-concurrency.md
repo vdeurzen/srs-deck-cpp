@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [coroutines, scheduling, lifetimes]
+requires:
+  - coroutines-symmetric-transfer
+  - coroutines-parameters-copied
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
   - https://wg21.link/p2300

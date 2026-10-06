@@ -4,6 +4,8 @@ kind: chunk
 version: 1
 level: 3
 tags: [idioms, ranges]
+requires:
+  - ranges-views-composition-cloze
 expose_ms: 8000
 compile:
   harness: |

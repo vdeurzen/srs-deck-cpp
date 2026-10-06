@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [low-latency, lock-free, queues, concurrency]
+requires:
+  - ll-memory-orders
+  - seq-ring-buffer-full-vs-empty
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html
   - https://en.cppreference.com/w/cpp/atomic/memory_order

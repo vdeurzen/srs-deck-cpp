@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [coroutines, performance]
+requires:
+  - coroutines-promise-type-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
   - https://wg21.link/p0981

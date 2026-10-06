@@ -4,6 +4,9 @@ kind: code
 version: 1
 level: 4
 tags: [coroutines]
+requires:
+  - coroutines-promise-type-cloze
+  - coroutines-handle-operations
 input: chips
 choices:
   c1:

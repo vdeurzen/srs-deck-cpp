@@ -3,6 +3,8 @@ id: ordered-go-sort-search
 kind: code
 version: 1
 level: 3
+requires:
+  - ordered-lower-bound-loop
 tags: [go, binary-search, invariants]
 input: chips
 compile: null

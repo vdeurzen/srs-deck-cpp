@@ -3,6 +3,8 @@ id: seq-inline-capacity
 kind: basic
 version: 1
 level: 3
+requires:
+  - foundations-cache-cost-model
 tags: [containers, allocators, compilers]
 refs:
   - https://llvm.org/docs/ProgrammersManual.html#llvm-adt-smallvector-h

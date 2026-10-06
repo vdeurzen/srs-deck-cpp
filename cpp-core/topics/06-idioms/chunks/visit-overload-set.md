@@ -4,6 +4,8 @@ kind: chunk
 version: 1
 level: 4
 tags: [idioms, variant]
+requires:
+  - templates-deduction-guide
 expose_ms: 9000
 compile:
   harness: |

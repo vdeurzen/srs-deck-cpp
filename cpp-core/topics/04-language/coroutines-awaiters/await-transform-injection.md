@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [coroutines, scheduling]
+requires:
+  - coroutines-await-transform-hook
+  - coroutines-scheduling-promise-arguments
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
 ---

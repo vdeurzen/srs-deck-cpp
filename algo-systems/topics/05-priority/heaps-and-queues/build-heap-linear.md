@@ -3,6 +3,8 @@ id: heap-build-linear
 kind: basic
 version: 1
 level: 3
+requires:
+  - heap-vocabulary
 tags: [heaps, complexity, amortised]
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/make_heap

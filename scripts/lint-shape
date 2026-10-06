@@ -10,7 +10,7 @@
 
 These are heuristics: a flag means "look at this", not "this is wrong".
 
-usage: scripts/lint-shape <deck-dir> [<deck-dir> ...] [--topic <prefix>] [--summary]
+usage: scripts/lint-shape <deck-dir> [<deck-dir> ...] [--topic [<deck-id>/]<prefix>] [--summary]
 """
 
 import collections
@@ -19,7 +19,7 @@ import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from cards import FENCE, Deck, clozes  # noqa: E402
+from cards import FENCE, Deck, clozes, in_topic  # noqa: E402
 
 MAX_WORDS, MAX_BLANKS, MAX_RUBRIC = 60, 3, 5
 JOINED = re.compile(r"[,;]?\s+and\s+(why|when|how|what|which|where)\b", re.I)
@@ -77,7 +77,7 @@ def main(argv):
     for root in argv:
         deck = Deck(root)
         for card in sorted(deck.cards.values(), key=lambda c: c.path):
-            if prefix and not card.topic.startswith(prefix):
+            if not in_topic(card, prefix):
                 continue
             issues = lint(card)
             flagged += bool(issues)

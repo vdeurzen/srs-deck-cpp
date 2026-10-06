@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [coroutines, lifetimes, misconception]
+requires:
+  - coroutines-parameters-copied
 elaborate: Which parameter types in your own coroutines are secretly references — string_view, span, a lambda taken by const&? Pick one and decide whether the caller can really keep it alive.
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator

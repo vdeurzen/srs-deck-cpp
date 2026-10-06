@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [coroutines, scheduling]
+requires:
+  - coroutines-scheduling-schedule-awaiter
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
   - https://en.cppreference.com/w/cpp/execution

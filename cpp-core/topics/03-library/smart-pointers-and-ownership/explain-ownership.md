@@ -4,6 +4,8 @@ kind: explain
 version: 1
 level: 4
 tags: [smart-pointers]
+requires:
+  - smart-pointers-weak-ptr-breaks-cycles
 refs:
   - https://en.cppreference.com/w/cpp/memory
 ---

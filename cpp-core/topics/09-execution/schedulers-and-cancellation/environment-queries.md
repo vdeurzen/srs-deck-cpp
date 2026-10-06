@@ -7,6 +7,8 @@ tags: [execution, async, c++26, scheduling]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-connect-and-start
 ---
 
 The answer to "where does an operation find its scheduler, its

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [databases, durability, storage]
+requires:
+  - db-buffer-pool
 refs:
   - https://cs.stanford.edu/people/chrismre/cs345/rl/aries.pdf
   - https://www.postgresql.org/docs/current/wal-intro.html

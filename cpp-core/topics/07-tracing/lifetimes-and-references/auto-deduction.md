@@ -7,6 +7,8 @@ tags: [tracing, auto]
 probes:
   1: { x: "1", y: "1" }
   2: { x: "1", y: "99" }
+requires:
+  - trace-copy-vs-reference
 refs:
   - https://en.cppreference.com/w/cpp/language/auto
 ---

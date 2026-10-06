@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [sorting, databases, external-memory]
+requires:
+  - foundations-external-memory-model
 refs:
   - https://dl.acm.org/doi/10.1145/48529.48535
   - https://15445.courses.cs.cmu.edu/

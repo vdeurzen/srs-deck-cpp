@@ -15,6 +15,8 @@ compile:
     constexpr std::array<int, 8> kSame{7, 7, 7, 7, 7, 7, 7, 7};
     static_assert(counting_sort(kSame) == kSame);
     int main() {}
+requires:
+  - sort-radix
 refs:
   - https://en.wikipedia.org/wiki/Counting_sort
   - https://en.wikipedia.org/wiki/Radix_sort

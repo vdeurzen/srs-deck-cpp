@@ -18,6 +18,8 @@ compile:
     static_assert(intersect(kIdom, 0, 3) == 5);   // F and E  -> A
     static_assert(intersect(kIdom, 5, 5) == 5);   // A with itself
     int main() {}
+requires:
+  - compiler-dominance
 refs:
   - https://www.cs.rice.edu/~keith/EMBED/dom.pdf
   - https://en.wikipedia.org/wiki/Dominator_(graph_theory)

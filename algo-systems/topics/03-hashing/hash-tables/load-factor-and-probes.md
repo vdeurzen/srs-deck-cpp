@@ -3,6 +3,8 @@ id: hash-load-factor-and-probes
 kind: cloze
 version: 1
 level: 4
+requires:
+  - hash-chaining-vs-open-addressing
 tags: [hashing, complexity, open-addressing]
 refs:
   - https://en.wikipedia.org/wiki/Linear_probing

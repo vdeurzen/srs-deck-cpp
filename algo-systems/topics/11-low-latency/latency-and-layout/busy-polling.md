@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [low-latency, hft, os, networking]
+requires:
+  - ll-hardware-numbers
 refs:
   - https://www.kernel.org/doc/html/latest/networking/napi.html
   - https://doc.dpdk.org/guides/prog_guide/overview.html

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 2
 tags: [value-categories, overload-resolution]
+requires:
+  - value-categories-reference-binding-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category
   - https://en.cppreference.com/w/cpp/language/reference

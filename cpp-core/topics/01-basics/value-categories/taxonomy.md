@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [value-categories]
+requires:
+  - value-categories-categories-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category
 ---

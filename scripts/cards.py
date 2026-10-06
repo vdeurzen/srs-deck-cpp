@@ -93,3 +93,14 @@ def fill(text, sub=None):
         out += [text[last:start], sub.get(n, answer)]
         last = end
     return "".join(out + [text[last:]])
+
+
+def in_topic(card, prefix):
+    """True if `card` is under `prefix`: a topic prefix (any Deck), or
+    `<deck-id>/<topic prefix>` to pick one Deck."""
+    if not prefix:
+        return True
+    deck, _, rest = prefix.partition("/")
+    if deck == card.deck.id:
+        return card.topic.startswith(rest)
+    return card.topic.startswith(prefix)

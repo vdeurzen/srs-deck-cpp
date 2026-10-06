@@ -5,6 +5,8 @@ version: 1
 level: 5
 tags: [low-latency, lock-free, concurrency, misconception]
 elaborate: Where in a lock-free structure you have read (or written) does a CAS assume that an unchanged value means an unchanged world?
+requires:
+  - ll-progress-guarantees
 refs:
   - https://en.wikipedia.org/wiki/ABA_problem
   - https://www.cs.rochester.edu/~scott/papers/1996_PODC_queues.pdf

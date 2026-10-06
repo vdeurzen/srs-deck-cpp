@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 3
 tags: [coroutines]
+requires:
+  - coroutines-suspension-points-cloze
 input: chips
 choices:
   c1: ["await_ready", "ready", "is_ready", "await_suspend"]

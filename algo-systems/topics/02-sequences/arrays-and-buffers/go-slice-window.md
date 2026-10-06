@@ -3,6 +3,8 @@ id: seq-go-slice-window
 kind: code
 version: 1
 level: 3
+requires:
+  - seq-go-slice-aliasing
 tags: [go, slices, aliasing]
 input: chips
 compile: null

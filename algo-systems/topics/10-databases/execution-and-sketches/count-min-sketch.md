@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [databases, sketches, probabilistic, streaming]
+requires:
+  - db-bloom-filter
+  - heap-top-k
 refs:
   - http://dimacs.rutgers.edu/~graham/pubs/papers/cm-full.pdf
   - https://en.wikipedia.org/wiki/Count%E2%80%93min_sketch

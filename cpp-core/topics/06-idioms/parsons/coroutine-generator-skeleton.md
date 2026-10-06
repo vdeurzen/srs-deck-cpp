@@ -4,6 +4,9 @@ kind: parsons
 version: 1
 level: 4
 tags: [idioms, coroutines]
+requires:
+  - coroutines-generator-yield-value
+  - coroutines-handle-operations
 compile:
   harness: |
     Generator<int> count_to(int n) {

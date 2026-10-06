@@ -15,6 +15,9 @@ compile:
     }
     static_assert(check());
     int main() {}
+requires:
+  - value-categories-overload-binding
+  - templates-instantiation
 refs:
   - https://en.cppreference.com/w/cpp/utility/forward
 ---

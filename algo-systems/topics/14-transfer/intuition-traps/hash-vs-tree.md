@@ -5,6 +5,9 @@ version: 1
 level: 3
 tags: [transfer, misconception, hashing, trees]
 elaborate: Pick a map in your codebase. Does anything iterate it, range over it, or depend on its order — and would you notice if the order changed?
+requires:
+  - hash-chaining-vs-open-addressing
+  - ordered-why-balance
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map
   - https://abseil.io/docs/cpp/guides/container

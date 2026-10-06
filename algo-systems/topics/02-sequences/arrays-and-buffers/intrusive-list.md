@@ -3,6 +3,8 @@ id: seq-intrusive-list
 kind: basic
 version: 1
 level: 4
+requires:
+  - foundations-cache-cost-model
 tags: [containers, low-latency, intrusive]
 refs:
   - https://www.boost.org/doc/libs/release/doc/html/intrusive/intrusive_vs_nontrusive.html

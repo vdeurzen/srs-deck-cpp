@@ -18,6 +18,8 @@ compile:
     static_assert(heapify(std::array<int, 7>{1, 2, 3, 4, 5, 6, 7}) ==
                   std::array<int, 7>{7, 5, 6, 4, 2, 1, 3});
     int main() {}
+requires:
+  - heap-array-layout
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/make_heap
   - https://en.wikipedia.org/wiki/Binary_heap

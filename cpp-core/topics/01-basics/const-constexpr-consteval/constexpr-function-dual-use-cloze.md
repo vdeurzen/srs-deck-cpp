@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 2
 tags: [const-constexpr-consteval]
+requires:
+  - const-constexpr-const-vs-constexpr-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/constexpr
 ---

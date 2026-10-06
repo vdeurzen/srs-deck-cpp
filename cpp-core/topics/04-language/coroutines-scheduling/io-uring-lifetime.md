@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [coroutines, scheduling, io, lifetimes, misconception]
+requires:
+  - coroutines-scheduling-io-uring-completion
 elaborate: In your own async code, what is the equivalent of "the kernel still holds this pointer" — a callback registered elsewhere, a pending timer, a detached thread? How does that operation get cancelled and joined?
 refs:
   - https://man7.org/linux/man-pages/man3/io_uring_prep_cancel.3.html

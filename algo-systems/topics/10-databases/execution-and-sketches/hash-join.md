@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 4
 tags: [databases, joins, memory-hierarchy]
+requires:
+  - hash-chaining-vs-open-addressing
+  - foundations-cache-cost-model
 refs:
   - https://www.vldb.org/pvldb/vol7/p85-balkesen.pdf
   - https://15445.courses.cs.cmu.edu/

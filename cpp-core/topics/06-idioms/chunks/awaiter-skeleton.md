@@ -4,6 +4,8 @@ kind: chunk
 version: 1
 level: 3
 tags: [idioms, coroutines]
+requires:
+  - coroutines-suspension-points-cloze
 expose_ms: 9000
 compile:
   harness: |

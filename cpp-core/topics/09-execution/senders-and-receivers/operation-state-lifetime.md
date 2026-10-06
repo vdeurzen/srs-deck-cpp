@@ -7,6 +7,8 @@ tags: [execution, async, c++26, lifetimes]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-connect-and-start
 ---
 
 ## Why is an operation state neither copyable nor movable, and how long must it live?

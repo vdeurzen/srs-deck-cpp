@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 4
 tags: [ranges]
+requires:
+  - ranges-views-lazy-cloze
 refs:
   - https://en.cppreference.com/w/cpp/ranges/borrowed_range
 ---

@@ -5,6 +5,8 @@ version: 1
 level: 3
 tags: [transfer, misconception, complexity, cost-model]
 elaborate: Think of a time a lower-complexity algorithm lost in production. What was the hidden cost — allocation, misses, branches, or setup?
+requires:
+  - foundations-cache-cost-model
 refs:
   - https://en.algorithmica.org/hpc/
   - https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions

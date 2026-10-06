@@ -13,6 +13,8 @@ compile:
     static_assert(!std::is_copy_constructible_v<Buffer>);
     static_assert(std::is_nothrow_move_constructible_v<Buffer>);
     int main() {}
+requires:
+  - move-semantics-rule-of-five
 refs:
   - https://en.cppreference.com/w/cpp/language/rule_of_three
   - https://en.cppreference.com/w/cpp/types/is_move_constructible

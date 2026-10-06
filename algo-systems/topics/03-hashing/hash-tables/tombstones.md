@@ -3,6 +3,8 @@ id: hash-tombstones
 kind: basic
 version: 1
 level: 3
+requires:
+  - hash-chaining-vs-open-addressing
 tags: [hashing, open-addressing, misconception]
 elaborate: Does a table in your own system ever see delete-heavy traffic? What would tell you its tombstones had taken over — and what would you measure?
 refs:

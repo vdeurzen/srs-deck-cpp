@@ -3,6 +3,8 @@ id: foundations-aos-vs-soa
 kind: basic
 version: 1
 level: 3
+requires:
+  - foundations-cache-cost-model
 tags: [memory-hierarchy, layout, databases, low-latency]
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/aos-soa/

@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [coroutines]
+requires:
+  - coroutines-await-suspend-return-types
+  - coroutines-handle-typed-vs-erased
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/noop_coroutine
   - https://wg21.link/p0913

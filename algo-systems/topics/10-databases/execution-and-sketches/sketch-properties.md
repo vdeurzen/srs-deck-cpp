@@ -4,6 +4,9 @@ kind: cloze
 version: 1
 level: 4
 tags: [databases, sketches, probabilistic]
+requires:
+  - db-count-min-sketch
+  - db-hyperloglog
 refs:
   - https://datasketches.apache.org/
   - https://en.wikipedia.org/wiki/Streaming_algorithm

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [databases, compression, layout, simd]
+requires:
+  - foundations-aos-vs-soa
 refs:
   - https://www.cidrdb.org/cidr2005/papers/P19.pdf
   - https://parquet.apache.org/docs/file-format/data-pages/encodings/

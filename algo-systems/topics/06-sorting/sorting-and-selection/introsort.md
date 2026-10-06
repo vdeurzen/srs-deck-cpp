@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [sorting, complexity]
+requires:
+  - heap-vocabulary
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/sort
   - https://www.cs.rpi.edu/~musser/gp/introsort.ps

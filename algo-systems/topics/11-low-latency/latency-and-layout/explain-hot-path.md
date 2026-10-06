@@ -4,6 +4,10 @@ kind: explain
 version: 1
 level: 5
 tags: [low-latency, hft, interview]
+requires:
+  - ll-spsc-ring
+  - ll-busy-polling
+  - ll-tail-latency
 refs:
   - https://en.algorithmica.org/hpc/
   - https://dl.acm.org/doi/10.1145/2408776.2408794

@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 4
 tags: [coroutines]
+requires:
+  - coroutines-handle-typed-vs-erased
 input: chips
 choices:
   c1: ["from_promise", "from_address", "promise", "address"]

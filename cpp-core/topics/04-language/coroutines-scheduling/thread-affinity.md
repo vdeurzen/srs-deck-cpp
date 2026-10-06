@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 4
 tags: [coroutines, scheduling, concurrency]
+requires:
+  - coroutines-scheduling-schedule-awaiter
 refs:
   - https://en.cppreference.com/w/cpp/thread/lock_guard
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await

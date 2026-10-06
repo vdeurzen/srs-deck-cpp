@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [databases, execution, simd, compilers]
+requires:
+  - foundations-branch-misprediction
+  - foundations-aos-vs-soa
 refs:
   - https://www.cidrdb.org/cidr2005/papers/P19.pdf
   - https://www.vldb.org/pvldb/vol11/p2209-kersten.pdf

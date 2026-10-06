@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [graphs, bitsets, compilers, simd]
+requires:
+  - graph-representations
 refs:
   - https://en.cppreference.com/w/cpp/utility/bitset
   - https://en.cppreference.com/w/cpp/numeric/countr_zero

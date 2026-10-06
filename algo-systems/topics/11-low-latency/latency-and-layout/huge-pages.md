@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [low-latency, memory-hierarchy, os]
+requires:
+  - ll-hardware-numbers
 refs:
   - https://www.kernel.org/doc/html/latest/admin-guide/mm/hugetlbpage.html
   - https://en.wikipedia.org/wiki/Translation_lookaside_buffer

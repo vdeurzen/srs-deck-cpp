@@ -7,6 +7,8 @@ tags: [execution, async, c++26, scheduling]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-scheduler-and-schedule
 ---
 
 Two adaptors place work in time, and the difference is which end of the

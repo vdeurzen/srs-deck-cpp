@@ -20,6 +20,8 @@ compile:
     // x is read *and then* written in this block: it is live coming in.
     static_assert(live_in(0b0100, 0b0100, 0b0000) == 0b0100);
     int main() {}
+requires:
+  - compiler-liveness
 refs:
   - https://en.wikipedia.org/wiki/Live-variable_analysis
   - https://suif.stanford.edu/~courses/cs243/

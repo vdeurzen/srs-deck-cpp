@@ -3,6 +3,8 @@ id: hash-h1-h2-split
 kind: code
 version: 1
 level: 4
+requires:
+  - hash-swiss-table-metadata
 tags: [hashing, open-addressing, simd]
 input: chips
 choices:

@@ -6,6 +6,8 @@ level: 4
 tags: [idioms, sliding-window, amortised]
 expose_ms: 7000
 compile: null
+requires:
+  - heap-monotonic-deque
 refs:
   - https://cp-algorithms.com/data_structures/stack_queue_modification.html
   - https://en.cppreference.com/w/cpp/container/deque

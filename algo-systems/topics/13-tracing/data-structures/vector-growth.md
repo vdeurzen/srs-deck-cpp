@@ -9,6 +9,8 @@ probes:
   2: { "v.size()": "2", "v.capacity()": "2", "v[0]": "1" }
   3: { "v.size()": "3", "v.capacity()": "4", "v[0]": "1" }
   4: { "v.size()": "4", "v.capacity()": "4", "v[0]": "0" }
+requires:
+  - foundations-growth-factor
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://en.cppreference.com/w/cpp/container/vector/reserve

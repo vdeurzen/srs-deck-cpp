@@ -3,6 +3,8 @@ id: seq-ring-buffer-mask
 kind: code
 version: 1
 level: 2
+requires:
+  - seq-ring-buffer-full-vs-empty
 tags: [ring-buffer, low-latency, bit-tricks]
 input: chips
 choices:

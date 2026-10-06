@@ -7,6 +7,8 @@ tags: [tracing, ranges]
 probes:
   1: { total: "0", seen: "0" }
   2: { total: "60", seen: "3", result: "60" }
+requires:
+  - value-categories-temporary-materialization
 refs:
   - https://en.cppreference.com/w/cpp/language/range-for
 ---

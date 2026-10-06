@@ -3,6 +3,8 @@ id: heap-lazy-deletion
 kind: basic
 version: 1
 level: 4
+requires:
+  - heap-vocabulary
 tags: [heaps, graphs, idioms]
 refs:
   - https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Using_a_priority_queue

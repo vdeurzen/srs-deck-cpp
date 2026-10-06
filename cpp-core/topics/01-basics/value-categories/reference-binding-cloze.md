@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 2
 tags: [value-categories, references]
+requires:
+  - value-categories-categories-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
 ---

@@ -4,6 +4,9 @@ kind: explain
 version: 1
 level: 5
 tags: [coroutines, scheduling, io]
+requires:
+  - coroutines-scheduling-stop-token-plumbing
+  - coroutines-scheduling-structured-concurrency
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
   - https://man7.org/linux/man-pages/man7/io_uring.7.html

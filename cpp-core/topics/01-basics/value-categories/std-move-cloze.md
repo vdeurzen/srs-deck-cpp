@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 2
 tags: [value-categories]
+requires:
+  - value-categories-taxonomy
 refs:
   - https://en.cppreference.com/w/cpp/utility/move
 ---

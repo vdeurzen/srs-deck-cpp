@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 5
 tags: [compilers, dataflow, lattices]
+requires:
+  - compiler-liveness
 refs:
   - https://en.wikipedia.org/wiki/Data-flow_analysis
   - https://suif.stanford.edu/~courses/cs243/

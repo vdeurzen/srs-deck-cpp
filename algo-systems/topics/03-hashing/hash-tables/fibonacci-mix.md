@@ -3,6 +3,8 @@ id: hash-fibonacci-mix
 kind: code
 version: 1
 level: 4
+requires:
+  - hash-quality-low-bits
 tags: [hashing, bit-tricks]
 input: chips
 choices:

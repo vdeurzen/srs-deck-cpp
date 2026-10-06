@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [strings, automata, scanning]
+requires:
+  - str-kmp-failure-function
 refs:
   - https://dl.acm.org/doi/10.1145/360825.360855
   - https://en.wikipedia.org/wiki/Aho%E2%80%93Corasick_algorithm

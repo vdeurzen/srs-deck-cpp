@@ -3,6 +3,8 @@ id: hash-robin-hood
 kind: basic
 version: 1
 level: 4
+requires:
+  - hash-primary-clustering
 tags: [hashing, open-addressing]
 refs:
   - https://cs.uwaterloo.ca/research/tr/1986/CS-86-14.pdf

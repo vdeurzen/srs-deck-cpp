@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 5
 tags: [coroutines]
+requires:
+  - coroutines-await-suspend-return-types
 input: chips
 choices:
   c1: ["std::coroutine_handle<>", "void", "bool", "std::suspend_always"]

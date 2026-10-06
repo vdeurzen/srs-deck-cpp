@@ -3,6 +3,9 @@ id: ordered-rbtree-vs-btree
 kind: basic
 version: 1
 level: 3
+requires:
+  - ordered-why-balance
+  - foundations-cache-cost-model
 tags: [trees, memory-hierarchy, databases]
 refs:
   - https://en.cppreference.com/w/cpp/container/map

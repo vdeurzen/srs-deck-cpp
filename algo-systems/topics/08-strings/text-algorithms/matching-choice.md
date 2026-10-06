@@ -4,6 +4,9 @@ kind: cloze
 version: 1
 level: 4
 tags: [strings, automata, scanning]
+requires:
+  - str-aho-corasick
+  - str-rolling-hash
 refs:
   - https://en.wikipedia.org/wiki/String-searching_algorithm
   - https://en.cppreference.com/w/cpp/algorithm/search

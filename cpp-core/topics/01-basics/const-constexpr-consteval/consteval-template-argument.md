@@ -11,6 +11,8 @@ compile:
   harness: |
     static_assert(Box<cube(3)>::value == 27);
     int main() {}
+requires:
+  - const-constexpr-consteval-immediate-function-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/consteval
 ---

@@ -5,6 +5,8 @@ version: 1
 level: 3
 tags: [transfer, misconception, memory-hierarchy]
 elaborate: Which loop in your hot path has a data-dependent address? Could the data be reordered so the access becomes sequential?
+requires:
+  - foundations-cache-cost-model
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/
   - https://en.wikipedia.org/wiki/Random-access_machine

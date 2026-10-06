@@ -5,6 +5,9 @@ version: 1
 level: 3
 tags: [graphs, shortest-paths, misconception]
 elaborate: Where might a negative weight sneak into a graph you work with — a cost model, a latency budget, a profit calculation?
+requires:
+  - graph-bfs-and-dfs
+  - heap-vocabulary
 refs:
   - https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
   - https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm

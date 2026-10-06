@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [graphs, compilers, dfs]
+requires:
+  - graph-bfs-and-dfs
 refs:
   - https://epubs.siam.org/doi/10.1137/0201010
   - https://en.wikipedia.org/wiki/Tarjan%27s_strongly_connected_components_algorithm

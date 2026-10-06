@@ -9,6 +9,8 @@ probes:
   2: { "h[0]": "11", "h[1]": "9", "h.back()": "3", "h.size()": "5" }
   3: { "h[0]": "9", "h[1]": "3", "h.back()": "11", "h.size()": "5" }
   4: { "h[0]": "9", "h[1]": "3", "h.back()": "1", "h.size()": "4" }
+requires:
+  - heap-array-layout
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/make_heap
   - https://en.cppreference.com/w/cpp/algorithm/pop_heap

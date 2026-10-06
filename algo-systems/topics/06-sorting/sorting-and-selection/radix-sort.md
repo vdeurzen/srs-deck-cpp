@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [sorting, databases, low-latency]
+requires:
+  - sort-stability
 refs:
   - https://en.wikipedia.org/wiki/Radix_sort
   - https://en.algorithmica.org/hpc/algorithms/sorting/

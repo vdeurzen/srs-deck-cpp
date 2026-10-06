@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [compilers, cfg, dominance]
+requires:
+  - graph-bfs-and-dfs
 refs:
   - https://www.cs.rice.edu/~keith/EMBED/dom.pdf
   - https://dl.acm.org/doi/10.1145/357062.357071

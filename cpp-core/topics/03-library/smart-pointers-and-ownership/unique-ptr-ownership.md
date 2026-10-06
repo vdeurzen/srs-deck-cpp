@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [smart-pointers]
+requires:
+  - value-categories-std-move-cloze
 refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr
 ---

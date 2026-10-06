@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, ssa, dominance]
+requires:
+  - compiler-dominance
+  - compiler-ssa-form
 refs:
   - https://dl.acm.org/doi/10.1145/115372.115320
   - https://www.cs.rice.edu/~keith/EMBED/dom.pdf

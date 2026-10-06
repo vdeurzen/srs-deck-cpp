@@ -4,6 +4,9 @@ kind: code
 version: 1
 level: 4
 tags: [coroutines, scheduling]
+requires:
+  - coroutines-handle-typed-vs-erased
+  - coroutines-suspension-points-cloze
 input: chips
 choices:
   c1:

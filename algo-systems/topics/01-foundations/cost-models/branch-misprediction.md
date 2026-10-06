@@ -3,6 +3,8 @@ id: foundations-branch-misprediction
 kind: basic
 version: 1
 level: 3
+requires:
+  - foundations-latency-scale
 tags: [cost-model, branchless, low-latency]
 refs:
   - https://en.algorithmica.org/hpc/pipelining/branching/

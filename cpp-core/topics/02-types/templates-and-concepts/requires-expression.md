@@ -26,6 +26,8 @@ compile:
     static_assert(Hashable<int>);
     static_assert(Hashable<Widget>);
     int main() {}
+requires:
+  - templates-requires-clause
 refs:
   - https://en.cppreference.com/w/cpp/language/requires
 ---

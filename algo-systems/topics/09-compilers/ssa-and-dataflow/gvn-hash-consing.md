@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, ssa, optimisation, hashing]
+requires:
+  - compiler-ssa-form
 refs:
   - https://en.wikipedia.org/wiki/Value_numbering
   - https://en.wikipedia.org/wiki/Hash_consing

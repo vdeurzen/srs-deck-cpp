@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [coroutines]
+requires:
+  - coroutines-eager-vs-lazy-start
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator
 ---

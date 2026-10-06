@@ -3,6 +3,8 @@ id: ordered-order-statistics
 kind: basic
 version: 1
 level: 4
+requires:
+  - ordered-why-balance
 tags: [trees, databases, ranking]
 refs:
   - https://en.wikipedia.org/wiki/Order_statistic_tree

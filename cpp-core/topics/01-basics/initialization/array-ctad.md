@@ -12,6 +12,8 @@ compile:
     static_assert(arr.size() == 3);
     static_assert(arr[0] == 1 && arr[1] == 2 && arr[2] == 3);
     int main() {}
+requires:
+  - initialization-aggregate-braces
 refs:
   - https://en.cppreference.com/w/cpp/container/array/deduction_guides
 ---

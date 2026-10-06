@@ -3,6 +3,8 @@ id: ordered-btree-fanout
 kind: cloze
 version: 1
 level: 4
+requires:
+  - ordered-bplus-tree
 tags: [trees, databases, external-memory]
 refs:
   - https://en.wikipedia.org/wiki/B-tree

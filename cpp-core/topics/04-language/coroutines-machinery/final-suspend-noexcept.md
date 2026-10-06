@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 4
 tags: [coroutines]
+requires:
+  - coroutines-return-object-timing
 input: chips
 choices:
   c1: ["noexcept", "const", "noexcept(false)", "&"]

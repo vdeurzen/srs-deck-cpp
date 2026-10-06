@@ -3,6 +3,8 @@ id: heap-go-container-heap
 kind: basic
 version: 1
 level: 3
+requires:
+  - heap-vocabulary
 tags: [go, heaps, interfaces]
 elaborate: Which of the two designs would you rather debug at 3 a.m., and which would you rather see in a profile?
 refs:

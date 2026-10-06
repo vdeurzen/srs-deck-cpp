@@ -15,6 +15,8 @@ compile:
     static_assert(Accepts<int>);
     static_assert(!Accepts<double>);
     int main() {}
+requires:
+  - templates-concepts-vs-sfinae
 refs:
   - https://en.cppreference.com/w/cpp/concepts/integral
 ---

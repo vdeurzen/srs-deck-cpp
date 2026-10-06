@@ -4,6 +4,9 @@ kind: chunk
 version: 1
 level: 4
 tags: [idioms, execution, async, c++26]
+requires:
+  - execution-starts-on-vs-continues-on
+  - execution-sync-wait
 expose_ms: 9000
 compile: null
 refs:

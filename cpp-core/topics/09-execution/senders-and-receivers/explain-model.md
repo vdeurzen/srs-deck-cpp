@@ -7,6 +7,10 @@ tags: [execution, async, c++26]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-operation-state-lifetime
+  - execution-completion-signatures
+  - execution-senders-are-not-futures
 ---
 Explain the sender/receiver model of `std::execution` to a colleague
 who knows callbacks and `std::future` but has not read P2300.

@@ -4,6 +4,8 @@ kind: chunk
 version: 1
 level: 3
 tags: [idioms, templates]
+requires:
+  - const-constexpr-if-constexpr-discard
 expose_ms: 10000
 compile:
   harness: |

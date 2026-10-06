@@ -4,6 +4,8 @@ kind: trace
 version: 1
 level: 4
 tags: [tracing, coroutines]
+requires:
+  - coroutines-done-and-destroy-preconditions
 probes:
   1: { hooks: "GI" }
   2: { hooks: "GIBRF" }

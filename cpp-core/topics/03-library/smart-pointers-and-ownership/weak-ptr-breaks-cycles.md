@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [smart-pointers]
+requires:
+  - smart-pointers-shared-ptr-control-block
 refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr
 ---

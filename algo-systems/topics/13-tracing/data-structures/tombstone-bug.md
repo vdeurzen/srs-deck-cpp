@@ -9,6 +9,8 @@ probes:
   2: { has: "true", "t.contains(11)": "true", "t.contains(19)": "true" }
   3: { has: "true", "t.contains(11)": "false", "t.contains(19)": "false" }
   4: { has: "false", "t.contains(11)": "false", "t.contains(19)": "false" }
+requires:
+  - hash-tombstones
 refs:
   - https://en.wikipedia.org/wiki/Lazy_deletion
   - https://abseil.io/about/design/swisstables

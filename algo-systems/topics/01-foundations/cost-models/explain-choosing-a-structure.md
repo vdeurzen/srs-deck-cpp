@@ -3,6 +3,10 @@ id: foundations-explain-choosing-a-structure
 kind: explain
 version: 1
 level: 4
+requires:
+  - foundations-cache-cost-model
+  - foundations-amortised-vs-average
+  - foundations-external-memory-model
 tags: [complexity, cost-model, interview]
 refs:
   - https://en.algorithmica.org/hpc/

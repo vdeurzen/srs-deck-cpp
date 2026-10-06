@@ -11,6 +11,8 @@ compile:
   harness: |
     static_assert(std::is_nothrow_move_constructible_v<Widget>);
     int main() {}
+requires:
+  - move-semantics-rule-of-five
 refs:
   - https://en.cppreference.com/w/cpp/language/noexcept_spec
   - https://en.cppreference.com/w/cpp/container/vector/push_back

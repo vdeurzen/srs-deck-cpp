@@ -6,6 +6,8 @@ level: 4
 tags: [idioms, sketches, hashing, databases]
 expose_ms: 6000
 compile: null
+requires:
+  - db-bloom-filter
 refs:
   - https://www.eecs.harvard.edu/~michaelm/postscripts/rsa2008.pdf
   - https://github.com/facebook/rocksdb/wiki/RocksDB-Bloom-Filter

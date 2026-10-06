@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [coroutines, scheduling]
+requires:
+  - coroutines-scheduling-promise-arguments
+  - coroutines-scheduling-schedule-awaiter
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle

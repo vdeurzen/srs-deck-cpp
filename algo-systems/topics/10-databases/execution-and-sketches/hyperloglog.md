@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [databases, sketches, probabilistic]
+requires:
+  - hash-quality-low-bits
 refs:
   - http://algo.inria.fr/flajolet/Publications/FlFuGaMe07.pdf
   - https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/40671.pdf

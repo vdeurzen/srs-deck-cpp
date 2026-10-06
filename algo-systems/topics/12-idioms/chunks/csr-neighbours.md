@@ -6,6 +6,8 @@ level: 3
 tags: [idioms, graphs, layout]
 expose_ms: 5000
 compile: null
+requires:
+  - graph-representations
 refs:
   - https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)
   - https://en.algorithmica.org/hpc/

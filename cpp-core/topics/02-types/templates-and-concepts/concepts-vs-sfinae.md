@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [templates, concepts]
+requires:
+  - templates-instantiation
 refs:
   - https://en.cppreference.com/w/cpp/language/constraints
 ---

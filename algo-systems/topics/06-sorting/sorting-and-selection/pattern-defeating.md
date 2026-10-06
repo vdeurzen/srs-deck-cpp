@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [sorting, adaptivity]
+requires:
+  - sort-introsort
 refs:
   - https://github.com/orlp/pdqsort
   - https://github.com/python/cpython/blob/main/Objects/listsort.txt

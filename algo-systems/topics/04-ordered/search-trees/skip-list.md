@@ -3,6 +3,8 @@ id: ordered-skip-list
 kind: basic
 version: 1
 level: 4
+requires:
+  - ordered-why-balance
 tags: [trees, randomised, databases, concurrency]
 refs:
   - https://dl.acm.org/doi/10.1145/78973.78977

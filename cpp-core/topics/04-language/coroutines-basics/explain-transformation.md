@@ -4,6 +4,10 @@ kind: explain
 version: 1
 level: 4
 tags: [coroutines]
+requires:
+  - coroutines-return-object-timing
+  - coroutines-frame-allocation
+  - coroutines-awaitable-vs-awaiter
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---

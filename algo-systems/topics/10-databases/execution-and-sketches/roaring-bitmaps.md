@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [databases, bitsets, indexing]
+requires:
+  - graph-bitset-graphs
 refs:
   - https://arxiv.org/abs/1603.06549
   - https://roaringbitmap.org/

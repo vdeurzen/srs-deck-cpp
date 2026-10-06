@@ -19,6 +19,8 @@ compile:
     static_assert(quickselect(kData, 6) == 8);
     static_assert(quickselect(kData, 7) == 9);
     int main() {}
+requires:
+  - sort-introsort
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/nth_element
   - https://en.wikipedia.org/wiki/Quickselect

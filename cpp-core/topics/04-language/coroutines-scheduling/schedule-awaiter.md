@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 4
 tags: [coroutines, scheduling]
+requires:
+  - coroutines-await-suspend-return-types
+  - coroutines-scheduling-type-erased-handle
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle

@@ -7,6 +7,8 @@ tags: [execution, async, c++26]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-three-channels
 ---
 
 The two starter pieces of every pipeline: `just(1, 'a')` is a **sender

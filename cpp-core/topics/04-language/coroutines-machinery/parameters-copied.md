@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 4
 tags: [coroutines, lifetimes]
+requires:
+  - coroutines-frame-allocation
+  - coroutines-eager-vs-lazy-start
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---

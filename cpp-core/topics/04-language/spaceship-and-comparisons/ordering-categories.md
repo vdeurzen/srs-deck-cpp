@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [comparisons]
+requires:
+  - spaceship-basics
 refs:
   - https://en.cppreference.com/w/cpp/utility/compare/strong_ordering
   - https://en.cppreference.com/w/cpp/utility/compare/partial_ordering

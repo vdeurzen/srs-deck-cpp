@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 4
 tags: [graphs, shortest-paths]
+requires:
+  - graph-dijkstra-nonnegative
 refs:
   - https://en.wikipedia.org/wiki/Shortest_path_problem
   - https://en.wikipedia.org/wiki/Floyd%E2%80%93Warshall_algorithm

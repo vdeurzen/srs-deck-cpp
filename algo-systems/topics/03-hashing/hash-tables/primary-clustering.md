@@ -3,6 +3,8 @@ id: hash-primary-clustering
 kind: basic
 version: 1
 level: 3
+requires:
+  - hash-load-factor-and-probes
 tags: [hashing, open-addressing]
 refs:
   - https://en.wikipedia.org/wiki/Primary_clustering

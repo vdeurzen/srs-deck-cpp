@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [databases, caching, memory-hierarchy]
+requires:
+  - foundations-external-memory-model
 refs:
   - https://www.cs.cmu.edu/~christos/courses/721-resources/p297-o_neil.pdf
   - https://en.wikipedia.org/wiki/Cache_replacement_policies#LRU-K

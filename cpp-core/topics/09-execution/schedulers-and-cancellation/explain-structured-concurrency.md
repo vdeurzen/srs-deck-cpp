@@ -7,6 +7,10 @@ tags: [execution, async, c++26, concurrency]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-operation-state-lifetime
+  - execution-when-all
+  - execution-stopped-channel
 ---
 Explain what "structured concurrency" means in `std::execution`, and
 what a codebase gets from it that a thread-pool-plus-futures design

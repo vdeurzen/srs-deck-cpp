@@ -3,6 +3,8 @@ id: ordered-radix-trie
 kind: basic
 version: 1
 level: 3
+requires:
+  - ordered-why-balance
 tags: [tries, strings, databases]
 refs:
   - https://en.wikipedia.org/wiki/Radix_tree

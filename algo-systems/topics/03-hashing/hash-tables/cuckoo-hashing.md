@@ -3,6 +3,8 @@ id: hash-cuckoo-hashing
 kind: basic
 version: 1
 level: 4
+requires:
+  - hash-load-factor-and-probes
 tags: [hashing, worst-case, databases]
 refs:
   - https://www.itu.dk/people/pagh/papers/cuckoo-jour.pdf

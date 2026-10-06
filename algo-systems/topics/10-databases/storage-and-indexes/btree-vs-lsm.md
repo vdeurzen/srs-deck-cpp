@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 4
 tags: [databases, storage, amplification]
+requires:
+  - db-amplification
+  - ordered-bplus-tree
 refs:
   - https://www.cs.umb.edu/~poneil/lsmtree.pdf
   - https://arxiv.org/abs/1812.07527

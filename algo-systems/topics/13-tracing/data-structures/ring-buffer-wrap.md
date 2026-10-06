@@ -9,6 +9,8 @@ probes:
   2: { "r.head": "1", "r.tail": "3", "r.tail - r.head": "2", "r.slot[0]": "10", "ok": "true" }
   3: { "r.head": "1", "r.tail": "5", "r.tail - r.head": "4", "r.slot[0]": "50", "ok": "true" }
   4: { "r.head": "1", "r.tail": "5", "r.tail - r.head": "4", "r.slot[0]": "50", "ok": "false" }
+requires:
+  - seq-ring-buffer-full-vs-empty
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html
   - https://en.wikipedia.org/wiki/Circular_buffer

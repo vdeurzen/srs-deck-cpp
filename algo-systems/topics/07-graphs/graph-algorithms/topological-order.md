@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [graphs, scheduling, compilers, databases]
+requires:
+  - graph-bfs-and-dfs
 refs:
   - https://en.wikipedia.org/wiki/Topological_sorting
   - https://en.wikipedia.org/wiki/Directed_acyclic_graph

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [sorting, databases, layout]
+requires:
+  - foundations-cache-cost-model
 refs:
   - https://dl.acm.org/doi/10.1145/1132960.1132964
 ---

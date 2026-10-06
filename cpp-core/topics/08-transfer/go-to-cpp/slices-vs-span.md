@@ -5,6 +5,8 @@ version: 1
 level: 3
 tags: [transfer, misconception, ownership]
 elaborate: How does Go's garbage collector make a slice's backing array safe to keep around, in a way `std::span` never is?
+requires:
+  - ranges-views-lazy-cloze
 refs:
   - https://en.cppreference.com/w/cpp/container/span
 ---

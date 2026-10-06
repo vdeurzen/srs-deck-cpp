@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [templates]
+requires:
+  - templates-instantiation
 refs:
   - https://en.cppreference.com/w/cpp/language/dependent_name
 ---

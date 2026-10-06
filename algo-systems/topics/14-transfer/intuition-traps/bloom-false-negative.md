@@ -5,6 +5,8 @@ version: 1
 level: 3
 tags: [transfer, misconception, sketches, probabilistic]
 elaborate: If you put a filter in front of an expensive lookup, what happens on a false positive — and would you ever notice it in production?
+requires:
+  - db-bloom-filter
 refs:
   - https://dl.acm.org/doi/10.1145/362686.362692
   - https://en.wikipedia.org/wiki/Bloom_filter

@@ -3,6 +3,8 @@ id: heap-array-layout
 kind: code
 version: 1
 level: 3
+requires:
+  - heap-vocabulary
 tags: [heaps, arrays, invariants]
 input: chips
 choices:

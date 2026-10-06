@@ -4,6 +4,8 @@ kind: explain
 version: 1
 level: 4
 tags: [callables]
+requires:
+  - trace-copy-vs-reference
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda
 ---

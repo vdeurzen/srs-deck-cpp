@@ -4,6 +4,9 @@ kind: trace
 version: 1
 level: 4
 tags: [tracing, coroutines]
+requires:
+  - coroutines-await-suspend-return-types
+  - coroutines-eager-vs-lazy-start
 probes:
   1: { hooks: "RVRS" }
   2: { hooks: "RVRSVE", "t.handle.done()": "true" }

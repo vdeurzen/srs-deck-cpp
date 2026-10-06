@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 4
 tags: [coroutines]
+requires:
+  - coroutines-suspension-points-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
 ---

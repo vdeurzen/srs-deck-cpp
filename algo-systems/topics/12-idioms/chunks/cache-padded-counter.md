@@ -6,6 +6,8 @@ level: 3
 tags: [idioms, concurrency, low-latency]
 expose_ms: 6000
 compile: null
+requires:
+  - ll-false-sharing
 refs:
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/

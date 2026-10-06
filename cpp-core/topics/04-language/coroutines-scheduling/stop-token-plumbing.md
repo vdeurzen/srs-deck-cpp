@@ -4,6 +4,10 @@ kind: cloze
 version: 1
 level: 5
 tags: [coroutines, scheduling, concurrency]
+requires:
+  - coroutines-scheduling-context-without-globals
+  - coroutines-scheduling-io-uring-lifetime
+  - parsons-jthread-stop-token
 refs:
   - https://en.cppreference.com/w/cpp/thread/stop_token
   - https://en.cppreference.com/w/cpp/thread/stop_callback

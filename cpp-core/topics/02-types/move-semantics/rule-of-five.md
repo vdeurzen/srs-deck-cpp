@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 2
 tags: [move-semantics]
+requires:
+  - move-semantics-moved-from-state
 refs:
   - https://en.cppreference.com/w/cpp/language/rule_of_three
 ---

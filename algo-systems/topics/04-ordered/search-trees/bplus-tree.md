@@ -3,6 +3,8 @@ id: ordered-bplus-tree
 kind: basic
 version: 1
 level: 4
+requires:
+  - ordered-rbtree-vs-btree
 tags: [trees, databases, storage]
 refs:
   - https://en.wikipedia.org/wiki/B%2B_tree

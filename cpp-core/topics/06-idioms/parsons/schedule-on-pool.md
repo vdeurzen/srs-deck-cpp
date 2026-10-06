@@ -4,6 +4,8 @@ kind: parsons
 version: 1
 level: 4
 tags: [idioms, coroutines, scheduling]
+requires:
+  - coroutines-scheduling-schedule-awaiter
 distractors:
   - "std::coroutine_handle<> await_suspend(std::coroutine_handle<> h) const { return h; }"
   - "constexpr bool await_ready() const noexcept { return true; }"

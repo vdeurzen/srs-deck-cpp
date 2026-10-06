@@ -20,6 +20,8 @@ compile:
     static_assert(!built().connected(1, 4));
     static_assert(built().size[built().find(3)] == 4);
     int main() {}
+requires:
+  - graph-union-find
 refs:
   - https://dl.acm.org/doi/10.1145/321879.321884
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure

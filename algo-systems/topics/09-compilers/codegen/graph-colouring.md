@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, codegen, registers, graphs]
+requires:
+  - compiler-allocation-vocabulary
 refs:
   - https://dl.acm.org/doi/10.1145/800230.806984
   - https://dl.acm.org/doi/10.1145/177492.177575

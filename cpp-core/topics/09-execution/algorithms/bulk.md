@@ -7,6 +7,9 @@ tags: [execution, async, c++26]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-scheduler-and-schedule
+  - execution-just-and-then
 ---
 
 ## What does `bulk(sndr, policy, shape, f)` express, and what decides whether it actually runs in parallel?

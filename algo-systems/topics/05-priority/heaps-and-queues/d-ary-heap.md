@@ -3,6 +3,8 @@ id: heap-d-ary
 kind: basic
 version: 1
 level: 4
+requires:
+  - heap-vocabulary
 tags: [heaps, memory-hierarchy, graphs]
 refs:
   - https://en.wikipedia.org/wiki/D-ary_heap

@@ -7,6 +7,8 @@ tags: [execution, async, c++26]
 refs:
   - https://en.cppreference.com/w/cpp/execution
   - https://wg21.link/p2300
+requires:
+  - execution-sender-is-a-description
 ---
 
 Where a callback has one way to report back and a `std::future` has

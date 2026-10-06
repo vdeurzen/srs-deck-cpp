@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 4
 tags: [databases, joins, sorting]
+requires:
+  - db-hash-join
+  - sort-external-merge
 refs:
   - https://dl.acm.org/doi/10.1145/582095.582099
   - https://en.wikipedia.org/wiki/Sort-merge_join

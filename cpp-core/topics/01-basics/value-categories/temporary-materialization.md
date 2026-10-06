@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [value-categories]
+requires:
+  - value-categories-taxonomy
 refs:
   - https://en.cppreference.com/w/cpp/language/implicit_conversion#Temporary_materialization
 ---

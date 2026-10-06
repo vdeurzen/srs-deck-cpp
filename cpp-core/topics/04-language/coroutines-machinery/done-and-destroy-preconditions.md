@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 4
 tags: [coroutines, lifetimes]
+requires:
+  - coroutines-handle-operations
+  - coroutines-return-object-timing
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle/done
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle/destroy

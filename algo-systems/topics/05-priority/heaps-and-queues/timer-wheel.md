@@ -3,6 +3,8 @@ id: heap-timer-wheel
 kind: basic
 version: 1
 level: 5
+requires:
+  - heap-vocabulary
 tags: [queues, timers, low-latency, networking]
 refs:
   - https://dl.acm.org/doi/10.1145/41457.37504

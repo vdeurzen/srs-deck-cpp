@@ -3,6 +3,8 @@ id: ordered-eytzinger-step
 kind: code
 version: 1
 level: 5
+requires:
+  - ordered-branchless-search
 tags: [binary-search, branchless, memory-hierarchy, layout]
 input: chips
 choices:

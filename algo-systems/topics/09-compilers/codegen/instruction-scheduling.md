@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [compilers, codegen, scheduling, dags]
+requires:
+  - graph-topological-order
+  - compiler-allocation-vocabulary
 refs:
   - https://en.wikipedia.org/wiki/Instruction_scheduling
   - https://www.agner.org/optimize/

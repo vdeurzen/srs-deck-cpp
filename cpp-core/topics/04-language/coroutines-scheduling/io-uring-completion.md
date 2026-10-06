@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [coroutines, scheduling, io]
+requires:
+  - coroutines-scheduling-schedule-awaiter
+  - coroutines-frame-allocation
 refs:
   - https://man7.org/linux/man-pages/man7/io_uring.7.html
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle/from_address

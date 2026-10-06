@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 5
 tags: [databases, storage, lsm]
+requires:
+  - db-btree-vs-lsm
+  - db-bloom-filter
 refs:
   - https://github.com/facebook/rocksdb/wiki/Compaction
   - https://arxiv.org/abs/1812.07527

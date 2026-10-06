@@ -11,6 +11,9 @@ compile:
   harness: |
     static_assert(value_of(3) == 3);
     int main() {}
+requires:
+  - const-constexpr-const-vs-constexpr-cloze
+  - templates-instantiation
 refs:
   - https://en.cppreference.com/w/cpp/language/if#Constexpr_if
 ---

@@ -5,7 +5,7 @@ Per Deck: edge counts, depth histogram (as the scheduler computes it, §7.1),
 cards with no edges at all, and the deepest chains. Unresolved prerequisites
 are listed; tool/validate is the authority on whether they load.
 
-usage: scripts/graph <deck-dir> [<deck-dir> ...] [--dot out.dot] [--topic <prefix>]
+usage: scripts/graph <deck-dir> [<deck-dir> ...] [--dot out.dot] [--topic [<deck-id>/]<prefix>]
 """
 
 import collections
@@ -13,7 +13,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from cards import Deck  # noqa: E402
+from cards import Deck, in_topic  # noqa: E402
 
 
 def option(argv, name):
@@ -46,7 +46,7 @@ def main(argv):
 
     used = {r for c in cards.values() for r in live(c)}
     for deck in decks:
-        mine = [c for c in deck.cards.values() if not prefix or c.topic.startswith(prefix)]
+        mine = [c for c in deck.cards.values() if in_topic(c, prefix)]
         edges = [(c, r) for c in mine for r in c.requires]
         cross_deck = sum(1 for _, r in edges if not r.startswith(deck.id + "/"))
         cross_topic = sum(1 for c, r in edges if r in cards and cards[r].topic != c.topic and r.startswith(deck.id + "/"))
@@ -74,7 +74,7 @@ def main(argv):
         with open(dot, "w") as f:
             f.write("digraph requires {\n  rankdir=LR; node [shape=box, fontsize=10];\n")
             for c in cards.values():
-                if prefix and not c.topic.startswith(prefix):
+                if not in_topic(c, prefix):
                     continue
                 f.write(f'  "{c.qid}" [label="{c.id}\\n{c.kind} L{c.fm.get("level", "?")}"];\n')
                 for r in live(c):

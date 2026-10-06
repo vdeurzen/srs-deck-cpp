@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 5
 tags: [coroutines, scheduling]
+requires:
+  - coroutines-return-object-timing
 input: chips
 choices:
   c1: ["Pool& owner", "Pool* owner", "Pool owner", "const Pool& owner"]

@@ -4,6 +4,10 @@ kind: explain
 version: 1
 level: 4
 tags: [coroutines, ranges]
+requires:
+  - coroutines-generator-is-a-view
+  - coroutines-generator-dangling-parameter
+  - coroutines-generator-no-co-await
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator
 ---

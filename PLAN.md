@@ -123,6 +123,31 @@ Target ~5–8 cards per topic (~120 new cards), so the coroutine/execution block
 stops being half the Deck. Reuse REVIEW-style verification for every
 `code`/`trace` card.
 
+**Gaps found while wiring prerequisites (Phase 2).** Each is a concept that
+existing Cards assume and no Card teaches. Once the Card lands, wire the
+listed dependents to it.
+
+| Missing concept | Deck / where it goes | Dependents to wire |
+| --- | --- | --- |
+| RAII & destructors | cpp `01-basics/lifetime-and-raii` (table above) | `transfer-defer-vs-raii`, smart-pointer Cards |
+| Lambdas; `std::function`/callable basics | cpp `02-types/lambdas` (table above) | `05-interview/function-ref-and-callables` |
+| `std::optional`, `nullptr` | cpp `03-library/vocabulary-types` (table above) | `transfer-nil-vs-nullptr-optional` |
+| Atomics, memory model, `alignas` | cpp `10-concurrency/atomics-and-memory-model`, `01-basics/layout` | algo `ll-memory-orders`, `ll-false-sharing`, `ll-progress-guarantees` (cross-Deck) |
+| Pointers & arrays basics | cpp `01-basics/references-and-pointers` | algo slice, ring and handle Cards in `02-sequences` |
+| Async scope (`counting_scope`, `spawn`), `as_awaitable` | cpp `09-execution` | `execution-split-multi-shot`, `execution-senders-and-coroutines` |
+| Binary search on a sorted array (entry Card) | algo `04-ordered` | `lower-bound-loop`, `chunks-lower-bound-lookup` |
+| Bit tricks (`x & -x`, `x & (x-1)`) | algo `01-foundations` | `fenwick-tree`, `chunks-iterate-set-bits`, `branchless-select` |
+| Dynamic programming basics; tree tiling | algo `01-foundations` / `09-compilers` | `compiler-instruction-selection`, `db-join-ordering` |
+| Transactions & isolation levels | algo `10-databases` | `db-mvcc` |
+| LRU / cache replacement | algo `05-priority` or `10-databases` | `trace-lru-order`, `db-buffer-pool` |
+| Go concurrency; GC & leaks; thread scaling | algo `11-low-latency` / `14-transfer` | `chunks-go-worker-pool`, `trap-go-gc-and-leaks`, `trap-more-threads` |
+
+Phase 2 follow-up (done 2026-10-06; Cards that already existed): wired
+`trap-bloom-false-negative` and `chunks-bloom-double-hashing` →
+`db-bloom-filter`, and `chunks-cache-padded-counter` → `ll-false-sharing`.
+These had been barred during Phase 2 to keep the parallel agents from
+creating cycles between them.
+
 Topic directories can be renumbered freely (e.g. a `00-foundations` prefix, or
 shifting `01-basics` down): the Topic is only the directory path, and review
 history is keyed on card ids, not paths.

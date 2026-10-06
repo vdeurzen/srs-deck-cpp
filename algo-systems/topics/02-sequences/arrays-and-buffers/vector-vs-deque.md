@@ -3,6 +3,8 @@ id: seq-vector-vs-deque
 kind: basic
 version: 1
 level: 2
+requires:
+  - foundations-cache-cost-model
 tags: [containers, memory-hierarchy]
 refs:
   - https://en.cppreference.com/w/cpp/container/deque

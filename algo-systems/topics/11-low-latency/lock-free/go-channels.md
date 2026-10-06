@@ -5,6 +5,8 @@ version: 1
 level: 4
 tags: [go, concurrency, queues, low-latency]
 elaborate: In a Go service you know, which channel is on the hot path — and is it carrying one item per send, or could it carry a batch?
+requires:
+  - ll-spsc-ring
 refs:
   - https://go.dev/ref/mem
   - https://go.dev/doc/effective_go#channels

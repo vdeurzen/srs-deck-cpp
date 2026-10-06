@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 5
 tags: [low-latency, memory-hierarchy, optimisation]
+requires:
+  - ll-hardware-numbers
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/prefetching/
   - https://www.agner.org/optimize/

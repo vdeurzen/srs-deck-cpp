@@ -12,6 +12,8 @@ compile:
     static_assert(alignof(Counters) == 64);
     static_assert(sizeof(Counters) == 128);   // one line each, no sharing
     int main() {}
+requires:
+  - ll-hardware-numbers
 refs:
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/

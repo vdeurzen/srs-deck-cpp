@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 3
 tags: [coroutines]
+requires:
+  - coroutines-promise-type-cloze
 input: chips
 choices:
   c1: ["yield_value", "return_value", "await_transform", "yield"]
