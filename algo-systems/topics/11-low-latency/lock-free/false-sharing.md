@@ -14,6 +14,7 @@ compile:
     int main() {}
 requires:
   - ll-hardware-numbers
+  - cpp-core/layout-alignas-sizeof
 refs:
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/
