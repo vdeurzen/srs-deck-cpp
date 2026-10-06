@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 2
 tags: [transfer, misconception, pointers]
+requires:
+  - vocab-optional-maybe-value
 elaborate: Go lets you call a method on a nil pointer receiver as long as the method never dereferences it. Why does the equivalent C++ member-function call on a null pointer not get the same safety net?
 refs:
   - https://en.cppreference.com/w/cpp/language/nullptr
