@@ -6,6 +6,7 @@ level: 4
 tags: [callables]
 requires:
   - callables-function-ref-signature
+  - staticpoly-type-erasure
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/function
 ---

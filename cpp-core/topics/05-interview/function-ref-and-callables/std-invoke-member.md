@@ -11,6 +11,8 @@ compile:
   harness: |
     static_assert(check());
     int main() {}
+requires:
+  - lambda-closure-type
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/invoke
 ---

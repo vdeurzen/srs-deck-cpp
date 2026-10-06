@@ -6,6 +6,8 @@ level: 4
 tags: [callables]
 requires:
   - trace-copy-vs-reference
+  - lambda-dangling-reference
+  - lambda-init-capture
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda
 ---
