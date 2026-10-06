@@ -99,13 +99,15 @@ least one hands-on card, wired into the graph as they are added:
 
 | Topic (proposed path)                | Covers |
 | ------------------------------------ | ------ |
-| `01-basics/types-and-conversions`    | fundamental types, integer promotion, narrowing, `static_cast` family |
-| `01-basics/references-and-pointers`  | reference vs pointer, `const` placement, dangling basics |
-| `01-basics/lifetime-and-raii`        | storage duration, scope-bound destruction, RAII as the core idiom |
+| `01-basics/types-and-conversions`    | fundamental types and what the standard guarantees, fixed-width aliases, `size_t`/`ptrdiff_t` and the signed/unsigned trap, promotion and usual arithmetic conversions, signed overflow UB vs unsigned wrap, narrowing, `enum class` vs `enum`, `char` signedness, the `static_cast` family |
+| `01-basics/layout`                   | `struct` layout, padding, `sizeof`, `alignof`/`alignas` (opens the seam to algo-systems, which uses alignment 9×) |
+| `01-basics/references-and-pointers`  | reference vs pointer, `const` placement, `auto` dropping const/ref, dangling basics |
+| `01-basics/lifetime-and-raii`        | storage duration, scope-bound destruction, RAII as the pattern the language is organised around |
 | `01-basics/linkage-and-odr`          | translation units, `inline`, `static`, ODR, headers |
 | `01-basics/undefined-behaviour`      | what UB is, common sources, why the optimiser exploits it |
-| `02-types/classes`                   | special members overview, access, invariants, `explicit` |
-| `02-types/inheritance-and-virtual`   | virtual dispatch, vtables, virtual destructors, slicing, `final`, `override` |
+| `02-types/classes`                   | invariants and the constructor that establishes them, access as invariant protection, `class` vs `struct`, special members as a set and Rule of Zero/Three/Five, `explicit`, `const` members and logical constness, `friend`, `[[nodiscard]]`, delegating constructors, member-init **order** (trace) |
+| `02-types/inheritance-and-virtual`   | the vtable mechanism, pure virtual/abstract interfaces, virtual destructors and what leaks without one, slicing, `override`/`final` and the bug `override` catches, name hiding, virtual calls in ctors/dtors (trace), dispatch cost, composition vs inheritance by deciding property, NVI |
+| `02-types/static-polymorphism`       | CRTP and what it buys over virtual, static vs dynamic dispatch, EBO / `[[no_unique_address]]`, policies and mixins, type erasure as the inverse trade, tag dispatch → `if constexpr`/concepts, PIMPL |
 | `02-types/operator-overloading`      | canonical forms, member vs free, hidden friends |
 | `02-types/lambdas`                   | captures, closure types, mutable, generic lambdas |
 | `02-types/variadic-templates`        | packs, fold expressions |
@@ -117,9 +119,35 @@ least one hands-on card, wired into the graph as they are added:
 | `10-concurrency/threads-and-locks`   | `jthread`, mutexes, `scoped_lock`, condition variables |
 | `10-concurrency/atomics-and-memory-model` | atomics, happens-before, the orderings |
 
-Target ~5–8 cards per topic (~100 new cards), so the coroutine/execution block
+Target ~5–8 cards per topic (~120 new cards), so the coroutine/execution block
 stops being half the Deck. Reuse REVIEW-style verification for every
 `code`/`trace` card.
+
+Topic directories can be renumbered freely (e.g. a `00-foundations` prefix, or
+shifting `01-basics` down): the Topic is only the directory path, and review
+history is keyed on card ids, not paths.
+
+Design principles for new cards (from the earlier foundation-rung brief; the
+goal is a solid base of associated long-term patterns that make complex
+problems recognisable quickly):
+
+- **Simple, not shallow.** A foundation card needs nothing taught later; its
+  assumptions are exactly its `requires`.
+- **Association.** Every foundation card names, via the graph, something later
+  that builds on it. One nothing builds on is trivia.
+- **Recognition over definition.** "This call does not dispatch — why?" beats
+  "What is a virtual function?". Favour cards that force a choice or explain a
+  symptom.
+- **Discrimination pairs** for things beginners confuse (`class`/`struct`,
+  virtual/CRTP, `enum`/`enum class`, reference/pointer, copy/move,
+  stack/heap): the answer names the deciding property.
+- **Production.** At least half of each new topic is `code`, `chunk`,
+  `parsons` or `trace`. Compile-graded cards discriminate at compile time
+  (`static_assert` on `sizeof`/`alignof`/traits/`constexpr` values, or a
+  deliberate access/overload failure).
+- **Capstones.** Each foundation strand ends in one `explain` that rebuilds a
+  design from memory (e.g. "design a value type that owns a buffer"), sized
+  per the `explain` rule below.
 
 **algo-systems**: add a level-1/2 entry rung (big-O basics, arrays vs lists,
 hashing basics, binary search, BFS/DFS) so the Deck has depth-0 cards a

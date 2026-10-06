@@ -1,0 +1,95 @@
+#!/usr/bin/env python3
+"""Flag Cards that break PLAN.md's Phase 4 shape limits.
+
+  long-back      basic back over 60 words of prose (code blocks not counted)
+  multi-front    front asks more than one question
+  many-blanks    cloze with more than 3 cloze numbers
+  hint-answers   a cloze hint contains its own answer
+  front-answers  a code Card's prose states a blank's reference answer
+  big-rubric     explain rubric with more than 6 items
+
+These are heuristics: a flag means "look at this", not "this is wrong".
+
+usage: scripts/lint-shape <deck-dir> [<deck-dir> ...] [--topic <prefix>] [--summary]
+"""
+
+import collections
+import os
+import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cards import FENCE, Deck, clozes  # noqa: E402
+
+MAX_WORDS, MAX_BLANKS, MAX_RUBRIC = 60, 3, 6
+JOINED = re.compile(r"[,;]?\s+and\s+(why|when|how|what|which|where)\b", re.I)
+
+
+def words(md):
+    return len(FENCE.sub("", md).split())
+
+
+def lint(card):
+    front, back = card.split()
+    out = []
+    if card.kind == "basic":
+        n = words(back)
+        if n > MAX_WORDS:
+            out.append(("long-back", f"{n} words"))
+        if front.count("?") > 1 or JOINED.search(front):
+            out.append(("multi-front", front.strip().splitlines()[-1][:100]))
+    if card.kind == "explain":
+        n = len(re.findall(r"^\s*- \[ \]", back, re.M))
+        if n > MAX_RUBRIC:
+            out.append(("big-rubric", f"{n} items"))
+        if front.count("?") > 1:
+            out.append(("multi-front", front.strip()[:100]))
+    if card.kind == "cloze":
+        found = clozes(card.body)
+        n = len({c[2] for c in found})
+        if n > MAX_BLANKS:
+            out.append(("many-blanks", f"{n} blanks"))
+        for _, _, num, answer, hint in found:
+            a = answer.strip("`* ").lower()
+            if hint and len(a) >= 3 and a in hint.lower():
+                out.append(("hint-answers", f"c{num}: {answer!r} in hint {hint!r}"))
+    if card.kind == "code":
+        prose = FENCE.sub("", front)
+        for _, _, num, answer, _ in clozes(card.code() or ""):
+            a = answer.strip()
+            if len(a) >= 3 and re.search(r"(?<![\w:])" + re.escape(a) + r"(?![\w])", prose):
+                out.append(("front-answers", f"c{num}: {a!r}"))
+    return out
+
+
+def main(argv):
+    summary = "--summary" in argv
+    argv = [a for a in argv if a != "--summary"]
+    prefix = None
+    if "--topic" in argv:
+        i = argv.index("--topic")
+        prefix = argv[i + 1]
+        del argv[i:i + 2]
+    if not argv:
+        sys.exit(__doc__)
+    counts = collections.Counter()
+    flagged = 0
+    for root in argv:
+        deck = Deck(root)
+        for card in sorted(deck.cards.values(), key=lambda c: c.path):
+            if prefix and not card.topic.startswith(prefix):
+                continue
+            issues = lint(card)
+            flagged += bool(issues)
+            for rule, detail in issues:
+                counts[(deck.id, rule)] += 1
+                if not summary:
+                    print(f"{rule:13s} {card.qid}  {detail}")
+    print()
+    for (deck, rule), n in sorted(counts.items()):
+        print(f"{deck:14s} {rule:13s} {n}")
+    print(f"{flagged} card(s) flagged")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

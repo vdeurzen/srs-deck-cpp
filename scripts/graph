@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""Summarise the `requires` graph across the given Decks.
+
+Per Deck: edge counts, depth histogram (as the scheduler computes it, §7.1),
+cards with no edges at all, and the deepest chains. Unresolved prerequisites
+are listed; tool/validate is the authority on whether they load.
+
+usage: scripts/graph <deck-dir> [<deck-dir> ...] [--dot out.dot] [--topic <prefix>]
+"""
+
+import collections
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cards import Deck  # noqa: E402
+
+
+def option(argv, name):
+    if name in argv:
+        i = argv.index(name)
+        value = argv[i + 1]
+        del argv[i:i + 2]
+        return value
+    return None
+
+
+def main(argv):
+    dot = option(argv, "--dot")
+    prefix = option(argv, "--topic")
+    if not argv:
+        sys.exit(__doc__)
+    decks = [Deck(root) for root in argv]
+    cards = {c.qid: c for d in decks for c in d.cards.values()}
+    live = lambda c: [r for r in c.requires if r in cards]
+
+    depth = {}
+
+    def depth_of(q, seen=()):
+        if q not in depth:
+            if q in seen:  # cycle; tool/validate reports it
+                return 0
+            rs = live(cards[q])
+            depth[q] = 1 + max(depth_of(r, seen + (q,)) for r in rs) if rs else 0
+        return depth[q]
+
+    used = {r for c in cards.values() for r in live(c)}
+    for deck in decks:
+        mine = [c for c in deck.cards.values() if not prefix or c.topic.startswith(prefix)]
+        edges = [(c, r) for c in mine for r in c.requires]
+        cross_deck = sum(1 for _, r in edges if not r.startswith(deck.id + "/"))
+        cross_topic = sum(1 for c, r in edges if r in cards and cards[r].topic != c.topic and r.startswith(deck.id + "/"))
+        isolated = [c for c in mine if not c.requires and c.qid not in used]
+        hist = collections.Counter(depth_of(c.qid) for c in mine)
+        print(f"{deck.id}: {len(mine)} cards, {len(edges)} edges "
+              f"({cross_topic} cross-topic, {cross_deck} cross-deck)")
+        print(f"  depth: " + "  ".join(f"{d}:{n}" for d, n in sorted(hist.items())))
+        print(f"  isolated (no edges either way): {len(isolated)}")
+        dangling = [(c.id, r) for c, r in edges if r not in cards]
+        for cid, r in dangling:
+            print(f"  unresolved: {cid} -> {r}")
+        fan = [c for c in mine if len(c.requires) > 3]
+        for c in fan:
+            print(f"  fan-in {len(c.requires)}: {c.id}")
+        topics = collections.defaultdict(list)
+        for c in mine:
+            topics[c.topic].append(c)
+        print("  per topic: cards / with requires / isolated / max depth")
+        for t in sorted(topics):
+            cs = topics[t]
+            print(f"    {t:44s} {len(cs):3d} {sum(1 for c in cs if c.requires):3d} "
+                  f"{sum(1 for c in cs if c in isolated):3d} {max(depth_of(c.qid) for c in cs):3d}")
+    if dot:
+        with open(dot, "w") as f:
+            f.write("digraph requires {\n  rankdir=LR; node [shape=box, fontsize=10];\n")
+            for c in cards.values():
+                if prefix and not c.topic.startswith(prefix):
+                    continue
+                f.write(f'  "{c.qid}" [label="{c.id}\\n{c.kind} L{c.fm.get("level", "?")}"];\n')
+                for r in live(c):
+                    f.write(f'  "{r}" -> "{c.qid}";\n')
+            f.write("}\n")
+        print(f"wrote {dot}")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

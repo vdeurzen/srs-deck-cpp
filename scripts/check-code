@@ -1,0 +1,102 @@
+#!/usr/bin/env python3
+"""Compile-check every compile-graded Card the way the app assembles it.
+
+  code     reference must compile; every chip Distractor must fail.
+  parsons  reference must compile; every Distractor must fail both in place of
+           each reference line (WEAK) and inserted at each position (LOOSE: a
+           grading hole too, but often only via dead code; reported, not fatal).
+  chunk    reference must compile.
+
+The app compiles on Compiler Explorer with the Deck's `compiler` (g142); this
+uses the local $CXX (default g++), syntax-only, since the app never executes.
+Exit status is 1 if anything is FAIL or WEAK.
+
+usage: scripts/check-code <deck-dir> [<deck-dir> ...] [--id <card-id> ...]
+"""
+
+import os
+import subprocess
+import sys
+import tempfile
+from concurrent.futures import ThreadPoolExecutor
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cards import Deck, clozes, fill  # noqa: E402
+
+CXX = os.environ.get("CXX", "g++")
+
+
+def compiles(src, cfg):
+    with tempfile.NamedTemporaryFile("w", suffix=".cpp", delete=False) as f:
+        f.write(src)
+    try:
+        flags = [f for f in cfg.get("flags") or [] if f != "-Werror"]
+        r = subprocess.run([CXX, f"-std={cfg.get('std', 'c++23')}", *flags, "-fsyntax-only", f.name],
+                           capture_output=True, text=True)
+        ok = r.returncode == 0 and " error: " not in r.stderr
+        return ok, r.stderr
+    finally:
+        os.unlink(f.name)
+
+
+def first_error(stderr):
+    return next((l.split(" error: ", 1)[1] for l in stderr.splitlines() if " error: " in l), stderr[:200])
+
+
+def check(card):
+    cfg = card.compile()
+    code = card.code()
+    harness = cfg["harness"]
+    if card.kind == "code":
+        ok, err = compiles(fill(code) + "\n" + harness, cfg)
+        if not ok:
+            return "FAIL", [f"reference: {first_error(err)}"]
+        refs = {n: a for _, _, n, a, _ in clozes(code)}
+        weak = []
+        for key, choices in (card.fm.get("choices") or {}).items():
+            n = str(key).lstrip("c")
+            for choice in choices:
+                if choice != refs.get(n) and compiles(fill(code, {n: choice}) + "\n" + harness, cfg)[0]:
+                    weak.append(f"c{n} = {choice!r} passes")
+        return ("WEAK" if weak else "ok"), weak
+    lines = code.split("\n")
+    ok, err = compiles(code + "\n" + harness, cfg)
+    if not ok:
+        return "FAIL", [f"reference: {first_error(err)}"]
+    weak, loose = [], []
+    passes = lambda v: compiles("\n".join(v) + "\n" + harness, cfg)[0]
+    for d in card.fm.get("distractors") or []:
+        if any(passes(lines[:i] + [d] + lines[i + 1:]) for i in range(len(lines))):
+            weak.append(f"distractor {d.strip()!r} passes in place of a line")
+        elif any(passes(lines[:i] + [d] + lines[i:]) for i in range(len(lines) + 1)):
+            loose.append(f"distractor {d.strip()!r} passes as an extra line")
+    return ("WEAK" if weak else "LOOSE" if loose else "ok"), weak + loose
+
+
+def main(argv):
+    ids = set()
+    if "--id" in argv:
+        i = argv.index("--id")
+        ids, argv = set(argv[i + 1:]), argv[:i]
+    if not argv:
+        sys.exit(__doc__)
+    cards = [c for root in argv for c in Deck(root).cards.values()
+             if c.kind in ("code", "parsons", "chunk") and c.compile() and (not ids or c.id in ids)]
+    version = subprocess.run([CXX, "--version"], capture_output=True, text=True).stdout.split("\n")[0]
+    print(f"{len(cards)} compile-graded Cards, {version}")
+    with ThreadPoolExecutor(os.cpu_count()) as pool:
+        results = list(pool.map(check, cards))
+    bad = loose = 0
+    for card, (status, notes) in sorted(zip(cards, results), key=lambda x: x[0].qid):
+        if status != "ok":
+            bad += status != "LOOSE"
+            loose += status == "LOOSE"
+            print(f"{status:4s}  {card.qid}  ({card.path})")
+            for n in notes:
+                print(f"        {n}")
+    print(f"{bad} problem(s), {loose} loose")
+    sys.exit(1 if bad else 0)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
