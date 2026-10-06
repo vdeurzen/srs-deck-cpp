@@ -4,6 +4,20 @@ Both Decks keep their ids and stay in this repo; nothing moves to new `*-drills`
 Decks. Order: correctness → prerequisite graph → missing fundamentals → card
 shape. Each phase leaves both Decks loadable and is its own commit (or a few).
 
+## Status (2026-10-06)
+
+| Phase | State |
+| --- | --- |
+| 0 Housekeeping | done |
+| 1 Correctness | done: both REVIEW.md files worked; `check-code` 0 problems, 5 LOOSE parsons (wait on pre-filled lines) |
+| 2 Prerequisite graph | done: cpp-core 344 Cards / 419 edges, depth ≤ 8; algo-systems 220 / 231 edges (12 cross-deck), depth ≤ 6 |
+| 3 Missing fundamentals | done: all topics in the table and the gaps table, each reviewed by `learning-designer` and revised |
+| 4 Card shape | coroutines done; **remaining**: 171 Cards flagged by `lint-shape` (cpp-core 52, algo-systems 119 — mostly algo `basic` essays) |
+
+Next for Phase 4, in order: cpp-core move semantics + smart pointers (in
+review), the other cpp-core pre-Phase-3 topics, then algo-systems topic by
+topic. Parsons restructuring waits for the app's pre-filled lines.
+
 ## Ground rules (apply to every phase)
 
 - **Card ids never change, cards are never deleted.** Study history is keyed on
@@ -140,6 +154,10 @@ listed dependents to it.
 | Dynamic programming basics; tree tiling | algo `01-foundations` / `09-compilers` | `compiler-instruction-selection`, `db-join-ordering` |
 | Transactions & isolation levels | algo `10-databases` | `db-mvcc` |
 | LRU / cache replacement | algo `05-priority` or `10-databases` | `trace-lru-order`, `db-buffer-pool` |
+| `stop_token`/`stop_callback`; `mutex`/`lock_guard`; `thread_local`; `jthread` basics | cpp `10-concurrency/threads-and-locks` | `coroutines-scheduling-stop-token-plumbing`, thread-affinity Cards, `parsons-jthread-stop-token` |
+| Temporaries die at the end of the full-expression | cpp `01-basics/lifetime-and-raii` | `coroutines-parameters-copied`, `coroutines-generator-dangling-parameter` |
+| Range categories (`input_range` …) | cpp `03-library/ranges-and-views` | `coroutines-generator-is-a-view` |
+| Variadic templates, `using` pack expansion | cpp `02-types/variadic-templates` | `chunks-visit-overload-set` |
 | Go concurrency; GC & leaks; thread scaling | algo `11-low-latency` / `14-transfer` | `chunks-go-worker-pool`, `trap-go-gc-and-leaks`, `trap-more-threads` |
 
 Phase 2 follow-up (done 2026-10-06; Cards that already existed): wired
