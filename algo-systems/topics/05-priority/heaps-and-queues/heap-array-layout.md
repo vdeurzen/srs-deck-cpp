@@ -49,27 +49,10 @@ constexpr void sift_down(std::array<int, 7>& h, std::size_t i) {
 ---
 
 With a 0-based array the children of `i` are `2i+1` and `2i+2` and the
-parent is `(i−1)/2`; with a 1-based array they are the prettier `2i`,
-`2i+1` and `i/2`, which is why textbooks and some implementations waste
-slot 0. Either way the structural point is that a *complete* tree — every
-level full except the last, which is filled left to right — has a
-canonical numbering, so the tree needs no stored links and the whole
-heap is one contiguous allocation.
+parent is `(i−1)/2`; `2i` and `i/2` are the 1-based formulas, which is why
+some implementations waste slot 0. A complete tree has this canonical
+numbering, so the heap needs no links: one allocation, and every
+operation walks one root-to-leaf path whose top levels stay in cache.
 
-That is most of why heaps are fast in practice despite being a tree:
-`push_heap`/`pop_heap` touch one root-to-leaf path, the path's early
-levels are always in cache (the top of the heap is a handful of lines,
-hot for every operation), and there is nothing to allocate.
-
-`sift_down` restores the invariant *below* `i` in O(log n) by repeatedly
-swapping with the larger child; `sift_up` (used by push) does the mirror
-image. Note the subtle requirement in the loop: comparing against the
-larger of the two children is not an optimisation, it is correctness —
-swapping with the smaller one can leave that child larger than its new
-parent.
-
-Two C++ notes. `std::priority_queue` is this, over a `vector`, with the
-`std::*_heap` algorithms underneath — and `std::make_heap` is the
-linear-time bottom-up build, not `n` pushes. And the default is a **max**
-heap, so a min-queue needs `std::greater<>` as the comparator — the most
-common source of an inverted priority queue in production.
+Swapping with the **larger** child is correctness, not optimisation:
+promoting the smaller one puts it above its larger sibling.

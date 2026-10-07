@@ -1,58 +1,24 @@
 ---
 id: heap-lazy-deletion
 kind: basic
-version: 1
+version: 2
 level: 4
 requires:
-  - heap-vocabulary
+  - heap-decrease-key-handle
 tags: [heaps, graphs, idioms]
+elaborate: A timer queue cancels by flagging the timer; an event loop supersedes a callback by pushing a newer one. Where else does "mark it, skip it on pop" replace finding it?
 refs:
   - https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Using_a_priority_queue
   - https://en.cppreference.com/w/cpp/container/priority_queue
 ---
 
-## `std::priority_queue` has no `decrease_key`. How does Dijkstra work anyway, and what does the trick cost?
+## `std::priority_queue` has no `decrease_key`. How does Dijkstra work anyway?
 
 ---
 
-**Push a new entry and ignore the stale ones.** When a shorter path to
-`v` is found, push `(newDist, v)` instead of trying to find and fix the
-old entry. On pop, compare the popped distance against the best known
-distance for that vertex; if they differ, this entry is stale — discard
-it and pop again.
+**Push a fresh `(dist, v)`; on pop, skip any entry whose distance exceeds `dist[v]`.**
 
-```cpp
-while (!pq.empty()) {
-  auto [d, v] = pq.top(); pq.pop();
-  if (d > dist[v]) continue;          // stale, superseded
-  for (auto [w, u] : adj[v])
-    if (d + w < dist[u]) { dist[u] = d + w; pq.push({dist[u], u}); }
-}
-```
-
-The costs, precisely:
-
-- **The queue can hold up to E entries instead of V**, so memory is
-  O(E) and each operation is O(log E) rather than O(log V). Since
-  log E ≤ 2 log V, the asymptotic bound O((V+E) log V) is unchanged.
-- **Every vertex is popped possibly several times.** Each stale pop
-  still pays the O(log E) pop itself, but the `continue` guard skips
-  its edge relaxation, and each push produces at most one pop.
-
-What you get in exchange is worth more than the constant: no handle
-bookkeeping. A real `decrease_key` needs a stable handle *into* the
-heap for every vertex, maintained through every swap — which rules out
-a plain array heap and pushes you to a node-based structure with worse
-locality, as well as coupling the graph code to the heap's internals.
-
-The pattern generalises beyond shortest paths. A timer queue cancels by
-marking, not by removing; an event loop supersedes a scheduled callback
-by pushing a newer one; an LRU cache pushes a new access record and
-discards the outdated one on eviction. **Lazy deletion trades a bounded
-amount of garbage in the queue for removing the need to locate an
-element inside it** — and locating something inside a heap is exactly
-what heaps are bad at.
-
-The one thing to watch is unbounded growth when supersedes vastly
-outnumber pops; then you need a periodic rebuild, or a real indexed
-priority queue.
+The old entry stays in the queue as garbage. The array `dist` is the
+truth, so a popped entry larger than it is stale — superseded by a later
+push — and is discarded without relaxing its edges. No handle into the
+heap is ever needed.

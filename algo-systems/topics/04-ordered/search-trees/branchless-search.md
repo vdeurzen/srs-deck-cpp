@@ -1,54 +1,24 @@
 ---
 id: ordered-branchless-search
-kind: basic
-version: 1
+kind: explain
+version: 2
 level: 5
 requires:
-  - ordered-lower-bound-loop
-  - foundations-branch-misprediction
+  - ordered-branchless-prefetch
+  - ordered-eytzinger-decode
+  - ordered-eytzinger-cost
 tags: [binary-search, branchless, memory-hierarchy, low-latency]
 refs:
   - https://en.algorithmica.org/hpc/data-structures/binary-search/
-  - https://en.algorithmica.org/hpc/data-structures/s-tree/
+  - https://arxiv.org/abs/1509.05053
 ---
-
-## Textbook binary search is optimal in comparisons and slow in practice. What are the three fixes, and what does each attack?
-
+A column-store segment holds 10⁸ sorted `int32` keys (400 MB), read-only
+and probed millions of times a second. The profile shows the textbook
+binary search stalled. Walk through why it is slow and what you would
+change, in order.
 ---
-
-Two separate problems. Every iteration ends in a **data-dependent
-branch** the predictor cannot learn, and every iteration's address
-depends on the previous comparison, so the misses **serialise** — the
-CPU cannot know the next cache line until the comparison resolves, and
-at best fetches one guessed side speculatively.
-
-- **Branchless**: replace the `if` with a conditional move.
-  `base += (a[base + half] < key) * half` keeps a running base and a
-  halving length, compiles to a `cmov`, and removes the misprediction
-  entirely. Now the loop is a fixed number of iterations with no
-  control-flow surprises — typically 2–3× faster on arrays that fit in
-  cache even though it does the same comparisons. On arrays far larger
-  than cache it can be *slower*: the branchy version's speculation was
-  acting as an implicit prefetch, and a `cmov` waits for its load.
-- **Prefetching**: with a branchless loop, *both* candidate addresses
-  for the next step are computable now, so you can issue
-  `__builtin_prefetch` for them. The misses start overlapping instead of
-  queueing — this is the step that wins back the large-array case, and
-  in a batch of independent searches lets their latency overlap.
-- **Layout**: the real problem is that a sorted array's binary search
-  touches indices n/2, n/4, 3n/4 … — far apart, one cache line each,
-  and the first few levels of the implicit tree are the only ones that
-  stay cached. The **Eytzinger layout** stores the implicit binary
-  search tree in breadth-first order (root at index 1, children at 2k
-  and 2k+1), so the hot top levels are contiguous and each step is
-  `k = 2k + (a[k] < key)` — no branches, no arithmetic on ranges, and
-  prefetching four levels ahead is one instruction. Going further, a
-  **B-tree layout** (a 16-way static "S-tree" with SIMD comparisons per
-  node) fits each node in a cache line and beats Eytzinger again.
-
-The costs are the usual ones: the Eytzinger array must be built (an
-in-order walk writing into BFS positions) and is not sorted any more, so
-range scans and insertion are gone — these are structures for a
-**static, read-only, repeatedly searched** array. That is exactly the
-shape of a column-store index segment, an interpolation table or a
-price-level lookup, which is where they show up.
+- [ ] Names the cost of the `a[mid] < key` branch: with random keys it mispredicts about half the time
+- [ ] Says a branchless `cmov` loop removes the mispredictions but can lose at 400 MB, because the branchy loop's speculation was acting as a prefetch
+- [ ] Prefetches both possible next probes, because both addresses are known before the comparison resolves, so the misses overlap
+- [ ] Re-lays the keys in Eytzinger order, because the hot top levels then sit in a few cache lines that stay resident
+- [ ] Accepts losing sorted order (no range scans, rebuild on change) only because this segment is static

@@ -25,7 +25,6 @@ requires:
   - foundations-bits-lowest-set-bit
 refs:
   - https://dl.acm.org/doi/10.1002/spe.4380240306
-  - https://en.wikipedia.org/wiki/Fenwick_tree
 ---
 
 A Fenwick tree answers prefix sums in O(log n) with one array and no
@@ -53,27 +52,8 @@ struct Fenwick {                      // 1-indexed internally; t[0] unused
 
 ---
 
-`i & -i` isolates the **lowest set bit** — in two's complement, `-i` is
-`~i + 1`, so every bit below the lowest set bit is flipped to 1 and
-carried into it, and the AND keeps exactly that one bit. That value is
-the *size of the range* the slot `t[i]` is responsible for: `t[6]`
-(binary 110, low bit 2) covers two elements, `t[8]` covers eight.
-
-The two loops are exact mirrors. `prefix` **removes** the low bit,
-walking 7 → 6 → 4 → 0 and summing three disjoint ranges that tile
-`[1, 7]`. `add` **adds** the low bit, walking 3 → 4 → 8, visiting every
-slot whose range contains index 3. Both take at most one step per set
-bit, so both are O(log n) with a tiny constant and no recursion.
-
-What makes it worth knowing beyond competitive programming: it is a
-`vector<long long>` — no pointers, no allocation per element, perfect
-locality — and it supports *updates*, which a precomputed prefix-sum
-array does not. That combination (point update, range sum) is how
-databases maintain running aggregates and approximate quantile
-sketches, and how schedulers keep weighted-random selection tables.
-
-Its limits are worth stating too: arbitrary range queries need an
-invertible operation (sums, xor — not max, which works only as a prefix
-query over values that only grow) and a fixed size. For range-update/range-query or
-non-invertible operations, a segment tree is the structure, at roughly
-twice the memory and a larger constant.
+`i & -i` is the lowest set bit, and that is the length of the range slot
+`t[i]` covers: `t[6]` (110) covers two elements, `t[8]` covers eight.
+`prefix` *removes* the low bit (7 → 6 → 4 → 0), summing ranges that tile
+`[1, 7]`; `add` *adds* it (3 → 4 → 8), visiting every slot whose range
+contains 3. Each is one step per bit: O(log n).

@@ -58,30 +58,11 @@ constexpr int quickselect(std::array<int, 8> a, std::size_t k) {
 
 ---
 
-After partitioning, the pivot is **in its final sorted position** `p`:
-everything before it is smaller, everything after is larger. So if
-`k == p` you are done, and otherwise the answer is entirely on one
-side — there is no reason to touch the other. That is the whole
-difference from quicksort, and it turns the recurrence
-`T(n) = 2T(n/2) + n` into `T(n) = T(n/2) + n`, whose sum is a geometric
-series: **expected Θ(n)**, not Θ(n log n).
-
-Moving `lo` past the pivot rather than onto it matters twice: it
-excludes an element already known not to be the answer, and it
-guarantees the range shrinks every iteration — the termination
-argument. Moving `hi` instead throws away the half the answer is in,
-and the loop happily returns a neighbouring element: a wrong answer,
-not a crash, which is why the harness pins every `k` rather than a
-couple of convenient ones.
-
-Worst case is still Θ(n²) with adversarial pivots. The fixes are the
-same as quicksort's: median-of-three or ninther pivot selection,
-randomisation, and — for a hard guarantee — median-of-medians, which
-picks a provably good pivot in O(n) and makes the whole algorithm
-worst-case linear at a constant factor nobody wants to pay.
-
-The library version, `std::nth_element`, is introselect: quickselect
-with a fallback (heapselect) on bad pivot sequences, giving the same
-expected O(n) with a worst-case bound. Reach for it for medians,
-percentiles and top-k on an array you may reorder — and remember it
-*does* reorder, which is exactly why it is faster than sorting.
+After partitioning, the pivot sits at its final sorted position `p`:
+everything left is smaller, everything right is not. So the answer
+lies entirely on one side, and the loop narrows to it: expected Θ(n),
+not Θ(n log n). The invariant is "the k-th element is in `[lo, hi]`".
+`lo = p + 1` keeps it and shrinks the range every step; `hi = p` (or
+`hi = p + 1`) discards the half holding the answer, and the loop
+returns a neighbouring element — a wrong value, not a crash, which is
+why the harness pins every `k`.
