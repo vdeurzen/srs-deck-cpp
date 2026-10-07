@@ -16,8 +16,7 @@ elaborate: Two threads each computed a partial `AVG(price)` per group. What must
 
 ---
 
-**A small accumulator per group (running `SUM`, `COUNT`, …), updated in
-place for each input row.**
+**One accumulator per group, such as a running `SUM` and `COUNT`, updated in place.**
 
 So its memory grows with the number of distinct groups, not with the
 input: a billion rows into 50 groups is a 50-entry table. It spills only
