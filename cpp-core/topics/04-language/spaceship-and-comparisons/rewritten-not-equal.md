@@ -14,7 +14,7 @@ compile:
 requires:
   - spaceship-basics
 refs:
-  - https://en.cppreference.com/w/cpp/language/operator_comparison#Rewritten_candidates
+  - https://en.cppreference.com/w/cpp/language/overload_resolution#Call_to_an_overloaded_operator
 ---
 
 `Point` declares only `operator==`, no `operator!=` at all. Make

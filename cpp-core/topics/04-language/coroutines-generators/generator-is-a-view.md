@@ -6,6 +6,7 @@ level: 4
 tags: [coroutines, ranges]
 requires:
   - coroutines-generator-basic
+  - ranges-range-categories
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator
 ---

@@ -18,8 +18,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/class_template_argument_deduction
 ---
 
-Write a deduction guide so brace-initializing a `Box` from a string
-literal deduces `Box<std::string>`, not `Box<const char*>`.
+Write a deduction guide so `Box{"hi"}` owns its own copy of the
+characters instead of holding a pointer to the literal.
 
 ```cpp
 #include <string>

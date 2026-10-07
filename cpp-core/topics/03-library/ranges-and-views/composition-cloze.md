@@ -1,7 +1,7 @@
 ---
 id: ranges-views-composition-cloze
 kind: cloze
-version: 1
+version: 2
 level: 2
 tags: [ranges]
 refs:
@@ -9,9 +9,7 @@ refs:
 ---
 
 `v | std::views::filter(pred) | std::views::transform(fn)` chains view
-adaptors with the {{c1::pipe operator::`operator|`}}, read left to right
-as "take `v`, then filter it, then transform the result". This mirrors
-shell pipelines and is equivalent to the more nested
-{{c2::std\::views\::transform(std\::views\::filter(v, pred), fn)::function-call
-form}}, which is why the pipe syntax exists at all: it reads in the same
-order the data actually flows.
+adaptors with the {{c1::pipe operator::an overloaded operator}}. It is
+equivalent to `std::views::transform(std::views::filter(v, pred), fn)`,
+where the adaptor applied first is written {{c2::innermost::a position in
+the nesting}}; the `|` form lists the steps in the order the data flows.

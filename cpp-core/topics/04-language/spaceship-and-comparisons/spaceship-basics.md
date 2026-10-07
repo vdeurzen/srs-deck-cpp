@@ -6,21 +6,16 @@ level: 2
 tags: [comparisons]
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_comparison#Three-way_comparison
+  - https://en.cppreference.com/w/cpp/utility/compare/strong_ordering
 ---
 
-## What does `a <=> b` return, and how do you get a `bool` out of it?
+## `auto r = 3 <=> 5;` What is `r`?
 
 ---
 
-`a <=> b` returns a value of a **comparison category type** —
-`std::strong_ordering`, `std::weak_ordering`, or `std::partial_ordering`
-— not a `bool` or an `int`. That value compares against the literal `0`
-with the ordinary relational operators: `(a <=> b) < 0` means "`a` is
-less than `b`", `== 0` means equivalent, `> 0` means greater.
+**`std::strong_ordering::less`: a comparison-category value, not a `bool`
+or an `int`.**
 
-You rarely write `a <=> b` directly for a bool result. Defining
-`operator<=>` is enough for `<`, `<=`, `>`, `>=`: the compiler rewrites
-them in terms of it. Equality is separate: `==`/`!=` come only from an
-`operator==`, which is implicitly declared when `operator<=>` is
-**defaulted** and no `operator==` is declared. A hand-written `<=>` gives
-you no `==` at all.
+You test it against the literal `0`: `r < 0` means less, `r == 0`
+equivalent, `r > 0` greater. Comparing it with any other number is not
+supported.

@@ -11,6 +11,8 @@ compile:
   harness: |
     static_assert(sorted_by_age());
     int main() {}
+requires:
+  - callables-std-invoke-member
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/ranges/sort
 ---

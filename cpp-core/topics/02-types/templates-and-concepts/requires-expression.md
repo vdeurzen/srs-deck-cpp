@@ -10,48 +10,41 @@ choices:
     ["std::convertible_to<std::size_t>", "std::same_as<void>", "std::integral", "std::floating_point"]
 compile:
   harness: |
-    // std::hash<int> returns std::size_t, which satisfies std::integral
-    // just as happily as std::convertible_to<std::size_t>. Widget hashes
-    // to a type that converts to std::size_t without being an integer, so
-    // only the concept this card is really asking for accepts both.
     struct SizeLike {
-        std::size_t value;
-        operator std::size_t() const { return value; }
+        std::size_t v;
+        constexpr operator std::size_t() const { return v; }
     };
-    struct Widget {};
-    template<>
-    struct std::hash<Widget> {
-        SizeLike operator()(const Widget&) const { return SizeLike{0}; }
-    };
-    static_assert(Hashable<int>);
-    static_assert(Hashable<Widget>);
+    struct Exact  { std::size_t hash() const; };
+    struct Proxy  { SizeLike hash() const; };
+    struct Silent { void hash() const; };
+    static_assert(Hashable<Exact>);
+    static_assert(Hashable<Proxy>);
+    static_assert(!Hashable<Silent>);
     int main() {}
 requires:
   - templates-requires-clause
 refs:
-  - https://en.cppreference.com/w/cpp/language/requires
+  - https://en.cppreference.com/w/cpp/language/requires#Compound_requirements
 ---
 
-Complete the compound requirement so `Hashable<T>` also constrains what
-`std::hash<T>{}(t)` returns, not just that the call is well-formed.
+`Hashable<T>` already checks that `t.hash()` is a valid call. Complete the
+compound requirement so it also constrains what the call returns: a value
+a hash table can use as a bucket index.
 
 ```cpp
 #include <concepts>
-#include <functional>
+#include <cstddef>
 template<typename T>
-concept Hashable = requires(T t) {
-    { std::hash<T>{}(t) } -> {{c1::std\::convertible_to<std\::size_t>}};
+concept Hashable = requires(const T& t) {
+    { t.hash() } -> {{c1::std\::convertible_to<std\::size_t>}};
 };
 ```
 
 ---
 
-`{ expr } -> Concept` is a **compound requirement**: `expr` must be
-well-formed, and `Concept<decltype((expr))>` must hold. `std::hash<int>`
-returns `std::size_t`, which is convertible to itself, so the constraint
-holds; a return-type concept that `size_t` does not satisfy makes
-`Hashable<int>` false even though the call itself compiles fine.
-
-`std::integral` would also hold for `std::hash<int>`, but it asks for more
-than the requirement needs: a hash that returns any type convertible to
-`std::size_t` is still perfectly hashable.
+`{ expr } -> C` is a **compound requirement**: `expr` must be well-formed,
+and `C<decltype((expr))>` must hold, with the expression's type inserted
+as the concept's first argument. A `void` result fails it, which a plain
+`t.hash();` requirement would accept. `std::integral` asks too much: it
+rejects `Proxy`, whose result converts to `std::size_t` without being an
+integer type.
