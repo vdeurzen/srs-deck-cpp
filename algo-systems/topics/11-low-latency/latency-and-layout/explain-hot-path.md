@@ -1,30 +1,23 @@
 ---
 id: ll-explain-hot-path
 kind: explain
-version: 1
+version: 2
 level: 5
 tags: [low-latency, hft, interview]
 requires:
-  - ll-spsc-ring
-  - ll-busy-polling
-  - ll-tail-latency
+  - ll-explain-hot-path-verify
+  - ll-explain-hot-path-os
+  - ll-explain-hot-path-memory
 refs:
   - https://en.algorithmica.org/hpc/
   - https://dl.acm.org/doi/10.1145/2408776.2408794
 ---
-A market-data-to-order hot path must answer in single-digit
-microseconds, p99.9. Explain how you would design and verify it —
-structures, memory, threading, OS, and measurement.
+A market-data-to-order path has a 4 µs median but a 60 µs p99.9, and the
+first order after a quiet minute takes ~200 µs. Walk through what you
+would suspect, how you would confirm each suspicion, and the fix.
 ---
-- [ ] State the requirement as a distribution, not an average: a p99.9 budget is a statement about single operations, so anything merely amortised (a growing vector, a rehashing table, a GC) is out
-- [ ] No allocation on the path: pre-allocated pools and arenas, fixed-capacity containers, pre-faulted and `mlock`ed memory
-- [ ] Data structures chosen for one or two cache misses per event — flat arrays and open addressing over node-based trees and chaining, handles over pointers
-- [ ] Layout: hot fields together, cold fields elsewhere, per-core state padded to cache lines to avoid false sharing, SoA where a pass touches one field of many records
-- [ ] Threading: single writer per data item wherever possible (SPSC rings, seqlocks), so the fast path needs no CAS and no lock; bounded queues for back-pressure
-- [ ] Publication via release/acquire pairs, with each relaxed access justified; no data races, checked with a sanitiser
-- [ ] OS and hardware: pinned threads on isolated cores, IRQs steered away, NUMA-local memory and NIC, huge pages, C-states and frequency scaling fixed, kernel bypass or busy-polled I/O
-- [ ] Keep the path warm — periodic dummy traffic so caches, the TLB and the branch predictor are not cold when the event that matters arrives
-- [ ] Branches: predictable ones left alone, unpredictable ones made branchless; the rare/slow path moved out of line so it does not pollute the instruction cache
-- [ ] Measure with a histogram (and coordinated-omission-corrected load), report p99.9 and max, and profile with hardware counters — cache misses, TLB misses, branch misses — not just wall clock
-- [ ] Know the failure modes you have accepted: a bounded queue overflowing, a pool exhausted, a warm-up window after deployment — and make each one loud rather than silent
-- [ ] Say what you would *not* do: no clever lock-free structure without a measured contention problem, no micro-optimisation before the layout and the allocation story are right
+- [ ] First trust the measurement: an open-loop load generator and a p99.9 read from histograms, so the 60 µs is real and not an artefact of coordinated omission
+- [ ] The ~200 µs first order is a cold path: a deep C-state exit plus caches, TLB and predictor filled by other work; confirmed by correlating with idle gaps, fixed by capping C-states and warming the path
+- [ ] Spikes from preemption or interrupts show as context switches and IRQ counts on the hot core; fixed by isolating and pinning the core, `nohz_full`, and steering IRQs away
+- [ ] Spikes from page faults or allocator slow paths show in `perf` fault counts and allocation tracing; fixed by pre-faulted, `mlock`ed, NUMA-local pools
+- [ ] Spikes that coincide with THP compaction (`khugepaged`, compaction stalls in `/proc/vmstat`) are fixed by huge pages reserved at boot and THP set to `madvise` or `never`

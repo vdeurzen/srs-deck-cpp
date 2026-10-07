@@ -49,4 +49,4 @@ write overlapped the copy, even if both values are even (`2, 4`).
 Ordering the counters (`after > before`) is the tempting shortcut and
 fails twice: it misses `3, 3`, and it misses a wrapped 32-bit counter.
 Only equality is safe. The comparison is only meaningful with the
-fences `ll-seqlock` describes around the payload reads.
+fences around the payload reads (`ll-seqlock-fences`).

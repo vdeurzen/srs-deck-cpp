@@ -38,34 +38,14 @@ constexpr int select(bool cond, int a, int b) {
 
 ---
 
-Read it as "start from `b`, and flip exactly the bits where `a`
-differs, but only if the mask says so". With `mask == 0` the AND
-vanishes and the result is `b`; with `mask == −1` the AND is
-`a ^ b` and `b ^ (a ^ b)` is `a`. Three instructions, no branch, no
-misprediction, and the same constant cost every time.
+**Start from `b` and flip exactly the bits where `a` differs, if the
+mask says so.** `mask == 0` leaves `b`; `mask == -1` gives `b ^ (a ^ b)`,
+which is `a`. Three instructions, no branch, constant cost.
 
-Two things to be careful about before reaching for this. First,
-**write the branch and check the assembly** — a compiler will very
-often emit `cmov` for `cond ? a : b` on its own, and the readable
-version is then strictly better. The mask trick earns its place when
-the compiler insists on a branch, when you need the mask anyway for
-SIMD lanes, or when the same mask selects several values.
-
-Second, **branchless is not always faster**. It always evaluates both
-sides, so it loses when one side is expensive or when the branch is
-well predicted, and it converts a control dependency into a *data*
-dependency, which lengthens the critical path of a dependency chain.
-The rule from the foundations Topic applies: unpredictable branch,
-both sides cheap → branchless; otherwise leave it.
-
-The related idioms worth recognising: `x & (x - 1)` clears the lowest
-set bit, `x & -x` isolates it, `(x ^ y) & -(x < y)` builds a
-conditional swap (the compare-exchange of a sorting network), and
-`(x >> 31)` broadcasts a sign bit into a mask for `abs`. They all rely
-on two's complement, but not on the same signedness: `x & -x` and
-`x & (x - 1)` want **unsigned** operands, since negating or
-decrementing `INT_MIN` is undefined; `x >> 31` must stay **signed**,
-since only a signed right shift is arithmetic and broadcasts the sign
-bit (guaranteed since C++20, [expr.shift]) — on an unsigned `x` it
-yields 0 or 1 and the `abs` idiom silently breaks. Getting that
-backwards is where this style of code quietly goes wrong.
+Write the plain `cond ? a : b` first and read the assembly: compilers
+often emit `cmov` themselves. Branchless always evaluates both sides and
+turns a control dependency into a data dependency, so it pays only for an
+unpredictable branch with cheap arms. Signedness matters: `-static_cast<int>`
+and `x >> 31` mask tricks want **signed** values (only a signed right
+shift broadcasts the sign bit, [expr.shift]), while `x & -x` and
+`x & (x - 1)` want **unsigned** ones.

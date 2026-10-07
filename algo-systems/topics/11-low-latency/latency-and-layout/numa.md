@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [low-latency, numa, memory-hierarchy, os]
 requires:
-  - ll-hardware-numbers
+  - ll-prefault
 refs:
   - https://www.kernel.org/doc/html/latest/admin-guide/mm/numa_memory_policy.html
   - https://man7.org/linux/man-pages/man8/numactl.8.html

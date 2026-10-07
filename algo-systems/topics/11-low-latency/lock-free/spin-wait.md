@@ -15,6 +15,6 @@ elaborate: How long should a waiter spin before it parks, given what a context s
 A spin lock whose waiters loop on `locked.exchange(true)` writes the
 lock's cache line on every iteration, so the line bounces between the
 waiting cores even while the holder makes no change. **Test-and-test-and-set**
-spins on a plain {{c1::load::a kind of memory access}} instead, so every
+spins on a plain {{c1::relaxed load::a kind of memory access}} instead, so every
 waiter keeps a shared copy in its own cache, and tries the exchange only
 after seeing the lock free.

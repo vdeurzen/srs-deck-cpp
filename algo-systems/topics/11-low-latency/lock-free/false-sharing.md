@@ -39,36 +39,14 @@ struct alignas(kLine) Counters {
 
 ---
 
-**False sharing** is two cores writing *different* variables that
-happen to live in the same cache line. Coherence works at line
-granularity, so each write invalidates the other core's copy and the
-line ping-pongs between them: a few-cycle store becomes a 40–100 ns
-coherence miss, every time, and the effect is invisible in the source —
-the variables are genuinely independent.
+**False sharing**: two cores write *different* variables in one cache
+line. Coherence works per line, so every write invalidates the other
+core's copy and the line ping-pongs — a few-cycle store becomes a
+40–100 ns transfer, invisible in the source.
 
-The cure is padding to a line, and the number is 64 bytes on x86-64 and
-on most AArch64 parts. Note the two alignments in the snippet do
-different jobs: the member `alignas` separates the fields from each
-other, and the struct `alignas` stops the whole object from straddling
-lines or sharing its first line with a neighbouring allocation.
-
-The standard's spelling is
-`std::hardware_destructive_interference_size`, which is more honest
-than a hardcoded 64 — but it is a compile-time constant baked into your
-ABI, GCC warns about using it in headers for exactly that reason, and
-some hardware (Apple silicon, IBM POWER, Intel's adjacent-line
-prefetcher) effectively wants 128. Hardcoding 64 with a comment, or a
-project-wide constant, is the common practice.
-
-The mirror-image constant,
-`hardware_constructive_interference_size`, marks data you want
-*together*: a lock and the data it protects, a node's key and its
-children pointers. Same number on most targets, opposite intent.
-
-Where false sharing hides in real code: adjacent fields in a
-per-connection struct written by different threads, an array of
-per-thread counters (`counts[thread_id]++` — the classic), the head and
-tail of a queue, and a `std::atomic<bool> stop_` next to a hot
-statistic. The symptom is a profile where a trivial increment costs
-more than the work around it, and scaling that gets *worse* with more
-threads.
+The member `alignas` separates the fields; the struct `alignas` stops the
+object sharing its first line with a neighbour. 64 is the line on x86-64
+and most AArch64; `std::hardware_destructive_interference_size` is the
+standard spelling, but it is baked into your ABI (GCC warns in headers),
+and Apple silicon or Intel's adjacent-line prefetcher effectively want
+128.
