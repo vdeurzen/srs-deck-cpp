@@ -11,14 +11,15 @@ expose_ms: 9000
 compile:
   harness: |
     #include <variant>
-    int main() {
-      std::variant<int, double> v = 3.5;
-      auto r = std::visit(overloaded{
+    constexpr int pick(std::variant<int, double> v) {
+      return std::visit(overloaded{
         [](int i) { return i; },
-        [](double d) { return static_cast<int>(d); },
+        [](double d) { return static_cast<int>(d) * 10; },
       }, v);
-      return r == 3 ? 0 : 1;
     }
+    static_assert(pick(3.5) == 30);
+    static_assert(pick(4) == 4);
+    int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/utility/variant/visit
 ---
@@ -39,4 +40,7 @@ lambdas, pull all their `operator()`s into one overload set with a
 `using`-pack declaration, and let a deduction guide build one from a brace
 list of lambdas at the call site. `std::visit(overloaded{...}, v)` then
 reads like a `match` expression — one case per alternative, picked by
-ordinary overload resolution.
+ordinary overload resolution. The bug it prevents: an `if`/`holds_alternative`
+chain that silently ignores a newly added alternative. Since C++20,
+aggregate CTAD deduces `overloaded{...}` without the guide (GCC 14 does);
+the guide is kept because C++17 code needs it and you will read it.

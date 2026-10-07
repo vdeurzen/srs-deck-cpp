@@ -1,23 +1,22 @@
 ---
 id: callables-explain-type-erasure
 kind: explain
-version: 1
+version: 2
 level: 4
-tags: [callables]
+tags: [callables, type-erasure]
 requires:
-  - callables-function-ref-signature
-  - staticpoly-type-erasure
+  - callables-explain-function-storage
+  - callables-explain-function-costs
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/function
+  - https://en.cppreference.com/w/cpp/utility/functional/move_only_function
 ---
-Explain how `std::function` type-erases a callable to a senior
-interviewer: what it stores, what it costs, and when you would not use it.
+An event bus stores subscribers in a
+`std::vector<std::function<void(const Event&)>>` and calls each one per
+event. Reason through what this design buys and where it bites.
 ---
-- [ ] Type erasure hides the concrete callable type behind a fixed, uniform interface (`operator()` with a given signature)
-- [ ] Internally, a vtable-like set of function pointers (or a manually-built equivalent) dispatches to the stored callable's actual type
-- [ ] The callable is owned: copied or moved into `std::function`'s internal storage, heap-allocated unless it fits small-buffer optimisation
-- [ ] Calling through `std::function` is an indirect call and usually not inlinable, unlike a template parameter deduced per callable
-- [ ] `std::function` is copyable, requiring the stored callable to be copyable too — a move-only lambda cannot be stored
-- [ ] Prefer a template parameter (deduced per call site) when the callable's type can be known at compile time and copies would be wasteful
-- [ ] Prefer `std::function_ref` (C++26) over `std::function` when the callable only needs to live for the duration of one call and ownership is not needed
-- [ ] `std::function`'s empty state throws `std::bad_function_call` if invoked, unlike a null function pointer
+- [ ] Because each subscriber is erased behind `void(const Event&)`, lambdas, functors and bound members sit in one vector: the reason erasure is right here, where a template parameter could store only one type
+- [ ] Because `std::function` must be copyable, subscribing a lambda that captures a `unique_ptr` fails to compile; `std::move_only_function` accepts it, and then the subscriber vector, and the bus, become move-only
+- [ ] Because every dispatch is an indirect call the optimiser cannot see through, each event pays one non-inlinable call per subscriber: fine at event rates, wrong for a per-pixel inner loop, which wants a template parameter
+- [ ] Because `subscribe` stores its own copy of each closure, a subscriber capturing a large object by value pays that copy, and possibly a heap allocation, at every `subscribe`, and again whenever the bus itself is copied
+- [ ] A `for_each_subscriber(cb)` query that runs `cb` only during the call needs no ownership, so taking it as `std::function` may allocate for nothing: a template parameter (or `std::function_ref` in C++26) fits

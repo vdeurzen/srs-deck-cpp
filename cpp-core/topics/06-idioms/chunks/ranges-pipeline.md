@@ -9,12 +9,14 @@ requires:
 expose_ms: 8000
 compile:
   harness: |
-    int main() {
+    constexpr int total() {
       std::vector<int> v{1, 2, 3, 4, 5};
       int sum = 0;
       for (int x : evens_doubled(v)) sum += x;
-      return sum == 12 ? 0 : 1;
+      return sum;
     }
+    static_assert(total() == 12);
+    int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/ranges/filter_view
   - https://en.cppreference.com/w/cpp/ranges/transform_view
@@ -23,7 +25,7 @@ refs:
 ```cpp
 #include <ranges>
 #include <vector>
-auto evens_doubled(const std::vector<int>& v) {
+constexpr auto evens_doubled(const std::vector<int>& v) {
   return v | std::views::filter([](int x) { return x % 2 == 0; })
            | std::views::transform([](int x) { return x * 2; });
 }
@@ -35,4 +37,7 @@ The ranges pipeline idiom: `|` composes adaptors left to right, each
 producing a lazy view rather than a new container. Nothing here allocates
 or even runs until something iterates the result — the range-for in the
 harness is what actually pulls values through `filter` then `transform`,
-one element at a time.
+one element at a time. The bug it prevents: the hand-written loop with
+an `if` and a `push_back` into a temporary vector, which allocates and
+buries the two steps in control flow. The view borrows `v`, so it must
+not outlive it.

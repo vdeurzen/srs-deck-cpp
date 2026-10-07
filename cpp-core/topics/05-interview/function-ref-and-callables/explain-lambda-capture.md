@@ -1,24 +1,22 @@
 ---
 id: callables-explain-lambda-capture
 kind: explain
-version: 1
+version: 2
 level: 4
-tags: [callables]
+tags: [callables, lambdas, lifetime]
 requires:
-  - trace-copy-vs-reference
-  - lambda-dangling-reference
-  - lambda-init-capture
+  - callables-explain-capture-modes
+  - callables-explain-capture-lifetime
 refs:
-  - https://en.cppreference.com/w/cpp/language/lambda
+  - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
+  - https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
 ---
-Explain lambda captures to a senior interviewer: by value versus by
-reference, and how a capture-by-reference can dangle.
+`Session::start()` posts `[&] { send(reply); }` to a thread pool and
+returns at once; `reply` is a local `std::string` and `send` is a member
+function. Reason through what goes wrong and what each fix changes.
 ---
-- [ ] `[x]` captures by value: a copy of `x` at the point the lambda is created, independent of `x`'s later lifetime
-- [ ] `[&x]` captures by reference: the lambda stores a reference, and reading it after `x` is destroyed is undefined behaviour
-- [ ] `[=]`/`[&]` are implicit default captures — capture everything used, by value or by reference respectively
-- [ ] The classic dangling case: a lambda capturing local variables by reference outlives the scope it was created in, e.g. stored, returned, or posted to another thread
-- [ ] `mutable` is needed to modify a by-value capture inside `operator()`, since the call operator is `const` by default
-- [ ] Capturing `this` by reference (implicit in `[=]` pre-C++20, or `[this]`) means member access can dangle if the object is destroyed first; `[*this]` captures the object by value instead
-- [ ] Init-captures (`[y = std::move(x)]`) let you move into the lambda or compute a captured value, not just name an existing variable
-- [ ] A lambda passed to something that may run asynchronously should prefer by-value or init-captures over by-reference, for exactly this reason
+- [ ] Because `[&]` captures `reply` by reference and `start` returns before the task runs, the task reads a destroyed local: undefined behaviour that can pass every test by timing alone
+- [ ] Because `send` is a member, the body also captures `this`, so the task still dangles if the `Session` is destroyed before the pool runs it, even once `reply` is fixed
+- [ ] Switching to `[=]` copies `reply` but still captures `this` as a bare pointer, so the second bug survives; that hidden pointer is why C++20 deprecates implicit `this` capture by `[=]`
+- [ ] With `[reply = std::move(reply)]` the closure owns the string, but because the call operator is `const`, `send(std::move(reply))` in the body still copies; moving it out needs `mutable`
+- [ ] Capturing `self = shared_from_this()` keeps the `Session` alive until the task runs; `weak_from_this()` plus `lock()` instead skips the send if the session has closed: the choice is whether the work must still happen

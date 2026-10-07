@@ -9,15 +9,12 @@ requires:
 expose_ms: 9000
 compile:
   harness: |
-    struct Circle : Shape<Circle> {
-      double r;
-      double computeArea() const { return 3.14159 * r * r; }
+    struct Square : Shape<Square> {
+      double side;
+      constexpr double computeArea() const { return side * side; }
     };
-    int main() {
-      Circle c;
-      c.r = 2.0;
-      return c.area() > 0 ? 0 : 1;
-    }
+    static_assert(Square{{}, 3.0}.area() == 9.0);
+    int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/language/crtp
   - https://wg21.link/p0847
@@ -26,7 +23,7 @@ refs:
 ```cpp
 template <typename Derived>
 struct Shape {
-  double area() const {
+  constexpr double area() const {
     return static_cast<const Derived*>(this)->computeArea();
   }
 };
@@ -35,9 +32,13 @@ struct Shape {
 ---
 
 The Curiously Recurring Template Pattern: a base class template
-parameterised on its own derived class, so it can `static_cast` `this`
-down to `Derived` and call a member `Derived` is expected to provide —
-static, compile-time polymorphism with no vtable and no virtual call.
-P0847 ("Deducing this") gives most CRTP uses a simpler alternative — an
-explicit object parameter — but the pattern itself still shows up
-throughout the standard library and older codebases.
+parameterised on its own derived class. Line by line: `Derived` names the
+class that will inherit; `area()` is the shared interface; the
+`static_cast` to `const Derived*` keeps `const` and is valid provided
+`D` really derives from `Shape<D>`: `struct X : Shape<Y>` compiles and
+makes the cast undefined behaviour. A private constructor plus
+`friend Derived;` in `Shape` turns that slip into a compile error. The bug it prevents is the
+virtual call: dispatch is resolved at compile time, so there is no vtable
+and the call can inline. C++23's explicit object parameter (P0847) covers
+most new uses; the pattern still fills older code and the standard
+library.

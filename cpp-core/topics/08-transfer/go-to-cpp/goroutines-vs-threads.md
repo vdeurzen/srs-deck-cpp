@@ -1,29 +1,25 @@
 ---
 id: transfer-goroutines-vs-threads
 kind: cloze
-version: 1
+version: 2
 level: 3
 tags: [transfer, misconception, concurrency]
-elaborate: If std::thread is too heavyweight to spawn one per task the way you would a goroutine, what building block does C++ actually offer for that pattern instead?
+elaborate: Which of your Go services start one goroutine per request, and what would bound the number of tasks in flight once ported to C++?
+requires:
+  - threads-thread-destructor-joinable
 refs:
   - https://en.cppreference.com/w/cpp/thread/thread
+  - https://man7.org/linux/man-pages/man3/pthread_create.3.html
   - https://en.cppreference.com/w/cpp/thread/jthread
+  - https://man7.org/linux/man-pages/man5/proc_sys_kernel.5.html
 ---
 
-A goroutine starts at a few kilobytes of stack that the Go runtime grows
-and shrinks as needed, and the runtime multiplexes potentially millions
-of goroutines over a small pool of OS threads — spawning one per small
-task is the idiomatic Go style. `std::thread` (and `std::jthread`) are
-not that: each one is {{c1::a 1:1 wrapper around one OS thread::no
-runtime multiplexing — the operating system schedules exactly this
-thread}}, typically reserving a stack {{c2::on the order of a megabyte,
-not a few kilobytes::the default OS thread stack size, orders of
-magnitude larger than a goroutine's initial stack}}, and creating one is
-a real system call, not a cheap runtime bookkeeping operation. Spawning
-one `std::jthread` per lightweight task the way Go spawns goroutines
-{{c3::exhausts memory and OS scheduling capacity long before a
-comparable goroutine count would::thousands of threads is already
-heavy; hundreds of thousands is not viable at all}} — getting
-goroutine-like cheap concurrency in C++ means a thread pool, a task
-queue, or a coroutine-based scheduler layered on top of a small, fixed
-number of `std::jthread`s, not one thread per task.
+A goroutine starts with a stack of a few KiB, and the Go runtime
+multiplexes millions of them onto a handful of OS threads. A
+`std::jthread` is exactly one {{c1::OS thread::what the kernel
+schedules}}, created by a system call. Spawn 100k of them for 100k
+requests and the kernel's thread limits (`threads-max`, a cgroup's
+`pids.max`) and scheduling cost stop you long before memory does: on a
+64-bit system each stack is mostly uncommitted address space.
+Goroutine-style work in C++ is a small, fixed {{c2::pool}} of `jthread`s
+draining a task queue.

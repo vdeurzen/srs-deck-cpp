@@ -1,27 +1,33 @@
 ---
 id: transfer-slices-vs-span
 kind: basic
-version: 1
+version: 2
 level: 3
 tags: [transfer, misconception, ownership]
-elaborate: How does Go's garbage collector make a slice's backing array safe to keep around, in a way `std::span` never is?
+elaborate: Which C++ type would own the array here, and what would `evens` return then?
 requires:
-  - ranges-views-lazy-cloze
+  - vocab-span-parameter
+  - raii-storage-durations
 refs:
   - https://en.cppreference.com/w/cpp/container/span
+  - https://en.cppreference.com/w/cpp/language/reference#Dangling_references
 ---
 
-## True or false: `std::span<T>` works like a Go slice — you can `append`-grow it, and holding onto the span keeps its data alive.
+## In Go, returning a slice of a local array is safe. A `std::span` is a pointer and a length, like a slice. What happens on the last line?
+
+```cpp
+std::span<const int> evens() {
+    std::vector<int> v{0, 2, 4};
+    return v;
+}
+int first = evens()[0];
+```
 
 ---
 
-**False.** A Go slice is a `(pointer, length, capacity)` triple over a
-backing array the garbage collector keeps alive for as long as any slice
-still references it, and `append` can grow it, reallocating a fresh
-backing array when capacity runs out. `std::span<T>` is only a
-`(pointer, length)` **view** — it owns nothing, has no capacity and no
-`append`, and keeps nothing alive. If the container it was taken from is
-destroyed, reallocates (a `push_back` past capacity on the `vector` it
-points into, say), or even just goes out of scope, the `span` silently
-starts pointing at freed memory. A `span` is only ever as valid as
-whatever it was formed from is guaranteed to still be alive.
+**Undefined behaviour: `v` was destroyed when `evens` returned, so the
+span points at freed memory.**
+
+In Go the collector keeps the backing array alive while any slice
+refers to it. A `span` owns nothing and keeps nothing alive; it is only
+valid while what it views is. Return the `std::vector` itself.

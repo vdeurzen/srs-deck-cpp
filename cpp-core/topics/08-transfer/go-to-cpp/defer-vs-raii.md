@@ -1,28 +1,35 @@
 ---
 id: transfer-defer-vs-raii
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [transfer, misconception, raii]
 requires:
   - raii-owner-in-destructor
-elaborate: Go's defer runs at function exit, LIFO, no matter which return statement fires. Where exactly does a C++ destructor run instead, and why does that make RAII strictly more general than defer?
+  - raii-scope-exit-order
+elaborate: In Go, where would you move a `defer f.Close()` that sits inside a loop, and what in C++ makes that move unnecessary?
 refs:
   - https://en.cppreference.com/w/cpp/language/raii
+  - https://en.cppreference.com/w/cpp/language/storage_duration#Automatic_storage_duration
 ---
 
-## True or false: since C++ has no `defer`, the only reliable way to guarantee cleanup on every return path is to repeat the cleanup call before each `return` and in a `catch` block.
+## In Go, `defer f.Close()` inside this loop closes every file when `process` returns. `File`'s destructor closes its file. When does each `File` here close?
+
+```cpp
+void process(const std::vector<std::string>& paths) {
+    for (const auto& p : paths) {
+        File f{p};
+        f.consume();
+    }
+    log_done();
+}
+```
 
 ---
 
-**False**, and believing it is what leads Go programmers to write
-C++ that reinvents `defer` badly by hand. C++ does not need a `defer`
-keyword because RAII already guarantees the cleanup runs: bind the
-resource to a local object whose destructor does the cleanup, and the
-destructor runs automatically when that object's **scope** ends — on a
-`return`, a `break`, falling off the end of a block, or an exception
-unwinding through it — with no repeated call at every exit point.
-This is strictly more general than `defer`: `defer` is scoped to the
-whole function, but an RAII object's destructor fires at the end of
-*its own* enclosing scope, which can be a single `{ ... }` block nested
-anywhere, not just the function body.
+**At the end of each iteration: `f` is destroyed when its block ends,
+before the next file opens.**
+
+`defer` is scoped to the function, so the Go habit expects cleanup at
+`return`. A destructor is scoped to the enclosing block, any block: one
+file is open at a time, and all are closed before `log_done()`.
