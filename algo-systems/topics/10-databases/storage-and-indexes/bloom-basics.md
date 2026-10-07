@@ -3,6 +3,8 @@ id: db-bloom-basics
 kind: basic
 version: 1
 level: 2
+requires:
+  - algo-basics/hashing-map-set-purpose
 tags: [databases, sketches, probabilistic]
 refs:
   - https://dl.acm.org/doi/10.1145/362686.362692

@@ -1,0 +1,51 @@
+#!/usr/bin/env python3
+"""Apply Card moves between Decks: delete each moved Card from the source Deck
+and re-point every `requires` on it (in all given Decks) to the new id.
+
+usage: scripts/apply-moves <moves.tsv> <from-deck-dir> <to-deck-id> <deck-dir>... [--dry-run]
+moves.tsv lines: <old id in from-deck>\t<new id in to-deck>
+"""
+
+import os
+import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cards import Deck  # noqa: E402
+
+
+def main(argv):
+    dry = "--dry-run" in argv
+    argv = [a for a in argv if a != "--dry-run"]
+    if len(argv) < 4:
+        sys.exit(__doc__)
+    moves_path, src_root, dst_id, *roots = argv
+    moves = dict(l.rstrip("\n").split("\t") for l in open(moves_path) if l.strip())
+    src = Deck(src_root)
+    missing = [o for o in moves if o not in src.cards]
+    if missing:
+        sys.exit(f"not in {src.id}: {missing}")
+    for root in roots:
+        deck = Deck(root)
+        for card in deck.cards.values():
+            if deck.id == src.id and card.id in moves:
+                continue
+            text = open(card.path).read()
+            new = text
+            for old, target in moves.items():
+                q = f"{dst_id}/{target}" if deck.id != dst_id else target
+                # bare id inside this Deck, or a qualified reference from another Deck
+                pat = old if deck.id == src.id else f"{src.id}/{old}"
+                new = re.sub(rf"^(\s*-\s*){re.escape(pat)}\s*$", rf"\g<1>{q}", new, flags=re.M)
+            if new != text:
+                print(f"re-point {card.qid}")
+                if not dry:
+                    open(card.path, "w").write(new)
+    for old in moves:
+        print(f"delete {src.id}/{old}")
+        if not dry:
+            os.remove(src.cards[old].path)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

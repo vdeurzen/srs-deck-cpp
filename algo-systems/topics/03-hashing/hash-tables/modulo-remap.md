@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [hashing, distributed, databases]
 requires:
-  - hash-average-vs-worst
+  - algo-basics/hashing-average-vs-worst
 elaborate: Which of your systems shards by `hash % N`? What happens to its caches the day N changes?
 refs:
   - https://dl.acm.org/doi/10.1145/258533.258660

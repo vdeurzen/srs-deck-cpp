@@ -23,6 +23,7 @@ compile:
     int main() {}
 requires:
   - foundations-bits-lowest-set-bit
+  - algo-basics/linear-prefix-sum-range
 refs:
   - https://dl.acm.org/doi/10.1002/spe.4380240306
 ---

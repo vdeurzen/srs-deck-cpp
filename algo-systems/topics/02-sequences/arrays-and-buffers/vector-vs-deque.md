@@ -5,7 +5,7 @@ version: 1
 level: 2
 requires:
   - foundations-cache-cost-model
-  - seq-array-vs-list-index
+  - algo-basics/linear-array-index-contiguity
 tags: [containers, memory-hierarchy]
 elaborate: Your queue has a known maximum length. What would a fixed ring buffer give you that `deque` does not?
 refs:

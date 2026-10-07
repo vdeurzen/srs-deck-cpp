@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [sorting, memory]
 requires:
-  - sort-stability
+  - algo-basics/sort-stable-meaning
 elaborate: In a latency-critical path that must not allocate, which stable algorithm would you accept, and at what cost?
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/stable_sort

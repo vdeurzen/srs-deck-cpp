@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [sorting, databases]
 requires:
-  - sort-stability
+  - algo-basics/sort-stable-meaning
   - sort-timsort-runs
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/sort

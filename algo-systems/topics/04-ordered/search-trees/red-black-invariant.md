@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [trees]
 requires:
-  - ordered-balance-families
+  - algo-basics/tree-balance-families
 refs:
   - https://doi.org/10.1109/SFCS.1978.3
   - https://docs.kernel.org/core-api/rbtree.html

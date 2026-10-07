@@ -5,7 +5,7 @@ version: 1
 level: 4
 requires:
   - foundations-cache-cost-model
-  - foundations-amortised-single-call
+  - algo-basics/complexity-amortised-single-call
   - cpp-core/containers-reference-invalidated-by-growth
 tags: [complexity, cost-model, interview]
 refs:

@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [graphs, dfs, compilers]
 requires:
-  - graph-bfs-and-dfs
+  - algo-basics/graph-bfs-and-dfs
 refs:
   - https://en.wikipedia.org/wiki/Topological_sorting#Depth-first_search
 ---

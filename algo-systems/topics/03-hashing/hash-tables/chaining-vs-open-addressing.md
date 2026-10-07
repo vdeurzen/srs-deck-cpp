@@ -6,6 +6,8 @@ level: 3
 tags: [hashing, memory-hierarchy, containers]
 requires:
   - foundations-cache-cost-model
+  - algo-basics/hashing-chaining
+  - algo-basics/hashing-open-addressing
 refs:
   - https://abseil.io/about/design/swisstables
   - https://en.cppreference.com/w/cpp/container/unordered_map

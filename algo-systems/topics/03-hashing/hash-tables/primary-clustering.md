@@ -5,7 +5,7 @@ version: 1
 level: 3
 requires:
   - hash-load-factor-and-probes
-  - hash-linear-probe-step
+  - algo-basics/hashing-linear-probe-step
 tags: [hashing, open-addressing]
 refs:
   - https://en.wikipedia.org/wiki/Linear_probing

@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [complexity, recurrences, divide-and-conquer]
 requires:
-  - foundations-master-theorem
+  - algo-basics/complexity-master-theorem
 refs:
   - https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)
   - https://dl.acm.org/doi/10.1145/1008861.1008865

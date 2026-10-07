@@ -6,6 +6,7 @@ level: 4
 tags: [union-find, amortised]
 requires:
   - graph-union-find
+  - algo-basics/graph-union-find-by-rank
 refs:
   - https://doi.org/10.1145/62.2160
 ---

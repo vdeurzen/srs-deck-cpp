@@ -3,6 +3,8 @@ id: seq-go-slice-header
 kind: basic
 version: 1
 level: 2
+requires:
+  - algo-basics/linear-dynamic-array-growth
 tags: [go, slices]
 refs:
   - https://go.dev/blog/slices-intro

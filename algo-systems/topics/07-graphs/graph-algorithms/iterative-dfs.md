@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [graphs, traversal, stack]
 requires:
-  - graph-bfs-and-dfs
+  - algo-basics/graph-bfs-and-dfs
 refs:
   - https://en.wikipedia.org/wiki/Depth-first_search#Pseudocode
 elaborate: Which recursive walk in your code base (AST, CFG, dependency graph) has a depth an attacker or a generated input controls?

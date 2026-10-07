@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [containers, arena, complexity]
 requires:
-  - seq-array-insert-shift
+  - algo-basics/linear-array-insert-shift
 input: chips
 choices:
   c1:

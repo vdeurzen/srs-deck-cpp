@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [dynamic-programming, graphs]
 requires:
-  - foundations-dp-overlapping-subproblems
+  - algo-basics/technique-dp-overlapping-subproblems
 refs:
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
   - https://en.wikipedia.org/wiki/Optimal_substructure

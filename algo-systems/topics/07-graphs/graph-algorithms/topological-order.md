@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [graphs, scheduling, compilers, databases]
 requires:
-  - graph-bfs-and-dfs
+  - algo-basics/graph-bfs-and-dfs
 refs:
   - https://doi.org/10.1145/368996.369025
   - https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm

@@ -1,0 +1,13 @@
+id: algo-basics
+name: Algorithms & Data Structures — Basics
+description: The textbook core to build on — big-O, arrays and lists, hashing, searching, trees and balance, heaps, sorting, graphs, recursion, greedy and dynamic programming.
+language: cpp
+format: 1
+relations: # cards here may require cpp-core/<id>
+  - deck: cpp-core
+    role: builds-on
+defaults:
+  compile:
+    compiler: g142 # GCC 14.2 on Compiler Explorer
+    std: c++23
+    flags: [-Wall, -Wextra]

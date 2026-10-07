@@ -5,7 +5,7 @@ version: 2
 level: 4
 tags: [compilers, cfg, dominance]
 requires:
-  - graph-bfs-and-dfs
+  - algo-basics/graph-bfs-and-dfs
   - compiler-cfg-basic-blocks
 refs:
   - https://www.cs.rice.edu/~keith/EMBED/dom.pdf

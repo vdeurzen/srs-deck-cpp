@@ -5,7 +5,7 @@ version: 1
 level: 4
 requires:
   - hash-avalanche
-  - hash-average-vs-worst
+  - algo-basics/hashing-average-vs-worst
 tags: [hashing, security]
 refs:
   - https://www.usenix.org/legacy/events/sec03/tech/full_papers/crosby/crosby.pdf

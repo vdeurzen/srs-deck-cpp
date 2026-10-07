@@ -6,6 +6,7 @@ level: 4
 tags: [strings, hashing]
 requires:
   - str-naive-matching
+  - algo-basics/hashing-order-sensitive-hash
 refs:
   - https://doi.org/10.1147/rd.312.0249
   - https://en.wikipedia.org/wiki/Rolling_hash

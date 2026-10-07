@@ -3,6 +3,8 @@ id: heap-vocabulary
 kind: cloze
 version: 2
 level: 3
+requires:
+  - algo-basics/heap-shape-and-order
 tags: [heaps, complexity, containers]
 refs:
   - https://en.cppreference.com/w/cpp/container/priority_queue

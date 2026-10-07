@@ -6,6 +6,7 @@ level: 3
 tags: [graphs, shortest-paths]
 requires:
   - graph-dijkstra-nonnegative
+  - algo-basics/graph-bellman-ford-rounds
 refs:
   - https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
 ---

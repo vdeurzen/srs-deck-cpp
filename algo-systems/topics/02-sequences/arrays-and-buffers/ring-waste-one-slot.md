@@ -3,6 +3,8 @@ id: seq-ring-waste-one-slot
 kind: basic
 version: 1
 level: 2
+requires:
+  - algo-basics/linear-ring-full-empty-trace
 tags: [ring-buffer, queues]
 refs:
   - https://en.wikipedia.org/wiki/Circular_buffer

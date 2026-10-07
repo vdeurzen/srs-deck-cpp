@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - hash-linear-probe-step
+  - algo-basics/hashing-linear-probe-step
 tags: [hashing, open-addressing, misconception]
 elaborate: Does a table in your own system erase keys? How does its erase stop this from happening?
 refs:

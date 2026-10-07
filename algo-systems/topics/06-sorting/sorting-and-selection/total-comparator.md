@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [sorting, determinism, low-latency]
 requires:
-  - sort-stability
+  - algo-basics/sort-stable-meaning
 elaborate: Your test fixture compares sorted query output across two library versions — which key would you add as the tiebreaker?
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/sort

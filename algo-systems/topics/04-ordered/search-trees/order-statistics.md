@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 4
 requires:
-  - ordered-why-balance
+  - algo-basics/tree-why-balance
 tags: [trees, databases, ranking]
 elaborate: For a static array, a sorted copy plus lower_bound already gives rank in O(log n). When does the augmented tree earn its upkeep?
 refs:

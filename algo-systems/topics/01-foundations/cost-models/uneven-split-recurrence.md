@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [complexity, recurrences, divide-and-conquer]
 requires:
-  - foundations-master-theorem
+  - algo-basics/complexity-master-theorem
 refs:
   - https://doi.org/10.1016/S0022-0000(73)80033-9
   - https://en.wikipedia.org/wiki/Median_of_medians

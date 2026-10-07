@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [graphs, traversal, performance]
 requires:
-  - graph-bfs-and-dfs
+  - algo-basics/graph-bfs-and-dfs
 refs:
   - https://doi.org/10.1109/SC.2012.50
 ---

@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - foundations-amortised-vs-average
+  - algo-basics/complexity-amortised-vs-average
 tags: [complexity, amortised, sequences, allocators]
 refs:
   - https://epubs.siam.org/doi/10.1137/0606031

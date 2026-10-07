@@ -6,6 +6,8 @@ level: 3
 tags: [sorting, complexity]
 requires:
   - heap-vocabulary
+  - algo-basics/sort-quick-worst
+  - algo-basics/sort-heap-sort
 elaborate: Quickselect has the same O(n²) worst case — what would the same escape look like for `std::nth_element`?
 refs:
   - https://www.cs.rpi.edu/~musser/gp/introsort.ps

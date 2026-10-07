@@ -275,3 +275,45 @@ connect, `requires` on the parts, `version` bumped.
 - **Resets are fine** when a split changes what a front asks: bump `version`
   and the card is relearned.
 - **Splitting big reasoning cards** (the `explain` cards above) is part of Phase 4.
+
+## Phase 5 — `algo-basics` Deck (2026-10-07)
+
+Why: algo-systems assumes the textbook core. A learner coming back to it
+needs that core first, as its own Deck that algo-systems builds on.
+
+- Deck `algo-basics` (builds-on cpp-core); algo-systems builds-on it.
+- Level 1–3, reminder-style for a programmer who once knew this: one idea per
+  Card, a concrete example on every Card, the "why it's O(...)" for every
+  bound, at least half hands-on (trace/code/parsons-free), PEDAGOGY.md sizes.
+- Topics and id prefixes:
+
+| Topic | Prefix | Covers |
+| --- | --- | --- |
+| `01-complexity` | `complexity-` | big-O/Θ/Ω, common classes, counting loops, logs, best/average/worst, amortised, recurrences and the master theorem |
+| `02-linear` | `linear-` | arrays, dynamic arrays, linked lists, stacks, queues/deques, two pointers, sliding window, prefix sums |
+| `03-hashing` | `hashing-` | hash functions, chaining vs open addressing, load factor, sets/maps, average vs worst |
+| `04-searching` | `search-` | binary search and its invariants, lower/upper bound, searching on the answer |
+| `05-trees` | `tree-` | binary trees, traversals, BST insert/delete/search, why balance, AVL and red-black invariants, rotations, B-tree idea, tries |
+| `06-heaps` | `heap-` | binary heap, sift up/down, heapify in O(n), priority-queue operations |
+| `07-sorting` | `sort-` | insertion, selection, merge, quick (partition, pivot, worst case), heap sort, counting/radix, stability, the n log n lower bound, quickselect |
+| `08-graphs` | `graph-` | representations, BFS, DFS, topological sort, cycle detection, Dijkstra, Bellman-Ford, MST (Prim, Kruskal), union-find |
+| `09-techniques` | `technique-` | recursion, divide and conquer, greedy (exchange argument), dynamic programming (memo vs table, classic problems), backtracking |
+
+- Moved from algo-systems (recreated here, originals deleted, their
+  algo-systems dependents re-pointed to `algo-basics/<new id>`). History is
+  not a concern: the learner had only used Practice on algo-systems.
+  `foundations-big-o-scaling`, `foundations-count-loop-steps`,
+  `foundations-amortised-vs-average`, `foundations-amortised-single-call`,
+  `foundations-master-theorem`, `foundations-dp-overlapping-subproblems`,
+  `foundations-dp-memo-calls`, `seq-array-insert-shift`,
+  `seq-array-vs-list-index`, `hash-average-vs-worst`, `hash-linear-probe-step`,
+  `ordered-binary-search-halving`, `ordered-binary-search-trace`,
+  `ordered-bst-insert-order-trace`, `ordered-why-balance`,
+  `ordered-balance-families`, `sort-stability`, `graph-bfs-and-dfs`,
+  `graph-bfs-mark-on-push`, `graph-union-find-forest`.
+- Then algo-systems' entry Cards require the algo-basics Cards they build on.
+
+Status: done (2026-10-07). 228 Cards, every topic reviewed by
+`learning-designer` and revised; 20 Cards moved (scripts/apply-moves);
+30 cross-topic edges inside algo-basics, algo-systems wired onto it.
+Open: no Card teaches "complete binary tree" before 06-heaps.

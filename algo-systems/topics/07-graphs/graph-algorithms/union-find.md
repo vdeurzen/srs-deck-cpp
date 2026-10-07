@@ -28,7 +28,7 @@ compile:
                   std::array<std::size_t, 8>{0, 0, 0, 2, 0, 4, 4, 4});
     int main() {}
 requires:
-  - graph-union-find-forest
+  - algo-basics/graph-union-find-forest
 refs:
   - https://dl.acm.org/doi/10.1145/321879.321884
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure

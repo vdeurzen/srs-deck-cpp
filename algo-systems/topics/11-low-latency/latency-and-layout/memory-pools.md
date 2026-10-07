@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [low-latency, allocators, memory]
 requires:
-  - foundations-amortised-single-call
+  - algo-basics/complexity-amortised-single-call
 refs:
   - https://google.github.io/tcmalloc/design.html
   - https://en.cppreference.com/w/cpp/memory/memory_resource
