@@ -6,10 +6,11 @@ level: 4
 tags: [execution, async, c++26, concurrency]
 requires:
   - execution-operation-state-lifetime
+  - threads-thread-destructor-joinable
 refs:
-  - https://eel.is/c++draft/exec.scope
+  - https://eel.is/c++draft/exec.counting.scopes
+  - https://eel.is/c++draft/exec.simple.counting.ctor
   - https://wg21.link/p3149
-  - https://en.cppreference.com/w/cpp/execution
 ---
 
 ## Work was `spawn`ed into a `std::execution::counting_scope` (C++26, P3149) and the scope is destroyed before its `join()` has completed. What happens?
@@ -18,12 +19,10 @@ refs:
 
 **`std::terminate`.**
 
-A scope counts *associations*, one per operation spawned through its
-token, and its destructor is legal only in the *joined* state (or a
-scope never used). `join()` is itself a sender — `co_await scope.join()`
-or `sync_wait(scope.join())` — completing once the count reaches zero;
-`close()` first refuses new associations. So spawned work cannot
-outlive the state it borrows.
+The scope counts one *association* per spawned operation, and its
+destructor is legal only once joined (or never used): like
+`std::thread`, it refuses to guess. `join()` is a sender completing
+when the count reaches zero.
 
 ```cpp
 counting_scope scope;

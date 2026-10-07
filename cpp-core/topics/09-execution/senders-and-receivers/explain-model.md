@@ -1,28 +1,24 @@
 ---
 id: execution-explain-model
 kind: explain
-version: 1
+version: 2
 level: 5
 tags: [execution, async, c++26]
 refs:
-  - https://en.cppreference.com/w/cpp/execution
+  - https://eel.is/c++draft/exec
   - https://wg21.link/p2300
 requires:
-  - execution-operation-state-lifetime
-  - execution-completion-signatures
-  - execution-senders-are-not-futures
+  - execution-explain-sender-protocol
+  - execution-explain-context-and-contract
+  - execution-sync-wait-blocks-a-worker
 ---
-Explain the sender/receiver model of `std::execution` to a colleague
-who knows callbacks and `std::future` but has not read P2300.
+A colleague replaces `async(load).then(parse).then(show)` (a
+futures library with `.then`) with `schedule(pool) | then(load) | then(parse) |
+continues_on(ui) | then(show)` and runs it with `sync_wait`. Walk
+through what changes, as cause and consequence.
 ---
-- [ ] A **sender** describes work that has not started; building one runs nothing and allocates nothing
-- [ ] A **receiver** is the callback bundle the result goes to, with three channels: `set_value`, `set_error`, `set_stopped`
-- [ ] Exactly one channel is signalled, exactly once; all three completion functions are `noexcept` (an adaptor whose work throws reports it on `set_error`)
-- [ ] `connect(sndr, rcvr)` produces an **operation state**; `start(op)` launches it, once, and is `noexcept`
-- [ ] The operation state is immovable and must outlive the operation — composition nests child states inside parent ones, so a whole pipeline is one object the caller places
-- [ ] A **scheduler** is a handle to an execution context; `schedule(sched)` is the sender that completes on it, and `starts_on`/`continues_on` say where work begins and resumes
-- [ ] Receivers carry an **environment**, queried with `get_env`; that is how an operation finds its stop token, allocator or scheduler without any global
-- [ ] Completion signatures make the contract a compile-time type, so mismatches are `connect`-time errors and `sync_wait` can name its return type
-- [ ] Cancellation is a channel, not an exception: a stop request makes operations complete with `set_stopped`
-- [ ] Consuming: `std::this_thread::sync_wait(sndr)` blocks and returns `optional<tuple<...>>`; detached work goes through an async scope that owns its operation states
-- [ ] Senders and coroutines are two spellings of the same model — `as_awaitable`/`with_awaitable_senders` let a coroutine `co_await` a sender
+- [ ] Building the pipeline runs nothing, so the caller still picks the pool and the UI context; the future chain had already started `load` on a thread of its own choosing
+- [ ] `sync_wait` connects the chain into one operation state on its own stack and blocks until it completes, so no link needs a shared state and the lambdas may borrow the caller's locals
+- [ ] `show` runs on the UI thread only because `continues_on(ui)` says so; without it, it would run on the pool worker that finished `parse`
+- [ ] If `parse` throws, `then` catches it and completes on `set_error`, `show` never runs, and `sync_wait` rethrows the exception in the caller
+- [ ] `sync_wait` parks the thread that calls it, so this must run from `main` or a thread that owns the request, never from a `pool` worker: on a one-thread pool, `load` would wait forever for the worker that is waiting for it

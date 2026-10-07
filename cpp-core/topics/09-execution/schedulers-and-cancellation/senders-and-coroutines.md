@@ -5,38 +5,22 @@ version: 1
 level: 5
 tags: [execution, async, c++26, coroutines]
 refs:
-  - https://en.cppreference.com/w/cpp/execution
-  - https://wg21.link/p2300
+  - https://eel.is/c++draft/exec.as.awaitable
+  - https://eel.is/c++draft/exec.task
+  - https://wg21.link/p3552
 requires:
-  - coroutines-await-transform-hook
-  - execution-connect-and-start
   - execution-as-awaitable-channels
+  - execution-connect-and-start
 ---
 
-## How do senders and coroutines fit together, and which one should a given piece of code be?
+## In C++26, how do senders and coroutines plug into each other?
 
 ---
 
-They are two spellings of one model, and P2300's `as_awaitable` /
-`with_awaitable_senders` bridge means `co_await schedule(pool)` and
-`co_await when_all(a, b)` just work inside such a coroutine.
+**Both ways: a coroutine can `co_await` a sender, and a
+`std::execution::task` coroutine *is* a sender.**
 
-The correspondence runs all the way down. A sender is a coroutine that
-has not been called; an operation state is a coroutine frame; `connect`
-is creating the frame and `start` is the first `resume()`; a receiver
-is the continuation plus its environment, and the environment is the
-promise.
-
-Which to write is an engineering trade, not a philosophy:
-
-- **Coroutines** win on readability whenever the logic has loops,
-  branches, or locals that span suspensions — the code looks
-  sequential because it is.
-- **Senders** win where every allocation counts, because a sender
-  chain's storage is one statically-sized operation state, while each
-  coroutine is a frame the compiler is only sometimes able to elide.
-  They are also the composable vocabulary: `when_all`, `bulk` and
-  `let_value` are algorithms over senders, not over coroutines.
-
-A healthy codebase does both: coroutines for the business logic,
-senders for the plumbing that starts, joins and cancels it.
+`as_awaitable` (via `with_awaitable_senders` or `task`'s promise) turns
+`co_await when_all(a, b)` into connect-and-start. `task<T>` (P3552)
+models `sender`, so a coroutine composes with `then`, `when_all` and
+`sync_wait` like any other work.

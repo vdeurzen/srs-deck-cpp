@@ -189,12 +189,13 @@ No compile-graded cards in scope (all basic/cloze/explain/chunk with compile: nu
   lambdas, strings). **Fixed** → "cheaply movable".
 - **m8 `execution-environment-queries`** — c3 says adaptors forward any query they don't answer;
   in the draft only queries with `forwarding_query` true are forwarded (FWD-ENV), which c4 then
-  states. Slight tension. **Not fixed** (proposed: c3 "forward *forwarding* queries to...").
+  states. Slight tension. **Fixed (Phase 4):** c3 now forwards only `forwarding_query` queries; c4 removed.
 - **m9 `execution-connect-and-start`** — "the lifetime rules below" refers to another card.
-  **Not fixed** (Phase 4 wording).
+  **Fixed (Phase 4):** the back no longer refers to other Cards.
 - **m10 all cards** — refs are only the cppreference hub + wg21.link/p2300; the facts above
   depend on later papers (P3187, P3682, P3481, P3557, P2079, P3175). Proposed: add
-  https://eel.is/c++draft/exec section links per card. **Not fixed.**
+  https://eel.is/c++draft/exec section links per card. **Fixed (Phase 4):** every Card cites its
+  eel.is [exec.*] section (`execution-split-cost` cites P2300R10/P3682: `split` is not in the draft).
 
 Verified correct: then/let_value semantics and lifetime claim, `when_all` join/stop/concatenation
 and single-value-signature requirement, `sync_wait` optional<tuple>/nullopt/one-value-signature
@@ -266,20 +267,20 @@ such as a conditionally trivial special member, which SFINAE cannot do. **Fix.**
 
 ### MINOR — open (for Phase 4)
 
-- m12 `01-basics/initialization/default-value-zero.md`: "built-in type at block scope" is imprecise. It should say automatic storage; a block-scope `static int x;` is zero.
-- m13 `01-basics/const-constexpr-consteval/consteval-immediate-function-cloze.md`: "every call must be a constant expression" ignores calls in an immediate-function context and C++23 immediate escalation (P2564).
-- m14 `01-basics/value-categories/std-move-cloze.md`: "which is why `x` still has an address" muddles things. `x` has an address because it is a variable, not because `std::move(x)` is an xvalue.
-- m15 `03-library/ranges-and-views/composition-cloze.md` c1 and `lazy-cloze.md` c3: the hints contain the answer ("`operator|`", "constant time").
-- m16 `02-types/templates-and-concepts/instantiation.md`: "unused member never compiled" should say not *instantiated*; also, unused virtual members may be instantiated anyway ([temp.inst]).
-- m17 `02-types/templates-and-concepts/requires-expression.md`: the harness specializes `std::hash<Widget>` returning a non-`size_t`, which breaks Cpp17Hash. It's harmless because nothing runs, but it's a poor model.
-- m18 `05-interview/function-ref-and-callables/explain-lambda-capture.md`: implicit `this` capture via `[=]` was deprecated in C++20, not removed; "pre-C++20" reads as gone.
-- m19 `06-idioms/chunks/raii-guard.md`: `ScopeGuard` is copyable, so a copy fires the callback twice, contradicting "exactly once". An empty `std::function` in the destructor calls `terminate`. Consider deleting the copy operations.
+- m12 `01-basics/initialization/default-value-zero.md`: "built-in type at block scope" is imprecise. It should say automatic storage; a block-scope `static int x;` is zero. *(fixed, Phase 4: back now says automatic storage; static zero-init is its own Card, `initialization-static-zero`)*
+- m13 `01-basics/const-constexpr-consteval/consteval-immediate-function-cloze.md`: "every call must be a constant expression" ignores calls in an immediate-function context and C++23 immediate escalation (P2564). *(fixed, Phase 4: cloze now says "a call from ordinary (non-`consteval`) code" and notes C++23 escalation; `consteval-template-argument` v2 drills the immediate function context)*
+- m14 `01-basics/value-categories/std-move-cloze.md`: "which is why `x` still has an address" muddles things. `x` has an address because it is a variable, not because `std::move(x)` is an xvalue. *(fixed, Phase 4: sentence replaced by "overload resolution now picks `T&&` overloads; the move happens in the receiving constructor")*
+- m15 `03-library/ranges-and-views/composition-cloze.md` c1 and `lazy-cloze.md` c3: the hints contain the answer ("`operator|`", "constant time"). *(fixed, Phase 4: hints now name a category, "an overloaded operator" and "a complexity class")*
+- m16 `02-types/templates-and-concepts/instantiation.md`: "unused member never compiled" should say not *instantiated*; also, unused virtual members may be instantiated anyway ([temp.inst]). *(fixed, Phase 4: split; the lazy-member point is now `templates-lazy-member-instantiation`, which says "instantiated" and notes the virtual exception)*
+- m17 `02-types/templates-and-concepts/requires-expression.md`: the harness specializes `std::hash<Widget>` returning a non-`size_t`, which breaks Cpp17Hash. It's harmless because nothing runs, but it's a poor model. *(fixed, Phase 4: the concept now constrains a member `t.hash()`, so the harness no longer specializes `std::hash`; same blank and answer)*
+- m18 `05-interview/function-ref-and-callables/explain-lambda-capture.md`: implicit `this` capture via `[=]` was deprecated in C++20, not removed; "pre-C++20" reads as gone. *(fixed, Phase 4: the split parts and capstone say "C++20 deprecates".)*
+- m19 `06-idioms/chunks/raii-guard.md`: `ScopeGuard` is copyable, so a copy fires the callback twice, contradicting "exactly once". An empty `std::function` in the destructor calls `terminate`. Consider deleting the copy operations. *(fixed, Phase 4: snippet is now a 7-line `template <class F>` guard with copy construction and copy assignment deleted, no `std::function`; trait harness; version 2.)*
 - m20 `06-idioms/parsons/rule-of-five.md`: the copy assignment did `delete[]` before `new`. If `new` threw, `data_` dangled and got a double delete. **FIXED (promoted to Phase 1):** it now allocates and copies into `fresh`, then deletes, then assigns. That gives the strong guarantee and makes self-assignment safe without a check; one explanation paragraph added. Version kept (the question is unchanged). `check-code --id parsons-rule-of-five` is ok, and the assembled program runs clean under ASan/UBSan, including `b = b`.
-- m21 `06-idioms/chunks/visit-overload-set.md`: since C++20, aggregate CTAD makes the deduction guide unnecessary. Worth a sentence.
-- m22 `08-transfer/go-to-cpp/goroutines-vs-threads.md` c2/c3: thread stacks are a virtual reservation (glibc default 8 MiB), not committed memory. What runs out first is address space, kernel thread limits and scheduler cost, not RAM as such.
-- m23 `08-transfer/go-to-cpp/defer-vs-raii.md`: **strawman front.** No Go programmer believes repeating cleanup before every `return` plus `catch` is the *only* way. The real negative transfer is "I need a defer-like scope-guard lambda everywhere" or "destructors are like finalizers". Reframe in Phase 4 (bumps version).
-- m24 `07-tracing/lifetimes-and-references/*`: explanations cite "GCC 13.3". Re-verified on g++ 16.2, all probes unchanged. `trace-temporaries-in-range-for`'s front is mildly strawman (that nobody expects the list to die mid-loop), but fine.
-- m25 `06-idioms/chunks/io-uring-*.md`: tagged `coroutines` but reviewed. The liburing signatures (`io_uring_prep_read`, `peek_cqe` returning 0 / `-EAGAIN`, `get_sqe` NULL when full) are correct; no errors.
+- m21 `06-idioms/chunks/visit-overload-set.md`: since C++20, aggregate CTAD makes the deduction guide unnecessary. Worth a sentence. *(fixed, Phase 4: sentence added; harness now `constexpr`/`static_assert`.)*
+- m22 `08-transfer/go-to-cpp/goroutines-vs-threads.md` c2/c3: thread stacks are a virtual reservation (glibc default 8 MiB), not committed memory. What runs out first is address space, kernel thread limits and scheduler cost, not RAM as such. *(fixed, Phase 4: passage rewritten — address-space reservation, stack rlimit typically 8 MiB, c3 now kernel limits and scheduling cost; hints no longer restate.)*
+- m23 `08-transfer/go-to-cpp/defer-vs-raii.md`: **strawman front.** No Go programmer believes repeating cleanup before every `return` plus `catch` is the *only* way. The real negative transfer is "I need a defer-like scope-guard lambda everywhere" or "destructors are like finalizers". Reframe in Phase 4 (bumps version). *(fixed, Phase 4: front is now a neutral "when does each `File` close?" loop example contrasting function-scoped `defer` with block-scoped destructors; version 2.)*
+- m24 `07-tracing/lifetimes-and-references/*`: explanations cite "GCC 13.3". Re-verified on g++ 16.2, all probes unchanged. `trace-temporaries-in-range-for`'s front is mildly strawman (that nobody expects the list to die mid-loop), but fine. *(fixed, Phase 4: all five re-run on GCC 16.2 and the notes updated; the range-for trace is re-angled (v2) to probe when the range temporary dies vs. an unbound temporary)*
+- m25 `06-idioms/chunks/io-uring-*.md`: tagged `coroutines` but reviewed. The liburing signatures (`io_uring_prep_read`, `peek_cqe` returning 0 / `-EAGAIN`, `get_sqe` NULL when full) are correct; no errors. *(Phase 4: unchanged; `compile: null` stays because `liburing` is unavailable.)*
 
 No issues: aggregate-braces, array-ctad, most-vexing-parse, consteval-template-argument, const-vs-constexpr-cloze,
 constexpr-function-dual-use-cloze, categories-cloze, overload-binding, taxonomy, perfect-forwarding, rule-of-five (basic),
