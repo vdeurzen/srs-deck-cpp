@@ -22,6 +22,6 @@ table:  [ case0, case1, … case7 ]     8 code addresses
         goto *table[op];
 ```
 
-The table holds one code address per value in the case range, indexed by
-`op − lowest case`. The cost is the same for 8 cases or 800: one
-compare, one load, one indirect branch.
+The table holds one code address per value from the lowest case to the
+highest, indexed by `op − lowest`. Cases 0, 5 and 900 would need 901
+slots, 898 of them pointing at `default`.

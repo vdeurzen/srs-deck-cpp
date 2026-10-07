@@ -1,21 +1,28 @@
 ---
 id: compiler-backend-phases
-kind: cloze
-version: 1
+kind: basic
+version: 2
 level: 2
 tags: [compilers, codegen, llvm]
 refs:
   - https://llvm.org/docs/CodeGenerator.html#high-level-design-of-the-code-generator
 ---
 
-LLVM's back end turns optimised IR into machine code in a fixed order.
-{{c1::Instruction selection::a matching phase}} expresses the IR in the
-target's instructions, still over an unlimited supply of virtual
-registers. {{c2::Register allocation::a later phase}} then maps those
-onto the target's few physical registers, spilling the rest to stack
-slots. Prologue/epilogue insertion and code emission come last.
+## LLVM's back end turns optimised IR into machine code. Name the phase that picks target instructions, then the later one that assigns physical registers.
 
 ---
 
-Selection decides *which* instructions; allocation decides *where*
-their values live. Scheduling runs alongside both.
+**Instruction selection, over unlimited virtual registers; then register allocation.**
+
+```
+LLVM IR
+ → instruction selection   (legalise, then match target instructions)
+ → scheduling
+ → SSA machine-code optimisations
+ → register allocation     (virtual → physical, spill the rest)
+ → prologue/epilogue, emission
+```
+
+Selection can ignore register pressure because registers are still
+virtual; allocation fits them into the target's few, spilling to stack
+slots.

@@ -5,6 +5,8 @@ version: 1
 level: 3
 tags: [cost-model, throughput, concurrency]
 elaborate: What is the serial fraction in your most-threaded service — a lock, the allocator, a shared counter?
+requires:
+  - foundations-parallel-speedup
 refs:
   - https://doi.org/10.1145/1465482.1465560
   - https://en.wikipedia.org/wiki/Amdahl%27s_law

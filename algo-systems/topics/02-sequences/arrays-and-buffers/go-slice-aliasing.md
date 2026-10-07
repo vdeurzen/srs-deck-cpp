@@ -5,6 +5,8 @@ version: 1
 level: 3
 tags: [go, slices, aliasing, misconception]
 elaborate: Where in your own code does a function take a slice and append to it? What would happen if the caller had spare capacity?
+requires:
+  - seq-go-slice-header
 refs:
   - https://go.dev/blog/slices-intro
   - https://go.dev/ref/spec#Appending_and_copying_slices

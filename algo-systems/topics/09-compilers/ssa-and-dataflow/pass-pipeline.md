@@ -1,21 +1,27 @@
 ---
 id: compiler-pass-pipeline
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [compilers, optimisation, llvm]
 refs:
   - https://llvm.org/docs/Passes.html
   - https://llvm.org/docs/NewPassManager.html
-elaborate: A query planner applies rewrite rules one after another. Which contract must each of its rules keep?
+elaborate: A query planner applies rewrite rules one after another. Which property must each of its rules preserve?
 ---
 
-## `opt -O2` runs a long sequence of transform passes over LLVM IR. What must each pass guarantee so that any of them may follow any other?
+## LLVM runs `mem2reg`, then `instcombine`, then dozens more transform passes. What must every one of them preserve?
+
+```
+before mem2reg:  store %a, %p   %v = load %p   %r = add %v, 0
+after mem2reg:   %r = add %a, 0        instcombine then: uses of %r become %a
+```
 
 ---
 
-**Valid IR in, valid IR out, with the program's observable behaviour unchanged.**
+**The program's observable behaviour, in IR that still verifies.**
 
-A pass sees only the IR, never the internals of the pass before it, so
-passes compose by running in sequence: each does one small rewrite, and
-`-O2` is a list of them, some repeated.
+Correctness composes, so the IR after any prefix of the pipeline is a
+correct program. Usefulness does not: `instcombine` folds `add %a, 0`
+only once `mem2reg` has removed the load hiding `%a`. Some passes also
+expect a canonical form set up earlier (`LoopSimplify` before LICM).

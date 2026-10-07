@@ -4,8 +4,6 @@ kind: basic
 version: 1
 level: 2
 tags: [ring-buffer, queues]
-requires:
-  - seq-ring-buffer-full-vs-empty
 refs:
   - https://en.wikipedia.org/wiki/Circular_buffer
 ---

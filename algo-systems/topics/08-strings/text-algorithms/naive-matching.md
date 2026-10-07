@@ -10,7 +10,7 @@ refs:
 elaborate: Where in your code does a `find` run inside a loop over many positions, and what text would make it quadratic?
 ---
 
-## Which text and pattern make this naive search do about n·m character comparisons?
+## Give a text `t` and a pattern `p` that force this naive search to make m comparisons at every alignment.
 
 ```cpp
 for (std::size_t i = 0; i + m <= n; ++i) {     // each alignment

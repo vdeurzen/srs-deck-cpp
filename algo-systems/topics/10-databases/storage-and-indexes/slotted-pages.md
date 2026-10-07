@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [databases, storage, layout]
+requires:
+  - db-pages
 refs:
   - https://www.postgresql.org/docs/current/storage-page-layout.html
   - https://15445.courses.cs.cmu.edu/

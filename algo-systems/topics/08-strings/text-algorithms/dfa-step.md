@@ -1,7 +1,7 @@
 ---
 id: str-dfa-step
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [strings, automata]
 refs:
@@ -10,7 +10,7 @@ refs:
 elaborate: A hand-written `switch (state)` parser is a DFA in disguise. Where in your code does one hide?
 ---
 
-## This DFA over bytes is in state `s` and reads byte `b`. How much work does that one step take?
+## This DFA starts in `s0` and reads the input `ab`. Which state is it in afterwards?
 
 ```
           'a'   'b'
@@ -21,9 +21,9 @@ elaborate: A hand-written `switch (state)` parser is a DFA in disguise. Where in
 
 ---
 
-**One table lookup, `s = delta[s][b]`: exactly one next state, never a choice.**
+**`s2`, an accepting state: `s0 –a→ s1 –b→ s2`.**
 
-Deterministic means every (state, byte) pair has a single successor, so
-a run is one pass with no backtracking: a lookup per byte, accept if
-the last state accepts. An NFA may be in several states at once and
+Each step is one table lookup, `s = delta[s][byte]`. Deterministic means
+every (state, byte) pair has a single successor, so a run is one pass
+with no backtracking. An NFA may be in several states at once and
 must track them all.
