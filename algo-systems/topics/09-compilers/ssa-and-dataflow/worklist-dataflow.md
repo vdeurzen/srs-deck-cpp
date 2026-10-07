@@ -7,33 +7,14 @@ tags: [compilers, dataflow, lattices]
 requires:
   - compiler-liveness
 refs:
-  - https://en.wikipedia.org/wiki/Data-flow_analysis
+  - https://dl.acm.org/doi/10.1145/512927.512945
   - https://suif.stanford.edu/~courses/cs243/
 ---
 
-A dataflow analysis is three things plus a loop. A **lattice** of facts
-with a meet operator, a **transfer function** per instruction or block,
-and a **direction**; the loop then iterates until nothing changes — the
-{{c1::maximum fixpoint::Kildall's MFP — the most precise solution the
-framework can prove, reached by descending from the optimistic top}}.
-
-Termination is guaranteed by two properties together: the lattice has
-{{c2::finite height::no infinite descending chains}}, and every transfer
-function is {{c3::monotone::x ⊑ y implies f(x) ⊑ f(y), so information
-only ever moves one way}}. Facts can then only move down the lattice a
-bounded number of times. Precision comes from a third property,
-{{c4::distributivity::f(x ⊓ y) = f(x) ⊓ f(y)}}, which is what makes the
-iterative solution equal to the meet-over-all-paths answer; constant
-propagation famously lacks it, so the iterative result is a safe
-approximation rather than the ideal one.
-
-The **worklist** is the implementation: instead of sweeping every block
-each round, re-enqueue only the {{c5::successors::predecessors, for a
-backward analysis}} of a block whose output changed. Keyed by reverse
-postorder number, it converges in a handful of passes.
-
-Two orthogonal axes name the analyses: forward/backward, and may/must.
-Reaching definitions is forward-may (meet is union), available
-expressions is forward-must (meet is intersection, so the initial value
-is "everything" and blocks narrow it), liveness is backward-may, and
-very-busy expressions is backward-must.
+A dataflow analysis is a **lattice** of facts with a meet, a **transfer
+function** per block, and a **direction**. Starting from the optimistic
+top and iterating until nothing changes reaches Kildall's
+{{c1::maximum fixpoint::a lattice term}}. The loop terminates because the
+lattice has {{c2::finite height::a property of its chains}} and every
+transfer function is {{c3::monotone::a property of each function}}, so
+each fact can only move down a bounded number of times.

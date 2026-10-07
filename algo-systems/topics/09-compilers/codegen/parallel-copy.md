@@ -15,7 +15,7 @@ compile:
     static_assert(parallel_copy({3, 0, 0, 3}, kStart) == Regs{13, 10, 10, 13});  // r0 read twice, then overwritten
     int main() {}
 requires:
-  - compiler-ssa-destruction
+  - compiler-phi-swap
 refs:
   - https://doi.org/10.1109/CGO.2009.19
   - https://llvm.org/docs/CodeGenerator.html

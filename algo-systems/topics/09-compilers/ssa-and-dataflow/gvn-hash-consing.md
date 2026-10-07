@@ -1,56 +1,24 @@
 ---
 id: compiler-gvn-hash-consing
 kind: basic
-version: 1
+version: 2
 level: 5
 tags: [compilers, ssa, optimisation, hashing]
 requires:
   - compiler-ssa-form
 refs:
-  - https://en.wikipedia.org/wiki/Value_numbering
-  - https://en.wikipedia.org/wiki/Hash_consing
+  - https://dl.acm.org/doi/10.1145/207110.207154
+  - https://llvm.org/docs/Passes.html#gvn-global-value-numbering
+elaborate: Congruence catches `a + b` twice but not `a + b` against `b + a + 0`. What has to run first, or what structure replaces it?
 ---
 
-## How does global value numbering decide that two expressions are the same, and what does hash-consing change about the cost?
+## How does value numbering decide that two SSA expressions compute the same value?
 
 ---
 
-Value numbering assigns each computed value a **number**, such that two
-values get the same number when they are provably equal. The rule is
-**congruence**: two operations are congruent if they have the same
-opcode and their corresponding operands are congruent. Constants fold
-to themselves, commutative operands are sorted into a canonical order,
-and in SSA the operand *is* the defining instruction, so congruence is
-a structural comparison with no dataflow needed.
+**Congruence: same opcode, and operands with the same value numbers.**
 
-Implemented directly, that is a hash table keyed by `(opcode,
-value-number of each operand)`. Look up, and either find an existing
-number — the expression is redundant, replace it with the earlier
-value — or install a new one. Local value numbering does this per
-basic block; **global** value numbering extends it across blocks, which
-is where dominance enters: a redundant computation can only be replaced
-by one that **dominates** it.
-
-**Hash-consing** takes the same idea and makes it the *only* way to
-construct a node: the IR's factory function looks the node up in the
-table and returns the existing one if it is there, so structurally
-identical expressions are literally the same object. Then
-
-- equality is pointer comparison, and hashing is the pointer;
-- CSE stops being a pass — it happens at construction time, for free;
-- memory shrinks, since a shared subexpression is stored once;
-- a memoisation table keyed by node pointer works for any analysis.
-
-The costs are real: every construction is a hash lookup, nodes become
-immutable (you cannot mutate a shared node — you build a new one), and
-the table must be scoped or garbage-collected or it retains everything
-the compiler ever built. Mutable-IR compilers like LLVM therefore
-hash-cons only the naturally immutable parts (constants, types,
-attributes, metadata) and keep GVN as a pass; functional-style IRs
-hash-cons everything.
-
-The limit of congruence is worth naming: it catches `a+b` twice, and
-after commutative canonicalisation `b+a`, but not `a+b` versus
-`b+a+0-0` unless simplification runs first, and not two loops that
-compute the same thing differently. Extending it — deciding equality
-modulo a set of rewrite rules — is what e-graphs are for.
+A hash table maps `(opcode, operand numbers)` to a number. A hit means
+the expression is redundant; a miss installs a new number. Commutative
+operands are sorted first, and since an SSA operand *is* its
+definition, no dataflow is needed.

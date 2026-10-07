@@ -4,8 +4,6 @@ kind: basic
 version: 1
 level: 4
 tags: [compilers, codegen, branches]
-requires:
-  - compiler-switch-lowering
 refs:
   - https://github.com/llvm/llvm-project/blob/main/llvm/lib/CodeGen/SwitchLoweringUtils.cpp
   - https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/CodeGen/TargetLowering.h
@@ -16,9 +14,9 @@ elaborate: A jump table's indirect branch mispredicts on irregular input. When c
 
 ---
 
-**Density: cases filling most of their range get a jump table; sparse
-cases get a balanced tree of compares.**
+**Density: how much of the range from the lowest to the highest case is
+filled.**
 
-LLVM's instruction-selection lowering first groups cases into clusters,
-then picks per cluster. A cluster whose range fits in a machine word and
-has at most three destinations (and enough cases to pay) becomes a bit test instead.
+A dense cluster becomes a jump table: one bounds check and one indirect
+branch. Sparse cases would make the table mostly holes, so LLVM gives
+them a balanced tree of compares instead, O(log n) branches deep.

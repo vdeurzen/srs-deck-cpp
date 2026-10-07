@@ -1,55 +1,29 @@
 ---
 id: compiler-liveness
 kind: basic
-version: 1
+version: 2
 level: 4
 tags: [compilers, dataflow, registers]
 refs:
   - https://en.wikipedia.org/wiki/Live-variable_analysis
   - https://suif.stanford.edu/~courses/cs243/
+elaborate: Deleting an assignment whose target is dead can make its operands' definitions dead too. Why does dead-code elimination therefore iterate?
 ---
 
-## Write the liveness equations, say which direction they run, and name the two consumers that cannot work without them.
+## Which of `a`, `b`, `c` are live just after line 2?
+
+```cpp
+a = load();      // 1
+b = a + 1;       // 2
+c = a * b;       // 3
+return c;        // 4
+```
 
 ---
 
-A variable is **live** at a point if some path from there uses it before
-redefining it. Per block:
+**`a` and `b`.**
 
-    live_out(b) = ⋃ live_in(s) for each successor s
-    live_in(b)  = use(b) ∪ (live_out(b) − def(b))
-
-where `use(b)` is the variables read before being written in `b`, and
-`def(b)` those written in `b`. It is a **backward** analysis (facts flow
-from successors) and a **may** analysis (meet is union — live on *any*
-path is live), so the worklist visits blocks in postorder and the
-initial value is the empty set.
-
-The two consumers:
-
-- **Register allocation.** Two values interfere if one is live at the
-  definition of the other, so liveness *is* the interference graph. It
-  also determines where spills must reload and how long a live range
-  is, which drives every allocator decision.
-- **Dead code elimination.** An assignment whose target is not live
-  afterwards, and whose right-hand side has no side effects, is dead.
-  Iterating that (removing a dead store can make its operands' defs
-  dead) is one of the cheapest large wins in a pipeline.
-
-Implementation notes that matter at scale. Represent the sets as **bit
-vectors** indexed by variable, so the equations are OR and AND-NOT over
-machine words; for very large functions, switch to sparse sets. In SSA
-form you can skip the dense analysis altogether: compute liveness
-**per value** by walking backwards from each use to its single
-definition, or answer "is `v` live here?" queries directly from the
-dominator tree plus precomputed CFG reachability (Boissinot et al.'s
-fast liveness checking), which is faster and easier to keep
-incrementally correct while the IR is being changed.
-
-Two subtleties that bite: a φ's operand is live at the **end of the
-corresponding predecessor block**, not at the top of the φ's block —
-get this wrong and the allocator will happily assign one register to two
-simultaneously live values. And a call clobbers caller-saved registers,
-so anything live across a call must be in a callee-saved register or
-spilled — which is why "live across a call" is the most expensive
-property a value can have.
+A variable is live at a point if some path from there reads it before
+redefining it. Line 3 reads both; `c` is written before any read. Liveness
+flows backward, `live_in(b) = use(b) ∪ (live_out(b) − def(b))`, and
+`live_out` is the union over successors.

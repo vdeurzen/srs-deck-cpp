@@ -17,12 +17,12 @@ elaborate: Which single x86 instruction would replace the three scratch moves fo
 
 ```cpp
 int r[5] = {10, 11, 12, 13, 0};          // r4 is the scratch register
-int src[4] = {1, 0, 2, 0};               // r0 <- r1, r1 <- r0, r3 <- r0; r2 keeps
+int src[4] = {1, 0, 2, 0};               // r[d] <- r[src[d]], all at once
 int moves = 0;
-r[3] = r[src[3]]; src[3] = 3; ++moves;   // @1 r3 is nobody's source: emit first
-r[4] = r[0]; ++moves;                    // only the swap is left: save r0
-for (int& s : src) if (s == 0) s = 4;    // @2 readers of r0 now read r4
-r[0] = r[src[0]]; src[0] = 0; ++moves;   // nobody reads r0 any more
+r[3] = r[src[3]]; src[3] = 3; ++moves;   // @1
+r[4] = r[0]; ++moves;
+for (int& s : src) if (s == 0) s = 4;    // @2
+r[0] = r[src[0]]; src[0] = 0; ++moves;
 r[1] = r[src[1]]; src[1] = 1; ++moves;   // @3
 ```
 

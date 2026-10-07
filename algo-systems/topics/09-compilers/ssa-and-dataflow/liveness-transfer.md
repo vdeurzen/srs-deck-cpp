@@ -38,32 +38,12 @@ constexpr unsigned live_in(unsigned use, unsigned def, unsigned live_out) {
 
 ---
 
-Read it right to left, which is the direction the analysis runs: a
-variable is live on entry if the block **reads it before writing it**
-(`use`), or if it is live on exit and this block **does not
-overwrite** it (`live_out & ~def`). The killed set is subtracted
-first, then the generated set is added — the general shape
-`out = gen ∪ (in − kill)` that every dataflow analysis instantiates.
+**Kill first, then add the uses**: live on entry if read before written
+here (`use`), or live on exit and not overwritten (`live_out & ~def`).
+That is `out = gen ∪ (in − kill)`, the shape every gen/kill bit-vector
+analysis instantiates.
 
-The order matters, and the fourth `static_assert` is why. Applying the
-kill to `use` as well — `(use | live_out) & ~def` — is wrong for a
-variable that is read *and then* written in the same block, like
-`x = x + 1`. That variable is genuinely live on entry, and the
-incorrect formula reports it dead, so the register allocator happily
-gives its register away and the block reads garbage. This is the
-classic implementation bug, and it hides until a value happens to be
-reused across a block boundary.
-
-Note that `use` and `def` are defined relative to the block's internal
-order: `use` holds variables **read before being written** here, while
-`def` holds **every** variable the block writes — including one that
-was read first. That overlap is exactly why the order of gen and kill
-matters. Computing `use`/`def` correctly by walking the block backwards
-is half the work.
-
-In production this operates on whole arrays of words — `live_in`,
-`use`, `def` and `live_out` are bit vectors with one bit per variable
-— so the equation is a few instructions per 64 variables, and the
-worklist re-evaluates it per block until the fixpoint. That is the
-whole of a liveness pass: this line, a postorder traversal, and a
-change flag.
+The fourth `static_assert` is the trap. `def` holds **every** variable
+the block writes, so `x = x + 1` puts `x` in both `use` and `def`.
+`(use | live_out) & ~def` then reports `x` dead on entry, and the
+allocator gives its register away: the classic bug.

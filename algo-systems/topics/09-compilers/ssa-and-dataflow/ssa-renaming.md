@@ -10,6 +10,7 @@ probes:
   3: { "b3": "3", "st.size()": "3" }
 requires:
   - compiler-dominance-frontier
+  - compiler-dominator-tree
 refs:
   - https://dl.acm.org/doi/10.1145/115372.115320
   - https://doi.org/10.1007/978-3-642-37051-9_6

@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [compilers, dominance, dead-code, optimisation]
 requires:
-  - compiler-dominance
+  - compiler-post-dominance
   - compiler-liveness
 refs:
   - https://dl.acm.org/doi/10.1145/115372.115320
