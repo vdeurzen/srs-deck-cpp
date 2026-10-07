@@ -4,6 +4,9 @@ kind: code
 version: 1
 level: 3
 tags: [allocators, bit-tricks, arena]
+requires:
+  - foundations-bits-power-of-two
+  - cpp-core/layout-alignment
 input: chips
 choices:
   c1:
@@ -38,23 +41,8 @@ constexpr std::uintptr_t align_up(std::uintptr_t p, std::uintptr_t a) {
 
 ---
 
-Add `a − 1` to push any value that is not already on a boundary past the
-next one, then clear the low bits with `~(a − 1)`. The `− 1` is what
-makes the function idempotent: without it, an already-aligned address
-gets bumped a whole alignment forward and the arena leaks `a` bytes per
-allocation.
-
-This is the entire hot path of a bump (arena, region) allocator: align
-the cursor, compare `cursor + n` against the end of the block, bail out
-or publish the new cursor and return the old one. Two adds, an AND, a
-compare and a store — no free list, no size classes, no metadata per
-allocation, and deallocation is resetting `cursor_`.
-That is why compilers allocate AST and IR nodes from arenas tied to a
-compilation unit, and why low-latency systems allocate per-message state
-from an arena reset at the end of each event: the cost model is "free
-everything at once, never free anything individually".
-
-The catch is that `align_up` is only correct for a power-of-two `a`, and
-overflow near the top of the address space is unchecked — both are
-invariants of the caller, usually pinned with a `static_assert` or an
-assertion at the arena's boundary rather than a branch per allocation.
+Adding `a − 1` pushes any unaligned value past the next boundary;
+`& ~(a − 1)` clears the low bits. Without the `− 1`, an aligned address
+jumps a whole alignment and the arena wastes `a` bytes per allocation.
+This is the hot path of a bump allocator, and it is only correct for a
+power-of-two `a`.

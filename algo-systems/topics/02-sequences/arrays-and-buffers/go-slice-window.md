@@ -4,7 +4,7 @@ kind: code
 version: 1
 level: 3
 requires:
-  - seq-go-slice-aliasing
+  - seq-go-subslice-capacity
 tags: [go, slices, aliasing]
 input: chips
 compile: null
@@ -29,25 +29,10 @@ func Window(buf []byte, off, n int) []byte {
 
 ---
 
-`s[low:high:max]` sets the result's capacity to `max − low`, so with
-`max == high` the window has `len == cap`. The caller's first `append`
-finds no spare capacity, allocates a fresh array, and copies — the
-shared buffer is untouched. Any larger `max` (`cap(buf)`, `len(buf)`,
-`off+n+1`) leaves the window capacity extending into bytes that belong to
-someone else, and an `append` overwrites them in place, with no error and
-no copy.
+`s[low:high:max]` gives capacity `max − low`, so with `max == high` the
+window is full: the caller's first `append` must copy to a new array and
+`buf` is untouched. Any larger `max` lets `append` overwrite the bytes
+after the window in place. The window still aliases `buf`, so recycling
+`buf` early remains the caller's hazard.
 
-This is the standard way to hand out a read-only-ish view of a pooled
-buffer in Go. The two alternatives are copying the bytes (simple, but
-that is the allocation you were avoiding) and documenting "do not
-append", which is not a mechanism.
-
-Note the asymmetry the three-index form does *not* fix: the window still
-points into `buf`, so if the pool recycles `buf` while the caller holds
-the window, the caller sees the next message's bytes. Capacity capping
-protects the buffer from the caller; only lifetime discipline — or a
-copy — protects the caller from the buffer.
-
-This Card is not compile-checked: the Deck's compile service builds C++
-(SPEC §9), so Go snippets are graded by whitespace-normalised equality
-(SPEC §4.5).
+Go, so graded by text rather than compiled.

@@ -44,27 +44,11 @@ constexpr std::size_t group_of(std::uint64_t hash, std::size_t groups) {
 
 ---
 
-The two halves must come from **disjoint bits**, which is the whole
-reason for the shift. If the group index also used the low 7 bits,
-every key in a group would carry the same control byte, the SIMD
-compare would match all 16 slots, and the filter — the thing that
-saves a key comparison and a cache miss on ~127 of every 128
-probes — would be worthless.
+The two halves must come from **disjoint bits**. If the group index
+also used the low 7 bits, every key in a group would carry the same
+control byte, the SIMD compare would match all 16 slots, and the filter
+that skips ~127 of every 128 key comparisons would be worthless.
 
-The last two assertions state that property directly: `0x80` and
-`0x81` land in the same group and are still distinguishable by their
-control bytes.
-
-The control byte's top bit is the tag that separates *states* from
-hashes: a full slot stores `0b0hhh'hhhh`, while `kEmpty`
-(`0b1000'0000`) and `kDeleted` (`0b1111'1110`) have the high bit set.
-So one byte encodes both "is this slot occupied?" and "could this be
-my key?", and one 16-byte SIMD compare answers both questions for a
-whole group.
-
-Two engineering notes. The real implementation masks rather than takes
-a modulo, since the number of groups is a power of two — `% groups`
-here keeps the card readable. And this split is exactly why the hash
-function must **avalanche**: H1 and H2 come from the same 64 bits, so
-a hash whose low bits are weak produces both a bad group distribution
-and a useless control byte at the same time.
+This follows the published design (low 7 bits for H2). Abseil's current
+`raw_hash_set.h` takes H2 from the *top* 7 bits and indexes with the low
+ones; the rule is the same either way: disjoint bits.

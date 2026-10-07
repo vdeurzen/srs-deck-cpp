@@ -5,6 +5,7 @@ authority on what loads; this only reads Cards that already validate.
 """
 
 import os
+import sys
 import re
 
 import yaml
@@ -66,7 +67,12 @@ class Deck:
                     continue
                 path = os.path.join(dirpath, f)
                 m = FM.match(open(path).read())
-                card = Card(self, path, yaml.safe_load(m.group(1)), m.group(2))
+                try:
+                    fm = yaml.safe_load(m.group(1)) if m else None
+                    card = Card(self, path, fm, m.group(2))
+                except Exception as e:  # tool/validate reports it properly
+                    print(f"skipping unparsable {path}: {e or 'no front matter'}", file=sys.stderr)
+                    continue
                 self.cards[card.id] = card
 
 

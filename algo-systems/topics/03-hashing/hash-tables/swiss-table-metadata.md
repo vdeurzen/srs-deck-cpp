@@ -11,43 +11,17 @@ refs:
   - https://github.com/abseil/abseil-cpp/blob/master/absl/container/internal/raw_hash_set.h
 ---
 
-## How does a Swiss table split the hash, and why does a one-byte metadata array make lookups so much faster?
+## A Swiss table keeps one control byte per slot holding 7 bits of the key's hash. Why does a lookup read a group's 16 control bytes before reading any key?
+
+```
+ctrl:  [0x3a][0x80][0x15][0x3a] …16 bytes   ← one SIMD compare against H2
+slots: [ k,v ][ —  ][ k,v ][ k,v ] …
+```
 
 ---
 
-The table keeps two parallel arrays: the slots, and a **control byte per
-slot**. The hash is split in two:
+**One SIMD compare filters all 16 slots; a non-matching key is rejected ~127 times in 128.**
 
-- **H1**, the upper 57 bits, picks the starting *group* of 16 slots.
-- **H2**, the low 7 bits, is stored in the control byte of an occupied
-  slot as `0b0hhh'hhhh`. The two special values have the top bit set:
-  `kEmpty = 0b1000'0000`, `kDeleted = 0b1111'1110`.
-
-A lookup loads the group's 16 control bytes — one or two cache lines —
-broadcasts H2 into a SIMD register, compares all 16 at once
-(`_mm_cmpeq_epi8` plus `movemask`), and gets a 16-bit mask of *candidate*
-matches. Only those slots get their keys compared. The same instruction
-sequence also answers "is there an empty slot in this group?", which is
-how probing knows to stop; if not, it moves quadratically to the next
-group.
-
-Why it wins:
-
-- **One cache line answers 16 slots.** The metadata array is 1 byte per
-  entry, so 16 slots' worth of filtering fits in the space of two
-  8-byte pointers, and one cache line of metadata covers 64 slots.
-- **H2 filters ~127 of every 128 non-matching keys** before any key is
-  read, so the expensive comparison (and the miss on the key's own cache
-  line) happens about once per lookup.
-- **No pointer chasing, no per-node allocation**, and the metadata is
-  scanned with data-parallel instructions rather than a branch per slot.
-
-The trade-offs are the ones every flat table makes: rehash moves
-elements, so no reference stability; iteration order is unspecified and
-changes between runs; and a weak hash function hurts twice, because H1
-and H2 come from the same bits. Abseil mitigates the last with per-table
-hash salting, which also makes iteration order deliberately unstable so
-callers cannot depend on it.
-
-Go adopted the same design for its built-in `map` in Go 1.24, replacing
-the older bucket-of-8 layout.
+So a lookup usually compares exactly one key and pays the miss on one
+slot's line. The same compare finds empty slots, which ends the probe.
+No pointers, no per-element allocation.

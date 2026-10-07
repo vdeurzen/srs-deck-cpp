@@ -8,41 +8,20 @@ requires:
   - hash-linear-probe-step
 tags: [hashing, open-addressing]
 refs:
+  - https://en.wikipedia.org/wiki/Linear_probing
   - https://en.wikipedia.org/wiki/Primary_clustering
-  - https://en.wikipedia.org/wiki/Quadratic_probing
-  - https://github.com/facebook/folly/blob/main/folly/container/detail/F14Table.h
 ---
 
-## What is primary clustering, and what do quadratic and double hashing change about it?
+## With linear probing, why does a run of occupied slots grow faster the longer it already is?
+
+```
+slots: . . X X X X X . .   a key hashing to any X lands at the right end
+```
 
 ---
 
-With linear probing, a collision walks to the next slot — so occupied
-slots merge into **runs**, and a run is a magnet: a key hashing anywhere
-inside a run of length `k` must walk to its end, and lands there,
-extending it. Long runs get longer faster than short ones, so the
-variance of probe lengths grows much faster than the mean. That is
-primary clustering: the cost is driven by the *distribution* of
-occupancy, not just the amount of it.
+**Any key hashing into a run lands at its end, extending it: primary clustering.**
 
-**Quadratic probing** visits `h, h+1, h+3, h+6, …` (offsets of
-`i(i+1)/2`), so two keys that collide diverge immediately and runs do not
-merge. It removes primary clustering but keeps **secondary** clustering:
-keys with the *same* home slot still follow the same probe sequence.
-With a power-of-two table and triangular offsets it is guaranteed to
-visit every slot.
-
-**Double hashing** makes the step itself depend on the key,
-`h1(k) + i·h2(k)` with `h2` never zero and coprime to the table size.
-That removes secondary clustering too and is the closest practical thing
-to the uniform hashing the textbook analysis assumes — at the cost of a
-second hash computation and, fatally for modern hardware, a probe
-sequence that jumps all over memory. Every probe is a new cache line.
-
-Which is why the modern answer is neither: keep linear probing *within* a
-group of slots that shares one or two cache lines, and move to another
-group only when one is exhausted — quadratically in Swiss tables, with
-a key-derived double-hashing stride in F14. Either way
-clustering inside a group costs almost nothing (the line is already
-loaded, and a SIMD compare tests 16 slots at once) while clusters cannot
-merge across groups.
+A run of length `k` is hit by `k` home slots, so long runs capture more
+new keys than short ones and adjacent runs merge. Probe lengths then
+depend on how occupancy is distributed, not only on load factor.
