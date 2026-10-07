@@ -1,14 +1,14 @@
 ---
 id: trace-vector-growth
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [tracing, sequences, amortised]
 probes:
-  1: { "v.size()": "1", "v.capacity()": "2", "v[0]": "1" }
-  2: { "v.size()": "2", "v.capacity()": "2", "v[0]": "1" }
-  3: { "v.size()": "3", "v.capacity()": "4", "v[0]": "1" }
-  4: { "v.size()": "4", "v.capacity()": "4", "v[0]": "0" }
+  1: { "v.size()": "1", "v[0]": "1" }
+  2: { "v.size()": "2", "v[0]": "1" }
+  3: { "v.size()": "3", "v[0]": "1" }
+  4: { "v.size()": "4", "v[0]": "0", "v[1]": "1" }
 requires:
   - foundations-growth-factor
 refs:
@@ -34,28 +34,16 @@ int main() {
 
 ---
 
-`reserve(2)` guarantees capacity **at least** 2 and never shrinks it;
-libstdc++ and libc++ allocate exactly what you ask for, which is why
-probe 1 reads 2. The first two pushes fit, so capacity does not move
-and no element is copied.
+The values are mandated; what happens underneath is the lesson.
+`reserve(2)` guarantees room for two, so the first two pushes touch no
+existing element. The third may exceed the capacity: the vector then
+allocates a bigger block, **moves every element**, frees the old one —
+an O(n) push that invalidates every iterator, pointer and reference.
+The front `insert` shifts every element up one slot: `v[0]` becomes 0
+and the old first element is now `v[1]`.
 
-The third push is the interesting one: capacity is exhausted, so the
-vector allocates a new block (libstdc++ doubles: 2 → 4), **moves or
-copies all existing elements into it**, and destroys the old one. That
-single push is O(n) and it invalidates every iterator, pointer and
-reference into the vector — the reason `reserve` before a known number
-of pushes is worth the line, and the reason holding a pointer into a
-growing vector is a bug waiting for the wrong input size.
+Capacity is implementation-defined, so it is not probed: libstdc++ and
+libc++ give 2 then 4 (doubling), MSVC grows by 1.5×. The standard asks
+only for amortised O(1) `push_back`.
 
-The `insert` at the front costs a `memmove` of every element but does
-*not* reallocate, because capacity 4 still has room for a fourth
-element: size goes to 4, capacity stays 4, and `v[0]` becomes the newly
-inserted 0 while everything else shifts up one slot.
-
-Note what is implementation-defined here: the **growth factor**, and
-whether `reserve` rounds up. libstdc++ (`_M_check_len`) and libc++
-(`__recommend`) double; MSVC (`_Calculate_growth`) grows by 1.5×; nothing in the
-standard requires either, only that `push_back` is amortised O(1),
-which any geometric factor satisfies. The values above are GCC 13.3's
-libstdc++, verified by compiling and running this program with
-`g++ -std=c++23` and printing `size()` and `capacity()` at each probe.
+Verified by compiling and running this program under GCC 16.2.

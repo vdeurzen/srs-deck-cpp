@@ -4,49 +4,26 @@ kind: basic
 version: 1
 level: 2
 tags: [transfer, misconception, engineering, cost-model]
-elaborate: What is the largest n your "clever" structure will actually see this year? What would the boring version cost at that size?
+elaborate: What is the largest n your "scalable" structure will actually see this year — and what operations does it really serve?
 requires:
   - foundations-cache-cost-model
 refs:
-  - https://en.algorithmica.org/hpc/
-  - https://en.cppreference.com/w/cpp/algorithm/find
+  - https://en.cppreference.com/w/cpp/algorithm/lower_bound
+  - https://en.algorithmica.org/hpc/data-structures/binary-search/
 ---
 
-## True or false: since the data will grow, the sophisticated data structure is the safer default.
+## A read-mostly table of `int` keys, built once, will grow from 1 000 to 1 M keys. You pick `std::map` over a sorted `std::vector` with `std::lower_bound` "so it scales". What happens at 1 M keys?
+
+```cpp
+std::map<int, Row> rows;                        // built once, read per request
+// alternative: std::vector<std::pair<int, Row>> sorted by key + std::lower_bound
+```
 
 ---
 
-**Usually false**, and the reason is that the sophisticated structure
-has costs you pay *now* while its benefits arrive only at a size you
-may never reach.
+**The sorted vector: typically several times faster per lookup.**
 
-At small n, the boring version wins outright. A linear scan of a
-32-element `vector` is one or two cache lines and a perfectly
-predicted loop — faster than hashing, faster than a tree descent, and
-faster than anything with a pointer in it. A sorted `vector` with
-`lower_bound` beats `std::map` into the thousands. `std::sort` beats a
-hand-written radix sort until tens of thousands of elements.
-
-And the costs of sophistication are not only performance:
-
-- More code to be wrong in, and bugs in a custom structure are the
-  hardest kind to find.
-- Invariants a future maintainer must know (is it still sorted? was
-  that iterator invalidated? does this need rehashing?).
-- Memory overhead that hurts everything *else* in the cache.
-- Harder profiling, because the time is spread across the structure
-  rather than sitting in one obvious loop.
-
-The professional move is not to refuse sophistication but to **make
-the choice reversible and measured**: put the collection behind a
-narrow interface (`find`, `insert`, `for_each`), start with the
-simplest thing, write the benchmark with representative data, and
-change the implementation when the measurement says so. Then the
-clever structure arrives with evidence, and swapping it in is a local
-change.
-
-The converse trap is just as real, so hold both: code that is
-quadratic in a value that grows with traffic will fail, and no amount
-of constant-factor tuning saves it. The question is always the same
-one — **what is n, really?** — and the answer belongs in a comment
-next to the container.
+Both are O(log n) and tie at 1 000 keys. At 1 M, every `std::map`
+level is a separate heap node, likely a miss; the vector is compact
+and its last search steps share cache lines. Measured (GCC 16.2
+`-O2`, Ryzen 7 PRO 6850U): 1500 versus 266 ns.

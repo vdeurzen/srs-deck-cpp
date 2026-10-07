@@ -5,41 +5,43 @@ version: 1
 level: 4
 tags: [idioms, sketches, hashing, databases]
 expose_ms: 6000
-compile: null
+compile:
+  harness: |
+    #include <bitset>
+    constexpr unsigned long long bits_for(unsigned long long h, int k) {
+      std::bitset<64> b;
+      bloom_add(b, h, k);
+      return b.to_ullong();
+    }
+    static_assert(bits_for(0x0000000500000003, 4) == 0x42108);   // 3, 8, 13, 18
+    static_assert(bits_for(0x0000000400000003, 4) == 0x42108);   // h2 forced odd
+    static_assert(bits_for(0x9E3779B97F4A7C15, 7) == 0x204080000204081);
+    int main() {}
 requires:
   - db-bloom-filter
 refs:
-  - https://www.eecs.harvard.edu/~michaelm/postscripts/rsa2008.pdf
+  - https://doi.org/10.1002/rsa.20208
   - https://github.com/facebook/rocksdb/wiki/RocksDB-Bloom-Filter
 ---
 
 ```cpp
-std::uint64_t h1 = hash(key), h2 = h1 >> 32 | 1;
-for (int i = 0; i < k; ++i) {
-  bits.set(h1 % bits.size());
-  h1 += h2;
+constexpr void bloom_add(auto& bits, unsigned long long key_hash, int k) {
+  unsigned long long h1 = key_hash, h2 = h1 >> 32 | 1;
+  for (int i = 0; i < k; ++i) {
+    bits.set(h1 % bits.size());
+    h1 += h2;
+  }
 }
 ```
 
 ---
 
 Setting a Bloom filter's `k` bits from **one** hash. Kirsch and
-Mitzenmacher's result is that `g_i(x) = h1(x) + i·h2(x)` behaves, for
-Bloom-filter purposes, as well as `k` independent hash functions — so a
-filter costs one hash computation instead of `k`, which is most of its
-insert and query cost.
+Mitzenmacher show `h1 + i·h2` works as well as `k` independent hashes
+for a Bloom filter, so an insert costs one hash computation, not `k`.
 
-The loop is the formula in incremental form: `h1` after `i` additions
-of `h2` *is* `h1 + i·h2`, so the index needs no multiply — and `h2`
-must not also be multiplied by `i`, which would double the stride.
-
-The `| 1` matters: `h2` must be odd (coprime with a power-of-two table)
-or the probe sequence covers only a fraction of the bits.
-
-The production refinement to know about is **blocking**: derive a
-single cache-line-sized block from `h1` and set all `k` bits inside it,
-trading a slightly worse false-positive rate for one cache miss per
-query instead of `k`.
-
-Graded by whitespace-normalised equality (SPEC §4.7): `hash`, `bits`
-and `k` come from the filter that owns them.
+The loop is that formula in incremental form: after `i` additions, `h1`
+*is* `h1 + i·h2`, so no multiply. `| 1` makes `h2` odd, coprime with a
+power-of-two size, or the probes cover only part of the bits.
+Production filters also confine all `k` bits to one cache line.
+Compile-checked: the harness asserts the exact bits set.

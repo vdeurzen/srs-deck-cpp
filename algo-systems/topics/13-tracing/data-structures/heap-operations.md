@@ -1,14 +1,14 @@
 ---
 id: trace-heap-operations
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [tracing, heaps, arrays]
 probes:
-  1: { "h[0]": "9", "h[1]": "3", "h.back()": "1", "h.size()": "4" }
-  2: { "h[0]": "11", "h[1]": "9", "h.back()": "3", "h.size()": "5" }
-  3: { "h[0]": "9", "h[1]": "3", "h.back()": "11", "h.size()": "5" }
-  4: { "h[0]": "9", "h[1]": "3", "h.back()": "1", "h.size()": "4" }
+  1: { "h[0]": "9", "h.size()": "4" }
+  2: { "h[0]": "11", "h.size()": "5" }
+  3: { "h[0]": "9", "h.back()": "11", "h.size()": "5" }
+  4: { "h[0]": "9", "h.size()": "4" }
 requires:
   - heap-array-layout
 refs:
@@ -32,37 +32,20 @@ int main() {
 
 ---
 
-The heap lives in the vector; the algorithms only maintain the
-invariant "every parent ≥ its children".
+The heap lives in the vector; the algorithms only keep the invariant
+"every parent ≥ its children", so only the root is pinned down.
+`make_heap` puts 9 there — the rest is *a* heap, not a sorted order.
+`push_heap` assumes the new element is at the back and sifts it up:
+11 rises to the root.
 
-`make_heap` sifts down from the last internal node, giving
-`{9, 3, 5, 1}` — note it is **not sorted**, and need not be: a heap is
-a much weaker ordering than a sort. `push_heap` assumes the new
-element is already at the back and sifts it *up*: 11 beats its parent
-3, then beats 9, and lands at the root — and the 3 it displaced ends
-up at the back.
+`pop_heap` is the step people mispredict. It removes **nothing**: the
+size is still 5 at probe 3. It swaps the root to the back and sifts the
+new root down, so the maximum sits at `h.back()` and the first
+`size() − 1` elements are again a heap. `pop_back()` is the separate
+removal at probe 4. Run `pop_heap` on a shrinking range and the maxima
+pile up at the back: that is `std::sort_heap`.
 
-`pop_heap` is the step people mispredict. It does **not** remove
-anything — the container's size is unchanged at probe 3. It swaps the
-root with the last element and sifts the new root down, so the maximum
-now sits at `h.back()` — 11, at probe 3 — and the first `size() − 1`
-elements are again a valid heap. Removing it is the separate
-`pop_back()` at probe 4, which is why the idiom is always those two
-calls in that order. Probe 4 matching probe 1 exactly is the point:
-push then pop of a new maximum is a round trip.
-
-That split is what makes heapsort fall out for free: call `pop_heap` on
-a range whose end retreats one step each time — `pop_heap(first,
-last--)`, which is exactly what `std::sort_heap` does — and the maxima
-pile up at the back until the array is sorted ascending in place, with
-no extra storage and no `pop_back`.
-
-Only `h[0]` (and, after `pop_heap`, `h.back()`) is mandated: the
-standard requires `make_heap` to produce *a* heap, and `{9, 5, 3, 1}`
-would be equally valid. The `h[1]` cells are libstdc++'s sift-down
-under GCC 13.3; another implementation may arrange the rest
-differently.
-
-Verified by compiling and running this program under GCC 13.3
-(`g++ -std=c++23 -Wall -Wextra`) and printing the vector at each
+Only these cells are mandated; the order of the other elements is
+libstdc++'s choice, so they are not probed. Verified by compiling and
+running this program under GCC 16.2 and printing the vector at each
 probe.

@@ -50,29 +50,12 @@ constexpr std::array<std::size_t, 7> failure_of(std::string_view p) {
 
 ---
 
-`k` is the length of the border matched so far, so the character to
-compare against is `p[k]` and the *next shorter* border of that prefix
-is `f[k−1]` — the classic off-by-one, and the reason `f[k]` (which is
-about a prefix one character longer) is wrong. Falling back repeatedly
-enumerates all borders of the prefix, longest first, which is exactly
-what the loop does.
+`k` is the length of the border matched so far, so the next shorter
+border of that prefix is `f[k−1]`. `f[k]` is the classic off-by-one: it
+describes a prefix one character longer. `k − 1` guesses instead of
+walking the border chain, and `0` throws borders away; the two-step
+harness patterns catch both.
 
-The whole algorithm is here, twice over. The table is built by running
-KMP **on the pattern against itself**, and the search does the same
-thing against the text: on a mismatch, slide the pattern so its longest
-border lines up, never moving the text pointer backwards. That gives
-O(n + m) with no backtracking in the input — the property that matters
-for a streaming matcher, which cannot re-read what it has already
-consumed.
-
-The amortisation argument is worth being able to state: `k` increases
-by at most one per character of input, so the total number of times the
-`while` loop decreases it is bounded by the number of increments. The
-inner loop can run many times at one position, but its total over the
-whole run is at most the number of characters.
-
-Read the table as an **automaton** and you have the bridge to the rest
-of this topic: state `k` means "k characters matched", the failure link
-is the transition for every character that does not extend the match,
-and generalising it from one pattern to a set of patterns — a trie plus
-failure links — is Aho–Corasick.
+The table is KMP run on the pattern against itself; the search runs the
+same loop against the text, never moving the text pointer backwards,
+which is what lets it scan a stream.

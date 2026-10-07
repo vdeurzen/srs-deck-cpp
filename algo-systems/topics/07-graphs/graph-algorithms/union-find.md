@@ -64,31 +64,12 @@ struct DisjointSet {
 
 ---
 
-Two techniques, and you need both for the famous bound. **Union by size
-or rank** keeps trees shallow by hanging the smaller tree under the
-larger, which alone gives O(log n) per operation. **Path compression**
-flattens the path you just walked, which alone also gives about
-O(log n). Together they give O(α(n)) amortised — inverse Ackermann,
-below 5 for any n you will ever allocate, so effectively constant.
+**Path halving**: each node on the walk is pointed at its grandparent,
+so the path roughly halves on every `find`, in one loop with no
+recursion or second pass. `find(parent[x])` is full compression (more
+flattening, but recursive); plain `parent[x]` compresses nothing and
+quietly loses the bound; `x` cuts the node loose as its own root.
 
-Path *halving* is the loop-shaped variant: it needs no recursion and no
-second pass, it costs one extra store per two levels, and it achieves
-the same asymptotic bound as full compression. Full compression (the
-recursive `find(parent[x])`) flattens more aggressively but touches the
-stack; plain `parent[x]` is no compression at all and quietly gives back
-the bound.
-
-None of these change *what* `find` returns — every variant answers the
-same connectivity question — which is why this Card's harness asserts on
-the resulting `parent` array rather than on the roots. A structure
-invariant is sometimes the only observable difference between a right
-answer and a slow one.
-
-Where it earns its place in systems work: **compilers** use it for type
-unification in Hindley–Milner inference (each `union` merges two type
-variables, and the occurs check walks the same structure), for register
-coalescing, and for congruence closure in e-graphs and GVN. Elsewhere it
-is Kruskal's MST, connected components, and cycle detection in
-dependency graphs. Note the operations it does *not* support: no split,
-no delete, no enumeration of a set's members without a separate
-structure.
+Three of the four return the same roots, so the harness asserts the rewired
+`parent` array: a structure invariant is the only observable difference
+between the right answer and a slow one.

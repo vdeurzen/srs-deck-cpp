@@ -5,16 +5,27 @@ version: 1
 level: 3
 tags: [idioms, union-find, compilers]
 expose_ms: 5000
-compile: null
+compile:
+  harness: |
+    constexpr bool halves() {
+      int p[8] = {0, 0, 1, 2, 3, 4, 5, 6};   // one chain 7 -> 6 -> ... -> 0
+      if (find(p, 7) != 0) return false;
+      const int want[8] = {0, 0, 1, 1, 3, 3, 5, 5};
+      for (int i = 0; i < 8; ++i)
+        if (p[i] != want[i]) return false;
+      return true;
+    }
+    static_assert(halves());
+    int main() {}
 requires:
   - graph-union-find
 refs:
-  - https://dl.acm.org/doi/10.1145/321879.321884
-  - https://en.wikipedia.org/wiki/Disjoint-set_data_structure
+  - https://doi.org/10.1145/62.2160
+  - https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Finding_set_representatives
 ---
 
 ```cpp
-std::size_t find(std::size_t x) {
+constexpr int find(auto& parent, int x) {
   while (parent[x] != x) {
     parent[x] = parent[parent[x]];   // path halving
     x = parent[x];
@@ -25,15 +36,12 @@ std::size_t find(std::size_t x) {
 
 ---
 
-Union-find's `find` with path halving: no recursion, no second pass, one
-extra store per two levels, and the same O(α(n)) amortised bound as full
-path compression once it is paired with union by size or rank.
+Union-find's `find` with **path halving**: each node on the walk is
+pointed at its grandparent, then the walk jumps there. No recursion,
+no second pass, and with union by size the same O(α(n)) amortised bound
+as full compression. Without the rewiring line, chains stay long and the
+bound is lost.
 
-Recognising this four-line shape matters because it turns up far from
-its textbook home — type unification in a compiler front end, register
-coalescing, congruence closure in an e-graph, and connected components
-in anything that merges sets.
-
-Graded by whitespace-normalised equality (SPEC §4.7): `parent` is a
-member of the enclosing structure, so the snippet is not a program on
-its own.
+It turns up far from its textbook home: type unification, register
+coalescing, e-graph congruence closure. Compile-checked: the harness
+asserts the halved `parent` array, not only the root.
