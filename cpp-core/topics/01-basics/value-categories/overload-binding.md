@@ -15,10 +15,7 @@ refs:
 
 ---
 
-The `const T&` overload — even though `x`'s declared *type* is `T&&`, `x`
-itself is a named entity, so as an expression it is an **lvalue**. Only the
-type of a declaration is a reference; the value category of using that
-name in an expression is lvalue, full stop.
-
-This is why forwarding requires `std::move` or `std::forward`: naming a
-parameter never hands its rvalue-ness on to the next call for free.
+**`f(const T&)`: the expression `x` is an lvalue.** `T&&` is the declared
+*type* of `x`; naming a variable in an expression yields an lvalue whatever
+its type. So rvalue-ness never passes on for free: the next call needs
+`std::move(x)` (or `std::forward` in a template).

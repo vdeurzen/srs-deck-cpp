@@ -1,33 +1,34 @@
 ---
 id: trace-order-of-initialisation
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [tracing, initialization]
 probes:
-  1: { a: "2" }
-  2: { a: "2", b: "1" }
+  1: { trail: "acb" }
 refs:
   - https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
+  - https://eel.is/c++draft/class.base.init#15
 ---
 
 ```cpp
-struct Point {
-  int y = 1;
-  int x = y + 1;
+std::string trail;
+char mark(char c) { trail += c; return c; }
+struct S {
+  char a;
+  char c = mark('c');
+  char b;
+  S() : b(mark('b')), a(mark('a')) {}
 };
-Point p;
-int a = p.x;   // @1
-int b = p.y;   // @2
+S s;   // @1
 ```
 
 ---
 
-Members always initialise in **declaration order** — `y` then `x` — never
-the order they happen to appear written elsewhere. That is why `x`'s
-default member initialiser can safely read `y`: by the time `x`
-initialises, `y` (declared first) already holds `1`. Had the declaration
-order been reversed (`x` before `y`, with `x`'s initialiser reading `y`),
-`x` would read `y` before `y` was initialised — undefined behaviour that
-most compilers do not diagnose. Verified against GCC 13.3
-(`g++ -std=c++23`).
+Members initialise in **declaration order**: `a`, `c`, `b`. The order the
+initialiser list is written in is ignored, and a default member
+initialiser (`c`) is not run "before" or "after" the list: it runs in its
+declared slot when the constructor does not name that member. So a member
+may safely read only members declared above it. Verified by running an
+instrumented copy under GCC 16.2 (`g++ -std=c++23`, `-Wreorder` warns
+under `-Wall`).

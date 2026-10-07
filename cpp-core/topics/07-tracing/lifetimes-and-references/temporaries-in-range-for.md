@@ -1,34 +1,44 @@
 ---
 id: trace-temporaries-in-range-for
 kind: trace
-version: 1
+version: 2
 level: 3
-tags: [tracing, ranges]
+tags: [tracing, lifetime, temporaries]
 probes:
-  1: { total: "0", seen: "0" }
-  2: { total: "60", seen: "3", result: "60" }
+  1: { trail: "B...~", sum: "60" }
+  2: { trail: "B...~B~", first: "10" }
 requires:
-  - value-categories-temporary-materialization
+  - ptr-lifetime-extension
+elaborate: "`for (int x : make_holder().items())` binds the hidden reference to what `items()` returns, not to the holder. Where in your code does a loop rely on P2718 to keep such a holder alive, and which compilers you ship with implement it?"
 refs:
   - https://en.cppreference.com/w/cpp/language/range-for
+  - https://timsong-cpp.github.io/cppwp/n4950/stmt.ranged#1
+  - https://wg21.link/p2718r0
 ---
 
 ```cpp
+std::string trail;   // Bag's constructor appends 'B', its destructor '~'
+struct Bag {
+  int v[3] = {10, 20, 30};
+  Bag() { trail += 'B'; }
+  ~Bag() { trail += '~'; }
+  const int* begin() const { return v; }
+  const int* end() const { return v + 3; }
+};
 int total = 0;
-int seen = 0;          // @1
-for (int v : {10, 20, 30}) {
-  total += v;
-  ++seen;
-}
-int result = total;    // @2
+for (int x : Bag{}) { total += x; trail += '.'; }
+int sum = total;               // @1
+int first = *Bag{}.begin();    // @2
 ```
 
 ---
 
-`{10, 20, 30}` is a temporary `std::initializer_list<int>`, but a
-range-based `for` binds its range expression to a hidden reference for
-the whole loop, extending that temporary's lifetime to match — it does
-not get destroyed after the first iteration, or ever go stale mid-loop.
-The loop runs all three iterations and `total`/`seen` end up reflecting
-all of them. Verified against GCC 13.3 (`g++ -std=c++23`), including a
-clean run under `-fsanitize=address`.
+A range-based `for` is defined as `auto&& __range = Bag{};` followed by
+the loop, so the temporary `Bag` binds directly to a reference and lives
+until the loop ends: three iterations (`...`), then `~`. The second
+`Bag{}` binds to nothing and dies at the end of its full-expression, right
+after `first` copied `10` out of it. Before P2718 (C++23, GCC 15+)
+only the temporary bound directly is rescued: in `for (x :
+make().items())` the `make()` result dies first; P2718 extends it too.
+Verified by running an instrumented copy under GCC 16.2 (`g++ -std=c++23`), clean under
+`-fsanitize=address,undefined`.

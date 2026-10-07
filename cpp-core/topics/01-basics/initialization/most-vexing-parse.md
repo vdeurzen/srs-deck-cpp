@@ -4,20 +4,18 @@ kind: basic
 version: 1
 level: 2
 tags: [initialization]
+requires:
+  - initialization-aggregate-braces
 refs:
   - https://en.cppreference.com/w/cpp/language/direct_initialization
+  - https://timsong-cpp.github.io/cppwp/n4950/dcl.ambig.res#1
 ---
 
 ## Why does `Widget w(Gadget());` declare a function instead of constructing a `Widget` from a default-constructed `Gadget`?
 
 ---
 
-Because `Gadget()` inside the parentheses is grammatically ambiguous with a
-parameter declaration, and C++ resolves the ambiguity in favour of a
-declaration — this is the "most vexing parse". `w` becomes a function
-named `w` taking one unnamed parameter of type "pointer to function
-returning `Gadget`" and returning a `Widget`.
-
-Brace initialization sidesteps it entirely: `Widget w(Gadget{});` and
-`Widget w{Gadget{}};` both construct, because a braced-init-list can never
-be parsed as a parameter declaration.
+**`Gadget()` can parse as a parameter declaration, and a declaration
+wins.** This "most vexing parse" makes `w` a function returning `Widget`,
+taking a pointer to a function returning `Gadget`. Braces can never be a
+parameter declaration, so `Widget w{Gadget{}};` constructs.

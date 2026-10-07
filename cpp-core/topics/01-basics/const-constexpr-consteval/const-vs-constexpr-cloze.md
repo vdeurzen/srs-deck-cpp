@@ -12,7 +12,7 @@ refs:
 `const` promises only that a value is {{c1::not modified after
 initialization}} — its initializer may still be a runtime computation,
 like reading a file. `constexpr` promises more: the value must be
-{{c2::computable at compile time::a constant expression}}, so its
+{{c2::computable at compile time::when is it known?}}, so its
 initializer is restricted to expressions the compiler can evaluate itself.
 Every `constexpr` variable is implicitly {{c3::const}}, but not every
 `const` variable is `constexpr`.

@@ -6,6 +6,7 @@ level: 3
 tags: [move-semantics, misconception]
 requires:
   - value-categories-std-move-cloze
+  - value-categories-guaranteed-elision
 elaborate: "`return std::move(p.first);` for a local `std::pair` is the case where the cast genuinely helps: why does the implicit-move rule not cover a subobject?"
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_elision

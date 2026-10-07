@@ -8,21 +8,15 @@ requires:
   - value-categories-taxonomy
 refs:
   - https://en.cppreference.com/w/cpp/language/implicit_conversion#Temporary_materialization
+  - https://timsong-cpp.github.io/cppwp/n4950/conv.rval#1
 ---
 
-## What is "temporary materialization", and when does it happen?
+## Since C++17, a prvalue such as `Widget{}` is not yet an object. When does a temporary `Widget` actually come into existence?
 
 ---
 
-The implicit conversion from a prvalue to an xvalue of the same type,
-inserted whenever a prvalue is used where a glvalue is needed — for
-instance, binding `const T&` to a prvalue, or calling a member function on
-`T{}`. A temporary
-object is created ("materialized") at that point and the expression
-becomes an xvalue denoting it.
-
-Before C++17 this step was folded into "the prvalue is a temporary that
-gets copied/moved"; C++17 guaranteed copy elision by making the
-prvalue-to-xvalue conversion the only place a temporary object is actually
-created, so `T t = T{};` constructs `t` directly with no copy or move to
-elide.
+**When the prvalue is used where a glvalue is needed**, e.g. binding
+`const Widget&` to it or calling `Widget{}.size()`. There the *temporary
+materialization conversion* creates the object and turns the expression
+into an xvalue denoting it. A prvalue that initializes an object of its
+own type never materializes.

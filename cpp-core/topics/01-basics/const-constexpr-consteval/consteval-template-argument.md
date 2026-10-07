@@ -1,35 +1,36 @@
 ---
 id: const-constexpr-consteval-template-argument
 kind: code
-version: 1
+version: 2
 level: 3
 tags: [const-constexpr-consteval, templates]
 input: chips
 choices:
-  c1: ["consteval", "static", "inline", "typename"]
+  c1: ["consteval", "constexpr", "inline", "static"]
 compile:
   harness: |
-    static_assert(Box<cube(3)>::value == 27);
+    template<int V> struct Box { static constexpr int value = V; };
+    static_assert(Box<volume(3)>::value == 27);
     int main() {}
 requires:
   - const-constexpr-consteval-immediate-function-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/consteval
+  - https://timsong-cpp.github.io/cppwp/n4950/expr.const#15
 ---
 
-Complete the specifier so `cube` can be used as a non-type template
-argument, which requires a constant expression at every call site.
+`cube` is an immediate function. Complete the specifier on `volume` so it
+may pass its own parameter to `cube`.
 
 ```cpp
-{{c1::consteval}} int cube(int n) { return n * n * n; }
-template<int V> struct Box { static constexpr int value = V; };
+consteval int cube(int n) { return n * n * n; }
+{{c1::consteval}} int volume(int side) { return cube(side); }
 ```
 
 ---
 
-`Box<cube(3)>` needs `cube(3)` to be a constant expression. An ordinary or
-`static` function is never one, no matter how simple its body; only
-`consteval` (or `constexpr` in a context that forces compile-time
-evaluation) qualifies. `consteval` goes further and makes *every* call to
-`cube` a compile error unless it too is a constant expression — there is
-no runtime fallback.
+`cube(side)` is not a constant expression, since `side` is a run-time
+parameter. Outside an **immediate function context** that is an error, even
+inside a `constexpr` function: a `constexpr` body must also make sense at
+run time. Inside a `consteval` function the call is fine, because
+`volume` itself only ever runs during translation.

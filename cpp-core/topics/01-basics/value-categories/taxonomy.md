@@ -8,19 +8,14 @@ requires:
   - value-categories-categories-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category
+  - https://timsong-cpp.github.io/cppwp/n4950/basic.lval#1
 ---
 
-## What are the three primary value categories in C++11 and later, and how do `glvalue` and `rvalue` relate to them?
+## Every C++ expression is an lvalue, an xvalue or a prvalue. How do the composite categories *glvalue* and *rvalue* divide up those three?
 
 ---
 
-Every expression is exactly one of **lvalue**, **xvalue**, or **prvalue** —
-the three primary categories. Two composite categories group them:
-
-- **glvalue** ("generalized lvalue") = lvalue or xvalue. A glvalue has
-  identity: you can find its address or refer to it again.
-- **rvalue** = xvalue or prvalue. An rvalue can be moved from.
-
-So `xvalue` sits in the overlap: it has identity *and* can be moved from —
-the classic example is `std::move(x)`, which is a cast to an rvalue
-reference, not a function that moves anything itself.
+**glvalue = lvalue or xvalue; rvalue = xvalue or prvalue.** A glvalue
+has *identity* (it denotes an object you could refer to again); an rvalue
+may be *moved from*. The xvalue is in both: an object with identity that
+you have said may be moved from, like `std::move(s)`.
