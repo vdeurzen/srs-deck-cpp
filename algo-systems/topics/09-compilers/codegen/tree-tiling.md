@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 3
 tags: [compilers, codegen, tiling]
+requires:
+  - compiler-backend-phases
 refs:
   - https://dl.acm.org/doi/10.1145/69558.75700
   - https://llvm.org/docs/CodeGenerator.html#instruction-selection-section

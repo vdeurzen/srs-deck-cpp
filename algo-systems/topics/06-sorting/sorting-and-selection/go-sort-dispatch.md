@@ -5,6 +5,8 @@ version: 2
 level: 3
 tags: [go, sorting, generics]
 elaborate: In your own Go code, where would switching from `sort.Slice` to `slices.Sort` change a profile — and where would it change nothing?
+requires:
+  - cpp-core/staticpoly-static-vs-dynamic
 refs:
   - https://pkg.go.dev/slices#Sort
   - https://pkg.go.dev/sort#Slice

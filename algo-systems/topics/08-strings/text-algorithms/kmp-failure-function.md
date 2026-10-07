@@ -22,6 +22,8 @@ compile:
     static_assert(failure_of("aabaaab") ==
                   std::array<std::size_t, 7>{0, 1, 0, 1, 2, 2, 3});
     int main() {}
+requires:
+  - str-naive-matching
 refs:
   - https://epubs.siam.org/doi/10.1137/0206024
   - https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm

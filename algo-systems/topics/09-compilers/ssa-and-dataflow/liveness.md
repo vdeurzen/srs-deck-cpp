@@ -4,6 +4,8 @@ kind: basic
 version: 2
 level: 4
 tags: [compilers, dataflow, registers]
+requires:
+  - compiler-cfg-basic-blocks
 refs:
   - https://en.wikipedia.org/wiki/Live-variable_analysis
   - https://suif.stanford.edu/~courses/cs243/

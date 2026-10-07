@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [compilers, codegen, branches]
+requires:
+  - compiler-jump-table
 refs:
   - https://github.com/llvm/llvm-project/blob/main/llvm/lib/CodeGen/SwitchLoweringUtils.cpp
   - https://github.com/llvm/llvm-project/blob/main/llvm/include/llvm/CodeGen/TargetLowering.h

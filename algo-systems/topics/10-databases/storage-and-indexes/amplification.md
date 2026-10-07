@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 4
 tags: [databases, storage, amplification]
+requires:
+  - db-in-place-vs-out-of-place
 refs:
   - https://openproceedings.org/2016/conf/edbt/paper-12.pdf
   - https://arxiv.org/abs/1812.07527

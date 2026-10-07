@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [compilers, codegen, llvm]
+requires:
+  - compiler-backend-phases
 refs:
   - https://llvm.org/docs/CodeGenerator.html#selectiondag-legalizetypes-phase
   - https://llvm.org/docs/GlobalISel/Legalizer.html

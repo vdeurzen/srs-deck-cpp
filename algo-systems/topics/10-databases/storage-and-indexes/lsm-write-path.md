@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 3
 tags: [databases, storage, lsm]
+requires:
+  - db-in-place-vs-out-of-place
 refs:
   - https://www.cs.umb.edu/~poneil/lsmtree.pdf
   - https://github.com/facebook/rocksdb/wiki/RocksDB-Overview

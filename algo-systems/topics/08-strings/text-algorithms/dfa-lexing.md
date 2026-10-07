@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [strings, automata, compilers]
+requires:
+  - str-dfa-step
 refs:
   - https://swtch.com/~rsc/regexp/regexp1.html
   - https://re2c.org/manual/manual_c.html

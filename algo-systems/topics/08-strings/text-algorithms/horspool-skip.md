@@ -18,6 +18,8 @@ compile:
     static_assert(run("abcabcabd", "abd") == std::array<int, 2>{6, 3});
     static_assert(run("abracadabra", "cad") == std::array<int, 2>{4, 3});
     int main() {}
+requires:
+  - str-naive-matching
 refs:
   - https://doi.org/10.1002/spe.4380100608
   - https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore%E2%80%93Horspool_algorithm

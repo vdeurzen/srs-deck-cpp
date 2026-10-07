@@ -18,6 +18,8 @@ compile:
     static_assert(optimal_k(16) == 11);   // ~0.05 %
     static_assert(optimal_k(20) == 14);
     int main() {}
+requires:
+  - db-bloom-basics
 refs:
   - https://dl.acm.org/doi/10.1145/362686.362692
   - https://github.com/facebook/rocksdb/wiki/RocksDB-Bloom-Filter

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [compilers, optimisation, rewriting]
+requires:
+  - compiler-pass-pipeline
 refs:
   - https://arxiv.org/abs/2004.03082
   - https://llvm.org/docs/NewPassManager.html

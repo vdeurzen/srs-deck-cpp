@@ -5,6 +5,8 @@ version: 1
 level: 4
 tags: [cost-model, throughput, low-latency, databases]
 elaborate: At what utilisation does your hottest service run at peak? Which knob — admission control, more servers, shorter service time — would move it off the knee?
+requires:
+  - foundations-queue-utilisation
 refs:
   - https://en.wikipedia.org/wiki/M/M/1_queue
   - https://doi.org/10.1287/opre.9.3.383

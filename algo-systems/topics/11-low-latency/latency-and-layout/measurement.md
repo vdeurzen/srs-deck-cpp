@@ -4,6 +4,8 @@ kind: basic
 version: 2
 level: 4
 tags: [low-latency, measurement, benchmarking]
+requires:
+  - foundations-latency-scale
 refs:
   - https://github.com/google/benchmark/blob/main/docs/user_guide.md
   - https://man7.org/linux/man-pages/man7/vdso.7.html

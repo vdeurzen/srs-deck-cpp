@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 3
 tags: [memory-hierarchy, cost-model, low-latency]
+requires:
+  - foundations-latency-scale
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/
   - https://ieeexplore.ieee.org/document/814600

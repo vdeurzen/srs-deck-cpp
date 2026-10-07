@@ -4,6 +4,8 @@ kind: basic
 version: 2
 level: 4
 tags: [compilers, ssa, ir]
+requires:
+  - compiler-cfg-basic-blocks
 refs:
   - https://dl.acm.org/doi/10.1145/115372.115320
   - https://llvm.org/docs/LangRef.html#phi-instruction
