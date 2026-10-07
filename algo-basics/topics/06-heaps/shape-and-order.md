@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [heaps, invariants, trees]
 requires:
-  - tree-terms
+  - tree-complete-shape
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://en.wikipedia.org/wiki/Binary_heap

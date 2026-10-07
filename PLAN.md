@@ -316,4 +316,4 @@ needs that core first, as its own Deck that algo-systems builds on.
 Status: done (2026-10-07). 228 Cards, every topic reviewed by
 `learning-designer` and revised; 20 Cards moved (scripts/apply-moves);
 30 cross-topic edges inside algo-basics, algo-systems wired onto it.
-Open: no Card teaches "complete binary tree" before 06-heaps.
+Closed: tree-complete-shape now precedes heap-shape-and-order.
