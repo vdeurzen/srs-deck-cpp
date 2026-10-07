@@ -3,27 +3,20 @@ id: smart-pointers-unique-ptr-ownership
 kind: basic
 version: 1
 level: 1
-tags: [smart-pointers]
+tags: [smart-pointers, ownership]
 requires:
-  - value-categories-std-move-cloze
   - raii-copy-double-close
 refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr
+  - https://eel.is/c++draft/unique.ptr
 ---
 
-## What ownership model does `std::unique_ptr<T>` enforce, and what does that mean for copying it?
+## `std::unique_ptr<Node> b = a;` does not compile. What property of `unique_ptr` does that error protect?
 
 ---
 
-**Exclusive ownership**: at any moment, at most one `unique_ptr` owns a
-given object, and that owner deletes it when the `unique_ptr` is
-destroyed. Enforcing exclusivity means `unique_ptr` has no copy
-constructor or copy assignment at all — copying would create a second
-owner, which the type exists specifically to rule out.
-
-It is **movable**: moving a `unique_ptr` transfers ownership to the
-destination and leaves the source null, so ownership stays unique
-throughout the transfer. This makes it essentially free — no reference
-counting, no atomic operations — which is why it should be the default
-smart pointer, reached for `shared_ptr` only when ownership genuinely
-needs to be shared.
+**Exclusive ownership: at most one `unique_ptr` owns an object, and its
+destructor deletes it.** A copy would be a second owner — two `delete`s
+of one object — so the copy constructor and copy assignment are deleted
+and the mistake fails to compile. Transferring ownership is a different
+operation: `std::move(a)`, after which `a` owns nothing.

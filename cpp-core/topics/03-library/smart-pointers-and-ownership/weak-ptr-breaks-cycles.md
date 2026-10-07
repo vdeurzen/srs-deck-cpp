@@ -3,28 +3,20 @@ id: smart-pointers-weak-ptr-breaks-cycles
 kind: basic
 version: 1
 level: 3
-tags: [smart-pointers]
+tags: [smart-pointers, ownership]
 requires:
-  - smart-pointers-shared-ptr-control-block
+  - smart-pointers-shared-ptr-cycle-leaks
 refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr
 ---
 
-## Why does a parent/child pair of `shared_ptr`s pointing at each other leak, and how does `weak_ptr` fix it?
+## Making `Child`'s back-pointer a `weak_ptr<Parent>` fixes the parent/child `shared_ptr` leak. What about `weak_ptr` makes that work?
 
 ---
 
-If a `Parent` holds a `shared_ptr<Child>` and that `Child` holds a
-`shared_ptr<Parent>` back, each object's strong reference count never
-reaches zero — the parent keeps the child alive, and the child keeps the
-parent alive, even once nothing outside the pair refers to either. Neither
-destructor ever runs: a reference-counting cycle leaks exactly like a
-garbage collector would if it only counted references.
-
-`weak_ptr` observes an object managed by `shared_ptr` **without
-contributing to the strong count**. The `Child` holds a `weak_ptr<Parent>`
-instead; when the last external `shared_ptr<Parent>` goes away, the
-strong count reaches zero and `Parent` is destroyed regardless of the
-`Child`'s `weak_ptr`. Using the value back requires `lock()`, which
-returns a `shared_ptr` that is null if the object is already gone —
-`weak_ptr` never dereferences a dangling pointer for you.
+**It observes the object without adding to the strong count.** Only
+`shared_ptr`s keep an object alive: when the last outside
+`shared_ptr<Parent>` goes, `Parent`'s strong count reaches zero and it is
+destroyed, taking its `shared_ptr<Child>` with it — the `Child`'s
+`weak_ptr` cannot hold it. Owner points down with `shared_ptr`; owned
+points back with `weak_ptr`.

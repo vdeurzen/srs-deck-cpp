@@ -16,8 +16,8 @@ compile:
     static_assert(check());
     int main() {}
 requires:
+  - move-semantics-forwarding-reference
   - value-categories-overload-binding
-  - templates-instantiation
 refs:
   - https://en.cppreference.com/w/cpp/utility/forward
 ---
@@ -38,10 +38,10 @@ constexpr int wrapper(T&& arg) {
 
 ---
 
-`T&&` here is a **forwarding reference**: for a named lvalue argument,
-template argument deduction makes `T` an lvalue reference type, and for
-an rvalue argument, an unreferenced type. `std::forward<T>(arg)` uses that
-deduced `T` to cast `arg` back to whatever value category it originally
-had. `std::move(arg)` always casts to rvalue regardless of `T`, and `arg`
-alone is always an lvalue — both lose the caller's original value
-category.
+`T&&` is a forwarding reference: `T` deduces as `int&` for the lvalue
+`x` and as `int` for `5`. `std::forward<T>(arg)` uses that `T` to cast
+`arg` back to the caller's value category, so each call reaches the
+matching `inner`. `std::move(arg)` casts to rvalue whatever `T` is (both
+calls hit `inner(int&&)`); bare `arg` is a named lvalue (both hit
+`inner(int&)`); `std::forward<int>` discards the deduction and behaves
+like `std::move`.

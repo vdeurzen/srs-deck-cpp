@@ -3,7 +3,7 @@ id: move-semantics-destructor-suppresses-move
 kind: code
 version: 1
 level: 3
-tags: [move-semantics, rule-of-five]
+tags: [move-semantics, special-members]
 input: chips
 choices:
   c1: ["= default", "= delete", "{}", "noexcept(false) = default"]
@@ -14,30 +14,33 @@ compile:
     static_assert(std::is_nothrow_move_constructible_v<Buffer>);
     int main() {}
 requires:
-  - move-semantics-rule-of-five
+  - move-semantics-implicit-move-suppressed
 refs:
-  - https://en.cppreference.com/w/cpp/language/rule_of_three
+  - https://en.cppreference.com/w/cpp/language/move_constructor#Implicitly-declared_move_constructor
   - https://en.cppreference.com/w/cpp/types/is_move_constructible
 ---
 
-A user-declared destructor suppresses the implicitly-generated move
-constructor. Explicitly bring it back.
+With the blank line removed, `static_assert(std::is_move_constructible_v<Buffer>)`
+fails for this `Buffer`. Complete the declaration that makes it pass
+while keeping `Buffer` non-copyable and its move non-throwing.
 
 ```cpp
 #include <type_traits>
 struct Buffer {
     Buffer() = default;
     Buffer(Buffer&&) {{c1::= default}};
-    Buffer& operator=(Buffer&&) = default;
     ~Buffer() {}
 };
 ```
 
 ---
 
-Because `~Buffer()` is user-declared, `Buffer` would otherwise have no
-move constructor at all, and every place that tried to move a `Buffer`
-would silently fall back to copying it (or fail to compile, if copying is
-also unavailable). `= default` asks the compiler for the ordinary
-member-wise move it would have generated anyway, now that declaring the
-destructor took it away.
+The user-declared `~Buffer()` means no move constructor is implicitly
+declared, so the assertion fails and every attempted move would fall
+back to copying (or fail, once copying is unavailable). `= default` asks
+for the member-wise move the compiler would otherwise have generated,
+and it is `noexcept` because the (absent) members are. `= delete`
+declares a move that cannot be called; `{}` is a user-provided move that
+moves nothing and is not `noexcept`; `noexcept(false) = default` is a
+move but a throwing one. Declaring any move constructor also deletes the
+implicit copy operations, which is why the second assertion holds.

@@ -3,27 +3,18 @@ id: smart-pointers-shared-ptr-control-block
 kind: basic
 version: 1
 level: 2
-tags: [smart-pointers]
-requires:
-  - smart-pointers-unique-ptr-ownership
-  - raii-copy-double-close
+tags: [smart-pointers, ownership]
 refs:
-  - https://en.cppreference.com/w/cpp/memory/shared_ptr
-  - https://en.cppreference.com/w/cpp/memory/enable_shared_from_this
+  - https://en.cppreference.com/w/cpp/memory/shared_ptr#Implementation_notes
+  - https://eel.is/c++draft/util.sharedptr
 ---
 
-## What does a `shared_ptr`'s control block hold, and why do two `shared_ptr`s constructed separately from the same raw pointer cause a double free?
+## Which three things does a `shared_ptr`'s control block hold that no single `shared_ptr` could hold for itself?
 
 ---
 
-The control block holds the strong reference count, the weak reference
-count, and (unless `make_shared` folded it into the same allocation) a
-pointer to the managed object and, often, its deleter. Every `shared_ptr`
-that is a copy of another **shares the same control block**, which is how
-the count stays accurate.
-
-`std::shared_ptr<T> a(raw); std::shared_ptr<T> b(raw);` constructs **two
-independent control blocks**, each believing it is the sole owner and
-each with a count of one. Both destructors run, both delete `raw`: a
-double free. The fix is always to copy an existing `shared_ptr`, never to
-re-wrap the same raw pointer.
+**The strong count, the weak count and the type-erased deleter** (plus
+the object itself when `make_shared` built it). Every copy of a
+`shared_ptr` points at the same block, so the count is shared rather
+than per-pointer: a `shared_ptr` is two pointers wide, object and block.
+Strong count zero: the deleter runs. Weak count zero: the block goes.
