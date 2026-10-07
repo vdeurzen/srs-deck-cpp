@@ -133,26 +133,26 @@ wrong about", across both Decks.
 
 ## What is here
 
-| Topic                                 | Cards | Focus                                                                                                               |
+| Topic                                 | Cards | Focus (core subjects; split one idea per Card)                                                                                                               |
 | ------------------------------------- | ----- | ------------------------------------------------------------------------------------------------------------------- |
-| `01-foundations/cost-models`          | 10    | amortised vs average, geometric growth, the master theorem, the cache and external-memory models, AoS/SoA, branch misprediction, Little's law |
-| `02-sequences/arrays-and-buffers`     | 10    | ring buffers, arena alignment, `deque` vs `vector`, invalidation rules, intrusive lists, Go slice aliasing, inline capacity, generational handles |
-| `03-hashing/hash-tables`              | 12    | chaining vs open addressing, load factor and probe counts, clustering, Robin Hood, tombstones, Swiss tables, hash quality, Fibonacci mixing, cuckoo, perfect hashing, Go maps |
-| `04-ordered/search-trees`             | 13    | balance, B-trees vs red-black, fanout arithmetic, B⁺-trees, skip lists, tries and ART, binary search invariants, Eytzinger layout, Fenwick trees, order statistics |
-| `05-priority/heaps-and-queues`        | 9     | array layout, linear build, d-ary and Fibonacci heaps, lazy deletion, monotonic deques, timer wheels, top-k          |
-| `06-sorting/sorting-and-selection`    | 10    | introsort, stability, radix, external merge sort, quickselect, pattern defeating, sorting networks, key normalisation |
-| `07-graphs/graph-algorithms`          | 10    | representations and CSR, BFS/DFS, topological order, union-find, reverse postorder, Tarjan SCC, shortest-path choice, bitsets |
-| `08-strings/text-algorithms`          | 9     | KMP, Aho–Corasick, rolling hashes, suffix arrays, interning, SIMD scanning, DFA lexing, Go strings                   |
-| `09-compilers/ssa-and-dataflow`       | 11    | SSA and φ, dominance and the CHK `intersect`, dominance frontiers, worklists and lattices, liveness, SCCP, GVN and hash-consing, natural loops, e-graphs |
-| `09-compilers/codegen`                | 7     | instruction selection as tiling, graph colouring, linear scan, SSA destruction, scheduling, and an `explain` walk of the whole back end |
-| `10-databases/storage-and-indexes`    | 9     | B⁺-tree vs LSM, compaction, Bloom filters, buffer pools, WAL and group commit, MVCC, slotted pages, columnar encodings |
-| `10-databases/execution-and-sketches` | 9     | hash and sort-merge joins, join ordering, vectorised execution, Roaring bitmaps, HyperLogLog, count-min, shuffle vs broadcast |
-| `11-low-latency/lock-free`            | 9     | SPSC rings, memory orders, false sharing, seqlocks, ABA, reclamation, progress guarantees, MPMC queues, Go channels  |
-| `11-low-latency/latency-and-layout`   | 10    | order books, memory pools, branchless selection, prefetching, tail latency, busy polling, measurement, huge pages    |
-| `12-idioms/chunks`                    | 8     | bit iteration, union-find, `lower_bound`, monotonic deque, Bloom double hashing, CSR, cache padding, a Go worker pool |
+| `01-foundations/cost-models`          | 42    | amortised vs average, geometric growth, the master theorem, the cache and external-memory models, AoS/SoA, branch misprediction, Little's law |
+| `02-sequences/arrays-and-buffers`     | 26    | ring buffers, arena alignment, `deque` vs `vector`, invalidation rules, intrusive lists, Go slice aliasing, inline capacity, generational handles |
+| `03-hashing/hash-tables`              | 40    | chaining vs open addressing, load factor and probe counts, clustering, Robin Hood, tombstones, Swiss tables, hash quality, Fibonacci mixing, cuckoo, perfect hashing, Go maps |
+| `04-ordered/search-trees`             | 47    | balance, B-trees vs red-black, fanout arithmetic, B⁺-trees, skip lists, tries and ART, binary search invariants, Eytzinger layout, Fenwick trees, order statistics |
+| `05-priority/heaps-and-queues`        | 32    | array layout, linear build, d-ary and Fibonacci heaps, lazy deletion, monotonic deques, timer wheels, top-k          |
+| `06-sorting/sorting-and-selection`    | 34    | introsort, stability, radix, external merge sort, quickselect, pattern defeating, sorting networks, key normalisation |
+| `07-graphs/graph-algorithms`          | 32    | representations and CSR, BFS/DFS, topological order, union-find, reverse postorder, Tarjan SCC, shortest-path choice, bitsets |
+| `08-strings/text-algorithms`          | 29    | KMP, Aho–Corasick, rolling hashes, suffix arrays, interning, SIMD scanning, DFA lexing, Go strings                   |
+| `09-compilers/ssa-and-dataflow`       | 41    | SSA and φ, dominance and the CHK `intersect`, dominance frontiers, worklists and lattices, liveness, SCCP, GVN and hash-consing, natural loops, e-graphs |
+| `09-compilers/codegen`                | 38    | instruction selection as tiling, graph colouring, linear scan, SSA destruction, scheduling, and an `explain` walk of the whole back end |
+| `10-databases/storage-and-indexes`    | 49    | B⁺-tree vs LSM, compaction, Bloom filters, buffer pools, WAL and group commit, MVCC, slotted pages, columnar encodings |
+| `10-databases/execution-and-sketches` | 39    | hash and sort-merge joins, join ordering, vectorised execution, Roaring bitmaps, HyperLogLog, count-min, shuffle vs broadcast |
+| `11-low-latency/lock-free`            | 39    | SPSC rings, memory orders, false sharing, seqlocks, ABA, reclamation, progress guarantees, MPMC queues, Go channels  |
+| `11-low-latency/latency-and-layout`   | 40    | order books, memory pools, branchless selection, prefetching, tail latency, busy polling, measurement, huge pages    |
+| `12-idioms/chunks`                    | 10    | bit iteration, union-find, `lower_bound`, monotonic deque, Bloom double hashing, CSR, cache padding, a Go worker pool |
 | `12-idioms/parsons`                   | 5     | sift-down, union-find, Lomuto partition, BFS over CSR, counting sort                                                  |
-| `13-tracing/data-structures`          | 6     | vector growth, heap operations, ring wrap-around, the tombstone bug, a monotonic deque, LRU ordering                  |
-| `14-transfer/intuition-traps`         | 8     | `misconception`-tagged beliefs, each with an `elaborate` prompt                                                       |
+| `13-tracing/data-structures`          | 7     | vector growth, heap operations, ring wrap-around, the tombstone bug, a monotonic deque, LRU ordering                  |
+| `14-transfer/intuition-traps`         | 9     | `misconception`-tagged beliefs, each with an `elaborate` prompt                                                       |
 
 Cards are cross-referenced on purpose: the external-memory model explains
 B-tree fanout, which explains LSM read amplification; the branchless argument

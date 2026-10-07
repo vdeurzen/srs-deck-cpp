@@ -4,19 +4,26 @@ Both Decks keep their ids and stay in this repo; nothing moves to new `*-drills`
 Decks. Order: correctness → prerequisite graph → missing fundamentals → card
 shape. Each phase leaves both Decks loadable and is its own commit (or a few).
 
-## Status (2026-10-06)
+## Status (2026-10-07)
 
 | Phase | State |
 | --- | --- |
 | 0 Housekeeping | done |
-| 1 Correctness | done: both REVIEW.md files worked; `check-code` 0 problems, 5 LOOSE parsons (wait on pre-filled lines) |
-| 2 Prerequisite graph | done: cpp-core 344 Cards / 419 edges, depth ≤ 8; algo-systems 220 / 231 edges (12 cross-deck), depth ≤ 6 |
-| 3 Missing fundamentals | done: all topics in the table and the gaps table, each reviewed by `learning-designer` and revised |
-| 4 Card shape | coroutines done; **remaining**: 171 Cards flagged by `lint-shape` (cpp-core 52, algo-systems 119 — mostly algo `basic` essays) |
+| 1 Correctness | done: both REVIEW.md files worked |
+| 2 Prerequisite graph | done |
+| 3 Missing fundamentals | done: every topic in the table and the gaps table |
+| 4 Card shape | done for every topic except the 10 `parsons` Cards, which wait for the app's pre-filled lines |
 
-Next for Phase 4, in order: cpp-core move semantics + smart pointers (in
-review), the other cpp-core pre-Phase-3 topics, then algo-systems topic by
-topic. Parsons restructuring waits for the app's pre-filled lines.
+Now: cpp-core 416 Cards / 543 edges, depth ≤ 8; algo-systems 559 Cards /
+666 edges (21 into cpp-core), depth ≤ 9. `tool/validate` 0 errors,
+`scripts/check-code` 0 problems (5 LOOSE parsons), `lint-shape` 0 flags.
+Every topic was reviewed by `learning-designer` and revised before commit.
+
+Remaining:
+- Parsons Cards: convert includes/class shells to pre-filled lines once the
+  FORMAT.md re-export defines them; then fix the 5 LOOSE distractors.
+- Small open items noted by reviewers: a hands-on MOP-vs-MFP Card
+  (09-compilers); the Aho–Corasick failure trace is 16 lines.
 
 ## Ground rules (apply to every phase)
 

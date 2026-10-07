@@ -1,7 +1,7 @@
 # `cpp-core`
 
 C++ from fundamentals through C++23, plus interview depth, for readers who
-already program. 137 Cards in nine Topics; the Cards teach the language
+already program. 416 Cards (see `tool/validate cpp-core` for the per-Topic breakdown); the Cards teach the language
 and its idioms, not a particular codebase. `algo-systems` builds on this
 Deck and may `require` its Cards.
 
