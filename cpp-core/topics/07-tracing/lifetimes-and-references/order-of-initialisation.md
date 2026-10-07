@@ -6,6 +6,8 @@ level: 3
 tags: [tracing, initialization]
 probes:
   1: { trail: "acb" }
+requires:
+  - class-member-init-list
 refs:
   - https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
   - https://eel.is/c++draft/class.base.init#15

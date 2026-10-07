@@ -59,6 +59,11 @@ def main(argv):
         dangling = [(c.id, r) for c, r in edges if r not in cards]
         for cid, r in dangling:
             print(f"  unresolved: {cid} -> {r}")
+        # The scheduler orders new Cards by depth before level (§7.1), so an
+        # advanced Card at depth 0 is among the first a beginner meets.
+        for c in mine:
+            if depth_of(c.qid) == 0 and c.fm.get("level", 0) >= 4:
+                print(f"  advanced entry (level {c.fm['level']}, no prerequisites): {c.id}")
         fan = [c for c in mine if len(c.requires) > 3]
         for c in fan:
             print(f"  fan-in {len(c.requires)}: {c.id}")

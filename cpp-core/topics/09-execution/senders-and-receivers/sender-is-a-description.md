@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 4
 tags: [execution, async, c++26]
+requires:
+  - lambda-closure-type
 refs:
   - https://eel.is/c++draft/exec.snd.general
   - https://eel.is/c++draft/exec.async.ops

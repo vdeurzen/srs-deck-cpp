@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 3
 tags: [classes, idioms, compile-time]
+requires:
+  - class-invariant-constructor
+  - linkage-translation-unit
 refs:
   - https://en.cppreference.com/w/cpp/language/pimpl
 elaborate: Which header in your codebase triggers the most rebuilds when it changes? Would hiding its private members behind a pointer be worth one allocation per object?
