@@ -28,7 +28,7 @@ then every Card in your topic and every Card you consider as a prerequisite.
 - Edit only Cards in your assigned scope. No writing git commands.
 
 ## Done means
-    tool/validate cpp-core algo-systems                       # 0 errors (cycles are errors)
+    tool/validate cpp-basics cpp-core algo-basics algo-systems                     # 0 errors (cycles are errors)
     scripts/graph cpp-core algo-systems --topic <prefix>      # sane depths, no unintended isolated Cards
 
 ## Report (≤ 120 words)

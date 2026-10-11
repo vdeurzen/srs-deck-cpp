@@ -12,7 +12,7 @@ that app. The app's source is not available here; what you need of it is bundled
 - Layout: <deck>/deck.yaml plus <deck>/topics/<topic-path>/<card-id>.md. A repo may hold
   several Decks; one Deck may not sit inside another. The Topic is the directory path
   under topics/ and nothing more: there is no Topic metadata file.
-- This repo holds the installed `cpp-core`, `algo-basics` and `algo-systems` Decks;
+- This repo holds the installed `cpp-basics`, `cpp-core`, `algo-basics` and `algo-systems` Decks;
   edit them in place. Their ids are fixed. A new Deck's id must not collide with them.
 - Part of `cpp-core` is in active review (coroutines, move semantics, smart
   pointers). Bump `version` only when a Card's question changes meaning.
@@ -22,14 +22,14 @@ that app. The app's source is not available here; what you need of it is bundled
 - Every Card cites at least one reference in `refs` (cppreference, a paper, a book).
 - `code` Cards must discriminate a wrong answer at compile time (the compile service
   never executes): use static_assert / constexpr checks, not a main() that returns.
-- `algo-basics` builds on `cpp-core`; `algo-systems` builds on both, so it may
-  `require` `cpp-core/<id>` and `algo-basics/<id>`. Validate all Decks together
-  so those edges are checked.
+- `cpp-core` builds on `cpp-basics`; `algo-basics` builds on both; `algo-systems`
+  builds on all three, so it may `require` `cpp-basics/<id>`, `cpp-core/<id>` and
+  `algo-basics/<id>`. Validate all Decks together so those edges are checked.
 - PLAN.md is the current work plan.
 
 ## Done means validated
 From the repo root, run:
-    tool/validate cpp-core algo-basics algo-systems
-    scripts/check-code cpp-core algo-basics algo-systems
+    tool/validate cpp-basics cpp-core algo-basics algo-systems
+    scripts/check-code cpp-basics cpp-core algo-basics algo-systems
 Pass every Deck in this repo in one run, so `requires` between them is checked.
 Do not report work as finished until this prints 0 errors.

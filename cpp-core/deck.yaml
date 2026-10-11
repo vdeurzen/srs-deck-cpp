@@ -3,6 +3,9 @@ name: C++ Core
 description: Fundamentals through C++23, plus interview depth.
 language: cpp
 format: 1
+relations: # cards here may require cpp-basics/<id>
+  - deck: cpp-basics
+    role: builds-on
 defaults:
   compile:
     compiler: g142

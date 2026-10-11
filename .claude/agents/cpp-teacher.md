@@ -36,8 +36,8 @@ every existing Card in the topic you're working on and the Cards they
   Never write a claim you couldn't cite.
 
 ## Done means
-    tool/validate cpp-core algo-systems                       # 0 errors
-    scripts/check-code cpp-core algo-systems --id <ids...>    # ok (LOOSE only if unavoidable, say why)
+    tool/validate cpp-basics cpp-core algo-basics algo-systems                     # 0 errors
+    scripts/check-code cpp-basics cpp-core algo-basics algo-systems --id <ids...>    # ok (LOOSE only if unavoidable, say why)
     scripts/lint-shape cpp-core --topic <prefix>              # your Cards unflagged, or justified
 
 ## Report (≤ 150 words)

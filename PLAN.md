@@ -317,3 +317,49 @@ Status: done (2026-10-07). 228 Cards, every topic reviewed by
 `learning-designer` and revised; 20 Cards moved (scripts/apply-moves);
 30 cross-topic edges inside algo-basics, algo-systems wired onto it.
 Closed: tree-complete-shape now precedes heap-shape-and-order.
+
+## Phase 6 — `cpp-basics` Deck (2026-10-11)
+Ground-up C++ crash course under `cpp-core` (cpp-core, algo-basics, algo-systems
+build on it). **Move nothing**: review history stays; new Cards re-teach basics in
+a different phrasing, and cpp-core entry Cards gain `requires` into cpp-basics.
+cpp-basics declares no relations (cycle-free by construction).
+
+| Topic | Prefix | Batch |
+|---|---|---|
+| 01-types-and-values | `types-` | C1 |
+| 02-references-and-pointers | `ptr-` | C2 |
+| 03-const | `const-` | C1 |
+| 04-functions | `fn-` | C3 |
+| 05-classes | `class-` | C3 |
+| 06-object-lifetime | `life-` | C4 |
+| 07-value-categories-intro | `vc-` | C2 |
+| 08-inheritance | `virtual-` | C4 |
+| 09-templates-basics | `tmpl-` | C4 |
+| 10-containers-and-iterators | `iter-` | C5 |
+| 11-algorithms-and-lambdas | `stdalgo-` | C5 |
+| 12-error-handling | `err-` | C6 |
+| 13-headers-and-linkage | `linkage-` | C6 |
+| 14-undefined-behaviour | `ub-` | C6 |
+
+Status: writing.
+
+## Phase 7 — `algo-basics` ground-up foundations (2026-10-11)
+Depth-0 layer inside algo-basics (same Deck, so §7.1 depth deals it first; nothing
+moves). New Cards tagged `foundations`; a `foundations` Card requires only
+`foundations` Cards. Existing entry Cards then require them (e.g.
+`complexity-big-o-scaling` → step-count model). Definitions plus applying them,
+short proofs only where they are the idea; pseudocode in basic/cloze/trace,
+constexpr C++ in code/chunk; no parsons.
+
+| Batch | Topic | Prefix | Content |
+|---|---|---|---|
+| A1 | 01-complexity | `complexity-asym-` | step model, O/Ω/Θ with c,n₀, o/ω, limit test, growth order, logs |
+| A2 | 01-complexity | `complexity-cost-` | sum/product rules, derive-the-loop traces, sums, cases, amortized, recurrences, recursion tree, master cases |
+| A3 | 02-linear, 03-hashing | `linear-`, `hashing-` | ADT vs impl, address formula, lists, stack/queue/deque ADTs; map/set ops, hash contract, chaining |
+| A4 | 04-searching, 09-techniques | `search-`, `technique-` | linear/binary search, invariants; recursion, call stack, pre/post, termination |
+| A5 | 05-trees, 06-heaps | `tree-`, `heap-` | recursive def, height/size, BST basics, PQ ADT |
+| A6 | 07-sorting | `sort-` | inversions, selection/bubble/insertion with invariants, merge/quick skeletons, partition |
+| A7 | 08-graphs | `graph-` | path/cycle/connected, spanning tree, degrees, representations, BFS/DFS, visited, O(V+E) |
+
+Status: writing. After Phases 6–7: deep review of every Card for answer give-aways
+and references to things not on the Card ("the generator from the parsons Card").

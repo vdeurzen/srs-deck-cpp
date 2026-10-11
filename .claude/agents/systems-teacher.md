@@ -40,8 +40,8 @@ every existing Card in your topic and the Cards they `require` (including
   `CLAUDE.md`, `PLAN.md`, `PEDAGOGY.md`, `REVIEW.md`. No writing git commands.
 
 ## Done means
-    tool/validate cpp-core algo-systems                       # 0 errors
-    scripts/check-code cpp-core algo-systems --id <ids...>    # ok (LOOSE only if unavoidable, say why)
+    tool/validate cpp-basics cpp-core algo-basics algo-systems                     # 0 errors
+    scripts/check-code cpp-basics cpp-core algo-basics algo-systems --id <ids...>    # ok (LOOSE only if unavoidable, say why)
     scripts/lint-shape algo-systems --topic <prefix>          # your Cards unflagged, or justified
 
 ## Report (≤ 150 words)
