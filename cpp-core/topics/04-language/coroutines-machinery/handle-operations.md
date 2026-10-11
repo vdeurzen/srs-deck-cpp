@@ -11,13 +11,14 @@ refs:
 ---
 
 A `std::coroutine_handle` is a non-owning pointer to a frame, so it is
-trivially copyable and nobody's destructor cleans it up. Resuming a
-suspended coroutine is {{c1::resume()::or the equivalent operator(),
-which calls it}}, and it returns to *you* when the coroutine next
-suspends or finishes — it is an ordinary function call, not a context
-switch. Freeing the frame and running the destructors of everything in
-it is {{c2::destroy()}}, the only way to free a *suspended* frame. {{c3::done()::true only when the coroutine is suspended at its
-final suspend point}} asks whether the coroutine has finished, and
-`address()` hands out the raw `void*` you give to a C callback. Note
-that the handle's `explicit operator bool` only says whether it points
-at a frame at all — it is not `!done()`.
+trivially copyable and nobody's destructor cleans it up. Handing control
+back into a parked coroutine is {{c1::resume()::or the equivalent
+operator(), which calls it}}, and it returns to *you* when the coroutine
+next suspends or finishes — it is an ordinary function call, not a
+context switch. Freeing the frame and running the destructors of
+everything in it is {{c2::destroy()}}, the only way to free a
+*suspended* frame. {{c3::done()::a query}} tells you whether the
+coroutine has anything left to run, and `address()` hands out the raw
+`void*` you give to a C callback. Note that the handle's
+`explicit operator bool` only says whether it points at a frame at all,
+not whether that coroutine has finished.

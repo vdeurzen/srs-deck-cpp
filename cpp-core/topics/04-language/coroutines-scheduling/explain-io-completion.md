@@ -5,8 +5,8 @@ version: 1
 level: 5
 tags: [coroutines, scheduling, io]
 requires:
-  - coroutines-scheduling-frame-stable-address
-  - coroutines-scheduling-stop-token-plumbing
+  - coroutines-scheduling-io-uring-lifetime
+  - coroutines-scheduling-stop-callback-thread
   - coroutines-symmetric-transfer
 refs:
   - https://man7.org/linux/man-pages/man7/io_uring.7.html

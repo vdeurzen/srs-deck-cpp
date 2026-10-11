@@ -13,7 +13,7 @@ choices:
     - "std::coroutine_handle<promise_type>"
     - "std::coroutine_handle<>"
     - "std::coroutine_handle<Counter>"
-    - "std::coroutine_handle<void>"
+    - "std::noop_coroutine_handle"
 compile:
   harness: |
     Counter ticking() { co_return; }
@@ -58,3 +58,8 @@ That erasure is a feature, not a loss. A scheduler or an event loop
 queues `coroutine_handle<>` precisely so it can hold handles to
 coroutines of every return type at once; the typed handle stays with
 the code that owns the promise and needs its result.
+
+`std::coroutine_handle<Counter>` names the wrong type — the promise, not
+the return type, is the parameter — and `std::noop_coroutine_handle` is
+the handle of one fixed library promise, `std::noop_coroutine_promise`,
+so neither can be built `from_promise(*this)` here.

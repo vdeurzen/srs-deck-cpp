@@ -1,7 +1,7 @@
 ---
 id: coroutines-awaitable-vs-awaiter
 kind: cloze
-version: 1
+version: 2
 level: 4
 tags: [coroutines]
 requires:
@@ -17,10 +17,9 @@ other in a fixed order. First, if the promise declares
 {{c1::await_transform::any declaration of it captures every co_await in
 that coroutine}}, the operand is replaced by its result. Then, if that
 result has a member or non-member {{c2::operator co_await}}, it is
-called and its result is the awaiter; otherwise the object is its own
-awaiter. Only then are `await_ready`, `await_suspend` and
-{{c3::await_resume::whose return type is the type of the whole co_await
-expression}} looked up on it.
+called and its result is the awaiter; otherwise {{c3::the object is its
+own awaiter::what happens when there is no such operator}}. Only then
+are `await_ready`, `await_suspend` and `await_resume` looked up on it.
 
 The distinction matters in practice: a `task` is an awaitable that
 returns a *separate* awaiter holding the continuation handle, while

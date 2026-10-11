@@ -1,39 +1,32 @@
 ---
 id: spaceship-rewritten-not-equal
-kind: code
-version: 1
+kind: basic
+version: 2
 level: 2
 tags: [comparisons]
-input: chips
-choices:
-  c1: ["= default", "= delete", "{ return true; }", "noexcept"]
-compile:
-  harness: |
-    static_assert(check());
-    int main() {}
 requires:
   - spaceship-basics
 refs:
   - https://en.cppreference.com/w/cpp/language/overload_resolution#Call_to_an_overloaded_operator
+  - https://eel.is/c++draft/over.match.oper
 ---
 
-`Point` declares only `operator==`, no `operator!=` at all. Make
-`a != b` work anyway.
+## `Point` declares only this hand-written `operator==`. In C++20, what does `a != b` do?
 
 ```cpp
 struct Point {
     int x, y;
-    constexpr bool operator==(const Point&) const {{c1::= default}};
+    bool operator==(const Point& o) const { return x == o.x && y == o.y; }
 };
-constexpr bool check() {
-    return Point{1,2} != Point{1,3} && !(Point{1,2} != Point{1,2});
-}
+bool differ(Point a, Point b) { return a != b; }
 ```
 
 ---
 
-Since C++20, `a != b` is a **rewritten candidate**: if no `operator!=` is
-found, the compiler tries `!(a == b)` instead. This works for *any*
-usable `operator==`, defaulted or hand-written — the rewrite rule, not
-the `= default`, is what gives you `!=`. `= default` is only needed here
-to give `Point` a working `operator==` in the first place.
+**It compiles and evaluates `!(a == b)`: `!=` is a *rewritten
+candidate*.**
+
+Since C++20, when overload resolution for `a != b` finds no
+`operator!=`, it also considers `!(a == b)` for any usable `operator==`,
+hand-written or defaulted. So C++20 code declares `operator==` and never
+`operator!=`: the rewrite supplies it, and the two cannot disagree.

@@ -7,6 +7,7 @@ tags: [coroutines, scheduling]
 requires:
   - coroutines-scheduling-awaiter-queries-promise
   - coroutines-scheduling-thread-affinity
+  - coroutines-scheduling-no-fire-and-forget
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle

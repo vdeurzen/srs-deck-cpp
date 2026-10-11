@@ -29,7 +29,7 @@ coroutine promise.
 struct Task {
   struct promise_type {
     Task get_return_object() { return Task{Handle::from_promise(*this)}; }
-    std::suspend_always initial_suspend() noexcept { return {}; }
+    std::suspend_always initial_suspend() { return {}; }
     std::suspend_always final_suspend() {{c1::noexcept}} { return {}; }
     void return_void() {}
     void unhandled_exception() {}

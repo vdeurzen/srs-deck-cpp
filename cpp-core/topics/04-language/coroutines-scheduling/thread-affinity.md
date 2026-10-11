@@ -12,15 +12,14 @@ refs:
 ---
 
 A `co_await` is a place where the thread can change underneath you: the
-code after it runs on {{c1::whichever thread resumed the handle::the
-worker that took it off the queue, not necessarily the one that
-suspended}}, and nothing in the source marks the boundary except the
+code after it runs on {{c1::whichever thread resumed the handle::which
+thread?}}, and nothing in the source marks the boundary except the
 keyword itself. Three things stop being true across that line. A
-{{c2::std\::lock_guard::what you would hold for a critical section}}
-must never span a `co_await`, because the mutex would then be unlocked
-by a different thread than locked it — undefined behaviour for
-`std::mutex`, and a deadlock waiting to happen even where it is
-tolerated. Anything cached from {{c3::thread_local storage::including
-an arena, a random engine, or a "current request" pointer}} before the
-suspension is stale afterwards. And a `this_thread::get_id()` captured
-earlier no longer identifies the running thread.
+{{c2::held lock::any RAII lock guard}} must never span a `co_await`,
+because the thread releasing it would not be the one that acquired it —
+undefined behaviour for every standard mutex, and a deadlock waiting to
+happen where an implementation tolerates it. Anything cached from
+{{c3::thread_local storage::including an arena, a random engine, or a
+"current request" pointer}} before the suspension is stale afterwards.
+And a `this_thread::get_id()` captured earlier no longer identifies the
+running thread.

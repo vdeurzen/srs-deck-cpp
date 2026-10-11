@@ -16,16 +16,16 @@ refs:
 ---
 
 **Through `user_data`: an opaque 64-bit value the kernel copies from
-the SQE to the CQE.** Submit with the awaiter's address; complete by
-casting it back, storing the result, then resuming:
+the SQE to the CQE.** Submit the awaiter's address, and on completion:
 
 ```cpp
+struct ReadOp { int result; std::coroutine_handle<> waiter; /* hooks */ };  // the awaiter, in the frame
 io_uring_sqe_set_data(sqe, this);                               // on submit
 auto* op = static_cast<ReadOp*>(io_uring_cqe_get_data(cqe));    // on completion
-op->result = cqe->res;              // >= 0 bytes, or -errno — before the resume
-op->waiter.resume();
+op->result = cqe->res;              // >= 0 bytes, or -errno — before the hand-off
+pool.enqueue(op->waiter);           // not .resume(): no user code on the I/O thread
 ```
 
-The result is written *before* the resume, so `await_resume()` can
-return it or turn a negative `res` into an exception. A bare
-`h.address()` would leave nowhere to put it.
+The result lands *before* the hand-off, so `await_resume()` can return
+it or turn a negative `res` into an exception. A bare `h.address()`
+would leave nowhere to put it.

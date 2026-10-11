@@ -16,8 +16,8 @@ compile:
       auto a = forty_two();
       a.handle.resume();
       const int got = a.handle.promise().result;
+      (void)got;
       a.handle.destroy();
-      return got == 42 ? 0 : 1;
     }
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#Execution

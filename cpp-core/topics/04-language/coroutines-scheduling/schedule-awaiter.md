@@ -25,6 +25,7 @@ makes the common case free.
 
 ```cpp
 struct Scheduler {
+  void enqueue(std::coroutine_handle<>);   // push onto the workers' ready queue
   auto schedule() noexcept {
     struct Awaiter {
       Scheduler& sched;

@@ -18,8 +18,8 @@ refs:
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle/from_address
 ---
 
-A C completion callback gets back the `void*` that was stored from
-`h.address()` when the operation was submitted. Rebuild the handle.
+A C completion callback gets back the `void*` that was stored as the
+operation's `user_data` when it was submitted. Rebuild the handle.
 
 ```cpp
 #include <coroutine>

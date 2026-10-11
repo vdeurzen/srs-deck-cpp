@@ -16,6 +16,12 @@ choices:
     - "std::suspend_always"
 compile:
   harness: |
+    #include <deque>
+    struct Pool {
+      std::deque<std::coroutine_handle<>> ready;
+      void enqueue(std::coroutine_handle<> h) { ready.push_back(h); }
+    };
+    void ScheduleOn::await_suspend(std::coroutine_handle<> h) const { pool.enqueue(h); }
     struct Task {
       struct promise_type {
         Task get_return_object() { return {}; }
@@ -45,21 +51,18 @@ refs:
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle
 ---
 
-Two different coroutine types — `Task` and `Job` — both await
-`ScheduleOn`. Give `await_suspend` the parameter type that lets one
-pool serve both.
+Two different coroutine types — `Task` and `Job`, both defined later —
+await `ScheduleOn`, which pushes the awaiting coroutine onto one
+`Pool`'s ready queue. Give `await_suspend` the parameter type that lets
+that one pool serve both.
 
 ```cpp
 #include <coroutine>
-#include <deque>
-struct Pool {
-  std::deque<std::coroutine_handle<>> ready;
-  void enqueue(std::coroutine_handle<> h) { ready.push_back(h); }
-};
+struct Pool;                        // the ready queue; defined after Task and Job
 struct ScheduleOn {
   Pool& pool;
   bool await_ready() const noexcept { return false; }
-  void await_suspend({{c1::std\::coroutine_handle<>}} h) const { pool.enqueue(h); }
+  void await_suspend({{c1::std\::coroutine_handle<>}} h) const;   // { pool.enqueue(h); }
   void await_resume() const noexcept {}
 };
 ```
@@ -82,4 +85,6 @@ the design needs a common base class or a `std::function` wrapper.
 
 The erased handle is also what you store in a C API's `void*`:
 `h.address()` on the way out,
-`std::coroutine_handle<>::from_address(p)` on the way back in.
+`std::coroutine_handle<>::from_address(p)` on the way back in. A bare
+`void*` parameter, though, is not a handle: the compiler hands
+`await_suspend` a `coroutine_handle<P>`, which converts to no pointer.

@@ -8,7 +8,7 @@ requires:
   - coroutines-suspension-points-cloze
 input: chips
 choices:
-  c1: ["await_ready", "ready", "is_ready", "await_suspend"]
+  c1: ["await_ready", "ready", "is_ready", "await_skip"]
 compile:
   harness: |
     struct Task {
@@ -21,7 +21,7 @@ compile:
       };
     };
     Task use() {
-      const int value = co_await AlwaysReady{};
+      const int value = co_await Cached{};
       (void)value;
     }
     int main() { use(); }
@@ -33,7 +33,7 @@ Name the hook that lets an awaiter skip suspending altogether.
 
 ```cpp
 #include <coroutine>
-struct AlwaysReady {
+struct Cached {
   bool {{c1::await_ready}}() const noexcept { return true; }
   void await_suspend(std::coroutine_handle<>) const noexcept {}
   int await_resume() const noexcept { return 7; }
@@ -50,7 +50,7 @@ the future is already satisfied, or the socket already has bytes: no
 frame is saved and no scheduler is touched.
 
 The three names are fixed and looked up by name on the awaiter, so
-`ready` or `is_ready` does not compile. Note the shape of the trio:
-`await_ready` decides *whether*, `await_suspend` decides *what happens
-while suspended*, and `await_resume` produces the value of the whole
-`co_await` expression — here, an `int`.
+`ready`, `is_ready` or an invented `await_skip` does not compile. Note
+the shape of the trio: `await_ready` decides *whether*, `await_suspend`
+decides *what happens while suspended*, and `await_resume` produces the
+value of the whole `co_await` expression — here, an `int`.

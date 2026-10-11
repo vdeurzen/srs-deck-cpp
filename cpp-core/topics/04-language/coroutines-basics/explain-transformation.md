@@ -7,6 +7,7 @@ tags: [coroutines]
 requires:
   - coroutines-explain-frame-setup
   - coroutines-explain-body-lowering
+  - coroutines-generator-no-co-await
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---

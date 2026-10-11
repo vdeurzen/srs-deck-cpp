@@ -12,6 +12,6 @@ refs:
   - https://wg21.link/P2465R3
 ---
 
-C++23 lets one line, {{c1::`import std;`::an import declaration}}, replace
-every standard `#include`: it makes all the library's declarations in
-namespace `std` available, compiled once instead of re-parsed per file.
+C++23 lets one line, {{c1::`import std;`::one declaration}}, replace
+every standard `#include`: the whole library's declarations become
+available at once, compiled once instead of re-parsed per file.

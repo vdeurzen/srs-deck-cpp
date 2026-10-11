@@ -24,9 +24,14 @@ and overflows. Returning the continuation's handle from
 resume returns and the continuation runs in the same stack slot.
 
 ```cpp
+struct promise_type {
+  std::coroutine_handle<> continuation;   // whoever co_awaited this task
+  // ... the usual hooks
+};
 struct FinalAwaiter {
   bool await_ready() const noexcept { return false; }
-  std::coroutine_handle<> await_suspend(Handle h) noexcept {
+  std::coroutine_handle<>
+  await_suspend(std::coroutine_handle<promise_type> h) noexcept {
     auto c = h.promise().continuation;
     return c ? c : std::noop_coroutine();
   }

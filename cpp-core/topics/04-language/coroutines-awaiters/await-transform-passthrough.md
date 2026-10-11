@@ -8,20 +8,12 @@ requires:
   - coroutines-await-transform-hook
 input: chips
 choices:
-  c1: ["A&&", "void", "std::suspend_never", "ReadOp"]
+  c1: ["A&&", "auto", "A", "A&"]
 compile:
   harness: |
-    struct Foreign {
-      Foreign() = default;
-      Foreign(const Foreign&) = delete;
-      bool await_ready() const noexcept { return true; }
-      void await_suspend(std::coroutine_handle<>) const noexcept {}
-      int await_resume() const noexcept { return 1; }
-    };
     Task both() {
       co_await ReadOp{3};
-      const int v = co_await Foreign{};
-      (void)v;
+      co_await Foreign{};
     }
     int main() {
       auto t = both();
@@ -33,12 +25,17 @@ refs:
 ---
 
 This promise turns a `ReadOp` into its own awaiter. Complete the second
-overload so every *other* awaitable still passes through unchanged —
-without it, `co_await` on anything but a `ReadOp` no longer compiles.
+overload so every *other* awaitable — `Foreign` among them — still
+passes through unchanged. Without it, `co_await` on anything but a
+`ReadOp` no longer compiles.
 
 ```cpp
 #include <coroutine>
 struct ReadOp { int fd; };
+struct Foreign : std::suspend_never {   // another library's awaiter; not copyable
+  Foreign() = default;
+  Foreign(const Foreign&) = delete;
+};
 struct Task {
   struct promise_type {
     Task get_return_object() { return Task{Handle::from_promise(*this)}; }
@@ -60,7 +57,9 @@ struct Task {
 One `await_transform` declaration captures every `co_await` in the
 coroutine, with no fall-back to the untransformed operand — so the
 promise now owns the vocabulary of awaitables, and foreign ones need
-an explicit pass-through. Forwarding the operand back out as `A&&`
-keeps its value category and avoids a copy (the harness's `Foreign`
-is not copyable); returning `void` or a fixed awaiter type would turn
-the pass-through into a rejection.
+an explicit pass-through. Returning `A&&` hands the operand back with
+its value category intact and nothing constructed. `auto` and `A` both
+deduce a decayed `Foreign` and try to copy it out of the xvalue, which
+its deleted copy constructor forbids; `A&` cannot bind an lvalue
+reference to that xvalue at all. Each is a rejection dressed as a
+pass-through.

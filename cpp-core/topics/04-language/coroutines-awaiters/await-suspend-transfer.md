@@ -1,14 +1,14 @@
 ---
 id: coroutines-await-suspend-transfer
 kind: code
-version: 1
+version: 2
 level: 5
 tags: [coroutines]
 requires:
   - coroutines-await-suspend-return-types
 input: chips
 choices:
-  c1: ["std::coroutine_handle<>", "void", "bool", "std::suspend_always"]
+  c1: ["return next;", "next.resume();", "return next.resume();", "return false;"]
 compile:
   harness: |
     #include <type_traits>
@@ -23,15 +23,15 @@ refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
 ---
 
-Complete the awaiter so suspending this coroutine resumes `next` by
-symmetric transfer.
+Complete `await_suspend` so suspending this coroutine hands control to
+`next` by symmetric transfer.
 
 ```cpp
 #include <coroutine>
 struct ResumeNext {
   std::coroutine_handle<> next;
   bool await_ready() const noexcept { return false; }
-  {{c1::std\::coroutine_handle<>}} await_suspend(std::coroutine_handle<>) noexcept { return next; }
+  auto await_suspend(std::coroutine_handle<>) noexcept { {{c1::return next;}} }
   void await_resume() const noexcept {}
 };
 ```
@@ -41,13 +41,15 @@ struct ResumeNext {
 Returning a handle from `await_suspend` says "suspend me and resume
 *that* one instead". The compiler turns it into a tail call, so the
 stack frame of the suspending coroutine's `resume()` is reused rather
-than stacked on top of — which is the whole point.
+than stacked on top of — which is the whole point. The deduced return
+type is `std::coroutine_handle<>`; real code spells it out.
 
-Writing `void await_suspend(...) { next.resume(); }` looks equivalent
-and is not: each hand-off then nests one `resume()` inside another, so a
-chain of tasks awaiting tasks, or a ping-pong between two coroutines,
-grows the stack until it overflows. The handle-returning form makes the
-same chain run in constant stack.
+Writing `next.resume();` looks equivalent and is not: each hand-off then
+nests one `resume()` inside another, so a chain of tasks awaiting tasks,
+or a ping-pong between two coroutines, grows the stack until it
+overflows. `return next.resume();` is the same call with a `void`
+result, and `return false;` resumes the *suspending* coroutine, not
+`next`. Only the handle-returning form runs the chain in constant stack.
 
 When there is nothing to transfer to, return `std::noop_coroutine()`
 rather than a null handle: resuming a null handle is undefined, while

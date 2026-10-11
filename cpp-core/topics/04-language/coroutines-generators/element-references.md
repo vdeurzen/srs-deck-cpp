@@ -10,9 +10,8 @@ refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator
 ---
 
-`std::generator<T>` never copies what the body yields: the iterator's
-`operator*` returns {{c1::a reference to the yielded object::not a
-copy — the member type `reference` says so}}, which usually lives in
-the coroutine frame. Read it in the loop body; a reference kept across
-`++it` is {{c2::dangling::the body has resumed and moved on}}, so store
-a copy whenever a value must outlive the step.
+`std::generator<T>`'s iterator hands out each yielded object as
+{{c1::a reference::what `operator*` returns}} — the object itself
+usually lives in the coroutine frame. Read it in the loop body; one kept
+across `++it` is {{c2::dangling::the body has resumed and moved on}}, so
+initialise a `T` from it whenever a value must outlive the step.
