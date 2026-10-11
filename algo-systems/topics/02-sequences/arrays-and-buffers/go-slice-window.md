@@ -9,7 +9,7 @@ tags: [go, slices, aliasing]
 input: chips
 compile: null
 choices:
-  c1: ["off + n", "cap(buf)", "len(buf)", "off + n + 1"]
+  c1: ["off + n", "off + n - 1", "off + n + 1", "cap(buf)", "len(buf)"]
 refs:
   - https://go.dev/ref/spec#Slice_expressions
   - https://go.dev/blog/slices-intro
@@ -32,7 +32,7 @@ func Window(buf []byte, off, n int) []byte {
 `s[low:high:max]` gives capacity `max − low`, so with `max == high` the
 window is full: the caller's first `append` must copy to a new array and
 `buf` is untouched. Any larger `max` lets `append` overwrite the bytes
-after the window in place. The window still aliases `buf`, so recycling
+after the window in place; `off + n - 1` is below `high` and panics. The window still aliases `buf`, so recycling
 `buf` early remains the caller's hazard.
 
 Go, so graded by text rather than compiled.

@@ -16,10 +16,11 @@ elaborate: If you swapped one of your `unordered_map`s for `absl::flat_hash_map`
 ## Why can no conforming `std::unordered_map` be a flat open-addressed table?
 
 ```cpp
+struct Order { int qty; };
 std::unordered_map<int, Order> book;
 Order& o = book[42];
 book.reserve(1 << 20);   // rehash
-o.qty = 7;               // must still be valid
+o.qty = 7;
 ```
 
 ---

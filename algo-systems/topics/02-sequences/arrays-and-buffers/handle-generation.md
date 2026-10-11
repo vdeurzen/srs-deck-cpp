@@ -12,7 +12,7 @@ refs:
   - https://docs.rs/slotmap/latest/slotmap/
 ---
 
-## Slot 417 is freed and reused for a new order, while an old handle `{index: 417}` is still held. A handle carries `{index, generation}` and each slot stores a generation. What does that catch?
+## Slot 417 is freed and reused for a new order. A handle carries `{index, generation}` and each slot stores a generation. What bug does comparing the two on every access catch?
 
 ---
 

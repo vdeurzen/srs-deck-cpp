@@ -17,8 +17,7 @@ cannot issue the next load until the current one {{c1::returns::what the
 next address depends on}}, so one miss is in flight at a time: one line
 per 80 ns, 0.8 GB/s. Random loads into an array are independent, so the
 core overlaps them; with 10 misses in flight Little's law gives one line
-every {{c2::8 ns}}, about {{c3::8 GB/s}} — same instruction count, ten
-times the throughput.
+every {{c2::8 ns}}, about {{c2::8 GB/s}}, for the same instruction count.
 
 ---
 

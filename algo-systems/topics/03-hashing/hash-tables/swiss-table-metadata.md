@@ -14,7 +14,7 @@ refs:
 ## A Swiss table keeps one control byte per slot holding 7 bits of the key's hash. Why does a lookup read a group's 16 control bytes before reading any key?
 
 ```
-ctrl:  [0x3a][0x80][0x15][0x3a] …16 bytes   ← one SIMD compare against H2
+ctrl:  [0x3a][0x80][0x15][0x3a] …16 bytes
 slots: [ k,v ][ —  ][ k,v ][ k,v ] …
 ```
 

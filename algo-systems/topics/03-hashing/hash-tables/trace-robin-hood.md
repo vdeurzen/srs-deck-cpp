@@ -17,6 +17,7 @@ An 8-slot Robin Hood table; a key's home slot is `k % 8`. Slots start
 empty (`-1`).
 
 ```cpp
+int key[8] = {-1, -1, -1, -1, -1, -1, -1, -1}, psl[8] = {};
 auto insert = [&](int k) {
   int i = k % 8, d = 0;                    // d: PSL of the key carried
   while (key[i] != -1) {

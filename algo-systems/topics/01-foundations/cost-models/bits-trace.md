@@ -16,7 +16,8 @@ refs:
   - https://en.cppreference.com/w/cpp/numeric/popcount
 ---
 
-Give each value in decimal.
+Work each value out by hand from the bits of `x`, and give it in decimal.
+`std::popcount` returns the number of 1 bits.
 
 ```cpp
 #include <bit>

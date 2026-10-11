@@ -20,8 +20,7 @@ refs:
 so `LowerBound` matches C++'s `std::lower_bound`.
 
 ```go
-// LowerBound returns the first index at which key could be inserted
-// while keeping a sorted, i.e. the first index with a[i] >= key.
+// LowerBound returns the lower bound of key in the sorted slice a.
 func LowerBound(a []int, key int) int {
     return sort.Search(len(a), func(i int) bool { return {{c1::a[i] >= key}} })
 }

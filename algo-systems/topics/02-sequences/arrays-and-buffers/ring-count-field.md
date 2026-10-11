@@ -6,6 +6,7 @@ level: 3
 tags: [ring-buffer, low-latency, concurrency]
 requires:
   - seq-ring-buffer-full-vs-empty
+  - foundations-latency-line-bounce
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size

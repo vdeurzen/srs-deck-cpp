@@ -13,6 +13,13 @@ refs:
 
 ## An OLTP engine looks up one order by id and reads all four of its fields. Why does it keep rows together (AoS) rather than one column per field (SoA)?
 
+```cpp
+struct Order { std::uint64_t id; double px; std::uint32_t qty, side; };  // 24 B
+std::vector<Order> rows;                                   // AoS
+struct Orders { std::vector<std::uint64_t> id; std::vector<double> px;
+                std::vector<std::uint32_t> qty, side; };   // SoA
+```
+
 ---
 
 **AoS costs about one cache miss per record; SoA costs one per field.**

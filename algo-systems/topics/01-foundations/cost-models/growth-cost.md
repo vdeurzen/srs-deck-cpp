@@ -25,8 +25,8 @@ refs:
   - https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md
 ---
 
-`total_moves` simulates `n` pushes into a vector that grows by the
-factor `num/den` when full, and counts the elements copied. Complete the
+`total_moves` simulates `n` pushes into a vector that grows
+geometrically when full, and counts the elements copied. Complete the
 new capacity.
 
 ```cpp

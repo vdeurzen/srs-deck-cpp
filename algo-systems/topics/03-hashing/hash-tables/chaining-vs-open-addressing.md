@@ -16,9 +16,12 @@ elaborate: "Your hottest map: is it node-based or flat, and how many cache lines
 
 ## A lookup that hits: why does a chained table typically pay one more cache miss than an open-addressed one?
 
-```
-chaining:   buckets[h] ──► node{key,val,next} ──► node…
-open addr.: slots[h]  = {key,val}  (neighbours in the same line)
+```cpp
+struct Node { K key; V val; Node* next; };
+Node* buckets[N];                    // chaining
+
+struct Slot { K key; V val; };
+Slot slots[N];                       // open addressing
 ```
 
 ---

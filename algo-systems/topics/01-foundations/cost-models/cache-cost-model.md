@@ -20,5 +20,4 @@ block does eight times the work per miss as one that packs one.
 
 Two access patterns cost the same in big-O and differ by an order of
 magnitude in practice: a sequential scan gets both spatial locality and
-{{c3::hardware prefetching::the core recognises strided access and
-fetches ahead}}, while pointer chasing pays a full miss for every node.
+{{c3::hardware prefetching::a hardware feature of the core}}, while pointer chasing pays a full miss for every node.

@@ -45,7 +45,7 @@ struct Fenwick {                      // 1-indexed internally; t[0] unused
 
   constexpr long long prefix(std::size_t n) const {   // sum of [0, n)
     long long s = 0;
-    for (std::size_t i = n; i > 0; i -= i & -i) s += t[i];
+    for (std::size_t i = n; i > 0; i &= i - 1) s += t[i];
     return s;
   }
 };
@@ -55,6 +55,7 @@ struct Fenwick {                      // 1-indexed internally; t[0] unused
 
 `i & -i` is the lowest set bit, and that is the length of the range slot
 `t[i]` covers: `t[6]` (110) covers two elements, `t[8]` covers eight.
-`prefix` *removes* the low bit (7 → 6 → 4 → 0), summing ranges that tile
+`prefix` *removes* the low bit (`i &= i - 1`: 7 → 6 → 4 → 0), summing ranges that tile
 `[1, 7]`; `add` *adds* it (3 → 4 → 8), visiting every slot whose range
-contains 3. Each is one step per bit: O(log n).
+contains 3. Each is one step per bit: O(log n). `i & (i - 1)` in `add`
+is 0 at any power of two, so the loop never advances.

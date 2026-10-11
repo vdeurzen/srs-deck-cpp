@@ -25,9 +25,9 @@ refs:
   - https://github.com/abseil/abseil-cpp/blob/master/absl/container/internal/raw_hash_set.h
 ---
 
-A Swiss table splits one hash in two: **H2**, the low 7 bits, becomes
-the slot's control byte, and **H1**, everything else, picks the group.
-Complete `group_of`.
+A Swiss table splits one 64-bit hash in two: **H2** becomes the slot's
+control byte and **H1** picks the group. The two must share no bits, and
+H1 must be wide enough for a table of any size. Complete `group_of`.
 
 ```cpp
 #include <cstddef>
@@ -48,6 +48,7 @@ The two halves must come from **disjoint bits**. If the group index
 also used the low 7 bits, every key in a group would carry the same
 control byte, the SIMD compare would match all 16 slots, and the filter
 that skips ~127 of every 128 key comparisons would be worthless.
+`hash >> 57` is disjoint too, but leaves H1 only 7 bits: 128 groups at most.
 
 This follows the published design (low 7 bits for H2). Abseil's current
 `raw_hash_set.h` takes H2 from the *top* 7 bits and indexes with the low

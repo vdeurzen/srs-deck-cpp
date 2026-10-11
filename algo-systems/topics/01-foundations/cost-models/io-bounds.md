@@ -14,7 +14,7 @@ refs:
 In the external-memory model, scanning `N` items costs
 {{c1::Θ(N/B)::each transfer is shared by many items}} transfers, and a
 B-tree search costs {{c2::Θ(log_B N)}}. For `N = 10⁹` keys and 256 keys
-per page that is {{c3::4::256³ ≈ 1.7·10⁷, 256⁴ ≈ 4.3·10⁹}} page reads,
+per page that is {{c3::4::levels needed to cover 10⁹ keys}} page reads,
 where a binary search tree with one key per node needs about 30.
 
 ---

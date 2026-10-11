@@ -17,7 +17,7 @@ standard containers deliberately differ on both.
 A `std::vector` invalidates {{c1::everything::how many of iterators, pointers
 and references?}} whenever it reallocates. A `std::deque` invalidates all
 iterators on a push at either end but leaves {{c2::references and pointers
-to the existing elements::the elements themselves never move}} valid. A
+to the existing elements::which guarantee survives a push?}} valid. A
 `std::map` erase invalidates {{c3::only the erased element's iterators
 and references::how much of the tree?}}.
 

@@ -15,7 +15,7 @@ refs:
 ## With linear probing, why does a run of occupied slots grow faster the longer it already is?
 
 ```
-slots: . . X X X X X . .   a key hashing to any X lands at the right end
+slots: . . X X X X X . .
 ```
 
 ---

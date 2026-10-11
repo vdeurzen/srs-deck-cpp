@@ -10,7 +10,12 @@ refs:
   - https://www.boost.org/doc/libs/release/doc/html/intrusive/auto_unlink_hooks.html
 ---
 
-## An `Order` still linked into its price level is destroyed. What goes wrong?
+## An `Order` still linked into its price level's intrusive list is destroyed. What goes wrong?
+
+```cpp
+struct Hook { Hook* prev; Hook* next; };
+struct Order { Hook level; std::uint64_t id; std::int64_t px; };
+```
 
 ---
 
