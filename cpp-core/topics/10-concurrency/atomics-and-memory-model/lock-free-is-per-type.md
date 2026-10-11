@@ -6,7 +6,7 @@ level: 2
 tags: [concurrency, atomics, lock-free]
 input: chips
 choices:
-  c1: ["std::uint64_t", "std::array<std::uint64_t, 2>", "Rgb"]
+  c1: ["std::uint64_t", "long double", "std::array<std::uint64_t, 2>", "Rgb", "Xyz"]
 compile:
   harness: |
     static_assert(std::atomic<Slot>::is_always_lock_free);
@@ -26,6 +26,7 @@ so the queue's `static_assert` on lock-freedom holds on x86-64 GCC.
 #include <atomic>
 #include <cstdint>
 struct Rgb { unsigned char r, g, b; };
+struct Xyz { float x, y, z; };
 using Slot = {{c1::std\::uint64_t}};
 std::atomic<Slot> slot;
 ```
@@ -33,10 +34,11 @@ std::atomic<Slot> slot;
 ---
 
 **Lock-freedom is a property of the type on a platform, not of
-`std::atomic`.** Eight bytes is one instruction on x86-64. The other two
+`std::atomic`.** Eight bytes is one instruction on x86-64. The others
 *compile* — any trivially copyable type can be atomic — but GCC reports
-`is_always_lock_free == false` for them: a three-byte `Rgb` is not a
-hardware size, and for sixteen bytes GCC gives no compile-time
+`is_always_lock_free == false` for them: a three-byte `Rgb` and a
+twelve-byte `Xyz` are not hardware sizes, and for sixteen bytes
+(`long double` included, a scalar) GCC gives no compile-time
 guarantee (even with `-mcx16`; `libatomic` picks `cmpxchg16b` at run
 time and falls back to a lock). `is_always_lock_free` is the
 compile-time check to `static_assert` on; `is_lock_free()` is the

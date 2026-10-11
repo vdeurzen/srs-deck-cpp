@@ -14,10 +14,13 @@ refs:
 ---
 
 ```cpp
-std::unique_lock lk(m);
-cv.wait(lk, [] { return !items.empty(); });
-int job = items.front();
-items.pop_front();
+int pop(std::mutex& m, std::condition_variable& cv, std::deque<int>& items) {
+  std::unique_lock lk(m);
+  cv.wait(lk, [&] { return !items.empty(); });
+  int job = items.front();
+  items.pop_front();
+  return job;
+}
 ```
 
 ---
@@ -27,5 +30,5 @@ The **consumer side of a condition variable**: a `unique_lock` (never
 is the real condition (so spurious wake-ups and early notifies cannot
 break it), and the shared state read and modified while the lock is
 still held — the pop must happen before `lk` goes out of scope. Graded
-by text (`compile: null`): the snippet is a fragment of a larger
-consumer, so `m`, `cv` and `items` are deliberately not declared here.
+by text (`compile: null`): a compiled snippet would need three
+`#include`s, more lines than the idiom itself.

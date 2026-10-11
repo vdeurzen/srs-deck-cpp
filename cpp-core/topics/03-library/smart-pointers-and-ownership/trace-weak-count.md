@@ -15,6 +15,9 @@ refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr/expired
 ---
 
+`w.use_count()` reports how many `shared_ptr`s own the object `w`
+observes; `w.expired()` is `use_count() == 0`.
+
 ```cpp
 std::weak_ptr<int> w;
 long n; bool e;

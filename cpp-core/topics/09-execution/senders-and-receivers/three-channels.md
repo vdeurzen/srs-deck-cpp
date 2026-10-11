@@ -13,11 +13,11 @@ requires:
 ---
 
 Where a callback has one way to report back and a `std::future` has
-two, a receiver has three completion channels, and an operation signals
-exactly {{c1::one of them, exactly once::how many, and how often}}.
-Success is {{c2::set_value(rcvr, vals...)::the only channel that may
-carry several values}}, failure is `set_error(rcvr, err)` — where `err`
-is often but not always a `std::exception_ptr` — and the third is
+two, a receiver has three completion channels, and an operation
+completes on {{c1::exactly one of them, exactly once::how many, and how
+often}}. Success is {{c2::set_value(rcvr, vals...)::the only channel
+that may carry several values}}, failure carries one error, often but
+not always a `std::exception_ptr`, and the third is
 {{c3::set_stopped(rcvr)::a completion function}}, "neither a result
 nor an error", which makes cancellation a normal, typed outcome rather than
 an exception or a sentinel value.

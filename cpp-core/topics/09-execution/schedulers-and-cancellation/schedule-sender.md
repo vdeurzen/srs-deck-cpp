@@ -13,6 +13,4 @@ requires:
 
 A scheduler enters a pipeline as a sender: `schedule(sch)` returns a
 sender that completes with {{c1::no values::how many arguments to
-set_value?}}, on {{c2::sch's execution context::which thread?}}. "Get me
-onto that context" is then just another piece of async work, so
-`schedule(pool) | then(f)` runs `f` on the pool.
+set_value?}}, on {{c2::sch's execution context::which thread?}}.

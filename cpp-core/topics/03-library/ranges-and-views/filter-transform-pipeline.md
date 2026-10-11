@@ -18,8 +18,7 @@ refs:
   - https://en.cppreference.com/w/cpp/ranges/transform_view
 ---
 
-Complete the predicate so the pipeline keeps only the even numbers,
-multiplies each by ten, and sums to `60`.
+Complete the predicate so the pipeline sums to `60`.
 
 ```cpp
 #include <ranges>

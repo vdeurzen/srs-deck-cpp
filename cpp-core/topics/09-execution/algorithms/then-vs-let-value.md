@@ -12,13 +12,13 @@ requires:
   - execution-just-and-then
 ---
 
-## When do you need `let_value` instead of `then`?
+## `read_config(path)` is a sender of `Config`. Why must `b` use `let_value` where `a` can use `then`?
 
 ```cpp
-auto s = read_config(path)                  // sender of Config
-       | let_value([](const Config& c) {
-           return fetch(c.url);             // returns a sender
-         });
+auto a = read_config(path)
+       | then([](const Config& c) { return c.port; });
+auto b = read_config(path)
+       | let_value([](const Config& c) { return fetch(c.url); });
 ```
 
 ---

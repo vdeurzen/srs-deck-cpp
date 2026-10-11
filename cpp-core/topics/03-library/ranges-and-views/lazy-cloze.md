@@ -5,11 +5,17 @@ version: 1
 level: 2
 tags: [ranges]
 requires:
+  - ranges-what-is-a-view
   - cpp-basics/stdalgo-lambda-syntax
 refs:
   - https://en.cppreference.com/w/cpp/ranges
+  - https://en.cppreference.com/w/cpp/ranges/filter_view
 ---
 
-Adapting a range with `std::views::filter` or `std::views::transform` is
-{{c2::lazy::an evaluation strategy}}: no predicate or function runs, and
-no element is touched, until something iterates the view.
+```cpp
+std::vector<int> v{1, 2, 3};
+auto f = v | std::views::filter([](int x) { std::puts("test"); return x > 1; });
+```
+
+These two lines print nothing: `std::views::filter` is
+{{c1::lazy::an evaluation strategy}}.

@@ -16,15 +16,13 @@ refs:
 `as_awaitable(sndr, promise)` wraps a sender in an awaiter that
 `connect`s it, in its constructor, to a receiver holding the coroutine
 handle; `await_suspend` then only calls `start`. The sender must have
-{{c1::at most one value completion signature::none → void, one value →
-that type, several → a std\::tuple}}, so that the `co_await`
+{{c1::at most one value completion signature::a count}}, so that the `co_await`
 expression has a type. A `set_error` completion is stored as an
-`exception_ptr` and {{c2::rethrown from await_resume::the coroutine
-resumes at the co_await and the error unwinds like any exception}}.
+`exception_ptr` and {{c2::rethrown from await_resume::where, in the
+awaiter?}}.
 A `set_stopped` completion never resumes this coroutine: the receiver
-calls {{c3::promise.unhandled_stopped()::which returns the handle to
-resume instead — the continuation's — and the coroutine's own body is
-skipped}} and resumes the handle it returns, so cancellation goes
+calls {{c3::promise.unhandled_stopped()::a promise
+hook}} and resumes the handle it returns, so cancellation goes
 straight to the parent.
 
 `with_awaitable_senders<Promise>` is the base that supplies the

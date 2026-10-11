@@ -11,7 +11,6 @@ refs:
   - https://en.cppreference.com/w/cpp/ranges/all_view
 ---
 
-`v | std::views::filter(pred)` with an lvalue `std::vector v` wraps `v` in
-a `std::ranges::ref_view`: the view {{c1::refers to `v`'s elements without
-owning them::an ownership relation}}. Copying the view copies no elements,
-and `v` must outlive it.
+With an lvalue `std::vector<int> v`, the view `f` in
+`auto f = v | std::views::filter(pred);` {{c1::refers to `v`'s elements
+without owning them::its relation to `v`'s elements}}.

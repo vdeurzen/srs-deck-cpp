@@ -38,6 +38,6 @@ constexpr std::expected<int, PortError> parse_port(std::string_view digits) {
 
 `std::unexpected(e)` marks a value as the error. Without it the return value
 is taken as the success value: `-1` becomes a "valid" port and `{}` a port
-of `0`, the sentinel bug again. `PortError::empty` alone fails only because a scoped
+of `0`: a sentinel the caller cannot tell from a real result. `PortError::empty` alone fails only because a scoped
 enum doesn't convert to `int`; with an `int` error type it would silently
 become a value too. That is why the error side needs its own wrapper.

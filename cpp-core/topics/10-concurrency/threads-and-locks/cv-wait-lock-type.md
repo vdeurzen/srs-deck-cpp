@@ -17,8 +17,7 @@ refs:
   - https://en.cppreference.com/w/cpp/thread/condition_variable/wait
 ---
 
-Complete the lock type so this consumer compiles. Be ready to say
-what `wait` needs from the lock that the other two cannot give.
+Complete the lock type so this consumer compiles.
 
 ```cpp
 #include <condition_variable>

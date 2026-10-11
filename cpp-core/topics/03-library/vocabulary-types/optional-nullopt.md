@@ -19,8 +19,8 @@ refs:
   - https://en.cppreference.com/w/cpp/utility/optional/nullopt
 ---
 
-`digit_value('x')` must say "not a digit" with something that is not an
-`int` value at all.
+Complete `digit_value` so that `digit_value('x')` reports that `'x'` is
+not a digit.
 
 ```cpp
 #include <optional>

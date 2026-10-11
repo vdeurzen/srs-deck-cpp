@@ -1,7 +1,7 @@
 ---
 id: smart-pointers-explain-ownership
 kind: explain
-version: 2
+version: 3
 level: 4
 tags: [smart-pointers, ownership]
 requires:
@@ -14,7 +14,9 @@ refs:
 A `Graph` creates `Node`s; each `Node` points at its neighbours; a
 background thread caches nodes it is interested in; `Graph::find()`
 hands a node to callers. Choose the pointer type for each of the four
-edges and say what breaks with the other choice.
+edges and say what breaks with the other choice. If `Graph` starts with
+`unique_ptr` ownership, how do you switch to shared ownership later, and
+what does it cost?
 ---
 - [ ] `Graph` → `Node`: `std::unique_ptr` if the `Graph`'s lifetime bounds every node's, since nothing else then needs a count; `shared_ptr` only if the cache or callers may legitimately outlive the `Graph`
 - [ ] `Node` → neighbour: with `unique_ptr` ownership a raw `Node*` (non-owning, lifetime nested in the `Graph`); with `shared_ptr` ownership it must be `weak_ptr`, or two neighbours keep each other's strong count at one forever
