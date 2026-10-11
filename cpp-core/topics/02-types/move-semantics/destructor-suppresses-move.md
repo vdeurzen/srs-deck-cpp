@@ -20,9 +20,10 @@ refs:
   - https://en.cppreference.com/w/cpp/types/is_move_constructible
 ---
 
-With the blank line removed, `static_assert(std::is_move_constructible_v<Buffer>)`
-fails for this `Buffer`. Complete the declaration that makes it pass
-while keeping `Buffer` non-copyable and its move non-throwing.
+Without its second constructor, this `Buffer` fails
+`static_assert(std::is_move_constructible_v<Buffer>)`. Complete that
+declaration so the assertion passes, `Buffer` stays non-copyable and its
+move is non-throwing.
 
 ```cpp
 #include <type_traits>

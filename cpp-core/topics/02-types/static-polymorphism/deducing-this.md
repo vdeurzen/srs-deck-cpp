@@ -18,9 +18,9 @@ refs:
   - https://wg21.link/p0847
 ---
 
-Same mixin in C++23, with no template parameter on `Shape`: complete
-`area`'s parameter so `self` is the object it was called on, as its most
-derived type.
+In C++23, `Shape` gives every derived type an `area()` built on its
+`compute_area()`, with no template parameter. Complete `area`'s parameter
+so `self` is the object it was called on, as its most derived type.
 
 ```cpp
 struct Shape {

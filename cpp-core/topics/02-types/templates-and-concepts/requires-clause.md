@@ -6,13 +6,14 @@ level: 3
 tags: [templates, concepts]
 input: chips
 choices:
-  c1: ["std::integral", "std::floating_point", "typename", "class"]
+  c1: ["std::integral", "std::signed_integral", "std::unsigned_integral", "std::floating_point"]
 compile:
   harness: |
     static_assert(add_one(5) == 6);
     template<class U>
     concept Accepts = requires(U u) { add_one(u); };
     static_assert(Accepts<int>);
+    static_assert(Accepts<unsigned>);
     static_assert(!Accepts<double>);
     int main() {}
 requires:
@@ -22,7 +23,7 @@ refs:
   - https://en.cppreference.com/w/cpp/concepts/integral
 ---
 
-Constrain `T` so `add_one` only accepts integer types.
+Constrain `T` so `add_one` accepts only whole-number types, signed or not.
 
 ```cpp
 #include <concepts>
@@ -36,4 +37,5 @@ constexpr T add_one(T x) { return x + 1; }
 predicate over types. Writing it directly as the template parameter's
 constraint reads as "for every integral `T`", and a call with the wrong
 `T` fails overload resolution with a message that names the unsatisfied
-concept, not a wall of substitution failures.
+concept, not a wall of substitution failures. `std::signed_integral` and
+`std::unsigned_integral` each cover only half of the whole-number types.

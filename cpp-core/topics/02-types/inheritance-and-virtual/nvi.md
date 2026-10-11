@@ -24,9 +24,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/access
 ---
 
-Callers must go through `run()`, which checks a precondition around the
-customisable step; nobody outside the hierarchy may call the step directly.
-Choose its access.
+Callers go through `run()`, which checks a precondition around the
+customisable step. Choose the step's access.
 
 ```cpp
 #include <cassert>

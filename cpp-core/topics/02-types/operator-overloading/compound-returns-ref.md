@@ -22,8 +22,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/operators#Canonical_implementations
 ---
 
-Give `operator+=` the canonical return type, so it behaves like `+=` on
-`int`: `(a += b) += c` updates `a` twice.
+Give `operator+=` its canonical return type.
 
 ```cpp
 struct Vec2 {

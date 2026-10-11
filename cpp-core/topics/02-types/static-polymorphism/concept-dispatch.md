@@ -35,8 +35,7 @@ refs:
   - https://en.cppreference.com/w/cpp/iterator/iterator_tags
 ---
 
-This replaces a pair of overloads selected by `std::random_access_iterator_tag`
-and `std::input_iterator_tag`. Complete the condition so `advance_by`
+This replaces a pair of overloads selected by iterator category. Complete the condition so `advance_by`
 also compiles for a `std::list` iterator.
 
 ```cpp

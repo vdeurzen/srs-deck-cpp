@@ -11,11 +11,17 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/move_constructor
 ---
-`Widget` has a user-written destructor, a `const std::string id`, and a
-member whose move constructor may throw. Code does
-`v.push_back(std::move(w))` and later `return std::move(w2);`. Walk
-through where each intended move silently becomes a copy, why nothing
-warns, and what one change fixes all of it.
+```cpp
+struct Cache { Cache(const Cache&); Cache(Cache&&); };
+struct Widget {
+    const std::string id;
+    Cache cache;
+    ~Widget() { flush(); }
+};
+```
+`v.push_back(std::move(w))` and `return std::move(w2);` are slower than
+expected. Walk through why, why nothing warns, and what one change fixes
+all of it.
 ---
 - [ ] `std::move(w)` is only a cast, and the destructor means no move constructor was declared: the xvalue binds `const Widget&` and `push_back` copies — a legal overload-resolution outcome, so no diagnostic
 - [ ] Even after `Widget(Widget&&) = default;` restores the move, `id` is still copied: the defaulted move resolves overloads member by member, and a `const std::string` xvalue only binds the copy constructor

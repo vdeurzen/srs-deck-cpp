@@ -22,9 +22,8 @@ refs:
   - https://en.cppreference.com/w/cpp/utility/forward
 ---
 
-Complete `wrapper` so it forwards `arg` preserving whether the caller
-passed an lvalue or an rvalue, calling the matching `inner` overload
-either way.
+Complete `wrapper` so it calls the matching `inner` overload for both
+lvalue and rvalue callers.
 
 ```cpp
 #include <utility>

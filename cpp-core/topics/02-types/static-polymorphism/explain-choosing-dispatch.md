@@ -7,6 +7,7 @@ tags: [polymorphism]
 requires:
   - staticpoly-crtp-base
   - staticpoly-type-erasure
+  - vocab-variant-closed-set
 refs:
   - https://en.cppreference.com/w/cpp/language/crtp
   - https://en.cppreference.com/w/cpp/language/virtual

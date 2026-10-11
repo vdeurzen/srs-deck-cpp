@@ -9,12 +9,8 @@ choices:
   c1: ["const override", "override", "noexcept override", "final"]
 compile:
   harness: |
-    constexpr int via_base() {
-        Derived d;
-        const Base& b = d;
-        return b.id();
-    }
-    static_assert(via_base() == 1);
+    constexpr int check() { Derived d; return via_base(d); }
+    static_assert(check() == 1);
     int main() {}
 requires:
   - virtual-dispatch-dynamic-type
@@ -23,8 +19,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/override
 ---
 
-`Derived::id` must replace `Base::id` for calls through a `const Base&`,
-and the compiler must reject it if `Base::id`'s signature ever drifts.
+With a bare `constexpr int id() { return 1; }`, `via_base` on a `Derived`
+returns 0. Pick the specifiers that make it return 1.
 
 ```cpp
 struct Base {
@@ -34,6 +30,7 @@ struct Base {
 struct Derived : Base {
     constexpr int id() {{c1::const override}} { return 1; }
 };
+constexpr int via_base(const Base& b) { return b.id(); }
 ```
 
 ---

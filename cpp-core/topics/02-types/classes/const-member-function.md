@@ -9,7 +9,6 @@ choices:
   c1: ["const", "noexcept", "&&", "final"]
 compile:
   harness: |
-    constexpr int peek(const Counter& c) { return c.value(); }
     static_assert(peek(Counter{}) == 0);
     int main() {}
 requires:
@@ -19,7 +18,6 @@ refs:
   - https://en.cppreference.com/w/cpp/language/member_functions#Member_functions_with_cv-qualifiers
 ---
 
-The harness's `peek` receives a read-only reference to a `Counter`.
 Qualify `value()` so `peek` may call it, while `bump()` stays off-limits
 there.
 
@@ -30,6 +28,7 @@ public:
     constexpr void bump() { ++n_; }
     constexpr int value() {{c1::const}} { return n_; }
 };
+constexpr int peek(const Counter& c) { return c.value(); }
 ```
 
 ---

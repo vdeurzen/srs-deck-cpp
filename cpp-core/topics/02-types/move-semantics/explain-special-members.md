@@ -12,8 +12,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/rule_of_three
   - https://en.cppreference.com/w/cpp/language/move_constructor#Implicitly-declared_move_constructor
 ---
-Explain which declarations give a class a move and which quietly take
-it away. Cover the Rule of Five, the Rule of Zero and the `const` trap.
+Explain which declarations give a class a move, and which take it away.
 ---
 - [ ] Rule of Five: a user-written destructor means the class releases a resource, so copy constructor, copy assignment, move constructor and move assignment all need writing — the defaults copy the handle member-wise
 - [ ] A user-declared destructor, copy constructor, copy assignment or move assignment means no move constructor is implicitly declared (and likewise for the move assignment)

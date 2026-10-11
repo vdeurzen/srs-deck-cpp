@@ -20,7 +20,7 @@ class Fraction {
 public:
     void set(int n, int d);   // checks d != 0
 };
-Fraction f;   // already invalid
+Fraction f;
 ```
 
 ---
