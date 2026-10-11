@@ -11,7 +11,7 @@ refs:
 ---
 
 ```cpp
-for (int i = 0; i < n; ++i) hash(key);   // result unused
+for (int i = 0; i < n; ++i) hash(key);
 ```
 
 ## At `-O2` this benchmark reports 0.3 ns per `hash()` call. What happened?

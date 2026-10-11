@@ -12,12 +12,12 @@ refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic/is_always_lock_free
 ---
 
-## A lock-free stack CASes `{Node* head; uint64_t tag}` as one 16-byte unit, bumping `tag` on every successful CAS. Why does the stale ABA CAS now fail?
+## A lock-free stack CASes `{Node* head; uint64_t tag}` as one 16-byte unit instead of the bare head pointer. What does `tag` do that defeats ABA?
 
 ---
 
-**The tag has moved on, so `{A, 7}` no longer equals the current
-`{A, 10}`.** Three operations bumped it, even though the pointer came back.
+**It counts successful CASes, so a recycled pointer no longer compares
+equal.** After three pops and pushes, `{A, 7}` is not the current `{A, 10}`.
 The cost is a double-width CAS (`cmpxchg16b`): GCC does not report a
 16-byte `std::atomic` as always lock-free, so `static_assert` it or the
 "lock-free" stack hides a lock.

@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [low-latency, lock-free, memory, linux]
 requires:
-  - ll-epoch-stall
+  - ll-rcu-basics
 refs:
   - https://www.kernel.org/doc/html/latest/RCU/whatisRCU.html
 ---
@@ -14,8 +14,8 @@ refs:
 
 ---
 
-**After every CPU has passed a quiescent state, such as a context
-switch.** Readers may not block inside `rcu_read_lock()`, so once each
+**After every CPU has passed a quiescent state (a point holding no RCU
+references), such as a context switch.** Readers may not block inside `rcu_read_lock()`, so once each
 CPU has switched, every reader that could hold the node has finished.
 The grace period comes from the scheduler, so here `rcu_read_lock()`
 emits no instructions; preemptible RCU must count readers.

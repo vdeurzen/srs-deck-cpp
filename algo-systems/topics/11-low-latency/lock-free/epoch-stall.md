@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [low-latency, lock-free, memory, concurrency]
 requires:
-  - ll-reclamation
+  - ll-epoch-basics
 refs:
   - https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-579.pdf
   - https://docs.rs/crossbeam-epoch/latest/crossbeam_epoch/

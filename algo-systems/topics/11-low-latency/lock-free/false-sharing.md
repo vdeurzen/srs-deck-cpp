@@ -6,7 +6,7 @@ level: 4
 tags: [low-latency, concurrency, memory-hierarchy]
 input: chips
 choices:
-  c1: ["64", "8", "16", "32"]
+  c1: ["64", "8", "32", "128", "4096"]
 compile:
   harness: |
     static_assert(alignof(Counters) == 64);
@@ -21,19 +21,20 @@ refs:
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/
 ---
 
-The producer writes one counter, the consumer the other. Complete the
-alignment so the two never share a cache line.
+On x86-64, the producer writes one counter, the consumer the other.
+Complete the smallest alignment that keeps the two on separate cache
+lines.
 
 ```cpp
 #include <atomic>
 #include <cstddef>
 #include <cstdint>
 
-inline constexpr std::size_t kLine = {{c1::64}};
+inline constexpr std::size_t kAlign = {{c1::64}};
 
-struct alignas(kLine) Counters {
-  alignas(kLine) std::atomic<std::uint64_t> produced{0};
-  alignas(kLine) std::atomic<std::uint64_t> consumed{0};
+struct alignas(kAlign) Counters {
+  alignas(kAlign) std::atomic<std::uint64_t> produced{0};
+  alignas(kAlign) std::atomic<std::uint64_t> consumed{0};
 };
 ```
 

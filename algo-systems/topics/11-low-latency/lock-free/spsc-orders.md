@@ -11,16 +11,18 @@ refs:
   - https://eel.is/c++draft/intro.races
 ---
 
-SPSC producer: load its own `tail` `relaxed`, load `head` `acquire`,
-write the slot as a plain store, then store `tail + 1` with
-{{c1::release::a memory order}}, so the slot's contents happen-before
-any consumer read that follows its acquire of `tail`. The producer's
-acquire of `head` is not about seeing space: it orders the consumer's
+SPSC producer: load its own `tail` `relaxed`, load `head`, write the
+slot as a plain store, then store `tail + 1` with
+{{c1::release::a memory order}}, so a consumer that sees the new `tail`
+also sees the slot's contents. The producer's load of `head` is not
+about seeing space: it orders the consumer's
 earlier {{c2::read of the slot::an access to the ring}} before the
 producer's overwrite of it, which would otherwise be a data race.
 
 ---
 
+The `head` load is `acquire`, pairing with the consumer's release of
+`head`; the `tail` store pairs with the consumer's acquire of `tail`.
 Relaxed suffices for your own counter: you are its only writer, and
 coherence makes your own last store visible to you. Two release/acquire
 pairs in all, one per direction, each carrying the data written just

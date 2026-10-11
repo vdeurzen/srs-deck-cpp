@@ -18,11 +18,10 @@ for (size_t i = 0; i < n; ++i) {
 }
 ```
 
-## `table` is 1 GiB, accessed through `idx`. Why prefetch `idx[i + 8]` rather than `idx[i + 1]`?
+## `table` is 1 GiB, accessed through `idx`; each iteration does ~10 ns of work and a DRAM miss costs ~80 ns. Why prefetch `idx[i + 8]` rather than `idx[i + 1]`?
 
 ---
 
 **The prefetch must be issued about one DRAM latency before the load
-needs it.** At ~10 ns per iteration, an ~80 ns miss needs about 8
-iterations of lead; `i + 1` arrives far too late. Too far ahead, and the
+needs it.** 80 ns / 10 ns per iteration = 8 iterations of lead; `i + 1` arrives far too late. Too far ahead, and the
 line is evicted before use, so the distance is tuned by measurement.

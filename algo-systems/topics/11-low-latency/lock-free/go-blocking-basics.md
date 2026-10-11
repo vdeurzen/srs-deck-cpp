@@ -10,7 +10,7 @@ refs:
 ---
 
 In Go, a send on an unbuffered channel `ch <- v` blocks until
-{{c1::a receiver takes the value::another goroutine}}. A
+{{c1::a receiver takes the value::who must act}}. A
 `sync.WaitGroup` is a counter: `Add` raises it, `Done` lowers it, and
 `Wait` blocks until {{c2::it reaches zero}}.
 
