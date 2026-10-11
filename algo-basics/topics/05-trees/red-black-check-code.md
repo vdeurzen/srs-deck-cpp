@@ -53,5 +53,5 @@ adds one only if it is **black**. Red nodes are free, which is the slack
 that lets a red-black tree absorb inserts without rebalancing every time.
 
 `l + 1` counts every node, which is height, and rejects the valid tree:
-its left side holds an extra (red) node. Like `tree-height-code`, this
-is a postorder walk, O(n).
+its left side holds an extra (red) node. Each node waits for both
+children's counts, a postorder walk, so the check is O(n).

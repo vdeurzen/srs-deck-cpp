@@ -11,10 +11,16 @@ refs:
   - https://en.cppreference.com/w/cpp/named_req/Hash
 ---
 
-## A set compares names case-insensitively but hashes them case-sensitively. It holds `"Bob"`. Why does looking up `"bob"` fail?
+## The set holds `"Bob"`. Why does looking up `"bob"` fail?
 
 ```cpp
-std::unordered_set<std::string, CaseSensitiveHash, CaseInsensitiveEq> s{"Bob"};
+struct NameHash {   // std::hash of the string as written
+  size_t operator()(const std::string& s) const { return std::hash<std::string>{}(s); }
+};
+struct NameEq {     // lower(): an ASCII-lowercased copy
+  bool operator()(const std::string& a, const std::string& b) const { return lower(a) == lower(b); }
+};
+std::unordered_set<std::string, NameHash, NameEq> s{"Bob"};
 s.contains("bob");   // false
 ```
 

@@ -23,6 +23,6 @@ A red-black tree colours each node, with a black root, and keeps two
 rules. A red node never has a {{c1::red child::a colour constraint}}.
 Every path from a node down to an empty link passes the same number of
 {{c2::black nodes::what is counted}} (counting the starting node and not the empty link: two on every path from 10 here).
-So the shortest path can be all black and the longest can at most
-alternate red and black: no path is more than {{c3::twice::a ratio}} as
-long as another, which keeps the height within 2 log₂(n + 1).
+Together the two rules mean no path from a node down to an empty link is
+more than {{c3::twice::a ratio}} as long as another, so the height stays
+O(log n).

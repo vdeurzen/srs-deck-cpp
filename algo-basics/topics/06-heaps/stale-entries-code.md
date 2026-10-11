@@ -10,7 +10,7 @@ requires:
 elaborate: How large can the queue grow with this scheme, and when would that worry you?
 input: chips
 choices:
-  c1: ["d != dist[u]", "d == dist[u]", "d < dist[u]", "false"]
+  c1: ["d != dist[u]", "d == dist[u]", "d < dist[u]", "d >= dist[u]"]
 compile:
   harness: |
     // node 1 improved 5 -> 2, node 2 improved 7 -> 3: the old entries stayed
@@ -22,10 +22,11 @@ refs:
   - https://doi.org/10.1007/BF01386390
 ---
 
-`std::priority_queue` cannot lower an entry's key, so when Dijkstra finds
-a shorter distance it pushes a second `(distance, node)` entry and leaves
-the old one in the queue. `dist[u]` is u's best distance. Complete the
-test that drops the leftovers.
+A shortest-path search keeps a min-queue of `(distance, node)` entries.
+`std::priority_queue` cannot lower an entry's key, so when the search
+finds a shorter distance to a node it pushes a second entry and leaves
+the old one in the queue. `dist[u]` is the best distance known for u.
+Complete the condition so `order` lists each node once, nearest first.
 
 ```cpp
 #include <algorithm>
@@ -40,7 +41,7 @@ constexpr std::vector<int> settle_order(std::vector<std::pair<int, int>> pq,
   for (; !pq.empty(); pq.pop_back()) {
     std::ranges::pop_heap(pq, std::greater<>());
     const auto [d, u] = pq.back();
-    if ({{c1::d != dist[u]}}) continue;   // stale entry
+    if ({{c1::d != dist[u]}}) continue;
     order.push_back(u);
   }
   return order;

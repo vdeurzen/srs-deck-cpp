@@ -20,8 +20,7 @@ refs:
   - https://en.cppreference.com/w/cpp/named_req/Hash
 ---
 
-Complete a hash for `Point` that a hash table can rely on: it must not
-depend on anything that `==` ignores.
+Complete a hash for `Point` that a hash table can rely on.
 
 ```cpp
 struct Point { int x, y, hits; };

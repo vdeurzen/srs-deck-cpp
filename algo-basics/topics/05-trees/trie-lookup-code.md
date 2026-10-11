@@ -8,10 +8,9 @@ requires:
   - tree-trie-end-flag
 input: chips
 choices:
-  c1: ["t.word[v]", "true", "v != 0"]
+  c1: ["t.word[v]", "v != 0", "t.word[s.size()]", "t.next[v][0] == 0"]
 compile:
   harness: |
-    struct Trie { int next[16][26]{}; bool word[16]{}; int nodes = 1; };
     constexpr void add(Trie& t, std::string_view s) {
       int v = 0;
       for (char c : s) {
@@ -38,8 +37,8 @@ exactly the stored words.
 #include <string_view>
 
 // next[v][c - 'a']: v's child on letter c, 0 if none; node 0 is the root.
-// word[v]: a stored word ends at node v.
-constexpr bool contains(const auto& t, std::string_view s) {
+struct Trie { int next[16][26]{}; bool word[16]{}; int nodes = 1; };
+constexpr bool contains(const Trie& t, std::string_view s) {
   int v = 0;
   for (char c : s)
     if ((v = t.next[v][c - 'a']) == 0) return false;
@@ -50,8 +49,9 @@ constexpr bool contains(const auto& t, std::string_view s) {
 ---
 
 Surviving the walk only proves `s` is a prefix of some stored word; the
-end-of-word flag decides. `true` and `v != 0` accept "ca". Nor is "the
-walk ended at a leaf" the test: "car" is stored and continues into "cart".
+end-of-word flag decides: `v != 0` accepts "ca". Nor is "the walk ended
+at a leaf" the test: "car" is stored and continues into "cart". `word` is
+indexed by node, not by depth.
 
 The loop runs once per letter, so a lookup costs O(L) for a key of
 length L, however many words the trie holds. A balanced comparison tree

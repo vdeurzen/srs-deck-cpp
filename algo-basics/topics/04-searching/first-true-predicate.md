@@ -11,7 +11,7 @@ refs:
 ---
 
 Every binary search finds the boundary in a sequence of answers shaped
-`false, …, false, true, …, true`. `std::lower_bound(first, last, key)`
+`true, …, true, false, …, false`. `std::lower_bound(first, last, key)`
 returns the same position as `std::partition_point(first, last, p)` with
 `p(x)` being {{c1::`x < key`::a test that holds on the left part}}.
 

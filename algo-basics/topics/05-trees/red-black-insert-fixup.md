@@ -17,14 +17,14 @@ refs:
          /   \                 /
        10R    30R            10R
        /                     /
-     5R   <- new           5R   <- new
+     5    <- new           5    <- new
     uncle 30 is red       uncle is an empty link: black
 ```
 
 A red-black insert colours the new node {{c1::red::a colour}}, so no
-path gains a black node; the only rule it can break is red-red with its
-parent. If the parent's sibling (the uncle) is red, as on the left, a
+path gains a black node; the only rule it can break involves its
+parent's colour. If the parent's sibling (the uncle) is red, as on the left, a
 {{c2::recolouring::a change that moves no node}} fixes it: parent and
 uncle turn black, the grandparent red, and the check moves two levels up.
 If the uncle is black, as on the right, one or two {{c3::rotations::a local restructuring}}
-plus a recolour finish the repair there.
+plus a colour fix-up finish the repair there.

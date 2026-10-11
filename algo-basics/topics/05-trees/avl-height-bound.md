@@ -23,9 +23,8 @@ refs:
   - https://en.wikipedia.org/wiki/AVL_tree#Properties
 ---
 
-How skinny can an AVL tree get? The sparsest AVL tree of height h (in
-levels) has a root, one subtree of height h − 1 and, as unequal as the
-rule allows, the other of height h − 2. Complete the count.
+How skinny can an AVL tree get? Complete the count of nodes in the
+sparsest AVL tree of height h (in levels).
 
 ```cpp
 // Fewest nodes in an AVL tree of height h.

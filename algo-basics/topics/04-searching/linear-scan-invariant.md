@@ -20,7 +20,7 @@ return -1;
 At the top of each iteration, `key` does not occur in
 {{c1::`a[0..i)`, the elements before `i`::which slice has been ruled out?}}.
 When the loop ends without returning, `i` equals {{c2::`n`::its exit value}},
-so that slice is the whole array and -1 is the right answer.
+which is what makes -1 the right answer.
 
 ---
 

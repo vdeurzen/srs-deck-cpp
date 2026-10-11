@@ -10,8 +10,9 @@ input: chips
 choices:
   c1:
     - "std::size_t i = h.size() / 2; i-- > 0;"
+    - "std::size_t i = h.size() / 2; i-- > 1;"
     - "std::size_t i = 0; i < h.size() / 2; ++i"
-    - "std::size_t i = 1; i < h.size(); ++i"
+    - "std::size_t i = 0; i < h.size(); ++i"
 compile:
   harness: |
     #include <array>
@@ -33,8 +34,9 @@ refs:
 ---
 
 Floyd's heapify turns an arbitrary array into a max-heap in place by
-sifting nodes down. `sift_down` is the one from `heap-sift-down-code`.
-Complete the loop.
+sifting nodes down. `sift_down(h, i)` swaps `h[i]` down until it is no
+smaller than its children, and it is correct only when both subtrees of
+`i` are already heaps. Complete the loop.
 
 ```cpp
 #include <cstddef>
@@ -56,3 +58,4 @@ skipped.
 
 Top-down (`i = 0` upward) sifts the root while its subtrees are still
 unsorted: from 1 2 3 4 5 6 7 it leaves 3 at the root above 7.
+`i-- > 1` stops before the root and leaves 1 on top.

@@ -28,7 +28,7 @@ levels any binary tree with `n` nodes can have.
 ```cpp
 constexpr int min_levels(long n) {
   int h = 0;
-  while ({{c1::(1L << h) - 1}} < n) ++h;   // nodes in a full tree of h levels
+  while ({{c1::(1L << h) - 1}} < n) ++h;
   return h;
 }
 ```

@@ -18,4 +18,4 @@ maximum costs {{c1::O(1)::a complexity}}, because heap order puts it at
 the root. Push and pop each walk one root-to-leaf path, and because the
 shape is complete that path has only ⌊log₂ n⌋ + 1 levels, so each costs
 O(log n). With a million elements that is {{c2::20::a number of levels}}
-levels, at most 19 swaps per operation.
+levels.

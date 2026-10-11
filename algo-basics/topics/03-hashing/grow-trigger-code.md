@@ -20,9 +20,9 @@ refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/max_load_factor
 ---
 
-A table starts with 8 buckets and a maximum load factor of 1.0. Before
-each insert it doubles if the new key would push the load factor over
-the maximum. Complete the test.
+A table starts with 8 buckets and doubles its bucket count before an
+insert when needed, so that its load factor is always at most 1.0.
+Complete the test.
 
 ```cpp
 constexpr int buckets_after(int n) {        // bucket count after n inserts

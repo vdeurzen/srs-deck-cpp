@@ -11,7 +11,7 @@ refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map
 ---
 
-## A chained hash table with 5 buckets puts key 12 in bucket `12 % 5 = 2`. Key 7 also maps to bucket 2. Where does 7 go?
+## A hash table with 5 buckets puts key 12 in bucket `12 % 5 = 2`. Key 7 also maps to bucket 2, and this table never stores a key outside its own bucket. Where does 7 go?
 
 ---
 

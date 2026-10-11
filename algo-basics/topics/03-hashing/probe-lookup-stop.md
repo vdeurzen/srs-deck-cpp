@@ -21,8 +21,9 @@ refs:
   - Knuth, The Art of Computer Programming, vol. 3, 2nd ed., §6.4
 ---
 
-Look a key up in the linear-probing table from the insert Card (`0` is
-an empty slot, home slot `key % N`, 8 slots). Complete the loop
+A linear-probing table has 8 slots; `0` marks an empty slot. Insert
+starts at the home slot `key % N` and steps to the next slot,
+wrapping, until it finds an empty one. Complete the lookup's loop
 condition.
 
 ```cpp
