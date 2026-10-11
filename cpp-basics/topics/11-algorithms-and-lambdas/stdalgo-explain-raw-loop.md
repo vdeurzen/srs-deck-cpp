@@ -11,8 +11,8 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/algorithm
 ---
-A reviewer asks you to replace a hand-written search or summing loop with
-a standard algorithm. Explain how you write the call and what to check.
+A reviewer asks you to replace a hand-written loop with a standard
+algorithm. Explain how you write the call and what to check.
 ---
 - [ ] Names the loop's job (searching, counting, summing) before choosing the algorithm that does that job
 - [ ] Writes the per-element test as a lambda, capturing by copy the locals it only reads

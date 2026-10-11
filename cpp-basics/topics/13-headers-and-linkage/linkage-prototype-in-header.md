@@ -9,7 +9,7 @@ requires:
   - fn-declaration-vs-definition
 input: chips
 choices:
-  c1: [";", "{ return w * h; }", "{}"]
+  c1: [";", "const;", "{ return w * h; }", "{}"]
 compile:
   harness: |
     // rect.cpp: rect.h's text is pasted above; the body follows
@@ -34,4 +34,5 @@ int area(int w, int h){{c1::;}}
 unit that the function exists and how to call it. The **definition**, the
 body, is written once, in `rect.cpp`. A body in the header is a second
 definition inside `rect.cpp` (the harness's `redefinition` error) and a
-duplicate in every other includer, which the linker rejects.
+duplicate in every other includer, which the linker rejects. A trailing
+`const` is only for member functions; on a free function it does not compile.

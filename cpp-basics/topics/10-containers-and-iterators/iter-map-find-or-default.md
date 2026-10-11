@@ -6,7 +6,7 @@ level: 2
 tags: [containers, maps, iterators]
 input: chips
 choices:
-  c1: ["find(item)", "operator[](item)", "at(item)", "contains(item)"]
+  c1: ["find(item)", "count(item)", "at(item)", "contains(item)"]
 compile:
   harness: |
     int main() {}
@@ -35,7 +35,6 @@ int price_of(const std::unordered_map<std::string, int>& prices,
 
 `find` returns an iterator to the key/value pair, or `end()` when the key
 is absent; it never changes the map. `it->first` is the key, `it->second`
-the value. `[]` would insert a missing key, so a `const` map does not offer
-it; `at` returns the value itself (and throws when absent); `contains`
-returns only a `bool`. None of them gives an iterator to compare with
+the value. `count` returns how many entries have the key (0 or 1); `at` returns the value itself (and throws when absent); `contains`
+returns a `bool`. None of them gives an iterator to compare with
 `end()`.

@@ -25,7 +25,8 @@ refs:
 ---
 
 `tally(s, c)` counts how often `c` occurs in `s`. Complete its
-declaration in `tally.h`, which `main.cpp` includes.
+declaration in `tally.h`. `main.cpp` includes it, then defines its own
+global `int count = 0;` and returns `count` from `main`.
 
 ```cpp
 // tally.h
@@ -40,6 +41,6 @@ Qualify names in a header; never write `using namespace std;` there.
 The header's text is pasted into every includer, so the directive pulls
 all of `std` into *their* global scope. In `main.cpp`, `count` then means
 both `::count` and the algorithm `std::count`: `reference to 'count' is
-ambiguous` (the harness's `main.cpp` has a global `int count`). Without
+ambiguous`. Without
 the directive or a `std::` prefix, `string` is unknown; `std::vector` is
 unknown too, because this header never includes `<vector>`.

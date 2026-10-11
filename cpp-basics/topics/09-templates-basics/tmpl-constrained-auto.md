@@ -13,7 +13,7 @@ choices:
     - "std::integral"
     - "std::signed_integral"
     - "std::floating_point"
-    - "const"
+    - "std::unsigned_integral"
 compile:
   harness: |
     template <class T>
@@ -27,8 +27,10 @@ refs:
   - https://en.cppreference.com/w/cpp/concepts/integral
 ---
 
-`twice` must accept `short`, `long long` and `unsigned` arguments, and
-reject `twice(2.5)` at the call site. Complete the parameter.
+A concept name written directly before `auto` constrains that parameter,
+as `template <C T>` would. `twice` must accept `short`, `long long` and
+`unsigned` arguments, and reject `twice(2.5)` at the call site. Complete
+the parameter.
 
 ```cpp
 #include <concepts>
@@ -41,5 +43,5 @@ A **concept** written before `auto` constrains the deduced type: this is
 shorthand for `template <std::integral T> constexpr auto twice(T x)`.
 `std::integral` holds for every integer type (and `char`, `bool`), and a
 `double` fails it at the call. `std::signed_integral` is too narrow: it
-rejects `unsigned`. `const auto` accepts anything, and
-`std::floating_point` admits exactly the wrong types.
+rejects `unsigned`; `std::unsigned_integral` rejects `short` and
+`long long`. `std::floating_point` admits exactly the wrong types.

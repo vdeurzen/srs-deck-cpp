@@ -20,4 +20,4 @@ Explain.
 - [ ] Unwinding runs the destructor of every fully constructed local on the way, in reverse order, so RAII objects clean up
 - [ ] No matching handler anywhere, or an exception leaving a `noexcept` function, calls `std::terminate`
 - [ ] Exceptions suit failures handled far away; a return value suits an outcome the caller handles at once
-- [ ] `assert` states bugs, not run-time failures, and disappears under `NDEBUG`
+- [ ] `noexcept` is a promise the compiler does not check; callers and the standard library (`std::vector` choosing to move) rely on it

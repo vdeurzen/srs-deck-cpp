@@ -14,5 +14,4 @@ refs:
 `main.cpp` calls `area`, and `rect.h` declares it, but no file in the
 build has the body. Every file compiles; the build then stops with
 `undefined reference to 'area(int, int)'`. That message comes from the
-{{c1::linker::a build step}}, the only step that sees all the compiled
-files together and matches each use to a definition.
+{{c1::linker::a build step}}.

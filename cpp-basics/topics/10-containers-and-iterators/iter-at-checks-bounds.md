@@ -4,6 +4,8 @@ kind: trace
 version: 1
 level: 1
 tags: [containers, vector, tracing]
+requires:
+  - err-throw-jumps-to-catch
 probes:
   1: { got: "-1", threw: "true" }
 refs:
