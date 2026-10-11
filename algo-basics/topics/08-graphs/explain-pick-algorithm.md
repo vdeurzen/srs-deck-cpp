@@ -18,7 +18,8 @@ For each job, name the graph algorithm you would use and the property
 of the input that decides it. (1) Fewest hops between two users of a
 social network. (2) Fastest drive between two cities, from travel times.
 (3) Cheapest route through a toll network where some links pay you a
-rebate. (4) An order to compile 300 modules that import each other.
+rebate. (4) An order to compile 300 modules that import other modules, with no
+import cycles.
 (5) The least cable that connects every building on a campus.
 ---
 - [ ] (1) BFS, because the edges are unweighted and the queue reaches vertices in hop order

@@ -23,8 +23,7 @@ Stability and extra space for an array of n elements:
 | heap sort | {{c2::no}} | O(1) |
 | counting, keys in [0, k) | yes | {{c3::O(n + k)::two arrays}} |
 
-For 10⁶ ints: merge sort's buffer is 4 MB, quicksort's stack about 20
-frames.
+For 10⁶ ints, merge sort's buffer is 4 MB.
 
 ---
 

@@ -6,7 +6,7 @@ level: 3
 tags: [graphs, shortest-paths, cycles]
 input: chips
 choices:
-  c1: ["relax(e)", "e.w < 0", "!relax(e)", "dist[e.v] < 0"]
+  c1: ["relax(e)", "e.w < 0", "relax(e) && e.w < 0", "dist[e.v] < 0"]
 compile:
   harness: |
     // a negative edge, no cycle: 0→1 (3) 1→2 (−2) 0→2 (2)
@@ -15,6 +15,9 @@ compile:
     // 1→2→1 costs 1 − 3 = −2
     constexpr Edge kLoop[] = {{0, 1, 4}, {1, 2, 1}, {2, 1, -3}};
     static_assert(negative_cycle<3>(kLoop));
+    // 1→2→3→1 costs 1 + 1 − 3 = −1, edges listed against the cycle
+    constexpr Edge kBack[] = {{2, 3, 1}, {1, 2, 1}, {3, 1, -3}};
+    static_assert(negative_cycle<4>(kBack));
     int main() {}
 requires:
   - graph-bellman-ford-rounds
@@ -24,8 +27,7 @@ refs:
 ---
 
 After the usual V − 1 rounds, one more pass over the edges decides
-whether a negative cycle exists. `relax` lowers `dist[e.v]` if it can
-and says whether it did. Complete the test.
+whether a negative cycle exists. Complete the test.
 
 ```cpp
 struct Edge { int u, v, w; };
@@ -48,5 +50,7 @@ cycle.** Without one, every distance is final by then, so nothing can
 improve. Going around a negative cycle lowers the cost every lap, so
 some edge on it always can.
 
-A negative edge alone (`e.w < 0`) is not a cycle: the first graph,
-0→1 (3), 1→2 (−2), 0→2 (2), has one and no cycle at all. `dist[e.v] < 0` makes the same mistake.
+A negative edge alone (`e.w < 0`, `dist[e.v] < 0`) is not a cycle:
+0→1 (3), 1→2 (−2), 0→2 (2) has one and no cycle. Nor must the
+improving edge be the negative one: on the cycle 1→2 (1), 2→3 (1),
+3→1 (−3), the last pass may improve only 1→2.

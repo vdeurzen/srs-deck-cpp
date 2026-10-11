@@ -15,9 +15,11 @@ elaborate: Your graph arrives as a CSV of (u, v, weight) rows. Which one is less
 
 ## Kruskal and Prim both find a minimum spanning tree. What does each one grow, step by step?
 
+The order each adds to the tree, on the path 0-1 (2), 1-2 (4), 2-3 (1):
+
 ```
-Kruskal: 0-1 (1), 1-2 (2), 2-3 (4): a forest that merges
-Prim from 0: 0, +1, +2, +3: one tree that grows
+Kruskal:     2-3, 0-1, 1-2
+Prim from 0: 0, 1, 2, 3
 ```
 
 ---

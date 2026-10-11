@@ -46,7 +46,7 @@ constexpr int max_talks(std::array<Talk, N> t) {
 ---
 
 **Earliest end first**: the talk that frees the room soonest leaves the
-most time for the rest. Earliest *start* takes `[0, 10)` and loses both
-short talks; *shortest* takes `[4, 7)`, which blocks both of its
-neighbours. Each wrong rule has a three-talk counterexample in the
-harness.
+most time for the rest. Earliest *start*, on `[0, 10)`, `[1, 2)`,
+`[3, 4)`, takes `[0, 10)` and loses both short talks. *Shortest*, on
+`[0, 5)`, `[4, 7)`, `[6, 11)`, takes `[4, 7)`, which blocks both
+neighbours.

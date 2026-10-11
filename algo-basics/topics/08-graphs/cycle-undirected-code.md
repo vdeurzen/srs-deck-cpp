@@ -6,7 +6,7 @@ level: 3
 tags: [graphs, dfs, cycles]
 input: chips
 choices:
-  c1: ["v == parent", "seen[v]", "v == u", "false"]
+  c1: ["v == from", "u == from", "seen[v]", "v == u"]
 compile:
   harness: |
     constexpr bool cyclic(std::array<std::array<int, 2>, 4> adj) {
@@ -30,10 +30,10 @@ must be skipped, so that a seen neighbour means "cycle".
 struct Graph {
   std::array<std::array<int, 2>, 4> adj;          // undirected, -1 = none
   std::array<bool, 4> seen{};
-  constexpr bool has_cycle(int u, int parent) {
+  constexpr bool has_cycle(int u, int from) {
     seen[u] = true;
     for (int v : adj[u]) {
-      if (v < 0 || {{c1::v == parent}}) continue;
+      if (v < 0 || {{c1::v == from}}) continue;
       if (seen[v] || has_cycle(v, u)) return true;
     }
     return false;
@@ -48,5 +48,6 @@ both lists, so v always sees u again; that is not a cycle. Any *other*
 seen neighbour is: there are two routes to it.
 
 No grey colour is needed: undirected DFS has no cross edges, only tree
-and back edges. Without the skip (`v == u`, `false`) the path 0-1-2-3
-reports a cycle; skipping every `seen[v]` misses the square.
+and back edges. `v == u` and `u == from` are never true here, so they
+skip nothing and the path 0-1-2-3 reports a cycle; skipping every
+`seen[v]` misses the square.

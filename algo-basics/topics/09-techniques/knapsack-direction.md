@@ -48,5 +48,6 @@ constexpr int best_value(std::array<Item, N> items, int W) {
 Going **downwards**, `dp[w − weight]` still holds the value from
 *before* this item, so the item is counted once. Going upwards reads a
 cell this item already improved and packs it again: that is the
-*unbounded* knapsack, giving 9 (three copies) for the first test. Stopping
+*unbounded* knapsack: one item (weight 2, value 3) with `W` = 6 gives
+9, three copies, instead of 3. Stopping
 at `w > weight` misses the exact fit.

@@ -17,8 +17,8 @@ refs:
   - https://en.wikipedia.org/wiki/Prim%27s_algorithm#Time_complexity
 ---
 
-Prim's MST from 0 with a min-heap of (edge weight, vertex) entries, on
-the same graph as the matrix version. An entry for a vertex already in
+Prim's MST from 0 with a min-heap of (edge weight, vertex) entries. An
+entry for a vertex already in
 the tree is stale and skipped.
 
 ```cpp
@@ -41,7 +41,7 @@ void step() {
 
 ---
 
-Same tree as the O(V²) version: 1 joins at 2, 2 at 1, 3 at 4. The
+The tree: 1 joins at 2, 2 at 1, 3 at 4. The
 entries (3, 2) and (5, 3) lose to cheaper edges and are popped stale.
 The pushed key is the edge weight `w`, not `dist + w` as in Dijkstra.
 

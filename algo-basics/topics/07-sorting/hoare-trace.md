@@ -7,7 +7,7 @@ tags: [tracing, sorting, quicksort, partition]
 probes:
   1: { p: "2" }
 requires:
-  - sort-quick-idea
+  - sort-lomuto-trace
 refs:
   - https://doi.org/10.1093/comjnl/5.1.10
   - https://en.wikipedia.org/wiki/Quicksort#Hoare_partition_scheme

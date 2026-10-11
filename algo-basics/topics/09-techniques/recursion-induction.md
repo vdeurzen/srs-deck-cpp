@@ -21,7 +21,7 @@ To trust `sum` for every `n ≥ 0`, check `n == 0` (an empty prefix sums
 to 0), then for larger `n` simply **assume** that
 `sum(a, n - 1)` returns the sum of {{c1::`a[0..n-1)`::which slice?}}.
 Adding `a[n - 1]` then gives the sum of `a[0..n)`. The assumption is
-fair only because the call is on {{c2::a smaller `n`::compared with the current call}}.
+fair only because the call is on {{c2::a smaller `n`::a property of the argument}}.
 
 ---
 

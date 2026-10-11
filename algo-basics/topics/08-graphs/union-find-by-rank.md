@@ -19,7 +19,7 @@ A set has at most n nodes, so no tree is taller than {{c2::log₂ n}},
 and `find` walks at most that many steps.
 
 ```
-rank 1 + rank 1 → rank 2       0           4 nodes = 2²
+rank 1 + rank 1 → rank 2       0           4 nodes
                               / \
                              1   2
                                  |
