@@ -6,6 +6,7 @@ level: 2
 tags: [exceptions, raii, destructors, tracing]
 requires:
   - err-throw-jumps-to-catch
+  - life-scope-automatic
 probes:
   1: { events: "owc" }
   2: { events: "owcoc!" }

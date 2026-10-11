@@ -6,6 +6,7 @@ level: 1
 tags: [exceptions, references]
 requires:
   - err-throw-jumps-to-catch
+  - virtual-slice-parameter
 refs:
   - https://en.cppreference.com/w/cpp/language/catch
   - https://en.cppreference.com/w/cpp/error/exception/what

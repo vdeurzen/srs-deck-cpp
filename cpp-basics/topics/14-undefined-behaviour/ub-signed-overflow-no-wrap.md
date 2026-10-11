@@ -6,6 +6,7 @@ level: 1
 tags: [undefined-behaviour, integers]
 requires:
   - ub-passing-tests-prove-nothing
+  - types-overflow-rules
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Overflows
   - https://eel.is/c++draft/basic.fundamental

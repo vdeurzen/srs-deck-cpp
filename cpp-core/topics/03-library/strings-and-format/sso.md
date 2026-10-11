@@ -5,6 +5,8 @@ version: 1
 level: 2
 tags: [strings, performance]
 elaborate: Moving a long string steals its heap pointer. What must a move of a short, in-object string do instead, and what does that cost?
+requires:
+  - cpp-basics/iter-string-sequence
 refs:
   - https://en.cppreference.com/w/cpp/string/basic_string/capacity
 ---

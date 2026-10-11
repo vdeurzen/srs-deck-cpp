@@ -7,6 +7,7 @@ tags: [value-categories, references, temporaries]
 requires:
   - vc-lvalue-has-identity
   - ptr-bump-by-reference
+  - ptr-reference-must-bind
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization
   - https://eel.is/c++draft/dcl.init.ref#5

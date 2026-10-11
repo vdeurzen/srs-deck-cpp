@@ -6,6 +6,7 @@ level: 1
 tags: [lambdas, tracing]
 requires:
   - stdalgo-lambda-syntax
+  - ptr-reference-must-bind
 probes:
   1: { a: "2" }
   2: { b: "0" }

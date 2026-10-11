@@ -6,6 +6,7 @@ level: 1
 tags: [inheritance, constructors, destructors, tracing]
 requires:
   - virtual-is-a
+  - life-reverse-order-trace
 probes:
   1: { seq: "VC" }
   2: { seq: "VC~C~V" }

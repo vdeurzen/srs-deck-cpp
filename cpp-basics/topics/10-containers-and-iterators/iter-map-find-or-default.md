@@ -13,6 +13,7 @@ compile:
 requires:
   - iter-map-subscript-inserts
   - iter-end-one-past
+  - const-ref-parameter
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/find
 ---

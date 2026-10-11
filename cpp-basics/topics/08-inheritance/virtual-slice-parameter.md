@@ -6,6 +6,7 @@ level: 2
 tags: [inheritance, virtual, slicing, tracing]
 requires:
   - virtual-enable-dispatch
+  - fn-by-value-vs-reference
 probes:
   1: { a: "circle" }
   2: { b: "shape" }

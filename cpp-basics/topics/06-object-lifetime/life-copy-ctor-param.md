@@ -6,6 +6,8 @@ level: 2
 tags: [lifetime, copy, special-members]
 requires:
   - life-copy-init-not-assign
+  - const-ref-parameter
+  - class-constructor-intro
 input: chips
 choices:
   c1:

@@ -16,6 +16,8 @@ compile:
     }
     static_assert(chained() == 34);
     int main() {}
+requires:
+  - cpp-basics/vc-assign-to-call
 refs:
   - https://en.cppreference.com/w/cpp/language/operators#Canonical_implementations
 ---

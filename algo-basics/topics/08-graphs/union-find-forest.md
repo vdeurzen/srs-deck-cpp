@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [union-find, graphs]
+requires:
+  - graph-component-count
 refs:
   - https://doi.org/10.1145/364099.364331
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure

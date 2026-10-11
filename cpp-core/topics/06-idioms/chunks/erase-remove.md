@@ -6,6 +6,8 @@ level: 2
 tags: [idioms, containers]
 expose_ms: 5000
 compile: null
+requires:
+  - cpp-basics/stdalgo-erase-if
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/remove
   - https://en.cppreference.com/w/cpp/container/vector/erase2

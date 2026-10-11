@@ -6,6 +6,7 @@ level: 1
 tags: [inheritance, types]
 requires:
   - virtual-is-a
+  - ptr-reference-must-bind
 refs:
   - https://eel.is/c++draft/defns.dynamic.type
   - https://eel.is/c++draft/defns.static.type

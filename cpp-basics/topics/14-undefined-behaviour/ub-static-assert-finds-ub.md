@@ -6,6 +6,7 @@ level: 1
 tags: [undefined-behaviour, constexpr]
 requires:
   - ub-passing-tests-prove-nothing
+  - ptr-arith-counts-elements
 refs:
   - https://en.cppreference.com/w/cpp/language/constant_expression
   - https://eel.is/c++draft/expr.const

@@ -6,6 +6,7 @@ level: 1
 tags: [undefined-behaviour, lifetime, pointers]
 requires:
   - ub-dangling-after-scope
+  - life-delete-matches-new
 refs:
   - https://en.cppreference.com/w/cpp/language/delete
   - https://en.cppreference.com/w/cpp/language/lifetime

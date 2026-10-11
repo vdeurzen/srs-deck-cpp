@@ -17,6 +17,8 @@ compile:
     }
     static_assert(check());
     int main() {}
+requires:
+  - cpp-basics/fn-return-by-value
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_incdec
 ---

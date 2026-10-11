@@ -6,6 +6,7 @@ level: 1
 tags: [headers, declarations]
 requires:
   - linkage-include-is-paste
+  - fn-declaration-vs-definition
 input: chips
 choices:
   c1: [";", "{ return w * h; }", "{}"]

@@ -13,6 +13,7 @@ compile:
     int main() {}
 requires:
   - iter-end-one-past
+  - types-double-to-int-trace
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/accumulate
 ---

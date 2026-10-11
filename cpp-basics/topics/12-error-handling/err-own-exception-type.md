@@ -6,6 +6,7 @@ level: 2
 tags: [exceptions, inheritance]
 requires:
   - err-catch-by-reference-why
+  - virtual-is-a
 input: chips
 choices:
   c1: ["std::runtime_error", "std::exception", "std::string"]

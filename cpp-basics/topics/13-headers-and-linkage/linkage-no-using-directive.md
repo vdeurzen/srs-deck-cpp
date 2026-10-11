@@ -6,6 +6,7 @@ level: 2
 tags: [headers, namespaces]
 requires:
   - linkage-include-is-paste
+  - fn-qualified-name
 input: chips
 choices:
   c1:

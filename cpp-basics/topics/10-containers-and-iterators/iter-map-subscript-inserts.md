@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [containers, maps]
+requires:
+  - ptr-reference-must-bind
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/operator_at
 ---

@@ -5,6 +5,8 @@ version: 1
 level: 1
 tags: [sorting, stability]
 elaborate: A spreadsheet sorts by whichever column you click last. What would the user see if that sort were unstable?
+requires:
+  - sort-sorted-postcondition
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/stable_sort
   - https://en.wikipedia.org/wiki/Sorting_algorithm#Stability

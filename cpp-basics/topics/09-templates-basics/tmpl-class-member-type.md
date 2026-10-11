@@ -6,6 +6,7 @@ level: 1
 tags: [templates, class-templates]
 requires:
   - tmpl-function-syntax
+  - class-struct-vs-class
 input: chips
 choices:
   c1: ["T", "auto", "typename", "int"]

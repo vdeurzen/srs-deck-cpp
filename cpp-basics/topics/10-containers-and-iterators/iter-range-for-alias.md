@@ -11,6 +11,8 @@ compile:
   harness: |
     static_assert(doubled_sum() == 12);
     int main() {}
+requires:
+  - ptr-reference-must-bind
 refs:
   - https://en.cppreference.com/w/cpp/language/range-for
 ---

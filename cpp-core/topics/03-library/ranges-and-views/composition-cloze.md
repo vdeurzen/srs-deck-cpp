@@ -4,6 +4,8 @@ kind: cloze
 version: 2
 level: 2
 tags: [ranges]
+requires:
+  - cpp-basics/stdalgo-lambda-syntax
 refs:
   - https://en.cppreference.com/w/cpp/ranges/filter_view
 ---

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [layout, alignment]
+requires:
+  - cpp-basics/types-size-minimums
 refs:
   - https://en.cppreference.com/w/cpp/language/object#Alignment
   - https://en.cppreference.com/w/cpp/language/alignof
