@@ -1,0 +1,37 @@
+---
+id: class-member-function-this
+kind: trace
+version: 1
+level: 1
+tags: [classes, member-functions, tracing, misconception]
+probes:
+  1: { "a.count": "2", "b.count": "5" }
+refs:
+  - https://en.cppreference.com/w/cpp/language/member_functions
+  - https://en.cppreference.com/w/cpp/language/this
+elaborate: How would you write `reset_to` so it really sets the member, without renaming its parameter?
+---
+
+```cpp
+struct Tally {
+    int count = 0;
+    void add(int n) { count += n; }
+    void reset_to(int count) { count = count; }
+};
+
+int main() {
+    Tally a, b;
+    a.add(2);
+    b.add(5);
+    a.reset_to(9);      // @1
+}
+```
+
+---
+
+Each `Tally` has its own `count`, and inside a member function a bare
+`count` normally means the member of the object the call was made on (so
+`a.add(2)` touches only `a.count`). But in `reset_to` the parameter is also
+named `count`, and the innermost name wins: `count = count` assigns the
+parameter to itself. `a.count` stays 2. Write `this->count = count`.
+Verified by running an instrumented copy under GCC 16.2 (`g++ -std=c++23`).
