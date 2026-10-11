@@ -13,7 +13,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/lifetime
   - https://en.cppreference.com/w/cpp/language/storage_duration
 ---
-A newcomer asks when C++ runs an object's constructor and destructor. Answer for locals, copies, temporaries and objects made with `new`.
+A newcomer asks: when does C++ run an object's constructor, and when its destructor? Explain.
 ---
 - [ ] A local is constructed at its declaration and destroyed when control leaves its enclosing block, by any route (`}`, `return`, `break`, exception)
 - [ ] Locals and members are destroyed in reverse order of construction, so anything an object was built from is still alive when it dies

@@ -19,6 +19,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/default_constructor
 ---
 
+Writing `= default` after a special member function's declaration asks the
+compiler for its own version; `= delete` makes every call a compile error.
 `Size s;` stopped compiling when the two-argument constructor was added.
 Bring it back, so that `s` is 0 × 0.
 

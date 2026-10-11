@@ -10,7 +10,7 @@ requires:
 input: chips
 choices:
   c1: ["r == nullptr", "*r == nullptr", "r->w == 0", "&r == nullptr"]
-  c2: ["r->w", "r.w", "*r.w", "&r->w"]
+  c2: ["r->w", "r.w", "*r.w", "(*r)->w"]
 compile:
   harness: |
     constexpr Rect sq{3, 4};
@@ -36,7 +36,8 @@ constexpr int area_or_zero(const Rect* r) {
 ---
 
 `r->w` is shorthand for `(*r).w`: go through the pointer, then pick the
-member. `r.w` fails because `r` is a pointer, not a `Rect`. The guard
+member. `r.w` fails because `r` is a pointer, not a `Rect`; `*r.w`
+parses as `*(r.w)`, the same mistake; `(*r)->w` dereferences twice. The guard
 must test the pointer itself. Dereferencing a null pointer, by `*r` or
 by `r->`, is undefined behaviour, so `r->w == 0` as a guard is the bug it
 means to prevent. Inside a constant expression the compiler rejects that

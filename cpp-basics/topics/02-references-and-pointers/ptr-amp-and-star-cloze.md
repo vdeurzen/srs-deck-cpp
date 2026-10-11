@@ -19,5 +19,4 @@ int* p = &n;
 
 Applied to an object, the unary `&` in `&n` yields its
 {{c1::address::a kind of value}}. Applied to a pointer, the unary `*` in
-`*p = 9;` denotes {{c2::`n`::which object?}} itself, so this line changes
-`n`.
+`*p = 9;` denotes {{c2::`n`::which object?}} itself.

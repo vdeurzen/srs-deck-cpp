@@ -8,7 +8,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/namespace
 ---
 
-## Two libraries each define `void init() { ... }` at global scope. What does wrapping each library in its own `namespace` fix?
+## Two libraries each define `void init() { ... }` at global scope. What does wrapping one in `namespace audio { }` and the other in `namespace video { }` fix?
 
 ---
 

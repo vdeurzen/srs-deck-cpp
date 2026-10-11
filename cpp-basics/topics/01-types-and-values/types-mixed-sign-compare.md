@@ -13,7 +13,7 @@ refs:
   - https://en.cppreference.com/w/cpp/utility/intcmp
 ---
 
-## With a 32-bit `int`, is the branch taken?
+## When an `int` is compared with an `unsigned int`, the `int` is first converted to `unsigned`. With a 32-bit `int`, is the branch taken?
 
 ```cpp
 int balance = -5;
@@ -23,7 +23,7 @@ if (balance < limit) { /* within limit */ }
 
 ---
 
-**No.** When `int` meets `unsigned int`, the `int` converts to
-`unsigned`, so `-5` becomes `4294967291`, which is not less than `10`.
+**No.** Converting `-5` to a 32-bit `unsigned` wraps modulo 2³², giving
+`4294967291`, which is not less than `10`.
 GCC's `-Wall` warns (`-Wsign-compare`). Compare with `std::cmp_less`
 (C++20), or keep both values signed.

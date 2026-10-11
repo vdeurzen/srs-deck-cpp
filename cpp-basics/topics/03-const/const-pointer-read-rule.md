@@ -1,7 +1,7 @@
 ---
 id: const-pointer-read-rule
 kind: cloze
-version: 1
+version: 2
 level: 1
 tags: [const, pointers]
 requires:
@@ -15,5 +15,5 @@ refs:
 Read a pointer declaration right to left, starting from the name; each
 `const` applies to what is immediately to its left (or, at the far left,
 to what follows it). In `const char* p`, the read-only part is
-{{c1::the `char` it points to::pointee or pointer?}}. In
-`char* const q`, it is {{c2::`q` itself::pointee or pointer?}}.
+{{c1::the `char` it points to::which object?}}. In
+`char const* s`, it is {{c2::the `char` it points to::which object?}}.

@@ -6,7 +6,7 @@ level: 1
 tags: [classes, constructors, initialization]
 input: chips
 choices:
-  c1: [": engine_(hp)", ": Engine(hp)", "noexcept"]
+  c1: [": engine_(hp)", ": Engine(hp)", ": hp(hp)", ": engine_{}"]
 compile:
   harness: |
     static_assert(Car(90).power() == 90);
@@ -37,6 +37,7 @@ public:
 
 The **member initialiser list**, between `:` and the body, says how each
 member is constructed; entries name the **member** (`engine_`), not its
-type. Leave it out (the `noexcept` choice) and `engine_` must be built with
-no arguments, but `Engine` has no default constructor: compile error.
-`: Engine(hp)` fails because `Car` has no member or base called `Engine`.
+type. `: Engine(hp)` and `: hp(hp)` fail because `Car` has no member
+or base with those names. `: engine_{}`, like leaving the list out,
+builds `engine_` with no arguments, but `Engine` has no default
+constructor: compile error.
