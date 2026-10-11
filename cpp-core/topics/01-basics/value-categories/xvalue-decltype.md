@@ -6,7 +6,7 @@ level: 2
 tags: [value-categories]
 input: chips
 choices:
-  c1: ["std::move(x)", "x", "x + 1", "int{x}", "static_cast<int&>(x)"]
+  c1: ["std::move(x)", "std::as_const(x)", "x", "x + 1", "int{x}"]
 compile:
   harness: |
     int main() {}
@@ -32,6 +32,6 @@ static_assert(std::is_same_v<decltype(( {{c1::std\::move(x)}} )), int&&>);
 
 `std::move(x)` is a call returning `int&&`, and a function call returning
 an rvalue reference is an **xvalue**: still `x` (identity), now
-movable-from: `int&&`. Naming `x`, or casting it to `int&`, is an lvalue
-(`int&`); `x + 1` and `int{x}` create new values with no identity, so they
+movable-from: `int&&`. Naming `x` is an lvalue (`int&`), and so is
+`std::as_const(x)`, a call returning an lvalue reference (`const int&`); `x + 1` and `int{x}` create new values with no identity, so they
 are prvalues (plain `int`).

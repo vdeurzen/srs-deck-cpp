@@ -9,8 +9,6 @@ choices:
   c1: ["extern int", "int", "static int", "inline int"]
 compile:
   harness: |
-    // stats.cpp: it includes stats.h (above), then defines the variable
-    int requests = 0;
     int main() { ++requests; }
 requires:
   - linkage-translation-unit
@@ -25,6 +23,9 @@ holds the variable. Complete the header line.
 ```cpp
 // stats.h
 {{c1::extern int}} requests;
+
+// stats.cpp, after #include "stats.h"
+int requests = 0;
 ```
 
 ---
@@ -33,7 +34,6 @@ holds the variable. Complete the header line.
 promises the object exists somewhere with external linkage, so every
 translation unit can use it and only `stats.cpp` creates it. Plain
 `int requests;` is already a definition, so with it every includer
-defines `requests` (a link error), and `stats.cpp` defines it twice (the
-harness's error). `inline int` is a definition too. `static int` is
+defines `requests` (a link error), and `stats.cpp` defines it twice. `inline int` is a definition too. `static int` is
 worse: `stats.cpp` still fails, and every other file would get its own
 private counter. Prototypes and function bodies follow the same split.

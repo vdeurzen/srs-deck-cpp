@@ -9,45 +9,50 @@ requires:
 input: chips
 choices:
   c1:
-    - "FileGuard file{std::fopen(path, \"w\")};"
-    - "FileGuard{std::fopen(path, \"w\")};"
-    - "std::FILE* file = std::fopen(path, \"w\");"
-    - "auto* file = new FileGuard{std::fopen(path, \"w\")};"
+    - "Lock guard{held};"
+    - "Lock{held};"
+    - "auto* guard = new Lock{held};"
+    - "*held = true;"
 compile:
   harness: |
+    constexpr int run(bool fail) {
+      bool held = false;
+      int r = update(&held, fail);
+      return held ? 100 : r;   // 100: still held after update returned
+    }
+    static_assert(run(false) == 1, "released before the body ran, or leaked");
+    static_assert(run(true) == -1, "the early return skipped the release");
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/language/raii
   - https://en.cppreference.com/w/cpp/language/storage_duration
 ---
 
-`save` must close the file on every path out of the function, including
-the early `return`. Complete the line that takes charge of the freshly
-opened file.
+`update` must hold the lock while its body runs and release it on every
+path out, including the early `return`. Complete the line that takes the
+lock.
 
 ```cpp
-#include <cstdio>
-struct FileGuard {
-  explicit FileGuard(std::FILE* f) : f_(f) {}
-  ~FileGuard() { if (f_) std::fclose(f_); }
-  std::FILE* f_;
+struct Lock {
+  bool* held;
+  constexpr explicit Lock(bool* h) : held(h) { *held = true; }
+  constexpr ~Lock() { *held = false; }
 };
-bool write_header(std::FILE*) { return true; }
-void save(const char* path) {
-  {{c1::FileGuard file{std\::fopen(path, "w")};}}
-  if (!write_header(file.f_)) return;
-  std::fputs("body\n", file.f_);
+constexpr int update(bool* held, bool fail) {
+  {{c1::Lock guard{held};}}
+  if (fail) return -1;
+  return *held ? 1 : 0;   // 1: the body ran under the lock
 }
 ```
 
 ---
 
 The guard only does its job as a **named object with automatic storage
-duration**: its destructor then runs when `save`'s scope ends, by any
-route. The three alternatives each break that in a different way. An
-unnamed `FileGuard{...};` is a temporary, destroyed at the end of its own
-statement — the file is closed before the first write. A raw
-`std::FILE*` owns nothing, so the early `return` leaks it. A guard made
-with `new` lives until someone `delete`s it, which nobody does. The
-harness catches all three cheaply (nothing named `file` with an `f_`
-exists), but the lesson is the storage duration, not the spelling.
+duration**: its destructor then runs when `update`'s scope ends, by any
+route. An unnamed `Lock{held};` is a temporary, destroyed at the end of
+its own statement, so the body runs unlocked. Setting `*held = true;` by
+hand has no destructor, so the early `return` never releases. A `Lock`
+made with `new` lives until someone `delete`s it, which nobody does. Each
+mistake changes what `run` returns, so the harness's `static_assert`s
+reject it (the leaked `new` is also not allowed in a constant
+expression).

@@ -9,12 +9,12 @@ requires:
   - cpp-basics/types-auto-drops-const
 input: chips
 choices:
-  c1: ["const auto&", "auto", "const auto", "auto*"]
+  c1: ["const auto&", "auto&", "auto", "const auto"]
 compile:
   harness: |
     #include <type_traits>
     static_assert(std::is_same_v<decltype(n), const std::string&>,
-                  "n is a copy: auto deduces a value type and drops the reference");
+                  "n must be a read-only reference, not a copy");
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/language/auto
@@ -22,25 +22,25 @@ refs:
 ---
 
 `label()` returns a reference to a string that the `Config` owns. Declare
-`n` so that it refers to that string instead of copying it.
+`n` as a read-only name for that same string, with no copy made.
 
 ```cpp
 #include <string>
 struct Config {
   std::string name;
-  const std::string& label() const { return name; }
+  std::string& label() { return name; }
 };
-const Config cfg{"prod"};
+Config cfg{"prod"};
 {{c1::const auto&}} n = cfg.label();
 ```
 
 ---
 
 Plain `auto` deduces the way a by-value template parameter does: the
-reference and the top-level `const` of the initialiser are discarded, and
-`n` becomes a brand-new `std::string` holding a copy. `const auto` still
-copies; it only makes the copy read-only. `auto*` demands a pointer, and
-`label()` does not return one. To keep the reference you have to write it:
-`const auto&` (or `auto&`; `auto&&` binds too). The rule holds everywhere
+reference of the initialiser is discarded, and `n` becomes a brand-new
+`std::string` holding a copy. `const auto` still copies; it only makes the
+copy read-only. `auto&` keeps the reference, but `label()` returns a
+non-`const` one, so `n` could modify `cfg.name`. Both halves have to be
+written: `const auto&`. The rule holds everywhere
 `auto` appears: `for (auto s : names)` copies every string, and
 `for (const auto& s : names)` does not.

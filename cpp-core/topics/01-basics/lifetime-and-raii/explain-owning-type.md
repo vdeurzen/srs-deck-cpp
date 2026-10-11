@@ -13,7 +13,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/raii
   - https://en.cppreference.com/w/cpp/language/rule_of_three
 ---
-From memory, design a type that owns one `std::FILE*` (or any handle with a close function). Name each member you write and the bug it prevents.
+From memory, design a type that owns one `std::FILE*` (or any handle with a close function). Name each member you write and the bug it prevents, then say what changes if the type must own two handles.
 ---
 - [ ] The constructor takes the handle, so acquisition *is* initialisation: there is no window in which the handle exists but nothing owns it
 - [ ] The destructor is the single release point: it checks for null, calls `fclose`, and never throws, because it runs during unwinding

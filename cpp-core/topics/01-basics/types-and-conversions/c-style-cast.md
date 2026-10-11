@@ -16,8 +16,8 @@ elaborate: Search your codebase for `(` followed by a type and `*)`; which of th
 
 ---
 
-**A `reinterpret_cast` plus a `const_cast`: it reinterpreted the bytes and
-dropped `const`, silently.** A C-style cast tries the named casts in turn
-and takes the first that compiles. `static_cast` allows only checked,
-related-type conversions, so it errors here, and a named cast is easy to
-grep for.
+**It reinterpreted the pointer as an unrelated type and dropped `const`,
+silently** (`reinterpret_cast` plus `const_cast`). A C-style cast tries
+the named casts in turn and takes the first that compiles. `static_cast`
+allows only related-type conversions and never removes `const`, so it
+errors here; a named cast says which conversion you meant.

@@ -9,8 +9,7 @@ choices:
   c1: ["inline", "const", "constexpr"]
 compile:
   harness: |
-    void raise_limit() { Config::limit = 16; }
-    int main() {}
+    int main() { raise_limit(); }
 requires:
   - linkage-inline-meaning
 refs:
@@ -26,6 +25,7 @@ the declaration.
 struct Config {
   static {{c1::inline}} int limit = 8;
 };
+inline void raise_limit() { Config::limit = 16; }
 ```
 
 ---

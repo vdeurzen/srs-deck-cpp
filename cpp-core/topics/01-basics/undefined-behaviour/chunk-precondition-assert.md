@@ -6,6 +6,7 @@ level: 1
 tags: [undefined-behaviour, idioms]
 requires:
   - ub-definition
+  - ub-null-check-after-use
 expose_ms: 7000
 compile:
   harness: |
@@ -33,4 +34,4 @@ can and cannot infer on its own: `p[i]` already lets it assume `p` is not
 null, but nothing in the code implies `i < n` — the bounds half exists
 only because you wrote it. Reading the idiom: whatever the `assert` says
 is the contract the caller must meet. C++23's `[[assume(expr)]]` is the
-mirror image — the promise without the check.
+mirror image: it tells the optimiser `expr` holds and checks nothing.

@@ -29,8 +29,10 @@ constexpr {{c1::std\::array}} arr{1, 2, 3};
 
 ---
 
-Since C++17, class template argument deduction reads both template
-arguments of `std::array` off the list: `std::array<int, 3>`. There is no
+Since C++17, naming a class template with no argument list asks the
+compiler to deduce the arguments from the initializer, as it does for a
+function template's call (class template argument deduction). Here it
+reads both off the list: `std::array<int, 3>`. There is no
 partial form: `std::array<int>` names one argument and deduces nothing.
 `auto` with braces and several elements is ill-formed, and an
 `initializer_list` is a view of a hidden array, not a container you own.

@@ -6,6 +6,7 @@ level: 1
 tags: [undefined-behaviour, pointers]
 requires:
   - ub-definition
+  - ub-constexpr-rejects-ub
 input: chips
 choices:
   c1:
@@ -26,9 +27,8 @@ refs:
 ---
 
 `first_or_zero` returns the first element of a range, or `0` for an empty
-one. Callers sometimes pass a null pointer together with a non-zero
-count. Complete the guard so the function never reads through a null
-pointer.
+one. Complete the guard so the function never reads through a null
+pointer, whatever arguments it is given.
 
 ```cpp
 constexpr int first_or_zero(const int* p, int n) {

@@ -42,8 +42,8 @@ struct Handle {
 ---
 
 A move must leave the source **owning nothing**, or both destructors
-release the same handle — the double release that deleting the copy
-constructor shut out, back in through the other door. `o.h` copies the
+release the same handle: two owners of one resource, and the second
+release acts on something already gone. `o.h` copies the
 value and leaves the source armed; `std::move(o.h)` on an `int` is the
 same copy with a cast; `o.h = 0` disarms the source but yields `0`, so the
 destination never owns the handle and the resource leaks. `std::exchange`

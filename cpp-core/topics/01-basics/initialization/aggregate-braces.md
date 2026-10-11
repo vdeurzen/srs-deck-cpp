@@ -6,10 +6,10 @@ level: 1
 tags: [initialization]
 input: chips
 choices:
-  c1: ["1, 2", "2, 1", "0, 0", "1, 2, 3"]
+  c1: ["2, 1", "1, 2", "1", "1, 2, 3"]
 compile:
   harness: |
-    static_assert(p.x == 1 && p.y == 2);
+    static_assert(p.col == 1 && p.row == 2);
     int main() {}
 requires:
   - cpp-basics/class-struct-vs-class
@@ -17,14 +17,17 @@ refs:
   - https://en.cppreference.com/w/cpp/language/aggregate_initialization
 ---
 
-Complete the aggregate-initialization so `p.x` is `1` and `p.y` is `2`.
+Complete the aggregate-initialization so `p.col` is `1` and `p.row` is `2`.
 
 ```cpp
-struct Point { int x; int y; };
-constexpr Point p{ {{c1::1, 2}} };
+struct Cell { int row; int col; };
+constexpr Cell p{ {{c1::2, 1}} };
 ```
 
 ---
 
-`Point` has no user-declared constructors, so it is an aggregate: braces
-initialize its members in declaration order, positionally.
+`Cell` has no user-declared constructors, so it is an aggregate: braces
+initialize its members in declaration order, positionally. `row` is
+declared first, so the first value goes to `row`, whatever order the
+question names them in. `{1}` sets `row` and value-initializes `col` to
+`0`; `{1, 2, 3}` has more values than members and is ill-formed.

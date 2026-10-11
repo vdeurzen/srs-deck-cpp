@@ -8,7 +8,7 @@ requires:
   - threads-data-race-is-ub
 input: chips
 choices:
-  c1: ["std::atomic<int>", "volatile int", "int", "alignas(64) int"]
+  c1: ["std::atomic<int>", "std::atomic_ref<int>", "volatile int", "int", "alignas(64) int"]
 compile:
   harness: |
     void bump() { hits.fetch_add(1); }
@@ -25,7 +25,7 @@ expected at worst a lost increment, yet the race detector flags it.
 Declare `hits` so the program has no data race.
 
 ```cpp
-#include <thread>
+#include <atomic>
 {{c1::std\::atomic<int>}} hits{0};
 ```
 
@@ -38,6 +38,8 @@ register, hoist the load out of a loop, or merge increments. `volatile`
 only forbids the compiler eliding or reordering *its own* accesses to
 `hits`; it says nothing about another thread, and two `volatile` writes
 still race. `alignas` changes where `hits` sits, not who sees it.
+`std::atomic_ref<int>` makes atomic accesses to an `int` that lives
+elsewhere; it owns no storage, so it cannot be initialized from `0`.
 `std::atomic<int>` is the type whose operations the memory model counts
 as atomic, so `fetch_add` is one indivisible step that the other threads
 observe.

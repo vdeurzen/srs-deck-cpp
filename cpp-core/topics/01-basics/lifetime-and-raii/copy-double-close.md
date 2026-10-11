@@ -48,6 +48,4 @@ undefined behaviour. Deleting the copy constructor makes the mistake
 unrepresentable: the bug becomes a compile error at the line that would
 have introduced it. Deleting only copy *assignment* leaves copy
 construction available, and `explicit` restricts how a copy may be
-spelled, not whether one exists. Handing the file to another owner on
-purpose is a different operation — a move constructor that leaves the
-source owning nothing — and is the next Card.
+spelled, not whether one exists.
