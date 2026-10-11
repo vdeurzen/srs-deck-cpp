@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [tracing, coroutines]
 requires:
-  - parsons-coroutine-generator-skeleton
+  - coroutines-generator-yield-value
   - coroutines-eager-vs-lazy-start
 probes:
   1: { produced: "0" }
@@ -17,12 +17,23 @@ refs:
 ---
 
 ```cpp
-// Generator<T> is the hand-rolled skeleton from the parsons Card:
-// initial_suspend is suspend_always, yield_value stores the value in
-// the promise and suspends, and next() resumes then returns !done().
+struct IntGen {  // a lazy generator of int (no destructor: trimmed)
+  struct promise_type {
+    int current = 0;
+    std::suspend_always initial_suspend() { return {}; }
+    std::suspend_always yield_value(int v) { current = v; return {}; }
+    std::suspend_always final_suspend() noexcept { return {}; }
+    // get_return_object() wraps the handle; return_void() and
+    // unhandled_exception() do nothing
+  };
+  std::coroutine_handle<promise_type> h;
+  bool next() { h.resume(); return !h.done(); }
+  int value() const { return h.promise().current; }  // last yielded
+};
+
 int produced = 0;
 
-Generator<int> numbers() {
+IntGen numbers() {
   produced = 1;
   co_yield 10;
   produced = 2;
@@ -54,6 +65,6 @@ yield. A consumer that loops `while (gen.next())` therefore executes
 everything after the final `co_yield` and then stops, which is where
 cleanup code in a generator body actually runs.
 
-Verified by compiling and running this program, with the parsons Card's
-`Generator<T>`, under GCC 13.3 and again under GCC 16.2
-(`g++ -std=c++23`); the values are identical.
+Verified by compiling and running this program, with the three
+trimmed hooks written out as described, under GCC 16.2
+(`g++ -std=c++23`).

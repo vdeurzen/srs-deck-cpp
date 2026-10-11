@@ -25,7 +25,8 @@ struct Step {
   void await_resume() const { hooks += 'V'; }
 };
 
-// Task starts eagerly: initial_suspend() returns std::suspend_never,
+// Task holds its coroutine_handle in a public member `handle`.
+// It starts eagerly: initial_suspend() returns std::suspend_never,
 // final_suspend() returns std::suspend_always.
 Task demo() {
   co_await Step{true};

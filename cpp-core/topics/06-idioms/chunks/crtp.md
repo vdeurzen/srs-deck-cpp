@@ -35,7 +35,7 @@ The Curiously Recurring Template Pattern: a base class template
 parameterised on its own derived class. Line by line: `Derived` names the
 class that will inherit; `area()` is the shared interface; the
 `static_cast` to `const Derived*` keeps `const` and is valid provided
-`D` really derives from `Shape<D>`: `struct X : Shape<Y>` compiles and
+`Derived` really derives from `Shape<Derived>`: `struct X : Shape<Y>` compiles and
 makes the cast undefined behaviour. A private constructor plus
 `friend Derived;` in `Shape` turns that slip into a compile error. The bug it prevents is the
 virtual call: dispatch is resolved at compile time, so there is no vtable

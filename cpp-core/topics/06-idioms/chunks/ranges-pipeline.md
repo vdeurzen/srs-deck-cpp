@@ -35,8 +35,8 @@ constexpr auto evens_doubled(const std::vector<int>& v) {
 
 The ranges pipeline idiom: `|` composes adaptors left to right, each
 producing a lazy view rather than a new container. Nothing here allocates
-or even runs until something iterates the result — the range-for in the
-harness is what actually pulls values through `filter` then `transform`,
+or even runs until something iterates the result — a range-for over the
+result is what actually pulls values through `filter` then `transform`,
 one element at a time. The bug it prevents: the hand-written loop with
 an `if` and a `push_back` into a temporary vector, which allocates and
 buries the two steps in control flow. The view borrows `v`, so it must

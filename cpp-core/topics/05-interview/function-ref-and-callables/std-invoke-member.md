@@ -6,7 +6,7 @@ level: 3
 tags: [callables]
 input: chips
 choices:
-  c1: ["&Greeter::shout", "&Greeter", "Greeter::shout", "g.shout"]
+  c1: ["&Greeter::shout", "&g.shout", "Greeter::shout", "g.shout"]
 compile:
   harness: |
     static_assert(check());
@@ -17,8 +17,8 @@ refs:
   - https://en.cppreference.com/w/cpp/utility/functional/invoke
 ---
 
-Call `Greeter::shout` on `g` through `std::invoke`, the same way you would
-call a free function or a lambda through it.
+Call the member function `shout` on `g` through `std::invoke`, the same
+way you would call a free function or a lambda through it.
 
 ```cpp
 #include <functional>

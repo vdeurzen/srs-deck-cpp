@@ -25,7 +25,9 @@ while (io_uring_peek_cqe(&ring, &cqe) == 0) {
 
 ---
 
-The completion half, and the shape of every event loop that drives
+`ReadOp` is the awaiter that submitted the read: it holds `int result`
+and the suspended coroutine's `std::coroutine_handle<> waiter`; `ring`
+is the `io_uring` instance. The completion half, and the shape of every event loop that drives
 coroutines: recover the operation from `user_data`, **deliver the
 result before resuming**, tell the kernel the entry has been consumed,
 and only then hand control to the coroutine.

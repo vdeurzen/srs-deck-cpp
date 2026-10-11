@@ -13,7 +13,10 @@ refs:
 ---
 An event bus stores subscribers in a
 `std::vector<std::function<void(const Event&)>>` and calls each one per
-event. Reason through what this design buys and where it bites.
+event. `subscribe(f)` stores a copy of `f` in that vector, and a
+`for_each_subscriber(cb)` query, also taking a `std::function`, calls
+`cb` synchronously on each subscriber before it returns. Reason through
+what this design buys and where it bites.
 ---
 - [ ] Because each subscriber is erased behind `void(const Event&)`, lambdas, functors and bound members sit in one vector: the reason erasure is right here, where a template parameter could store only one type
 - [ ] Because `std::function` must be copyable, subscribing a lambda that captures a `unique_ptr` fails to compile; `std::move_only_function` accepts it, and then the subscriber vector, and the bus, become move-only

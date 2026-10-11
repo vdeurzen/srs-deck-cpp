@@ -1,14 +1,32 @@
 ---
 id: parsons-coroutine-generator-skeleton
 kind: parsons
-version: 1
+version: 2
 level: 4
 tags: [idioms, coroutines]
 requires:
   - coroutines-generator-yield-value
   - coroutines-handle-operations
+distractors:
+  - "  Generator(const Generator&) = default;"
 compile:
   harness: |
+    template <typename T>
+    struct Generator<T>::promise_type {
+      T current;
+      Generator get_return_object() {
+        return Generator{std::coroutine_handle<promise_type>::from_promise(*this)};
+      }
+      std::suspend_always initial_suspend() noexcept { return {}; }
+      std::suspend_always final_suspend() noexcept { return {}; }
+      std::suspend_always yield_value(T v) { current = v; return {}; }
+      void return_void() {}
+      void unhandled_exception() { throw; }
+    };
+    #include <type_traits>
+    static_assert(!std::is_copy_constructible_v<Generator<int>>);
+    static_assert(!std::is_copy_assignable_v<Generator<int>>);
+    static_assert(std::is_move_constructible_v<Generator<int>>);
     Generator<int> count_to(int n) {
       for (int i = 1; i <= n; ++i) co_yield i;
     }
@@ -21,41 +39,30 @@ compile:
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle
+  - https://eel.is/c++draft/class.copy.ctor#6
 ---
 
 ```cpp
 #include <coroutine>
-template <typename T>
-struct Generator {
-  struct promise_type {
-    T current_value;
-    Generator get_return_object() { return Generator{Handle::from_promise(*this)}; }
-    std::suspend_always initial_suspend() { return {}; }
-    std::suspend_always final_suspend() noexcept { return {}; }
-    std::suspend_always yield_value(T value) {
-      current_value = value;
-      return {};
-    }
-    void return_void() {}
-    void unhandled_exception() { throw; }
-  };
-  using Handle = std::coroutine_handle<promise_type>;
-  explicit Generator(Handle h) : handle_(h) {}
-  ~Generator() { if (handle_) handle_.destroy(); }
-  bool next() {
-    handle_.resume();
-    return !handle_.done();
-  }
-  T value() const { return handle_.promise().current_value; }
-  Handle handle_;
+template <typename T> struct Generator {
+  struct promise_type;  // defined after the class; yield_value stores into current
+  std::coroutine_handle<promise_type> handle;
+  explicit Generator(std::coroutine_handle<promise_type> h) : handle(h) {}
+  Generator(Generator&& other) noexcept : handle(other.handle) { other.handle = {}; }
+  ~Generator() { if (handle) handle.destroy(); }
+  bool next() { handle.resume(); return !handle.done(); }  T value() const { return handle.promise().current; }
 };
 ```
 
 ---
 
-The minimum a return type needs to make a function a coroutine: a nested
-`promise_type` with `get_return_object`, `initial_suspend`,
-`final_suspend`, a way to produce a value (`yield_value` here, since the
-harness uses `co_yield`), a way to end (`return_void` or `return_value`),
-and `unhandled_exception`. `std::generator<T>` (C++23) packages exactly
-this skeleton so most callers never have to write it by hand.
+The owning half of a generator: the return type holds the frame's
+`coroutine_handle`, destroys it exactly once, and gives the caller
+`next()` (resume, then report `!done()`) and `value()` (read the
+promise). The promise itself is the one from the `yield_value` Card.
+
+The move constructor is the line that matters: it nulls the source, so
+only one `Generator` ever calls `destroy()`, and declaring it makes the
+copy constructor and copy assignment deleted. A defaulted copy would let
+two owners destroy one frame. `std::generator<T>` (C++23) packages all of
+this.
