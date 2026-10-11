@@ -14,14 +14,14 @@ refs:
 
 Decide each `T(n) = a·T(n/b) + (root work)` by comparing the root's work
 with the leaves': there are a^(levels) leaves, log_b n levels, constant
-work each. `T(n) = 8T(n/2) + n²` (blocked matrix multiply):
-{{c1::Θ(n³)}}. `T(n) = 2T(n/2) + n` (merge sort):
+work each. `T(n) = 8T(n/2) + n²`:
+{{c1::Θ(n³)}}. `T(n) = 2T(n/2) + n`:
 {{c2::Θ(n log n)}}. `T(n) = 2T(n/2) + n²`: {{c3::Θ(n²)}}.
 
 ---
 
 Leaves: 8^(log₂ n) = n³ beats the root's n², and the levels grow
-geometrically, so the leaves' n³ is the answer. Merge sort: n leaves tie
+geometrically, so the leaves' n³ is the answer. With 2T(n/2) + n, n leaves tie
 the root's n, every level does n, so levels × n = n log n. Root n²
 against n leaves: levels shrink by half each, the sum is under 2n², the
 root wins. Those are the three cases of the master theorem (Bentley,

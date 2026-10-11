@@ -13,11 +13,12 @@ refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
 ---
 
-## `push_back` is *amortised* O(1); a hash lookup is *average-case* O(1). What does "amortised" promise that "average" does not?
+## `push_back` is *amortised* O(1); a hash lookup (a hash function spreads keys over buckets; a lookup scans one bucket) is *average-case* O(1). What does "amortised" promise that "average" does not?
 
 ---
 
 **A bound on every sequence: any n pushes cost O(n) in total.** It
 assumes nothing about the input, so no adversary can defeat it.
 Average-case is a statement about a distribution of inputs (or of random
-choices), and an adversary who picks the inputs can.
+choices), and an adversary who picks the inputs can: keys that all land
+in one bucket make every lookup a scan.

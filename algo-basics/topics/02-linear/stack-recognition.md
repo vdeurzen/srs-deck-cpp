@@ -10,11 +10,11 @@ refs:
   - https://en.cppreference.com/w/cpp/container/stack
 ---
 
-## An HTML checker reads `<b><i>…</i></b>`. Every closing tag must match the most recently opened tag that is still open. Which structure does that rule describe?
+## An HTML checker accepts `<b><i>…</i></b>` and rejects `<b><i>…</b></i>`. Which structure should it keep the open tags in?
 
 ---
 
-**A stack: "most recently opened, still open" is last in, first out.**
+**A stack: each closing tag must match the top, the latest still-open tag.**
 
 Push each opening tag; a closing tag must equal the top, which is then
 popped. `</b>` arriving while `<i>` is on top is the error. The same

@@ -13,8 +13,8 @@ refs:
   - https://en.cppreference.com/w/cpp/container/queue
 ---
 
-The 4-slot ring from the pop Card: `tail` is where the next push goes,
-`head` is the oldest element.
+A FIFO queue in a 4-slot ring buffer: `tail` is where the next push
+goes, `head` is the oldest element.
 
 ```cpp
 constexpr int N = 4;

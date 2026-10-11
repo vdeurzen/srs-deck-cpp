@@ -23,4 +23,4 @@ through what will happen and what to change.
 - [ ] Rules out any quadratic fix: at ~10⁸ steps/s, a million records needs n log n or better
 - [ ] Proposes sort, then one pass comparing neighbours: Θ(n log n), merge sort's recurrence being a master-theorem tie
 - [ ] Warns that one `push_back` may copy the whole vector, since amortised O(1) bounds only the total; `reserve(n)` removes it
-- [ ] Notes a hash set is O(1) only on average, so crafted keys can degrade it, while sorting's n log n holds for every input
+- [ ] Estimates the fix: 10⁶ · log₂ 10⁶ ≈ 2·10⁷ comparisons, a fraction of a second at 10⁸ steps/s

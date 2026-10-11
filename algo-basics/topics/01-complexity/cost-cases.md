@@ -11,7 +11,7 @@ refs:
   - https://en.wikipedia.org/wiki/Best,_worst_and_average_case
 ---
 
-## A duplicate check that stops at the first match does 22 comparisons on `{4, 7, 1, 9, 2, 8, 5, 4}`; other 8-element inputs cost 1 or 28. Decide: is 22 the best, worst or average case? Say what an average-case figure would need beyond n.
+## A duplicate check compares each element with every earlier one and stops at the first match. It does 22 comparisons on `{4, 7, 1, 9, 2, 8, 5, 4}`; other 8-element inputs cost 1 or 28. Decide: is 22 the best, worst or average case? Say what an average-case figure would need beyond n.
 
 ---
 

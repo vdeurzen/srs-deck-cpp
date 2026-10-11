@@ -8,7 +8,7 @@ requires:
   - complexity-doubling-copies
 input: chips
 choices:
-  c1: ["cap * 2", "cap + 1000", "size + 1"]
+  c1: ["cap * 2", "cap + cap / 4", "cap + 1000"]
 compile:
   harness: |
     static_assert(copies(1'000) < 2 * 1'000);
@@ -26,7 +26,7 @@ fewer than `2n` elements in total.
 
 ```cpp
 constexpr long copies(long n) {
-  long cap = 1, size = 0, moved = 0;
+  long cap = 4, size = 0, moved = 0;
   for (long k = 0; k < n; ++k) {
     if (size == cap) { moved += size; cap = {{c1::cap * 2}}; }
     ++size;
@@ -41,5 +41,6 @@ Growing by a **factor** keeps the total a geometric series, below 2n.
 Growing by a **constant** k reallocates every k pushes, each copying
 everything so far: about n²/(2k) moves, O(n) per push. `cap + 1000`
 looks cheap at n = 1 000 and loses by n = 100 000: a bigger constant only
-delays the quadratic. `size + 1`, "just what is needed", copies on every
-push.
+delays the quadratic. `cap + cap / 4` is geometric too, so still O(1)
+amortised, but a factor r sums to about n/(r − 1): 4n for 1.25, which
+misses the 2n bound. The factor sets the constant.

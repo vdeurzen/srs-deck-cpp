@@ -13,7 +13,7 @@ refs:
   - https://en.wikipedia.org/wiki/Best,_worst_and_average_case
 ---
 
-## "Amortised constant time just means constant on average." An adversary who chooses every input attacks a growable array's push (amortised O(1)) and a hash table's lookup (average-case O(1)). What happens to each?
+## "Amortised constant time just means constant on average." An adversary who chooses every input attacks a growable array's push (amortised O(1)) and a hash table's lookup (average-case O(1): a hash function spreads keys over buckets, and a lookup scans one bucket). What happens to each?
 
 ---
 

@@ -8,7 +8,7 @@ requires:
   - complexity-asym-little-o
 input: chips
 choices:
-  c1: ["n * n", "n", "100 * n", "n + 100"]
+  c1: ["n * n", "100 * n", "n * n / (n + 1)", "n * n / (5 * n)"]
 compile:
   harness: |
     static_assert(ratio(1e3) < 1e-1);             // small
@@ -33,4 +33,5 @@ constexpr double ratio(double n) { return f(n) / g(n); }
 (5n + 100)/n² = 5/n + 100/n² → 0: f is o(n²). Against `100 * n` the
 ratio settles at 0.05: small, but a constant, so f is Θ(100n), never o of
 it. No constant factor in g can turn Θ into o; only a faster-growing g
-can. `n` and `n + 100` give a ratio near 5.
+can. `n * n / (n + 1)` and `n * n / (5 * n)` look quadratic but simplify to
+about n and n/5: linear, so the ratio settles near 5 and 25.

@@ -9,7 +9,7 @@ requires:
   - complexity-cost-trace-merge-recurrence
 input: chips
 choices:
-  c1: ["n * lg", "n * n", "2 * n", "n + lg"]
+  c1: ["n * lg", "n * lg + n", "lg * lg", "2 * n"]
 compile:
   harness: |
     static_assert(T(2) == closed(2, 1));
@@ -21,8 +21,8 @@ refs:
   - https://en.wikipedia.org/wiki/Merge_sort#Analysis
 ---
 
-`T` is merge sort's recurrence: two halves, plus n to merge. Complete its
-closed form for powers of two, where `lg` is log₂ n.
+`T(n)` solves two halves of the problem and spends n combining them.
+Complete its closed form for powers of two, where `lg` is log₂ n.
 
 ```cpp
 constexpr long T(long n) { return n <= 1 ? 0 : 2 * T(n / 2) + n; }
@@ -33,5 +33,7 @@ constexpr long closed(long n, long lg) { return {{c1::n * lg}}; }
 
 Unroll it as a tree. Level 0 is one call doing n; level 1 is two calls
 doing n/2 each, n again; every level costs n in total. Halving reaches
-size 1 after log₂ n levels, so T(n) = n·log₂ n: 2, 24, 10 240. The
+size 1 after log₂ n levels, so T(n) = n·log₂ n: 2, 24, 10 240. `n * lg + n`
+counts one level too many (the leaves cost 0 here); `lg * lg` forgets that
+each level does n. This is merge sort's recurrence. The
 recipe works for any recurrence: **cost per level × number of levels**.

@@ -34,8 +34,8 @@ int main() {
 ---
 
 Copies happen at sizes 1, 2, 4, 8: 1 + 2 + 4 = 7 after 8 pushes. The
-9th push alone copies 8. Yet seven more pushes copy nothing, so after
-16 pushes the total is still 15: the geometric series 1 + 2 + … + n/2 < n. So n pushes cost O(n) in total,
+9th push alone copies 8, for 15 in all, and doubles cap to 16. The next
+seven pushes copy nothing, so after 16 pushes the total is still 15: the geometric series 1 + 2 + … + n/2 < n. So n pushes cost O(n) in total,
 O(1) each **amortised**, even though one push costs O(n).
 
 Verified by compiling and running an instrumented copy under GCC 16.2

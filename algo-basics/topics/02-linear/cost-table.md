@@ -1,7 +1,7 @@
 ---
 id: linear-cost-table
 kind: cloze
-version: 1
+version: 2
 level: 1
 tags: [foundations, linked-lists, complexity]
 requires:
@@ -11,11 +11,12 @@ refs:
 ---
 
 A singly linked list keeps only a `head` pointer. Reading the element at
-index i (counting from 0) follows exactly {{c1::i::in terms of i}} `next`
-pointers after `head`.
+index i (counting from 0) costs {{c1::O(i)::a growth class}}, where a
+`std::vector` pays O(1) whatever i is.
 
 ---
 
 The nodes are scattered, so there is no `base + i · size` shortcut:
-each node only knows its successor. Reaching index i is a walk, O(i),
-where an array computes the address in one step whatever i is.
+each node only knows its successor. Reaching index i is a walk of exactly
+i `next` hops from `head`; an array computes the address in one step.
+O(n) is a true bound too, but only for the last element.

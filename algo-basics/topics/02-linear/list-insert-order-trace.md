@@ -7,7 +7,7 @@ tags: [foundations, linked-lists, tracing, misconception]
 requires:
   - linear-list-insert-held
 probes:
-  1: { "a.next->value": "20", "n.next->value": "20", "n.next == &n": "true" }
+  1: { "a.next->value": "20", "n.next->next->value": "20", "30 reachable from a": "false" }
 elaborate: Where in your own code do two writes share a location, so that the second reads what the first just overwrote?
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.2

@@ -35,7 +35,7 @@ goes, `head` is the oldest element. Complete the pop.
 constexpr int N = 4;
 struct Ring {
   int buf[N] = {}, head = 0, tail = 0;
-  constexpr void push(int x) { buf[tail] = x; tail = (tail + 1) % N; }
+  constexpr void push(int x) { buf[tail] = x; tail = tail + 1 == N ? 0 : tail + 1; }
   constexpr int pop() {
     int x = buf[head];
     head = {{c1::(head + 1) % N}};
@@ -46,7 +46,8 @@ struct Ring {
 
 ---
 
-**Advance `head` and wrap it at the end, exactly like `tail`.** Both
+**Advance `head` and wrap it back to 0 past the last slot.** `% N` and
+push's `== N ? 0` are the same wrap. Both
 indices chase each other round the array, so neither push nor pop moves
 an element: O(1) each.
 

@@ -8,7 +8,7 @@ requires:
   - linear-list-node
 input: chips
 choices:
-  c1: ["x->next->prev = x->prev;", "x->next->prev = x;", "x->prev->prev = x->next;", "x->next->next = x->prev;"]
+  c1: ["x->prev->next = x->next; x->next->prev = x->prev;", "x->prev->next = x->next; x->next->prev = x;", "x->prev->next = x->next; x->prev->prev = x->next;", "x->prev = x->next; x->next = x->prev;"]
 compile:
   harness: |
     constexpr int walk() {               // 1 <-> 2 <-> 3, then unlink the 2
@@ -35,8 +35,7 @@ Node `x` has a neighbour on each side. Complete its removal.
 struct Node { int value; Node* prev = nullptr; Node* next = nullptr; };
 
 constexpr void unlink(Node* x) {
-  x->prev->next = x->next;
-  {{c1::x->next->prev = x->prev;}}
+  {{c1::x->prev->next = x->next; x->next->prev = x->prev;}}
 }
 ```
 
@@ -48,3 +47,4 @@ is what lets a doubly linked list remove a node without a walk to find
 its predecessor.
 
 Fix only `next` and a backward walk still visits the removed node.
+Rewiring `x`'s own pointers changes nothing its neighbours can see.

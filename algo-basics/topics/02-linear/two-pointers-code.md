@@ -8,7 +8,7 @@ requires:
   - linear-two-pointers-trace
 input: chips
 choices:
-  c1: ["++lo;", "--hi;", "++hi;", "lo = hi;"]
+  c1: ["if (s < target) ++lo; else --hi;", "if (s < target) --hi; else ++lo;", "if (a[lo] < a[hi]) ++lo; else --hi;", "if (s < target) ++hi; else --lo;"]
 compile:
   harness: |
     inline constexpr int kA[] = {1, 3, 4, 6, 9, 11};
@@ -23,7 +23,7 @@ refs:
 ---
 
 Does a sorted array hold two elements (at different positions) that sum
-to `target`? Complete the branch for a sum that is too small.
+to `target`? Complete the step that moves a pointer when `s` misses.
 
 ```cpp
 #include <span>
@@ -33,8 +33,7 @@ constexpr bool has_pair(std::span<const int> a, int target) {
   while (lo < hi) {
     int s = a[lo] + a[hi];
     if (s == target) return true;
-    if (s < target) {{c1::++lo;}}
-    else --hi;
+    {{c1::if (s < target) ++lo; else --hi;}}
   }
   return false;
 }
@@ -44,7 +43,8 @@ constexpr bool has_pair(std::span<const int> a, int target) {
 
 **Too small: drop the smaller end, because even its largest partner
 falls short.** Moving `hi` down would only shrink the sum further and
-can skip the real pair (7 = 1 + 6 is missed).
+can skip the real pair (7 = 1 + 6 is missed). Moving the smaller
+*element* ignores the target entirely, and `++hi` runs off the end.
 
 `while (lo < hi)` keeps the two positions distinct; each step moves one
 pointer, so at most n − 1 steps.
