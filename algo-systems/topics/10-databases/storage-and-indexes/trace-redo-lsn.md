@@ -26,7 +26,7 @@ int page_lsn[2] = {10, 11};    // the LSN each page had reached when written
 int applied = 0;
 
 void redo(Rec r) {
-  if (r.lsn <= page_lsn[r.page]) return;     // already in the page
+  if (r.lsn <= page_lsn[r.page]) return;
   value[r.page] += r.delta;
   page_lsn[r.page] = r.lsn;
   ++applied;

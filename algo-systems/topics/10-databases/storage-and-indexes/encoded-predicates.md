@@ -13,6 +13,6 @@ refs:
 
 On a dictionary-encoded column, `WHERE country = 'NL'` looks up `'NL'`
 once and then compares each row's {{c1::code::a small integer}}, many per
-SIMD instruction. On a run-length-encoded column, a predicate is
-evaluated once per {{c2::run::not per row}}, and `COUNT(*)` of the
-matches is a sum of run lengths.
+SIMD instruction. On a sorted column stored as `('DE', 4000),
+('NL', 2500), …`, a predicate is evaluated once per {{c2::run}}, and
+`COUNT(*)` of the matches adds up the second fields.

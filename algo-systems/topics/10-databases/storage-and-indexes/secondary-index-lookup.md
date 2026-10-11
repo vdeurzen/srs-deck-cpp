@@ -22,5 +22,5 @@ clustered index is descended next.**
 
 Rows live in the primary-key tree's leaves, where splits move them.
 Postgres instead stores a physical `(page, slot)`: one descent plus a heap
-fetch, but every new row version needs new index entries unless HOT
-applies.
+fetch, but a row version written at a new address needs new index
+entries.

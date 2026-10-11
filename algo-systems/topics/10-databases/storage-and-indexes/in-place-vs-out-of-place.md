@@ -10,7 +10,7 @@ refs:
 elaborate: An append-only event log and an in-place config table both sit in your system. Which one has to garbage-collect old data?
 ---
 
-## An LSM engine updates key `k`. Unlike an update-in-place B-tree, what does it do with `k`'s old value?
+## An LSM engine buffers writes in memory and flushes them as sorted files. It updates key `k`. Unlike an update-in-place B-tree, what does it do with `k`'s old value?
 
 ---
 

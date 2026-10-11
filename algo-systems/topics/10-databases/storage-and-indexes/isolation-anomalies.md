@@ -9,7 +9,7 @@ refs:
   - https://www.postgresql.org/docs/current/transaction-iso.html
 ---
 
-Name each anomaly: dirty read, non-repeatable read or phantom. T1 reads a value that T2 has written but not yet
+Name each anomaly. T1 reads a value that T2 has written but not yet
 committed: a {{c1::dirty read}}. T1 reads a row, T2 updates it and
 commits, and T1's second read of that row returns the new value: a
 {{c2::non-repeatable read}}. T1 runs `SELECT … WHERE qty > 10`, T2

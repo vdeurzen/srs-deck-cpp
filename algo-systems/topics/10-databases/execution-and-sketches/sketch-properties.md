@@ -12,7 +12,7 @@ refs:
 ---
 
 Match the sketch to the question. Membership, with a certain "not
-present": {{c2::a Bloom filter::a filter}}. Number of distinct
-values: {{c3::HyperLogLog::a cardinality sketch}}. How often one key
-occurred, never underestimated: {{c4::a count-min sketch::a frequency sketch}}. Quantiles: a t-digest or KLL sketch. Set similarity:
+present": {{c2::a Bloom filter}}. Number of distinct values:
+{{c3::HyperLogLog}}. How often one key occurred, never
+underestimated: {{c4::a count-min sketch}}. Quantiles: a t-digest or KLL sketch. Set similarity:
 MinHash.

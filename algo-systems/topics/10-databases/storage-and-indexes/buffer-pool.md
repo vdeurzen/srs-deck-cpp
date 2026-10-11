@@ -16,9 +16,9 @@ elaborate: 'Using `mmap` for the data file is a known trap for storage engines. 
 
 ---
 
-**Only the engine knows which pages are pinned, dirty, or blocked by the WAL.**
+**Only the engine knows which pages are pinned or dirty, and when each may leave memory.**
 
-A dirty page may be written only after its log records are durable,
-and a pinned page is in use by an operator. The kernel evicts by its
+A pinned page is in use and must stay; a dirty page may
+be written back only when the engine's recovery rules allow it. The kernel evicts by its
 own policy, so `mmap` gives up both guarantees and adds unpredictable
 page-fault stalls.

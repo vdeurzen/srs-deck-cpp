@@ -6,7 +6,7 @@ level: 4
 tags: [databases, joins, sorting]
 input: chips
 choices:
-  c1: ["j = mark", "j = mark + 1", "mark = j", "--j"]
+  c1: ["j = k", "j = k + 1", "k = j", "--j"]
 compile:
   harness: |
     static_assert(merge_join(std::array{1, 2, 2, 4}, std::array{2, 2, 3, 4}) == 5);
@@ -32,9 +32,9 @@ constexpr int merge_join(const auto& r, const auto& s) {
     if (r[i] < s[j]) ++i;
     else if (r[i] > s[j]) ++j;
     else {
-      const std::size_t mark = j;
+      const std::size_t k = j;
       while (j < s.size() && s[j] == r[i]) { ++out; ++j; }
-      if (++i < r.size() && r[i] == s[mark]) {{c1::j = mark}};
+      if (++i < r.size() && r[i] == s[k]) {{c1::j = k}};
     }
   }
   return out;
