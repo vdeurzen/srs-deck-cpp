@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 2
 tags: [comparisons]
+requires:
+  - cpp-basics/class-defaulted-spaceship-gives
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_comparison#Three-way_comparison
   - https://en.cppreference.com/w/cpp/utility/compare/strong_ordering

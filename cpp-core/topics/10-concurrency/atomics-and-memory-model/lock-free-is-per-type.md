@@ -13,6 +13,7 @@ compile:
     int main() {}
 requires:
   - atomics-modification-order
+  - cpp-basics/conc-atomic-or-mutex
 refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic/is_always_lock_free
   - https://en.cppreference.com/w/cpp/atomic/atomic

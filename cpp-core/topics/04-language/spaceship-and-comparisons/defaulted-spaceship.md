@@ -15,6 +15,7 @@ compile:
     int main() {}
 requires:
   - spaceship-basics
+  - cpp-basics/class-compare-defaulted-shortcut
 refs:
   - https://en.cppreference.com/w/cpp/language/default_comparisons
 ---

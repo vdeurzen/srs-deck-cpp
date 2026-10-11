@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 2
 tags: [smart-pointers, ownership]
+requires:
+  - cpp-basics/life-shared-ptr-owners
 refs:
   - https://en.cppreference.com/w/cpp/memory/shared_ptr#Implementation_notes
   - https://eel.is/c++draft/util.sharedptr

@@ -6,6 +6,7 @@ level: 2
 tags: [types, conversions, casts]
 requires:
   - types-narrowing-braces
+  - cpp-basics/types-cstyle-reinterprets
 refs:
   - https://en.cppreference.com/w/cpp/language/explicit_cast
   - https://en.cppreference.com/w/cpp/language/static_cast

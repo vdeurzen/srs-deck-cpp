@@ -13,6 +13,7 @@ compile:
     int main() {}
 requires:
   - types-enum-class
+  - cpp-basics/types-enum-plain-leaks
 refs:
   - https://en.cppreference.com/w/cpp/language/enum#Scoped_enumerations
 ---

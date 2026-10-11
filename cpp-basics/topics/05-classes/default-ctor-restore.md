@@ -15,6 +15,7 @@ compile:
     int main() {}
 requires:
   - class-init-list-required
+  - class-default-delete-where
 refs:
   - https://en.cppreference.com/w/cpp/language/default_constructor
 ---

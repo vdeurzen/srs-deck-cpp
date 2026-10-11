@@ -6,6 +6,7 @@ level: 1
 tags: [smart-pointers, ownership]
 requires:
   - raii-copy-double-close
+  - cpp-basics/life-unique-ptr-member-no-copy
 refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr
   - https://eel.is/c++draft/unique.ptr

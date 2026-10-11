@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [concurrency, threads, lifetimes]
+requires:
+  - cpp-basics/conc-forgotten-join
 refs:
   - https://en.cppreference.com/w/cpp/thread/thread/~thread
   - https://en.cppreference.com/w/cpp/thread/jthread

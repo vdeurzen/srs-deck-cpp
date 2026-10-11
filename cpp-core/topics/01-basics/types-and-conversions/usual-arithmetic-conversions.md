@@ -6,6 +6,7 @@ level: 2
 tags: [types, integers, conversions]
 requires:
   - types-integral-promotion
+  - cpp-basics/types-mixed-sign-common-type
 refs:
   - https://en.cppreference.com/w/cpp/language/usual_arithmetic_conversions
   - https://eel.is/c++draft/expr.arith.conv

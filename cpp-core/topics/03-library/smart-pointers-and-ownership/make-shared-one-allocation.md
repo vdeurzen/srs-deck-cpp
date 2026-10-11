@@ -6,6 +6,7 @@ level: 2
 tags: [smart-pointers, ownership]
 requires:
   - smart-pointers-shared-ptr-control-block
+  - cpp-basics/life-make-unique
 refs:
   - https://en.cppreference.com/w/cpp/memory/shared_ptr/make_shared#Notes
 ---

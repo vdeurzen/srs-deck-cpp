@@ -7,6 +7,7 @@ tags: [types, integers, conversions]
 requires:
   - types-overflow-rules
   - types-promotion-rule
+  - types-mixed-sign-common-type
 refs:
   - https://en.cppreference.com/w/cpp/language/usual_arithmetic_conversions
   - https://eel.is/c++draft/expr.arith.conv

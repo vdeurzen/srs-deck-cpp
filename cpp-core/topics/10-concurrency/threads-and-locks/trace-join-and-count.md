@@ -11,6 +11,7 @@ probes:
 requires:
   - threads-thread-destructor-joinable
   - threads-data-race-is-ub
+  - cpp-basics/conc-lock-the-counter
 refs:
   - https://en.cppreference.com/w/cpp/thread/jthread/join
   - https://en.cppreference.com/w/cpp/thread/scoped_lock

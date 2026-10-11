@@ -373,7 +373,8 @@ on the Card. 15 slices, ~300 findings, all fixed or skipped with a reason; ~20
 Cards bumped where the question changed. Open:
 - docs/FORMAT.md §4.10 (`trace`) still recommends pointing at another Card's code
   ("the parsons Card's Generator"); fix in the app's export.
-- cpp-basics gaps: `= default`/`= delete`, signed/unsigned conversion rule, and
-  on-ramps for atomics, threads, `<=>`, enum class, `std::format`, `shared_ptr`;
-  cpp-core has no Card on the named casts.
+- ~~cpp-basics gaps~~ closed 2026-10-11: 42 Cards (enum class, named casts,
+  signed/unsigned rule, `= default`/`= delete`, comparisons and `<=>`,
+  `unique_ptr`/`shared_ptr`, new topics 15-text-and-format and
+  16-concurrency-basics); 19 cpp-core entry Cards require them.
 - `chunks-go-close-after-wait` has prose above its snippet; confirm the app renders it.

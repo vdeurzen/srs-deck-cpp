@@ -9,6 +9,7 @@ probes:
   2: { now: "2005" }
 requires:
   - atomics-modification-order
+  - cpp-basics/conc-single-counter-fix
 refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic/fetch_add
   - https://en.cppreference.com/w/cpp/atomic/memory_order

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [strings, format]
+requires:
+  - cpp-basics/fmt-spec-trace
 refs:
   - https://en.cppreference.com/w/cpp/utility/format/format
   - https://en.cppreference.com/w/cpp/utility/format/spec

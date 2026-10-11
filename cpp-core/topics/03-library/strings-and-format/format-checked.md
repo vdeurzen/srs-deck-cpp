@@ -10,6 +10,7 @@ choices:
 requires:
   - strings-format-placeholders
   - const-constexpr-consteval-immediate-function-cloze
+  - cpp-basics/fmt-misconception-checked-late
 compile:
   harness: |
     int main() { (void)label("ada", 7); }

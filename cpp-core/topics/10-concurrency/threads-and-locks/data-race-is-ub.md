@@ -6,6 +6,7 @@ level: 1
 tags: [concurrency, threads, memory-model, undefined-behaviour]
 requires:
   - ub-definition
+  - cpp-basics/conc-data-race-one-writer
 elaborate: Pick one object in your own code that two threads touch. What, exactly, orders their accesses — a lock, an atomic, a join — and if nothing does, why did it seem fine?
 refs:
   - https://en.cppreference.com/w/cpp/language/memory_model

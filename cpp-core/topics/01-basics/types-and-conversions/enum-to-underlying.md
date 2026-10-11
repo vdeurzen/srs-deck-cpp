@@ -15,6 +15,7 @@ compile:
     int main() {}
 requires:
   - types-enum-class
+  - cpp-basics/types-enum-fixed-underlying
 refs:
   - https://en.cppreference.com/w/cpp/utility/to_underlying
   - https://en.cppreference.com/w/cpp/utility/intcmp
