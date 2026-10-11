@@ -376,5 +376,5 @@ Cards bumped where the question changed. Open:
 - ~~cpp-basics gaps~~ closed 2026-10-11: 42 Cards (enum class, named casts,
   signed/unsigned rule, `= default`/`= delete`, comparisons and `<=>`,
   `unique_ptr`/`shared_ptr`, new topics 15-text-and-format and
-  16-concurrency-basics); 19 cpp-core entry Cards require them.
+  16-concurrency-basics); 17 cpp-core entry Cards require them.
 - `chunks-go-close-after-wait` has prose above its snippet; confirm the app renders it.
