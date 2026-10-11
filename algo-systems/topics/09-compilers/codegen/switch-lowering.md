@@ -8,8 +8,8 @@ input: chips
 choices:
   c1:
     - "static_cast<unsigned>(c - kLo) < 64u"
-    - "c - kLo < 64"
-    - "c >= kLo"
+    - "static_cast<int>(c - kLo) < 64"
+    - "static_cast<unsigned>(c) < kLo + 64u"
     - "static_cast<unsigned>(c - kLo) <= 64u"
 compile:
   harness: |

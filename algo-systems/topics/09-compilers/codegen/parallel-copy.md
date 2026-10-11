@@ -6,7 +6,7 @@ level: 4
 tags: [compilers, ssa, codegen, registers]
 input: chips
 choices:
-  c1: ["!read_later", "true", "read_later", "src[src[d]] == src[d]"]
+  c1: ["readers == 0", "true", "readers > 0", "src[src[d]] == src[d]", "readers == 0 || src[src[d]] == src[d]"]
 compile:
   harness: |
     constexpr Regs kStart{10, 11, 12, 13};
@@ -33,9 +33,9 @@ using Regs = std::array<int, 4>;
 constexpr Regs parallel_copy(std::array<int, 4> src, Regs r) {  // src[d] == d: no copy
   for (int round = 0; round < 4; ++round)
     for (int d = 0; d < 4; ++d) {
-      bool read_later = false;           // does a pending copy still read r[d]?
-      for (int e = 0; e < 4; ++e) read_later |= src[e] != e && src[e] == d;
-      if (src[d] != d && {{c1::!read_later}}) { r[d] = r[src[d]]; src[d] = d; }
+      int readers = 0;
+      for (int e = 0; e < 4; ++e) readers += src[e] != e && src[e] == d;
+      if (src[d] != d && {{c1::readers == 0}}) { r[d] = r[src[d]]; src[d] = d; }
     }
   return r;
 }
@@ -49,4 +49,5 @@ written first, while `r1` still holds the value it needs.
 
 Emitting in declaration order (`true`) is the naive φ lowering, and it
 overwrites `r1` before `r2` reads it. Checking the *source* instead of
-the destination lets a move clobber a value someone else still needs.
+the destination lets a move clobber a value someone else still needs,
+and allowing that as an alternative (`||`) lets the same clobber through.

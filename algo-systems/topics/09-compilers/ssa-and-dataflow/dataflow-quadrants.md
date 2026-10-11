@@ -11,8 +11,12 @@ refs:
   - https://en.wikipedia.org/wiki/Data-flow_analysis
 ---
 
-Analyses are named on two axes, direction and may/must. Reaching
-definitions is forward-may. Available expressions is
-forward-{{c1::must::the other quantifier}}, so its meet is
-{{c2::intersection::a set operation}} and its initial value is
-"everything". Liveness is {{c3::backward::a direction}}-may.
+Dataflow analyses differ in direction and in how they treat paths.
+
+- Available expressions asks whether `a + b` was computed on the way
+  here, so a block can reuse it: a forward
+  {{c1::must::a quantifier over paths}} analysis.
+- A fact required on every incoming path is merged at a join with
+  {{c2::intersection::a set operation}}.
+- Liveness asks whether `x` is read before it is overwritten: it is
+  propagated {{c3::backward::a direction}}.

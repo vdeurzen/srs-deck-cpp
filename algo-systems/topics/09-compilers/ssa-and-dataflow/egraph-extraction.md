@@ -18,7 +18,7 @@ elaborate: Bottom-up extraction counts a shared subterm once per user. When does
 
 **Extraction: pick the cheapest e-node per class under a cost function.**
 
-For a cost that sums over children, a bottom-up dynamic program does it,
-like optimal tree tiling. Costs that depend on sharing need ILP or
+For a cost that sums over children, a bottom-up dynamic program does it.
+Costs that depend on sharing need ILP or
 greedy search. Cranelift's mid-end uses an acyclic e-graph and extracts
 this way.

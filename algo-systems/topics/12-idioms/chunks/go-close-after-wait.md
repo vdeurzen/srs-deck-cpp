@@ -14,6 +14,8 @@ refs:
   - https://pkg.go.dev/sync#WaitGroup.Wait
 ---
 
+Workers send on `results`; `wg` counts the workers.
+
 ```go
 go func() {
 	wg.Wait()

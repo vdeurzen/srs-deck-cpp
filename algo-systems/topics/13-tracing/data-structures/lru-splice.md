@@ -19,7 +19,7 @@ refs:
 
 int main() {
   std::list<int> order{3, 2, 1};              // front = most recent
-  auto it = std::next(order.begin(), 2);      // the node holding 1
+  auto it = std::next(order.begin(), 2);
   order.splice(order.begin(), order, it);     // @1
   *it = 7;                                    // @2
 }

@@ -12,7 +12,7 @@ refs:
 elaborate: An invariant load is hoisted to the preheader of a loop that runs zero times. What must be true of the load for that to be safe?
 ---
 
-## LLVM's `LoopSimplify` gives every loop a *preheader* before LICM runs. What is that block for?
+## LLVM's `LoopSimplify` gives every loop a *preheader*. What is that block for?
 
 ---
 

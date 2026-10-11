@@ -16,5 +16,4 @@ function** per block, and a **direction**. Starting from the optimistic
 top and iterating until nothing changes reaches Kildall's
 {{c1::maximum fixpoint::a lattice term}}. The loop terminates because the
 lattice has {{c2::finite height::a property of its chains}} and every
-transfer function is {{c3::monotone::a property of each function}}, so
-each fact can only move down a bounded number of times.
+transfer function is {{c3::monotone::a property of each function}}.

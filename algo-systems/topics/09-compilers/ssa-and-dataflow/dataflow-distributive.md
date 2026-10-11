@@ -19,6 +19,11 @@ path 1: x = 1, y = 2      path 2: x = 2, y = 1
 join:   z = x + y         // 3 on both paths
 ```
 
+Each variable is ⊤ (no information yet), one constant, or ⊥ (not a
+constant); meeting two different constants gives ⊥. *Meet-over-all-paths*
+applies each path's transfer functions, then meets; the worklist (MFP)
+meets at each join first.
+
 ---
 
 **Distributivity: `f(a ⊓ b) = f(a) ⊓ f(b)` does not hold.**

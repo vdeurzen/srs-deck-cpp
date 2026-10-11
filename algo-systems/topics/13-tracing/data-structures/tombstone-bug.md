@@ -25,7 +25,7 @@ struct Table {                          // 8 slots, linear probing; 0 = empty
 };
 int main() {
   Table t{{0, 0, 0, 3, 11, 19, 0, 0}};  // 3, 11, 19 all hash to slot 3
-  bool has = true;                      // 19 is in the table
+  bool has = t.contains(19);
   t.key[4] = 0;                         // @1  "erase" 11: mark its slot empty
   has = t.contains(19);                 // @2
 }

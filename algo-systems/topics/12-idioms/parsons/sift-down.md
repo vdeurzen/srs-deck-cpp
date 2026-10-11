@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [heaps, arrays, invariants]
 distractors:
-  - "if (h[i] < h[parent]) std::swap(h[i], h[parent]);"
-  - "i = (i - 1) / 2;"
+  - "if (right < n && h[right] > h[i]) largest = right;"
+  - "std::swap(h[i], h[left]);"
 compile:
   harness: |
     constexpr std::array<int, 7> heapify(std::array<int, 7> a) {
@@ -46,10 +46,9 @@ constexpr void sift_down(std::array<int, 7>& h, std::size_t i) {
 
 ---
 
-Restoring the max-heap property below index `i`. The two distractors
-are the *sift-up* half of a heap — comparing against the parent and
-walking up with `(i − 1) / 2` — which is what `push` needs and what
-`pop` must not do.
+Restoring the max-heap property below index `i`. The distractors are
+the two classic slips: comparing the right child against `h[i]` rather
+than the current `largest`, and always swapping with the left child.
 
 Three things the order encodes. `largest` is compared against **both**
 children before any swap: swapping with the smaller child can leave it

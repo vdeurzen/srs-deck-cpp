@@ -9,7 +9,7 @@ probes:
   2: { "src[0]": "1", "src[1]": "4" }
   3: { "r[0]": "11", "r[1]": "10", "moves": "4" }
 requires:
-  - compiler-parallel-copy
+  - compiler-parallel-copy-cycle-break
 refs:
   - https://doi.org/10.1109/CGO.2009.19
 elaborate: Which single x86 instruction would replace the three scratch moves for a two-register cycle?

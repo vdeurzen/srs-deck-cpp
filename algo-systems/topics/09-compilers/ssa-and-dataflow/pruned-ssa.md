@@ -13,7 +13,7 @@ refs:
 elaborate: Semi-pruned SSA skips φs only for names never live across a block boundary. Why is that cheaper to compute than pruned SSA?
 ---
 
-## Minimal SSA can still insert a φ that nothing reads. Which φs does *pruned* SSA leave out?
+## *Pruned* SSA places fewer φs than minimal SSA. Which φs does it leave out?
 
 ---
 

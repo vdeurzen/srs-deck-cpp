@@ -52,7 +52,7 @@ constexpr Range widen(Range old, Range f) {
 **Widening** jumps a bound that is still moving straight to infinity and
 leaves a bound that held still alone. Each bound can jump at most once, so
 the iteration terminates in a couple of rounds: the finite-height
-hypothesis that `compiler-worklist-dataflow` needs, recovered by force.
+requirement of worklist analyses, recovered by force.
 
 The distractors are the real mistakes. Widening both ends unconditionally
 terminates but loses `i ≥ 0`, so a bounds check can never be removed.

@@ -1,18 +1,18 @@
 ---
 id: compiler-backend-phases
 kind: basic
-version: 2
+version: 3
 level: 2
 tags: [compilers, codegen, llvm]
 refs:
   - https://llvm.org/docs/CodeGenerator.html#high-level-design-of-the-code-generator
 ---
 
-## LLVM's back end turns optimised IR into machine code. Name the phase that picks target instructions, then the later one that assigns physical registers.
+## LLVM's code generator runs both instruction selection and register allocation. Why must instruction selection run first?
 
 ---
 
-**Instruction selection, over unlimited virtual registers; then register allocation.**
+**It needs no physical registers: it uses unlimited virtual registers, and allocation needs the chosen instructions.**
 
 ```
 LLVM IR
@@ -24,5 +24,5 @@ LLVM IR
 ```
 
 Selection can ignore register pressure because registers are still
-virtual; allocation fits them into the target's few, spilling to stack
-slots.
+virtual; allocation then fits them into the target's few, using the
+register classes and constraints the selected instructions impose.

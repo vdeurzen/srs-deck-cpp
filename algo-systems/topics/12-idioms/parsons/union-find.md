@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [union-find, amortised, compilers]
 distractors:
-  - "if (rank[a] < rank[b]) std::swap(a, b);"
+  - "size[b] += size[a];"
   - "parent[a] = b;"
 compile:
   harness: |
@@ -19,6 +19,7 @@ compile:
     static_assert(built().connected(1, 3));
     static_assert(!built().connected(1, 4));
     static_assert(built().size[built().find(3)] == 4);
+    static_assert(built().size[1] == 1);   // an absorbed root's count is left alone
     int main() {}
 requires:
   - graph-union-find
@@ -63,8 +64,8 @@ hangs under the larger, and finally maintain the size of the new root.
 The `find` calls must also run *before* the size comparison: comparing
 the sizes of non-roots orients the merge on meaningless counts.
 
-The distractors are the rank-based variant's line (`rank`, not `size`,
-and this structure keeps sizes) and the merge oriented the wrong way
+The distractors are the size update on the wrong node
+(`size[b] += size[a];`, which leaves the new root's count stale) and the merge oriented the wrong way
 round (`parent[a] = b;`), which still compiles and still connects the
 right vertices, but hangs the larger tree under the smaller and
 maintains `size` on a node that is no longer a root — it shows up only

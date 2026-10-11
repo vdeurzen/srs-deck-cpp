@@ -12,7 +12,7 @@ refs:
   - https://en.wikipedia.org/wiki/Big_O_notation
 ---
 
-## `std::sort` is O(n log n); insertion sort is O(n²). In libstdc++, what does `std::sort` run on a 12-element range?
+## `std::sort` is O(n log n). In libstdc++, which algorithm actually orders a 12-element range?
 
 ---
 

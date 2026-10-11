@@ -25,9 +25,9 @@ refs:
 elaborate: Liveness starts every set empty. Why would starting available expressions empty give a correct but useless answer?
 ---
 
-Available expressions: an expression is available on entry to a block
-only if every predecessor makes it available. Complete how each
-predecessor's output folds in.
+Available expressions lets a block reuse `a + b` instead of recomputing
+it. Complete how each predecessor's output folds into the block's
+input.
 
 ```cpp
 constexpr unsigned avail_in(const unsigned* avail_out, unsigned preds, bool entry) {

@@ -5,8 +5,8 @@ version: 1
 level: 4
 tags: [sorting, radix, databases]
 distractors:
-  - "std::sort(out.begin(), out.end());"
   - "count[k] = total + c;"
+  - "for (const int v : in) out[count[static_cast<std::size_t>(v)]] = v;"
 compile:
   harness: |
     constexpr std::array<int, 8> kIn{3, 1, 4, 1, 5, 9, 2, 6};
@@ -52,7 +52,8 @@ The exclusive prefix sum is the subtle part, and the first distractor
 (`count[k] = total + c`, an *inclusive* sum) is the classic
 off-by-one: after it, `count[k]` points one past the last slot for key
 `k` rather than at the first, and the scatter writes every group one
-position too far right, corrupting the neighbouring group.
+position too far right, corrupting the neighbouring group. The second drops the
+post-increment, so every copy of a key lands in the same slot.
 
 **Stability** comes from scanning the input forward while
 post-incrementing the offsets: equal keys are written left to right in

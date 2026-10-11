@@ -28,8 +28,7 @@ refs:
 
 The Cooper–Harvey–Kennedy dominator algorithm needs one helper: the
 nearest common ancestor of two blocks in the partially built dominator
-tree. Blocks are numbered in **postorder**, so a block's dominators
-always have *higher* numbers. Complete the walk.
+tree. Blocks are numbered in **postorder**. Complete the walk.
 
 ```cpp
 #include <span>
