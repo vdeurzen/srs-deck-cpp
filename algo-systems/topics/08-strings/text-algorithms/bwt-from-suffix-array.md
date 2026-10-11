@@ -6,7 +6,7 @@ level: 5
 tags: [strings, indexing, compression]
 input: chips
 choices:
-  c1: ["(sa[i] + 6) % 7", "sa[i]", "(sa[i] + 1) % 7", "sa[i] - 1"]
+  c1: ["(sa[i] + 6) % 7", "(sa[i] + 1) % 7", "(sa[i] + 5) % 7", "sa[i] % 7", "sa[i] - 1"]
 compile:
   harness: |
     constexpr std::array<int, 7> sa{6, 5, 3, 1, 0, 4, 2};
@@ -42,7 +42,8 @@ constexpr std::array<char, 7> bwt(std::string_view s, std::array<int, 7> sa) {
 The character before suffix `sa[i]` is at `sa[i] − 1`, and for the
 whole string (`sa[i] == 0`) the predecessor wraps to the sentinel at
 6. Adding n − 1 mod n is that wrap without a negative index: `sa[i] − 1`
-reads `s[-1]`, which a constant expression rejects.
+reads `s[-1]`, which a constant expression rejects; `+ 1` reads the
+character after, `+ 5` two before, `% 7` the suffix's own first.
 
 The transform groups characters by the context that follows them, so
 `banana$` becomes `annb$aa`, with runs that compress well (bzip2). The

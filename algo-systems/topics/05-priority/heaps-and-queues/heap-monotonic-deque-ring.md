@@ -18,7 +18,7 @@ refs:
 
 **Evict the expired front before pushing; then every stored index is in-window: at most w.**
 
-Push first, as the usual snippet does, and a strictly decreasing run
+Run a push-then-evict loop instead and a strictly decreasing run
 briefly holds w + 1 indices. Evicting first, a power-of-two ring needs no
 allocation and no `std::deque` block map; storing indices keeps the
 window test pure arithmetic.

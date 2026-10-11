@@ -6,6 +6,7 @@ level: 5
 tags: [graphs, compilers, dataflow]
 requires:
   - graph-topo-dfs-cycle
+  - compiler-worklist-dataflow
 refs:
   - https://doi.org/10.1145/321921.321938
   - https://en.wikipedia.org/wiki/Data-flow_analysis#Iterative_algorithm

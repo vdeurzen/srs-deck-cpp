@@ -34,8 +34,8 @@ refs:
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure
 ---
 
-Complete `find` so that it performs **path halving**: every node on the
-path is pointed at its grandparent as the walk goes up.
+Complete `find` so that it performs **path halving**: one loop, no
+second pass, and the path it walks gets roughly half as long.
 
 ```cpp
 #include <array>

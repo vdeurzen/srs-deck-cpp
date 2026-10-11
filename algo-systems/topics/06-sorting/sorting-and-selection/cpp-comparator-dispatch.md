@@ -20,5 +20,5 @@ refs:
 **The lambda's unique type instantiates `std::sort` with an inlinable call; `std::function` adds an indirect call.**
 
 Measured, GCC 16.2 `-O2`, 2²⁰ random `long`s: 82 ms vs 114 ms. The cost
-belongs to the dispatch mechanism, not the language: it is Go's
-`sort.Sort` cost, reproduced in C++.
+is the dispatch mechanism: an opaque call per comparison that the
+optimiser cannot inline into the partition loop.

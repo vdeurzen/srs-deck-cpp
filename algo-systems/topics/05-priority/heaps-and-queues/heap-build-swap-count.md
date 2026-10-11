@@ -17,10 +17,15 @@ refs:
 
 ```cpp
 // a and b: std::array<int, 15> holding 1, 2, ..., 15 (a full 4-level tree).
-// sift_down(h, i) is heap-array-layout's; it and sift_up count every swap.
 void sift_up(std::array<int, 15>& h, std::size_t i) {
-  while (i > 0 && h[(i - 1) / 2] < h[i]) {
-    std::swap(h[(i - 1) / 2], h[i]); ++swaps; i = (i - 1) / 2;
+  for (; i > 0 && h[(i - 1) / 2] < h[i]; i = (i - 1) / 2, ++swaps)
+    std::swap(h[(i - 1) / 2], h[i]);
+}
+void sift_down(std::array<int, 15>& h, std::size_t i) {
+  for (std::size_t c; (c = 2 * i + 1) < 15; i = c, ++swaps) {
+    if (c + 1 < 15 && h[c + 1] > h[c]) ++c;   // larger child
+    if (h[i] >= h[c]) return;
+    std::swap(h[i], h[c]);
   }
 }
 
@@ -47,6 +52,5 @@ half the array, cost nothing. Both arrays end with 15 at the root.
 Grow the tree and the gap widens: the push-build's total is about
 n log n, the bulk build's stays below n.
 
-Verified by compiling and running an instrumented copy (with
-heap-array-layout's `sift_down` widened to 15 elements) under GCC 16.2,
+Verified by compiling and running an instrumented copy under GCC 16.2,
 `g++ -std=c++23 -Wall -Wextra`, printing both counters.

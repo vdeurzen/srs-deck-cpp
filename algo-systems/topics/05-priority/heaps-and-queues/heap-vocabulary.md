@@ -14,7 +14,7 @@ refs:
 A binary heap is a {{c1::complete::a tree shape}} binary tree, so it
 needs no pointers: the array index alone says where each child and parent
 is. Push costs O(log n) by sifting {{c2::up::a direction}}, pop costs
-O(log n) by moving the last element to the root and sifting down, and
+O(log n) by moving the last element to the root and restoring order, and
 reading the maximum costs {{c3::O(1)::a complexity}}.
 
 What a heap deliberately cannot do cheaply: find an arbitrary element,

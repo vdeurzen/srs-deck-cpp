@@ -14,7 +14,8 @@ refs:
 
 Single source: pick the algorithm from the weights, not from habit.
 All edges of equal weight: plain {{c1::BFS::hop counts in a network}}.
-Weights drawn from {0, 1}: 0-1 BFS, which keeps the frontier sorted in a
+Weights drawn from {0, 1}: the 0-1 variant of that search, which keeps
+the frontier sorted in a
 {{c2::deque::free moves versus paid moves on a grid}} instead of a heap,
 also O(V + E). Arbitrary non-negative weights: Dijkstra,
 O((V + E) log V). Any negative weight:

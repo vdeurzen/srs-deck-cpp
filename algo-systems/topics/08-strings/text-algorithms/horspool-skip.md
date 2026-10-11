@@ -6,7 +6,7 @@ level: 4
 tags: [strings, scanning]
 input: chips
 choices:
-  c1: ["shift[(unsigned char)t[i + m - 1]]", "1", "m", "shift[(unsigned char)t[i]]"]
+  c1: ["shift[(unsigned char)t[i + m - 1]]", "shift[(unsigned char)t[i]]", "shift[(unsigned char)p[m - 1]]", "shift[(unsigned char)t[i + m]]"]
 compile:
   harness: |
     constexpr std::array<int, 2> run(std::string_view t, std::string_view p) {
@@ -25,9 +25,9 @@ refs:
   - https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore%E2%80%93Horspool_algorithm
 ---
 
-`shift[c]` is how far the pattern may slide when `c` sits under its
-last position: the distance from `c`'s last occurrence in `p[0..m-2]`
-to the end, or `m`. Complete the step between alignments.
+`shift[c]` is the distance from `c`'s last occurrence in `p[0..m-2]`
+to the end of `p`, or `m` if `c` is absent. Complete the step between
+alignments.
 
 ```cpp
 #include <array>
@@ -50,7 +50,8 @@ constexpr int horspool(std::string_view t, std::string_view p, int& tries) {
 The text character under the pattern's **last** position decides the
 jump: the pattern slides until its rightmost earlier copy of that
 character lines up, or past it entirely. On "here is a simple example"
-that is 5 alignments instead of 18. `1` is correct but naive (the
-harness counts tries); `m` skips real matches; `t[i]` keys the table on
-the wrong character. The pattern's last character is excluded from the
+that is 5 alignments instead of 18. `t[i]` keys the table on the
+wrong character; `p[m - 1]` is always `m` and skips real matches;
+`t[i + m]` is Sunday's variant, which needs a table built over all
+of `p`. The pattern's last character is excluded from the
 table, so a shift is never 0.

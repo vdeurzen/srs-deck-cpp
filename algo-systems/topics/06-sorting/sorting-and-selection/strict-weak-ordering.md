@@ -6,7 +6,7 @@ level: 3
 tags: [sorting, undefined-behaviour, invariants]
 input: chips
 choices:
-  c1: ["x < y", "x <= y", "!(y < x)", "!(x > y)"]
+  c1: ["x < y", "x <= y", "!(y < x)", "!(x > y)", "x > y"]
 compile:
   harness: |
     static_assert(sorts_ascending());
@@ -20,8 +20,7 @@ refs:
   - https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libstdc%2B%2B-v3/include/bits/stl_algo.h
 ---
 
-Many entries share a value. Complete the comparator so `std::sort`
-orders the array ascending.
+Complete the comparator so `std::sort` orders the array ascending.
 
 ```cpp
 #include <algorithm>
@@ -37,9 +36,9 @@ constexpr bool sorts_ascending() {
 ---
 
 `std::sort` requires a **strict weak ordering**: in particular
-`cmp(x, x)` must be `false`. The three distractors are all `<=` in
-disguise, and they are not "a different order for equal elements" —
-they are undefined behaviour. libstdc++'s `__unguarded_partition` scans
+`cmp(x, x)` must be `false`. `x > y` is a valid ordering, just
+descending. The other three are all `<=` in disguise, and they are not
+"a different order for equal elements" — they are undefined behaviour. libstdc++'s `__unguarded_partition` scans
 `while (comp(*first, *pivot)) ++first;` with no bounds check, relying on
 the comparator to stop at an element not less than the pivot; with
 `<=` the pivot itself never stops it. GCC 16.2 evaluating this at
