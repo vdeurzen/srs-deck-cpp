@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [graphs, vocabulary, representation]
+requires:
+  - graph-edge-ordered-pair
 refs:
   - https://en.wikipedia.org/wiki/Directed_graph
 elaborate: Which relation in your own code looks symmetric but is not — calls, imports, foreign keys?

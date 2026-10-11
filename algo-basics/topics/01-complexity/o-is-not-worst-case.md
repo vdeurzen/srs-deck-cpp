@@ -7,6 +7,7 @@ tags: [complexity, big-o, best-worst-average, misconception]
 requires:
   - complexity-o-omega-theta
   - complexity-best-worst-linear-search
+  - complexity-asym-o-is-not-worst-case
 elaborate: Pick a function you know well. State its best case and worst case each as a Θ bound.
 refs:
   - https://dl.acm.org/doi/10.1145/1008328.1008329

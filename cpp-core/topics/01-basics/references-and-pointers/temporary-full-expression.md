@@ -6,6 +6,8 @@ level: 1
 tags: [lifetime, temporaries, tracing]
 requires:
   - raii-storage-durations
+  - cpp-basics/vc-trace-extended-temporary
+  - cpp-basics/life-temporary-full-expression
 probes:
   1: { trail: "t~t", first: "t" }
   2: { trail: "t~tl" }

@@ -7,6 +7,7 @@ tags: [exceptions, error-handling]
 requires:
   - exceptions-unwinding-destroys-locals
   - vocab-expected-carries-error
+  - cpp-basics/err-pick-a-channel
 refs:
   - https://en.cppreference.com/w/cpp/language/exceptions
   - https://en.cppreference.com/w/cpp/utility/expected

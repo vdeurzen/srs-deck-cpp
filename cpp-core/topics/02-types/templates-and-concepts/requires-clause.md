@@ -17,6 +17,7 @@ compile:
     int main() {}
 requires:
   - templates-concepts-vs-sfinae
+  - cpp-basics/tmpl-constrained-auto
 refs:
   - https://en.cppreference.com/w/cpp/concepts/integral
 ---

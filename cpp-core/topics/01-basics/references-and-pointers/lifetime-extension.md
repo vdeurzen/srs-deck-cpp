@@ -6,6 +6,7 @@ level: 2
 tags: [references, lifetime, temporaries]
 requires:
   - ptr-temporary-full-expression
+  - cpp-basics/vc-trace-extended-temporary
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization#Lifetime_of_a_temporary
   - https://timsong-cpp.github.io/cppwp/n4950/class.temporary#6

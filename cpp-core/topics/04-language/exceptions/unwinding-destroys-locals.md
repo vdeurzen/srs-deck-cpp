@@ -6,6 +6,7 @@ level: 1
 tags: [exceptions, raii]
 requires:
   - raii-scope-exit-order
+  - cpp-basics/err-unwind-runs-destructors
 refs:
   - https://en.cppreference.com/w/cpp/language/throw
   - https://eel.is/c++draft/except.ctor

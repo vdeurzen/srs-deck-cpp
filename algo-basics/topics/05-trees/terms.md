@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 1
 tags: [trees, vocabulary]
+requires:
+  - tree-recursive-def
 refs:
   - https://en.wikipedia.org/wiki/Binary_tree
   - https://en.wikipedia.org/wiki/Tree_(data_structure)

@@ -6,6 +6,7 @@ level: 2
 tags: [trees, bst, complexity]
 requires:
   - tree-bst-property
+  - tree-bst-search-steps
 input: chips
 choices:
   c1: ["k < t.key[v]", "k > t.key[v]", "t.key[v] < k", "v < k"]

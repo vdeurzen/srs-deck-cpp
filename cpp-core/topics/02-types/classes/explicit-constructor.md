@@ -12,6 +12,8 @@ compile:
     static_assert(std::is_constructible_v<Meters, double>);
     static_assert(!std::is_convertible_v<double, Meters>);
     int main() {}
+requires:
+  - cpp-basics/class-converting-constructor
 refs:
   - https://en.cppreference.com/w/cpp/language/explicit
   - https://en.cppreference.com/w/cpp/language/converting_constructor

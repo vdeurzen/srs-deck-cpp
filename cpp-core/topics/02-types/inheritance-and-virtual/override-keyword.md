@@ -18,6 +18,7 @@ compile:
     int main() {}
 requires:
   - virtual-dispatch-dynamic-type
+  - cpp-basics/virtual-override-mismatch
 refs:
   - https://en.cppreference.com/w/cpp/language/override
 ---

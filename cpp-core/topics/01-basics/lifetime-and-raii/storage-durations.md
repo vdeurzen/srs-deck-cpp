@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 1
 tags: [lifetime, raii, storage-duration]
+requires:
+  - cpp-basics/life-scope-automatic
 refs:
   - https://en.cppreference.com/w/cpp/language/storage_duration
   - https://timsong-cpp.github.io/cppwp/n4950/basic.stc.general

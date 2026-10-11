@@ -6,6 +6,7 @@ level: 2
 tags: [auto, references, const]
 requires:
   - ptr-reference-vs-pointer
+  - cpp-basics/types-auto-drops-const
 input: chips
 choices:
   c1: ["const auto&", "auto", "const auto", "auto*"]

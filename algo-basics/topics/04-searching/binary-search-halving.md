@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [binary-search, complexity]
+requires:
+  - search-unsorted-input-trace
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm
   - https://en.cppreference.com/w/cpp/algorithm/binary_search

@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [classes, invariants]
+requires:
+  - cpp-basics/class-invariant-who-checks
 refs:
   - https://en.cppreference.com/w/cpp/language/access
   - https://en.cppreference.com/w/cpp/language/constructor

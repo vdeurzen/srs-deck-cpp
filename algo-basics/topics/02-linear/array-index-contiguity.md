@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [arrays, linked-lists, complexity]
+requires:
+  - linear-address-formula
 refs:
   - https://en.cppreference.com/w/cpp/container/vector
   - https://en.cppreference.com/w/cpp/container/list

@@ -6,6 +6,7 @@ level: 2
 tags: [exceptions, noexcept]
 requires:
   - exceptions-unwinding-destroys-locals
+  - cpp-basics/err-noexcept-broken-promise
 refs:
   - https://en.cppreference.com/w/cpp/language/noexcept_spec
   - https://en.cppreference.com/w/cpp/error/terminate

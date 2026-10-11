@@ -6,6 +6,7 @@ level: 2
 tags: [queues, ring-buffers]
 requires:
   - linear-array-insert-shift
+  - linear-queue-adt
 refs:
   - https://en.cppreference.com/w/cpp/container/queue
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 10 (queues)

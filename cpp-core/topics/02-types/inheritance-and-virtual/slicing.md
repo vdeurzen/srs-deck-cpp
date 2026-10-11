@@ -10,6 +10,7 @@ probes:
   2: { b: "..." }
 requires:
   - virtual-dispatch-dynamic-type
+  - cpp-basics/virtual-slice-parameter
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_constructor
   - https://en.cppreference.com/w/cpp/language/virtual

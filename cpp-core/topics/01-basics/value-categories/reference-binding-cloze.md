@@ -6,6 +6,7 @@ level: 2
 tags: [value-categories, references]
 requires:
   - value-categories-categories-cloze
+  - cpp-basics/vc-const-ref-binds-both
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
 ---

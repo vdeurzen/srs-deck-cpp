@@ -14,6 +14,8 @@ compile:
     static_assert(digits(10) == 2);
     static_assert(digits(12'345) == 5);
     int main() {}
+requires:
+  - technique-recursion-progress
 refs:
   - https://en.wikipedia.org/wiki/Recursion_(computer_science)#Base_case
 ---

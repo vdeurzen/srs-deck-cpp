@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [linkage, translation-units]
+requires:
+  - cpp-basics/linkage-include-is-paste
 refs:
   - https://en.cppreference.com/w/cpp/language/translation_phases
   - https://en.cppreference.com/w/cpp/language/storage_duration#Linkage

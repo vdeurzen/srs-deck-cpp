@@ -7,6 +7,7 @@ tags: [lambdas, tracing]
 requires:
   - lambda-closure-type
   - trace-copy-vs-reference
+  - cpp-basics/stdalgo-capture-ref-vs-copy
 probes:
   1: { a: "1", b: "5" }
   2: { c: "8" }

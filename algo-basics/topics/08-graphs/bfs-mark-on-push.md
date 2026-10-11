@@ -6,6 +6,7 @@ level: 2
 tags: [graphs, traversal, bugs]
 requires:
   - graph-bfs-trace
+  - graph-no-visited-loop-trace
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode
 elaborate: Where else does "mark when you enqueue, not when you process" apply — a work list, a crawler, a job queue?

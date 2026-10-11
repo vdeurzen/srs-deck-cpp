@@ -6,6 +6,7 @@ level: 1
 tags: [hashing, sets, maps]
 requires:
   - complexity-big-o-scaling
+  - hashing-set-map-ops-trace
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_set
   - https://en.cppreference.com/w/cpp/container/unordered_map

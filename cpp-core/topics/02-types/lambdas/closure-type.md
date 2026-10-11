@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [lambdas, callables]
+requires:
+  - cpp-basics/stdalgo-lambda-syntax
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda
   - https://eel.is/c++draft/expr.prim.lambda.closure

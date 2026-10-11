@@ -13,6 +13,7 @@ compile:
     int main() {}
 requires:
   - types-int-width
+  - cpp-basics/types-short-math-trace
 refs:
   - https://en.cppreference.com/w/cpp/language/implicit_conversion#Integral_promotion
   - https://eel.is/c++draft/conv.prom

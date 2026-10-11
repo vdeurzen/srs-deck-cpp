@@ -6,6 +6,7 @@ level: 2
 tags: [complexity, big-o]
 requires:
   - complexity-drop-terms
+  - complexity-asym-big-o-witness
 input: chips
 choices:
   c1: ["101", "100", "1", "7"]

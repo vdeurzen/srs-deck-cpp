@@ -6,6 +6,7 @@ level: 1
 tags: [hashing, hash-functions]
 requires:
   - hashing-chaining
+  - hashing-contract-direction
 refs:
   - https://en.cppreference.com/w/cpp/named_req/Hash
 ---

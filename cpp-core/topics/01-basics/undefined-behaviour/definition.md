@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [undefined-behaviour]
+requires:
+  - cpp-basics/ub-passing-tests-prove-nothing
 refs:
   - https://en.cppreference.com/w/cpp/language/ub
   - https://timsong-cpp.github.io/cppwp/n4950/intro.abstract#5

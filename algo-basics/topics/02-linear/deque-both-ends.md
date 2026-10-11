@@ -6,6 +6,7 @@ level: 2
 tags: [deques, queues]
 requires:
   - linear-queue-ring
+  - linear-deque-ends-trace
 refs:
   - https://en.cppreference.com/w/cpp/container/deque
 ---

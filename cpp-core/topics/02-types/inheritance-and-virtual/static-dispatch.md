@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [inheritance, virtual]
+requires:
+  - cpp-basics/virtual-dispatch-which-runs
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
 elaborate: Go interface methods always dispatch on the dynamic type. Where in a C++ class hierarchy does that default flip, and why might C++ have chosen it?

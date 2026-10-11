@@ -14,6 +14,7 @@ compile:
     int main() {}
 requires:
   - class-invariant-constructor
+  - cpp-basics/class-struct-vs-class
 refs:
   - https://en.cppreference.com/w/cpp/language/class
   - https://en.cppreference.com/w/cpp/language/access

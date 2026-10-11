@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [graphs, mst, greedy]
+requires:
+  - graph-spanning-tree-weight
 refs:
   - https://en.wikipedia.org/wiki/Minimum_spanning_tree#Cut_property
   - https://doi.org/10.1090/S0002-9939-1956-0078686-7

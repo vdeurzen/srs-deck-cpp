@@ -6,6 +6,7 @@ level: 1
 tags: [divide-and-conquer, recursion]
 requires:
   - technique-recursion-base-case
+  - technique-recursion-induction
 refs:
   - https://en.wikipedia.org/wiki/Divide-and-conquer_algorithm
   - https://dl.acm.org/doi/10.1145/1008861.1008865

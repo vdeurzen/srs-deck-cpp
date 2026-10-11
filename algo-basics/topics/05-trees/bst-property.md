@@ -6,6 +6,7 @@ level: 1
 tags: [trees, bst, invariants]
 requires:
   - tree-terms
+  - tree-bst-rule
 refs:
   - https://doi.org/10.1145/321105.321108
   - https://en.wikipedia.org/wiki/Binary_search_tree

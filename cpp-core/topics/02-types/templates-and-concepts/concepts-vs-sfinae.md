@@ -6,6 +6,7 @@ level: 3
 tags: [templates, concepts]
 requires:
   - templates-instantiation
+  - cpp-basics/tmpl-concept-error
 refs:
   - https://en.cppreference.com/w/cpp/language/constraints
   - https://en.cppreference.com/w/cpp/language/sfinae

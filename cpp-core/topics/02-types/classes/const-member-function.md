@@ -12,6 +12,9 @@ compile:
     constexpr int peek(const Counter& c) { return c.value(); }
     static_assert(peek(Counter{}) == 0);
     int main() {}
+requires:
+  - cpp-basics/const-member-on-const-ref
+  - cpp-basics/class-const-object-call
 refs:
   - https://en.cppreference.com/w/cpp/language/member_functions#Member_functions_with_cv-qualifiers
 ---

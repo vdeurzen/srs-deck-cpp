@@ -6,6 +6,7 @@ level: 1
 tags: [complexity, big-o]
 requires:
   - complexity-big-o-scaling
+  - complexity-asym-crossover-trace
 refs:
   - https://en.wikipedia.org/wiki/Time_complexity#Table_of_common_time_complexities
 ---

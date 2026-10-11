@@ -7,6 +7,7 @@ tags: [heaps, arrays, tracing]
 requires:
   - heap-shape-and-order
   - linear-array-index-contiguity
+  - heap-child-index-code
 probes:
   1: { l: "30", r: "50" }
   2: { p: "80" }

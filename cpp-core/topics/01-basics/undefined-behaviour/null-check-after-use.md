@@ -7,6 +7,7 @@ tags: [undefined-behaviour, optimisation]
 requires:
   - ub-definition
   - types-signed-overflow-ub
+  - cpp-basics/ub-optimiser-assumes-no-overflow
 refs:
   - https://en.cppreference.com/w/cpp/language/ub
   - https://timsong-cpp.github.io/cppwp/n4950/intro.abstract#5

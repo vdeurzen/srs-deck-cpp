@@ -5,6 +5,7 @@ version: 1
 level: 1
 requires:
   - graph-vocabulary
+  - graph-edge-query-costs
 tags: [graphs, representation, memory]
 refs:
   - https://en.wikipedia.org/wiki/Adjacency_list

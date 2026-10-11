@@ -6,6 +6,7 @@ level: 2
 tags: [value-categories, temporaries, lifetime, tracing]
 requires:
   - vc-const-ref-binds-both
+  - life-temporary-full-expression
 probes:
   1: { a: "0" }
   2: { b: "1" }

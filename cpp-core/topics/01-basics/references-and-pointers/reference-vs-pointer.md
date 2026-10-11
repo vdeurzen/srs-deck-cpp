@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [pointers, references]
+requires:
+  - cpp-basics/ptr-pointer-param-meaning
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
   - https://en.cppreference.com/w/cpp/language/pointer

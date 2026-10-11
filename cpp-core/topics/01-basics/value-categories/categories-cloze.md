@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 1
 tags: [value-categories]
+requires:
+  - cpp-basics/vc-classify-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category
 ---

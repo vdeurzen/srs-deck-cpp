@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [containers]
+requires:
+  - cpp-basics/iter-size-vs-capacity
 refs:
   - https://en.cppreference.com/w/cpp/container/vector
   - https://en.cppreference.com/w/cpp/container

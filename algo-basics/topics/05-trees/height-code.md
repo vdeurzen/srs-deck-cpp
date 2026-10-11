@@ -7,6 +7,7 @@ tags: [trees, recursion, traversal]
 requires:
   - tree-traversal-orders
   - technique-recursion-base-case
+  - tree-size-height-trace
 input: chips
 choices:
   c1: ["1 + std::max(l, r)", "std::max(l, r)", "1 + std::min(l, r)", "1 + l + r"]

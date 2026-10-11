@@ -12,6 +12,8 @@ compile:
     constexpr int data[] = {0, 7, 0, 0};
     static_assert(count_zero(data, data + 4) == 3);
     int main() {}
+requires:
+  - cpp-basics/const-pointer-read-rule
 refs:
   - https://en.cppreference.com/w/cpp/language/cv
   - https://en.cppreference.com/w/cpp/language/pointer

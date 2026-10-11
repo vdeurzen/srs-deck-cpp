@@ -7,6 +7,7 @@ tags: [exceptions, misconception, tracing]
 elaborate: Your codebase throws its own exception hierarchy. What else, besides the message, would a by-value `catch` of the base class lose?
 requires:
   - virtual-slicing
+  - cpp-basics/err-catch-by-reference-why
 probes:
   1: { value_kept: "false" }
   2: { ref_kept: "true" }

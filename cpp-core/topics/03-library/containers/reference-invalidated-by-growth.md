@@ -14,6 +14,7 @@ compile:
 requires:
   - containers-default-to-vector
   - ptr-dangling
+  - cpp-basics/iter-growth-invalidates
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://en.cppreference.com/w/cpp/container#Iterator_invalidation

@@ -6,6 +6,7 @@ level: 1
 tags: [heaps, invariants, trees]
 requires:
   - tree-complete-shape
+  - heap-middle-ground
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://en.wikipedia.org/wiki/Binary_heap

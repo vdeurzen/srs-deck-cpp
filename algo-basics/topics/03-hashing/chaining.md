@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 1
 tags: [hashing, chaining]
+requires:
+  - hashing-pigeonhole
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 11
   - https://en.cppreference.com/w/cpp/container/unordered_map

@@ -8,6 +8,7 @@ elaborate: Where in your own code is a collection sorted just to be searched onc
 requires:
   - search-binary-search-halving
   - complexity-growth-ladder
+  - search-linear-scan-cost
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/sort
   - https://en.cppreference.com/w/cpp/algorithm/find

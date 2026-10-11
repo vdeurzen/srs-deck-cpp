@@ -6,6 +6,7 @@ level: 2
 tags: [complexity, recurrences]
 requires:
   - complexity-recursion-tree-calls
+  - complexity-cost-trace-merge-recurrence
 input: chips
 choices:
   c1: ["n * lg", "n * n", "2 * n", "n + lg"]

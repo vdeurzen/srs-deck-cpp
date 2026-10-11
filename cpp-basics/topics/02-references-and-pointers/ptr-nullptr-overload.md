@@ -6,6 +6,7 @@ level: 1
 tags: [pointers, nullptr, overload-resolution]
 requires:
   - ptr-holds-an-address
+  - fn-overload-ranking
 input: chips
 choices:
   c1: ["nullptr", "0", "NULL", "'\\0'"]

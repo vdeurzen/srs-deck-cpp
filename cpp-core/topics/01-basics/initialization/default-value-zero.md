@@ -6,6 +6,7 @@ level: 2
 tags: [initialization]
 requires:
   - raii-storage-durations
+  - cpp-basics/types-uninit-local-read
 refs:
   - https://en.cppreference.com/w/cpp/language/default_initialization
   - https://en.cppreference.com/w/cpp/language/value_initialization

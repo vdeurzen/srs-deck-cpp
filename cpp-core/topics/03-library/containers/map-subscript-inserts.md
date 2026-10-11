@@ -8,6 +8,7 @@ elaborate: In Go, `m["pear"]` on a missing key returns the zero value and leaves
 requires:
   - containers-map-vs-unordered-map
   - initialization-default-value-zero
+  - cpp-basics/iter-map-subscript-inserts
 probes:
   1: { pears: "0" }
   2: { listed: "true", n: "2" }

@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 1
 tags: [complexity, big-o]
+requires:
+  - complexity-asym-step-model
 refs:
   - https://dl.acm.org/doi/10.1145/1008328.1008329
   - https://en.wikipedia.org/wiki/Big_O_notation

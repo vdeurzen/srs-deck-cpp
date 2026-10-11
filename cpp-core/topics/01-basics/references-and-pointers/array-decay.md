@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 1
 tags: [pointers, arrays]
+requires:
+  - cpp-basics/ptr-pass-whole-array
 refs:
   - https://en.cppreference.com/w/cpp/language/implicit_conversion#Array-to-pointer_conversion
   - https://en.cppreference.com/w/cpp/container/span

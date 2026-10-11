@@ -9,7 +9,13 @@ every Card, at least half of each topic hands-on (`trace`, `code`, `chunk`).
 `algo-systems` builds on this Deck (see its `deck.yaml` `relations`): its
 Cards that assume a textbook concept `require` the matching `algo-basics/<id>`
 Card, so finishing this Deck is what unlocks it. This Deck builds on
-`cpp-core` for the few C++ facts its code assumes.
+`cpp-basics` and `cpp-core` for the few C++ facts its code assumes.
+
+Cards tagged `foundations` are the ground floor: definitions (O, Ω, Θ, o, ω
+with c and n₀), deriving a loop's cost, ADTs, lists, hashing, search, recursion,
+invariants, trees, sorting and graphs from scratch. Semi-formal: intuition first,
+apply/decide fronts. They require only each other, and the older Cards in each
+topic require them, so the scheduler deals them first.
 
 | Topic | Covers |
 | --- | --- |
@@ -29,5 +35,5 @@ run; every Card cites a source in `refs`.
 
 ## Validating
 
-    tool/validate cpp-core algo-basics algo-systems
-    scripts/check-code cpp-core algo-basics algo-systems
+    tool/validate cpp-basics cpp-core algo-basics algo-systems
+    scripts/check-code cpp-basics cpp-core algo-basics algo-systems

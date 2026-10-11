@@ -6,6 +6,7 @@ level: 2
 tags: [raii, lifetime, special-members]
 requires:
   - raii-owner-in-destructor
+  - cpp-basics/life-shallow-copy-pointer
 input: chips
 choices:
   c1:

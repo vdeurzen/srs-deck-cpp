@@ -341,13 +341,15 @@ cpp-basics declares no relations (cycle-free by construction).
 | 13-headers-and-linkage | `linkage-` | C6 |
 | 14-undefined-behaviour | `ub-` | C6 |
 
-Status: writing.
+Status (2026-10-11): 187 Cards written, reviewed and revised; 58 cpp-core Cards
+require them. Next: cross-topic seams, then the deep review.
 
 ## Phase 7 — `algo-basics` ground-up foundations (2026-10-11)
 Depth-0 layer inside algo-basics (same Deck, so §7.1 depth deals it first; nothing
 moves). New Cards tagged `foundations`; a `foundations` Card requires only
 `foundations` Cards. Existing entry Cards then require them (e.g.
-`complexity-big-o-scaling` → step-count model). Definitions plus applying them,
+`complexity-big-o-scaling` → step-count model). Semi-formal: intuition first,
+precise definitions, apply/decide fronts, never recite-the-definition;
 short proofs only where they are the idea; pseudocode in basic/cloze/trace,
 constexpr C++ in code/chunk; no parsons.
 
@@ -361,5 +363,6 @@ constexpr C++ in code/chunk; no parsons.
 | A6 | 07-sorting | `sort-` | inversions, selection/bubble/insertion with invariants, merge/quick skeletons, partition |
 | A7 | 08-graphs | `graph-` | path/cycle/connected, spanning tree, degrees, representations, BFS/DFS, visited, O(V+E) |
 
-Status: writing. After Phases 6–7: deep review of every Card for answer give-aways
+Status (2026-10-11): 149 `foundations` Cards written, reviewed and revised; existing
+entry Cards wired onto them. After Phases 6–7: deep review of every Card for answer give-aways
 and references to things not on the Card ("the generator from the parsons Card").

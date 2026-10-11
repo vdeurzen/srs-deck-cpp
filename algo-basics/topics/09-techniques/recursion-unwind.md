@@ -6,6 +6,7 @@ level: 1
 tags: [recursion, tracing]
 requires:
   - technique-recursion-base-case
+  - technique-call-stack-trace
 probes:
   1: { out: "321.123", calls: "4" }
 refs:

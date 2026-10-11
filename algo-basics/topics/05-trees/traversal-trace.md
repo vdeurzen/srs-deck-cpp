@@ -6,6 +6,7 @@ level: 2
 tags: [trees, traversal, recursion, tracing]
 requires:
   - tree-traversal-orders
+  - tree-bst-inorder-trace
 probes:
   1: { pre: "8 4 2 6 9", in: "2 4 6 8 9", post: "2 6 4 9 8" }
 refs:

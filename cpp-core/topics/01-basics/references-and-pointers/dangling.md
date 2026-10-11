@@ -6,6 +6,7 @@ level: 2
 tags: [pointers, lifetime]
 requires:
   - raii-storage-durations
+  - cpp-basics/ptr-dangling-local
 refs:
   - https://en.cppreference.com/w/cpp/language/lifetime
   - https://timsong-cpp.github.io/cppwp/n4950/basic.stc.general#4

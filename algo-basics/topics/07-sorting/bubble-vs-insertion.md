@@ -9,6 +9,7 @@ probes:
   2: { i: "9" }
 requires:
   - sort-insertion-cases
+  - sort-bubble-invariant
 elaborate: Both sorts are stable, Θ(n) best and Θ(n²) worst. Where would you still ever pick bubble sort?
 refs:
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html

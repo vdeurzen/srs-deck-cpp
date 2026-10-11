@@ -6,6 +6,7 @@ level: 1
 tags: [complexity, best-worst-average, tracing]
 requires:
   - complexity-count-loop-steps
+  - complexity-cost-cases
 probes:
   1: { comparisons: "1" }
   2: { comparisons: "8" }

@@ -6,6 +6,7 @@ level: 2
 tags: [binary-search, invariants]
 requires:
   - search-binary-search-trace
+  - search-closed-range-invariant
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/lower_bound
   - https://www.cs.utexas.edu/~EWD/ewd08xx/EWD831.PDF

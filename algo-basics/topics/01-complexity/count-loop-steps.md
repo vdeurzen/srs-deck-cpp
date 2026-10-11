@@ -10,6 +10,7 @@ probes:
   3: { c: "4" }
 requires:
   - complexity-big-o-scaling
+  - complexity-cost-trace-sequential-vs-nested
 refs:
   - https://en.wikipedia.org/wiki/Big_O_notation#Orders_of_common_functions
 ---

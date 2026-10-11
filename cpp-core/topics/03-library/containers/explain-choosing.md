@@ -7,6 +7,7 @@ tags: [containers]
 requires:
   - containers-stable-references
   - containers-const-map-lookup
+  - cpp-basics/iter-explain-vector-growth
 refs:
   - https://en.cppreference.com/w/cpp/container
 ---

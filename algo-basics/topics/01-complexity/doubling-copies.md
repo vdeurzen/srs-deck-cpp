@@ -6,6 +6,7 @@ level: 2
 tags: [complexity, amortised, tracing]
 requires:
   - complexity-count-loop-steps
+  - complexity-cost-amortized-doubling
 probes:
   1: { cap: "8", copies: "7" }
   2: { cap: "16", copies: "15" }

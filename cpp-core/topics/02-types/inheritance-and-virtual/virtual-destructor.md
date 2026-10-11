@@ -15,6 +15,7 @@ compile:
     }
 requires:
   - virtual-static-dispatch
+  - cpp-basics/virtual-delete-through-base
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual#Virtual_destructor
   - https://eel.is/c++draft/expr.delete#3

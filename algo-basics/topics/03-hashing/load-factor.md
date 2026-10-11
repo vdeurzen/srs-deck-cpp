@@ -6,6 +6,7 @@ level: 2
 tags: [hashing, load-factor]
 requires:
   - hashing-chaining-trace
+  - hashing-chain-length-trace
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/load_factor
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 11

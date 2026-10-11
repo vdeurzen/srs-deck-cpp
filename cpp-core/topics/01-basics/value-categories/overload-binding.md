@@ -6,6 +6,8 @@ level: 2
 tags: [value-categories, overload-resolution]
 requires:
   - value-categories-reference-binding-cloze
+  - cpp-basics/vc-named-rvalue-ref-is-lvalue
+  - cpp-basics/fn-overload-pick
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category
   - https://en.cppreference.com/w/cpp/language/reference

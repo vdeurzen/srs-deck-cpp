@@ -4,6 +4,8 @@ kind: cloze
 version: 1
 level: 1
 tags: [const-constexpr-consteval]
+requires:
+  - cpp-basics/const-vs-constexpr-initializer
 refs:
   - https://en.cppreference.com/w/cpp/language/cv
   - https://en.cppreference.com/w/cpp/language/constexpr

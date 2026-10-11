@@ -13,6 +13,7 @@ compile:
     }
 requires:
   - containers-reference-invalidated-by-growth
+  - cpp-basics/stdalgo-erase-if
 refs:
   - https://en.cppreference.com/w/cpp/container/map/erase
   - https://en.cppreference.com/w/cpp/container/map/erase_if

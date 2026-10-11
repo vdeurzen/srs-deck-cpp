@@ -6,6 +6,7 @@ level: 1
 tags: [lifetime, raii]
 requires:
   - raii-storage-durations
+  - cpp-basics/life-destructor-frees
 refs:
   - https://en.cppreference.com/w/cpp/language/raii
   - https://en.cppreference.com/w/cpp/language/destructor

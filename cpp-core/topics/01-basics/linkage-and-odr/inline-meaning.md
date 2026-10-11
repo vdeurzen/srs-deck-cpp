@@ -6,6 +6,7 @@ level: 2
 tags: [linkage, inline, misconception]
 requires:
   - linkage-odr-class-repeat
+  - cpp-basics/linkage-inline-header-fix
 refs:
   - https://en.cppreference.com/w/cpp/language/inline
   - https://eel.is/c++draft/basic.def.odr

@@ -13,6 +13,7 @@ compile:
     int main() {}
 requires:
   - callables-std-invoke-member
+  - cpp-basics/stdalgo-sort-by-length
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/ranges/sort
 ---

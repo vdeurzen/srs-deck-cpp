@@ -6,6 +6,7 @@ level: 1
 tags: [trees, vocabulary, heaps]
 requires:
   - tree-terms
+  - tree-depth-vs-height
 refs:
   - https://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees
   - https://xlinux.nist.gov/dads/HTML/completeBinaryTree.html

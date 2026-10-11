@@ -4,6 +4,8 @@ kind: basic
 version: 1
 level: 2
 tags: [templates]
+requires:
+  - cpp-basics/tmpl-instantiation-statics
 refs:
   - https://en.cppreference.com/w/cpp/language/template_instantiation
   - https://eel.is/c++draft/temp.inst

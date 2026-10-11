@@ -6,6 +6,7 @@ level: 2
 tags: [linkage, headers]
 requires:
   - linkage-translation-unit
+  - cpp-basics/linkage-private-helper
 refs:
   - https://en.cppreference.com/w/cpp/language/storage_duration#Linkage
   - https://eel.is/c++draft/basic.link#3
