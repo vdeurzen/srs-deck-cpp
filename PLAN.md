@@ -16,8 +16,9 @@ whenever.
 | --- | --- |
 | 0 Spike + housekeeping | done (2026-10-12) |
 | 1 Raw storage (cpp-core) | done (2026-10-12): 11 Cards, depth ≤ 4, reviewed |
-| 2 Vector (hft-interview) | next |
-| 3–8 | not started |
+| 2 Vector (hft-interview) | done (2026-10-12): 21 Cards incl. `inplace-vector-overflow`; capstones at depth 11 (cpp-core move/exception spine), reviewed |
+| 3 SPSC + order book (hft-interview) | next |
+| 4–8 | not started |
 
 ## 0. Decisions (2026-10-12)
 
@@ -161,7 +162,7 @@ Every Card cites a ref.
 
 Notes for later Cards:
 - `a.deallocate(buf, wrong_n)` is **not** diagnosed on g142, so it can't be a distractor.
-- Element destruction order in `std::destroy` is unspecified.
+- `std::destroy` is specified as a forward loop ([specialized.destroy]); the order in which a *container* destroys its elements is what is unspecified.
 
 ### 3b. `hft-interview/topics/01-implement-std/vector` (prefix `vec-`)
 | id | kind | front / point | requires |
@@ -186,6 +187,14 @@ Notes for later Cards:
 | vec-explain-push-back | explain | Capstone: implement `push_back` | vec-realloc-order, vec-push-back-self-alias, vec-relocate-move-if-noexcept |
 | vec-build-mini-vector | code | Capstone: the grow-and-construct body of a constexpr MiniVec | vec-explain-push-back |
 | vec-explain-hft-vector | explain | The HFT angle: growth below 2, cold path, reserve up front, `inplace_vector` | vec-explain-push-back, algo-systems/foundations-growth-below-two, algo-systems/ll-warm-path |
+
+
+**As built (2026-10-12):**
+- Depths are 1–11. The depth-11 Cards are `vec-build-mini-vector` and `vec-explain-push-back`, via `cpp-core/move-semantics-vector-move-if-noexcept` (depth 9). This was accepted: those are real edges.
+- `inplace-vector-overflow` (from §3c) was written early so it could back `vec-explain-hft-vector`.
+- `vec-explain-hft-vector` lost its growth-below-2 rubric item to keep fan-in ≤ 3. `algo-systems/foundations-growth-below-two` is no longer required.
+- `vec-build-mini-vector` blanks the new capacity (`2 * cap`), not the deallocate size: wrong sizes are never diagnosed.
+- Every shown snippet uses the member names `b, n, cap, a`.
 
 ### 3c. `hft-interview/topics/01-implement-std/*` (other components, 3–7 Cards each)
 - **smart-pointers:**
