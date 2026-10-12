@@ -9,24 +9,54 @@
 
 The app compiles on Compiler Explorer with the Deck's `compiler` (g142); this
 uses the local $CXX (default g++), syntax-only, since the app never executes.
+With --remote it compiles on Compiler Explorer with the Card's own `compiler`
+instead: slower, but it is what the app grades with. Constant evaluation differs
+between GCC versions (GCC 16 rejects reading a destroyed int; GCC 14 accepts it),
+so check any Card whose distractors rely on constexpr diagnostics with --remote.
 Exit status is 1 if anything is FAIL or WEAK.
 
-usage: scripts/check-code <deck-dir> [<deck-dir> ...] [--id <card-id> ...]
+usage: scripts/check-code <deck-dir> [<deck-dir> ...] [--remote] [--id <card-id> ...]
 """
 
+import json
 import os
 import subprocess
 import sys
 import tempfile
+import time
+import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cards import Deck, clozes, fill  # noqa: E402
 
 CXX = os.environ.get("CXX", "g++")
+REMOTE = False
+GODBOLT = "https://godbolt.org/api/compiler/{}/compile"
+
+
+def compiles_remote(src, cfg):
+    args = " ".join([f"-std={cfg.get('std', 'c++23')}", *[f for f in cfg.get("flags") or [] if f != "-Werror"],
+                     "-fsyntax-only", "-fdiagnostics-color=never"])
+    body = json.dumps({"source": src, "options": {"userArguments": args, "filters": {},
+                                                  "compilerOptions": {"skipAsm": True}}}).encode()
+    req = urllib.request.Request(GODBOLT.format(cfg.get("compiler", "g142")), data=body,
+                                 headers={"Content-Type": "application/json", "Accept": "application/json"})
+    for attempt in range(4):
+        try:
+            r = json.load(urllib.request.urlopen(req, timeout=90))
+            break
+        except OSError:
+            if attempt == 3:
+                raise
+            time.sleep(2 ** attempt)
+    stderr = "\n".join(l.get("text", "") for l in r.get("stderr", []))
+    return r["code"] == 0 and " error: " not in stderr, stderr
 
 
 def compiles(src, cfg):
+    if REMOTE:
+        return compiles_remote(src, cfg)
     with tempfile.NamedTemporaryFile("w", suffix=".cpp", delete=False) as f:
         f.write(src)
     try:
@@ -74,6 +104,9 @@ def check(card):
 
 
 def main(argv):
+    global REMOTE
+    if "--remote" in argv:
+        REMOTE, argv = True, [a for a in argv if a != "--remote"]
     ids = set()
     if "--id" in argv:
         i = argv.index("--id")
@@ -82,9 +115,10 @@ def main(argv):
         sys.exit(__doc__)
     cards = [c for root in argv for c in Deck(root).cards.values()
              if c.kind in ("code", "parsons", "chunk") and c.compile() and (not ids or c.id in ids)]
-    version = subprocess.run([CXX, "--version"], capture_output=True, text=True).stdout.split("\n")[0]
+    version = ("Compiler Explorer, each Card's compiler" if REMOTE else
+               subprocess.run([CXX, "--version"], capture_output=True, text=True).stdout.split("\n")[0])
     print(f"{len(cards)} compile-graded Cards, {version}")
-    with ThreadPoolExecutor(os.cpu_count()) as pool:
+    with ThreadPoolExecutor(4 if REMOTE else os.cpu_count()) as pool:
         results = list(pool.map(check, cards))
     bad = loose = 0
     for card, (status, notes) in sorted(zip(cards, results), key=lambda x: x[0].qid):

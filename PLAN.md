@@ -1,380 +1,337 @@
-# Plan: bring `cpp-core` and `algo-systems` up to standard, in place
+# Plan: HFT interview prep — implement-it questions, HFT design, LeetCode patterns
 
-Both Decks keep their ids and stay in this repo; nothing moves to new `*-drills`
-Decks. Order: correctness → prerequisite graph → missing fundamentals → card
-shape. Each phase leaves both Decks loadable and is its own commit (or a few).
+Started 2026-10-12. Built from four read-only surveys of the existing Decks. The
+previous plan (bringing cpp-core and algo-systems up to standard) is finished and
+archived in `PLAN-done-2026-10.md`. Its ground rules still apply.
 
-## Status (2026-10-07)
+The trigger: a friend was asked "implement `vector::push_back`" in an interview. The
+aim is to cover the *design decisions* behind that whole family of questions, plus the
+HFT-specific design questions, plus LeetCode templates to drill alongside the actual
+problem grinding. There's no interview date, so the order is by payoff: be ready
+whenever.
+
+## Status
 
 | Phase | State |
 | --- | --- |
-| 0 Housekeeping | done |
-| 1 Correctness | done: both REVIEW.md files worked |
-| 2 Prerequisite graph | done |
-| 3 Missing fundamentals | done: every topic in the table and the gaps table |
-| 4 Card shape | done for every topic except the 10 `parsons` Cards, which wait for the app's pre-filled lines |
+| 0 Spike + housekeeping | done (2026-10-12) |
+| 1 Raw storage (cpp-core) | done (2026-10-12): 11 Cards, depth ≤ 4, reviewed |
+| 2 Vector (hft-interview) | next |
+| 3–8 | not started |
 
-Now: cpp-core 416 Cards / 543 edges, depth ≤ 8; algo-systems 559 Cards /
-666 edges (21 into cpp-core), depth ≤ 9. `tool/validate` 0 errors,
-`scripts/check-code` 0 problems (5 LOOSE parsons), `lint-shape` 0 flags.
-Every topic was reviewed by `learning-designer` and revised before commit.
+## 0. Decisions (2026-10-12)
 
-Remaining:
-- Parsons Cards: convert includes/class shells to pre-filled lines once the
-  FORMAT.md re-export defines them; then fix the 5 LOOSE distractors.
-- Small open items noted by reviewers: a hands-on MOP-vs-MFP Card
-  (09-compilers); the Aho–Corasick failure trace is 16 lines.
+1. **Placement is hybrid.**
+   - Fundamentals the Decks lack go into the existing Decks, beside their siblings. The
+     main one is raw storage: nothing in the repo taught `construct_at`,
+     `uninitialized_*`, `destroy`, `allocator_traits` or `launder`.
+   - Interview-shaped material goes into the new Deck **`hft-interview`**: the
+     implement-X chains, the SPSC / order-book / LRU builds, capstones and trivia.
+   - LeetCode templates go into the new Deck **`leetcode`**.
+   - Both new Decks build on all four existing Decks, and nothing requires them. Pausing,
+     Practice and new-card interleaving work per Deck (tags only filter Browse and
+     Stats), so each Deck can be paused or studied on its own.
+   - Moving a Card between Decks later would change its full id and orphan its history.
+2. **No interview date yet.**
+   - Phases run in payoff order: vector → SPSC / order book → LeetCode basics →
+     trivia → the rest.
+   - Keep `requires` shallow (fan-in ≤ 2, prerequisites are concept Cards), so new Cards
+     unlock quickly.
 
-## Ground rules (apply to every phase)
+## Ground rules
 
-- **Card ids never change, cards are never deleted.** Study history is keyed on
-  ids; part of `cpp-core` is already in review.
-- **`version` is bumped only when the question itself changes** (different thing
-  being recalled, or a `kind` change). Fixing a wrong fact, tightening prose,
-  trimming a back, or fixing a harness keeps the version — the schedule stays.
-- **Splitting an essay card:** the original id keeps the one question closest to
-  its current front and is bumped (reset) whenever that front changes meaning;
-  every other part becomes a new id that `requires` it where the dependency is
-  real.
-- **Done means:**
-  `tool/validate cpp-core algo-systems` → 0 errors, plus `scripts/check-code`
-  → every reference answer compiles and every distractor fails, plus
-  `scripts/graph` → no orphan islands, no surprises in depth.
-- `docs/FORMAT.md` and `tool/validate` are never edited.
+These are carried over from the previous plan:
+- Card ids never change and Cards are never deleted.
+- Bump `version` only when the question changes meaning.
+- Done means `tool/validate` and `scripts/check-code` over all six Decks report 0
+  errors.
+- Each new compile-graded Card also passes `scripts/check-code --remote --id …`.
+- `scripts/graph` shows no surprise depths.
+- A teacher agent writes each topic, `prereq-mapper` wires its seams, and
+  `learning-designer` reviews it before the commit.
+- Commit once per topic.
 
-## Phase 0 — housekeeping (small, first)
+## 1. What already exists (reuse via `requires`; do not restate)
 
-1. Fix `CLAUDE.md`: validate command becomes `tool/validate cpp-core algo-systems`;
-   replace the "ids must not collide with `cpp-core`/`algo-systems`" clause with
-   "these two Decks are the installed ones; edit them in place".
-2. Delete `cpp-core/topics/.wf-resume.js` (stale workflow script, old `decks/`
-   paths). Mine its foundation-topic list for Phase 3 first.
-3. Rewrite the stale parts of `algo-systems/README.md` (`decks/`, `dart run`,
-   gitignore section, card counts) and add a short `cpp-core/README.md`, which
-   FORMAT.md already refers to.
-4. Add `scripts/` (not `tool/`, which is exported):
-   - `check-code` — assemble every compile-checked `code`/`parsons`/`chunk`
-     card as the app does, compile with `g++ -std=c++23 -fsyntax-only`, then
-     substitute every distractor and require it to fail. For `parsons`,
-     substitute the distractor for each reference line in turn (the gap
-     REVIEW.md found in the old tool).
-   - `graph` — per-Deck depth histogram, cards with no edges, cross-topic and
-     cross-Deck edge counts, and a DOT export for eyeballing.
-   - `lint-shape` — reports Phase 4's limits: back length, multi-question
-     fronts, cloze blank count, hints that contain their answer.
+- **Vector growth and amortisation are already well covered:**
+  - algo-basics: `linear-dynamic-array-growth`, `linear-growth-code`, `linear-growth-trace`, `complexity-geometric-growth`
+  - algo-systems: `foundations-growth-factor`, `foundations-growth-below-two`
+  - cpp-basics: `iter-size-vs-capacity`, `iter-reserve-keeps-buffer`, `iter-growth-invalidates`
+  - cpp-core: `move-semantics-vector-move-if-noexcept`, `exceptions-strong-vs-basic`, `exceptions-commit-by-swap`, `move-semantics-perfect-forwarding`
+- **Smart pointers / type erasure:** the cpp-core `smart-pointers-*` cards (control block, make_shared, deleter size), `staticpoly-type-erasure-skeleton`, `callables-explain-function-*`, `strings-sso`, `vocab-optional-*`.
+- **HFT concepts are strong; the "write it" step is missing:**
+  - algo-systems queues and lock-free: `ll-spsc-ring`, `ll-spsc-orders`, `ll-spsc-cached-index`, `seq-ring-buffer-mask`, `ll-mpmc-*`, `ll-seqlock-*`
+  - order book and pools: `ll-order-book*`, `ll-freelist-pool`, `ll-arena-vs-pool`, `seq-intrusive-*`, `seq-handle-generation`
+  - other structures: the 38 `hash-*` cards, `heap-timer-wheel*`, `trace-lru-*`
+  - latency (excellent): `ll-hardware-numbers`, `ll-tlb-reach`, `ll-rdtsc-ordering`, `ll-coordinated-omission`, `ll-explain-hot-path*`, …
+- **LeetCode:** algo-basics has concept, trace and code cards for two pointers, windows, prefix sums, binary search, BFS, Kahn, Dijkstra, union-find, knapsack and LCS. Few patterns have a memorisable template chunk, and nothing is linked to problem numbers.
 
-## Phase 1 — correctness
+## 2. Compile-checking implement-it Cards (verified on g142, 2026-10-12)
 
-**cpp-core** (no review exists, so do one first):
-1. `callables-function-ref-signature` — doesn't compile under C++23/g142.
-   Rewrite to test the same idea with something the compiler has (e.g. choose
-   `std::function` vs. a template parameter vs. a function pointer for a
-   non-owning, non-allocating callback), or make it a `basic`. Either way bump
-   `version` (question/kind changes).
-2. `templates-requires-clause` — `typename`/`class` pass. Add a negative check
-   (`static_assert(!requires { add_one(1.0); })`-style via a concept probe).
-3. `move-semantics-destructor-suppresses-move` — `{}` and `noexcept` pass.
-   Tighten the harness (`is_trivially_move_constructible`, or define the type so
-   a user-provided body is observably different) or swap distractors.
-4. Card-by-card review of all 137 cards, same method as `algo-systems/REVIEW.md`
-   (facts, refs, discrimination, hints), written to `cpp-core/REVIEW.md`. Fix
-   majors immediately; minors fold into Phase 4 when the card is touched anyway.
+`check-code` only compiles, but `static_assert(test())` on a `consteval` test *runs*
+the code inside the compiler. Constant evaluation rejects leaks, use after free, reads
+outside an object's lifetime and out-of-bounds writes, so the compiler works as a
+sanitizer.
 
-**algo-systems** — work `REVIEW.md` § "What to do first" steps 1–10 as written:
-bloom chunk snippet, the two `parsons` distractors + README claim, seqlock,
-LSM write amplification, LLVM/codegen claims, SSA/dataflow sentences, the
-remaining majors (M16–M22), minors by topic (storage first, then low-latency),
-refs pass. Mark each finding fixed in `REVIEW.md` as it lands.
+Every case below was compiled on local GCC 16 and on g142 through Compiler Explorer.
+The cases are in the job's scratch directory and aren't kept. Re-derive one from the
+description here if needed.
 
-Exit: both REVIEWs have no open majors; `check-code` clean.
+**MiniVec harness.** The container uses `std::allocator<T>`, `std::construct_at` and
+`std::destroy`, with `T = std::string` of 20 chars (long enough to heap-allocate). It
+pushes 5 elements, then does `w.push_back(w[0])` on a full vector.
 
-## Phase 2 — the prerequisite graph
+Variant results on both compilers:
 
-1. Add to `algo-systems/deck.yaml`:
-   `relations: [{ deck: cpp-core, role: builds-on }]`. (`cpp-core` needs no
-   relation; it should not depend on algorithms.)
-2. Author `requires` topic by topic, within each Deck, then across Decks:
-   - Only **direct** prerequisites — "you can't answer this without having
-     learned that". Not "related", not "same topic". Keep the transitive
-     reduction; the scheduler computes depth itself.
-   - Typical fan-in 1–2, rarely 3. A card with 5 prerequisites is locked for a
-     long time and is usually a sign it should be split (Phase 4).
-   - Hands-on cards (`code`, `trace`, `parsons`, `chunk`) require the concept
-     card they exercise; `explain` capstones require the cards their rubric
-     items come from.
-   - Cross-Deck edges where they are real: e.g. `algo-systems` lock-free cards
-     → `cpp-core` memory-order cards (once Phase 3 adds them), arena/pool cards
-     → `cpp-core` lifetime cards.
-3. Sanity: every topic has at least one depth-0 entry point; no locked dead
-   ends; `graph` shows a curriculum, not 300 islands.
-4. Check the effect on review: cards already in review are never locked (§7.1),
-   so the only change you see is the order new cards arrive in.
-
-Note: many natural prerequisites don't exist yet (Phase 3). Edges into new
-cards are added in Phase 3 as those cards land; Phase 2 wires what exists.
-
-## Phase 3 — missing fundamentals
-
-**cpp-core**, new topics at levels 1–3, each with concept cards first and at
-least one hands-on card, wired into the graph as they are added:
-
-| Topic (proposed path)                | Covers |
-| ------------------------------------ | ------ |
-| `01-basics/types-and-conversions`    | fundamental types and what the standard guarantees, fixed-width aliases, `size_t`/`ptrdiff_t` and the signed/unsigned trap, promotion and usual arithmetic conversions, signed overflow UB vs unsigned wrap, narrowing, `enum class` vs `enum`, `char` signedness, the `static_cast` family |
-| `01-basics/layout`                   | `struct` layout, padding, `sizeof`, `alignof`/`alignas` (opens the seam to algo-systems, which uses alignment 9×) |
-| `01-basics/references-and-pointers`  | reference vs pointer, `const` placement, `auto` dropping const/ref, dangling basics |
-| `01-basics/lifetime-and-raii`        | storage duration, scope-bound destruction, RAII as the pattern the language is organised around |
-| `01-basics/linkage-and-odr`          | translation units, `inline`, `static`, ODR, headers |
-| `01-basics/undefined-behaviour`      | what UB is, common sources, why the optimiser exploits it |
-| `02-types/classes`                   | invariants and the constructor that establishes them, access as invariant protection, `class` vs `struct`, special members as a set and Rule of Zero/Three/Five, `explicit`, `const` members and logical constness, `friend`, `[[nodiscard]]`, delegating constructors, member-init **order** (trace) |
-| `02-types/inheritance-and-virtual`   | the vtable mechanism, pure virtual/abstract interfaces, virtual destructors and what leaks without one, slicing, `override`/`final` and the bug `override` catches, name hiding, virtual calls in ctors/dtors (trace), dispatch cost, composition vs inheritance by deciding property, NVI |
-| `02-types/static-polymorphism`       | CRTP and what it buys over virtual, static vs dynamic dispatch, EBO / `[[no_unique_address]]`, policies and mixins, type erasure as the inverse trade, tag dispatch → `if constexpr`/concepts, PIMPL |
-| `02-types/operator-overloading`      | canonical forms, member vs free, hidden friends |
-| `02-types/lambdas`                   | captures, closure types, mutable, generic lambdas |
-| `02-types/variadic-templates`        | packs, fold expressions |
-| `03-library/containers`              | vector/deque/list/map/unordered_map choice, invalidation (links into algo-systems) |
-| `03-library/vocabulary-types`        | `optional`, `variant`/`visit`, `expected`, `string_view`, `span` |
-| `03-library/strings-and-format`      | `std::string`, SSO, `std::format`/`print` |
-| `04-language/exceptions`             | throw/catch, guarantees, `noexcept`, unwinding |
-| `04-language/modules`                | `import std;`, module units (light) |
-| `10-concurrency/threads-and-locks`   | `jthread`, mutexes, `scoped_lock`, condition variables |
-| `10-concurrency/atomics-and-memory-model` | atomics, happens-before, the orderings |
-
-Target ~5–8 cards per topic (~120 new cards), so the coroutine/execution block
-stops being half the Deck. Reuse REVIEW-style verification for every
-`code`/`trace` card.
-
-**Gaps found while wiring prerequisites (Phase 2).** Each is a concept that
-existing Cards assume and no Card teaches. Once the Card lands, wire the
-listed dependents to it.
-
-| Missing concept | Deck / where it goes | Dependents to wire |
-| --- | --- | --- |
-| RAII & destructors | cpp `01-basics/lifetime-and-raii` (table above) | `transfer-defer-vs-raii`, smart-pointer Cards |
-| Lambdas; `std::function`/callable basics | cpp `02-types/lambdas` (table above) | `05-interview/function-ref-and-callables` |
-| `std::optional`, `nullptr` | cpp `03-library/vocabulary-types` (table above) | `transfer-nil-vs-nullptr-optional` |
-| Atomics, memory model, `alignas` | cpp `10-concurrency/atomics-and-memory-model`, `01-basics/layout` | algo `ll-memory-orders`, `ll-false-sharing`, `ll-progress-guarantees` (cross-Deck) |
-| Pointers & arrays basics | cpp `01-basics/references-and-pointers` | algo slice, ring and handle Cards in `02-sequences` |
-| Async scope (`counting_scope`, `spawn`), `as_awaitable` | cpp `09-execution` | `execution-split-multi-shot`, `execution-senders-and-coroutines` |
-| Binary search on a sorted array (entry Card) | algo `04-ordered` | `lower-bound-loop`, `chunks-lower-bound-lookup` |
-| Bit tricks (`x & -x`, `x & (x-1)`) | algo `01-foundations` | `fenwick-tree`, `chunks-iterate-set-bits`, `branchless-select` |
-| Dynamic programming basics; tree tiling | algo `01-foundations` / `09-compilers` | `compiler-instruction-selection`, `db-join-ordering` |
-| Transactions & isolation levels | algo `10-databases` | `db-mvcc` |
-| LRU / cache replacement | algo `05-priority` or `10-databases` | `trace-lru-order`, `db-buffer-pool` |
-| `stop_token`/`stop_callback`; `mutex`/`lock_guard`; `thread_local`; `jthread` basics | cpp `10-concurrency/threads-and-locks` | `coroutines-scheduling-stop-token-plumbing`, thread-affinity Cards, `parsons-jthread-stop-token` |
-| Temporaries die at the end of the full-expression | cpp `01-basics/lifetime-and-raii` | `coroutines-parameters-copied`, `coroutines-generator-dangling-parameter` |
-| Range categories (`input_range` …) | cpp `03-library/ranges-and-views` | `coroutines-generator-is-a-view` |
-| Variadic templates, `using` pack expansion | cpp `02-types/variadic-templates` | `chunks-visit-overload-set` |
-| Go concurrency; GC & leaks; thread scaling | algo `11-low-latency` / `14-transfer` | `chunks-go-worker-pool`, `trap-go-gc-and-leaks`, `trap-more-threads` |
-
-Phase 2 follow-up (done 2026-10-06; Cards that already existed): wired
-`trap-bloom-false-negative` and `chunks-bloom-double-hashing` →
-`db-bloom-filter`, and `chunks-cache-padded-counter` → `ll-false-sharing`.
-These had been barred during Phase 2 to keep the parallel agents from
-creating cycles between them.
-
-Topic directories can be renumbered freely (e.g. a `00-foundations` prefix, or
-shifting `01-basics` down): the Topic is only the directory path, and review
-history is keyed on card ids, not paths.
-
-Design principles for new cards (from the earlier foundation-rung brief; the
-goal is a solid base of associated long-term patterns that make complex
-problems recognisable quickly):
-
-- **Simple, not shallow.** A foundation card needs nothing taught later; its
-  assumptions are exactly its `requires`.
-- **Association.** Every foundation card names, via the graph, something later
-  that builds on it. One nothing builds on is trivia.
-- **Recognition over definition.** "This call does not dispatch — why?" beats
-  "What is a virtual function?". Favour cards that force a choice or explain a
-  symptom.
-- **Discrimination pairs** for things beginners confuse (`class`/`struct`,
-  virtual/CRTP, `enum`/`enum class`, reference/pointer, copy/move,
-  stack/heap): the answer names the deciding property.
-- **Production.** At least half of each new topic is `code`, `chunk`,
-  `parsons` or `trace`. Compile-graded cards discriminate at compile time
-  (`static_assert` on `sizeof`/`alignof`/traits/`constexpr` values, or a
-  deliberate access/overload failure).
-- **Capstones.** Each foundation strand ends in one `explain` that rebuilds a
-  design from memory (e.g. "design a value type that owns a buffer"), sized
-  per the `explain` rule below.
-
-**algo-systems**: add a level-1/2 entry rung (big-O basics, arrays vs lists,
-hashing basics, binary search, BFS/DFS) so the Deck has depth-0 cards a
-beginner can start on, then REVIEW.md step 11's proposed cards (databases →
-compilers → low latency), then the step 12 hands-on cards for prose-only topics.
-
-## Phase 4 — card shape (learning style)
-
-Limits enforced by `scripts/lint-shape`, applied topic by topic, starting
-where you study next:
-
-- **One question per front.** "Why X, and when Y?" becomes two cards.
-- **`basic` backs ≤ ~60 words** for the answer proper. Context worth keeping
-  moves to a short "Why it matters" line or to `elaborate`; detail that is its
-  own fact becomes its own card.
-- **`cloze` ≤ 3 blanks**, one idea per passage. Hints narrow, never restate.
-- **Fronts never contain their answer** (`noexcept-move` and similar).
-- **`misconception` fronts must be believable**: state the claim plainly, as
-  the reader would actually hold it, no "only reliable way…" strawmen.
-- **More retrieval, less re-reading:** convert prose-heavy topics
-  (`01-foundations`, `codegen`, `execution-and-sketches`, `14-transfer`, the
-  `09-execution` block) to a mix that includes `code`/`trace`/`cloze`.
-- Every new card created by a split gets `requires` edges as it is written.
-
-Expected scale: ~100 of the 109 algo `basic` cards and ~40 cpp-core `basic`
-cards need splitting or trimming; a split typically yields 2–3 cards.
-
-## Order of work inside each phase
-
-Topic by topic, in study order: coroutines, move semantics and smart pointers
-first (already in review, so fixes reach you soonest), then by depth. Each batch: edit → `validate` →
-`check-code` → `graph` → commit.
-
-### Code-building cards (`parsons`, `chunk`): every line has one right place
-
-Problem: `parsons` cards run 8–34 lines, and every one has 1–3 `#include`s that
-can go anywhere, plus interchangeable members. Grading compiles, but the
-*suggested rating* counts moves beyond the authored order (§4.8), so a valid
-different order is still marked Hard or Again. 13 of 18 `chunk` cards are
-`compile: null`, graded by exact text match, so any reordering fails outright.
-
-Rules:
-- **≤ 9 movable lines** per `parsons`, all order-determined. A bigger program
-  becomes several cards (e.g. `parsons-rule-of-five` → one per special member,
-  or the copy-assignment body alone), chained with `requires`.
-- **Includes and scaffolding** (class shell, other members) will move into the
-  app's upcoming pre-filled `parsons` lines. Wait for the FORMAT.md re-export
-  that defines them, then convert; don't restructure cards around the missing
-  feature before that.
-- **`chunk`** stays ≤ 7 lines, order-determined, and gets a `constexpr` harness
-  where possible, so a correct reproduction is never failed on text alone.
-
-
-App-side requests (FORMAT.md is exported from the app, not ours to change):
-1. Pre-filled lines for `parsons`: **coming** (2026-10-06). Parsons
-   restructuring for includes/scaffolding waits for it.
-2. Rating a compile-correct `parsons` answer by moves away from one authored
-   order penalises valid alternatives: when `compile` passes, grade on
-   compile alone.
-
-### Splitting `explain` cards
-
-All 14 `explain` cards carry 8–13 rubric items: too many points to hold while
-answering aloud. Each splits into 2–3 focused `explain` cards of **5 items**
-(the Deck's ≥5 convention; learning research puts the ideal at 4–5 distinct,
-checkable claims, and at 5 every rating band in §4.6 is still reachable). The original id becomes a short
-synthesis capstone — "put it together" — with ≤5 items about how the parts
-connect, `requires` on the parts, `version` bumped.
-
-## Decisions (2026-10-06)
-
-- **Already in review:** most of the coroutine topics (`04-language/coroutines-*`),
-  some of `02-types/move-semantics` and `03-library/smart-pointers-and-ownership`.
-  These go first in Phases 1, 2 and 4.
-- **Resets are fine** when a split changes what a front asks: bump `version`
-  and the card is relearned.
-- **Splitting big reasoning cards** (the `explain` cards above) is part of Phase 4.
-
-## Phase 5 — `algo-basics` Deck (2026-10-07)
-
-Why: algo-systems assumes the textbook core. A learner coming back to it
-needs that core first, as its own Deck that algo-systems builds on.
-
-- Deck `algo-basics` (builds-on cpp-core); algo-systems builds-on it.
-- Level 1–3, reminder-style for a programmer who once knew this: one idea per
-  Card, a concrete example on every Card, the "why it's O(...)" for every
-  bound, at least half hands-on (trace/code/parsons-free), PEDAGOGY.md sizes.
-- Topics and id prefixes:
-
-| Topic | Prefix | Covers |
-| --- | --- | --- |
-| `01-complexity` | `complexity-` | big-O/Θ/Ω, common classes, counting loops, logs, best/average/worst, amortised, recurrences and the master theorem |
-| `02-linear` | `linear-` | arrays, dynamic arrays, linked lists, stacks, queues/deques, two pointers, sliding window, prefix sums |
-| `03-hashing` | `hashing-` | hash functions, chaining vs open addressing, load factor, sets/maps, average vs worst |
-| `04-searching` | `search-` | binary search and its invariants, lower/upper bound, searching on the answer |
-| `05-trees` | `tree-` | binary trees, traversals, BST insert/delete/search, why balance, AVL and red-black invariants, rotations, B-tree idea, tries |
-| `06-heaps` | `heap-` | binary heap, sift up/down, heapify in O(n), priority-queue operations |
-| `07-sorting` | `sort-` | insertion, selection, merge, quick (partition, pivot, worst case), heap sort, counting/radix, stability, the n log n lower bound, quickselect |
-| `08-graphs` | `graph-` | representations, BFS, DFS, topological sort, cycle detection, Dijkstra, Bellman-Ford, MST (Prim, Kruskal), union-find |
-| `09-techniques` | `technique-` | recursion, divide and conquer, greedy (exchange argument), dynamic programming (memo vs table, classic problems), backtracking |
-
-- Moved from algo-systems (recreated here, originals deleted, their
-  algo-systems dependents re-pointed to `algo-basics/<new id>`). History is
-  not a concern: the learner had only used Practice on algo-systems.
-  `foundations-big-o-scaling`, `foundations-count-loop-steps`,
-  `foundations-amortised-vs-average`, `foundations-amortised-single-call`,
-  `foundations-master-theorem`, `foundations-dp-overlapping-subproblems`,
-  `foundations-dp-memo-calls`, `seq-array-insert-shift`,
-  `seq-array-vs-list-index`, `hash-average-vs-worst`, `hash-linear-probe-step`,
-  `ordered-binary-search-halving`, `ordered-binary-search-trace`,
-  `ordered-bst-insert-order-trace`, `ordered-why-balance`,
-  `ordered-balance-families`, `sort-stability`, `graph-bfs-and-dfs`,
-  `graph-bfs-mark-on-push`, `graph-union-find-forest`.
-- Then algo-systems' entry Cards require the algo-basics Cards they build on.
-
-Status: done (2026-10-07). 228 Cards, every topic reviewed by
-`learning-designer` and revised; 20 Cards moved (scripts/apply-moves);
-30 cross-topic edges inside algo-basics, algo-systems wired onto it.
-Closed: tree-complete-shape now precedes heap-shape-and-order.
-
-## Phase 6 — `cpp-basics` Deck (2026-10-11)
-Ground-up C++ crash course under `cpp-core` (cpp-core, algo-basics, algo-systems
-build on it). **Move nothing**: review history stays; new Cards re-teach basics in
-a different phrasing, and cpp-core entry Cards gain `requires` into cpp-basics.
-cpp-basics declares no relations (cycle-free by construction).
-
-| Topic | Prefix | Batch |
+| variant | result | why it fails |
 |---|---|---|
-| 01-types-and-values | `types-` | C1 |
-| 02-references-and-pointers | `ptr-` | C2 |
-| 03-const | `const-` | C1 |
-| 04-functions | `fn-` | C3 |
-| 05-classes | `class-` | C3 |
-| 06-object-lifetime | `life-` | C4 |
-| 07-value-categories-intro | `vc-` | C2 |
-| 08-inheritance | `virtual-` | C4 |
-| 09-templates-basics | `tmpl-` | C4 |
-| 10-containers-and-iterators | `iter-` | C5 |
-| 11-algorithms-and-lambdas | `stdalgo-` | C5 |
-| 12-error-handling | `err-` | C6 |
-| 13-headers-and-linkage | `linkage-` | C6 |
-| 14-undefined-behaviour | `ub-` | C6 |
+| correct order: construct new at `nb+n`, then relocate, destroy, deallocate | pass | — |
+| deallocate before constructing the new element | **fail** | use after deallocation |
+| destroy before constructing the new element | **fail** | uninitialised member |
+| relocate (move) old elements, then construct the new one | **fail** | value assert: the alias was moved from. This is the `push_back(v[0])` bug, visible. |
+| skip deallocate | **fail** | allocated storage not deallocated |
+| `std::move` / `b_[n] = x` into raw storage | **fail** | uninitialised element |
+| growth `2*cap` from capacity 0 | **fail** | out of bounds |
+| skip `destroy` of the old elements | **pass** | moved-from strings own no heap memory. Use the live counter below. |
 
-Status (2026-10-11): 187 Cards written, reviewed and revised; 58 cpp-core Cards
-require them. Next: cross-topic seams, then the deep review.
+**Live counter.** A type whose constructor and destructor bump `*int` lets the harness
+assert `live == 0`. A skipped `destroy` then **fails**.
 
-## Phase 7 — `algo-basics` ground-up foundations (2026-10-11)
-Depth-0 layer inside algo-basics (same Deck, so §7.1 depth deals it first; nothing
-moves). New Cards tagged `foundations`; a `foundations` Card requires only
-`foundations` Cards. Existing entry Cards then require them (e.g.
-`complexity-big-o-scaling` → step-count model). Semi-formal: intuition first,
-precise definitions, apply/decide fronts, never recite-the-definition;
-short proofs only where they are the idea; pseudocode in basic/cloze/trace,
-constexpr C++ in code/chunk; no parsons.
+**Copy counter for `move_if_noexcept`.**
+- With a throwing move: `move_if_noexcept` gives 3 copies (pass); `std::move` gives 0
+  copies (**fail**). A plain `old[i]` also gives 3 copies and *passes*.
+- With a `noexcept` move: `move_if_noexcept` gives 0 copies (pass); plain `old[i]`
+  **fails**.
+- So a Card that uses both harnesses discriminates all three choices.
 
-| Batch | Topic | Prefix | Content |
+**FakeAtomic.**
+- Template the queue on its atomic type: `template<class T, size_t N, class A = std::atomic<size_t>>`.
+- A constexpr `FakeAtomic` records `last_load` and `last_store`.
+- A `release` store passes; `relaxed` and `seq_cst` **fail**.
+- Layout is pinned with `using Q = Spsc<int,4>; static_assert(offsetof(Q, head_) % 64 == 0)`.
+  Use the alias: the comma in `Spsc<int, 4>` breaks the `offsetof` macro.
+
+**Packet parsing.**
+- `std::bit_cast` + `std::byteswap` on a constexpr byte array pass; leaving out the
+  swap **fails**.
+- `reinterpret_cast` in a constant expression **fails** (good: that makes it a
+  distractor, but don't use it in a reference).
+
+**LeetCode.**
+- constexpr works for `vector`, `string`, `array<int,26>`, `push_heap`/`pop_heap` with
+  `greater<>`, and `equal_range`.
+- `priority_queue` and `unordered_map` are not constexpr. Pin a `priority_queue` with
+  `static_assert(is_same_v<PQ::value_compare, greater<int>>)`.
+
+**Not constexpr in C++23 / g142:**
+- `std::uninitialized_move` and `std::uninitialized_copy` (constexpr only from C++26).
+  Relocate with a `construct_at` loop. `storage-uninitialized-move` stays a `basic`.
+- Placement new, `reinterpret_cast`, `memcpy` (put it behind `if !consteval`).
+- `std::atomic` operations.
+
+**GCC versions differ.** Reading a trivial `int` after `destroy_at` is rejected by
+GCC 16 but **accepted by g142**. Local `scripts/check-code` (GCC 16) can therefore
+report a distractor as failing when the app accepts it. That is why `check-code` gained
+`--remote` (Compiler Explorer, each Card's own `compiler`), which is now required for
+new compile-graded Cards. Distractors must not rely on trivial-type lifetime
+diagnostics.
+
+**Follow-up (not in this plan's scope):** run `scripts/check-code --remote` once over
+the existing four Decks to find any distractor that only fails on GCC 16.
+
+## 3. Cards
+
+Kinds: b = basic, c = cloze, code, chunk, parsons, trace, explain (≤ 5 rubric items).
+Every Card cites a ref.
+
+### 3a. `cpp-core/topics/03-library/raw-storage` — done (11 Cards)
+| depth | id | kind | requires |
 |---|---|---|---|
-| A1 | 01-complexity | `complexity-asym-` | step model, O/Ω/Θ with c,n₀, o/ω, limit test, growth order, logs |
-| A2 | 01-complexity | `complexity-cost-` | sum/product rules, derive-the-loop traces, sums, cases, amortized, recurrences, recursion tree, master cases |
-| A3 | 02-linear, 03-hashing | `linear-`, `hashing-` | ADT vs impl, address formula, lists, stack/queue/deque ADTs; map/set ops, hash contract, chaining |
-| A4 | 04-searching, 09-techniques | `search-`, `technique-` | linear/binary search, invariants; recursion, call stack, pre/post, termination |
-| A5 | 05-trees, 06-heaps | `tree-`, `heap-` | recursive def, height/size, BST basics, PQ ADT |
-| A6 | 07-sorting | `sort-` | inversions, selection/bubble/insertion with invariants, merge/quick skeletons, partition |
-| A7 | 08-graphs | `graph-` | path/cycle/connected, spanning tree, degrees, representations, BFS/DFS, visited, O(V+E) |
+| 1 | storage-new-array-wrong | b | cpp-basics/iter-size-vs-capacity |
+| 2 | storage-allocate-vs-construct | b | storage-new-array-wrong, cpp-basics/class-constructor-intro |
+| 3 | storage-construct-at | code | storage-allocate-vs-construct |
+| 3 | storage-live-range-invariant | b | storage-allocate-vs-construct |
+| 3 | storage-allocator-traits | b | storage-allocate-vs-construct |
+| 4 | storage-destroy-at-pop | b | storage-live-range-invariant, storage-construct-at |
+| 4 | storage-placement-new-not-constexpr | b | storage-construct-at |
+| 4 | storage-destroy-then-deallocate | code | storage-construct-at |
+| 4 | storage-uninitialized-move | b, misconception | storage-construct-at |
+| 4 | storage-launder | b, L5 | storage-construct-at |
+| 4 | storage-transparent-replacement | b, L5 | storage-construct-at |
 
-Status (2026-10-11): 149 `foundations` Cards written, reviewed and revised; existing
-entry Cards wired onto them. After Phases 6–7: deep review of every Card for answer give-aways
-and references to things not on the Card ("the generator from the parsons Card").
+Notes for later Cards:
+- `a.deallocate(buf, wrong_n)` is **not** diagnosed on g142, so it can't be a distractor.
+- Element destruction order in `std::destroy` is unspecified.
 
-## Deep review (2026-10-11) — done
-Every Card in all four Decks read for give-aways and for relying on anything not
-on the Card. 15 slices, ~300 findings, all fixed or skipped with a reason; ~20
-Cards bumped where the question changed. Open:
-- docs/FORMAT.md §4.10 (`trace`) still recommends pointing at another Card's code
-  ("the parsons Card's Generator"); fix in the app's export.
-- ~~cpp-basics gaps~~ closed 2026-10-11: 42 Cards (enum class, named casts,
-  signed/unsigned rule, `= default`/`= delete`, comparisons and `<=>`,
-  `unique_ptr`/`shared_ptr`, new topics 15-text-and-format and
-  16-concurrency-basics); 17 cpp-core entry Cards require them.
-- `chunks-go-close-after-wait` has prose above its snippet; confirm the app renders it.
+### 3b. `hft-interview/topics/01-implement-std/vector` (prefix `vec-`)
+| id | kind | front / point | requires |
+|---|---|---|---|
+| vec-three-pointers | b | begin / end / cap, 24 bytes | cpp-basics/iter-size-vs-capacity |
+| vec-zero-capacity-growth | code | `next_capacity(cap)`; `2*cap` fails at 0 | ↑ |
+| vec-max-size-overflow | b | Check `max_size` and throw `length_error` before doubling | ↑ |
+| vec-realloc-order | parsons | allocate → construct new → relocate → destroy → deallocate → swap | cpp-core/storage-destroy-then-deallocate, cpp-core/storage-uninitialized-move |
+| vec-push-back-self-alias | b, misconception | `v.push_back(v[0])` on a full vector | vec-realloc-order |
+| vec-relocate-move-if-noexcept | code | blank `move_if_noexcept(old[i])`; copy counter run with *both* a throwing and a noexcept move (§2) | cpp-core/move-semantics-vector-move-if-noexcept, vec-realloc-order |
+| vec-realloc-rollback | trace | copy throws at element 2: size, what gets destroyed | ↑, cpp-core/exceptions-strong-vs-basic |
+| vec-emplace-back-forward | code | blank `std::forward<Args>(args)...` | cpp-core/move-semantics-perfect-forwarding, cpp-core/storage-construct-at |
+| vec-push-back-delegates | b | Why `push_back(T&&)` is one line | ↑ |
+| vec-reserve-contract | c | exact, only if `n > cap`, never shrinks | cpp-basics/iter-reserve-keeps-buffer |
+| vec-reserve-in-loop | b, misconception | `reserve(size()+1)` every push gives O(n²) | ↑ |
+| vec-resize-value-inits | b | `resize` vs `reserve` for a 1M-double buffer you overwrite | ↑ |
+| vec-erase-shift | code | move left, destroy the last element | cpp-core/storage-destroy-then-deallocate |
+| vec-insert-aliasing | b | `insert(begin(), back())`: copy the value first | vec-push-back-self-alias |
+| vec-trivially-relocatable | b | When `memcpy` is OK; why not libstdc++ `string` | cpp-core/templates-conditionally-trivial, cpp-core/strings-sso |
+| vec-push-back-fast-path | chunk | inline `[[likely]]` fast path, cold out-of-line `realloc_insert` | vec-realloc-order |
+| vec-copy-assign-guarantee | b | Copy assignment reusing capacity: basic guarantee only | cpp-core/exceptions-commit-by-swap |
+| vec-explain-push-back | explain | Capstone: implement `push_back` | vec-realloc-order, vec-push-back-self-alias, vec-relocate-move-if-noexcept |
+| vec-build-mini-vector | code | Capstone: the grow-and-construct body of a constexpr MiniVec | vec-explain-push-back |
+| vec-explain-hft-vector | explain | The HFT angle: growth below 2, cold path, reserve up front, `inplace_vector` | vec-explain-push-back, algo-systems/foundations-growth-below-two, algo-systems/ll-warm-path |
+
+### 3c. `hft-interview/topics/01-implement-std/*` (other components, 3–7 Cards each)
+- **smart-pointers:**
+  - `uptr-reset-order` (code)
+  - `uptr-array-specialisation` (b)
+  - `sptr-refcount-orders` (code, FakeAtomic: inc relaxed / dec acq_rel)
+  - `sptr-weak-plus-one` (trace)
+  - `sptr-make-shared-retention` (b)
+  - `sptr-aliasing-ctor` (b)
+  - `sptr-explain-implement` (explain)
+- **type-erasure:**
+  - `erasure-fnptr-vtable` (chunk)
+  - `erasure-sbo-nothrow-move` (b)
+  - `erasure-explain-implement-function` (explain)
+- **optional:**
+  - `opt-union-storage` (code)
+  - `opt-conditionally-trivial-dtor` (b)
+  - `opt-emplace-destroys-first` (trace)
+- **string:**
+  - `sso-layout` (b: libstdc++ 15 chars vs libc++ 22, labelled as implementation behaviour)
+  - `sso-null-terminator-capacity` (b)
+- **inplace:** `inplace-vector-overflow` (b: `try_push_back`), which requires algo-systems/seq-inline-capacity.
+- **flat-map:** `flatmap-explain-implement` (explain), which requires algo-systems hash-robin-hood, hash-backward-shift and hash-swiss-control-byte.
+
+### 3d. `hft-interview/topics/02-hft-design/*` (the "write it" step for existing concepts)
+| topic | cards | chain |
+|---|---|---|
+| spsc | `spsc-try-push` (code), `spsc-publish-order` (code, FakeAtomic), `spsc-try-pop-parsons` (parsons), `spsc-layout-chunk` (chunk, `offsetof % 64`), `spsc-explain` (explain) | seq-ring-buffer-mask → ll-spsc-ring → ll-spsc-cached-index → these; follow-up branch into ll-mpmc-* |
+| order-book | `book-match-cross` (code), `book-modify-priority` (b), `book-matching-fills-trace` (trace), `book-explain` (explain) | seq-intrusive-unlink → ll-freelist-pool → ll-order-book-best → these |
+| lru | `lru-touch` (code, index links in `std::array`), `lru-explain` (explain) | trace-lru-splice, ll-freelist-pool |
+| rate-limit | `bucket-refill` (code), `bucket-vs-window` (b), `bucket-explain-per-venue` (explain) | ll-measurement |
+| packets | `packet-reinterpret-ub` (b, misconception), `packet-bit-cast-header` (code) | cpp-basics/types-reinterpret-cast-intro |
+| pools | `pool-typed-storage` (code, `construct_at` into byte slots), `pool-pmr-arena` (code) | ll-freelist-pool, cpp-core/storage-construct-at |
+
+### 3e. `hft-interview/topics/03-trivia` (lightning round, shallow edges)
+- `trivia-overload-puzzles` (trace: `f("hi")` picks `bool`)
+- `trivia-mi-sizeof` (code: two vptrs)
+- `trivia-this-adjustment` (b)
+- `trivia-init-order-fiasco` (b)
+- `trivia-constinit-fix` (code)
+- `trivia-volatile-not-atomic` (b, misconception)
+- `trivia-exceptions-cost` (b: zero-cost happy path vs µs throw)
+
+Reuse cpp-core `layout-*` and `ub-*` via `requires`; don't copy them.
+
+### 3f. Gap fills in existing Decks (siblings live there)
+These four were proposed in algo-systems/REVIEW.md and never written:
+- `ll-icache-layout` (b)
+- `ll-cas-retry-loop` (code)
+- `ll-wire-timestamps` (b)
+
+Also new in algo-systems:
+- `ll-cold-path-attrs` (c)
+- `ll-mesi-states` (c)
+- `ll-tsc-invariant` (b)
+- `hash-linear-probe-find` (code)
+- `ll-explain-latency-measurement` (explain)
+
+### 3g. `leetcode` Deck (topic prefixes)
+`00-stl` stl-, `01-arrays` arr-, `02-search` bs-, `03-stacks` mono-, `04-heaps` pq-,
+`05-lists` list-, `06-trees` tree-, `07-graphs` gr-, `08-backtracking` bt-, `09-dp` dp-,
+`10-bits` bit-, `11-ranges` rq-, `12-recognition` rec-.
+
+**Per-pattern recipe (3–5 Cards):**
+1. A *signal* basic card: a problem-statement fragment → the pattern and its invariant.
+2. A template *chunk* (≤ 7 lines).
+3. A *trace* on a tiny input, with values taken from a compiled run.
+4. A *code* card blanking the bug-prone line.
+5. A misconception card where one is real.
+
+There is one explain capstone per *family* (windows, DP, graphs), not one per pattern.
+
+**Linking to LeetCode:** `refs` holds the LeetCode URL plus cppreference or cp-algorithms. `tags` holds the pattern plus `lc-<n>`, at most 3 per Card. `elaborate` points to sibling problems.
+
+**First 25:**
+| # | id | kind | requires | LC |
+|---|---|---|---|---|
+| 1 | stl-pq-min-heap-type | code | algo-basics/heap-min-comparator | 215 |
+| 2 | stl-pq-lambda-comparator | code | 1, cpp-basics/stdalgo-comparator-strict | 347 |
+| 3 | stl-multiset-erase-one | b, misc. | – | 480 |
+| 4 | stl-map-subscript-probe | code | cpp-basics/iter-map-subscript-inserts | 1 |
+| 5 | stl-pair-key-hash | code | algo-systems/hash-combine-keys | 149 |
+| 6 | stl-int-min-traps | b, misc. | cpp-basics/ub-signed-overflow-no-wrap | 7 |
+| 7 | stl-equal-range-count | code | algo-systems/chunks-lower-bound-lookup | 34 |
+| 8 | arr-window-variable-chunk | chunk | algo-basics/linear-variable-window-shrink | 3, 76 |
+| 9 | arr-window-negatives | b, misc. | 8 | 560 vs 209 |
+| 10 | arr-prefix-hash-signal | b | algo-basics/linear-prefix-sum-range | 560 |
+| 11 | arr-prefix-hash-chunk | chunk | 10 | 560, 974 |
+| 12 | arr-prefix-hash-trace | trace | 11 | 560 |
+| 13 | bs-first-true-chunk | chunk | algo-basics/search-first-true-predicate | 875 |
+| 14 | mono-stack-signal | b | algo-basics/linear-stack-recognition | 739 |
+| 15 | mono-next-greater-chunk | chunk | 14 | 739, 496 |
+| 16 | mono-histogram-trace | trace | 15 | 84 |
+| 17 | arr-intervals-merge-chunk | chunk | cpp-basics/stdalgo-sort-by-length | 56, 57 |
+| 18 | list-reverse-chunk | chunk | algo-basics/linear-list-node | 206 |
+| 19 | list-fast-slow-chunk | chunk | 18 | 141, 876 |
+| 20 | gr-multi-source-bfs-code | code | algo-basics/graph-bfs-grid-trace | 994 |
+| 21 | gr-kahn-chunk | chunk | algo-basics/graph-kahn-trace | 207, 210 |
+| 22 | gr-dijkstra-heap-chunk | chunk | algo-basics/graph-dijkstra-popped-final, 2 | 743 |
+| 23 | bt-subsets-chunk | chunk | algo-basics/technique-backtracking-undo | 78, 46 |
+| 24 | bt-combination-start-index | code | 23 | 39 vs 40 |
+| 25 | dp-lis-patience-chunk | chunk | algo-basics/technique-dp-state, 13 | 300 |
+
+**Then:**
+- dp-edit-distance, dp-grid-paths, dp-unbounded-knapsack, dp-interval, dp-bitmask
+- arr-kadane, arr-difference-array, arr-two-sum-3sum-dedup
+- tree-inorder-iterative, tree-lca, rq-segment-tree
+- bit-lowbit, gr-grid-dfs, gr-dijkstra-template
+- the remaining stl- fluency cards: iota argsort, structured-binding copies, projections, `v(n)` vs `v{n}`, `accumulate` 0LL (extend cpp-basics/stdalgo-accumulate-init)
+- the rec- explain capstones
+
+## 4. Phases (one commit per topic; each phase leaves every Deck loadable)
+
+| Phase | Content | Owner | ~Cards |
+|---|---|---|---|
+| 0 | ✅ Spike (§2); `check-code --remote`; deck.yaml + README for both Decks; CLAUDE.md; `.claude/agents/*`; old plan archived | me | 0 |
+| 1 | 3a raw storage | cpp-teacher | 8 |
+| 2 | 3b vector | cpp-teacher | 20 |
+| 3 | 3d SPSC + order book | systems-teacher | 9 |
+| 4 | 3g first 25 (can run alongside 1–3) | systems-teacher | 25 |
+| 5 | 3e trivia + 3f gap fills | cpp-teacher / systems-teacher | 15 |
+| 6 | 3c other std components | cpp-teacher | 20 |
+| 7 | 3d LRU, rate limit, packets, pools | systems-teacher | 11 |
+| 8 | 3g rest + capstones | systems-teacher | ~35 |
+
+Total about 145 new Cards.
+
+**Steps for every topic:**
+1. The teacher writes the Cards.
+2. `prereq-mapper` wires the seams.
+3. `learning-designer` reviews them, and its fixes go into the same commit.
+
+**Gate before each commit:**
+```
+tool/validate cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode
+scripts/check-code cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode
+scripts/check-code <decks...> --remote --id <the topic's ids>
+scripts/lint-shape hft-interview leetcode
+scripts/graph cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode
+```
+The scripts take Deck directories as arguments, and nothing in them is hardcoded.
+
+## 5. Risks
+- **Locking.** New Cards stay locked until their cross-Deck prerequisites are known. Keep fan-in ≤ 2, and require shallow concept Cards. Watch the depth histogram: if `hft-interview` goes past about 8, it won't be usable in time.
+- **Capstones that grow too big.** "Implement vector" is never one Card. It is atomic decision Cards, then a parsons card of ≤ 9 lines, then one explain card with 5 items.
+- **Duplicates and interference.** A new Card asks the *interview* question and requires the concept Card. It never repeats the concept Card's front.
+- **Implementation-specific facts** (libstdc++ growth ×2, SSO 15) are labelled as such.
+- **Latency numbers.** Keep only the order-of-magnitude numbers that drive a decision (PEDAGOGY §2.12). Extend `ll-hardware-numbers` rather than adding a list.
+- **cpp-core in active review.** Adding the raw-storage topic doesn't disturb existing schedules. Bump no existing `version`.

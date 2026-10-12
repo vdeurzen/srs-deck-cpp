@@ -12,8 +12,9 @@ that app. The app's source is not available here; what you need of it is bundled
 - Layout: <deck>/deck.yaml plus <deck>/topics/<topic-path>/<card-id>.md. A repo may hold
   several Decks; one Deck may not sit inside another. The Topic is the directory path
   under topics/ and nothing more: there is no Topic metadata file.
-- This repo holds the installed `cpp-basics`, `cpp-core`, `algo-basics` and `algo-systems` Decks;
-  edit them in place. Their ids are fixed. A new Deck's id must not collide with them.
+- This repo holds the installed `cpp-basics`, `cpp-core`, `algo-basics` and `algo-systems` Decks,
+  plus the interview-prep Decks `hft-interview` and `leetcode`; edit them in place. Their ids
+  are fixed. A new Deck's id must not collide with them.
 - Part of `cpp-core` is in active review (coroutines, move semantics, smart
   pointers). Bump `version` only when a Card's question changes meaning.
 - Card ids are [a-z0-9-]+, unique within the Deck, and never change once pushed:
@@ -24,12 +25,16 @@ that app. The app's source is not available here; what you need of it is bundled
   never executes): use static_assert / constexpr checks, not a main() that returns.
 - `cpp-core` builds on `cpp-basics`; `algo-basics` builds on both; `algo-systems`
   builds on all three, so it may `require` `cpp-basics/<id>`, `cpp-core/<id>` and
-  `algo-basics/<id>`. Validate all Decks together so those edges are checked.
+  `algo-basics/<id>`. `hft-interview` and `leetcode` build on all four; nothing
+  requires them, so they can be paused on their own. Validate all Decks together so
+  those edges are checked.
 - PLAN.md is the current work plan.
 
 ## Done means validated
 From the repo root, run:
-    tool/validate cpp-basics cpp-core algo-basics algo-systems
-    scripts/check-code cpp-basics cpp-core algo-basics algo-systems
+    tool/validate cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode
+    scripts/check-code cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode
+New or changed compile-graded Cards are also checked against the app's compiler:
+    scripts/check-code <decks...> --remote --id <ids...>
 Pass every Deck in this repo in one run, so `requires` between them is checked.
 Do not report work as finished until this prints 0 errors.

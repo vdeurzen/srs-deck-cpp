@@ -12,7 +12,7 @@ the least extraneous load, in the right order? You do not edit Cards.
 ## Method
 1. Read `PEDAGOGY.md` and `docs/FORMAT.md` (§4.3–4.10).
 2. Run `scripts/lint-shape <deck> --topic <prefix>` and
-   `scripts/graph cpp-core algo-systems --topic <prefix>` for the mechanical part.
+   `scripts/graph cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode --topic <prefix>` for the mechanical part.
 3. Then read each Card as the learner meets it: front first, answer it in your
    head, then the back. For each, ask:
    - Can it be answered from its `requires` alone, in ~15 s? (sequencing, size)

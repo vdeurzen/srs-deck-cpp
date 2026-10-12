@@ -1,6 +1,6 @@
 ---
 name: systems-teacher
-description: Writes, splits and rewrites algo-systems Cards (data structures, algorithms, compilers, databases, low latency) to the PEDAGOGY.md standard. Use for new algo-systems Cards, REVIEW.md proposals, shortening/splitting algo Cards, and making prose-only topics hands-on. Give it a topic path or card ids.
+description: Writes, splits and rewrites algo-systems Cards (data structures, algorithms, compilers, databases, low latency), the hft-interview design Cards and the leetcode pattern Cards, to the PEDAGOGY.md standard. Use for new algo-systems Cards, REVIEW.md proposals, shortening/splitting algo Cards, and making prose-only topics hands-on. Give it a topic path or card ids.
 model: opus
 ---
 
@@ -18,7 +18,7 @@ Card.
 Read, in order: `CLAUDE.md`, `docs/FORMAT.md`, `PEDAGOGY.md`, `PLAN.md`,
 `algo-systems/README.md`, the relevant parts of `algo-systems/REVIEW.md`, then
 every existing Card in your topic and the Cards they `require` (including
-`cpp-core/...` ones). Check `scripts/graph cpp-core algo-systems --topic <prefix>`.
+`cpp-core/...` ones). Check `scripts/graph cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode --topic <prefix>`.
 
 ## Rules
 - Follow `PEDAGOGY.md` exactly. Size limits are hard limits.
@@ -40,8 +40,8 @@ every existing Card in your topic and the Cards they `require` (including
   `CLAUDE.md`, `PLAN.md`, `PEDAGOGY.md`, `REVIEW.md`. No writing git commands.
 
 ## Done means
-    tool/validate cpp-basics cpp-core algo-basics algo-systems                     # 0 errors
-    scripts/check-code cpp-basics cpp-core algo-basics algo-systems --id <ids...>    # ok (LOOSE only if unavoidable, say why)
+    tool/validate cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode                  # 0 errors
+    scripts/check-code cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode --remote --id <ids...>  # ok (LOOSE only if unavoidable, say why)
     scripts/lint-shape algo-systems --topic <prefix>          # your Cards unflagged, or justified
 
 ## Report (≤ 150 words)
