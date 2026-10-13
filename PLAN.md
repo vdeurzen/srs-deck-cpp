@@ -17,8 +17,9 @@ whenever.
 | 0 Spike + housekeeping | done (2026-10-12) |
 | 1 Raw storage (cpp-core) | done (2026-10-12): 11 Cards, depth ≤ 4, reviewed |
 | 2 Vector (hft-interview) | done (2026-10-12): 21 Cards incl. `inplace-vector-overflow`; capstones at depth 11 (cpp-core move/exception spine), reviewed |
-| 3 SPSC + order book (hft-interview) | next |
-| 4–8 | not started |
+| 3 SPSC + order book (hft-interview) | done (2026-10-13): spsc 6 Cards, order-book 8 Cards, reviewed |
+| 4 LeetCode first 25 | in progress |
+| 5–8 | not started |
 
 ## 0. Decisions (2026-10-12)
 
@@ -228,6 +229,14 @@ Notes for later Cards:
 | rate-limit | `bucket-refill` (code), `bucket-vs-window` (b), `bucket-explain-per-venue` (explain) | ll-measurement |
 | packets | `packet-reinterpret-ub` (b, misconception), `packet-bit-cast-header` (code) | cpp-basics/types-reinterpret-cast-intro |
 | pools | `pool-typed-storage` (code, `construct_at` into byte slots), `pool-pmr-arena` (code) | ll-freelist-pool, cpp-core/storage-construct-at |
+
+**As built (Phase 3):**
+- **spsc.** `spsc-publish-order` became a basic misconception Card ("a relaxed tail store passes x86 tests"), because a code Card would duplicate `ll-spsc-orders`. `spsc-stale-cache-trace` was added.
+- **The parsons harness** uses a FakeAtomic that records how far acquire loads have reached, plus a `Slots` wrapper. Of all 720 orderings, only the reference compiles.
+- **`spsc-try-push`** blanks both full-tests as one `c1`, so the inner re-check doesn't give the answer away.
+- **order-book.** `book-fifo-fill`, `book-trade-price` and `book-fifo-vs-prorata` were added. `book-cancel-empties-level` was dropped because it duplicates `ll-order-book-best`.
+- **Order-book priority facts** are scoped to CME FIFO products. Trade price cites BYX Rule 11.13.
+- **Depth.** spsc is 11–13; order-book is 6–17, via `ll-memory-pools` → the algo-basics complexity chain of L1/L2 Cards. Both were accepted.
 
 ### 3e. `hft-interview/topics/03-trivia` (lightning round, shallow edges)
 - `trivia-overload-puzzles` (trace: `f("hi")` picks `bool`)
