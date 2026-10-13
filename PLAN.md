@@ -18,8 +18,9 @@ whenever.
 | 1 Raw storage (cpp-core) | done (2026-10-12): 11 Cards, depth ≤ 4, reviewed |
 | 2 Vector (hft-interview) | done (2026-10-12): 21 Cards incl. `inplace-vector-overflow`; capstones at depth 11 (cpp-core move/exception spine), reviewed |
 | 3 SPSC + order book (hft-interview) | done (2026-10-13): spsc 6 Cards, order-book 8 Cards, reviewed |
-| 4 LeetCode first 25 | in progress |
-| 5–8 | not started |
+| 4 LeetCode first 25 | done (2026-10-13): 26 Cards, reviewed |
+| 5 Trivia + gap fills | next |
+| 6–8 | not started |
 
 ## 0. Decisions (2026-10-12)
 
@@ -306,6 +307,20 @@ There is one explain capstone per *family* (windows, DP, graphs), not one per pa
 | 23 | bt-subsets-chunk | chunk | algo-basics/technique-backtracking-undo | 78, 46 |
 | 24 | bt-combination-start-index | code | 23 | 39 vs 40 |
 | 25 | dp-lis-patience-chunk | chunk | algo-basics/technique-dp-state, 13 | 300 |
+
+**As built (Phase 4):**
+- **Renamed** (unpushed): every template that can't be written as ≤ 7 natural lines became `parsons`. That gives `arr-prefix-hash-parsons`, `list-reverse-parsons`, `list-fast-slow-parsons`, `gr-dijkstra-heap-parsons` and `dp-lis-patience-parsons`. For each, every single-line move was compiled on g142 and only the reference passes.
+- **Chunk rule:** ≤ 7 lines, ≤ ~80 chars, one statement per line, no trailing comments, `#include`s counted. The harness can only follow the snippet, so a chunk that needs declarations it can't contain is either graded by text (`compile: null`, checked separately) or becomes parsons.
+- **Prerequisite changes:** Dijkstra requires `stl-pq-min-heap-type`, not the lambda Card. LIS requires `algo-basics/search-lower-bound-meaning`, not `bs-first-true-chunk`.
+- **Added:** `mono-histogram-bounds`.
+- **Prefix-hash** records the prefix before adding `x`, so it needs no `{0,1}` seed. The Card names the editorial form.
+
+**Deferred to Phase 8 (from reviews):**
+- `gr-kahn-build-code` (blank `adj[p[1]].push_back(p[0]); ++indeg[p[0]]`)
+- `bt-reuse-signal` (LC 39/40/78/90: `j` or `j + 1`?)
+- a window signal Card and trace
+- code or parsons angles on the remaining chunks
+- traces for multiset, equal_range and the heap comparator
 
 **Then:**
 - dp-edit-distance, dp-grid-paths, dp-unbounded-knapsack, dp-interval, dp-bitmask
