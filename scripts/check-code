@@ -42,14 +42,17 @@ def compiles_remote(src, cfg):
                                                   "compilerOptions": {"skipAsm": True}}}).encode()
     req = urllib.request.Request(GODBOLT.format(cfg.get("compiler", "g142")), data=body,
                                  headers={"Content-Type": "application/json", "Accept": "application/json"})
-    for attempt in range(4):
+    for attempt in range(7):  # Compiler Explorer rate-limits (HTTP 429): back off up to ~2 min
         try:
             r = json.load(urllib.request.urlopen(req, timeout=90))
             break
-        except OSError:
-            if attempt == 3:
+        except OSError as e:
+            if attempt == 6:
                 raise
-            time.sleep(2 ** attempt)
+            wait = 2 ** attempt
+            if getattr(e, "code", None) == 429:
+                wait = max(wait, int(e.headers.get("Retry-After") or 0), 5 * (attempt + 1))
+            time.sleep(wait)
     stderr = "\n".join(l.get("text", "") for l in r.get("stderr", []))
     return r["code"] == 0 and " error: " not in stderr, stderr
 
