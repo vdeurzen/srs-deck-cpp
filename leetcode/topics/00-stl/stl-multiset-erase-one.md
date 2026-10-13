@@ -1,0 +1,33 @@
+---
+id: stl-multiset-erase-one
+kind: basic
+version: 1
+level: 2
+tags: [stl, sliding-window, misconception, lc-480]
+refs:
+  - https://leetcode.com/problems/sliding-window-median/
+  - https://en.cppreference.com/w/cpp/container/multiset/erase
+elaborate: If the value might be absent, what must the fix check?
+---
+
+LC 480 keeps the window in a `std::multiset<int>`. The value 5 leaves
+the window:
+
+```cpp
+std::multiset<int> window{2, 5, 5, 7};
+window.erase(5);
+```
+
+## What does `window` hold now?
+
+---
+
+**`{2, 7}`: `erase(key)` removes every element equal to the key.** It
+returns the number removed (2). To drop one copy, erase by iterator:
+
+```cpp
+window.erase(window.find(5));   // {2, 5, 7}
+```
+
+`find` must not return `end()`: erasing `end()` is undefined
+behaviour. Verified with GCC 16.2.
