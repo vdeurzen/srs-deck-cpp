@@ -9,7 +9,7 @@ be paused or practised on its own. The plan is `PLAN.md`.
 ## Layout
 
 ```
-topics/01-implement-std/<component>   vec-, storage via cpp-core, uptr-/sptr-, erasure-, opt-, sso-
+topics/01-implement-std/<component>   vec-, storage via cpp-core, uptr-/sptr-, erasure-, opt-, sso-, flatmap-, inplace-
 topics/02-hft-design/<problem>        spsc-, book-, lru-, bucket-, packet-, pool-
 topics/03-trivia                      trivia-
 ```
