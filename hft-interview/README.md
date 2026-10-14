@@ -38,3 +38,5 @@ the shared conventions. Specific to this Deck:
   evaluation differs between GCC versions, and the app grades with g142.
 - **Implementation-specific facts are labelled** (libstdc++ grows by 2, its
   SSO holds 15 chars).
+- **Trace values follow from the code.** A compiled run checks them, but no
+  compiler is named on a Card as the source of truth.

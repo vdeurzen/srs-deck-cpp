@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 3
 tags: [strings, sso, implement-std]
-elaborate: How does this explain why libstdc++'s 16-byte in-object buffer holds only 15 chars?
+elaborate: What would `c_str()` have to do if the terminator were not stored?
 requires:
   - cpp-core/strings-sso
 refs:
