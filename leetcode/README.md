@@ -23,6 +23,12 @@ topics/04-heaps  pq-    topics/09-dp     dp-
   input whose values come from a compiled run, a `code` Card that blanks the
   bug-prone line, and a misconception Card where a real one exists. One
   `explain` capstone per family, not per pattern.
+- **Recognition (`12-recognition`, `rec-`).** A contrast Card shows two or
+  three problem-statement fragments that look alike, and its answer is the
+  one property that separates them. Its front doesn't name the patterns
+  it separates. The `rec-explain-*` Cards are the family capstones
+  (windows, DP, graphs): five single "X because Y" claims, each backed
+  by a required Card, directly or through one.
 - **Problems are linked, not memorised.** `refs` carries the LeetCode URL
   next to a primary source (cppreference, cp-algorithms); `tags` carries the
   pattern and up to three `lc-<number>` tags.
