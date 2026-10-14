@@ -22,7 +22,7 @@ whenever.
 | 5 Trivia + gap fills | done (2026-10-14): trivia 7 Cards, algo-systems 9 Cards, reviewed |
 | 6 Other std components (hft-interview) | done (2026-10-14): smart-pointers 8, type-erasure 4, optional 4, string 2, flat-map 1, reviewed |
 | 7 LRU, rate limit, packets, pools (hft-interview) | done (2026-10-14): lru 4, rate-limit 6, packets 3, pools 3, reviewed |
-| 8 LeetCode rest + deferred items + capstones | in progress: leetcode groups D/E/F done (2026-10-14, 49 Cards); next rec- capstones, then deferred hft-interview items |
+| 8 LeetCode rest + deferred items + capstones | done (2026-10-14): leetcode +63 Cards (groups D/E/F, recognition), hft-interview +5, algo-systems +1, reviewed |
 
 ## 0. Decisions (2026-10-12)
 
@@ -281,6 +281,18 @@ Notes for later Cards:
   - from reviews: `arr-3sum-frame-parsons`, `bit-precedence-trap`, `rq-segment-signal`
   - deferred from Phase 4: `gr-kahn-build-code`, `bt-reuse-signal`, `arr-window-signal`, `arr-window-trace`
 - **Still deferred:** Kadane, edit-distance and Held–Karp signal/template Cards.
+
+**As built (Phase 8, recognition and deferred items):**
+- **`12-recognition` pattern.** Contrast Cards show 2–3 statement fragments and ask for one deciding property. Their fronts read "Only one of them …; which property …?", because a two-part question trips lint-shape. Family capstones (`rec-explain-windows`, `-dp`, `-graphs`) ask statement → pattern. `rec-dp-cell-vs-mask` and `rec-one-vs-two-sequences` exist so the DP capstone can back five states at fan-in 3.
+- **`dp-held-karp-parsons`** passed a full g142 sweep: 102 variants, one request each. That is the reference method for parsons.
+- **Deferred items done:** `uptr-explain-implement`, `erasure-function-copy-trace`, `sso-small-bound-code`, `packet-lifetime-contrast`, `bucket-clock-step-trace`, and `ll-stamp-buffer` (closes the Phase 5 open item).
+- **Dropped:** `pool-pmr-release-code`. pmr isn't constexpr and every choice compiles, so no harness can discriminate them.
+- **Depth.** leetcode max is 14 (`rec-explain-graphs`) and hft-interview max is 17 (order book). All inherited from real algo-basics/algo-systems chains.
+
+**Open follow-ups (not scheduled):**
+- Run `scripts/check-code --remote` once over cpp-basics, cpp-core, algo-basics and algo-systems, to find distractors that only fail on GCC 16.
+- Parsons Cards from the previous plan still wait for FORMAT.md's pre-filled lines.
+- A Kahn signal Card (to back `rec-explain-graphs` item 4) and an LC 53 "contiguous max sum" signal.
 
 ### 3e. `hft-interview/topics/03-trivia` (lightning round, shallow edges)
 - `trivia-overload-puzzles` (trace: `f("hi")` picks `bool`)
