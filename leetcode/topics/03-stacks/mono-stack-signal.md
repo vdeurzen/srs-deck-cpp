@@ -13,7 +13,7 @@ elaborate: Stock span (LC 901) looks backwards, not forwards. Which way do the s
 ---
 
 > Given daily temperatures, return for each day the number of days you
-> have to wait until a **warmer** temperature. If there is none, 0.
+> have to wait until a warmer temperature. If there is none, 0.
 > `1 <= n <= 10^5`.
 
 ## Which O(n) pattern fits this statement?

@@ -13,7 +13,7 @@ elaborate: LC 525 (equal 0s and 1s) has no "sum" in its statement. What rewrite 
 ---
 
 > Given an integer array `nums` and an integer `k`, return the total
-> number of **contiguous** subarrays whose sum equals `k`.
+> number of contiguous subarrays whose sum equals `k`.
 > `-1000 <= nums[i] <= 1000`.
 
 ## Which pattern solves this in O(n)?
