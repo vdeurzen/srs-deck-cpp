@@ -19,8 +19,9 @@ whenever.
 | 2 Vector (hft-interview) | done (2026-10-12): 21 Cards incl. `inplace-vector-overflow`; capstones at depth 11 (cpp-core move/exception spine), reviewed |
 | 3 SPSC + order book (hft-interview) | done (2026-10-13): spsc 6 Cards, order-book 8 Cards, reviewed |
 | 4 LeetCode first 25 | done (2026-10-13): 26 Cards, reviewed |
-| 5 Trivia + gap fills | next |
-| 6–8 | not started |
+| 5 Trivia + gap fills | done (2026-10-14): trivia 7 Cards, algo-systems 9 Cards, reviewed |
+| 6 Other std components (hft-interview) | next |
+| 7–8 | not started |
 
 ## 0. Decisions (2026-10-12)
 
@@ -262,6 +263,13 @@ Also new in algo-systems:
 - `ll-tsc-invariant` (b)
 - `hash-linear-probe-find` (code)
 - `ll-explain-latency-measurement` (explain)
+
+**As built (Phase 5):**
+- **Trivia.** `trivia-constinit-fix` has one blank, the specifier.
+- **Overload trace.** It probes `f(0)`, `f(&n)`, `f(std::string("x"))` and `f("hi")`. A `string_view` overload does *not* beat `bool` for `"hi"`; only `const char*` does.
+- **No observed numbers or toolchain behaviour.** Link-order results and throw timings stay off the Cards.
+- **Gap fills.** `ll-mesi-rfo` was added. `ll-cas-retry-loop` asks for re-testing the precondition after a failed CAS (the CAS mechanism itself is in the existing chunks). `hash-linear-probe-find` asks for probing past tombstones (the step and the stop rule are in algo-basics). The `cold` call-block split is labelled "observed, not documented".
+- **Open.** No Card yet backs "stamps to a preallocated buffer, aggregated off the hot thread". It is a candidate for Phase 7. The SDM TSC section number varies by edition, so the Card cites it by name.
 
 ### 3g. `leetcode` Deck (topic prefixes)
 `00-stl` stl-, `01-arrays` arr-, `02-search` bs-, `03-stacks` mono-, `04-heaps` pq-,
