@@ -20,8 +20,9 @@ whenever.
 | 3 SPSC + order book (hft-interview) | done (2026-10-13): spsc 6 Cards, order-book 8 Cards, reviewed |
 | 4 LeetCode first 25 | done (2026-10-13): 26 Cards, reviewed |
 | 5 Trivia + gap fills | done (2026-10-14): trivia 7 Cards, algo-systems 9 Cards, reviewed |
-| 6 Other std components (hft-interview) | next |
-| 7–8 | not started |
+| 6 Other std components (hft-interview) | done (2026-10-14): smart-pointers 8, type-erasure 4, optional 4, string 2, flat-map 1, reviewed |
+| 7 LRU, rate limit, packets, pools (hft-interview) | next |
+| 8 LeetCode rest + capstones | not started |
 
 ## 0. Decisions (2026-10-12)
 
@@ -221,6 +222,22 @@ Notes for later Cards:
   - `sso-null-terminator-capacity` (b)
 - **inplace:** `inplace-vector-overflow` (b: `try_push_back`), which requires algo-systems/seq-inline-capacity.
 - **flat-map:** `flatmap-explain-implement` (explain), which requires algo-systems hash-robin-hood, hash-backward-shift and hash-swiss-control-byte.
+
+**As built (Phase 6):**
+- **Added:** `sptr-relaxed-increment`, `erasure-libs-inline-rule`, `opt-union-member-lifetime`.
+- **`std::function` inline storage is not a nothrow-move rule in either library:**
+  - libstdc++ needs the target trivially copyable, small and aligned.
+  - libc++'s default ABI needs it to fit 24 bytes and be nothrow copy-constructible. The trivially-copyable rule is only `_LIBCPP_ABI_OPTIMIZED_FUNCTION`.
+  - The nothrow-move mandate belongs to `std::any`.
+  - `erasure-sbo-nothrow-move` therefore asks the design question for the learner's own `Fn`.
+- **Constexpr harnesses must not cast from `void*`.** That is P2738, which GCC accepts early and Clang rejects in C++23. Check types and identities instead.
+- **Refcount orders are labelled by library:** libc++ uses a relaxed increment, libstdc++ uses `acq_rel` for both, and both use `acq_rel` for the decrement.
+- **`flatmap-explain-implement` is Robin Hood throughout;** Swiss is in `elaborate`. The validator rejects text after an explain rubric.
+
+**Deferred to Phase 8 (from Phase 6 reviews):**
+- `uptr-explain-implement`
+- a `std::function` copy/move vs heap trace
+- harder Kinds for the SSO and SBO facts
 
 ### 3d. `hft-interview/topics/02-hft-design/*` (the "write it" step for existing concepts)
 | topic | cards | chain |
