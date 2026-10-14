@@ -22,7 +22,7 @@ whenever.
 | 5 Trivia + gap fills | done (2026-10-14): trivia 7 Cards, algo-systems 9 Cards, reviewed |
 | 6 Other std components (hft-interview) | done (2026-10-14): smart-pointers 8, type-erasure 4, optional 4, string 2, flat-map 1, reviewed |
 | 7 LRU, rate limit, packets, pools (hft-interview) | done (2026-10-14): lru 4, rate-limit 6, packets 3, pools 3, reviewed |
-| 8 LeetCode rest + deferred items + capstones | next |
+| 8 LeetCode rest + deferred items + capstones | in progress: leetcode groups D/E/F done (2026-10-14, 49 Cards); next rec- capstones, then deferred hft-interview items |
 
 ## 0. Decisions (2026-10-12)
 
@@ -269,6 +269,18 @@ Notes for later Cards:
 - a contrast Card: implicit creation vs `launder` vs `start_lifetime_as` vs `memcpy`
 - a pmr code Card (`release()` / `null_memory_resource`)
 - the "stamps to a preallocated buffer" Card (open since Phase 5)
+
+**As built (Phase 8, leetcode groups D–F):**
+- **More g142 limits.**
+  - A nested braced `vector<vector<int>>{{…}}` written directly in a `static_assert` is rejected. Build it inside a `constexpr bool` function, or from `initializer_list<initializer_list<…>>`.
+  - The parsons ordering check needs one Compiler Explorer request per variant. Batching variants into one translation unit gives false results.
+- **Text-graded chunks (`compile: null`)** mark correct variants (`a++`, `max(cur + x, x)`) wrong. Every text-graded chunk with real variants now has a compile-checked parsons sibling: `arr-kadane-parsons`, `dp-coin-ways-parsons`.
+- **No compiler names or "measured" figures on Cards.** Traces say the values follow from the code; derived costs are derived, e.g. `gr-grid-dfs-depth` gives m·n frames against a typical 8 MB stack.
+- **Signal fronts carry no bold.** Bold that cued the answer was removed from committed signal Cards too.
+- **Added:**
+  - from reviews: `arr-3sum-frame-parsons`, `bit-precedence-trap`, `rq-segment-signal`
+  - deferred from Phase 4: `gr-kahn-build-code`, `bt-reuse-signal`, `arr-window-signal`, `arr-window-trace`
+- **Still deferred:** Kadane, edit-distance and Held–Karp signal/template Cards.
 
 ### 3e. `hft-interview/topics/03-trivia` (lightning round, shallow edges)
 - `trivia-overload-puzzles` (trace: `f("hi")` picks `bool`)
