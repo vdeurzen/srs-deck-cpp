@@ -21,8 +21,8 @@ whenever.
 | 4 LeetCode first 25 | done (2026-10-13): 26 Cards, reviewed |
 | 5 Trivia + gap fills | done (2026-10-14): trivia 7 Cards, algo-systems 9 Cards, reviewed |
 | 6 Other std components (hft-interview) | done (2026-10-14): smart-pointers 8, type-erasure 4, optional 4, string 2, flat-map 1, reviewed |
-| 7 LRU, rate limit, packets, pools (hft-interview) | next |
-| 8 LeetCode rest + capstones | not started |
+| 7 LRU, rate limit, packets, pools (hft-interview) | done (2026-10-14): lru 4, rate-limit 6, packets 3, pools 3, reviewed |
+| 8 LeetCode rest + deferred items + capstones | next |
 
 ## 0. Decisions (2026-10-12)
 
@@ -256,6 +256,19 @@ Notes for later Cards:
 - **order-book.** `book-fifo-fill`, `book-trade-price` and `book-fifo-vs-prorata` were added. `book-cancel-empties-level` was dropped because it duplicates `ll-order-book-best`.
 - **Order-book priority facts** are scoped to CME FIFO products. Trade price cites BYX Rule 11.13.
 - **Depth.** spsc is 11–13; order-book is 6–17, via `ll-memory-pools` → the algo-basics complexity chain of L1/L2 Cards. Both were accepted.
+
+**As built (Phase 7):**
+- **Token bucket.** A bucket sized at the limit also admits capacity + rate × T, so 200 in one second at 100/s; it does not avoid the 2× problem. The real fix is sizing: capacity + rate × T ≤ limit. `bucket-burst-bound` was added as the concept Card.
+- **Added:** `lru-evict-map`, `lru-std-list-allocates` (2 allocations + 2 frees per miss in any node-based container), `bucket-truncation`, `bucket-monotonic-clock` and `packet-start-lifetime-as`.
+- **pmr.** Both pmr Cards are basics: pmr isn't constexpr, and every upstream choice compiles.
+- **Packet UB.** Implicit object creation (N4950 [intro.object]/13) can supply a `Hdr`. The cast still points at `buf[0]`, so it needs `launder` or `start_lifetime_as`. Library availability is given as a feature-test macro, not as compiler versions.
+- **Pools.** `ll-freelist-pool` is a real prerequisite, so pools sit at depth 12–14.
+
+**Deferred to Phase 8 (from Phase 7 reviews):**
+- a trace of the clock step
+- a contrast Card: implicit creation vs `launder` vs `start_lifetime_as` vs `memcpy`
+- a pmr code Card (`release()` / `null_memory_resource`)
+- the "stamps to a preallocated buffer" Card (open since Phase 5)
 
 ### 3e. `hft-interview/topics/03-trivia` (lightning round, shallow edges)
 - `trivia-overload-puzzles` (trace: `f("hi")` picks `bool`)
