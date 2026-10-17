@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [types, initialization]
 requires:
-  - types-brace-checks-constant
+  - cpp-essentials/types-brace-checks-constant
   - types-constexpr-catches-uninit
   - types-double-to-int-trace
 refs:

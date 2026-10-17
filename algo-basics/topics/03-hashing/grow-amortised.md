@@ -6,7 +6,7 @@ level: 3
 tags: [hashing, load-factor, amortised]
 requires:
   - hashing-rehash-trace
-  - linear-dynamic-array-growth
+  - interview-essentials/linear-dynamic-array-growth
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/insert
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 16 (dynamic tables)

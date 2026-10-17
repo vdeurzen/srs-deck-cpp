@@ -6,7 +6,7 @@ level: 4
 tags: [ranges, lifetime]
 requires:
   - ranges-views-non-owning
-  - ptr-temporary-full-expression
+  - cpp-essentials/ptr-temporary-full-expression
 refs:
   - https://en.cppreference.com/w/cpp/ranges/borrowed_range
   - https://en.cppreference.com/w/cpp/ranges/dangling

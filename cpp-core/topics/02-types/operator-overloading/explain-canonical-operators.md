@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [operators]
 requires:
-  - operators-chunk-arithmetic-pair
+  - cpp-essentials/operators-chunk-arithmetic-pair
   - operators-hidden-friend-adl
   - operators-postfix-increment
 refs:

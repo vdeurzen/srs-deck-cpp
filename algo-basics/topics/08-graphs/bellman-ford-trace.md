@@ -9,7 +9,7 @@ probes:
   2: { dist: "0 2 3 4" }
   3: { dist: "0 2 3 1" }
 requires:
-  - graph-bellman-ford-rounds
+  - interview-essentials/graph-bellman-ford-rounds
 refs:
   - https://doi.org/10.1090/qam/102435
   - https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm

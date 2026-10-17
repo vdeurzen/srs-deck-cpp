@@ -9,7 +9,7 @@ probes:
   2: { pushes: "5", checks: "14" }
 requires:
   - graph-degree-from-edge-list
-  - graph-bfs-queue-chunk
+  - interview-essentials/graph-bfs-queue-chunk
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search#Time_and_space_complexity
 ---

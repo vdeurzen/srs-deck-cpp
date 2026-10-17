@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [pointers, nullptr, undefined-behaviour]
 requires:
-  - ptr-amp-and-star-cloze
-  - ptr-nullptr-overload
+  - cpp-essentials/ptr-amp-and-star-cloze
+  - cpp-essentials/ptr-nullptr-overload
 input: chips
 choices:
   c1: ["r == nullptr", "*r == nullptr", "r->w == 0", "&r == nullptr"]

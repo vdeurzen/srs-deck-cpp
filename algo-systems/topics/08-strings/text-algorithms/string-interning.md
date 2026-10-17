@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [strings, compilers, memory]
 requires:
-  - hash-chaining-vs-open-addressing
+  - interview-essentials/hash-chaining-vs-open-addressing
 refs:
   - https://llvm.org/docs/ProgrammersManual.html#llvm-adt-stringmap-h
   - https://clang.llvm.org/docs/InternalsManual.html#the-lexer-and-preprocessor-library

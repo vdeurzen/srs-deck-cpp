@@ -20,7 +20,7 @@ compile:
     static_assert(negative_cycle<4>(kBack));
     int main() {}
 requires:
-  - graph-bellman-ford-rounds
+  - interview-essentials/graph-bellman-ford-rounds
 refs:
   - https://doi.org/10.1090/qam/102435
   - https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm#Finding_negative_cycles

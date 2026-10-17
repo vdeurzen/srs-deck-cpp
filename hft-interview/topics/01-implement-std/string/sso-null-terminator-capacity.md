@@ -6,7 +6,7 @@ level: 3
 tags: [strings, sso, implement-std]
 elaborate: What would `c_str()` have to do if the terminator were not stored?
 requires:
-  - cpp-core/strings-sso
+  - cpp-essentials/strings-sso
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/string.accessors#1
   - https://timsong-cpp.github.io/cppwp/n4950/string.access#2

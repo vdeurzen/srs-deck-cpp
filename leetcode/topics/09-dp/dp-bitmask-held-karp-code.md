@@ -21,7 +21,7 @@ compile:
     static_assert(examples());
     int main() {}
 requires:
-  - dp-bitmask-signal
+  - interview-essentials/dp-bitmask-signal
 refs:
   - https://leetcode.com/problems/find-the-shortest-superstring/
   - https://doi.org/10.1137/0110015

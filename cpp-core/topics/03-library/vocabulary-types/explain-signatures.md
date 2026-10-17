@@ -6,8 +6,8 @@ level: 3
 tags: [vocabulary-types, error-handling]
 requires:
   - vocab-expected-and-then
-  - vocab-span-parameter
-  - vocab-visit-missing-handler
+  - cpp-essentials/vocab-span-parameter
+  - cpp-essentials/vocab-visit-missing-handler
 refs:
   - https://en.cppreference.com/w/cpp/utility
 ---

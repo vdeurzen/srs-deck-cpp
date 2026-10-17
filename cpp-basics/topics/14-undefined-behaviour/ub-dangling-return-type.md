@@ -6,8 +6,8 @@ level: 2
 tags: [undefined-behaviour, lifetime, references, constexpr]
 requires:
   - ub-dangling-after-scope
-  - ub-static-assert-finds-ub
-  - fn-return-by-value
+  - cpp-essentials/ub-static-assert-finds-ub
+  - cpp-essentials/fn-return-by-value
 input: chips
 choices:
   c1: ["int", "const int&", "int&"]

@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [idioms, templates]
 requires:
-  - staticpoly-crtp-base
+  - cpp-essentials/staticpoly-crtp-base
 expose_ms: 9000
 compile:
   harness: |

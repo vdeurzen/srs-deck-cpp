@@ -5,7 +5,7 @@ version: 2
 level: 2
 tags: [transfer, misconception, pointers]
 requires:
-  - ub-definition
+  - cpp-essentials/ub-definition
 elaborate: "Nothing guarantees a crash: the optimiser may assume a dereferenced pointer is non-null and drop a later null check. In your Go code, which `recover()` or crash log relies on a nil dereference panicking, and what would the C++ port check instead?"
 refs:
   - https://en.cppreference.com/w/cpp/language/nullptr

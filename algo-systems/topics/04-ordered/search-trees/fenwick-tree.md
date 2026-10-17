@@ -22,8 +22,8 @@ compile:
     static_assert(build().prefix(8) == 36);  // 1..8
     int main() {}
 requires:
-  - foundations-bits-lowest-set-bit
-  - algo-basics/linear-prefix-sum-range
+  - interview-essentials/foundations-bits-lowest-set-bit
+  - interview-essentials/linear-prefix-sum-range
 refs:
   - https://dl.acm.org/doi/10.1002/spe.4380240306
 ---

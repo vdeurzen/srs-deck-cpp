@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [databases, caching]
 requires:
-  - db-lru-recency-bet
+  - interview-essentials/db-lru-recency-bet
 refs:
   - https://www.cs.cmu.edu/~christos/courses/721-resources/p297-o_neil.pdf
 elaborate: Postgres instead gives a large sequential scan its own small ring of buffers, reused for the whole scan. What does that protect, and what does the scan give up?

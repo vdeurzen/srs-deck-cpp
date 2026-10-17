@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [initialization, storage-duration]
 requires:
-  - initialization-default-value-zero
+  - cpp-essentials/initialization-default-value-zero
 refs:
   - https://en.cppreference.com/w/cpp/language/zero_initialization
   - https://timsong-cpp.github.io/cppwp/n4950/basic.start.static#2

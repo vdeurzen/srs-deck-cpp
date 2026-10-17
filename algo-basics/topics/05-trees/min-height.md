@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [trees, complexity, logarithms]
 requires:
-  - tree-terms
-  - complexity-log-halvings
+  - interview-essentials/tree-terms
+  - interview-essentials/complexity-log-halvings
 input: chips
 choices:
   c1: ["(1L << h) - 1", "1L << h", "2L * h + 1", "(long)h * h"]

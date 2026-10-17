@@ -9,7 +9,7 @@ compile:
   harness: |
     int main() {}
 requires:
-  - const-member-on-const-ref
+  - cpp-essentials/const-member-on-const-ref
 refs:
   - https://en.cppreference.com/w/cpp/language/member_functions#Member_functions_with_cv-qualifiers
 ---

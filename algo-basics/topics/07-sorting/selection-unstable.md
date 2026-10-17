@@ -9,7 +9,7 @@ probes:
   2: { suits: "c h s d" }
 requires:
   - sort-selection-idea
-  - sort-stable-meaning
+  - interview-essentials/sort-stable-meaning
 elaborate: Insertion sort also moves elements around. Why can it never reorder two equal keys?
 refs:
   - https://en.wikipedia.org/wiki/Selection_sort

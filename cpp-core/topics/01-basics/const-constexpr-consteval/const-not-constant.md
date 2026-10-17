@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [const-constexpr-consteval, misconception]
 requires:
-  - const-constexpr-const-vs-constexpr-cloze
+  - cpp-essentials/const-constexpr-const-vs-constexpr-cloze
   - cpp-basics/const-double-not-constant
 elaborate: Find a `const` local in your code used as a size or template argument. Would writing `constexpr` instead have caught a run-time initializer at the declaration rather than at the use?
 refs:

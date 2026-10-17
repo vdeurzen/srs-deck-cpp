@@ -8,7 +8,7 @@ probes:
   1: { a: "true" }
   2: { b: "false" }
 requires:
-  - const-ref-parameter
+  - cpp-essentials/const-ref-parameter
   - fn-by-value-vs-reference
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization

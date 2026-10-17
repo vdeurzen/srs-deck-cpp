@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [bit-tricks]
 requires:
-  - foundations-bits-trace
+  - interview-essentials/foundations-bits-trace
 input: chips
 choices:
   c1: ["(x & (x - 1)) == 0", "(x & -x) == 0", "(x & (x + 1)) == 0", "x % 2 == 0"]

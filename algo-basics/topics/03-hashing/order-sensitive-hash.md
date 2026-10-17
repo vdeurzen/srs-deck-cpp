@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [hashing, hash-functions]
 requires:
-  - hashing-equal-keys-equal-hashes
+  - interview-essentials/hashing-equal-keys-equal-hashes
 input: chips
 choices:
   c1: ["h * 31 + c", "h + c", "h ^ c", "c * 31 + h"]

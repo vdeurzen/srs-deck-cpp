@@ -6,7 +6,7 @@ level: 2
 tags: [union-find, complexity]
 requires:
   - graph-union-find-union-code
-  - complexity-log-halvings
+  - interview-essentials/complexity-log-halvings
 refs:
   - https://doi.org/10.1145/321879.321884
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Union_by_rank

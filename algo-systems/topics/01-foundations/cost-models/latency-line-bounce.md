@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [memory-hierarchy, cost-model, low-latency, false-sharing]
 requires:
-  - foundations-latency-scale
+  - interview-essentials/foundations-latency-scale
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size

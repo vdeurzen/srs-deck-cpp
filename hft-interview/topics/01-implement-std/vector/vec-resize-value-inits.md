@@ -6,7 +6,7 @@ level: 3
 tags: [vector, initialization, performance, implement-std]
 elaborate: Where do you size a buffer that the next call overwrites completely?
 requires:
-  - cpp-basics/iter-size-vs-capacity
+  - cpp-essentials/iter-size-vs-capacity
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/vector.capacity#15
   - https://en.cppreference.com/w/cpp/container/vector/resize

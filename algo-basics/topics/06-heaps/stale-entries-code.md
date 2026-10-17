@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [heaps, graphs, c++, shortest-paths]
 requires:
-  - heap-min-comparator
-  - heap-vs-bst
+  - interview-essentials/heap-min-comparator
+  - interview-essentials/heap-vs-bst
 elaborate: How large can the queue grow with this scheme, and when would that worry you?
 input: chips
 choices:

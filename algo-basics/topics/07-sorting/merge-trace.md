@@ -8,7 +8,7 @@ probes:
   1: { i: "3", j: "2", out: "1 2 3 4 7" }
   2: { out: "1 2 3 4 7 9" }
 requires:
-  - sort-merge-idea
+  - interview-essentials/sort-merge-idea
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/merge
   - https://en.wikipedia.org/wiki/Merge_sort

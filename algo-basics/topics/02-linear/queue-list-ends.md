@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, queues, linked-lists]
 requires:
   - linear-queue-adt
-  - linear-list-node
+  - interview-essentials/linear-list-node
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.2
 ---

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [pointers, arrays]
 requires:
-  - ptr-array-name-to-pointer
+  - cpp-essentials/ptr-array-name-to-pointer
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Additive_operators
   - https://eel.is/c++draft/expr.add#4

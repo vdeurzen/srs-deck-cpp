@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [memory-hierarchy, cost-model, low-latency]
 requires:
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
   - foundations-littles-law
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/mlp/

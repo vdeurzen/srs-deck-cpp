@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [hft, rate-limit, token-bucket, integers, misconception]
 requires:
-  - bucket-refill
+  - interview-essentials/bucket-refill
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Multiplicative_operators
 elaborate: At what check interval does this version start refilling, and does it then refill at the full rate?

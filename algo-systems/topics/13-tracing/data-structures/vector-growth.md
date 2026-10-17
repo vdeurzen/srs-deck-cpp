@@ -10,7 +10,7 @@ probes:
   3: { "v.size()": "3", "v[0]": "1" }
   4: { "v.size()": "4", "v[0]": "0", "v[1]": "1" }
 requires:
-  - foundations-growth-factor
+  - interview-essentials/foundations-growth-factor
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://en.cppreference.com/w/cpp/container/vector/reserve

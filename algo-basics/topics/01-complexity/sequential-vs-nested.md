@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [complexity, big-o]
 requires:
-  - complexity-count-loop-steps
+  - interview-essentials/complexity-count-loop-steps
 input: chips
 choices:
   c1: ["n + n * m", "n * m", "n + m", "n * n * m"]

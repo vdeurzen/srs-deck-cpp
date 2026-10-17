@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [greedy, dynamic-programming, backtracking, capstone]
 requires:
-  - technique-exchange-argument
+  - interview-essentials/technique-exchange-argument
   - technique-pseudo-polynomial
   - technique-pruning-vs-memo
 refs:

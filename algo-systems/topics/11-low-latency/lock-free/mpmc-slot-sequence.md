@@ -32,7 +32,7 @@ compile:
     int main() {}
 requires:
   - ll-mpmc-queue
-  - seq-ring-buffer-mask
+  - interview-essentials/seq-ring-buffer-mask
 refs:
   - https://www.1024cores.net/home/lock-free-algorithms/queues/bounded-mpmc-queue
 ---

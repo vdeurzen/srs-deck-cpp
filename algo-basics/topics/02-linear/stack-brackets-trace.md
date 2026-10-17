@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [stacks, tracing]
 requires:
-  - linear-stack-recognition
+  - interview-essentials/linear-stack-recognition
 probes:
   1: { top: "3", ok: "true" }
   2: { top: "1", ok: "true" }

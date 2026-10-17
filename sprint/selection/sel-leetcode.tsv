@@ -1,0 +1,89 @@
+stl-vector-paren-brace	A	1	(n, v) vs {n, v}: most common construction slip
+stl-accumulate-overflow	A	1	accumulate init type overflows sums; constant interview trap
+stl-int-min-traps	A	1	INT_MIN negation UB; edge-case reflex
+stl-map-subscript-probe	A	1	Two Sum probe; operator[] inserts and index-0 falsy
+stl-binding-auto-copies	A	1	auto [a,b] copies; silent wrong answer
+stl-letter-count-chunk	A	1	array<int,26> histogram template for anagram family
+stl-pair-key-hash	A	1	unordered_map pair key needs hasher; classic compile error
+stl-multiset-erase-one	A	1	multiset erase(key) removes all; window trap
+stl-equal-range-count	A	1	half-open lower/upper bound indices, LC 34
+stl-iota-argsort	A	1	argsort idiom, sort indices by key
+stl-substr-quadratic	A	1	substr copies make O(n^2); string_view fix
+stl-pq-min-heap-type	A	1	min-heap type spelling for top-k and Dijkstra
+stl-pq-lambda-comparator	A	1	pq comparator direction; frequent top-k bug
+arr-window-signal	A	1	recognise variable window, at most k constraint
+arr-window-variable-chunk	A	1	core sliding-window template, LC 3
+arr-window-trace	A	1	LC 76 shortest-window record placement
+arr-window-negatives	A	1	negatives break windows; misconception
+arr-prefix-hash-signal	A	1	prefix sum plus hash map recognition, LC 560
+arr-prefix-hash-parsons	A	1	prefix-hash template order and seeding
+arr-diff-signal	A	1	difference array recognition
+arr-diff-code	A	1	difference array off-by-one at range end
+arr-kadane-chunk	A	1	Kadane template
+arr-kadane-all-negative	A	1	empty-subarray Kadane bug
+arr-kadane-signal	A	1	stock profit reduces to Kadane
+arr-3sum-frame-parsons	A	1	sort plus two-pointer frame, LC 15
+arr-3sum-outer-skip-code	A	1	3Sum outer duplicate skip
+arr-3sum-inner-skip-trace	A	1	3Sum inner duplicate skip
+arr-intervals-merge-chunk	A	1	merge intervals template, very common
+rec-explain-windows	A	1	windows family capstone over kept cards
+bs-first-true-chunk	A	1	binary search on answer template
+rec-min-max-vs-min-sum	A	1	when search-on-answer applies vs DP
+mono-stack-signal	A	1	monotonic stack recognition
+mono-next-greater-chunk	A	1	next-greater template, LC 739
+mono-histogram-bounds	A	1	LC 84 width from stack neighbours
+mono-histogram-trace	A	1	LC 84 equal bars and sentinel flush
+rec-top-k-choice	A	1	heap vs bucket for top-k
+list-reverse-parsons	A	1	in-place list reversal, must-know
+list-fast-slow-parsons	A	1	Floyd cycle and middle, must-know
+tree-inorder-iterative-parsons	A	1	iterative inorder with explicit stack
+tree-lca-chunk	A	1	LCA recursion template, LC 236
+tree-lca-bst	A	1	BST LCA O(h) walk
+tree-validate-int-limits	A	1	BST validation sentinel edge case
+gr-grid-dfs-code	A	1	flood-fill mark-before-recurse, LC 200
+gr-grid-dfs-depth	A	1	recursion depth on grids; interviewer follow-up
+gr-multi-source-bfs-code	A	1	multi-source BFS seeding, LC 542/994
+gr-dijkstra-heap-parsons	A	1	Dijkstra lazy-deletion template
+gr-kahn-chunk	A	1	Kahn topological sort template
+gr-kahn-build-code	A	1	prerequisite edge direction, LC 207/210
+rec-shortest-path-weights	A	1	BFS vs 0-1 BFS vs Dijkstra by weights
+rec-union-find-vs-dfs	A	1	union-find vs DFS recognition
+rec-explain-graphs	A	1	graphs family capstone
+bt-subsets-chunk	A	1	backtracking choose/explore/unchoose template
+bt-combination-start-index	A	1	start index j for reuse, LC 39
+bt-reuse-signal	A	2	j vs j+1 from statement wording
+bt-dup-skip-code	A	1	duplicate skip j > i, LC 90/40
+dp-coin-ways-chunk	A	1	unbounded knapsack counting template
+dp-coin-loop-order	A	1	loop order: combinations vs permutations
+rec-list-vs-count	A	1	backtracking listing vs DP counting
+dp-grid-dag-signal	A	1	grid DP valid only for DAG moves
+dp-grid-paths-chunk	A	1	rolling-row grid paths template
+dp-min-path-sum-code	A	1	min path sum border initialisation
+dp-edit-distance-signal	A	1	two-sequence prefix-pair state
+dp-edit-distance-code	A	1	edit distance recurrence diagonal
+dp-edit-distance-not-lcs	A	1	edit distance vs LCS formula confusion
+dp-lis-patience-parsons	A	1	LIS O(n log n) with lower_bound
+rec-one-vs-two-sequences	A	1	one-index vs two-index DP state
+dp-bitmask-signal	A	1	bitmask state recognition from small n
+rec-dp-cell-vs-mask	A	1	when position alone is insufficient state
+rec-explain-dp	A	1	DP family capstone
+rec-intervals-greedy-vs-dp	A	1	weighted intervals break the greedy
+bit-xor-single-signal	A	1	XOR fold for single number
+bit-precedence-trap	A	1	& vs == precedence bug
+bit-count-dp-code	A	1	i & (i-1) recurrence, LC 338
+rq-segment-signal	A	1	recognise point-update range-query structure
+arr-kadane-parsons	B	1	duplicates the Kadane chunk
+arr-prefix-hash-trace	B	1	reinforcement; parsons and signal cover it
+stl-pq-top-ref-trace	B	1	subtle reference-after-pop, rarely asked
+tree-kth-smallest-trace	B	1	inorder parsons already covers LC 230
+dp-coin-ways-trace	B	1	reinforcement of coin chunk
+dp-coin-ways-parsons	B	1	same six lines as the chunk
+bit-xor-split-code	B	1	LC 260, less frequent
+rq-segment-update-chunk	B	1	segment trees rare in screens
+rq-segment-query-code	B	1	segment trees rare in screens
+rq-segment-query-trace	B	1	segment trees rare in screens
+rq-segment-vs-fenwick	B	1	niche contrast, needs Fenwick from algo-systems
+dp-bitmask-held-karp-code	B	1	Held-Karp rare in interviews
+dp-held-karp-parsons	B	1	second Held-Karp card, rare pattern
+dp-interval-last-burst	B	1	interval DP, hard-tier LC 312
+dp-interval-order-code	B	1	interval DP fill order, hard-tier

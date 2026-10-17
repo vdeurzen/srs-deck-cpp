@@ -8,7 +8,7 @@ probes:
   1: { "out[2]": "0", "both[2]": "1 0", "both[0]": "1 2" }
 requires:
   - graph-edge-ordered-pair
-  - graph-list-from-edges-chunk
+  - interview-essentials/graph-list-from-edges-chunk
 refs:
   - https://en.wikipedia.org/wiki/Adjacency_list
   - https://en.wikipedia.org/wiki/Directed_graph

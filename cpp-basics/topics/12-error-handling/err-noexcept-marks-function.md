@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [exceptions, noexcept]
 requires:
-  - err-noexcept-broken-promise
+  - cpp-essentials/err-noexcept-broken-promise
 input: chips
 choices:
   c1: ["noexcept", "const", "noexcept(false)"]

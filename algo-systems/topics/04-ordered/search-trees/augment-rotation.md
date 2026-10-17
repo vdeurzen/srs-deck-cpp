@@ -5,7 +5,7 @@ version: 1
 level: 4
 requires:
   - ordered-order-statistics
-  - algo-basics/tree-balance-families
+  - interview-essentials/tree-balance-families
 tags: [trees, ranking]
 refs:
   - https://gcc.gnu.org/onlinedocs/libstdc++/ext/pb_ds/tree_based_containers.html

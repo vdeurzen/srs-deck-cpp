@@ -12,7 +12,7 @@ compile:
     static_assert(std::is_same_v<decltype(Box{"hi"}), Box<std::string>>);
     int main() {}
 requires:
-  - templates-instantiation
+  - cpp-essentials/templates-instantiation
   - initialization-array-ctad
 refs:
   - https://en.cppreference.com/w/cpp/language/class_template_argument_deduction

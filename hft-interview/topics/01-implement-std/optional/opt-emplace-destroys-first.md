@@ -8,7 +8,7 @@ probes:
   1: { trail: "+1-1+2" }
   2: { trail: "+1-1+2-2", has: "false" }
 requires:
-  - opt-union-storage
+  - interview-essentials/opt-union-storage
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/optional.assign#34
   - https://en.cppreference.com/w/cpp/utility/optional/emplace

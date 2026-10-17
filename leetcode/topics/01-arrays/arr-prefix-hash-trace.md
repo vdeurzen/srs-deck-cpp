@@ -9,7 +9,7 @@ probes:
   2: { f3: "2", s0: "2" }
   3: { f4: "2", n: "5" }
 requires:
-  - arr-prefix-hash-parsons
+  - interview-essentials/arr-prefix-hash-parsons
 refs:
   - https://leetcode.com/problems/subarray-sum-equals-k/
   - https://en.cppreference.com/w/cpp/container/unordered_map/operator_at

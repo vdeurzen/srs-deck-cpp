@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [complexity, recurrences]
 requires:
-  - complexity-recursion-tree-calls
+  - interview-essentials/complexity-recursion-tree-calls
   - complexity-cost-trace-merge-recurrence
 input: chips
 choices:

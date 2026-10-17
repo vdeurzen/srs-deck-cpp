@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 4
 requires:
-  - hash-chaining-vs-open-addressing
+  - interview-essentials/hash-chaining-vs-open-addressing
 tags: [hashing, compilers, static-sets]
 refs:
   - https://www.gnu.org/software/gperf/manual/gperf.html

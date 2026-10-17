@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [containers, array]
 requires:
-  - iter-size-vs-capacity
+  - cpp-essentials/iter-size-vs-capacity
   - tmpl-class-member-type
 refs:
   - https://en.cppreference.com/w/cpp/container/array

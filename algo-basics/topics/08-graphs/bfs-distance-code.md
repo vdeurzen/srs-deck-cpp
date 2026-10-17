@@ -15,7 +15,7 @@ compile:
     static_assert(bfs(kG, 5) == std::array<int, 6>{3, 2, 2, 1, 1, 0});
     int main() {}
 requires:
-  - graph-bfs-why-shortest
+  - interview-essentials/graph-bfs-why-shortest
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode
 ---

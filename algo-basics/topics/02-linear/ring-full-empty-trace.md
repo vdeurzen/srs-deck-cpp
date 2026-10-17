@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [queues, ring-buffers, tracing]
 requires:
-  - linear-ring-buffer-code
+  - interview-essentials/linear-ring-buffer-code
 probes:
   1: { head: "0", tail: "0" }
   2: { head: "0", tail: "0" }

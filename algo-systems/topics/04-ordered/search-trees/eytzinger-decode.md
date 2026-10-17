@@ -5,7 +5,7 @@ version: 1
 level: 5
 requires:
   - ordered-eytzinger-step
-  - foundations-bits-lowest-set-bit
+  - interview-essentials/foundations-bits-lowest-set-bit
 tags: [binary-search, bit-tricks, layout]
 input: chips
 choices:

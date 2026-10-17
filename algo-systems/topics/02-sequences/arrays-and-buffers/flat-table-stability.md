@@ -4,7 +4,7 @@ kind: cloze
 version: 1
 level: 4
 requires:
-  - hash-unordered-map-is-chained
+  - interview-essentials/hash-unordered-map-is-chained
 tags: [containers, hashing, lifetime]
 refs:
   - https://abseil.io/docs/cpp/guides/container

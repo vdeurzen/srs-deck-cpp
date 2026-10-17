@@ -4,9 +4,9 @@ kind: explain
 version: 1
 level: 4
 requires:
-  - foundations-cache-cost-model
-  - algo-basics/complexity-amortised-single-call
-  - cpp-core/containers-reference-invalidated-by-growth
+  - interview-essentials/foundations-cache-cost-model
+  - interview-essentials/complexity-amortised-single-call
+  - cpp-essentials/containers-reference-invalidated-by-growth
 tags: [complexity, cost-model, interview]
 refs:
   - https://en.algorithmica.org/hpc/

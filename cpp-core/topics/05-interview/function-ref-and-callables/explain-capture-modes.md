@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [callables, lambdas]
 requires:
-  - lambda-mutable
-  - lambda-init-capture
+  - cpp-essentials/lambda-mutable
+  - cpp-essentials/lambda-init-capture
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
 ---

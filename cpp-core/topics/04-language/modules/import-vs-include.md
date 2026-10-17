@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [modules]
 requires:
-  - linkage-odr-class-repeat
+  - cpp-essentials/linkage-odr-class-repeat
 refs:
   - https://en.cppreference.com/w/cpp/language/modules
 ---

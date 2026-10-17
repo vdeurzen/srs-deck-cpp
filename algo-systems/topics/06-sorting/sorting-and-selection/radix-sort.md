@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [sorting, databases, low-latency]
 requires:
-  - algo-basics/sort-stable-meaning
+  - interview-essentials/sort-stable-meaning
 elaborate: A hash join's radix-partitioning phase is one pass of this sort — what does stopping after one pass buy it?
 refs:
   - https://en.algorithmica.org/hpc/algorithms/sorting/

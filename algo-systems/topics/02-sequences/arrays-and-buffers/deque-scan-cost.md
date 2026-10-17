@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - seq-vector-vs-deque
+  - interview-essentials/seq-vector-vs-deque
 tags: [containers, memory-hierarchy]
 refs:
   - https://en.cppreference.com/w/cpp/container/deque

@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [templates, class-templates]
 requires:
-  - tmpl-function-syntax
-  - class-struct-vs-class
+  - cpp-essentials/tmpl-function-syntax
+  - cpp-essentials/class-struct-vs-class
 input: chips
 choices:
   c1: ["T", "auto", "typename", "int"]

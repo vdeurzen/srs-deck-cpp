@@ -12,7 +12,7 @@ compile:
     static_assert(!std::is_convertible_v<Signal, int>);
     int main() {}
 requires:
-  - cpp-basics/types-enum-no-int
+  - cpp-essentials/types-enum-no-int
 refs:
   - https://en.cppreference.com/w/cpp/language/enum#Scoped_enumerations
 ---

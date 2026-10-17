@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [types, auto, initialization]
 requires:
-  - types-auto-drops-const
+  - cpp-essentials/types-auto-drops-const
 refs:
   - https://en.cppreference.com/w/cpp/language/auto
   - https://eel.is/c++draft/dcl.type.auto.deduct#2

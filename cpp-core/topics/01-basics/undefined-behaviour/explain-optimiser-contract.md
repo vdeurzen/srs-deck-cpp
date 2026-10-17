@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [undefined-behaviour, optimisation]
 requires:
-  - ub-null-check-after-use
+  - cpp-essentials/ub-null-check-after-use
   - types-signed-overflow-ub
   - ub-constexpr-rejects-ub
   - ub-chunk-precondition-assert

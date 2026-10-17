@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [sliding-window, arrays]
 requires:
-  - linear-sliding-window-sum
+  - interview-essentials/linear-sliding-window-sum
 input: chips
 choices:
   c1: ["sum += a[i] - a[i - k];", "sum += a[i];", "sum += a[i] - a[i - k + 1];", "sum = a[i] - a[i - k];"]

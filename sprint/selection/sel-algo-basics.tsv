@@ -1,0 +1,183 @@
+complexity-big-o-scaling	A	3	Predict runtime by scaling: the working use of big-O
+complexity-drop-terms	A	1	Why constants and lower terms vanish
+complexity-feasible-n	A	2	Read the constraint n, infer the needed class
+complexity-count-loop-steps	A	1	Recognise single, pair and doubling loop costs
+complexity-log-halvings	A	1	Where log n comes from
+complexity-halving-inner-loop	A	1	Nested loops: n log n vs geometric O(n)
+complexity-recursion-tree-calls	A	1	Count calls of one- vs two-branch recursion
+complexity-shrink-by-one-vs-half	A	1	T(n-1)+n vs T(n/2)+n: classic recurrence pair
+complexity-cost-master-cases	A	3	The three master-theorem cases, decided concretely
+complexity-space-stack-depth	A	1	Recursion space: O(n) vs O(log n) stack
+complexity-amortised-vs-average	A	1	Amortised vs average-case, the interview contrast
+complexity-amortised-single-call	A	1	Amortised O(1) gives no per-call latency bound
+linear-dynamic-array-growth	A	1	Why vectors grow geometrically
+linear-list-insert-misconception	A	1	List insert is O(n) once you count the walk
+linear-list-node	A	1	List node layout; prerequisite of leetcode list cards
+linear-cost-table	A	1	List index is O(i), vector O(1)
+linear-array-or-list	A	1	Decide array vs list from the access pattern
+linear-list-traverse-chunk	A	1	Canonical list walk; leetcode prerequisite
+linear-doubly-unlink-code	A	1	O(1) unlink, the core of LRU cache
+linear-stack-recognition	A	1	Spot nesting means stack; leetcode prerequisite
+linear-queue-ring	A	1	Ring buffer makes pop O(1)
+linear-ring-buffer-code	A	1	Ring index wrap; HFT-relevant structure
+linear-deque-both-ends	A	1	When std::deque beats vector and list
+linear-prefix-sum-range	A	1	Prefix-sum range query; three leetcode cards need it
+linear-sliding-window-sum	A	1	Fixed window update in O(1)
+linear-variable-window-shrink	A	1	Why shrinking window is safe; leetcode prerequisite
+linear-two-pointers-sorted-pair	A	1	Why discarding an end is safe
+linear-two-pointers-code	A	1	Two-pointer move; prerequisite of 3Sum cards
+technique-max-invariant-code	A	1	Max start value; prerequisite of Kadane chunk
+technique-max-start-element-code	A	1	INT_MIN as max identity; Kadane prerequisite
+hashing-chaining	A	1	Collision resolution by chaining
+hashing-open-addressing	A	1	Collision resolution by probing
+hashing-load-factor	A	1	Load factor equals average chain length
+hashing-load-factor-limit	A	1	Why open addressing needs alpha below 1
+hashing-average-vs-worst	A	1	What input makes hashing O(n)
+hashing-contract-direction	A	1	Collisions are legal; contract is one-directional
+hashing-equal-keys-equal-hashes	A	1	Hash must agree with equality; leetcode prerequisite
+hashing-probe-lookup-stop	A	1	Probe lookup stops at an empty slot
+hashing-delete-tombstone	A	1	Classic deletion bug in open addressing
+hashing-explain-chained-table	A	1	Rehearse the spoken "how does a hash table work"
+search-binary-search-halving	A	1	Why discarding half is safe
+search-binary-search-chunk	A	1	Closed-range binary search template
+search-closed-range-invariant	A	2	Invariant of the closed-range form
+search-half-open-invariant	A	2	Invariant of the half-open form
+search-lo-equals-mid-trace	A	1	Off-by-one that loops forever
+search-midpoint-overflow	A	1	Overflow-safe midpoint
+search-lower-bound-meaning	A	1	lower_bound on absent key; leetcode prerequisite
+search-first-true-predicate	A	1	Binary search as first-true boundary; leetcode prerequisite
+search-on-answer-monotone	A	1	Search on the answer needs monotonicity
+technique-recursion-unwind	A	1	Work before vs after the recursive call
+technique-recursion-depth	A	1	Deep recursion overflows; leetcode prerequisite
+technique-fast-power	A	1	O(log n) pow; reuse the half
+tree-traversal-orders	A	2	Pre/in/post order; leetcode prerequisite
+tree-height-code	A	1	Basic tree recursion
+tree-level-order-code	A	1	Level order is BFS with a queue
+tree-bst-property	A	1	BST discards a side; leetcode prerequisite
+tree-bst-inorder-trace	A	1	Inorder of a BST is sorted; leetcode prerequisite
+tree-bst-check-bounds	A	1	Validate BST with ancestor bounds; leetcode prerequisite
+tree-bst-delete-cases	A	2	Two-child delete via in-order successor
+tree-why-balance	A	1	Sorted inserts degrade a BST to O(n)
+tree-balance-families	A	2	Rotations vs node splits keep height log n
+tree-avl-vs-red-black	A	1	Why std::map is red-black
+tree-trie-end-flag	A	1	Trie needs an end-of-word flag
+heap-shape-and-order	A	2	Heap's two invariants
+heap-child-index-code	A	1	Array index of children; leetcode prerequisite
+heap-sift-down-code	A	1	Swap with the larger child
+heap-push-trace	A	1	Sift-up on push
+heap-heapify-order-code	A	1	Floyd heapify order; prerequisite of heapify and heap sort
+heap-op-costs	A	2	Top O(1), push/pop O(log n)
+heap-heapify-linear	A	1	Bottom-up heapify is O(n)
+heap-vs-bst	A	1	Heap cannot search; contrast with BST
+heap-min-comparator	A	1	Min-heap comparator; leetcode prerequisite
+sort-stable-meaning	A	1	What stability means
+sort-elementary-compare	A	1	Insertion sort is O(n) on sorted input
+sort-merge-idea	A	1	Merge sort is always n log n
+sort-merge-space	A	1	Why merge sort needs O(n) buffer
+sort-merge-stable-code	A	1	<= keeps merge stable
+sort-lomuto-trace	A	1	Partition mechanics
+sort-quick-worst	A	1	Quicksort quadratic on sorted input
+sort-pivot-choice	A	1	Random pivot defeats bad inputs
+sort-quickselect-trace	A	1	k-th smallest in expected O(n)
+sort-heap-sort	A	1	Heap sort: n log n, O(1) space
+sort-lower-bound	A	1	Comparison-sort n log n lower bound
+sort-counting-idea	A	1	Beating n log n without comparisons; leetcode prerequisite
+sort-compare-properties	A	3	Stability and space table of the main sorts
+sort-std-sort-vs-stable	A	1	std::sort vs std::stable_sort in C++
+graph-adjacency-list-vs-matrix	A	1	Choose representation from density
+graph-list-from-edges-chunk	A	1	Build an adjacency list
+graph-bfs-queue-chunk	A	1	BFS template
+graph-bfs-and-dfs	A	1	Queue vs stack changes the order
+graph-bfs-why-shortest	A	1	BFS gives unweighted shortest paths; leetcode prerequisite
+graph-bfs-mark-on-push	A	1	Mark on push, not pop; leetcode prerequisite
+graph-dfs-call-stack-trace	A	1	Recursive DFS mechanics; leetcode prerequisite
+graph-dfs-discovery-finish-trace	A	1	DFS times; prerequisite of components and cycle cards
+graph-explain-visited-linear	A	1	Spoken answer: visited set and O(V+E)
+graph-components-code	A	1	Count components; leetcode prerequisite
+graph-cycle-directed-grey	A	1	Directed cycle needs grey, not just visited
+graph-topo-order	A	1	When a topological order exists
+graph-kahn-trace	A	1	Kahn's algorithm; leetcode prerequisite
+graph-dijkstra-popped-final	A	1	Why a popped distance is final; leetcode prerequisite
+graph-dijkstra-why-nonnegative	A	1	Negative edge breaks Dijkstra
+graph-bellman-ford-rounds	A	1	Negative weights: Bellman-Ford, V-1 rounds
+graph-union-find-forest	A	1	Union-find as a forest; leetcode prerequisite
+graph-union-find-path-compression	A	1	Path compression in find
+technique-greedy-coins-counterexample	A	1	Greedy coin change fails on 4,3,1
+technique-activity-selection	A	1	Earliest-end greedy for interval scheduling
+technique-dp-overlapping-subproblems	A	1	When memoisation pays off
+technique-dp-optimal-substructure	A	2	Second DP precondition; prerequisite of dp-state
+technique-dp-state	A	1	Define the cell, then the recurrence; leetcode prerequisite
+technique-memo-vs-table	A	1	Bottom-up loop order rule; leetcode prerequisite
+technique-coin-change-table	A	1	Classic min-coins DP
+technique-greedy-vs-dp	A	1	Deciding property between greedy and DP
+technique-exchange-argument	A	2	Proving a greedy correct; leetcode prerequisite
+technique-knapsack-direction	A	1	0/1 vs unbounded loop direction; leetcode prerequisite
+technique-lcs-match	A	1	LCS recurrence; prerequisite of edit distance
+technique-backtracking-state-space	A	1	Backtracking as a decision tree
+technique-backtracking-undo	A	1	Undo the choice; leetcode prerequisite
+complexity-growth-ladder	B	3	Growth-class vocabulary; feasible-n covers the use
+complexity-cost-sum-rule	B	1	Sequential loops add; trivial once known
+complexity-cost-product-rule	B	1	Nested loops multiply; covered by count-loop-steps
+complexity-cost-nested-not-quadratic	B	1	Same loop as halving-inner-loop, second angle
+complexity-cost-amortized	B	1	Third angle on amortised meaning
+complexity-doubling-copies	B	1	Trace of vector copies under doubling
+complexity-sqrt-loop	B	1	sqrt(n) trial-division loop cost
+complexity-hides-constants	B	1	Big-O hides constants at small n
+complexity-log-base-irrelevant	B	1	Why log base does not matter
+complexity-o-is-not-worst-case	B	1	O is a bound, not the worst case
+complexity-average-needs-distribution	B	1	Average case assumes an input distribution
+complexity-explain-scaling-a-dedupe	B	1	Good capstone: n^2 dedupe at scale
+linear-array-index-contiguity	B	1	Contiguity enables O(1) indexing
+linear-ring-full-empty-trace	B	1	Ring full/empty ambiguity; HFT-relevant
+linear-list-insert-order-trace	B	1	Pointer-write order on list insert
+linear-sentinel-node	B	1	Sentinel removes null checks
+linear-prefix-sum-code	B	1	Second angle on prefix sums
+linear-sliding-window-code	B	1	Second angle on fixed window
+linear-two-pointers-trace	B	1	Third angle on two pointers
+linear-explain-feed-handler	B	1	HFT-flavoured structure choice capstone
+hashing-grow-amortised	B	1	Rehash stays amortised O(1)
+hashing-explain-login-flood	B	1	HashDoS capstone
+hashing-cluster-worst-trace	B	1	Linear-probing clusters
+hashing-linear-probe-step	B	1	Probe step code
+hashing-map-count-trace	B	1	operator[] inserts default value
+hashing-rehash-trace	B	1	Keys move buckets on rehash
+search-bounds-trace	B	1	lower_bound vs upper_bound
+search-upper-bound-code	B	1	upper_bound contract
+search-needs-random-access	B	1	Binary search on list is O(n)
+search-linear-vs-binary	B	1	Sorting to search once loses
+search-ship-capacity-code	B	1	Leetcode bs-first-true-chunk teaches same template
+search-explain-binary-correct	B	1	Correctness argument capstone
+technique-explicit-stack	B	1	Recursion to explicit stack
+technique-divide-and-conquer	B	2	D&C definition
+technique-loop-invariant-sum	B	2	Invariant basics; edge to binary-search invariant dropped
+tree-traversal-trace	B	1	Second angle on traversal orders
+tree-bst-delete-trace	B	1	Second angle on BST delete
+tree-rotation	B	3	Rotation mechanics
+tree-red-black-invariant	B	3	Red-black rules
+tree-avl-invariant	B	2	AVL rule
+tree-trie-lookup-code	B	1	Trie lookup code
+tree-complete-shape	B	1	Complete tree shape
+heap-pop-trace	B	1	Pop trace, second angle
+heap-sift-up-code	B	1	Sift-up code, second angle
+heap-stale-entries-code	B	1	Lazy deletion in Dijkstra heap
+heap-explain-job-scheduler	B	1	Heap capstone
+sort-quick-idea	B	1	Why quicksort needs no merge
+sort-quicksort-chunk	B	1	Quicksort template
+sort-merge-sort-chunk	B	1	Merge sort template
+sort-lomuto-vs-hoare	B	1	Equal keys break Lomuto
+sort-quick-average	B	2	Why quicksort averages n log n
+sort-choose-explain	B	1	Sort-choice capstone
+sort-radix-trace	B	1	LSD radix sort
+graph-edge-query-costs	B	1	Matrix O(1) edge query
+graph-dijkstra-trace	B	1	Leetcode gr-dijkstra-heap-parsons covers it
+graph-cycle-undirected-code	B	1	Undirected cycle: skip the parent
+graph-topo-dfs-reverse-finish	B	1	DFS topological sort
+graph-union-find-union-code	B	1	Union by rank code
+graph-union-find-by-rank	B	2	log n height bound
+graph-kruskal-code	B	1	Kruskal with union-find
+graph-mst-cut-property	B	1	MST cut property
+graph-explain-pick-algorithm	B	1	Algorithm-choice capstone; overlaps leetcode rec-explain-graphs
+technique-pseudo-polynomial	B	1	Knapsack is pseudo-polynomial
+technique-pruning-vs-memo	B	1	Pruning vs memoisation
+technique-permutations-count	B	1	Permutation backtracking code
+technique-dp-memo-calls	B	1	Memo call-count trace

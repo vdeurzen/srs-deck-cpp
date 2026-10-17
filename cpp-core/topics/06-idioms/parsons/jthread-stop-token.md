@@ -16,7 +16,7 @@ compile:
       return ticks.load() > 0 ? 0 : 1;
     }
 requires:
-  - threads-thread-destructor-joinable
+  - cpp-essentials/threads-thread-destructor-joinable
 refs:
   - https://en.cppreference.com/w/cpp/thread/jthread
   - https://en.cppreference.com/w/cpp/thread/stop_token

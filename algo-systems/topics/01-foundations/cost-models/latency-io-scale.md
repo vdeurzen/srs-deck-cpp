@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [cost-model, low-latency, databases]
 requires:
-  - foundations-latency-scale
+  - interview-essentials/foundations-latency-scale
 elaborate: Where does your system cross from the nanosecond scale to the microsecond one, and does it batch at that boundary?
 refs:
   - https://en.algorithmica.org/hpc/external-memory/hierarchy/

@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [comparisons, operators]
 requires:
-  - spaceship-basics
-  - operators-member-vs-free
+  - cpp-essentials/spaceship-basics
+  - cpp-essentials/operators-member-vs-free
 refs:
   - https://en.cppreference.com/w/cpp/language/overload_resolution#Call_to_an_overloaded_operator
   - https://eel.is/c++draft/over.match.oper

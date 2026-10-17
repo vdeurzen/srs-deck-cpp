@@ -6,7 +6,7 @@ level: 3
 tags: [callables, type-erasure]
 requires:
   - staticpoly-type-erasure-skeleton
-  - lambda-store-std-function
+  - cpp-essentials/lambda-store-std-function
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/function
   - https://en.cppreference.com/w/cpp/utility/functional/move_only_function

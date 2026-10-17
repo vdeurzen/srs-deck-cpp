@@ -6,7 +6,7 @@ level: 2
 tags: [value-categories, references, temporaries]
 requires:
   - vc-const-ref-binds-both
-  - vc-rvalue-ref-binds-temporaries
+  - cpp-essentials/vc-rvalue-ref-binds-temporaries
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category
   - https://en.cppreference.com/w/cpp/language/reference_initialization

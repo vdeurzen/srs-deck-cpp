@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [hashing, chaining, tracing]
 requires:
-  - hashing-chaining
+  - interview-essentials/hashing-chaining
 probes:
   1: { "bucket[2].size()": "2", "bucket[3].size()": "1" }
   2: { "bucket[2].size()": "4", "bucket[3].size()": "1" }

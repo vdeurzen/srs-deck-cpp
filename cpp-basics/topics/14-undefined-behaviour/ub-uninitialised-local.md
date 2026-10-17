@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [undefined-behaviour, initialization]
 requires:
-  - ub-passing-tests-prove-nothing
-  - types-uninit-local-read
+  - cpp-essentials/ub-passing-tests-prove-nothing
+  - cpp-essentials/types-uninit-local-read
 refs:
   - https://en.cppreference.com/w/cpp/language/default_initialization
   - https://timsong-cpp.github.io/cppwp/n4950/basic.indet

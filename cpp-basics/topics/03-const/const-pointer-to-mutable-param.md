@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [const, pointers, misconception]
 requires:
-  - const-pointer-read-rule
+  - cpp-essentials/const-pointer-read-rule
 refs:
   - https://en.cppreference.com/w/cpp/language/implicit_conversion#Qualification_conversions
   - https://eel.is/c++draft/conv.qual

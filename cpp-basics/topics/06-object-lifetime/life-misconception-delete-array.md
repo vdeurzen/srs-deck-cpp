@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [lifetime, new-delete, misconception]
 requires:
-  - life-delete-matches-new
+  - cpp-essentials/life-delete-matches-new
 elaborate: Where does your code still hold an array from new[]? What would replacing it with std::vector remove from your list of things to get right?
 refs:
   - https://en.cppreference.com/w/cpp/language/delete

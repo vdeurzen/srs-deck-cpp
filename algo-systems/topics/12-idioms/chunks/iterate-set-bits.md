@@ -15,7 +15,7 @@ compile:
     int main() {}
 requires:
   - graph-iterate-set-bits
-  - foundations-bits-trace
+  - interview-essentials/foundations-bits-trace
 refs:
   - https://en.cppreference.com/w/cpp/numeric/countr_zero
   - https://graphics.stanford.edu/~seander/bithacks.html

@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - hash-chaining-vs-open-addressing
+  - interview-essentials/hash-chaining-vs-open-addressing
 tags: [hashing, avalanche]
 refs:
   - https://en.cppreference.com/w/cpp/utility/hash

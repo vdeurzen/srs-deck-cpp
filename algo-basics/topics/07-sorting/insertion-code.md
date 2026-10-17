@@ -19,7 +19,7 @@ compile:
     int main() {}
 requires:
   - sort-insertion-trace
-  - sort-stable-meaning
+  - interview-essentials/sort-stable-meaning
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/stable_sort
   - https://en.wikipedia.org/wiki/Insertion_sort

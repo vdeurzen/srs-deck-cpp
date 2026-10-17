@@ -12,8 +12,8 @@ compile:
     int main() {}
 requires:
   - containers-map-subscript-inserts
-  - cpp-basics/iter-map-find-or-default
-  - cpp-basics/const-ref-parameter
+  - cpp-essentials/iter-map-find-or-default
+  - cpp-essentials/const-ref-parameter
 refs:
   - https://en.cppreference.com/w/cpp/container/map/contains
   - https://en.cppreference.com/w/cpp/container/map/operator_at

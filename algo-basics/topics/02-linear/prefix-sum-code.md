@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [prefix-sums, arrays]
 requires:
-  - linear-prefix-sum-range
+  - interview-essentials/linear-prefix-sum-range
 input: chips
 choices:
   c1: ["p[r] - p[l]", "p[r] - p[l - 1]", "p[r + 1] - p[l]", "p[r - 1] - p[l]"]

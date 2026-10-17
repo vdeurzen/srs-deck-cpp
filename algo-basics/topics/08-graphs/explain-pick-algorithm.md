@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [graphs, judgement]
 requires:
-  - graph-bellman-ford-rounds
-  - graph-topo-order
+  - interview-essentials/graph-bellman-ford-rounds
+  - interview-essentials/graph-topo-order
   - graph-mst-cut-property
 refs:
   - https://doi.org/10.1007/BF01386390

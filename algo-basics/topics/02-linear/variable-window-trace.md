@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [sliding-window, tracing]
 requires:
-  - linear-variable-window-shrink
+  - interview-essentials/linear-variable-window-shrink
 probes:
   1: { lo: "0", sum: "7", best: "3" }
   2: { lo: "2", sum: "8", best: "3" }

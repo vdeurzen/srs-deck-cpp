@@ -17,8 +17,8 @@ compile:
     static_assert(sizeof(Order[1000]) / 64 == 375);   // 64-byte lines spanned
     int main() {}
 requires:
-  - cpp-core/layout-declaration-order
-  - cpp-core/layout-alignment
+  - cpp-essentials/layout-declaration-order
+  - cpp-essentials/layout-alignment
 refs:
   - https://en.cppreference.com/w/cpp/language/object#Alignment
   - https://en.algorithmica.org/hpc/cpu-cache/alignment/

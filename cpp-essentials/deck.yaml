@@ -1,0 +1,10 @@
+id: cpp-essentials
+name: C++ Essentials
+description: The interview core of C++ — pointers, const, classes, lifetime and RAII, value categories, move semantics, smart pointers, virtual dispatch, templates, containers, exceptions, UB and the memory model. The foundation every other C++ Deck builds on; study it first.
+language: cpp
+format: 1
+defaults:
+  compile:
+    compiler: g142 # GCC 14.2 on Compiler Explorer
+    std: c++23
+    flags: [-Wall, -Wextra]

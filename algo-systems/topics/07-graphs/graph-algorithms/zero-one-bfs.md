@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [graphs, shortest-paths]
 requires:
-  - algo-basics/graph-bfs-and-dfs
+  - interview-essentials/graph-bfs-and-dfs
 refs:
   - https://cp-algorithms.com/graph/01_bfs.html
 ---

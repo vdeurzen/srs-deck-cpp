@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [templates, variadic, tracing]
 requires:
-  - variadic-what-is-a-pack
+  - cpp-essentials/variadic-what-is-a-pack
 probes:
   1: { a: "0" }
   2: { b: "3" }

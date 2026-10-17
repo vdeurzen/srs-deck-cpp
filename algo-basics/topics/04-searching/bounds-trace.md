@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [binary-search, lower-bound, tracing]
 requires:
-  - search-lower-bound-meaning
+  - interview-essentials/search-lower-bound-meaning
 probes:
   1: { l: "1", u: "4" }
   2: { l: "4", u: "4" }

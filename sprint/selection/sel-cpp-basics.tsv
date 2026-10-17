@@ -1,0 +1,218 @@
+types-uninit-local-read	A	1	Uninitialised local read is UB; screening classic
+types-overflow-rules	A	2	Signed overflow UB vs unsigned wrap; root of many cards
+types-promotion-rule	A	1	Integer promotion to int; explains surprising arithmetic types
+types-mixed-sign-compare	A	1	Signed/unsigned comparison bug; frequent interview gotcha
+types-brace-checks-constant	A	1	Brace init rejects narrowing; why to prefer {}
+const-vs-constexpr-initializer	A	1	const vs constexpr deciding property
+types-auto-drops-const	A	1	auto drops top-level const and references
+types-static-cast-value	A	1	static_cast for value conversion; convert before dividing
+types-cstyle-reinterprets	A	1	C-style cast hides which named cast happens
+types-enum-no-int	A	1	enum class blocks implicit int conversion
+fn-overload-ranking	A	1	Exact > promotion > conversion; needed for nullptr card
+ptr-holds-an-address	A	1	Pointer is an object holding an address
+ptr-amp-and-star-cloze	A	2	& yields address, * names the object; fan-in 4
+ptr-trace-write-through	A	1	Pointer vs pointee writes; core trace
+ptr-reference-must-bind	A	1	References must bind; no null state
+ptr-reference-cannot-rebind	A	1	References never rebind; pointer vs reference contrast
+ptr-trace-reference-assign	A	1	r = b assigns through; misconception exposure
+ptr-array-name-to-pointer	A	1	Array decay loses length
+ptr-trace-arithmetic	A	1	Pointer arithmetic counts elements; p[i] meaning
+ptr-nullptr-overload	A	1	nullptr vs 0/NULL in overload resolution
+ptr-pointer-param-meaning	A	1	Pointer parameter means nullable; reference does not
+ptr-bump-by-reference	A	1	Out-parameter by reference; value vs ref vs pointer
+ptr-dangling-local	A	1	Returning address of local; dangling misconception
+ptr-explain-parameter-forms	A	1	Choosing T, T&, const T&, T*; capstone
+const-pointer-read-rule	A	2	Read declarations right-to-left; const placement rule
+const-fixed-pointer	A	1	int* const vs const int*; classic interview question
+const-ref-parameter	A	1	const T& avoids copy and binds temporaries
+const-member-on-const-ref	A	1	Non-const member uncallable through const ref
+const-loop-chunk	A	1	const auto& range-for idiom
+const-explain-signatures	A	1	Every const position and its promise; capstone
+fn-declaration-vs-definition	A	1	Declaration vs definition; base for linkage
+fn-return-by-value	A	1	Return by value, not reference to local
+class-struct-vs-class	A	1	Only difference: default access
+class-invariant-who-checks	A	1	Why private: invariants enable local reasoning
+class-constructor-intro	A	1	Constructor vocabulary; prerequisite of three chosen cards
+class-init-list-required	A	1	Member initialiser list names members
+class-init-list-vs-body	A	1	Body assignment is not initialisation; misconception trace
+class-const-object-call	A	1	Const overloading picks by expression constness
+class-explicit-blocks-conversion	A	1	explicit stops implicit converting constructors
+class-default-ctor-restore	A	1	Any constructor suppresses implicit default ctor
+class-delete-copy	A	1	= delete copy for non-copyable types
+class-explain-construction	A	1	Construction order and invariant; capstone
+life-scope-automatic	A	1	Automatic storage ends at enclosing block
+life-ctor-dtor-count	A	1	Constructor/destructor timing trace
+life-reverse-order-trace	A	1	Reverse destruction order, members included
+life-copy-init-not-assign	A	1	T b = a is construction, not assignment
+life-copy-which-runs	A	1	Copy ctor vs assignment, by-value param copies
+life-copy-ctor-param	A	1	Why copy ctor takes const T&
+life-temporary-full-expression	A	1	Temporaries die at end of full-expression
+life-new-outlives-scope	A	1	Heap objects outlive scope; leak without delete
+life-delete-matches-new	A	1	delete vs delete[] must match
+life-destructor-frees	A	1	RAII: release in destructor covers every path
+life-shallow-copy-pointer	A	1	Double delete from shallow copy; Rule of Three
+life-unique-ptr-owns-trace	A	1	unique_ptr owns; raw pointer leaks
+life-unique-ptr-frees	A	1	unique_ptr frees on every return path
+life-make-unique	A	1	make_unique over raw new
+life-unique-ptr-member-no-copy	A	1	unique_ptr member makes class non-copyable; Rule of Zero
+life-shared-ptr-owners	A	1	shared_ptr use_count and last-owner destruction
+life-misconception-shared-to-be-safe	A	1	shared_ptr everywhere hides ownership; judgement card
+vc-lvalue-has-identity	A	1	lvalue vs prvalue: identity
+vc-classify-cloze	A	3	Classify *p, n++, ++n; classic quiz
+vc-plain-ref-rejects-temporary	A	1	Non-const T& rejects temporaries
+vc-rvalue-ref-binds-temporaries	A	1	T&& binds only rvalues; groundwork for move
+vc-named-rvalue-ref-is-lvalue	A	1	Named rvalue reference is an lvalue; classic misconception
+vc-trace-extended-temporary	A	1	const& lifetime extension trace
+vc-param-binding-no-extension	A	1	Lifetime extension does not pass through functions
+virtual-is-a	A	1	Derived-to-base conversion direction
+virtual-static-dynamic-type	A	1	Static vs dynamic type vocabulary
+virtual-dispatch-which-runs	A	1	Virtual vs non-virtual call through base reference
+virtual-enable-dispatch	A	1	virtual keyword enables dynamic dispatch
+virtual-override-mismatch	A	1	Signature mismatch hides instead of overriding; use override
+virtual-pure-syntax	A	2	Pure virtual and abstract class
+virtual-slice-parameter	A	1	Slicing by value kills dispatch
+virtual-construct-order	A	1	Base built first, destroyed last
+virtual-delete-through-base	A	1	Missing virtual destructor is UB; top screening question
+virtual-explain-polymorphism	A	1	Polymorphism checklist capstone
+err-throw-jumps-to-catch	A	1	Throw control flow trace
+err-unwind-runs-destructors	A	1	Stack unwinding runs destructors; RAII rationale
+err-catch-by-reference-why	A	1	Catch by value slices; catch const&
+err-own-exception-type	A	1	Derive custom exception from runtime_error
+err-first-matching-handler	A	1	First matching handler wins; order derived first
+err-no-handler-terminates	A	1	Uncaught exception calls std::terminate
+err-noexcept-broken-promise	A	1	Throwing from noexcept terminates
+err-assert-vanishes-ndebug	A	1	assert vanishes under NDEBUG; bugs vs errors
+err-pick-a-channel	A	3	assert vs exception vs return value choice
+err-explain-failure-paths	A	1	Throw-to-catch and noexcept capstone
+tmpl-function-syntax	A	1	Function template syntax; root of template chain
+tmpl-instantiation-statics	A	1	Each T instantiates a separate function
+tmpl-deduction-conflict	A	1	Deduction ignores conversions; conflicting T fails
+tmpl-explicit-argument	A	1	Explicit template argument fixes deduction conflict
+tmpl-error-at-instantiation	A	1	Template errors surface at instantiation
+tmpl-distinct-types	A	1	Box<int> and Box<long> are unrelated types
+tmpl-concept-intro	A	1	Concepts constrain template parameters
+tmpl-concept-error	A	1	Constraint fails at call site, not in body
+tmpl-explain-templates	A	1	Template mechanics capstone
+iter-end-one-past	A	1	Half-open ranges; end is one past
+iter-size-vs-capacity	A	1	size vs capacity distinction
+iter-reserve-keeps-buffer	A	1	reserve keeps buffer and iterators valid
+iter-growth-invalidates	A	1	Reallocation invalidates iterators; top interview gotcha
+iter-explain-vector-growth	A	1	push_back growth and invalidation capstone
+iter-range-for-alias	A	1	Range-for copy vs reference
+iter-map-subscript-inserts	A	1	map operator[] inserts missing keys
+iter-map-find-or-default	A	1	find for lookup without inserting
+iter-at-checks-bounds	A	1	at throws, [] is unchecked UB
+stdalgo-lambda-syntax	A	1	Lambda syntax and capture-by-copy timing
+stdalgo-capture-ref-vs-copy	A	1	Capture by reference vs copy trace
+stdalgo-find-if-not-found	A	1	Compare find result to end before dereferencing
+stdalgo-sort-by-length	A	1	Custom comparator for sort
+stdalgo-comparator-strict	A	1	<= comparator breaks strict weak ordering; UB
+stdalgo-remove-if-keeps-size	A	1	remove_if does not shrink; erase-remove misconception
+stdalgo-erase-if	A	1	C++20 erase_if actually erases
+stdalgo-accumulate-init	A	1	accumulate init value type truncates
+stdalgo-transform-back-inserter	A	1	Output iterator needs room; back_inserter
+linkage-include-is-paste	A	1	#include pastes text; translation unit
+linkage-which-step-fails	A	1	Undefined reference is a linker error
+linkage-odr-counting	A	3	One-definition rule core statement
+linkage-inline-header-fix	A	1	inline allows header function definitions
+linkage-private-helper	A	1	Internal linkage via unnamed namespace or static
+linkage-extern-global-variable	A	1	extern declaration for shared globals
+linkage-explain-build	A	1	Compile vs link errors capstone
+ub-passing-tests-prove-nothing	A	1	Seems-to-work is allowed UB outcome
+ub-optimiser-assumes-no-overflow	A	1	Optimiser exploits UB; x+1<x becomes false
+ub-use-after-free	A	1	Use after delete is UB
+ub-unsigned-countdown-trace	A	1	Unsigned i >= 0 loop never ends
+ub-sanitizer-flags	A	1	Sanitizers find UB at run time
+ub-explain-no-guarantees	A	1	UB explanation capstone
+conc-thread-shares-memory	A	1	Threads share globals and heap
+conc-join-waits-trace	A	1	join waits and publishes writes
+conc-forgotten-join	A	1	Unjoined std::thread destructor terminates
+conc-waiting-destructor	A	1	jthread joins in destructor
+conc-thread-argument-by-reference	A	1	std::thread copies args; std::ref
+conc-lost-update-trace	A	1	++ is load-add-store; lost update
+conc-data-race-one-writer	A	1	Definition of data race; one writer suffices
+conc-mutex-takes-turns	A	1	Mutex blocks; lock_guard for exception safety
+conc-lock-the-counter	A	1	Named lock_guard on shared mutex
+conc-single-counter-fix	A	1	atomic<int> fixes single counter; volatile does not
+conc-atomic-or-mutex	A	1	When atomic beats mutex
+conc-check-then-act	A	1	Check-then-act races even with atomics
+conc-explain-shared-counter	A	1	Shared counter race and fixes capstone
+types-size-minimums	B	3	Guaranteed integer widths; useful but trivia-adjacent
+types-auto-brace-list	B	1	auto x = {5} gives initializer_list gotcha
+types-mixed-sign-common-type	B	1	Common-type angle duplicates mixed-sign-compare
+types-short-math-trace	B	1	Promotion trace; second angle on promotion
+types-unsigned-modulo-trace	B	1	Unsigned wrap trace; second angle
+types-double-to-int-trace	B	1	Truncation toward zero; lower payoff
+types-literal-suffix	B	1	Literal overflow before store; nice but niche
+types-reinterpret-cast-intro	B	1	reinterpret_cast relabels address
+types-const-cast-legacy	B	1	const_cast for C APIs; UB when writing const
+types-constexpr-catches-uninit	B	1	Third angle on uninitialised locals
+types-enum-plain-leaks	B	1	Plain enum scope leak; second enum angle
+types-explain-initialising	B	1	Initialisation capstone; rubric overlaps chosen cards
+ptr-declarator-star-cloze	B	2	Declarator vocabulary; low payoff
+ptr-arith-counts-elements	B	1	Covered by pointer arithmetic trace
+ptr-arrow-null-check	B	1	Null guard and arrow; basic
+ptr-trace-by-value	B	1	By-value trace; covered by bump-by-reference
+ptr-const-ref-read-only	B	1	Duplicates const-ref-parameter
+ptr-pass-whole-array	B	1	Array decay second angle
+const-pointer-to-mutable-param	B	1	const-correctness conversion misconception
+const-double-not-constant	B	1	const double not usable at compile time
+const-observer-chunk	B	1	Const observer idiom; overlaps const-member card
+const-no-modify	B	1	Trivial const rule
+fn-overload-pick	B	1	Overload resolution trace; second angle
+fn-ambiguous-call	B	1	Ambiguous overload; third overload angle
+fn-by-value-vs-reference	B	1	Duplicates pointer-section reference traces
+fn-reference-same-object	B	1	Address test angle; duplicate idea
+fn-explain-parameter-choice	B	1	Near-duplicate of ptr-explain-parameter-forms
+fn-recursion-trace	B	1	Recursion order; covered in algo decks
+fn-recursion-base-case	B	1	Base case; covered in algo decks
+fn-namespace-clash	B	1	Namespaces basics
+class-converting-constructor	B	2	Converting constructor term; weak second cloze
+class-default-delete-where	B	1	Only special members can be defaulted
+class-default-member-initialiser	B	1	Default member initialisers trace
+class-member-function-this	B	1	Parameter shadows member; this-> fix
+class-defaulted-spaceship-gives	B	1	C++20 defaulted <=> gives all comparisons
+class-compare-defaulted-shortcut	B	1	Spaceship code angle
+class-static-data-member	B	1	Static member shared by instances
+life-why-reverse	B	1	Reason for reverse destruction order
+life-explain-lifetimes	B	1	Lifetime capstone; rubric covered by chosen cards
+life-misconception-equals-assigns	B	1	Third copy-init angle
+life-misconception-delete-array	B	1	delete vs delete[] second angle
+life-shared-ptr-last-owner	B	1	Covered by shared_ptr owners trace
+life-shared-ptr-pick-member	B	1	shared vs unique member choice
+vc-const-ref-binds-both	B	1	Duplicates const-ref-parameter
+vc-assign-to-call	B	1	Returning T& makes lvalue call
+vc-address-of-operand	B	1	& needs lvalue; second angle
+vc-explain-const-ref-param	B	1	Binding capstone; overlaps chosen cards
+virtual-still-abstract	B	1	All pure virtuals must be overridden
+virtual-protected-access	B	1	protected access
+err-noexcept-marks-function	B	1	noexcept syntax
+err-catch-all-trace	B	1	catch(...) last
+err-chunk-catch-report	B	1	Catch-and-report idiom
+tmpl-why-template	B	1	Motivation; trivial
+tmpl-misconception-no-conversion	B	1	Duplicates deduction-conflict
+tmpl-constrained-auto	B	1	Abbreviated constrained auto syntax
+tmpl-auto-param-cloze	B	2	Abbreviated template syntax
+tmpl-class-member-type	B	1	Class template basics
+iter-loop-stop-at-end	B	1	Iterator loop condition
+iter-array-fixed-size	B	1	std::array fixed size
+stdalgo-find-vs-find-if	B	1	find vs find_if; easy
+stdalgo-loop-to-count-if	B	1	Raw loop to count_if
+stdalgo-explain-ranges-and-size	B	1	Algorithms-and-size capstone; overlaps chosen
+stdalgo-explain-raw-loop	B	1	Raw-loop refactoring capstone
+linkage-guard-define-line	B	1	Include guard
+linkage-prototype-in-header	B	1	Declaration in header
+linkage-chunk-header-source	B	1	Header/source idiom
+linkage-unnamed-namespace-trace	B	1	Per-TU copy from unnamed namespace in header
+linkage-no-using-directive	B	1	No using namespace in headers
+ub-standard-imposes-nothing	B	1	Near-duplicate of passing-tests card
+ub-signed-overflow-no-wrap	B	1	Duplicates types-overflow-rules
+ub-static-assert-finds-ub	B	2	constexpr as UB detector; study technique
+ub-dangling-after-scope	B	2	Dangling after scope; covered by ptr-dangling-local
+ub-dangling-return-type	B	1	Duplicates fn-return-by-value
+ub-off-by-one-bound	B	1	Off-by-one array bound
+ub-wrap-type-choice	B	1	uint32_t for defined wrap
+ub-uninitialised-local	B	2	Uninit second angle
+ub-uninitialised-counter	B	1	Uninit code angle
+conc-start-with-arguments	B	1	std::thread argument passing
+fmt-format-not-concat	B	1	std::format basics; low interview payoff

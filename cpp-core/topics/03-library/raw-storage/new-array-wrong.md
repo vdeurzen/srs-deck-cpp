@@ -6,7 +6,7 @@ level: 2
 tags: [raw-storage, vector, lifetime]
 elaborate: If the element type had no default constructor, what would `new T[8]` do to this design?
 requires:
-  - cpp-basics/iter-size-vs-capacity
+  - cpp-essentials/iter-size-vs-capacity
 refs:
   - https://en.cppreference.com/w/cpp/language/new
   - https://en.cppreference.com/w/cpp/container/vector

@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [functions, overloading, conversions, tracing]
 requires:
-  - fn-overload-ranking
-  - types-promotion-rule
+  - cpp-essentials/fn-overload-ranking
+  - cpp-essentials/types-promotion-rule
 probes:
   1: { calls: "i" }
   2: { calls: "id" }

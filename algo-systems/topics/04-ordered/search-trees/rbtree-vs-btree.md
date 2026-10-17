@@ -4,8 +4,8 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - algo-basics/tree-why-balance
-  - foundations-cache-cost-model
+  - interview-essentials/tree-why-balance
+  - interview-essentials/foundations-cache-cost-model
 tags: [trees, memory-hierarchy, databases]
 elaborate: On disk the page is 4–16 KiB instead of 64 bytes. What does that do to the gap between the two trees?
 refs:

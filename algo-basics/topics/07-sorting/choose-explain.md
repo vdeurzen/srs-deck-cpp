@@ -5,9 +5,9 @@ version: 1
 level: 3
 tags: [sorting, trade-offs]
 requires:
-  - sort-merge-stable-code
-  - sort-pivot-choice
-  - sort-compare-properties
+  - interview-essentials/sort-merge-stable-code
+  - interview-essentials/sort-pivot-choice
+  - interview-essentials/sort-compare-properties
 refs:
   - https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html

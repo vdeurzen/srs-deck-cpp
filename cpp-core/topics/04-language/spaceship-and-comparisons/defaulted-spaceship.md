@@ -14,7 +14,7 @@ compile:
     static_assert(Point{2,0} > Point{1,9});
     int main() {}
 requires:
-  - spaceship-basics
+  - cpp-essentials/spaceship-basics
   - cpp-basics/class-compare-defaulted-shortcut
 refs:
   - https://en.cppreference.com/w/cpp/language/default_comparisons

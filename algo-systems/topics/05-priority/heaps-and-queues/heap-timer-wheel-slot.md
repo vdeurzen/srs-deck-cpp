@@ -5,7 +5,7 @@ version: 1
 level: 5
 requires:
   - heap-timer-wheel
-  - seq-ring-buffer-mask
+  - interview-essentials/seq-ring-buffer-mask
 tags: [timers, queues, low-latency]
 input: chips
 choices:

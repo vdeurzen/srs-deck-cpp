@@ -6,8 +6,8 @@ level: 3
 tags: [transfer, misconception, ownership]
 elaborate: Which C++ type would own the array here, and what would `evens` return then?
 requires:
-  - vocab-span-parameter
-  - raii-storage-durations
+  - cpp-essentials/vocab-span-parameter
+  - cpp-essentials/raii-storage-durations
 refs:
   - https://en.cppreference.com/w/cpp/container/span
   - https://en.cppreference.com/w/cpp/language/reference#Dangling_references

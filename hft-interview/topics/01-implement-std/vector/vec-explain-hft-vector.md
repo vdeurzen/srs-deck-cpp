@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [vector, low-latency, hft, implement-std]
 requires:
-  - vec-reserve-in-loop
+  - interview-essentials/vec-reserve-in-loop
   - vec-push-back-fast-path
   - inplace-vector-overflow
 refs:

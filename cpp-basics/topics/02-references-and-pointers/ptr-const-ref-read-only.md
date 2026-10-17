@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [references, const, parameters]
 requires:
-  - ptr-bump-by-reference
+  - cpp-essentials/ptr-bump-by-reference
 refs:
   - https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f16-for-in-parameters-pass-cheaply-copied-types-by-value-and-others-by-reference-to-const
   - https://en.cppreference.com/w/cpp/language/reference

@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [low-latency, concurrency, spinning, memory-hierarchy]
 requires:
-  - ll-false-sharing
+  - interview-essentials/ll-false-sharing
 refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic/exchange
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/

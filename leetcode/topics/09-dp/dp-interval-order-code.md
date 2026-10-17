@@ -19,7 +19,7 @@ compile:
     int main() {}
 requires:
   - dp-interval-last-burst
-  - algo-basics/technique-memo-vs-table
+  - interview-essentials/technique-memo-vs-table
 refs:
   - https://leetcode.com/problems/burst-balloons/
   - https://leetcode.com/problems/longest-palindromic-subsequence/

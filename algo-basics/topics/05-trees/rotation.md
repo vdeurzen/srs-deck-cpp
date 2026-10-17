@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [trees, rotations, invariants]
 requires:
-  - tree-balance-families
+  - interview-essentials/tree-balance-families
   - tree-traversal-trace
 refs:
   - https://doi.org/10.1109/SFCS.1978.3

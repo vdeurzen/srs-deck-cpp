@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 4
 requires:
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
 tags: [containers, low-latency, intrusive]
 elaborate: An allocator keeps its free blocks on a list. Why can that list not be a `std::list`?
 refs:

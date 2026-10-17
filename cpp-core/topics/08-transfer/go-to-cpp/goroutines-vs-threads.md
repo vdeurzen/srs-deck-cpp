@@ -6,7 +6,7 @@ level: 3
 tags: [transfer, misconception, concurrency]
 elaborate: Which of your Go services start one goroutine per request, and what would bound the number of tasks in flight once ported to C++?
 requires:
-  - threads-thread-destructor-joinable
+  - cpp-essentials/threads-thread-destructor-joinable
 refs:
   - https://en.cppreference.com/w/cpp/thread/thread
   - https://man7.org/linux/man-pages/man3/pthread_create.3.html

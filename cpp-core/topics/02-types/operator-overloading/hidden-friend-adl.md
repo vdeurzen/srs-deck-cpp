@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [operators, friend, lookup]
 requires:
-  - operators-hidden-friend-symmetric
+  - cpp-essentials/operators-hidden-friend-symmetric
 refs:
   - https://en.cppreference.com/w/cpp/language/adl
   - https://en.cppreference.com/w/cpp/language/friend

@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [smart-pointers, ownership, tracing]
 requires:
-  - smart-pointers-weak-ptr-breaks-cycles
+  - cpp-essentials/smart-pointers-weak-ptr-breaks-cycles
 probes:
   1: { n: "2", e: "false" }
   2: { n: "1", e: "false" }

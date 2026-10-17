@@ -3,12 +3,16 @@ name: Algorithms & Systems
 description: Data structures and algorithms, basics to advanced, aimed at compiler, database and low-latency work.
 language: cpp # default highlight.js id; a fence's own info string wins
 format: 1
-relations: # cards here may require cpp-basics/<id>, cpp-core/<id> and algo-basics/<id>
+relations: # cards here may require the essentials Decks, cpp-basics/<id>, cpp-core/<id> and algo-basics/<id>
   - deck: cpp-basics
     role: builds-on
   - deck: cpp-core
     role: builds-on
   - deck: algo-basics
+    role: builds-on
+  - deck: cpp-essentials
+    role: builds-on
+  - deck: interview-essentials
     role: builds-on
 defaults:
   compile:

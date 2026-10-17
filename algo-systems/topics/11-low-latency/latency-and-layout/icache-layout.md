@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [low-latency, layout, front-end, inlining]
 requires:
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
 refs:
   - https://en.algorithmica.org/hpc/architecture/layout/
   - https://www.agner.org/optimize/microarchitecture.pdf

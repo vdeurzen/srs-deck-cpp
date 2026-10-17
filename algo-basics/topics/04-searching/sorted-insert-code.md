@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [binary-search, lower-bound]
 requires:
-  - search-lower-bound-meaning
-  - linear-array-insert-shift
+  - interview-essentials/search-lower-bound-meaning
+  - interview-essentials/linear-array-insert-shift
 input: chips
 choices:
   c1: ["std::lower_bound(v.begin(), v.end(), x)", "std::find(v.begin(), v.end(), x)", "v.end()", "v.begin() + v.size() / 2"]

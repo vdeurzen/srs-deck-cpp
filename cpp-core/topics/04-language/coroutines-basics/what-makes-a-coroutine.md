@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [coroutines]
 requires:
-  - raii-storage-durations
+  - cpp-essentials/raii-storage-durations
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---

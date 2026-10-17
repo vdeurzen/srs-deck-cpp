@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, binary-search, complexity, tracing]
 elaborate: The count is ⌊log₂ n⌋ + 1. How many iterations for a million elements, and why does it grow only at powers of two?
 requires:
-  - search-binary-search-chunk
+  - interview-essentials/search-binary-search-chunk
 probes:
   1: { c: "3" }
   2: { c: "4" }

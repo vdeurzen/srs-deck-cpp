@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [headers, namespaces]
 requires:
-  - linkage-include-is-paste
+  - cpp-essentials/linkage-include-is-paste
   - fn-qualified-name
 input: chips
 choices:

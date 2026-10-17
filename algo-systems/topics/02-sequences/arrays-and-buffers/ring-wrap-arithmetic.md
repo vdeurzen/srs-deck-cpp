@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [ring-buffer, low-latency, integer-arithmetic]
 requires:
-  - seq-ring-buffer-full-vs-empty
+  - interview-essentials/seq-ring-buffer-full-vs-empty
   - cpp-core/types-integral-promotion
 input: chips
 choices:

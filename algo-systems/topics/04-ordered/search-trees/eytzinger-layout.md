@@ -6,7 +6,7 @@ level: 5
 tags: [binary-search, memory-hierarchy, layout]
 requires:
   - ordered-lower-bound-loop
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
 refs:
   - https://en.algorithmica.org/hpc/data-structures/binary-search/
   - https://arxiv.org/abs/1509.05053

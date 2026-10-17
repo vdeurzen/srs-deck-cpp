@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 4
 requires:
-  - hash-chaining-vs-open-addressing
+  - interview-essentials/hash-chaining-vs-open-addressing
 tags: [hashing, open-addressing, simd, memory-hierarchy]
 refs:
   - https://abseil.io/about/design/swisstables

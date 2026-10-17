@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
 tags: [containers, allocators, compilers]
 elaborate: Which vectors in your own code are created by the million and almost always hold fewer than eight elements?
 refs:

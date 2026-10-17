@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [binary-search, invariants]
 requires:
-  - search-half-open-invariant
+  - interview-essentials/search-half-open-invariant
 input: chips
 choices:
   c1: ["hi = mid - 1;", "hi = mid;", "lo = mid - 1;", "hi = mid + 1;"]

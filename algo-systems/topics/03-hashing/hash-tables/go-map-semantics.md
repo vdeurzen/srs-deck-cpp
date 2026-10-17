@@ -4,7 +4,7 @@ kind: basic
 version: 2
 level: 3
 requires:
-  - hash-chaining-vs-open-addressing
+  - interview-essentials/hash-chaining-vs-open-addressing
 tags: [go, hashing, containers]
 elaborate: Where in your C++ do you hold a pointer into an `unordered_map`? What would you write instead in Go?
 refs:

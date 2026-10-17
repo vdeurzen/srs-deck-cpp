@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, linked-lists]
 requires:
-  - linear-doubly-unlink-code
+  - interview-essentials/linear-doubly-unlink-code
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.2 (sentinels)
 ---

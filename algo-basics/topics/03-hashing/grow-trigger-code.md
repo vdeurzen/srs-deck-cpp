@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [hashing, load-factor]
 requires:
-  - hashing-load-factor
+  - interview-essentials/hashing-load-factor
 input: chips
 choices:
   c1: ["size + 1 > buckets", "size > buckets", "size + 1 >= buckets", "size + 1 > 2 * buckets"]

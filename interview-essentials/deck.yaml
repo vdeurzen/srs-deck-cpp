@@ -1,0 +1,13 @@
+id: interview-essentials
+name: Interview Essentials
+description: The DS&A and coding-round core — complexity, hashing, search, trees, heaps, sorting, graphs and DP, the LeetCode pattern templates and recognition cues, and the implement-it C++ questions (vector, smart pointers, SPSC, LRU) with their trivia round.
+language: cpp
+format: 1
+relations: # cards here may require cpp-essentials/<id>
+  - deck: cpp-essentials
+    role: builds-on
+defaults:
+  compile:
+    compiler: g142 # GCC 14.2 on Compiler Explorer
+    std: c++23
+    flags: [-Wall, -Wextra]

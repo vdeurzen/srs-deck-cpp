@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [types, integers, undefined-behaviour]
 requires:
-  - cpp-basics/types-overflow-rules
+  - cpp-essentials/types-overflow-rules
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Overflows
   - https://eel.is/c++draft/expr.pre#4

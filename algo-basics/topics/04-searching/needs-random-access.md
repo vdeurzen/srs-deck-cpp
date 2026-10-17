@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [binary-search, linked-lists, complexity]
 requires:
-  - search-binary-search-halving
-  - linear-array-index-contiguity
+  - interview-essentials/search-binary-search-halving
+  - interview-essentials/linear-array-index-contiguity
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/lower_bound
 ---

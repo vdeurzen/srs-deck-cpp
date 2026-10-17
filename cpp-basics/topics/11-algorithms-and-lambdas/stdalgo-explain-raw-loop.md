@@ -5,9 +5,9 @@ version: 1
 level: 2
 tags: [algorithms, lambdas, refactoring]
 requires:
-  - stdalgo-capture-ref-vs-copy
-  - stdalgo-find-if-not-found
-  - stdalgo-accumulate-init
+  - cpp-essentials/stdalgo-capture-ref-vs-copy
+  - cpp-essentials/stdalgo-find-if-not-found
+  - cpp-essentials/stdalgo-accumulate-init
 refs:
   - https://en.cppreference.com/w/cpp/algorithm
 ---

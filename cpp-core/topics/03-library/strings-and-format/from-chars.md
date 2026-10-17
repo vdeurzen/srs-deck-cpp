@@ -11,7 +11,7 @@ compile:
     static_assert([] { int v = 0; return !parse_int("4x", v); }());
     int main() {}
 requires:
-  - strings-string-view-parameter
+  - cpp-essentials/strings-string-view-parameter
 refs:
   - https://en.cppreference.com/w/cpp/utility/from_chars
 ---

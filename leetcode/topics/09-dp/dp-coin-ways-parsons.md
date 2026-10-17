@@ -16,7 +16,7 @@ compile:
     static_assert(change(4, {1, 2, 3}) == 4);
     int main() {}
 requires:
-  - dp-coin-ways-chunk
+  - interview-essentials/dp-coin-ways-chunk
 refs:
   - https://leetcode.com/problems/coin-change-ii/
   - https://en.wikipedia.org/wiki/Change-making_problem

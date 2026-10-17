@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [undefined-behaviour, idioms]
 requires:
-  - ub-definition
-  - ub-null-check-after-use
+  - cpp-essentials/ub-definition
+  - cpp-essentials/ub-null-check-after-use
 expose_ms: 7000
 compile:
   harness: |

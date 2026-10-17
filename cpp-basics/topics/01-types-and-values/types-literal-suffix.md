@@ -14,7 +14,7 @@ compile:
     static_assert(std::is_same_v<decltype(ns), const long long>);
     int main() {}
 requires:
-  - types-overflow-rules
+  - cpp-essentials/types-overflow-rules
 refs:
   - https://en.cppreference.com/w/cpp/language/integer_literal
   - https://eel.is/c++draft/lex.icon

@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [concurrency, threads, condition-variable, design]
 requires:
-  - threads-chunk-cv-wait
+  - cpp-essentials/threads-chunk-cv-wait
   - threads-trace-join-and-count
 refs:
   - https://en.cppreference.com/w/cpp/thread/condition_variable_any/wait

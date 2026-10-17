@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [low-latency, hft, concurrency]
 requires:
-  - ll-spsc-orders
+  - interview-essentials/ll-spsc-orders
   - ll-spsc-cached-index
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html

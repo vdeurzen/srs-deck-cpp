@@ -8,7 +8,7 @@ probes:
   1: { dp: "1 1 2 2 3 3" }
   2: { dp: "1 1 2 2 3 4" }
 requires:
-  - dp-coin-ways-chunk
+  - interview-essentials/dp-coin-ways-chunk
 refs:
   - https://leetcode.com/problems/coin-change-ii/
   - https://en.wikipedia.org/wiki/Change-making_problem

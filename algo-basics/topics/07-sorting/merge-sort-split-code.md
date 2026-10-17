@@ -24,7 +24,7 @@ compile:
     int main() {}
 requires:
   - sort-merge-runs-trace
-  - sort-merge-idea
+  - interview-essentials/sort-merge-idea
 refs:
   - https://algs4.cs.princeton.edu/22mergesort/
   - https://en.wikipedia.org/wiki/Merge_sort

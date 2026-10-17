@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, graphs, representation, complexity]
 requires:
   - graph-matrix-from-edges
-  - graph-list-from-edges-chunk
+  - interview-essentials/graph-list-from-edges-chunk
   - graph-degree-from-edge-list
 refs:
   - https://en.wikipedia.org/wiki/Adjacency_list#Trade-offs

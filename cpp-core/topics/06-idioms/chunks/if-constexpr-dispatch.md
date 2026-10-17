@@ -5,7 +5,7 @@ version: 2
 level: 3
 tags: [idioms, templates]
 requires:
-  - const-constexpr-if-constexpr-discard
+  - cpp-essentials/const-constexpr-if-constexpr-discard
 expose_ms: 8000
 compile:
   harness: |

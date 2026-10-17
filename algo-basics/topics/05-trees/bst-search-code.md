@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [trees, bst, complexity]
 requires:
-  - tree-bst-property
+  - interview-essentials/tree-bst-property
   - tree-bst-search-steps
 input: chips
 choices:

@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [complexity, big-o]
 requires:
-  - complexity-drop-terms
+  - interview-essentials/complexity-drop-terms
   - complexity-asym-big-o-witness
 input: chips
 choices:

@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [undefined-behaviour, constexpr]
 requires:
-  - ub-definition
-  - cpp-basics/ub-static-assert-finds-ub
+  - cpp-essentials/ub-definition
+  - cpp-essentials/ub-static-assert-finds-ub
 refs:
   - https://en.cppreference.com/w/cpp/language/constant_expression
   - https://timsong-cpp.github.io/cppwp/n4950/expr.const#5

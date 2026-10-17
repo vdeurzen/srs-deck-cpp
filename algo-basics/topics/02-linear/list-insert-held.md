@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, linked-lists, complexity]
 requires:
-  - linear-list-node
+  - interview-essentials/linear-list-node
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.2
   - https://en.cppreference.com/w/cpp/container/forward_list/insert_after

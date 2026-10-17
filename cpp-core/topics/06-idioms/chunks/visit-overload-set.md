@@ -6,7 +6,7 @@ level: 4
 tags: [idioms, variant]
 requires:
   - templates-deduction-guide
-  - variadic-expansion-placement
+  - cpp-essentials/variadic-expansion-placement
 expose_ms: 9000
 compile:
   harness: |

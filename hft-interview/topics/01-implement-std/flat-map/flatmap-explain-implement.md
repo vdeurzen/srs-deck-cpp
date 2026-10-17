@@ -8,7 +8,7 @@ elaborate: "The other common design is a Swiss table (`absl::flat_hash_map`): a 
 requires:
   - algo-systems/hash-backward-shift
   - algo-systems/hash-robin-hood-early-exit
-  - algo-systems/hash-unordered-map-is-chained
+  - interview-essentials/hash-unordered-map-is-chained
 refs:
   - https://abseil.io/about/design/swisstables
   - https://cs.uwaterloo.ca/research/tr/1986/CS-86-14.pdf

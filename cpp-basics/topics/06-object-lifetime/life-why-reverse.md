@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [lifetime, destructors]
 requires:
-  - life-reverse-order-trace
+  - cpp-essentials/life-reverse-order-trace
 refs:
   - https://en.cppreference.com/w/cpp/language/destructor#Destruction_sequence
   - https://eel.is/c++draft/stmt.jump#general-2

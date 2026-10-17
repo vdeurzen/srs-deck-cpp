@@ -13,8 +13,8 @@ compile:
     static_assert(parse_port("").error() == PortError::empty);
     int main() {}
 requires:
-  - vocab-expected-carries-error
-  - class-explicit-constructor
+  - cpp-essentials/vocab-expected-carries-error
+  - cpp-essentials/class-explicit-constructor
 refs:
   - https://en.cppreference.com/w/cpp/utility/expected/unexpected
 ---

@@ -6,7 +6,7 @@ level: 4
 tags: [smart-pointers, ownership]
 requires:
   - smart-pointers-explain-unique-ptr
-  - smart-pointers-explain-shared-ptr
+  - cpp-essentials/smart-pointers-explain-shared-ptr
   - smart-pointers-explain-weak-ptr
 refs:
   - https://en.cppreference.com/w/cpp/memory

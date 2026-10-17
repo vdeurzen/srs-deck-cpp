@@ -15,7 +15,7 @@ compile:
     static_assert(second(Pack{}) == 10);
     int main() {}
 requires:
-  - templates-two-phase-lookup
+  - cpp-essentials/templates-two-phase-lookup
 refs:
   - https://en.cppreference.com/w/cpp/language/dependent_name#The_template_disambiguator_for_dependent_names
 ---

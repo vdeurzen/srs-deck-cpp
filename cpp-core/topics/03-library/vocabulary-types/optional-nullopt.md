@@ -14,7 +14,7 @@ compile:
     static_assert(!digit_value('x').has_value());
     int main() {}
 requires:
-  - vocab-optional-maybe-value
+  - cpp-essentials/vocab-optional-maybe-value
 refs:
   - https://en.cppreference.com/w/cpp/utility/optional/nullopt
 ---

@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, hash-functions]
 requires:
-  - hashing-contract-direction
+  - interview-essentials/hashing-contract-direction
 input: chips
 choices:
   c1: ["p.x * 31 + p.y", "p.x * 31 + p.y + p.hits", "p.hits", "p.x * 31 + p.hits"]

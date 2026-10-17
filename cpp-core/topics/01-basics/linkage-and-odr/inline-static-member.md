@@ -11,7 +11,7 @@ compile:
   harness: |
     int main() { raise_limit(); }
 requires:
-  - linkage-inline-meaning
+  - cpp-essentials/linkage-inline-meaning
 refs:
   - https://en.cppreference.com/w/cpp/language/static#Static_data_members
   - https://en.cppreference.com/w/cpp/language/inline

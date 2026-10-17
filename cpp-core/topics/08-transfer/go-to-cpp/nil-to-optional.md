@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [transfer, misconception, vocabulary-types]
 requires:
-  - vocab-optional-maybe-value
+  - cpp-essentials/vocab-optional-maybe-value
 elaborate: Which Go functions of yours return `*T` only so they can return nil, and would the C++ port need the pointer at all?
 refs:
   - https://en.cppreference.com/w/cpp/utility/optional

@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [backtracking, recursion]
 requires:
-  - technique-backtracking-undo
+  - interview-essentials/technique-backtracking-undo
 input: chips
 choices:
   c1: ["used[i] = false;", "used[i] = true;", "used[placed] = false;", "used[0] = false;"]

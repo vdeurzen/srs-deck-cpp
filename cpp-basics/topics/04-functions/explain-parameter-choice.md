@@ -7,7 +7,7 @@ tags: [functions, parameters, return]
 requires:
   - fn-by-value-vs-reference
   - fn-reference-same-object
-  - fn-return-by-value
+  - cpp-essentials/fn-return-by-value
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization
   - https://en.cppreference.com/w/cpp/language/return

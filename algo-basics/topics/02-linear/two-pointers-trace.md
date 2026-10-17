@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [two-pointers, tracing]
 requires:
-  - linear-two-pointers-sorted-pair
+  - interview-essentials/linear-two-pointers-sorted-pair
 probes:
   1: { lo: "1", hi: "5", found: "false" }
   2: { lo: "2", hi: "4", found: "false" }

@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [value-categories, pointers]
 requires:
-  - vc-classify-cloze
-  - ptr-array-name-to-pointer
+  - cpp-essentials/vc-classify-cloze
+  - cpp-essentials/ptr-array-name-to-pointer
 input: chips
 choices:
   c1: ["marks[2]", "marks + 2", "marks[0] + 2", "90"]

@@ -6,7 +6,7 @@ level: 2
 tags: [complexity, recurrences, divide-and-conquer]
 requires:
   - complexity-recurrence-unroll
-  - complexity-cost-master-cases
+  - interview-essentials/complexity-cost-master-cases
 refs:
   - https://dl.acm.org/doi/10.1145/1008861.1008865
   - https://en.wikipedia.org/wiki/Master_theorem_(analysis_of_algorithms)

@@ -6,7 +6,7 @@ level: 3
 tags: [go, concurrency, memory-model]
 requires:
   - ll-go-blocking-basics
-  - cpp-core/atomics-synchronizes-with
+  - cpp-essentials/atomics-synchronizes-with
 refs:
   - https://go.dev/ref/mem
 ---

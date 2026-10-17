@@ -19,9 +19,9 @@ compile:
         {{0, 'b'}, {0, 'e'}, {1, 'd'}, {2, 'a'}, {2, 'c'}, {3, 'f'}}});
     int main() {}
 requires:
-  - sort-counting-idea
-  - sort-stable-meaning
-  - linear-prefix-sum-range
+  - interview-essentials/sort-counting-idea
+  - interview-essentials/sort-stable-meaning
+  - interview-essentials/linear-prefix-sum-range
 refs:
   - https://en.wikipedia.org/wiki/Counting_sort
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html

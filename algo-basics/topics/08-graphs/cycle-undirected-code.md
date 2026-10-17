@@ -17,7 +17,7 @@ compile:
     static_assert(cyclic({{{1, 3}, {0, 2}, {1, 3}, {2, 0}}}));      // square 0-1-2-3-0
     int main() {}
 requires:
-  - graph-cycle-directed-grey
+  - interview-essentials/graph-cycle-directed-grey
 refs:
   - https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Cycle_detection
 ---

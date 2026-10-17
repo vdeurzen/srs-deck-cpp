@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [dynamic-programming, interval-dp, recognition, lc-312]
 requires:
-  - algo-basics/technique-dp-state
+  - interview-essentials/technique-dp-state
 refs:
   - https://leetcode.com/problems/burst-balloons/
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §14.2 (matrix-chain multiplication)

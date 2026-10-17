@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [low-latency, lock-free, concurrency]
 requires:
-  - cpp-core/atomics-chunk-cas-loop
+  - cpp-essentials/atomics-chunk-cas-loop
 refs:
   - https://dl.acm.org/doi/10.1145/114005.102808
   - https://doi.org/10.1109/ICDCS.2003.1203503

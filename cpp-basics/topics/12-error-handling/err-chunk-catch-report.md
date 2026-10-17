@@ -7,7 +7,7 @@ tags: [exceptions, idioms]
 expose_ms: 6000
 compile: null
 requires:
-  - err-catch-by-reference-why
+  - cpp-essentials/err-catch-by-reference-why
 refs:
   - https://en.cppreference.com/w/cpp/language/catch
   - https://en.cppreference.com/w/cpp/error/exception/what

@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [tries, strings, trees]
 requires:
-  - tree-trie-end-flag
+  - interview-essentials/tree-trie-end-flag
 input: chips
 choices:
   c1: ["t.word[v]", "v != 0", "t.word[s.size()]", "t.next[v][0] == 0"]

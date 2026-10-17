@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [headers, declarations]
 requires:
-  - linkage-include-is-paste
-  - fn-declaration-vs-definition
+  - cpp-essentials/linkage-include-is-paste
+  - cpp-essentials/fn-declaration-vs-definition
 input: chips
 choices:
   c1: [";", "const;", "{ return w * h; }", "{}"]

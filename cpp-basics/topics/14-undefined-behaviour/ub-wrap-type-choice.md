@@ -6,7 +6,7 @@ level: 2
 tags: [undefined-behaviour, integers, constexpr]
 requires:
   - ub-signed-overflow-no-wrap
-  - ub-static-assert-finds-ub
+  - cpp-essentials/ub-static-assert-finds-ub
 input: chips
 choices:
   c1: ["std::uint32_t", "std::int32_t", "long long"]

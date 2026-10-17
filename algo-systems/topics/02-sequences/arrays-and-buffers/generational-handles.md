@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [arena, handles, compilers, low-latency]
 requires:
-  - cpp-core/ptr-dangling
+  - cpp-essentials/ptr-dangling
 elaborate: A handle needs the arena in hand to dereference. Where does that arena live in your design, and what stops two arenas' handles being mixed up?
 refs:
   - https://floooh.github.io/2018/06/17/handles-vs-pointers.html

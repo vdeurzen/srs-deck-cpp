@@ -37,7 +37,7 @@ compile:
     int main() {}
 requires:
   - algo-systems/ll-freelist-pool
-  - cpp-core/storage-destroy-at-pop
+  - cpp-essentials/storage-destroy-at-pop
 refs:
   - https://en.cppreference.com/w/cpp/memory/destroy_at
   - https://timsong-cpp.github.io/cppwp/n4950/allocator.members#10

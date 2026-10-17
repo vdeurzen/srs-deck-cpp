@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [classes, constructors, conversions]
 requires:
-  - class-constructor-intro
+  - cpp-essentials/class-constructor-intro
 refs:
   - https://en.cppreference.com/w/cpp/language/converting_constructor
 ---

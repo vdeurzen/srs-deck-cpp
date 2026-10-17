@@ -1,0 +1,233 @@
+value-categories-categories-cloze	A	3	Value category is per expression; root
+value-categories-taxonomy	A	1	Composite categories; identity vs movable
+value-categories-reference-binding-cloze	A	3	Which reference binds which category; hub prereq
+value-categories-std-move-cloze	A	3	std::move is only a cast to xvalue
+value-categories-overload-binding	A	1	Named T&& is an lvalue; picks const T&
+value-categories-temporary-materialization	A	1	When a prvalue becomes an object
+value-categories-guaranteed-elision	A	1	C++17 mandatory elision; non-movable return
+raii-storage-durations	A	3	Storage duration vocabulary; prereq of many
+raii-owner-in-destructor	A	1	RAII: release tied to destructor
+ptr-reference-vs-pointer	A	1	Deciding property: reference vs pointer
+ptr-auto-drops-ref	A	1	auto drops references; const auto& idiom
+ptr-dangling	A	1	What exactly is UB after delete
+ptr-temporary-full-expression	A	1	Temporaries die at the semicolon
+ptr-lifetime-extension	A	1	Direct-binding lifetime extension rule
+ptr-ref-extension-trap	A	1	Misconception: extension through returned reference
+trace-temporaries-in-range-for	A	1	Range-for temporary lifetime, P2718
+initialization-default-value-zero	A	1	Default vs value init; indeterminate reads
+initialization-user-ctor-no-zero	A	1	Misconception: {} does not zero with user ctor
+initialization-most-vexing-parse	A	1	Classic parse pitfall; braces fix
+initialization-magic-statics	A	1	Thread-safe function-local statics
+initialization-static-guard-cost	A	1	HFT: guard check cost on every call
+trace-order-of-initialisation	A	1	Members init in declaration order
+const-constexpr-const-vs-constexpr-cloze	A	3	const vs constexpr contract
+const-constexpr-constexpr-function-dual-use-cloze	A	3	constexpr function does not force compile time
+class-const-ref-not-immutable	A	1	const& restricts path, not object; aliasing
+types-usual-arithmetic-conversions	A	1	Signed converts to unsigned at same rank
+types-signed-unsigned-trace	A	1	Mixed-sign comparison, rank and width rules
+ub-definition	A	1	UB voids the whole execution
+ub-null-check-after-use	A	1	Optimiser deletes null check after deref
+ub-three-behaviours	A	3	Impl-defined vs unspecified vs undefined
+raii-copy-double-close	A	1	Shallow copy double-free; delete copy
+raii-move-steals-handle	A	1	Move leaves source empty via exchange
+exceptions-unwinding-destroys-locals	A	1	Unwinding runs local destructors
+raii-ctor-throw-unwinds-members	A	1	Throwing ctor: no dtor, members unwound
+move-semantics-rule-of-five	A	1	Rule of five: which members and why
+move-semantics-implicit-move-suppressed	A	1	User dtor silently disables move
+move-semantics-const-member-copies	A	1	const member is copied by move
+move-semantics-moved-from-state	A	1	Valid but unspecified moved-from state
+raii-guard-destructor	A	1	Named guard object, not a temporary
+raii-explain-owning-type	A	1	Interview: design a resource-owning type
+move-semantics-return-std-move	A	1	return std::move pessimises NRVO
+move-semantics-forwarding-reference	A	1	Forwarding reference and collapsing rules
+move-semantics-perfect-forwarding	A	1	std::forward vs move vs bare
+move-semantics-explain-mechanism	A	1	Interview explain: what a move is
+virtual-static-dispatch	A	1	Non-virtual call uses static type
+virtual-dispatch-dynamic-type	A	1	Virtual call uses dynamic type
+virtual-slicing	A	1	Copy into base value slices
+exceptions-catch-by-value-slices	A	1	Catch by value slices what()
+exceptions-strong-vs-basic	A	1	Strong vs basic guarantee
+exceptions-which-guarantee	A	1	Trace a basic-guarantee function
+move-semantics-vector-move-if-noexcept	A	1	vector copies when move not noexcept
+move-semantics-noexcept-move	A	1	Fix: noexcept on defaulted move
+exceptions-noexcept-operator	A	1	noexcept operator is unevaluated
+exceptions-commit-by-swap	A	1	Copy-and-swap strong guarantee idiom
+move-semantics-explain-lost-moves	A	1	Capstone: three common lost moves
+smart-pointers-unique-ptr-ownership	A	1	Exclusive ownership; copy deleted
+smart-pointers-unique-ptr-moved-from-null	A	1	Moved-from unique_ptr is guaranteed null
+smart-pointers-sink-parameter	A	1	By-value unique_ptr is a sink
+class-rule-of-zero	A	1	Rule of zero via unique_ptr member
+smart-pointers-shared-ptr-control-block	A	1	Control block contents; two-pointer size
+smart-pointers-make-shared-one-allocation	A	1	make_shared single allocation and weak cost
+smart-pointers-two-control-blocks	A	1	Two shared_ptrs from raw: double delete
+smart-pointers-shared-ptr-cycle-leaks	A	1	shared_ptr cycles leak
+smart-pointers-weak-ptr-breaks-cycles	A	1	weak_ptr does not own
+smart-pointers-weak-ptr-lock	A	1	lock() atomically tests and pins
+smart-pointers-explain-shared-ptr	A	1	Interview explain: shared_ptr internals
+linkage-translation-unit	A	1	TU vs link step; ODR vocabulary
+class-pimpl	A	1	PIMPL trade-off, classic interview
+virtual-vptr-sizeof	A	1	vptr/vtable, object size
+virtual-destructor	A	1	Virtual destructor for base deletion
+virtual-call-in-constructor	A	1	Virtual call in ctor hits base
+virtual-name-hiding	A	1	Derived overload hides base; using-declaration
+virtual-final	A	1	final enables devirtualisation
+virtual-explain-dispatch	A	1	Interview explain: vcall cost and traps
+layout-alignment	A	1	Alignment requirement inserts padding
+layout-padding-sizeof	A	1	Predict sizeof with padding
+layout-trailing-padding	A	1	Trailing padding keeps arrays aligned
+layout-declaration-order	A	1	Compiler may not reorder members
+layout-offsets-trace	A	1	Trace offsets and sizeof
+layout-member-order	A	1	Reorder members by alignment to shrink
+layout-alignas-sizeof	A	1	alignas(64) cache-line sizing
+layout-pin-chunk	A	1	static_assert offsetof/sizeof pin idiom
+layout-explain-hot-struct	A	1	HFT capstone: hot struct layout
+templates-instantiation	A	1	What triggers implicit instantiation
+templates-two-phase-lookup	A	1	Dependent vs non-dependent lookup
+templates-typename-disambiguator	A	1	Why typename before dependent type
+templates-concepts-vs-sfinae	A	1	Concepts vs enable_if SFINAE
+const-constexpr-if-constexpr-discard	A	1	if constexpr discards untaken branch
+exceptions-conditional-noexcept	A	1	noexcept(noexcept(f())) wrapper pattern
+staticpoly-static-vs-dynamic	A	1	Why virtual blocks inlining; templates don't
+staticpoly-crtp-base	A	1	CRTP static dispatch, HFT staple
+variadic-what-is-a-pack	A	1	Parameter pack basics
+variadic-expansion-placement	A	1	Pack expansion repeats the pattern
+variadic-forward-pack	A	1	make_unique-style pack forwarding
+lambda-closure-type	A	1	Lambda is a class with operator()
+lambda-capture-trace	A	1	Copy captured at creation vs reference
+lambda-mutable	A	1	const operator(); mutable copies
+lambda-dangling-reference	A	1	Reference capture outliving scope
+lambda-this-capture	A	1	[=] captures this, not members
+lambda-init-capture	A	1	Move-only capture via init-capture
+lambda-store-std-function	A	1	Unique closure types; std::function erases
+staticpoly-type-erasure	A	1	Type erasure concept, std::function inside
+callables-explain-capture-lifetime	A	1	Interview explain: safe async callbacks
+class-explicit-constructor	A	1	explicit blocks implicit conversions
+operators-member-vs-free	A	1	Member operator blocks left conversion
+operators-hidden-friend-symmetric	A	1	Hidden friend for symmetric operators
+operators-compound-returns-ref	A	1	+= returns *this by reference
+operators-chunk-arithmetic-pair	A	1	Canonical += / + pair
+spaceship-basics	A	1	<=> yields ordering category
+spaceship-rewritten-not-equal	A	1	C++20 rewrites != from ==
+spaceship-hand-written-no-equality	A	1	Hand-written <=> gives no ==
+linkage-odr-class-repeat	A	1	ODR: identical definitions per TU
+linkage-inline-meaning	A	1	inline means ODR, not inlining
+containers-default-to-vector	A	1	Default to vector: contiguity
+containers-map-vs-unordered-map	A	1	Ordered vs hashed map choice
+containers-reference-invalidated-by-growth	A	1	Reallocation invalidates references
+containers-stable-references	A	1	deque keeps references on append
+containers-erase-while-iterating	A	1	erase returns next iterator
+chunks-erase-remove	A	1	Erase-remove idiom; erase_if
+containers-explain-choosing	A	1	Interview explain: choosing a container
+strings-string-view-parameter	A	1	string_view parameter saves a temporary
+strings-string-view-dangling	A	1	Never return string_view to a local
+strings-string-view-not-null-terminated	A	1	string_view not null-terminated
+strings-sso	A	1	Small-string optimisation
+vocab-optional-maybe-value	A	1	optional instead of sentinel
+vocab-expected-carries-error	A	1	expected carries the reason
+vocab-variant-closed-set	A	1	variant closed set vs virtual open set
+vocab-visit-missing-handler	A	1	visit requires exhaustive handlers
+vocab-span-parameter	A	1	span<const T> parameter
+threads-data-race-is-ub	A	1	Data race definition: UB
+threads-thread-destructor-joinable	A	1	Joinable thread dtor terminates; jthread
+threads-cv-wait-needs-predicate	A	1	Spurious and lost wakeups; predicate
+threads-cv-wait-lock-type	A	1	wait needs unique_lock, not lock_guard
+threads-chunk-cv-wait	A	1	CV consumer idiom with unique_lock
+threads-scoped-lock-two-mutexes	A	1	scoped_lock avoids lock-order deadlock
+atomics-modification-order	A	1	Atomicity and modification order
+atomics-trace-relaxed-counter	A	1	Relaxed counter is still exact
+atomics-synchronizes-with	A	1	Release/acquire pairing condition
+atomics-trace-message-passing	A	1	Message-passing litmus test
+atomics-explain-publish-with-flag	A	1	Explain happens-before chain
+atomics-seq-cst-store-buffering	A	1	Store buffering; seq_cst needed
+atomics-chunk-cas-loop	A	1	CAS loop idiom, weak vs strong
+atomics-lock-free-is-per-type	A	1	HFT: lock-freedom depends on type size
+value-categories-xvalue-decltype	B	1	decltype((e)) category probe; niche
+move-semantics-destructor-suppresses-move	B	1	Third angle on suppressed move
+move-semantics-explain-special-members	B	1	Good explain; overlaps A move cards
+move-semantics-explain	B	1	Synthesis capstone; costly, overlaps
+raii-scope-exit-order	B	1	Dup of cpp-basics reverse-order trace
+smart-pointers-trace-weak-count	B	1	Weak count trace; extra angle
+smart-pointers-explain-unique-ptr	B	1	Explain angle on covered facts
+smart-pointers-explain-weak-ptr	B	1	Explain angle on covered facts
+smart-pointers-explain-ownership	B	1	Capstone ownership design; time cost
+smart-pointers-unique-ptr-deleter-size	B	1	Stateless deleter sizing; HFT-ish
+class-const-member-function	B	1	Dup of cpp-basics const member
+class-mutable-cache	B	1	mutable for caches
+class-member-init-order	B	1	Second angle on init order
+class-member-init-list	B	1	Mostly cpp-basics territory
+class-invariant-constructor	B	1	Constructor establishes invariant
+class-nodiscard	B	2	Attribute trivia
+class-explain-invariant-design	B	1	Design explain; time cost
+initialization-static-zero	B	1	Statics zero-initialised
+const-constexpr-const-not-constant	B	1	Dup of cpp-basics const-double-not-constant
+const-constexpr-consteval-immediate-function-cloze	B	3	consteval vocabulary
+ptr-array-decay	B	3	Mostly cpp-basics array decay
+trace-auto-deduction	B	1	Second auto angle
+trace-moved-from-state	B	1	Second moved-from angle
+types-integral-promotion	B	1	Dup of cpp-basics promotion rule
+types-signed-overflow-ub	B	1	Dup of cpp-basics overflow optimiser card
+types-size-t-vs-ptrdiff	B	1	ssize vs size underflow
+types-c-style-cast	B	1	C-style cast reinterprets
+types-cmp-less-chunk	B	1	cmp_less safe comparison
+types-char-signedness	B	1	isalpha char UB; niche
+ub-constexpr-rejects-ub	B	1	Constexpr catches UB; cpp-basics has it
+ub-chunk-precondition-assert	B	1	Precondition assert idiom
+ub-explain-optimiser-contract	B	1	UB explain capstone
+ub-data-race-counter	B	1	Atomic counter fix; covered
+linkage-internal-linkage	B	1	static in header: one per TU
+linkage-odr-no-diagnostic	B	1	ODR violation, no diagnostic
+linkage-inline-static-member	B	1	inline static data member
+linkage-header-static-trace	B	1	inline vs static trace
+virtual-override-keyword	B	1	override; cpp-basics covers mismatch
+virtual-nvi	B	1	NVI idiom
+staticpoly-policy-parameter	B	1	Policy template parameter cost
+staticpoly-type-erasure-skeleton	B	1	Type erasure skeleton chunk
+staticpoly-deducing-this	B	1	C++23 deducing this
+staticpoly-no-unique-address	B	1	no_unique_address layout
+chunks-crtp	B	1	Second CRTP angle
+templates-requires-clause	B	1	Dup of cpp-basics constrained-auto
+templates-requires-expression	B	1	Compound requirement syntax
+templates-concept-subsumption	B	1	Subsumption ordering
+templates-template-disambiguator	B	1	.template disambiguator
+templates-lazy-member-instantiation	B	1	Lazy member instantiation
+templates-deduction-guide	B	1	CTAD deduction guide
+variadic-fold-forms	B	3	Fold expression forms
+variadic-fold-order	B	1	Fold associativity trace
+variadic-fold-empty-pack	B	1	Empty-pack fold init
+variadic-recursive-peel	B	1	Pre-C++17 recursion
+lambda-generic	B	1	Generic lambda
+operators-postfix-increment	B	1	Postfix returns old value
+operators-hidden-friend-adl	B	1	Hidden friend found only by ADL
+operators-explain-canonical	B	1	Operator shapes explain
+spaceship-defaulted	B	1	Defaulted <=>; cpp-basics covers
+spaceship-ordering-categories	B	1	weak vs strong ordering
+spaceship-partial-ordering-nan	B	1	NaN forces partial_ordering
+spaceship-reversed-candidate	B	1	Reversed candidates
+containers-map-subscript-inserts	B	1	operator[] inserts; cpp-basics covers
+containers-const-map-lookup	B	1	const map lookup without []
+strings-format-placeholders	B	1	std::format basics
+strings-from-chars	B	1	from_chars parsing idiom; HFT-ish
+strings-explain-text	B	1	Text handling explain
+vocab-optional-vs-expected	B	1	optional vs expected judgement
+vocab-optional-nullopt	B	1	nullopt return
+vocab-expected-unexpected	B	1	std::unexpected construction
+vocab-expected-and-then	B	1	Monadic expected chaining
+vocab-explain-signatures	B	1	Vocabulary types explain
+chunks-visit-overload-set	B	1	overloaded visitor idiom
+exceptions-noexcept-escape-terminates	B	1	Dup of cpp-basics noexcept-broken-promise
+exceptions-unwinding-order	B	1	Unwinding order trace; covered
+exceptions-far-away-failure	B	1	Exception vs expected judgement
+exceptions-explain-error-channels	B	1	Error channel explain
+chunks-raii-guard	B	1	Scope guard chunk
+chunks-if-constexpr-dispatch	B	1	if constexpr dispatch chunk
+parsons-jthread-stop-token	B	1	jthread stop_token parsons
+callables-explain-capture-modes	B	1	Capture modes explain
+callables-explain-function-storage	B	1	std::function internals explain
+callables-explain-function-costs	B	1	std::function cost explain
+threads-trace-join-and-count	B	1	Mutex counter trace; covered
+threads-explain-worker-shutdown	B	1	Worker shutdown design explain
+transfer-slices-vs-span	B	1	Returning span to local dangles
+transfer-null-member-call	B	1	Null member call is UB
+ranges-what-is-a-view	B	1	Views vocabulary
+ranges-views-lazy-cloze	B	1	Views are lazy
+ranges-views-non-owning	B	1	Views do not own

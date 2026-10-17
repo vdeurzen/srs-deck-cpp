@@ -5,9 +5,9 @@ version: 2
 level: 4
 tags: [move-semantics]
 requires:
-  - move-semantics-explain-mechanism
+  - cpp-essentials/move-semantics-explain-mechanism
   - move-semantics-explain-special-members
-  - move-semantics-explain-lost-moves
+  - cpp-essentials/move-semantics-explain-lost-moves
 refs:
   - https://en.cppreference.com/w/cpp/language/move_constructor
 ---
@@ -27,5 +27,5 @@ all of it.
 - [ ] Even after `Widget(Widget&&) = default;` restores the move, `id` is still copied: the defaulted move resolves overloads member by member, and a `const std::string` xvalue only binds the copy constructor
 - [ ] When `v` reallocates, every element is copied: the defaulted move inherits the throwing member's exception specification, and `move_if_noexcept` refuses a move that could leave the vector half-transferred
 - [ ] `return std::move(w2);` adds a cost of its own: it blocks NRVO, and since the move it forces is really a copy, the "optimisation" is a full deep copy of a local that could have been built in place
-- [ ] One fix: delete the copy constructor (or drop the destructor and own via a `std::unique_ptr` member, Rule of Zero): every silent copy above then becomes either a compile error or a genuine move, because a move-only type leaves overload resolution no fallback
+- [ ] Deleting `Widget`'s copy constructor is the one change that stops the silent `Widget` copies: with no fallback, each becomes a compile error or (once the move is defaulted) a real move, even on reallocation; but the defaulted move still copies `id`, a `const std::string`, until `id` stops being `const`
 

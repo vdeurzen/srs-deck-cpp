@@ -4,10 +4,11 @@ kind: cloze
 version: 2
 level: 4
 requires:
-  - hash-chaining-vs-open-addressing
+  - interview-essentials/hash-chaining-vs-open-addressing
 tags: [hashing, complexity, open-addressing]
 refs:
   - https://en.wikipedia.org/wiki/Linear_probing
+  - Knuth, The Art of Computer Programming, Vol. 3, 2nd ed., §6.4 (Algorithm L and its analysis)
   - https://abseil.io/about/design/swisstables
 ---
 
@@ -19,6 +20,8 @@ miss costs {{c3::2.5}} probes.
 
 ---
 
-Knuth (1963), under uniform hashing: hits cost ½(1 + 1/(1 − α)), misses
-½(1 + 1/(1 − α)²). The square is why the miss cost leaves the hit cost
-behind long before the table is full.
+Knuth (1963), for linear probing with a random hash function: hits cost
+½(1 + 1/(1 − α)), misses ½(1 + 1/(1 − α)²). The square is primary
+clustering. Under *uniform hashing* (each key's probe sequence a random
+permutation) a miss costs only ≈ 1/(1 − α) = 10 at α = 0.9, a hit
+(1/α) ln(1/(1 − α)) ≈ 2.6.

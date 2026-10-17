@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [hft, rate-limit, token-bucket]
 requires:
-  - bucket-burst-bound
+  - interview-essentials/bucket-burst-bound
 refs:
   - https://blog.cloudflare.com/counting-things-a-lot-of-different-things/
 elaborate: Your fixed-window limiter is already live. What is the smallest change that keeps it inside the venue's limit, and what throughput does that cost?

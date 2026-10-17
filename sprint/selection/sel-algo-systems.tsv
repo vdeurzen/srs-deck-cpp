@@ -1,0 +1,59 @@
+foundations-latency-scale	A	1	L1 vs DRAM ~100x: the number every perf answer starts from
+foundations-cache-cost-model	A	3	Cache miss as cost unit, 64B line, prefetch vs pointer chase
+trap-random-access-is-free	A	1	Sequential vs shuffled indexing: 10-20x, same big-O
+seq-vector-vs-deque	A	1	What deque buys over vector; prereq of list trap
+trap-linked-list-insertion	A	1	Classic vector-beats-list question, measured
+trap-small-n	A	1	Sorted vector + lower_bound beats std::map
+foundations-growth-factor	A	1	Why geometric growth gives amortised O(1) push_back
+foundations-growth-below-two	A	1	Why 1.5x vs 2x growth: block reuse, interview classic
+seq-invalidation-rules	A	3	vector/deque/map invalidation differences; needed for LRU splice
+hash-chaining-vs-open-addressing	A	1	Why flat tables beat node chains: one fewer miss
+hash-unordered-map-is-chained	A	1	Reference stability forces nodes; required by hft-interview
+trace-lru-splice	A	1	list::splice keeps iterators: the O(1) LRU enabler
+db-lru-recency-bet	A	1	LRU's failure pattern; prereq of trace-lru-order
+trace-lru-order	A	1	LeetCode-146 LRU traced; required twice by hft-interview
+ll-shared-counter-scaling	A	1	Contended atomic counter: line ping-pong, more threads slower
+ll-hardware-numbers	A	1	64-byte line as coherence unit; prereq of false-sharing
+ll-false-sharing	A	1	alignas(64) to split producer/consumer counters
+chunks-cache-padded-counter	A	1	Padded per-thread counter idiom; required by hft-interview
+seq-ring-waste-one-slot	A	1	Wrapped-index ring holds N-1; sets up free-running counters
+seq-ring-buffer-full-vs-empty	A	1	Free-running counters distinguish full from empty
+seq-ring-buffer-mask	A	1	Power-of-two mask instead of modulo; required by hft
+ll-memory-orders	A	1	x86 TSO: only seq_cst store costs; prereq of spsc-ring
+ll-spsc-ring	A	1	SPSC needs no CAS: one writer per counter
+ll-spsc-orders	A	2	Release/acquire pairs in SPSC push; required by hft
+foundations-bits-lowest-set-bit	A	1	x & -x; required by leetcode bits Cards
+foundations-bits-trace	A	1	Isolate/clear/popcount tricks; required by three leetcode Cards
+foundations-branch-misprediction	B	1	Sorted-array branch prediction classic
+foundations-aos-vs-soa	B	1	AoS vs SoA for field scans
+ll-spsc-cached-index	B	1	Cached head index; required by hft spsc Cards
+trace-ring-buffer-wrap	B	1	Hand trace of free-running ring with overwrite
+foundations-bits-power-of-two	B	1	x & (x-1) power-of-two test
+hash-quality-low-bits	B	1	Identity hash plus mask disaster
+hash-load-factor-and-probes	B	3	Probe cost explodes with load factor (miss formula)
+hash-primary-clustering	B	1	Why linear-probing runs grow
+hash-swiss-table-metadata	B	1	Swiss table control bytes and SIMD filter
+hash-tombstones	B	1	Erase-as-empty breaks probe runs (prereq chain)
+hash-tombstone-fix	B	1	Tombstone as third slot state (prereq chain)
+hash-tombstone-buildup	B	1	Tombstones degrade lookups; required by hft lru-explain
+heap-vocabulary	B	3	Heap shape/cost recap; root of top-k chain
+sort-introsort	B	1	How std::sort guarantees O(n log n)
+sort-quickselect	B	1	Quickselect step; prereq of heap-top-k
+heap-top-k	B	1	Sort vs heap vs nth_element costs
+heap-top-k-min-heap	B	1	Min-heap for k largest; required by leetcode
+heap-std-library-traps	B	1	priority_queue is max-heap; greater<> flips it
+seq-intrusive-list	B	1	Intrusive list allocates nothing
+seq-intrusive-unlink	B	1	O(1) unlink by pointer; required by hft order book
+ll-memory-pools	B	1	Why new is banned on hot path
+ll-freelist-pool	B	1	Free-list pool deallocate; required by hft pools
+ll-arena-vs-pool	B	1	Arena vs pool by lifetime; required by hft pools
+seq-inline-capacity	B	1	SmallVector inline buffer; required by hft inplace-vector
+ll-struct-layout	B	1	Member order and padding for cache lines
+ll-cas-retry-loop	B	1	CAS max loop re-checking precondition
+ll-aba-problem	B	1	ABA in lock-free stack pop
+ll-busy-polling	B	1	Why latency threads spin rather than block
+ll-measurement	B	1	Clock overhead swamps tiny timings
+ll-benchmark-dead-code	B	1	Optimiser deletes unused benchmark result
+trace-vector-growth	B	1	Reallocation on push and front insert
+ordered-fenwick-tree	B	1	Fenwick step via lowest set bit; required by leetcode
+trap-hash-vs-tree	B	1	unordered_map cannot do range queries

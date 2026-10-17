@@ -6,7 +6,7 @@ level: 4
 tags: [optional, abi, special-members, implement-std]
 elaborate: Which small value types on your hot path have a user-provided destructor they don't need for every T?
 requires:
-  - opt-union-storage
+  - interview-essentials/opt-union-storage
   - cpp-core/templates-conditionally-trivial
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/optional.dtor#2

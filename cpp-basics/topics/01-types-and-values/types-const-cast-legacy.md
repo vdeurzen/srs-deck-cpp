@@ -12,8 +12,8 @@ compile:
     static_assert(length("dial") == 4);
     int main() {}
 requires:
-  - types-static-cast-value
-  - const-pointer-read-rule
+  - cpp-essentials/types-static-cast-value
+  - cpp-essentials/const-pointer-read-rule
 refs:
   - https://en.cppreference.com/w/cpp/language/const_cast
   - https://eel.is/c++draft/expr.const.cast

@@ -7,7 +7,7 @@ tags: [foundations, stacks, arrays, linked-lists, capstone]
 requires:
   - linear-stack-array-code
   - linear-stack-list-code
-  - linear-dynamic-array-growth
+  - interview-essentials/linear-dynamic-array-growth
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.1–10.2
   - https://en.cppreference.com/w/cpp/container/vector/push_back

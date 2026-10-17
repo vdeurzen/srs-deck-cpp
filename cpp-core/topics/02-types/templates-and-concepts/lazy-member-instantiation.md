@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [templates]
 requires:
-  - templates-instantiation
+  - cpp-essentials/templates-instantiation
 refs:
   - https://en.cppreference.com/w/cpp/language/class_template#Implicit_instantiation
   - https://eel.is/c++draft/temp.inst

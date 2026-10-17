@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [iterators, concepts]
 requires:
-  - cpp-basics/iter-end-one-past
+  - cpp-essentials/iter-end-one-past
 refs:
   - https://en.cppreference.com/w/cpp/iterator
   - https://en.cppreference.com/w/cpp/iterator/random_access_iterator

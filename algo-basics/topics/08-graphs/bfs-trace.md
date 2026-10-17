@@ -9,8 +9,8 @@ probes:
   2: { queue: "3 4", dist: "0 1 1 2 2 -1" }
   3: { dist: "0 1 1 2 2 3" }
 requires:
-  - graph-bfs-why-shortest
-  - graph-adjacency-list-vs-matrix
+  - interview-essentials/graph-bfs-why-shortest
+  - interview-essentials/graph-adjacency-list-vs-matrix
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode
 ---

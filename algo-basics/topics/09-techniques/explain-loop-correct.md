@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, invariants, termination, capstone]
 requires:
-  - technique-max-invariant-code
+  - interview-essentials/technique-max-invariant-code
   - technique-termination-measure
   - technique-precondition-blame
 refs:

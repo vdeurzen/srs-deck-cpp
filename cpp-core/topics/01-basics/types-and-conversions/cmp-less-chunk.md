@@ -9,7 +9,7 @@ compile:
   harness: |
     int main() {}
 requires:
-  - types-signed-unsigned-trace
+  - cpp-essentials/types-signed-unsigned-trace
 refs:
   - https://en.cppreference.com/w/cpp/utility/intcmp
 ---

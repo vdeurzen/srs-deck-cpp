@@ -6,7 +6,7 @@ level: 3
 tags: [databases, caching, raii]
 requires:
   - db-buffer-pool
-  - cpp-core/raii-owner-in-destructor
+  - cpp-essentials/raii-owner-in-destructor
 refs:
   - https://15445.courses.cs.cmu.edu/
   - https://github.com/postgres/postgres/blob/master/src/backend/storage/buffer/README

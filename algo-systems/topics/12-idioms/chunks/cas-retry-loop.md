@@ -7,7 +7,7 @@ tags: [idioms, concurrency, atomics, lock-free]
 expose_ms: 6000
 compile: null
 requires:
-  - cpp-core/atomics-chunk-cas-loop
+  - cpp-essentials/atomics-chunk-cas-loop
 refs:
   - https://en.wikipedia.org/wiki/Treiber_stack
   - https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange

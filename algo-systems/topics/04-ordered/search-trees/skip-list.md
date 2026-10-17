@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 4
 requires:
-  - algo-basics/tree-balance-families
+  - interview-essentials/tree-balance-families
 tags: [trees, randomised]
 elaborate: Smaller p means fewer levels but more steps per level. Where would you tune it, and what would you measure?
 refs:

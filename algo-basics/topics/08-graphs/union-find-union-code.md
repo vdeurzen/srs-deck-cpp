@@ -23,7 +23,7 @@ compile:
     static_assert(deepest() == 1);
     int main() {}
 requires:
-  - graph-union-find-forest
+  - interview-essentials/graph-union-find-forest
 refs:
   - https://doi.org/10.1145/321879.321884
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Union_by_rank

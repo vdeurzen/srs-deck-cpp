@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [low-latency, memory-hierarchy, optimisation]
 requires:
-  - foundations-latency-scale
+  - interview-essentials/foundations-latency-scale
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/prefetching/
   - https://www.agner.org/optimize/

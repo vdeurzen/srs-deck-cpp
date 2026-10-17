@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [trees, b-tree, external-memory, complexity]
 requires:
-  - tree-balance-families
+  - interview-essentials/tree-balance-families
   - tree-min-height
 refs:
   - https://doi.org/10.1007/BF00288683

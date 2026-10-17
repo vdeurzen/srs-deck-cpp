@@ -5,7 +5,7 @@ version: 2
 level: 2
 tags: [transfer, misconception, raii]
 requires:
-  - raii-owner-in-destructor
+  - cpp-essentials/raii-owner-in-destructor
   - raii-scope-exit-order
 elaborate: In Go, where would you move a `defer f.Close()` that sits inside a loop, and what in C++ makes that move unnecessary?
 refs:

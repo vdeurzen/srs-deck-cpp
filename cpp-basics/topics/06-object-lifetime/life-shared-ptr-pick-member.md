@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [lifetime, ownership]
 requires:
-  - life-shared-ptr-owners
-  - life-unique-ptr-member-no-copy
+  - cpp-essentials/life-shared-ptr-owners
+  - cpp-essentials/life-unique-ptr-member-no-copy
 input: chips
 choices:
   c1:

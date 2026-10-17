@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [hashing, complexity, capstone]
 requires:
-  - hashing-average-vs-worst
+  - interview-essentials/hashing-average-vs-worst
   - hashing-cluster-worst-trace
 refs:
   - https://www.usenix.org/legacy/events/sec03/tech/full_papers/crosby/crosby.pdf

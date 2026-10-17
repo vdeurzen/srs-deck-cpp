@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [hft, rate-limit, token-bucket, clocks]
 requires:
-  - bucket-refill
+  - interview-essentials/bucket-refill
 refs:
   - https://en.cppreference.com/w/cpp/chrono/steady_clock
   - https://en.cppreference.com/w/cpp/chrono/system_clock

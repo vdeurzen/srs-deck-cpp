@@ -5,7 +5,7 @@ version: 2
 level: 3
 tags: [comparisons]
 requires:
-  - spaceship-basics
+  - cpp-essentials/spaceship-basics
 refs:
   - https://en.cppreference.com/w/cpp/utility/compare/strong_ordering
   - https://en.cppreference.com/w/cpp/utility/compare/weak_ordering

@@ -5,9 +5,9 @@ version: 1
 level: 3
 tags: [trees, bst, avl, red-black, capstone]
 requires:
-  - tree-why-balance
+  - interview-essentials/tree-why-balance
   - tree-avl-insert-trace
-  - tree-avl-vs-red-black
+  - interview-essentials/tree-avl-vs-red-black
 refs:
   - https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree
   - https://en.cppreference.com/w/cpp/container/map

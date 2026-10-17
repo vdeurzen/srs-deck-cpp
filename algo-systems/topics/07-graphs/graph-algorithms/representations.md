@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [graphs, layout, memory-hierarchy, compilers]
 requires:
-  - foundations-cache-cost-model
-  - algo-basics/graph-adjacency-list-vs-matrix
+  - interview-essentials/foundations-cache-cost-model
+  - interview-essentials/graph-adjacency-list-vs-matrix
 refs:
   - https://en.wikipedia.org/wiki/Sparse_matrix#Compressed_sparse_row_(CSR,_CRS_or_Yale_format)
   - https://en.algorithmica.org/hpc/cpu-cache/

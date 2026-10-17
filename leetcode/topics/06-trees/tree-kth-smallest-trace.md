@@ -9,7 +9,7 @@ probes:
   2: { got: "2", st: "5 3", cur: "null" }
   3: { got: "3", st: "5", cur: "4" }
 requires:
-  - tree-inorder-iterative-parsons
+  - interview-essentials/tree-inorder-iterative-parsons
 refs:
   - https://leetcode.com/problems/kth-smallest-element-in-a-bst/
   - Knuth, The Art of Computer Programming, Vol. 1, 3rd ed., §2.3.1, Algorithm T

@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [types, integers, c++20]
 requires:
-  - types-usual-arithmetic-conversions
+  - cpp-essentials/types-usual-arithmetic-conversions
 refs:
   - https://en.cppreference.com/w/cpp/iterator/size
   - https://en.cppreference.com/w/cpp/types/ptrdiff_t

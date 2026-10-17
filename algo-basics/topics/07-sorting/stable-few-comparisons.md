@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, sorting, stability, trade-offs]
 requires:
-  - sort-stable-meaning
+  - interview-essentials/sort-stable-meaning
   - sort-bubble-invariant
   - sort-insertion-shift-count
 refs:

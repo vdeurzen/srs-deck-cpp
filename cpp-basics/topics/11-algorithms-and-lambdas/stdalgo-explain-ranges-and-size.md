@@ -5,9 +5,9 @@ version: 1
 level: 2
 tags: [algorithms, iterators, containers]
 requires:
-  - iter-end-one-past
-  - stdalgo-transform-back-inserter
-  - stdalgo-erase-if
+  - cpp-essentials/iter-end-one-past
+  - cpp-essentials/stdalgo-transform-back-inserter
+  - cpp-essentials/stdalgo-erase-if
 refs:
   - https://en.cppreference.com/w/cpp/algorithm
   - https://en.cppreference.com/w/cpp/container/vector/erase2

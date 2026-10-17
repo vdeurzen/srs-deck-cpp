@@ -11,7 +11,7 @@ compile:
   harness: |
     int main() {}
 requires:
-  - types-promotion-rule
+  - cpp-essentials/types-promotion-rule
 refs:
   - https://en.cppreference.com/w/cpp/language/usual_arithmetic_conversions
   - https://eel.is/c++draft/expr.arith.conv#1.5

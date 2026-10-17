@@ -6,7 +6,7 @@ level: 2
 tags: [ranges]
 requires:
   - ranges-what-is-a-view
-  - cpp-basics/stdalgo-lambda-syntax
+  - cpp-essentials/stdalgo-lambda-syntax
 refs:
   - https://en.cppreference.com/w/cpp/ranges
   - https://en.cppreference.com/w/cpp/ranges/filter_view

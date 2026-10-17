@@ -6,9 +6,9 @@ level: 2
 tags: [lifetime, constructors, destructors]
 requires:
   - life-why-reverse
-  - life-copy-which-runs
-  - life-temporary-full-expression
-  - life-new-outlives-scope
+  - cpp-essentials/life-copy-which-runs
+  - cpp-essentials/life-temporary-full-expression
+  - cpp-essentials/life-new-outlives-scope
 refs:
   - https://en.cppreference.com/w/cpp/language/lifetime
   - https://en.cppreference.com/w/cpp/language/storage_duration

@@ -6,7 +6,7 @@ level: 3
 tags: [allocators, bit-tricks, arena]
 requires:
   - foundations-bits-power-of-two
-  - cpp-core/layout-alignment
+  - cpp-essentials/layout-alignment
 input: chips
 choices:
   c1:

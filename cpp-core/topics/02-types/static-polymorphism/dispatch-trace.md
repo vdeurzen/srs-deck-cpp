@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [polymorphism, tracing]
 requires:
-  - staticpoly-crtp-base
-  - virtual-static-dispatch
+  - cpp-essentials/staticpoly-crtp-base
+  - cpp-essentials/virtual-static-dispatch
 probes:
   1: { a: "2", b: "2" }
   2: { x: "2", y: "1" }

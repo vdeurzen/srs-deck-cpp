@@ -8,8 +8,8 @@ probes:
   1: { d: "1", u: "0" }
   2: { rd: "4", ru: "1" }
 requires:
-  - stl-pq-min-heap-type
-  - stl-binding-auto-copies
+  - interview-essentials/stl-pq-min-heap-type
+  - interview-essentials/stl-binding-auto-copies
 refs:
   - https://leetcode.com/problems/network-delay-time/
   - https://en.cppreference.com/w/cpp/container/priority_queue/pop

@@ -7,9 +7,9 @@ tags: [classes, invariants]
 requires:
   - class-invariant-constructor
   - class-struct-default-access
-  - class-explicit-constructor
+  - cpp-essentials/class-explicit-constructor
   - class-const-member-function
-  - class-rule-of-zero
+  - cpp-essentials/class-rule-of-zero
 refs:
   - https://en.cppreference.com/w/cpp/language/classes
   - https://en.cppreference.com/w/cpp/language/rule_of_three

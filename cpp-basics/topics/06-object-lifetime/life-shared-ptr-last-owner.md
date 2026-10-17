@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [lifetime, ownership]
 requires:
-  - life-unique-ptr-owns-trace
+  - cpp-essentials/life-unique-ptr-owns-trace
 refs:
   - https://en.cppreference.com/w/cpp/memory/shared_ptr
 ---

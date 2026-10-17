@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [classes, special-members, functions]
 requires:
-  - class-constructor-intro
+  - cpp-essentials/class-constructor-intro
 refs:
   - https://eel.is/c++draft/dcl.fct.def.default#1
   - https://en.cppreference.com/w/cpp/language/function#Deleted_functions

@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - algo-basics/tree-why-balance
+  - interview-essentials/tree-why-balance
 tags: [tries, strings, databases]
 refs:
   - https://doi.org/10.1145/367390.367400

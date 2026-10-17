@@ -5,8 +5,8 @@ version: 1
 level: 5
 tags: [hft, lru, caching, design, interview]
 requires:
-  - lru-evict-map
-  - lru-std-list-allocates
+  - interview-essentials/lru-evict-map
+  - interview-essentials/lru-std-list-allocates
   - algo-systems/hash-tombstone-buildup
 refs:
   - https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_Recently_Used_(LRU)

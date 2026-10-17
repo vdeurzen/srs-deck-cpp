@@ -9,8 +9,8 @@ probes:
   2: { dist: "0 3 -1 10 99" }
   3: { dist: "0 3 -1 1 2" }
 requires:
-  - graph-kahn-trace
-  - graph-bellman-ford-rounds
+  - interview-essentials/graph-kahn-trace
+  - interview-essentials/graph-bellman-ford-rounds
 refs:
   - https://en.wikipedia.org/wiki/Topological_sorting#Application_to_shortest_path_finding
 ---

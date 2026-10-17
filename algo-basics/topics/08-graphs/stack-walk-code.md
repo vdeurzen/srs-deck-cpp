@@ -14,7 +14,7 @@ compile:
     static_assert(walk(kG, 0) == 2413);   // visits 0 2 4 1 3
     int main() {}
 requires:
-  - graph-list-from-edges-chunk
+  - interview-essentials/graph-list-from-edges-chunk
 refs:
   - https://en.wikipedia.org/wiki/Depth-first_search#Pseudocode
   - https://en.cppreference.com/w/cpp/container/vector

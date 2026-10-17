@@ -14,7 +14,7 @@ compile:
     static_assert(std::is_nothrow_move_constructible_v<Buffer>);
     int main() {}
 requires:
-  - move-semantics-implicit-move-suppressed
+  - cpp-essentials/move-semantics-implicit-move-suppressed
 refs:
   - https://en.cppreference.com/w/cpp/language/move_constructor#Implicitly-declared_move_constructor
   - https://en.cppreference.com/w/cpp/types/is_move_constructible

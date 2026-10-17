@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [hft, order-book, matching, design]
 requires:
-  - book-trade-price
+  - interview-essentials/book-trade-price
   - book-modify-priority
 refs:
   - https://web.archive.org/web/20110219155647/http://howtohft.wordpress.com/2011/02/15/how-to-build-a-fast-limit-order-book/

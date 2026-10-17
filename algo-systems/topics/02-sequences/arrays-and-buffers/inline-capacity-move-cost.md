@@ -5,7 +5,7 @@ version: 1
 level: 3
 requires:
   - seq-inline-capacity
-  - cpp-core/raii-move-steals-handle
+  - cpp-essentials/raii-move-steals-handle
 tags: [containers, move-semantics]
 refs:
   - https://llvm.org/docs/ProgrammersManual.html#llvm-adt-smallvector-h

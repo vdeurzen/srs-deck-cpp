@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [transfer, misconception, span]
 requires:
-  - vocab-span-parameter
+  - cpp-essentials/vocab-span-parameter
 elaborate: A Go function that appends returns the new slice, because the caller's copy may be stale. What in a C++ `std::vector<int>&` parameter makes that return unnecessary?
 refs:
   - https://en.cppreference.com/w/cpp/container/span

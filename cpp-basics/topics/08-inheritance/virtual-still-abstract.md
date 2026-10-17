@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [inheritance, virtual, abstract]
 requires:
-  - virtual-pure-syntax
+  - cpp-essentials/virtual-pure-syntax
 refs:
   - https://en.cppreference.com/w/cpp/language/abstract_class
 ---

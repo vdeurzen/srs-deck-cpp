@@ -32,8 +32,8 @@ compile:
     static_assert(eight());
     int main() {}
 requires:
-  - rq-segment-signal
-  - algo-basics/heap-child-index-code
+  - interview-essentials/rq-segment-signal
+  - interview-essentials/heap-child-index-code
 refs:
   - https://leetcode.com/problems/range-sum-query-mutable/
   - https://codeforces.com/blog/entry/18051

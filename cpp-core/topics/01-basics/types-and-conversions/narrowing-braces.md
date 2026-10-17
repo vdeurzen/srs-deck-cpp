@@ -12,7 +12,7 @@ compile:
     static_assert(whole == 2);
     int main() {}
 requires:
-  - cpp-basics/types-brace-checks-constant
+  - cpp-essentials/types-brace-checks-constant
 refs:
   - https://en.cppreference.com/w/cpp/language/list_initialization#Narrowing_conversions
   - https://eel.is/c++draft/dcl.init.list#7

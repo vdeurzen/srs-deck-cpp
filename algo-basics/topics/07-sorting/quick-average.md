@@ -6,7 +6,7 @@ level: 2
 tags: [sorting, quicksort, complexity]
 requires:
   - sort-quick-idea
-  - complexity-shrink-by-one-vs-half
+  - interview-essentials/complexity-shrink-by-one-vs-half
 refs:
   - https://en.wikipedia.org/wiki/Quicksort#Average-case_analysis
   - https://doi.org/10.1093/comjnl/5.1.10

@@ -5,7 +5,7 @@ version: 2
 level: 2
 tags: [idioms, raii]
 requires:
-  - raii-copy-double-close
+  - cpp-essentials/raii-copy-double-close
 expose_ms: 9000
 compile:
   harness: |

@@ -6,7 +6,7 @@ level: 3
 tags: [sorting, templates, inlining]
 requires:
   - sort-go-dispatch
-  - cpp-core/lambda-closure-type
+  - cpp-essentials/lambda-closure-type
 elaborate: Where in your code is a comparator or hash stored as `std::function` only because the type was hard to name?
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/sort

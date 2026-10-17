@@ -5,9 +5,9 @@ version: 1
 level: 3
 tags: [smart-pointers, ownership]
 requires:
-  - smart-pointers-shared-ptr-cycle-leaks
-  - smart-pointers-weak-ptr-breaks-cycles
-  - smart-pointers-weak-ptr-lock
+  - cpp-essentials/smart-pointers-shared-ptr-cycle-leaks
+  - cpp-essentials/smart-pointers-weak-ptr-breaks-cycles
+  - cpp-essentials/smart-pointers-weak-ptr-lock
 refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr
 ---

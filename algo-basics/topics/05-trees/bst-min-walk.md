@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, trees, bst]
 requires:
-  - tree-bst-rule
+  - interview-essentials/tree-bst-rule
   - tree-node-pointers
 input: chips
 choices:

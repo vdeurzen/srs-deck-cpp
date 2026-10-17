@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [dynamic-programming, knapsack, complexity]
 requires:
-  - technique-knapsack-direction
+  - interview-essentials/technique-knapsack-direction
 refs:
   - https://en.wikipedia.org/wiki/Pseudo-polynomial_time
   - https://en.wikipedia.org/wiki/Knapsack_problem#Dynamic_programming_in-advance_algorithm

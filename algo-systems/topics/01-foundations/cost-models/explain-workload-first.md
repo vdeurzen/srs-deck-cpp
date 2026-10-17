@@ -4,7 +4,7 @@ kind: explain
 version: 1
 level: 4
 requires:
-  - algo-basics/complexity-big-o-scaling
+  - interview-essentials/complexity-big-o-scaling
   - foundations-amdahl
 tags: [complexity, cost-model, interview]
 refs:

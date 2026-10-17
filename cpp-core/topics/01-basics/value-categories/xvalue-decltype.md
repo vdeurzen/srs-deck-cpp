@@ -11,7 +11,7 @@ compile:
   harness: |
     int main() {}
 requires:
-  - value-categories-std-move-cloze
+  - cpp-essentials/value-categories-std-move-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/decltype
   - https://en.cppreference.com/w/cpp/language/value_category

@@ -9,7 +9,7 @@ probes:
   2: { s: "24464" }
   3: { width: "4" }
 requires:
-  - types-promotion-rule
+  - cpp-essentials/types-promotion-rule
 refs:
   - https://en.cppreference.com/w/cpp/language/implicit_conversion#Integral_promotion
   - https://eel.is/c++draft/conv.prom

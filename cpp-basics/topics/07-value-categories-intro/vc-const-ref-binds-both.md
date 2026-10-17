@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [value-categories, references, temporaries]
 requires:
-  - vc-plain-ref-rejects-temporary
+  - cpp-essentials/vc-plain-ref-rejects-temporary
 input: chips
 choices:
   c1: ["const int&", "int&", "int&&", "int*"]

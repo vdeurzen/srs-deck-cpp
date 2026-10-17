@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
 tags: [memory-hierarchy, layout, databases, low-latency]
 elaborate: Which loop in your code reads one or two fields of every element of a large array of structs?
 refs:

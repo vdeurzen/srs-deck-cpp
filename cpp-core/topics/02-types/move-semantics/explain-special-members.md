@@ -5,9 +5,9 @@ version: 1
 level: 3
 tags: [move-semantics, special-members]
 requires:
-  - move-semantics-implicit-move-suppressed
-  - move-semantics-const-member-copies
-  - class-rule-of-zero
+  - cpp-essentials/move-semantics-implicit-move-suppressed
+  - cpp-essentials/move-semantics-const-member-copies
+  - cpp-essentials/class-rule-of-zero
 refs:
   - https://en.cppreference.com/w/cpp/language/rule_of_three
   - https://en.cppreference.com/w/cpp/language/move_constructor#Implicitly-declared_move_constructor

@@ -10,7 +10,7 @@ probes:
   3: { "r.head": "1", "r.tail": "5", "r.tail - r.head": "4", "r.slot[0]": "50" }
   4: { "r.head": "1", "r.tail": "5", "r.tail - r.head": "4", "r.slot[0]": "50" }
 requires:
-  - seq-ring-buffer-full-vs-empty
+  - interview-essentials/seq-ring-buffer-full-vs-empty
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html
   - https://en.wikipedia.org/wiki/Circular_buffer

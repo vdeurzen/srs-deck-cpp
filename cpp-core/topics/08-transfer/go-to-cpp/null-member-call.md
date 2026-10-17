@@ -6,7 +6,7 @@ level: 3
 tags: [transfer, misconception, pointers]
 requires:
   - transfer-nil-vs-nullptr-optional
-  - ub-null-check-after-use
+  - cpp-essentials/ub-null-check-after-use
 elaborate: Where in your own code does a member function begin with `if (this == nullptr)`, or get called on a pointer that might be null, and what would the optimiser do to that check?
 refs:
   - https://en.cppreference.com/w/cpp/language/member_functions

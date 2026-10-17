@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [lifetime, copy, special-members, misconception]
 requires:
-  - life-copy-init-not-assign
+  - cpp-essentials/life-copy-init-not-assign
 elaborate: In your own code, find a declaration with `=` whose type has an expensive or deleted copy constructor. Which special member does that line really call?
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_initialization

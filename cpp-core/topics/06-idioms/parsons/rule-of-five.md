@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [idioms, move-semantics]
 requires:
-  - move-semantics-rule-of-five
+  - cpp-essentials/move-semantics-rule-of-five
 compile:
   harness: |
     int main() {

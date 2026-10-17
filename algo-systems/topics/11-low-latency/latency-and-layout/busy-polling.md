@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [low-latency, hft, os, networking]
 requires:
-  - foundations-latency-scale
+  - interview-essentials/foundations-latency-scale
 elaborate: Which thread in your system would you never let spin, and what would a spin-then-park hybrid cost it?
 refs:
   - https://www.kernel.org/doc/html/latest/networking/napi.html

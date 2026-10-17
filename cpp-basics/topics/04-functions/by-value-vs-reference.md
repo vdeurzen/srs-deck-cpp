@@ -7,7 +7,7 @@ tags: [functions, parameters, references, tracing]
 probes:
   1: { a: "15", r: "10" }
 requires:
-  - ptr-reference-must-bind
+  - cpp-essentials/ptr-reference-must-bind
 refs:
   - https://en.cppreference.com/w/cpp/language/function
   - https://en.cppreference.com/w/cpp/language/reference

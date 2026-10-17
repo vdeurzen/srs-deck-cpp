@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [templates, concepts, overload-resolution]
 requires:
-  - templates-concepts-vs-sfinae
+  - cpp-essentials/templates-concepts-vs-sfinae
   - templates-subsumption-overload
   - templates-conditionally-trivial
 refs:

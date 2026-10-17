@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [linked-lists, pointers]
 requires:
-  - linear-array-index-contiguity
-  - linear-list-node
+  - interview-essentials/linear-array-index-contiguity
+  - interview-essentials/linear-list-node
 input: chips
 choices:
   c1: ["n->next = p->next;", "n->next = p;", "n->next = nullptr;", "p->next = n->next;"]

@@ -14,7 +14,7 @@ compile:
     int main() {}
 requires:
   - graph-mst-cut-property
-  - graph-union-find-path-compression
+  - interview-essentials/graph-union-find-path-compression
 refs:
   - https://doi.org/10.1090/S0002-9939-1956-0078686-7
   - https://en.wikipedia.org/wiki/Kruskal%27s_algorithm

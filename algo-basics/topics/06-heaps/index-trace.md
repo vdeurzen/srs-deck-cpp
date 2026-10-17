@@ -5,9 +5,9 @@ version: 1
 level: 1
 tags: [heaps, arrays, tracing]
 requires:
-  - heap-shape-and-order
-  - linear-array-index-contiguity
-  - heap-child-index-code
+  - interview-essentials/heap-shape-and-order
+  - interview-essentials/linear-array-index-contiguity
+  - interview-essentials/heap-child-index-code
 probes:
   1: { l: "30", r: "50" }
   2: { p: "80" }

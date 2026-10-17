@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [dynamic-arrays, amortised, tracing]
 requires:
-  - linear-dynamic-array-growth
+  - interview-essentials/linear-dynamic-array-growth
 probes:
   1: { cap: "8", copies: "7" }
   2: { cap: "16", copies: "15" }

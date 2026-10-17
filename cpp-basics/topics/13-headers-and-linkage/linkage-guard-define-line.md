@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [headers, preprocessor]
 requires:
-  - linkage-include-is-paste
+  - cpp-essentials/linkage-include-is-paste
 input: chips
 choices:
   c1: ["#define SHAPES_H", "#define SHAPES", "#undef SHAPES_H"]

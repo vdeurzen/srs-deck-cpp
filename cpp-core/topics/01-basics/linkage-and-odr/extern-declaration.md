@@ -11,7 +11,7 @@ compile:
   harness: |
     int main() { ++requests; }
 requires:
-  - linkage-translation-unit
+  - cpp-essentials/linkage-translation-unit
 refs:
   - https://en.cppreference.com/w/cpp/language/definition
   - https://en.cppreference.com/w/cpp/language/storage_duration#Linkage

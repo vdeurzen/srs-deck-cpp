@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [inheritance, access]
 requires:
-  - virtual-is-a
-  - class-struct-vs-class
+  - cpp-essentials/virtual-is-a
+  - cpp-essentials/class-struct-vs-class
 input: chips
 choices:
   c1: ["protected", "private", "public"]

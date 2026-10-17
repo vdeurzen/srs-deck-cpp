@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 4
 requires:
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
 tags: [complexity, cost-model, databases]
 elaborate: A hash join that touches pages at random and a sort-merge join that streams them can execute the same number of instructions. Which one does this model say wins, and by how much?
 refs:

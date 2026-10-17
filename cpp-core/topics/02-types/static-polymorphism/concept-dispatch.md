@@ -7,7 +7,7 @@ tags: [polymorphism, templates, concepts]
 requires:
   - staticpoly-iterator-category
   - templates-requires-clause
-  - const-constexpr-if-constexpr-discard
+  - cpp-essentials/const-constexpr-if-constexpr-discard
 input: chips
 choices:
   c1:

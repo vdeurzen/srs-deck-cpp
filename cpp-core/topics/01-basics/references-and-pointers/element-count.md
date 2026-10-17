@@ -7,7 +7,7 @@ tags: [pointers, arrays]
 requires:
   - ptr-array-decay
   - ptr-const-walk-pointer
-  - cpp-basics/ptr-trace-arithmetic
+  - cpp-essentials/ptr-trace-arithmetic
 input: chips
 choices:
   c1:

@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, trees, bst, complexity, tracing]
 requires:
-  - tree-bst-rule
+  - interview-essentials/tree-bst-rule
   - tree-depth-vs-height
 probes:
   1: { a: "1", b: "4" }

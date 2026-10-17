@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [stacks, arrays]
 requires:
-  - linear-array-insert-shift
+  - interview-essentials/linear-array-insert-shift
   - linear-stack-adt
 refs:
   - https://en.cppreference.com/w/cpp/container/stack

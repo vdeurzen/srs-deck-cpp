@@ -6,7 +6,7 @@ level: 5
 tags: [raw-storage, lifetime, launder, c++20]
 elaborate: Your `optional`-like type destroys and re-creates its value in place. Which pointers into it stay valid after `emplace`?
 requires:
-  - storage-construct-at
+  - cpp-essentials/storage-construct-at
 refs:
   - https://en.cppreference.com/w/cpp/language/lifetime#Storage_reuse
   - https://timsong-cpp.github.io/cppwp/n4950/basic.life#8

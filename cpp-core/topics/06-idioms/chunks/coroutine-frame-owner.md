@@ -6,7 +6,7 @@ level: 4
 tags: [idioms, coroutines, raii]
 requires:
   - coroutines-handle-operations
-  - move-semantics-rule-of-five
+  - cpp-essentials/move-semantics-rule-of-five
 expose_ms: 11000
 compile:
   harness: |

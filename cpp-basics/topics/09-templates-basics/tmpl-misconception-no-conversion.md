@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [templates, deduction, misconception]
 requires:
-  - tmpl-deduction-conflict
+  - cpp-essentials/tmpl-deduction-conflict
 elaborate: A plain function `void put(double&, double)` accepts the same call. When would you rather have that than the template?
 refs:
   - https://en.cppreference.com/w/cpp/language/template_argument_deduction

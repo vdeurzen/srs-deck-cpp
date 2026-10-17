@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [trees, vocabulary, heaps]
 requires:
-  - tree-terms
+  - interview-essentials/tree-terms
   - tree-depth-vs-height
 refs:
   - https://en.wikipedia.org/wiki/Binary_tree#Types_of_binary_trees

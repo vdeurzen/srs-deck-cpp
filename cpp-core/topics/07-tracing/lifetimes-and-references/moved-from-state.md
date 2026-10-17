@@ -8,7 +8,7 @@ probes:
   1: { b: "hello" }
   2: { a: "world", b: "hello" }
 requires:
-  - move-semantics-moved-from-state
+  - cpp-essentials/move-semantics-moved-from-state
 refs:
   - https://en.cppreference.com/w/cpp/utility/move
   - https://eel.is/c++draft/lib.types.movedfrom

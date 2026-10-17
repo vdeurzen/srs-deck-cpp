@@ -5,9 +5,9 @@ version: 1
 level: 1
 tags: [undefined-behaviour, lifetime, pointers]
 requires:
-  - ub-passing-tests-prove-nothing
-  - life-scope-automatic
-  - ptr-holds-an-address
+  - cpp-essentials/ub-passing-tests-prove-nothing
+  - cpp-essentials/life-scope-automatic
+  - cpp-essentials/ptr-holds-an-address
 refs:
   - https://en.cppreference.com/w/cpp/language/lifetime
   - https://eel.is/c++draft/basic.life

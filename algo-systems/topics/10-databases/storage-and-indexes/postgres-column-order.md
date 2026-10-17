@@ -6,7 +6,7 @@ level: 4
 tags: [databases, storage, layout, postgres]
 requires:
   - db-slotted-pages
-  - cpp-core/layout-padding-sizeof
+  - cpp-essentials/layout-padding-sizeof
 refs:
   - https://www.postgresql.org/docs/current/storage-page-layout.html
   - https://www.postgresql.org/docs/current/catalog-pg-type.html

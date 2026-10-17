@@ -19,7 +19,7 @@ compile:
     static_assert(!(Date{5, 9} < Date{5, 9}));
     int main() {}
 requires:
-  - const-member-on-const-ref
+  - cpp-essentials/const-member-on-const-ref
 refs:
   - https://en.cppreference.com/w/cpp/language/operators#Comparison_operators
 ---

@@ -25,7 +25,7 @@ compile:
     int main() {}
 requires:
   - hash-tombstone-fix
-  - algo-basics/hashing-probe-lookup-stop
+  - interview-essentials/hashing-probe-lookup-stop
 refs:
   - https://abseil.io/about/design/swisstables
   - https://en.wikipedia.org/wiki/Lazy_deletion

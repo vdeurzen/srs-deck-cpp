@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [classes, attributes]
 requires:
-  - cpp-basics/fn-return-by-value
+  - cpp-essentials/fn-return-by-value
 refs:
   - https://en.cppreference.com/w/cpp/language/attributes/nodiscard
 ---

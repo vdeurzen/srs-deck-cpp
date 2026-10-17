@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [undefined-behaviour, concurrency]
 requires:
-  - threads-data-race-is-ub
+  - cpp-essentials/threads-data-race-is-ub
 input: chips
 choices:
   c1: ["std::atomic<int>", "std::atomic_ref<int>", "volatile int", "int", "alignas(64) int"]

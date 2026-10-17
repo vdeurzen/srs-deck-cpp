@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [sorting, quicksort, partition]
 requires:
-  - sort-lomuto-trace
+  - interview-essentials/sort-lomuto-trace
   - sort-hoare-trace
 elaborate: Which real-world columns are full of equal keys, and which partition would you want under them?
 refs:

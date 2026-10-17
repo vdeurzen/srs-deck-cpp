@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [strings, format]
 requires:
-  - strings-string-view-dangling
-  - strings-sso
+  - cpp-essentials/strings-string-view-dangling
+  - cpp-essentials/strings-sso
   - strings-sticky-manipulators
 refs:
   - https://en.cppreference.com/w/cpp/string

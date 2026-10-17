@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [lifetime, raii, tracing]
 requires:
-  - raii-storage-durations
+  - cpp-essentials/raii-storage-durations
 probes:
   1: { trail: "cb" }
   2: { trail: "cbda" }

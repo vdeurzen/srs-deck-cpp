@@ -9,7 +9,7 @@ probes:
   2: { x: "7", y: "99" }
 requires:
   - trace-copy-vs-reference
-  - ptr-auto-drops-ref
+  - cpp-essentials/ptr-auto-drops-ref
 refs:
   - https://en.cppreference.com/w/cpp/language/auto
 ---

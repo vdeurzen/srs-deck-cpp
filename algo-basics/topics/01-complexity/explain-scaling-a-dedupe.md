@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [complexity, capstone]
 requires:
-  - complexity-feasible-n
-  - complexity-amortised-single-call
+  - interview-essentials/complexity-feasible-n
+  - interview-essentials/complexity-amortised-single-call
   - complexity-master-compare
 refs:
   - https://en.wikipedia.org/wiki/Big_O_notation

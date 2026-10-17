@@ -6,8 +6,8 @@ level: 4
 tags: [callables, type-erasure, performance]
 requires:
   - callables-function-ref-signature
-  - staticpoly-static-vs-dynamic
-  - lambda-store-std-function
+  - cpp-essentials/staticpoly-static-vs-dynamic
+  - cpp-essentials/lambda-store-std-function
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/function
   - https://en.cppreference.com/w/cpp/utility/functional/function_ref

@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [vector, growth, exceptions, implement-std]
 requires:
-  - vec-zero-capacity-growth
+  - interview-essentials/vec-zero-capacity-growth
 refs:
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/stl_vector.h
   - https://en.cppreference.com/w/cpp/container/vector/max_size

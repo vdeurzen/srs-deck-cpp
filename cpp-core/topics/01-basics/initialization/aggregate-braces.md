@@ -12,7 +12,7 @@ compile:
     static_assert(p.col == 1 && p.row == 2);
     int main() {}
 requires:
-  - cpp-basics/class-struct-vs-class
+  - cpp-essentials/class-struct-vs-class
 refs:
   - https://en.cppreference.com/w/cpp/language/aggregate_initialization
 ---

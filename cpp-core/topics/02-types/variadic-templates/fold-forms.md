@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [templates, variadic, c++17]
 requires:
-  - variadic-what-is-a-pack
+  - cpp-essentials/variadic-what-is-a-pack
 refs:
   - https://en.cppreference.com/w/cpp/language/fold
   - https://eel.is/c++draft/expr.prim.fold

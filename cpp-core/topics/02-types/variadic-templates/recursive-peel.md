@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [templates, variadic]
 requires:
-  - variadic-expansion-placement
+  - cpp-essentials/variadic-expansion-placement
 input: chips
 choices:
   c1: ["rest...", "rest", "first, rest...", "Rest..."]

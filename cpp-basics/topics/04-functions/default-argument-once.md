@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [functions, default-arguments, headers]
 requires:
-  - fn-declaration-vs-definition
+  - cpp-essentials/fn-declaration-vs-definition
   - fn-default-argument
 refs:
   - https://eel.is/c++draft/dcl.fct.default#4

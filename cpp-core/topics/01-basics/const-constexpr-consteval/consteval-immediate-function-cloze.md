@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [const-constexpr-consteval]
 requires:
-  - const-constexpr-constexpr-function-dual-use-cloze
+  - cpp-essentials/const-constexpr-constexpr-function-dual-use-cloze
 refs:
   - https://en.cppreference.com/w/cpp/language/consteval
   - https://timsong-cpp.github.io/cppwp/n4950/expr.const#15

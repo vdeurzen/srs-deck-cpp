@@ -15,7 +15,7 @@ compile:
     static_assert(max_sub_array({2, -1, 2}) == 3);
     int main() {}
 requires:
-  - arr-kadane-chunk
+  - interview-essentials/arr-kadane-chunk
 refs:
   - https://leetcode.com/problems/maximum-subarray/
   - https://en.wikipedia.org/wiki/Maximum_subarray_problem

@@ -9,8 +9,8 @@ probes:
   2: { big: "205032704" }
   3: { tiny: "4" }
 requires:
-  - types-overflow-rules
-  - types-promotion-rule
+  - cpp-essentials/types-overflow-rules
+  - cpp-essentials/types-promotion-rule
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Overflows
   - https://eel.is/c++draft/conv.integral#2

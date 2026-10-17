@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [recursion]
 requires:
-  - technique-recursion-depth
+  - interview-essentials/technique-recursion-depth
 input: chips
 choices:
   c1: ["!todo.empty()", "todo.size() > 1", "sum == 0", "todo.back() != -1"]

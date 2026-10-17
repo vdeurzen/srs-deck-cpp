@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [low-latency, memory-hierarchy, os]
 requires:
-  - foundations-latency-scale
+  - interview-essentials/foundations-latency-scale
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/paging/
   - https://www.kernel.org/doc/html/latest/arch/x86/x86_64/mm.html

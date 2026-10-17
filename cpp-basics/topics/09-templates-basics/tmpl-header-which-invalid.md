@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [templates]
 requires:
-  - tmpl-function-syntax
+  - cpp-essentials/tmpl-function-syntax
 refs:
   - https://en.cppreference.com/w/cpp/language/template_parameters
 ---

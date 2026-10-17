@@ -6,7 +6,7 @@ level: 3
 tags: [polymorphism, layout, c++20]
 requires:
   - staticpoly-policy-parameter
-  - layout-trailing-padding
+  - cpp-essentials/layout-trailing-padding
 input: chips
 choices:
   c1: ["[[no_unique_address]]", "alignas(1)", "static", "[[maybe_unused]]"]

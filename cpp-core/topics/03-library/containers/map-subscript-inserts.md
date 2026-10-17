@@ -6,9 +6,9 @@ level: 2
 tags: [containers, misconception]
 elaborate: In Go, `m["pear"]` on a missing key returns the zero value and leaves the map alone. Where in your own C++ would `[]` have quietly grown a map instead?
 requires:
-  - containers-map-vs-unordered-map
-  - initialization-default-value-zero
-  - cpp-basics/iter-map-subscript-inserts
+  - cpp-essentials/containers-map-vs-unordered-map
+  - cpp-essentials/initialization-default-value-zero
+  - cpp-essentials/iter-map-subscript-inserts
 probes:
   1: { pears: "0" }
   2: { listed: "true", n: "2" }

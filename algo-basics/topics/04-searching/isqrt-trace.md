@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [binary-search, search-on-answer, tracing]
 requires:
-  - search-on-answer-monotone
+  - interview-essentials/search-on-answer-monotone
 probes:
   1: { lo: "0", hi: "10" }
   2: { lo: "6", hi: "8" }

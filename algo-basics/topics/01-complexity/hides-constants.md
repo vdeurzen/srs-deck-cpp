@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [complexity, big-o, measurement]
 requires:
-  - complexity-drop-terms
+  - interview-essentials/complexity-drop-terms
 elaborate: Where in your own code does a "worse" big-O win because n is always small?
 refs:
   - https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libstdc%2B%2B-v3/include/bits/stl_algo.h

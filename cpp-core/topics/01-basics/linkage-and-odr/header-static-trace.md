@@ -8,7 +8,7 @@ probes:
   1: { id: "2" }
   2: { tag: "1" }
 requires:
-  - linkage-inline-meaning
+  - cpp-essentials/linkage-inline-meaning
   - linkage-internal-linkage
 refs:
   - https://en.cppreference.com/w/cpp/language/storage_duration#Linkage

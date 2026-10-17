@@ -13,7 +13,7 @@ compile:
     int main() {}
 requires:
   - stdalgo-find-vs-find-if
-  - stdalgo-capture-ref-vs-copy
+  - cpp-essentials/stdalgo-capture-ref-vs-copy
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/count
 ---

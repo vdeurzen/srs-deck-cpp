@@ -8,7 +8,7 @@ probes:
   1: { a: "8 5 3 1 9" }
   2: { a: "5 1 3 8 9" }
 requires:
-  - sort-heap-sort
+  - interview-essentials/sort-heap-sort
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://en.cppreference.com/w/cpp/algorithm/sort_heap

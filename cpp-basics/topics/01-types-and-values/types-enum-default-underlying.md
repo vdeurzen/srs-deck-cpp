@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [types, enums, sizes]
 requires:
-  - types-enum-no-int
+  - cpp-essentials/types-enum-no-int
 refs:
   - https://en.cppreference.com/w/cpp/language/enum
   - https://eel.is/c++draft/dcl.enum#5

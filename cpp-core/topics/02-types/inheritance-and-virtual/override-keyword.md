@@ -13,8 +13,8 @@ compile:
     static_assert(check() == 1);
     int main() {}
 requires:
-  - virtual-dispatch-dynamic-type
-  - cpp-basics/virtual-override-mismatch
+  - cpp-essentials/virtual-dispatch-dynamic-type
+  - cpp-essentials/virtual-override-mismatch
 refs:
   - https://en.cppreference.com/w/cpp/language/override
 ---

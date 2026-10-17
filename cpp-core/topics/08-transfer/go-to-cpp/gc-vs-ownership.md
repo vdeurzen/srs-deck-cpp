@@ -6,7 +6,7 @@ level: 2
 tags: [transfer, misconception, ownership]
 elaborate: Which of your Go functions return a pointer to a freshly allocated struct, and what would the C++ port return instead?
 requires:
-  - smart-pointers-unique-ptr-ownership
+  - cpp-essentials/smart-pointers-unique-ptr-ownership
 refs:
   - https://en.cppreference.com/w/cpp/language/new
   - https://en.cppreference.com/w/cpp/memory/unique_ptr

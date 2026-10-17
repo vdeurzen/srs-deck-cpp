@@ -16,7 +16,7 @@ compile:
     static_assert(sorted({4, 4, 1, 4, 2, 4, 4}) == std::array{1, 2, 4, 4, 4, 4, 4});
     int main() {}
 requires:
-  - sort-lomuto-trace
+  - interview-essentials/sort-lomuto-trace
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/partition
   - https://doi.org/10.1093/comjnl/5.1.10

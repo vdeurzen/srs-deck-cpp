@@ -1,0 +1,63 @@
+vec-three-pointers	A	1	vector layout, opener of implement-vector
+vec-zero-capacity-growth	A	1	geometric growth and the zero fixed point
+vec-reserve-contract	A	3	reserve semantics, prerequisite for reserve-in-loop
+vec-reserve-in-loop	A	1	classic O(n^2) reserve misuse
+vec-realloc-order	A	1	slow-path step order, core of push_back
+vec-push-back-self-alias	A	1	push_back(v[0]) aliasing, interviewer favourite
+vec-relocate-move-if-noexcept	A	1	move_if_noexcept for the strong guarantee
+vec-realloc-rollback	A	1	rollback on a throwing copy
+vec-explain-push-back	A	1	push_back decision-chain synthesis
+vec-emplace-back-forward	A	1	emplace_back with perfect forwarding
+vec-push-back-delegates	A	1	push_back(T&&) delegates via std::move
+vec-erase-shift	A	1	erase shifts then destroys the tail
+vec-build-mini-vector	A	1	capstone code over kept vector cards
+uptr-reset-order	A	1	unique_ptr reset order, implement-it
+uptr-array-specialisation	A	1	delete vs delete[] via T[]
+uptr-explain-implement	A	1	unique_ptr implement-it synthesis
+sptr-aliasing-ctor	A	1	why shared_ptr stores two pointers
+sptr-make-shared-retention	A	1	destroy at strong zero, free at weak zero
+sptr-weak-plus-one	A	1	weak count +1 trick
+sptr-refcount-orders	A	1	acq_rel decrement, often asked
+sptr-relaxed-increment	A	1	relaxed increment justification
+sptr-explain-implement	A	1	shared_ptr implement-it synthesis
+opt-union-member-lifetime	A	1	union members not auto-constructed
+opt-union-storage	A	1	optional storage via union
+trivia-init-order-fiasco	A	1	static init order fiasco, standard trivia
+trivia-constinit-fix	A	1	constinit fix for the fiasco
+trivia-volatile-not-atomic	A	1	volatile is not atomic, standard trivia
+trivia-exceptions-cost	A	1	why HFT avoids throw
+trivia-mi-sizeof	A	1	one vptr per polymorphic base
+trivia-overload-puzzles	A	1	overload resolution puzzles, screening staple
+packet-reinterpret-ub	A	1	reinterpret_cast packet parsing UB, common HFT question
+spsc-publish-order	A	1	release store to publish
+spsc-try-push	A	1	SPSC try_push with cached index
+spsc-try-pop-parsons	A	1	consumer-side ordering
+spsc-layout-chunk	A	1	false-sharing layout
+spsc-explain	A	1	SPSC synthesis over kept cards
+lru-std-list-allocates	A	1	textbook LRU allocates per miss
+lru-touch	A	1	LRU hit path, index-linked list
+lru-evict-map	A	1	LRU miss path, erase victim first
+book-match-cross	A	1	order book matching loop basics
+book-trade-price	A	1	trade at the resting price
+bucket-burst-bound	A	1	token bucket burst bound
+bucket-refill	A	1	token bucket refill code
+trivia-this-adjustment	B	1	thunk detail, follows mi-sizeof
+lru-explain	B	1	capstone; needs algo-systems tombstone card
+spsc-stale-cache-trace	B	1	reinforcement of the cached index
+vec-insert-aliasing	B	1	second aliasing case, same lesson
+vec-trivially-relocatable	B	1	good follow-up, on-site depth
+vec-push-back-fast-path	B	1	hot/cold split, on-site depth
+vec-explain-hft-vector	B	1	HFT vector capstone, on-site depth
+inplace-vector-overflow	B	1	C++26 detail, prerequisite of hft-vector capstone
+vec-resize-value-inits	B	1	useful but secondary
+sso-layout	B	1	prerequisite of sso-small-bound-code
+sso-null-terminator-capacity	B	1	prerequisite of sso-small-bound-code
+sso-small-bound-code	B	1	SSO implement-it, secondary
+erasure-sbo-nothrow-move	B	1	std::function internals, on-site depth
+erasure-fnptr-vtable	B	1	std::function internals, on-site depth
+book-cancel-o1	B	1	order book depth chain
+book-fifo-fill	B	1	order book depth chain
+book-fifo-vs-prorata	B	1	venue knowledge, on-site
+bucket-vs-window	B	1	fixed-window double-limit trap
+bucket-monotonic-clock	B	1	steady_clock vs system_clock
+packet-bit-cast-header	B	1	bit_cast plus byteswap fix for the UB

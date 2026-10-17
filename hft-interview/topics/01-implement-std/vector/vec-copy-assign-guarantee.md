@@ -6,7 +6,7 @@ level: 4
 tags: [vector, exceptions, performance, implement-std]
 elaborate: When would you pay for the allocation and write copy-and-swap at the call site instead?
 requires:
-  - cpp-core/exceptions-strong-vs-basic
+  - cpp-essentials/exceptions-strong-vs-basic
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/container.reqmts#66
   - https://en.cppreference.com/w/cpp/container/vector/operator%3D

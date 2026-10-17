@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [hashing, open-addressing]
 requires:
-  - hashing-open-addressing
+  - interview-essentials/hashing-open-addressing
 input: chips
 choices:
   c1: ["(i + 1) % N", "i + 1", "(key + 1) % N", "(i * 2) % N"]

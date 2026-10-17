@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [trees, bst, tracing]
 requires:
-  - tree-bst-delete-cases
+  - interview-essentials/tree-bst-delete-cases
 probes:
   1: { r: "60", rl: "30" }
   2: { r: "60", rl: "40" }

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [complexity, best-worst-average, tracing]
 requires:
-  - complexity-count-loop-steps
+  - interview-essentials/complexity-count-loop-steps
   - complexity-cost-cases
 probes:
   1: { comparisons: "1" }

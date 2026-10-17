@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [binary-search, tracing]
 requires:
-  - search-binary-search-halving
-  - search-binary-search-chunk
+  - interview-essentials/search-binary-search-halving
+  - interview-essentials/search-binary-search-chunk
 probes:
   1: { lo: "5", hi: "8" }
   2: { lo: "5", hi: "6" }

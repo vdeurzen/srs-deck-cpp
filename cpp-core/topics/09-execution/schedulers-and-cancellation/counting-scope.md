@@ -6,7 +6,7 @@ level: 4
 tags: [execution, async, c++26, concurrency]
 requires:
   - execution-operation-state-lifetime
-  - threads-thread-destructor-joinable
+  - cpp-essentials/threads-thread-destructor-joinable
 refs:
   - https://eel.is/c++draft/exec.counting.scopes
   - https://eel.is/c++draft/exec.simple.counting.ctor

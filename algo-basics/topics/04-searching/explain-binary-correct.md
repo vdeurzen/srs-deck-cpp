@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, binary-search, invariants, capstone]
 requires:
-  - search-closed-range-invariant
+  - interview-essentials/search-closed-range-invariant
   - search-iteration-count-trace
   - technique-termination-measure
 refs:

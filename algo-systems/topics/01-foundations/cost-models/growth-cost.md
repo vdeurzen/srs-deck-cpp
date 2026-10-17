@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [amortised, sequences, allocators]
 requires:
-  - foundations-growth-factor
+  - interview-essentials/foundations-growth-factor
 input: chips
 choices:
   c1:

@@ -13,7 +13,7 @@ compile:
     static_assert(!std::is_abstract_v<Gzip>);
     int main() {}
 requires:
-  - virtual-static-dispatch
+  - cpp-essentials/virtual-static-dispatch
 refs:
   - https://en.cppreference.com/w/cpp/language/abstract_class
 ---

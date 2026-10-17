@@ -6,7 +6,7 @@ level: 1
 tags: [undefined-behaviour, initialization, constexpr]
 requires:
   - ub-uninitialised-local
-  - ub-static-assert-finds-ub
+  - cpp-essentials/ub-static-assert-finds-ub
 input: chips
 choices:
   c1: ["int count = 0;", "int count;", "static int count = 0;"]

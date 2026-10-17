@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [complexity, sums]
 requires:
-  - complexity-count-loop-steps
+  - interview-essentials/complexity-count-loop-steps
   - complexity-cost-arithmetic-sum
 input: chips
 choices:

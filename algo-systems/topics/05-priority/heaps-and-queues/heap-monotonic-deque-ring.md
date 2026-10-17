@@ -5,7 +5,7 @@ version: 1
 level: 4
 requires:
   - heap-monotonic-deque
-  - seq-ring-buffer-mask
+  - interview-essentials/seq-ring-buffer-mask
 tags: [queues, sliding-window, low-latency]
 refs:
   - https://cp-algorithms.com/data_structures/stack_queue_modification.html

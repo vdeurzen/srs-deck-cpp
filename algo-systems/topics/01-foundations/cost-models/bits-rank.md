@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [bit-tricks, succinct, tries]
 requires:
-  - foundations-bits-trace
+  - interview-essentials/foundations-bits-trace
 input: chips
 choices:
   c1: ["((1ULL << i) - 1)", "(1ULL << i)", "~(1ULL << i)", "((1ULL << (i + 1)) - 1)"]

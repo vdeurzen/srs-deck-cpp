@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [pointers, declarations]
 requires:
-  - ptr-holds-an-address
+  - cpp-essentials/ptr-holds-an-address
 refs:
   - https://en.cppreference.com/w/cpp/language/pointer#Syntax
   - https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_indirection_operator

@@ -9,7 +9,7 @@ probes:
   2: { a: "99", b: "1" }
   3: { a: "99", b: "5" }
 requires:
-  - ptr-reference-vs-pointer
+  - cpp-essentials/ptr-reference-vs-pointer
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
 ---

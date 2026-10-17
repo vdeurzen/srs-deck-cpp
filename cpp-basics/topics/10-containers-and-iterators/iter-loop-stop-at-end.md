@@ -12,7 +12,7 @@ compile:
     static_assert(total() == 12);
     int main() {}
 requires:
-  - iter-end-one-past
+  - cpp-essentials/iter-end-one-past
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/end
 ---

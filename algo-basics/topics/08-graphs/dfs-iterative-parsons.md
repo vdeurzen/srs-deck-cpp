@@ -18,7 +18,7 @@ compile:
     static_assert(dfs(kLoop) == 1234);
     int main() {}
 requires:
-  - graph-dfs-discovery-finish-trace
+  - interview-essentials/graph-dfs-discovery-finish-trace
 refs:
   - https://en.wikipedia.org/wiki/Depth-first_search#Pseudocode
 ---

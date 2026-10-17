@@ -5,9 +5,9 @@ version: 1
 level: 3
 tags: [smart-pointers, ownership]
 requires:
-  - smart-pointers-unique-ptr-ownership
-  - smart-pointers-unique-ptr-moved-from-null
-  - smart-pointers-sink-parameter
+  - cpp-essentials/smart-pointers-unique-ptr-ownership
+  - cpp-essentials/smart-pointers-unique-ptr-moved-from-null
+  - cpp-essentials/smart-pointers-sink-parameter
 refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr
 ---

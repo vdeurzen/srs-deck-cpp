@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [exceptions, raii, tracing]
 requires:
-  - exceptions-unwinding-destroys-locals
+  - cpp-essentials/exceptions-unwinding-destroys-locals
 probes:
   1: { trail: "bai!" }
   2: { trail: "bai!o" }

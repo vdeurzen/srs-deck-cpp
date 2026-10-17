@@ -6,7 +6,7 @@ level: 4
 tags: [vector, aliasing, implement-std]
 elaborate: Why doesn't constructing the new element first, the `push_back` fix, help here?
 requires:
-  - vec-push-back-self-alias
+  - interview-essentials/vec-push-back-self-alias
 refs:
   - https://cplusplus.github.io/LWG/issue526
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/vector.tcc

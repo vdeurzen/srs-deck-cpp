@@ -5,8 +5,8 @@ version: 2
 level: 3
 tags: [databases, joins, memory-hierarchy]
 requires:
-  - hash-chaining-vs-open-addressing
-  - foundations-cache-cost-model
+  - interview-essentials/hash-chaining-vs-open-addressing
+  - interview-essentials/foundations-cache-cost-model
 refs:
   - https://www.vldb.org/pvldb/vol7/p85-balkesen.pdf
   - https://15445.courses.cs.cmu.edu/

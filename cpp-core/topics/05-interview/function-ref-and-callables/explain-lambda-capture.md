@@ -6,7 +6,7 @@ level: 4
 tags: [callables, lambdas, lifetime]
 requires:
   - callables-explain-capture-modes
-  - callables-explain-capture-lifetime
+  - cpp-essentials/callables-explain-capture-lifetime
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
   - https://en.cppreference.com/w/cpp/memory/weak_ptr/lock

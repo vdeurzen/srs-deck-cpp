@@ -3,7 +3,7 @@ name: LeetCode Patterns
 description: Interview-speed templates for the LeetCode patterns — recognise the pattern from the problem statement, write its template from memory, trace it, and avoid the C++ traps that cost a submission.
 language: cpp
 format: 1
-relations: # cards here may require cpp-basics/<id>, cpp-core/<id>, algo-basics/<id> and algo-systems/<id>
+relations: # cards here may require the essentials Decks, cpp-basics/<id>, cpp-core/<id>, algo-basics/<id> and algo-systems/<id>
   - deck: cpp-basics
     role: builds-on
   - deck: cpp-core
@@ -11,6 +11,10 @@ relations: # cards here may require cpp-basics/<id>, cpp-core/<id>, algo-basics/
   - deck: algo-basics
     role: builds-on
   - deck: algo-systems
+    role: builds-on
+  - deck: cpp-essentials
+    role: builds-on
+  - deck: interview-essentials
     role: builds-on
 defaults:
   compile:

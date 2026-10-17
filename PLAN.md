@@ -23,6 +23,7 @@ whenever.
 | 6 Other std components (hft-interview) | done (2026-10-14): smart-pointers 8, type-erasure 4, optional 4, string 2, flat-map 1, reviewed |
 | 7 LRU, rate limit, packets, pools (hft-interview) | done (2026-10-14): lru 4, rate-limit 6, packets 3, pools 3, reviewed |
 | 8 LeetCode rest + deferred items + capstones | done (2026-10-14): leetcode +63 Cards (groups D/E/F, recognition), hft-interview +5, algo-systems +1, reviewed |
+| 9 Interview sprint | done (2026-10-17): 558 Cards moved (+2 new) into `cpp-essentials` + `interview-essentials`; see `sprint/README.md` |
 
 ## 0. Decisions (2026-10-12)
 

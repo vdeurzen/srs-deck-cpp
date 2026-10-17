@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [linkage, namespaces, tracing]
 requires:
-  - linkage-private-helper
+  - cpp-essentials/linkage-private-helper
 probes:
   1: { a: "2" }
   2: { b: "0" }

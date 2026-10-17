@@ -9,7 +9,7 @@ probes:
   1: { log: "WE" }
   2: { log: "WEew" }
 requires:
-  - trace-order-of-initialisation
+  - cpp-essentials/trace-order-of-initialisation
 refs:
   - https://eel.is/c++draft/class.base.init#15
   - https://en.cppreference.com/w/cpp/language/constructor#Initialization_order

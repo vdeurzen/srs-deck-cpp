@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [polymorphism, templates]
 requires:
-  - staticpoly-static-vs-dynamic
+  - cpp-essentials/staticpoly-static-vs-dynamic
 refs:
   - https://en.cppreference.com/w/cpp/container/set
   - https://en.cppreference.com/w/cpp/named_req/Compare

@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [heaps, complexity, capstone]
 requires:
-  - heap-heapify-linear
-  - heap-vs-bst
+  - interview-essentials/heap-heapify-linear
+  - interview-essentials/heap-vs-bst
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://doi.org/10.1145/355588.365103

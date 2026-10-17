@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [heaps, tracing]
 requires:
-  - heap-sift-down-code
+  - interview-essentials/heap-sift-down-code
 probes:
   1: { r: "9", at: "2" }
   2: { r: "8", at: "2" }

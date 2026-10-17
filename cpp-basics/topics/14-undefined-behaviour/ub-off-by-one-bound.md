@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [undefined-behaviour, arrays, constexpr]
 requires:
-  - ub-static-assert-finds-ub
+  - cpp-essentials/ub-static-assert-finds-ub
 input: chips
 choices:
   c1: ["i < 4", "i <= 4", "i < 5"]

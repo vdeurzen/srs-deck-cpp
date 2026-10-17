@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [linkage, odr, misconception, undefined-behaviour]
 requires:
-  - linkage-odr-class-repeat
+  - cpp-essentials/linkage-odr-class-repeat
 refs:
   - https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule
   - https://eel.is/c++draft/basic.def.odr

@@ -14,7 +14,7 @@ compile:
     #endif
     int main() { Point p{1, 2}; return p.x - 1; }
 requires:
-  - linkage-translation-unit
+  - cpp-essentials/linkage-translation-unit
   - cpp-basics/linkage-guard-define-line
 refs:
   - https://en.cppreference.com/w/cpp/preprocessor/include

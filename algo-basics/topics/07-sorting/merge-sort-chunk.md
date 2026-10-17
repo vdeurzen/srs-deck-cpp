@@ -17,7 +17,7 @@ compile:
     static_assert(sorted({7, 6, 5, 4, 3, 2, 1}) == std::array{1, 2, 3, 4, 5, 6, 7});
     int main() {}
 requires:
-  - sort-merge-space
+  - interview-essentials/sort-merge-space
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/merge
   - https://en.wikipedia.org/wiki/Merge_sort

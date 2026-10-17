@@ -10,7 +10,7 @@ probes:
   3: { head: "3", tail: "7" }
   4: { head: "7", tail: "7" }
 requires:
-  - algo-basics/graph-bfs-mark-on-push
+  - interview-essentials/graph-bfs-mark-on-push
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode
 ---

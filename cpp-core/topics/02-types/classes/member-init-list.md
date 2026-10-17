@@ -16,7 +16,7 @@ compile:
     }
 requires:
   - class-invariant-constructor
-  - cpp-basics/class-init-list-required
+  - cpp-essentials/class-init-list-required
 refs:
   - https://en.cppreference.com/w/cpp/language/constructor#Member_initializer_list
 ---

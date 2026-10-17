@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [hashing, load-factor, tracing]
 requires:
-  - hashing-load-factor
+  - interview-essentials/hashing-load-factor
 probes:
   1: { x: "3", y: "3", z: "3" }
   2: { x: "3", y: "11", z: "3" }

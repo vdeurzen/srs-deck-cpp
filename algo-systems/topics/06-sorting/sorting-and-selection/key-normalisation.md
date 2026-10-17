@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [sorting, databases, layout]
 requires:
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
 elaborate: An ART index needs keys as order-preserving byte strings too. What would a shared key encoder between index and sort buy?
 refs:
   - https://dl.acm.org/doi/10.1145/1132960.1132964

@@ -6,7 +6,7 @@ level: 4
 tags: [sorting, cache, low-latency]
 requires:
   - sort-radix
-  - foundations-cache-cost-model
+  - interview-essentials/foundations-cache-cost-model
 elaborate: The same trade-off sets the fan-out of a radix-partitioned hash join — how would you pick the partition bits there?
 refs:
   - https://en.algorithmica.org/hpc/algorithms/sorting/

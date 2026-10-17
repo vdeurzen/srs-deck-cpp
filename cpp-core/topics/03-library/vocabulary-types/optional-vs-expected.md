@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [vocabulary-types, optional, expected, error-handling]
 requires:
-  - vocab-expected-carries-error
+  - cpp-essentials/vocab-expected-carries-error
 refs:
   - https://en.cppreference.com/w/cpp/utility/optional
   - https://en.cppreference.com/w/cpp/utility/expected

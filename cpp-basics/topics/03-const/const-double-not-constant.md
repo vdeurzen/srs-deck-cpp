@@ -11,7 +11,7 @@ compile:
   harness: |
     int main() {}
 requires:
-  - const-vs-constexpr-initializer
+  - cpp-essentials/const-vs-constexpr-initializer
 refs:
   - https://en.cppreference.com/w/cpp/language/constant_expression#Usable_in_constant_expressions
   - https://eel.is/c++draft/expr.const

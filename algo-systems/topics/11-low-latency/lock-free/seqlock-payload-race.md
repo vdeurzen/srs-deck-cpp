@@ -6,7 +6,7 @@ level: 5
 tags: [low-latency, concurrency, seqlock, undefined-behaviour]
 requires:
   - ll-seqlock
-  - cpp-core/threads-data-race-is-ub
+  - cpp-essentials/threads-data-race-is-ub
 refs:
   - https://dl.acm.org/doi/10.1145/2247684.2247688
   - https://en.cppreference.com/w/cpp/atomic/atomic_ref

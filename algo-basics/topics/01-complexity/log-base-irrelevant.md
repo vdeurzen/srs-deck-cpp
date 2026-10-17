@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [complexity, logarithms]
 requires:
-  - complexity-log-halvings
-  - complexity-drop-terms
+  - interview-essentials/complexity-log-halvings
+  - interview-essentials/complexity-drop-terms
   - complexity-asym-log-rules
 refs:
   - https://en.wikipedia.org/wiki/Logarithm#Change_of_base

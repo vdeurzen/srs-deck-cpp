@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [complexity, tracing]
 requires:
-  - complexity-count-loop-steps
+  - interview-essentials/complexity-count-loop-steps
 probes:
   1: { tries: "99" }
   2: { tries: "999" }

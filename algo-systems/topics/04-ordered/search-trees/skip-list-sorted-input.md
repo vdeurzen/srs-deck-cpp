@@ -5,7 +5,7 @@ version: 1
 level: 4
 requires:
   - ordered-skip-list
-  - algo-basics/tree-why-balance
+  - interview-essentials/tree-why-balance
 tags: [trees, randomised]
 refs:
   - https://dl.acm.org/doi/10.1145/78973.78977

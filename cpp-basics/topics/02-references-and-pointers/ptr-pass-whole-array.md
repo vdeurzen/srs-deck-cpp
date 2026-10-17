@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [pointers, arrays]
 requires:
-  - ptr-array-name-to-pointer
+  - cpp-essentials/ptr-array-name-to-pointer
 input: chips
 choices:
   c1: ["readings", "&readings", "*readings", "readings[0]"]

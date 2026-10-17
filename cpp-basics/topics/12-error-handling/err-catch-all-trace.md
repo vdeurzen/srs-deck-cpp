@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [exceptions, tracing]
 requires:
-  - err-first-matching-handler
+  - cpp-essentials/err-first-matching-handler
 probes:
   1: { seen: "other" }
 refs:

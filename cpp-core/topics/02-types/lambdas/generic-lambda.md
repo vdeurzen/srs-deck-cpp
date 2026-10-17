@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [lambdas, templates]
 requires:
-  - lambda-closure-type
-  - templates-instantiation
+  - cpp-essentials/lambda-closure-type
+  - cpp-essentials/templates-instantiation
 input: chips
 choices:
   c1: ["const auto&", "const int&", "const double&", "const T&"]

@@ -10,7 +10,7 @@ probes:
   3: { dist: "0 3 1 4", stale: "0" }
   4: { dist: "0 3 1 4", stale: "2" }
 requires:
-  - graph-dijkstra-popped-final
+  - interview-essentials/graph-dijkstra-popped-final
 refs:
   - https://doi.org/10.1007/BF01386390
   - https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Using_a_priority_queue

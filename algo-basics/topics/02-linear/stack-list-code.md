@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, stacks, linked-lists]
 requires:
   - linear-stack-adt
-  - linear-list-node
+  - interview-essentials/linear-list-node
 input: chips
 choices:
   c1: ["head", "nullptr", "head->next", "n"]

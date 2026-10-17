@@ -6,7 +6,7 @@ level: 1
 tags: [binary-search, complexity, misconception]
 elaborate: Where in your own code is a collection sorted just to be searched once or twice?
 requires:
-  - search-binary-search-halving
+  - interview-essentials/search-binary-search-halving
   - complexity-growth-ladder
   - search-linear-scan-cost
 refs:

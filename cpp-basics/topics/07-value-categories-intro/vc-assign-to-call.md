@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [value-categories, references, functions]
 requires:
-  - vc-classify-cloze
-  - ptr-bump-by-reference
+  - cpp-essentials/vc-classify-cloze
+  - cpp-essentials/ptr-bump-by-reference
 input: chips
 choices:
   c1: ["int&", "int", "const int&", "auto"]

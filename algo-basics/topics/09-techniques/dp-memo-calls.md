@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [dynamic-programming, recursion, tracing]
 requires:
-  - technique-dp-overlapping-subproblems
+  - interview-essentials/technique-dp-overlapping-subproblems
 probes:
   1: { calls: "15" }
   2: { calls: "9" }

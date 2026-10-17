@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [binary-search, search-on-answer]
 requires:
-  - search-on-answer-monotone
+  - interview-essentials/search-on-answer-monotone
 input: chips
 choices:
   c1: ["hi = mid;", "lo = mid + 1;", "hi = mid - 1;", "lo = mid;"]

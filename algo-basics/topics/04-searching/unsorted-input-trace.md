@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, binary-search, tracing]
 requires:
-  - search-binary-search-chunk
+  - interview-essentials/search-binary-search-chunk
 probes:
   1: { lo: "3", hi: "4" }
   2: { lo: "4", hi: "4" }

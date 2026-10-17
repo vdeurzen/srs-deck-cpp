@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [complexity, amortised, tracing]
 requires:
-  - complexity-count-loop-steps
+  - interview-essentials/complexity-count-loop-steps
   - complexity-cost-amortized-doubling
 probes:
   1: { cap: "8", copies: "7" }

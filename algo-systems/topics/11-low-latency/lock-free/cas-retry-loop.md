@@ -38,7 +38,7 @@ compile:
     static_assert(run(9, 9, 5).cas_calls == 0);
     int main() {}
 requires:
-  - cpp-core/atomics-chunk-cas-loop
+  - cpp-essentials/atomics-chunk-cas-loop
 refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange
   - https://en.cppreference.com/w/cpp/atomic/atomic/fetch_max

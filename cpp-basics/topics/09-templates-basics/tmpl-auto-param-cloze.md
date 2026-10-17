@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [templates, abbreviated-templates]
 requires:
-  - tmpl-instantiation-statics
+  - cpp-essentials/tmpl-instantiation-statics
 refs:
   - https://en.cppreference.com/w/cpp/language/function_template#Abbreviated_function_template
 ---

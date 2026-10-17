@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [backtracking, tracing]
 requires:
-  - technique-backtracking-state-space
+  - interview-essentials/technique-backtracking-state-space
 probes:
   1: { nodes: "127" }
   2: { nodes: "9" }

@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [segment-tree, fenwick-tree, range-queries, lc-307]
 requires:
-  - rq-segment-signal
+  - interview-essentials/rq-segment-signal
   - algo-systems/ordered-fenwick-tree
 refs:
   - https://leetcode.com/problems/range-sum-query-mutable/

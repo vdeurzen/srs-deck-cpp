@@ -21,8 +21,8 @@ compile:
     static_assert(sorted(singles({0, 9, -2147483647 - 1, 9})) == std::array{-2147483647 - 1, 0});
     int main() {}
 requires:
-  - bit-xor-single-signal
-  - algo-systems/foundations-bits-lowest-set-bit
+  - interview-essentials/bit-xor-single-signal
+  - interview-essentials/foundations-bits-lowest-set-bit
 refs:
   - https://leetcode.com/problems/single-number-iii/
   - https://graphics.stanford.edu/~seander/bithacks.html

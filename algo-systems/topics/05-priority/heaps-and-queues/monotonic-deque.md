@@ -5,7 +5,7 @@ version: 1
 level: 4
 requires:
   - heap-vocabulary
-  - seq-vector-vs-deque
+  - interview-essentials/seq-vector-vs-deque
 tags: [queues, sliding-window, low-latency, amortised]
 refs:
   - https://cp-algorithms.com/data_structures/stack_queue_modification.html

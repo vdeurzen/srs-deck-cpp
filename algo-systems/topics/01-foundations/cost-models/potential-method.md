@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [complexity, amortised, sequences]
 requires:
-  - foundations-growth-factor
+  - interview-essentials/foundations-growth-factor
 refs:
   - https://epubs.siam.org/doi/10.1137/0606031
   - https://en.wikipedia.org/wiki/Potential_method

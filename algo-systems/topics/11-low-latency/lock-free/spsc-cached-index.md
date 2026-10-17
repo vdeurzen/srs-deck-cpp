@@ -5,8 +5,8 @@ version: 1
 level: 5
 tags: [low-latency, lock-free, queues, memory-hierarchy]
 requires:
-  - ll-spsc-ring
-  - ll-false-sharing
+  - interview-essentials/ll-spsc-ring
+  - interview-essentials/ll-false-sharing
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/

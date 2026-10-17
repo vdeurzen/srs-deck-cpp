@@ -7,7 +7,7 @@ tags: [classes, constructors, initialization, tracing]
 probes:
   1: { "a.timeout": "30", "b.retries": "3", "b.timeout": "5" }
 requires:
-  - class-init-list-required
+  - cpp-essentials/class-init-list-required
 refs:
   - https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
 ---

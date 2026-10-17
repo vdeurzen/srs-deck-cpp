@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [undefined-behaviour, pointers]
 requires:
-  - ub-definition
+  - cpp-essentials/ub-definition
   - ub-constexpr-rejects-ub
 input: chips
 choices:

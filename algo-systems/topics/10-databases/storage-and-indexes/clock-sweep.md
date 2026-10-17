@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [caching, databases, tracing]
 requires:
-  - db-lru-recency-bet
+  - interview-essentials/db-lru-recency-bet
 probes:
   1: { out: "2", hand: "2" }
   2: { out: "1", hand: "1", "ref[2]": "false" }

@@ -12,7 +12,7 @@ compile:
     static_assert(digit_sum(472) == 13);
     int main() {}
 requires:
-  - types-uninit-local-read
+  - cpp-essentials/types-uninit-local-read
   - types-auto-brace-list
 refs:
   - https://en.cppreference.com/w/cpp/language/value_initialization

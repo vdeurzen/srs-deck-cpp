@@ -18,8 +18,8 @@ compile:
     static_assert(sorted() == std::array<int, 5>{3, 4, 0, 1, 2});
     int main() {}
 requires:
-  - graph-dfs-discovery-finish-trace
-  - graph-topo-order
+  - interview-essentials/graph-dfs-discovery-finish-trace
+  - interview-essentials/graph-topo-order
 refs:
   - https://en.wikipedia.org/wiki/Topological_sorting#Depth-first_search
   - https://doi.org/10.1137/0201010

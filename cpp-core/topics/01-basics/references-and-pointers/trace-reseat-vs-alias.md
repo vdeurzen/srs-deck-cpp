@@ -5,9 +5,9 @@ version: 1
 level: 1
 tags: [pointers, references, tracing]
 requires:
-  - ptr-reference-vs-pointer
+  - cpp-essentials/ptr-reference-vs-pointer
   - ptr-element-count
-  - cpp-basics/ptr-trace-reference-assign
+  - cpp-essentials/ptr-trace-reference-assign
 probes:
   1: { "a[1]": "20", r: "20" }
   2: { "a[2]": "4", r: "20" }

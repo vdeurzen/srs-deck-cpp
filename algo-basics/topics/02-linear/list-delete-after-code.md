@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, linked-lists]
 requires:
-  - linear-list-node
+  - interview-essentials/linear-list-node
 input: chips
 choices:
   c1: ["p->next->next", "p->next", "nullptr", "p"]

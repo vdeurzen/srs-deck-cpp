@@ -6,7 +6,7 @@ level: 3
 tags: [trees, red-black, invariants, recursion]
 requires:
   - tree-red-black-invariant
-  - tree-height-code
+  - interview-essentials/tree-height-code
 input: chips
 choices:
   c1: ["l + (t.red[v] ? 0 : 1)", "l + 1", "l + (t.red[v] ? 1 : 0)", "l"]

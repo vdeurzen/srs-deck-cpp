@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [algorithms]
 requires:
-  - stdalgo-lambda-syntax
-  - iter-end-one-past
+  - cpp-essentials/stdalgo-lambda-syntax
+  - cpp-essentials/iter-end-one-past
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/find
 ---

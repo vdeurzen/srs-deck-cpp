@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [trees, avl, invariants]
 requires:
-  - tree-balance-families
-  - tree-height-code
+  - interview-essentials/tree-balance-families
+  - interview-essentials/tree-height-code
 refs:
   - https://en.wikipedia.org/wiki/AVL_tree
 ---
