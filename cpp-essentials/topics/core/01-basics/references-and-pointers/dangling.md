@@ -20,5 +20,5 @@ refs:
 the object's lifetime has ended, so `p` holds an invalid pointer value.
 Copying or comparing that stale value is implementation-defined, not
 undefined; only going *through* it is. Nothing in `p`'s bits reveals
-this, which is what generation-checked handles fix. Pointers to ended
+this. Pointers to ended
 locals dangle the same way.

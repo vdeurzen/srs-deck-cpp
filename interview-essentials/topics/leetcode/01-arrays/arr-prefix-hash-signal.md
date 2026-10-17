@@ -8,8 +8,9 @@ requires:
   - linear-prefix-sum-range
 refs:
   - https://leetcode.com/problems/subarray-sum-equals-k/
+  - https://leetcode.com/problems/contiguous-array/
   - https://en.cppreference.com/w/cpp/algorithm/partial_sum
-elaborate: LC 525 (equal 0s and 1s) has no "sum" in its statement. What rewrite of the values turns it into this pattern?
+elaborate: Contiguous Array (LC 525), the longest subarray of a 0/1 array with equally many 0s and 1s, has no "sum" in its statement. What rewrite of the values turns it into this pattern?
 ---
 
 > Given an integer array `nums` and an integer `k`, return the total

@@ -8,8 +8,9 @@ requires:
   - linear-stack-recognition
 refs:
   - https://leetcode.com/problems/daily-temperatures/
+  - https://leetcode.com/problems/online-stock-span/
   - https://en.wikipedia.org/wiki/All_nearest_smaller_values
-elaborate: Stock span (LC 901) looks backwards, not forwards. Which way do the stack's values run there?
+elaborate: Online Stock Span (LC 901) returns, for each new price, how many consecutive days up to today had a price at most today's. It looks backwards, not forwards. Which way do the stack's values run there?
 ---
 
 > Given daily temperatures, return for each day the number of days you

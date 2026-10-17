@@ -21,13 +21,17 @@ requires:
   - dp-grid-paths-chunk
 refs:
   - https://leetcode.com/problems/minimum-path-sum/
+  - https://leetcode.com/problems/dungeon-game/
   - https://en.cppreference.com/w/cpp/types/climits
-elaborate: LC 174 (dungeon game) fills the table from the bottom-right corner. Where do the wall and the way-in cell go then?
+elaborate: Dungeon Game (LC 174) asks for the least starting health that walks right or down from top-left to bottom-right through cells that add or subtract health, never dropping below 1, and fills the table from the bottom-right corner. Where do the wall and the way-in cell go then?
 ---
 
-LC 64 with one rolling row. `d[j]` is column `j - 1`; `d[0]` is a wall
-left of the grid, and before the first row `d[1..n]` stand for the row
-above it, with `d[1] = 0` as the way in. Complete the start value.
+Minimum Path Sum (LC 64): the smallest sum along a path from the
+top-left to the bottom-right of a grid of non-negative numbers, moving
+only down or right. One rolling row of `n + 1` entries: `d[j]` holds
+column `j - 1`, and `d[0]` sits left of the grid, never a real cell.
+Before the first row, `d[1..n]` stand for a row above the grid, with
+`d[1] = 0` as the way in. Complete the start value.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -47,6 +51,6 @@ constexpr int min_path_sum(const std::vector<std::vector<int>>& g) {
 entered from outside, through `d[1] = 0`.
 
 With `0`, every border cell can be "entered" from outside for free:
-the top row costs each cell only itself, and example 1 comes out as 3,
-not 7. Negative starts are cheaper still. `INT_MAX` is safe: every cell
+the top row costs each cell only itself, and the grid
+`{1, 3, 1}, {1, 5, 1}, {4, 2, 1}` comes out as 3, not 7. Negative starts are cheaper still. `INT_MAX` is safe: every cell
 has one real neighbour (above or left), so `min` never picks it.

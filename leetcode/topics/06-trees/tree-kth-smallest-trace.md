@@ -13,12 +13,14 @@ requires:
 refs:
   - https://leetcode.com/problems/kth-smallest-element-in-a-bst/
   - Knuth, The Art of Computer Programming, Vol. 1, 3rd ed., §2.3.1, Algorithm T
-elaborate: LC 230's follow-up has many inserts and many k-th queries. What would you store in each node so a query no longer walks k nodes?
+elaborate: The problem's follow-up modifies the BST often (inserts and deletes) and asks for the k-th smallest often. What would you store in each node so a query no longer walks k nodes?
 ---
 
-LC 230, `k = 3`: each `next()` is one pop of the iterative inorder
-loop. Write `st` as the keys of its nodes, bottom to top, and `cur` as
-the key it points at, or `null`.
+Kth Smallest Element in a BST (LC 230): return the `k`-th smallest
+value (1-indexed) in a binary search tree. Here `k = 3`, and each
+`next()` is one pop of the iterative inorder loop. Write `st` as the
+keys of its nodes, bottom to top, and `cur` as the key it points at,
+or `null`.
 
 ```cpp
 //          5

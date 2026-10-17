@@ -10,12 +10,16 @@ refs:
   - https://en.cppreference.com/w/cpp/utility/expected
 ---
 
-## `parse_port(text)` fails on empty text, on non-digits, or out of range, and the caller reacts differently to each. Why is `std::optional<int>` the wrong return type?
+## `parse_port(text)` fails on empty text, on non-digits, or out of range, and the caller reacts differently to each. In C++23, why is `std::optional<int>` the wrong return type?
 
 ---
 
 **`optional` can only say "no value"; it cannot say *why*.**
 
-Return `std::expected<int, PortError>` instead: either the port or an error
-value of a type you choose. The failure reasons are visible in the signature
-and travel by value, with no exception and no out-parameter.
+Return `std::expected<int, PortError>` instead: either the port or an
+error value of a type you choose, so the reasons are visible in the
+signature and travel by value, with no exception or out-parameter.
+
+```cpp
+std::expected<int, PortError> parse_port(std::string_view text);
+```

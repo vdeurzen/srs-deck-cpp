@@ -23,6 +23,7 @@ elaborate: The usual answer keeps the lowest price so far and records `p − low
 
 **Daily changes `d[i] = prices[i] − prices[i−1]`: the answer is d's maximum subarray sum.**
 
-Buy on day `i`, sell on day `j`: profit `d[i+1] + … + d[j]`. "Otherwise
-0" allows the empty subarray, so resetting at 0 is right here, unlike
-LC 53. `{7, 1, 5, 3, 6, 4}` gives `d = {−6, 4, −2, 3, −2}`, best 5.
+Buy on day `i`, sell on day `j`: profit `sum(d[i+1..j])`. No profit (0)
+is the empty subarray, so resetting at 0 is right; Maximum Subarray
+(LC 53: largest sum of a non-empty contiguous subarray) forbids it.
+`{7, 1, 5, 3, 6, 4}` gives best 5.

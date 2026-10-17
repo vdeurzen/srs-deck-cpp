@@ -24,4 +24,11 @@ Deleting a leaf such as 20 just clears its parent's link. Deleting a node
 with one child links that child to the node's parent. Deleting 50, which
 has two children, copies in its {{c1::in-order successor::a neighbour in sorted order}},
 here 60, and then deletes that node instead:
-an easy case, because it has {{c2::no left child::count what it can hang}}.
+an easy case, because it has no {{c2::left::which side?}} child.
+
+---
+
+The successor is the smallest key in 50's right subtree: the next key in
+sorted order. Copying it up keeps every key on the left smaller and every
+key on the right larger. Being the leftmost node of that subtree, it has
+no left child, so removing it is the leaf or one-child case.

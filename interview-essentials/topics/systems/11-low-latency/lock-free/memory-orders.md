@@ -15,7 +15,7 @@ refs:
 
 What the orders cost on x86-64. The hardware is already TSO, so an acquire
 load, a release store and even a `seq_cst` load all compile to
-{{c1::plain MOVs::an instruction class}}; only a `seq_cst` store pays, as
+plain {{c1::`mov`::an x86 instruction, not a fence}} instructions; only a `seq_cst` store pays, as
 an `xchg` (GCC 16 `-O2`), to forbid store-load reordering. Choosing
 weaker orders on x86 therefore saves little in the instructions and
 mostly frees the *compiler* to reorder.

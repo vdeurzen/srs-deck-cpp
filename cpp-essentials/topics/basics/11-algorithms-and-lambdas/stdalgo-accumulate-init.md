@@ -33,5 +33,4 @@ constexpr double total() {
 `accumulate` keeps its running total **in the type of the initial value**:
 it computes `acc = acc + *it` with `acc` of that type. Starting from the
 `int` `0`, each step truncates back to `int` (1.5 becomes 1), giving 4.
-Starting from `1.0` or `v[0]` adds an extra term to the sum. Note `accumulate`
-lives in `<numeric>`, not `<algorithm>`.
+Starting from `1.0` or `v[0]` adds an extra term to the sum.

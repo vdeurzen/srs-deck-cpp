@@ -32,11 +32,13 @@ requires:
   - arr-3sum-frame-parsons
 refs:
   - https://leetcode.com/problems/3sum/
+  - https://leetcode.com/problems/subsets-ii/
   - https://en.wikipedia.org/wiki/3SUM
-elaborate: bt-dup-skip-code's LC 90 skip tests `j > i`, the depth's start, not `j > 0`. Why is `i > 0` right here?
+elaborate: Subsets II (LC 90) lists every subset of an array with duplicates, no subset twice. Its backtracking loop, choosing from index `i` on, skips a repeat only when `j > i`, not `j > 0`. Why is `i > 0` right here?
 ---
 
-LC 15: all triplets that sum to 0, without duplicate triplets.
+3Sum (LC 15): return all triplets that sum to 0, without duplicate
+triplets.
 `pairs(a, i, out)` runs the two-pointer scan right of `i` (its code is
 hidden here) and appends each distinct `{a[i], a[lo], a[hi]}` once. Complete the test that skips
 an `i`.

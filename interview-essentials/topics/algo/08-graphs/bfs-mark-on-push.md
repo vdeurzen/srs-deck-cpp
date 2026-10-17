@@ -29,4 +29,4 @@ while (head < tail) {
 A vertex next to many frontier vertices is pushed once per such edge
 before its first pop marks it. Marking `seen[v]` at the push lets each
 vertex enter once. Small tests never show it; dense graphs pay in
-memory and time.
+memory (time stays O(V + E)).

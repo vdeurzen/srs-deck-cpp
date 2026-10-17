@@ -11,8 +11,9 @@ requires:
 refs:
   - https://leetcode.com/problems/unique-paths/
   - https://leetcode.com/problems/unique-paths-ii/
+  - https://leetcode.com/problems/coin-change-ii/
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
-elaborate: dp-coin-ways-chunk has the same `x[j] += x[j - step]` line. What plays the role of "the cell above" there?
+elaborate: Coin Change II (LC 518), counting the ways to make `amount` from reusable `coins`, runs the same `x[j] += x[j - step]` line. What plays the role of "the cell above" there?
 ---
 
 ```cpp
@@ -25,7 +26,9 @@ return row[n - 1];
 
 ---
 
-**Grid paths with one rolling row** (LC 62). Paths into a cell =
+**Grid paths with one rolling row**: Unique Paths (LC 62), the number of
+paths from the top-left to the bottom-right of an `m × n` grid moving
+only right or down. Paths into a cell =
 paths from above + paths from the left. Before `+=`, `row[j]` still holds
 the cell *above*; `row[j - 1]` was already updated, so it is the cell to
 the *left*. One row of memory, O(mn) time.

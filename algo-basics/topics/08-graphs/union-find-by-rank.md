@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [union-find, complexity]
 requires:
-  - graph-union-find-union-code
+  - interview-essentials/graph-union-find-union-code
   - interview-essentials/complexity-log-halvings
 refs:
   - https://doi.org/10.1145/321879.321884

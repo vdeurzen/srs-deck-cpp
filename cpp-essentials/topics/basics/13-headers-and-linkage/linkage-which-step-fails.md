@@ -12,7 +12,7 @@ requires:
   - linkage-translation-unit
 ---
 
-`main.cpp` calls `area`, and `rect.h` declares it, but no file in the
-build has the body. Every file compiles; the build then stops with
-`undefined reference to 'area(int, int)'`. That message comes from the
+`main.cpp` includes `rect.h` and calls `area(2, 3)`. `rect.h` declares
+`area`, but no file in the build has its body. The build stops with
+`undefined reference to 'area(int, int)'`, a message from the
 {{c1::linker::a build step}}.

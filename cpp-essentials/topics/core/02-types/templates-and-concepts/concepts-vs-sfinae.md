@@ -8,28 +8,23 @@ requires:
   - templates-instantiation
   - tmpl-concept-error
 refs:
-  - https://en.cppreference.com/w/cpp/language/constraints
+  - https://en.cppreference.com/w/cpp/language/constraints#Partial_ordering_of_constraints
   - https://en.cppreference.com/w/cpp/language/sfinae
 ---
 
-## A caller writes `half(2.5)`. What does the C++20 declaration's error tell them that the `enable_if` one could not?
+## With concepts, `f(-1)` picks #2. Written with `std::enable_if_t<cond, int> = 0` instead, the same two overloads make `f(-1)` ambiguous. Why the difference?
 
 ```cpp
-// before C++20
-template<class T, class = std::enable_if_t<std::is_integral_v<T>>>
-T half(T x);
-
-// C++20
-template<std::integral T>
-T half(T x);
+template<std::integral T>        int f(T) { return 1; }  // #1
+template<std::signed_integral T> int f(T) { return 2; }  // #2
 ```
 
 ---
 
-**The name of the unsatisfied constraint, `std::integral<double>`,
-instead of a substitution failure inside `enable_if`.**
+**Constraints are partially ordered: `std::signed_integral` subsumes
+`std::integral`, so #2 is more constrained and wins.**
 
-SFINAE removes the overload as a side effect of failed substitution, so
-the compiler can only report that `enable_if<false>` has no `type`. A
-concept is a named predicate, so the error, and the declaration, say what
-was required.
+`signed_integral<T>` is defined as `integral<T> && ...`, which the
+compiler can see. An `enable_if` condition is just an expression inside a
+type; the compiler cannot compare two of them, so both viable overloads
+tie.

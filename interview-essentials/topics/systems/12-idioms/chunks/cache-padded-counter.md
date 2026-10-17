@@ -31,13 +31,8 @@ std::array<PaddedCounter, 8> counters;   // one per thread
 
 Per-thread counters that never share a cache line. Without `alignas`,
 eight 8-byte counters fill one line, and each increment invalidates it
-in every other core: the array gets *slower* as threads are added —
-false sharing.
+in every other core: the array gets *slower* as threads are added.
 
 The `alignas` goes on the **struct**, so the array strides by 64 bytes;
-padding inside an unaligned struct does not help. 64 fits x86 and most Arm cores;
-Apple M-series lines are 128 bytes, and
-`std::hardware_destructive_interference_size` names the target's
-value. Index by a dense
-thread number, and sum all eight to read — reads are rare, increments
-are not. Compile-checked: the harness pins size and alignment.
+padding inside an unaligned struct does not help. Each thread owns one
+slot; a reader sums all eight, which is rare.

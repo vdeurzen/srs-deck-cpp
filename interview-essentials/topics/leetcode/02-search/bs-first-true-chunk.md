@@ -31,9 +31,10 @@ requires:
   - search-first-true-predicate
 refs:
   - https://leetcode.com/problems/koko-eating-bananas/
+  - https://leetcode.com/problems/split-array-largest-sum/
   - https://cp-algorithms.com/num_methods/binary_search.html
   - https://en.cppreference.com/w/cpp/algorithm/partition_point
-elaborate: LC 410 (split array, minimise the largest sum) — what is `ok(x)`, and what are `lo` and `hi`?
+elaborate: Split Array Largest Sum (LC 410) splits `nums` into `k` non-empty contiguous parts, minimising the largest part's sum. What is `ok(x)`, and what are `lo` and `hi`?
 ---
 
 ```cpp
@@ -51,11 +52,13 @@ constexpr int first_true(int lo, int hi, auto ok) {
 **Binary search on the answer: the smallest `x` in `[lo, hi]` with
 `ok(x)`.** Preconditions: `ok` reads `false … false true … true`, and
 `hi` is a value known to satisfy `ok`, or a one-past sentinel; `ok(hi)`
-is never called. For LC 875, `ok(v)` is "eating at speed `v` finishes
-within `h` hours", with `lo = 1` and `hi` = the largest pile.
+is never called. For Koko Eating Bananas (LC 875: the minimum integer
+eating speed that finishes all `piles` within `h` hours; each hour she
+eats up to `v` bananas from one pile, so a pile of `p` takes ⌈p / v⌉
+hours), `ok(v)` is "the ⌈p / v⌉ sum to at most `h`", with `lo = 1` and `hi` = the largest pile.
 
 A true `mid` may be the answer, so `hi` keeps it; a false one is ruled
 out, so `lo` passes it. `lo + (hi − lo) / 2` cannot overflow;
 `(lo + hi) / 2` does near `INT_MAX`.
 
-Compile-checked: the harness runs LC 875's examples and the edge cases.
+Compile-checked: the harness runs Koko Eating Bananas' examples and the edge cases.

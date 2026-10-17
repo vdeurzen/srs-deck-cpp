@@ -11,8 +11,9 @@ requires:
 refs:
   - https://leetcode.com/problems/daily-temperatures/
   - https://leetcode.com/problems/next-greater-element-i/
+  - https://leetcode.com/problems/next-greater-element-ii/
   - https://en.wikipedia.org/wiki/All_nearest_smaller_values
-elaborate: LC 503 makes the array circular. How would you get each day's answer without copying the array twice?
+elaborate: Next Greater Element II (LC 503) wants each value's next greater value in a circular array, or -1. How would you get every answer without copying the array twice?
 ---
 
 ```cpp
@@ -27,16 +28,18 @@ return ans;
 
 ---
 
-**Next greater element with a monotonic stack** (LC 739). `st` holds
+**Next greater element with a monotonic stack** (Daily Temperatures,
+LC 739: for each day, how many days until a warmer one). `st` holds
 the **indices** of days still waiting; their temperatures never rise
 from bottom to top. Day `i` answers and pops every cooler day on top,
 then waits itself.
 
-Indices, so the answer can be a distance (`i - st.back()`); LC 496
-stores `t[i]` instead. Strict `<`: an equal temperature is not warmer.
+Indices, so the answer can be a distance (`i - st.back()`); Next
+Greater Element I (LC 496) wants the greater value, so it stores
+`t[i]` instead. Strict `<`: an equal temperature is not warmer.
 Days left on the stack keep the default 0.
 
 Graded by text (`compile: null`): it is the body of
 `std::vector<int> dailyTemperatures(std::vector<int>& t)`, and a harness
 can only be appended after it. Checked by including it verbatim in a
-constexpr test of LC 739's examples, GCC 16.2.
+constexpr test of Daily Temperatures' examples, GCC 16.2.

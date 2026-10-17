@@ -7,6 +7,8 @@ tags: [types, conversions, casts, pointers]
 refs:
   - https://en.cppreference.com/w/cpp/language/reinterpret_cast
   - https://eel.is/c++draft/expr.reinterpret.cast#7
+requires:
+  - ptr-holds-an-address
 ---
 
 ## After the second line, what does `bytes` point to?

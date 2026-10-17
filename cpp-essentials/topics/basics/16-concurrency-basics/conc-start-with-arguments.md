@@ -13,6 +13,8 @@ compile:
 refs:
   - https://en.cppreference.com/w/cpp/thread/thread/thread
   - https://eel.is/c++draft/thread.thread.constr
+requires:
+  - conc-thread-shares-memory
 ---
 
 Complete the construction so the new thread runs `fill` with `rows` 3

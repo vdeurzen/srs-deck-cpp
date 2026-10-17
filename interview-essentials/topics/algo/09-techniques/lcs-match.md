@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [dynamic-programming, strings]
 requires:
-  - technique-coin-change-table
+  - technique-dp-state
 input: chips
 choices:
   c1:
@@ -26,8 +26,10 @@ refs:
   - https://en.wikipedia.org/wiki/Longest_common_subsequence
 ---
 
-`dp[i][j]` is the longest common subsequence of the first `i` characters
-of `a` and the first `j` of `b`. Complete the case where the last
+A subsequence keeps characters in order but not necessarily adjacent:
+"ABCBDAB" and "BDCABA" share "BCBA". `dp[i][j]` is the length of the
+longest common subsequence of the first `i` characters of `a` and the
+first `j` of `b`. Complete the case where the last
 characters match.
 
 ```cpp

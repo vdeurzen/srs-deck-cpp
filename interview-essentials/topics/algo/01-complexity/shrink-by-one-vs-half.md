@@ -32,8 +32,7 @@ int main() {
 `T(n) = T(n − 1) + n` sums n + (n − 1) + … + 1 = n(n + 1)/2: **Θ(n²)**,
 so doubling n quadruples it. `T(n) = T(n/2) + n` sums
 n + n/2 + … < 2n: **Θ(n)**: doubling n only doubles it. How the
-input shrinks matters more than the work per call; the master theorem
-covers only the dividing kind.
+input shrinks matters more than the work per call.
 
 Verified by compiling and running an instrumented copy under GCC 16.2
 (`g++ -std=c++23 -Wall -Wextra`).

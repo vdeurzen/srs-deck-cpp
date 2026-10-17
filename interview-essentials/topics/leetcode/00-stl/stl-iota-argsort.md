@@ -18,15 +18,16 @@ compile:
     int main() {}
 refs:
   - https://leetcode.com/problems/sort-the-people/
+  - https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/
   - https://en.cppreference.com/w/cpp/algorithm/iota
   - https://en.cppreference.com/w/cpp/algorithm/ranges/sort
-elaborate: LC 1365 (how many numbers are smaller than the current one) answers per original position. Why does sorting the values alone lose what you need?
+elaborate: How Many Numbers Are Smaller Than the Current Number (LC 1365) returns, for each original position `i`, how many values in `nums` are smaller than `nums[i]`. Why does sorting the values alone lose what you need?
 requires:
   - cpp-essentials/ranges-sort-projection
 ---
 
-LC 2418 (Sort the People): heights are distinct; list the names
-tallest first. `idx` will hold the order in which to read `names`.
+Sort the People (LC 2418): given `names` and their distinct `heights`,
+list the names tallest first. `idx` will hold the order in which to read `names`.
 Complete what the projection returns.
 
 ```cpp

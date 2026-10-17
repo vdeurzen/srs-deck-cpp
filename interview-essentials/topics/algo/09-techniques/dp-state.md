@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [dynamic-programming]
 requires:
-  - technique-dp-optimal-substructure
+  - technique-dp-overlapping-subproblems
 input: chips
 choices:
   c1: ["dp[i - 1] + dp[i - 2]", "2 * dp[i - 1]", "dp[i - 1] + 2", "dp[i - 2] + 1"]
@@ -41,5 +41,5 @@ constexpr long ways(int n) {
 Ask "what was the **last** move?" A climb to step i ends with a 1-step
 from i − 1 or a 2-step from i − 2, and those two sets never overlap, so
 add them. With the state named, the recurrence is a case split on the
-last decision; without it, you guess formulas. `2 * dp[i - 1]` counts
-1+2 and 2+1 as if every step could be both.
+last decision; without it, you guess formulas. `2 * dp[i - 1]`
+assumes both last moves start from i − 1, but a 2-step starts from i − 2.

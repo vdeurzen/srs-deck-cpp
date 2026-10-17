@@ -9,12 +9,13 @@ refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map
 ---
 
-## A hash table with 5 buckets puts key 12 in bucket `12 % 5 = 2`. Key 7 also maps to bucket 2, and this table never stores a key outside its own bucket. Where does 7 go?
+## A hash table has 5 buckets, each holding a list of the keys that hash there. Key 12 sits in bucket `12 % 5 = 2`; key 7, inserted later, also hashes to 2. A lookup for 7 reaches bucket 2 and meets 12 first. What does it do next?
 
 ---
 
-**Into the same bucket, appended to that bucket's list (its chain).**
+**Compares 7 with the next key in bucket 2's list, until it finds 7 or the list ends.**
 
-Each bucket holds a list of every key that hashed there, so a collision
-just makes one list longer. A lookup hashes once, then compares keys
-along that one list, which is why short chains mean fast lookups.
+This is chaining: a collision just makes one list longer, and no key
+ever leaves its own bucket. A lookup hashes once, then pays one key
+comparison per entry in that list, which is why short chains mean fast
+lookups.

@@ -12,11 +12,13 @@ requires:
   - mono-histogram-bounds
 refs:
   - https://leetcode.com/problems/largest-rectangle-in-histogram/
+  - https://leetcode.com/problems/maximal-rectangle/
   - https://en.wikipedia.org/wiki/All_nearest_smaller_values
-elaborate: LC 85 (maximal rectangle in a 0/1 matrix) calls this once per row. What are the bar heights for each row?
+elaborate: Maximal Rectangle (LC 85), the largest rectangle of 1s in a 0/1 matrix, calls this once per row. What are the bar heights for each row?
 ---
 
-LC 84, largest rectangle in a histogram. Write `st` as its indices,
+Largest Rectangle in Histogram (LC 84): the largest rectangle area under
+bars of heights `h`, each 1 wide. Write `st` as its indices,
 bottom to top, separated by spaces.
 
 ```cpp

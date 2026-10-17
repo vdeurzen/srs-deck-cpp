@@ -4,6 +4,8 @@ kind: code
 version: 1
 level: 3
 tags: [raw-storage, construct-at, c++20]
+requires:
+  - storage-allocate-vs-construct
 input: chips
 choices:
   c1:

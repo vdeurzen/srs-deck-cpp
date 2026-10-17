@@ -12,11 +12,14 @@ requires:
   - arr-window-variable-chunk
 refs:
   - https://leetcode.com/problems/minimum-window-substring/
+  - https://leetcode.com/problems/longest-substring-without-repeating-characters/
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 16 (aggregate analysis)
-elaborate: LC 3 records `best` after the `while`. Swap the two placements between LC 3 and LC 76; what does each then return?
+elaborate: Longest Substring Without Repeating Characters (LC 3) records `best` after the `while`. Swap the two placements between it and this problem; what does each then return?
 ---
 
-LC 76 (Minimum Window Substring) on `s = "bbaacb"`, `t = "abc"`.
+Minimum Window Substring (LC 76): the shortest substring of `s` that
+contains every letter of `t`, repeats included. Here `s = "bbaacb"`,
+`t = "abc"`.
 `need[x]` is how many more `x` the window still lacks (negative:
 spares); `missing` counts letters whose `need` is still above 0.
 
@@ -46,7 +49,7 @@ int main() {
 only `c` is missing and `lo` never moves. At 4, `bbaac` is valid and
 recorded (5); dropping the spare `b` leaves `baac`, recorded (4);
 dropping the next `b` breaks it. **Record inside the `while`, before
-each shrink, while still valid**: the opposite of LC 3. At 5, `aacb`
+each shrink, while still valid**: the opposite of a longest-window problem. At 5, `aacb`
 ties and `acb` wins.
 
 Values from compiling and running an instrumented copy under GCC 16.2

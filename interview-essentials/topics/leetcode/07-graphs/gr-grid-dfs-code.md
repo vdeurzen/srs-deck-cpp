@@ -39,11 +39,11 @@ refs:
   - https://leetcode.com/problems/number-of-islands/
   - https://leetcode.com/problems/max-area-of-island/
   - https://en.wikipedia.org/wiki/Flood_fill
-elaborate: LC 695 wants the largest island's area. What does `sink` return instead of `void`, and where is the `+ 1`?
+elaborate: Max Area of Island (LC 695) wants the largest island's area, its number of `'1'` cells. What does `sink` return instead of `void`, and where is the `+ 1`?
 ---
 
-LC 200: count the islands of `'1'`s in a `vector<vector<char>>`,
-joined up, down, left and right. The caller starts one `sink` at each
+Number of Islands (LC 200): count the islands of `'1'`s in a
+`vector<vector<char>>`, joined up, down, left and right. The caller starts one `sink` at each
 `'1'` it finds and counts one island per call, so `sink` has to deal
 with the whole island around `(r, c)`. Complete its last line.
 
@@ -63,6 +63,7 @@ Overwriting `'1'` with `'0'` costs no extra memory, and the guard
 `!= '1'` then stops at water and at visited land alike. O(rows × cols).
 
 Marking after the calls, or never, lets two neighbours call each other
-forever: the walk never ends, and on LC the stack overflows. Only down and right (`k < 2`) never reaches the
-top-right `'1'` of the second grid, which joins only from below, so it
-counts that island twice.
+forever: the walk never ends, and on LeetCode the stack overflows.
+Only down and right (`k < 2`) misses land that joins only from below:
+on rows `101` over `111`, the top-right `'1'` is counted as a second
+island.

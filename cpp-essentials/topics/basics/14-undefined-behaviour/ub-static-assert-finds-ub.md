@@ -7,6 +7,8 @@ tags: [undefined-behaviour, constexpr]
 refs:
   - https://en.cppreference.com/w/cpp/language/constant_expression
   - https://eel.is/c++draft/expr.const
+requires:
+  - ub-passing-tests-prove-nothing
 ---
 
 ```cpp

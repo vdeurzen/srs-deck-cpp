@@ -20,7 +20,8 @@ compile:
     //    2   6
     //       /
     //      5
-    constexpr T t{{8, 4, 9, 2, 6, 5}, {1, 3, -1, -1, 5, -1}, {2, 4, -1, -1, -1, -1}};
+    // nodes numbered out of level order: index 0..5 holds 8 2 9 4 5 6
+    constexpr T t{{8, 2, 9, 4, 5, 6}, {3, -1, -1, 1, -1, 4}, {2, -1, -1, 5, -1, -1}};
     static_assert(level_order(t) == std::array<int, 6>{8, 4, 9, 2, 6, 5});
     int main() {}
 refs:
@@ -54,5 +55,4 @@ back, so every node of level k leaves before any of level k + 1. That is
 breadth-first search on a tree, O(n).
 
 `--tail` takes the newest entry instead, a stack, and turns the walk
-depth-first (8 9 4 6 5 2 here, right side first). Level order is also the
-order in which a heap stores a tree in an array.
+depth-first (8 9 4 6 5 2 here, right side first).

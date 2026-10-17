@@ -19,7 +19,7 @@ bool next_would_overflow(int x) { return x + 1 < x; }
 
 ---
 
-**Signed overflow is undefined, so the compiler assumes `x + 1` never
-overflows, and then `x + 1 < x` is always false.** Undefined behaviour is
+**Signed overflow is undefined, so the compiler assumes it never happens.**
+Without overflow, `x + 1 < x` is always false. Undefined behaviour is
 not an event it must handle but a premise it optimises from. Test before
 the operation instead: `x == INT_MAX`.

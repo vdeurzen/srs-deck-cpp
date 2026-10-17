@@ -24,13 +24,18 @@ compile:
         v = x;  last_store = o;  relaxed_store |= o == std::memory_order_relaxed;
       }
     };
+    struct Cached {                   // size_t that counts reads, so a check that never fires shows
+      std::size_t v = 0;  int reads = 0;
+      constexpr operator std::size_t() { ++reads; return v; }
+      constexpr Cached& operator=(std::size_t x) { v = x; return *this; }
+    };
     struct Spsc;
     struct Slots {                    // the ring's 4 ints; every read checks it is safe now
       const Spsc* q;  int v[4]{};
       constexpr int operator[](std::size_t s) const;
     };
     struct Spsc {                     // the consumer's view of Spsc<int, 4, FakeAtomic>
-      FakeAtomic head_{0}, tail_{0};  std::size_t cached_tail_ = 0;  Slots buf_{this};
+      FakeAtomic head_{0}, tail_{0};  Cached cached_tail_;  Slots buf_{this};
     };
     constexpr int Slots::operator[](std::size_t s) const {
       const std::size_t h = q->head_.v;          // next item to pop, not yet handed back
@@ -49,7 +54,8 @@ compile:
       q.buf_.v[0] = 20;  q.tail_.store(5, std::memory_order_release);   // wraps to slot 0
       for (int i = 0; i != 2; ++i) { if (!try_pop<4>(q, out)) return false; sum += out; }
       return sum == 10 + 11 + 12 + 13 + 20 && !try_pop<4>(q, out) && q.head_.v == 5
-          && q.head_.last_store == std::memory_order_release && !q.head_.relaxed_store;
+          && q.head_.last_store == std::memory_order_release && !q.head_.relaxed_store
+          && q.cached_tail_.reads == 2 * 7;                       // two checks per call, 7 calls
     }
     static_assert(drains_and_wraps());
     int main() {}
@@ -61,7 +67,8 @@ refs:
   - https://en.cppreference.com/w/cpp/atomic/memory_order
 ---
 
-Now the consumer, the mirror image of `try_push`. `q` has atomics
+Now the consumer's side of a single-producer single-consumer ring: it
+pops from `head_` and reads the producer's `tail_`. `q` has atomics
 `head_` and `tail_`, the consumer's private `cached_tail_`, and
 `buf_[N]` with `N` a power of two. Order the lines of `try_pop`.
 
@@ -73,8 +80,7 @@ template <std::size_t N, class Q, class T> constexpr bool try_pop(Q& q, T& out) 
   if (h == q.cached_tail_) return false;
   out = q.buf_[h & (N - 1)];
   q.head_.store(h + 1, std::memory_order_release);
-  return true;
-}
+  return true;  }
 ```
 
 ---

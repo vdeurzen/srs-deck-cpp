@@ -8,13 +8,21 @@ refs:
   - https://en.cppreference.com/w/cpp/language/constructor
 ---
 
-## Inside a class definition, what two features of a member function's declaration make it a constructor?
+## Which of these three declarations is `Car`'s constructor?
+
+```cpp
+class Car {
+public:
+    Car make(int hp);
+    Car(int hp);
+    int car(int hp);
+};
+```
 
 ---
 
-**It has the class's own name and no return type.**
+**`Car(int hp);`: it has the class's exact name and no return type.**
 
-In `class Car`, `Car(int hp);` is one. It runs automatically whenever a
-`Car` is created, with the arguments given there (`Car c(90);`), and
-its job is to give the new object's members their starting values. You never call it by name on an
-existing object.
+`make` returns a `Car` but is an ordinary function; `car` differs in case.
+The constructor runs automatically whenever a `Car` is created
+(`Car c(90);`) and gives the new object's members their starting values.

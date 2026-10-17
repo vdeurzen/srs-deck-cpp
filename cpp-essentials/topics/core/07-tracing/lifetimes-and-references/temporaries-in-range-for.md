@@ -9,7 +9,7 @@ probes:
   2: { trail: "B...~B~", first: "10" }
 requires:
   - ptr-lifetime-extension
-elaborate: "`for (int x : make_holder().items())` binds the hidden reference to what `items()` returns, not to the holder. Where in your code does a loop rely on P2718 to keep such a holder alive, and which compilers you ship with implement it?"
+elaborate: "`for (int x : make_holder().items())` binds the hidden reference to what `items()` returns, not to the holder. Where in your code does a loop rely on C++23 keeping such a holder alive, and do the compilers you ship with keep it alive?"
 refs:
   - https://en.cppreference.com/w/cpp/language/range-for
   - https://timsong-cpp.github.io/cppwp/n4950/stmt.ranged#1
@@ -37,8 +37,9 @@ A range-based `for` is defined as `auto&& __range = Bag{};` followed by
 the loop, so the temporary `Bag` binds directly to a reference and lives
 until the loop ends: three iterations (`...`), then `~`. The second
 `Bag{}` binds to nothing and dies at the end of its full-expression, right
-after `first` copied `10` out of it. Before P2718 (C++23, GCC 15+)
-only the temporary bound directly is rescued: in `for (x :
-make().items())` the `make()` result dies first; P2718 extends it too.
+after `first` copied `10` out of it. Before C++23 (P2718, in GCC 15+),
+only a temporary bound directly to the hidden reference survived: in
+`for (x : make().items())` the `make()` result died before the loop.
+C++23 extends every temporary in the range-initializer.
 Verified by running an instrumented copy under GCC 16.2 (`g++ -std=c++23`), clean under
 `-fsanitize=address,undefined`.

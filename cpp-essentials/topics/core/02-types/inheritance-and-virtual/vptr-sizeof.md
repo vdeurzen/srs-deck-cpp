@@ -6,7 +6,7 @@ level: 2
 tags: [inheritance, virtual, layout]
 input: chips
 choices:
-  c1: ["sizeof(void*)", "1", "0", "2 * sizeof(void*)"]
+  c1: ["sizeof(void*)", "2 * sizeof(void*)", "sizeof(void*) + 1", "1"]
 compile:
   harness: |
     static_assert(std::is_polymorphic_v<Shape>);
@@ -35,5 +35,6 @@ Any `virtual` function makes the class **polymorphic**: each object gets
 one hidden **vptr** to its class's **vtable**, a per-class array of function
 pointers (two virtual functions still mean one vptr). A virtual call loads
 the vptr, then the slot, then calls indirectly. The vptr is the whole of
-`Shape`. An empty non-polymorphic class has size 1; nothing has size 0. The
+`Shape`: no extra byte, since the 1 byte an empty class gets exists only
+to give each object a distinct address, and the vptr already does. The
 vptr is the Itanium ABI (GCC, Clang); the standard specifies only behaviour.

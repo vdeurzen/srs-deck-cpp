@@ -12,7 +12,13 @@ refs:
   - https://timsong-cpp.github.io/cppwp/n4950/class.temporary#6
 ---
 
-## `make` returns a `Noisy` by value. In `const Noisy& kept = make('k');`, when is that `Noisy` destroyed?
+## When is the `Noisy` returned by `make('k')` destroyed? Its destructor is the observable event.
+
+```cpp
+struct Noisy { ~Noisy(); };
+Noisy make(char tag);                 // returns by value
+const Noisy& kept = make('k');
+```
 
 ---
 

@@ -6,7 +6,7 @@ level: 2
 tags: [graphs, traversal, shortest-paths]
 input: chips
 choices:
-  c1: ["dist[u] + 1", "dist[v] + 1", "dist[u]", "u + 1"]
+  c1: ["dist[u] + 1", "dist[v] + 1", "dist[u]", "dist[s] + 1"]
 compile:
   harness: |
     // 0-1 0-2 1-3 2-3 2-4 3-5 4-5, undirected
@@ -14,10 +14,10 @@ compile:
     static_assert(bfs(kG, 0) == std::array<int, 6>{0, 1, 1, 2, 2, 3});
     static_assert(bfs(kG, 5) == std::array<int, 6>{3, 2, 2, 1, 1, 0});
     int main() {}
-requires:
-  - interview-essentials/graph-bfs-why-shortest
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode
+requires:
+  - graph-bfs-why-shortest
 ---
 
 Complete the line that records how many edges `v` is from `s`.
@@ -40,4 +40,5 @@ constexpr std::array<int, 6> bfs(const auto& adj, int s) {   // -1 pads adj[u]
 `v` is discovered from `u`, one edge further out, so it is one more than
 `u`'s distance: the queue order guarantees `u` is a nearest discoverer.
 `dist[v] + 1` reads −1 + 1 = 0; `dist[u]` leaves every vertex at 0;
-`u + 1` confuses a vertex's name with its distance.
+`dist[s] + 1` measures from the source, not from the discoverer, so every
+vertex gets 1.

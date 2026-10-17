@@ -37,8 +37,10 @@ cpp-basics/conc-start-with-arguments cpp-basics/ub-static-assert-finds-ub
 cpp-basics/types-reinterpret-cast-intro cpp-basics/tmpl-constrained-auto
 cpp-core/storage-live-range-invariant cpp-core/storage-allocate-vs-construct
 algo-basics/tree-terms cpp-core/smart-pointers-unique-ptr-deleter-size
-cpp-core/ranges-sort-projection algo-basics/hashing-direct-address-limit""".split()
-# second pass (learning-designer review of dropped edges) added the last ten
+cpp-core/ranges-sort-projection algo-basics/hashing-direct-address-limit
+algo-basics/graph-union-find-union-code algo-basics/graph-bfs-distance-code""".split()
+# second pass (learning-designer review of dropped edges) added the next ten;
+# the quality review (template gaps) added the last two
 # a dropped edge -> the sprint Card that teaches the same idea
 SUBST = {
     'cpp-basics/ub-signed-overflow-no-wrap': 'cpp-basics/types-overflow-rules',
@@ -84,6 +86,8 @@ def rewrite(text, card, own_deck, added=()):
 
     def resolve(r):
         q = r if '/' in r else f'{card.deck.id}/{r}'
+        if q.split('/')[0] in NEW:  # already points into an essentials Deck
+            return q
         if own_deck in NEW and q not in moved:
             q = SUBST.get(q)
             return moved.get(q) if q else None

@@ -15,7 +15,8 @@ refs:
 elaborate: Which `[l, r)` on these eight leaves makes the loop take the most nodes, and how many is that?
 ---
 
-LC 307's `sumRange(1, 6)` is `[1, 7)` here. `t` is the bottom-up tree
+Range Sum Query - Mutable (LC 307) asks for `sumRange(1, 6)`, both ends
+included: that is `[1, 7)` here. `t` is the bottom-up tree
 over `a`: leaves `t[8..16)`, `t[v] = t[2v] + t[2v + 1]`. One call of
 `level` is one turn of the query loop.
 

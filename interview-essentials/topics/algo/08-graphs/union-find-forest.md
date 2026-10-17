@@ -7,7 +7,7 @@ tags: [union-find, graphs]
 refs:
   - https://doi.org/10.1145/364099.364331
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure
-elaborate: Kruskal's algorithm asks "would this edge close a cycle?" for every edge. How does this structure answer it?
+elaborate: How would you use this to detect that adding edge (u, v) to an undirected graph closes a cycle?
 ---
 
 ## Union-find stores disjoint sets as an array `parent[]`; each set is a tree. How does it decide whether `2` and `4` are in the same set?

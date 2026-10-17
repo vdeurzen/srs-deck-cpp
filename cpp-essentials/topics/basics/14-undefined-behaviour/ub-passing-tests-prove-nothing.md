@@ -10,11 +10,19 @@ refs:
   - https://eel.is/c++draft/intro.abstract
 ---
 
-## A loop reads `scores[10]` from a 10-element array. The program prints the right total in every test, on every machine you tried. Is it correct?
+```cpp
+int scores[5] = {90, 72, 85, 64, 99};
+int total = 0;
+for (int i = 0; i <= 5; ++i) total += scores[i];
+std::cout << total;
+```
+
+## On every machine you tried, this prints `410`, the right sum, and every test passes. What may it print built by another compiler, or with other flags?
 
 ---
 
-**No. Reading past the end is undefined behaviour, and "seems to work" is
-one of its allowed outcomes.** The standard then requires nothing of the
-whole run. A new compiler version, an optimisation flag or a different
-memory layout may turn it into garbage, a crash, or missing code.
+**Anything, or nothing: `i <= 5` reads `scores[5]`, past the end, which
+is undefined behaviour.** "Seems to work" is one allowed outcome. The
+standard then requires nothing of the whole run, so a new compiler,
+optimisation flag or memory layout may print garbage, crash, or drop
+code.

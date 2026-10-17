@@ -10,11 +10,11 @@ refs:
   - https://www.agner.org/optimize/
 ---
 
-## On a current x86-64 server, roughly how many times slower than an L1 hit is a random DRAM access?
+## On a current x86-64 server, to the nearest power of ten, how many times slower than an L1 hit is a random DRAM access?
 
 ---
 
-**About 100×: ~1 ns (4 cycles) against ~80 ns, some 300 cycles.**
+**~100× (two orders of magnitude): ~1 ns (4 cycles) against ~80 ns.**
 That is several hundred instructions of time, so a structure that spends
 a few extra comparisons to save one miss wins: a B-tree node over a
 red-black node, open addressing over chaining. Memorise the ratio, not

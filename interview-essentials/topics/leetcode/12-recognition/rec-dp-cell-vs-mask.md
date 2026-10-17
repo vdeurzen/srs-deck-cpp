@@ -10,8 +10,9 @@ requires:
 refs:
   - https://leetcode.com/problems/minimum-path-sum/
   - https://leetcode.com/problems/shortest-path-visiting-all-nodes/
+  - https://leetcode.com/problems/unique-paths-iii/
   - https://doi.org/10.1137/0110015
-elaborate: LC 980 (unique paths III) walks a grid in all four directions and must cover every empty cell. Which of the two is it?
+elaborate: Unique Paths III (LC 980) counts the walks from the start cell to the end cell that move in all four directions and cover every empty cell exactly once. Which of the two is it?
 ---
 
 Two cheapest-route statements:

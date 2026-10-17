@@ -10,8 +10,9 @@ requires:
   - technique-max-invariant-code
 refs:
   - https://leetcode.com/problems/maximum-subarray/
+  - https://leetcode.com/problems/maximum-product-subarray/
   - https://en.wikipedia.org/wiki/Maximum_subarray_problem
-elaborate: LC 152 (maximum product subarray) breaks this. Which second running value must you keep, and why?
+elaborate: Maximum Product Subarray (LC 152), the largest product of a contiguous subarray, breaks this. Which second running value must you keep, and why?
 ---
 
 ```cpp
@@ -25,7 +26,8 @@ return best;
 
 ---
 
-**Kadane's algorithm** (LC 53, maximum subarray). `cur` is the best sum
+**Kadane's algorithm** (Maximum Subarray, LC 53: the largest sum of a
+non-empty contiguous subarray). `cur` is the best sum
 of a subarray *ending at* `x`: either extend the previous one or start
 fresh at `x`, whichever is larger. `best` is the largest `cur` seen.
 One pass, O(1) space.

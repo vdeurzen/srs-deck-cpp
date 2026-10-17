@@ -30,12 +30,14 @@ requires:
   - heap-min-comparator
 refs:
   - https://leetcode.com/problems/kth-largest-element-in-an-array/
+  - https://leetcode.com/problems/kth-largest-element-in-a-stream/
   - https://en.cppreference.com/w/cpp/container/priority_queue
-elaborate: LC 703 (k-th largest in a stream) keeps the same heap alive between calls. What does `top()` mean there?
+elaborate: Kth Largest Element in a Stream (LC 703) is a class whose `add(val)` returns the k-th largest value so far, so it keeps the same heap alive between calls. What does `top()` mean there?
 ---
 
-LC 215 asks for the k-th largest element in O(n log k): keep a heap
-of the k largest values seen so far, dropping one whenever it holds
+Kth Largest Element in an Array (LC 215): return the k-th largest
+element of `nums`. For O(n log k), keep a heap of the k largest values
+seen so far, dropping one whenever it holds
 k + 1. Complete the heap's type.
 
 ```cpp

@@ -9,7 +9,7 @@ compile:
   harness: |
     int main() {}
 requires:
-  - atomics-modification-order
+  - atomics-compare-exchange-failure
 refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange
 ---
@@ -29,9 +29,6 @@ void double_it() {
 The **CAS loop**: read a snapshot, compute from it, and
 `compare_exchange` the result in only if nobody changed the object
 meanwhile. On failure `compare_exchange` overwrites `old` with the
-current value, which is why the loop body is empty — the retry
-recomputes from the refreshed snapshot automatically. `weak` may fail
-spuriously, which a loop absorbs for free (and is cheaper on LL/SC
-hardware); `strong` is for a single attempt whose failure means
-something. The initial load can be `relaxed` because the CAS, not the
-load, validates the value.
+current value, so the loop body is empty: the retry recomputes from the
+refreshed snapshot. (`weak` may also fail spuriously; the loop retries
+that too.)

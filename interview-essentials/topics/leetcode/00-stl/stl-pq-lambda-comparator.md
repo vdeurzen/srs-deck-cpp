@@ -31,12 +31,14 @@ requires:
   - cpp-essentials/stdalgo-comparator-strict
 refs:
   - https://leetcode.com/problems/top-k-frequent-elements/
+  - https://leetcode.com/problems/top-k-frequent-words/
   - https://en.cppreference.com/w/cpp/container/priority_queue
   - https://en.cppreference.com/w/cpp/named_req/Compare
-elaborate: LC 692 (top-k frequent words) breaks count ties by word. How does the comparator change, and which way must the tie go?
+elaborate: Top K Frequent Words (LC 692) returns the k most frequent words, most frequent first, equal counts in lexicographical order. How does the comparator change, and which way must the tie go?
 ---
 
-LC 347: after counting, the heap holds `(value, count)` pairs and pops
+Top K Frequent Elements (LC 347): return the `k` most frequent values
+in `nums`, in any order. After counting, the heap holds `(value, count)` pairs and pops
 whenever it holds k + 1, so the k most frequent values survive.
 Complete the comparator.
 

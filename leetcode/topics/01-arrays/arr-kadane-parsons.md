@@ -18,12 +18,14 @@ requires:
   - interview-essentials/arr-kadane-chunk
 refs:
   - https://leetcode.com/problems/maximum-subarray/
+  - https://leetcode.com/problems/maximum-sum-circular-subarray/
   - https://en.wikipedia.org/wiki/Maximum_subarray_problem
-elaborate: LC 918 (circular array) adds a second pass. Which running value does it track, and when is that answer wrong?
+elaborate: Maximum Sum Circular Subarray (LC 918), the same question when a subarray may wrap from the end of `nums` to its start, adds a second pass. Which running value does it track, and when is that answer wrong?
 ---
 
-LC 53: the largest sum of a non-empty contiguous subarray. `cur` is the
-best sum of a subarray ending at `x`. Order the lines.
+Maximum Subarray (LC 53): the largest sum of a non-empty contiguous
+subarray. `cur` is the best sum of a subarray ending at `x`. Order the
+lines.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -44,5 +46,5 @@ before `best` reads it, or the last element's subarray is never seen.
 
 The distractor resets `cur` at 0, which allows the empty subarray:
 `{-3, -1, -2}` then returns 0 instead of −1.
-`best = nums[0]` is safe here because LC 53 guarantees `nums` is
-non-empty.
+`best = nums[0]` is safe here because Maximum Subarray guarantees
+`nums` is non-empty.

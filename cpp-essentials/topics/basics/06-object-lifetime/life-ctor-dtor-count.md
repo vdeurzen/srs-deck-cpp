@@ -6,7 +6,7 @@ level: 1
 tags: [lifetime, scope, constructors, destructors, tracing]
 requires:
   - life-scope-automatic
-  - class-constructor-intro
+  - life-destructor-intro
 probes:
   1: { alive: "3", built: "3" }
   2: { alive: "1", built: "3" }

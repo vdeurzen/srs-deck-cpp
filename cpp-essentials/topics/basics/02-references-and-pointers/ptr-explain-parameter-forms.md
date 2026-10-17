@@ -5,6 +5,7 @@ version: 1
 level: 2
 tags: [pointers, references, parameters]
 requires:
+  - ptr-bump-by-reference
   - const-ref-parameter
   - ptr-pointer-param-meaning
 refs:

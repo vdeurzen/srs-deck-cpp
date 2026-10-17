@@ -11,12 +11,13 @@ refs:
   - https://en.cppreference.com/w/cpp/utility/variant/visit
 ---
 
-## Why model "a circle, a square or a triangle" as `std::variant<Circle, Square, Triangle>` rather than a `Shape` base class with virtual functions?
+## `Shape` is `std::variant<Circle, Square, Triangle>`, and functions such as `area` and `draw` each `std::visit` it with one handler per alternative. You add `Hexagon` to the variant. What does the compiler do with those functions?
 
 ---
 
-**A closed set: every alternative is known at compile time.**
+**It rejects every `std::visit` whose visitor has no `Hexagon` handler.**
 
-So the compiler can check that each one is handled, and adding a fourth
-alternative breaks every `std::visit` that misses it. A base class is the
-open set: anyone may add a derived type, and nothing lists them all.
+The alternatives are listed in the variant's type, a closed set, so each
+visitor is checked against all of them. A `Shape` base class is the open
+set: anyone can add a derived type in any file, so no list exists to
+check a function against.

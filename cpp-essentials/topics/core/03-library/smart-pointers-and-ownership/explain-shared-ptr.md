@@ -5,7 +5,7 @@ version: 2
 level: 3
 tags: [smart-pointers, ownership]
 requires:
-  - smart-pointers-shared-ptr-control-block
+  - smart-pointers-shared-ptr-deleter-captured
   - smart-pointers-two-control-blocks
   - smart-pointers-make-shared-one-allocation
 refs:

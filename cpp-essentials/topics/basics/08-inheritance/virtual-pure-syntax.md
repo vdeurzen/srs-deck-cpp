@@ -10,8 +10,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/abstract_class
 ---
 
-`Shape` has no sensible area of its own, so it declares `area` without a
-body and requires every derived class to provide one:
+`Shape` has no sensible area of its own, so it declares `area` but gives
+it no implementation, and requires every derived class to provide one:
 
 ```cpp
 struct Shape {
@@ -21,5 +21,5 @@ struct Shape {
 ```
 
 Such a function is called *pure virtual*. A class with at least one of
-them is {{c2::abstract::the term for a class you cannot create objects of}}:
+them is {{c2::abstract::a class category}}:
 `Shape s;` does not compile, but `Shape&` and `Shape*` are fine.

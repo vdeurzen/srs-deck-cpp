@@ -7,9 +7,11 @@ tags: [operators, idioms]
 expose_ms: 10000
 compile:
   harness: |
-    static_assert((Vec2{1, 2} + Vec2{3, 4}).x == 4);
-    static_assert((Vec2{1, 2} + Vec2{3, 4}).y == 6);
-    int main() {}
+    #include <type_traits>
+    #include <utility>
+    static_assert(std::is_same_v<decltype(std::declval<Vec2&>() += Vec2{}), Vec2&>);
+    static_assert(std::is_same_v<decltype(Vec2{} + Vec2{}), Vec2>);
+    int main() { Vec2 a{1, 2}; Vec2 b = a + Vec2{3, 4}; b += a; }
 requires:
   - operators-compound-returns-ref
   - operators-hidden-friend-symmetric
@@ -20,8 +22,8 @@ refs:
 ```cpp
 struct Vec2 {
     int x, y;
-    constexpr Vec2& operator+=(const Vec2& r) { x += r.x; y += r.y; return *this; }
-    friend constexpr Vec2 operator+(Vec2 l, const Vec2& r) { return l += r; }
+    Vec2& operator+=(const Vec2& r) { x += r.x; y += r.y; return *this; }
+    friend Vec2 operator+(Vec2 l, const Vec2& r) { return l += r; }
 };
 ```
 

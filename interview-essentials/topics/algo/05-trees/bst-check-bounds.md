@@ -9,26 +9,29 @@ requires:
 elaborate: Where else does a property have to hold for a whole region rather than for neighbours — a sorted array checked pairwise, a heap, a lock order?
 input: chips
 choices:
-  c1: ["k, hi", "lo, hi", "lo, k", "INT_MIN, hi"]
+  c1: ["lo, k", "lo, hi", "k, hi", "INT_MIN, k"]
+  c2: ["k, hi", "lo, hi", "lo, k", "k, INT_MAX"]
 compile:
   harness: |
     struct T { int key[4], left[4], right[4]; };
-    //    5          5
-    //   / \        / \
-    //  3   8      3   8
-    //     /          /
-    //    4          6
+    //    5          5          5
+    //   / \        / \        / \
+    //  3   8      3   8      3   8
+    //     /          /        \
+    //    4          6          7
     constexpr T bad{{5, 3, 8, 4}, {1, -1, 3, -1}, {2, -1, -1, -1}};
     constexpr T good{{5, 3, 8, 6}, {1, -1, 3, -1}, {2, -1, -1, -1}};
+    constexpr T bad_left{{5, 3, 8, 7}, {1, -1, -1, -1}, {2, 3, -1, -1}};
     static_assert(!is_bst(bad, 0, INT_MIN, INT_MAX));
     static_assert(is_bst(good, 0, INT_MIN, INT_MAX));
+    static_assert(!is_bst(bad_left, 0, INT_MIN, INT_MAX));
     int main() {}
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_tree#Verification
 ---
 
 Every node here is larger than its left child and smaller than its right
-child, yet it is not a BST. Complete the right-hand recursion so `is_bst`
+child, yet it is not a BST. Complete both recursive calls so `is_bst`
 rejects it.
 
 ```cpp
@@ -44,7 +47,7 @@ constexpr bool is_bst(const auto& t, int v, int lo, int hi) {
   if (v < 0) return true;
   const int k = t.key[v];
   if (k <= lo || k >= hi) return false;
-  return is_bst(t, t.left[v], lo, k) && is_bst(t, t.right[v], {{c1::k, hi}});
+  return is_bst(t, t.left[v], {{c1::lo, k}}) && is_bst(t, t.right[v], {{c2::k, hi}});
 }
 ```
 
@@ -54,8 +57,8 @@ constexpr bool is_bst(const auto& t, int v, int lo, int hi) {
 8. Checking each parent against its children misses that: the invariant
 is about every ancestor. Passing `(k, hi)` down narrows the window at
 every step, so each node is checked against all its ancestors at once,
-in O(n).
+in O(n). The left call mirrors it: `(lo, k)`.
 
-`INT_MIN, hi` forgets the inherited lower bound, which is exactly the
-children-only check, and accepts the tree; a search for 4 would turn left
-at 5 and never find it.
+`INT_MIN, k` or `k, INT_MAX` drops an inherited bound, which is exactly
+the children-only check, and accepts a bad tree; a search for 4 would
+turn left at 5 and never find it.

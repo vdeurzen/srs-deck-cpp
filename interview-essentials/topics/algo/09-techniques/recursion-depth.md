@@ -14,6 +14,7 @@ refs:
 ---
 
 ```cpp
+struct Node { int v; Node* next; };
 int sum(Node* p) { if (!p) return 0; return p->v + sum(p->next); }
 ```
 

@@ -9,11 +9,12 @@ requires:
 refs:
   - https://leetcode.com/problems/subarray-sum-equals-k/
   - https://leetcode.com/problems/minimum-size-subarray-sum/
-elaborate: LC 209 says "positive integers". Which word in a problem statement would you now check before reaching for a window?
+elaborate: Minimum Size Subarray Sum (LC 209) says "positive integers". Which word in a problem statement would you now check before reaching for a window?
 ---
 
-LC 560 asks for the number of subarrays summing to `k`. A candidate
-reuses the shrinking window from LC 209:
+Subarray Sum Equals K (LC 560): count the contiguous subarrays of `a`
+that sum to `k`. A candidate reuses the shrinking window from Minimum
+Size Subarray Sum (LC 209: the shortest subarray with sum ≥ `target`):
 
 ```cpp
 for (int hi = 0; hi < n; ++hi) {

@@ -8,8 +8,9 @@ requires:
   - interview-essentials/technique-dp-state
 refs:
   - https://leetcode.com/problems/burst-balloons/
+  - https://leetcode.com/problems/minimum-score-triangulation-of-polygon/
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §14.2 (matrix-chain multiplication)
-elaborate: LC 1039 (triangulate a polygon) splits the range at a vertex k too. What plays the role of the last balloon there?
+elaborate: Minimum Score Triangulation of Polygon (LC 1039) triangulates a convex polygon whose vertices carry `values`, each triangle scoring the product of its three, for the least total; it splits the range at a vertex k too. What plays the role of the last balloon there?
 ---
 
 > You are given `n` balloons with numbers `nums`. If you burst balloon

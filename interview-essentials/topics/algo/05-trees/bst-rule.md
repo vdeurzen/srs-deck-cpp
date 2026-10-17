@@ -11,7 +11,7 @@ requires:
   - tree-terms
 ---
 
-## A binary search tree keeps smaller keys to a node's left and larger keys to its right. Which keys could stand in the slot marked `x`?
+## A binary search tree with distinct keys keeps smaller keys to a node's left and larger keys to its right. Which keys could stand in the slot marked `x`?
 
 ```
         15

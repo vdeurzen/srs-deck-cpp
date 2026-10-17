@@ -15,7 +15,9 @@ refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/operator_at
 ---
 
-LC 560 on `a = {1, -1, 1, 1}`, `k = 1`, one loop turn per `step`.
+Subarray Sum Equals K (LC 560): count the contiguous non-empty subarrays
+that sum to `k`. Here on `a = {1, -1, 1, 1}`, `k = 1`, one loop turn per
+`step`.
 
 ```cpp
 std::unordered_map<int, int> seen;

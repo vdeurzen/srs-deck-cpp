@@ -12,13 +12,13 @@ refs:
   - https://en.wikipedia.org/wiki/Heapsort
 ---
 
-## Heap sort is selection sort with the unsorted part kept as a max-heap. Why does that give O(n log n) worst case with O(1) extra space?
+## Heap sort is selection sort with the unsorted part kept as a max-heap. Why is it O(n log n) even in the worst case?
 
 ---
 
-**Each max costs an O(log n) sift, not an O(n) scan, in place.**
+**Each max costs an O(log n) sift-down, not an O(n) scan.**
 
-Build the heap in place, O(n). Then n − 1 times: swap the root to the
-heap's end, sift the new root down ≤ log₂ n levels. The sorted suffix
-grows as the heap shrinks. No buffer, unlike merge sort; no bad input,
-unlike quicksort.
+Build the heap, O(n). Then n − 1 times: swap the root to the heap's
+end, sift the new root down ≤ log₂ n levels, whatever the keys. The
+sorted suffix grows as the heap shrinks. No bad input, unlike
+quicksort.

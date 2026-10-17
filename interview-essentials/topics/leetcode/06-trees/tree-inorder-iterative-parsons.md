@@ -55,11 +55,12 @@ requires:
 refs:
   - https://leetcode.com/problems/binary-tree-inorder-traversal/
   - https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+  - https://leetcode.com/problems/binary-search-tree-iterator/
   - Knuth, The Art of Computer Programming, Vol. 1, 3rd ed., §2.3.1, Algorithm T
-elaborate: LC 173 (BST iterator) asks for `next()` in O(h) memory. Which lines become the constructor, and which become `next()`?
+elaborate: Binary Search Tree Iterator (LC 173) asks for `next()`, the next value in order, in O(h) memory. Which lines become the constructor, and which become `next()`?
 ---
 
-LC 94: inorder traversal of a binary tree without recursion. `cur`
+Binary Tree Inorder Traversal (LC 94), without recursion. `cur`
 starts at the root, and `st` arrives as an empty `std::stack<TreeNode*>`
 (a parameter only so the harness can pass a constexpr stand-in).
 Order the lines.
@@ -86,4 +87,6 @@ The outer test needs both halves. At the start the stack is empty but
 `cur` is not, so `while (!st.empty())` never runs. After the last pop,
 `cur` is null but the stack may still hold ancestors. `std::stack::pop`
 returns nothing, so `cur = st.pop()` does not compile: read `top()`
-first. Stop at the k-th pop and this is LC 230.
+first. On LC, `st` and `out` are locals declared first:
+`std::stack<TreeNode*> st; std::vector<int> out;`. Stop at the k-th pop and this is Kth Smallest Element in a BST
+(LC 230).

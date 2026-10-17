@@ -4,6 +4,9 @@ kind: code
 version: 1
 level: 2
 tags: [templates, concepts, abbreviated-templates]
+requires:
+  - tmpl-concept-intro
+  - tmpl-concept-error
 input: chips
 choices:
   c1:

@@ -2,30 +2,35 @@
 id: virtual-static-dispatch
 kind: basic
 version: 1
-level: 1
+level: 2
 tags: [inheritance, virtual]
 requires:
   - virtual-dispatch-which-runs
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
-elaborate: Go interface methods always dispatch on the dynamic type. Where in a C++ class hierarchy does that default flip, and why might C++ have chosen it?
+  - https://eel.is/c++draft/class.virtual#16
+elaborate: Where does your own code call a base-class version from inside an override, and what would happen if the qualification were dropped?
 ---
 
-## Why does this print `shape`, not `circle`?
+## `name` is virtual and `s` refers to a `Circle`. Why does this print `shape`?
 
 ```cpp
-struct Shape  { const char* name() const { return "shape"; } };
-struct Circle : Shape { const char* name() const { return "circle"; } };
+struct Shape {
+    virtual ~Shape() = default;
+    virtual const char* name() const { return "shape"; }
+};
+struct Circle : Shape { const char* name() const override { return "circle"; } };
 Circle c;
 Shape& s = c;
-std::puts(s.name());
+std::puts(s.Shape::name());
 ```
 
 ---
 
-**`name` is not `virtual`, so the call binds to the static type `Shape`.**
+**The qualified name `Shape::name` suppresses virtual dispatch: the call
+binds statically to exactly that function.**
 
-A non-virtual call is resolved at compile time from the type of the
-expression (`Shape&`), whatever object it refers to. `Circle::name` merely
-hides `Shape::name`. Only a `virtual` function dispatches on the object's
-**dynamic** type.
+The qualifier picks the function at compile time,
+whatever object `s` refers to. That is how an override calls its base
+version: inside `Circle::name`, a plain `name()` would call itself
+forever; `Shape::name()` reaches the base.

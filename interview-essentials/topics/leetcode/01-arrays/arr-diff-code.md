@@ -21,11 +21,13 @@ requires:
   - arr-diff-signal
 refs:
   - https://leetcode.com/problems/corporate-flight-bookings/
+  - https://leetcode.com/problems/range-addition/
   - https://cp-algorithms.com/data_structures/fenwick.html#2-range-update-and-point-query
-elaborate: LC 370 numbers its range [start, end] from 0. Which two indices change, and does `d` still need its spare cell?
+elaborate: Range Addition (LC 370) applies updates `[start, end, inc]` to a zero array of length `n`, indexed from 0. Which two indices change, and does `d` still need its spare cell?
 ---
 
-LC 1109: flights are numbered 1 to `n`, and booking `e = [first, last,
+Corporate Flight Bookings (LC 1109): return the seats booked on each
+flight. Flights are numbered 1 to `n`, and booking `e = [first, last,
 seats]` covers flights `first` through `last` inclusive. `d[k]` is the
 change at flight `k + 1`; it has one spare cell at the end. Complete the
 index where the booking stops counting.

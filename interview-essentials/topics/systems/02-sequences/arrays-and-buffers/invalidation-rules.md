@@ -8,16 +8,15 @@ requires:
 tags: [containers, lifetime]
 refs:
   - https://en.cppreference.com/w/cpp/container#Iterator_invalidation
-  - https://en.cppreference.com/w/cpp/container/unordered_map
 ---
 
-Iterator and reference invalidation are two different guarantees, and the
-standard containers deliberately differ on both.
+Iterators, pointers and references are three handles to an element, and
+the standard containers deliberately differ on which of them survive.
 
-A `std::vector` invalidates {{c1::everything::how many of iterators, pointers
-and references?}} whenever it reallocates. A `std::deque` invalidates all
-iterators on a push at either end but leaves {{c2::references and pointers
-to the existing elements::which guarantee survives a push?}} valid. A
+A `std::vector` invalidates {{c1::all three::which of the three handles?}}
+whenever it reallocates. A `std::deque` invalidates all iterators on a
+push at either end but leaves {{c2::references and pointers::which
+handles?}} to the existing elements valid. A
 `std::map` erase invalidates {{c3::only the erased element's iterators
 and references::how much of the tree?}}.
 

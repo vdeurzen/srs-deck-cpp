@@ -22,10 +22,11 @@ compile:
 requires:
   - graph-kahn-trace
 refs:
+  - https://leetcode.com/problems/course-schedule/
   - https://leetcode.com/problems/course-schedule-ii/
   - https://doi.org/10.1145/368996.369025
   - https://cp-algorithms.com/graph/topological-sort.html
-elaborate: LC 207 only asks whether all courses can be finished. Which single comparison on the result answers it, and what does LC 210 return when it fails?
+elaborate: Course Schedule (LC 207) only asks whether all courses can be finished, given prerequisite pairs. Which single comparison on the result answers it, and what does Course Schedule II (LC 210), which returns a valid order, return when there is none?
 ---
 
 ```cpp
@@ -50,5 +51,5 @@ risks.
 
 The cycle check is free: a vertex on a cycle never reaches in-degree 0,
 so `order.size() < V`. The decrement-and-test `--indeg[v] == 0` appends
-each vertex exactly once, on its last incoming edge. On LC, `std::queue<int> q` plus
-`order.push_back` is the same loop.
+each vertex exactly once, on its last incoming edge. On LeetCode,
+`std::queue<int> q` plus `order.push_back` is the same loop.

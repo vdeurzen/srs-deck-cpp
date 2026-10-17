@@ -18,7 +18,6 @@ while (lo <= hi) {
   if (a[mid] == key) return mid;
   if (a[mid] < key) lo = mid + 1; else hi = mid - 1;
 }
-return -1;
 ```
 
 ---
@@ -28,7 +27,7 @@ are `a[lo..hi]`, both ends included. Line by line: start with every
 index; loop while a candidate is left; probe the middle (written so
 `lo + hi` cannot overflow); stop on a hit; otherwise drop `mid` and the
 half on the wrong side of it, which the sorted order proves cannot hold
-the key; an empty range means absent.
+the key. Leaving the loop means the range is empty: the key is
+absent, so `return -1` follows.
 
-Graded by text (`compile: null`): the snippet is a function body, and
-the harness can only be appended after it.
+Graded by text: the snippet is a function body, not a program.

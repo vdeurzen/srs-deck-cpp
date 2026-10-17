@@ -30,5 +30,6 @@ For 10⁶ ints, merge sort's buffer is 4 MB.
 Quicksort recursing into the smaller side and looping on the larger
 keeps the stack ≤ log₂ n deep, since each recursive call at least
 halves the range; naive recursion can go n deep. Heap sort's
-long-distance swaps reorder equal keys. Counting sort needs the k
+root-to-end swaps jump over equal keys: (1,a) (1,b) (2,c) (1,d) comes
+out with (1,b) before (1,a). Counting sort needs the k
 counters plus an n-element output array.

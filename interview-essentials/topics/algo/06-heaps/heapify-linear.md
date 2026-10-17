@@ -13,11 +13,11 @@ refs:
   - https://en.cppreference.com/w/cpp/algorithm/make_heap
 ---
 
-## A heap of 1023 keys (10 full levels). Pushing them one at a time in increasing order costs 8194 swaps. Does bottom-up heapify's worst case make more or fewer swaps than n?
+## A heap of 1023 keys (10 full levels). Pushing them one at a time in increasing order costs 8194 swaps; bottom-up heapify (sift each internal node down, last first) makes at most 1013. What makes heapify so much cheaper?
 
 ---
 
-**Fewer, at most 1013: a node sifts down at most its height, and most nodes are low.**
+**A node sifts down at most its height, and most nodes are near the bottom.**
 
 512 leaves pay 0, 256 at most 1, 128 at most 2, …, the root 9:
 less than n in total, so O(n). A push sifts *up*, by up to its depth,

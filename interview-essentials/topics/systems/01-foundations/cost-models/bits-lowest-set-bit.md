@@ -22,5 +22,5 @@ x & -x = 0000 1000
 
 **`-x` is `~x + 1`, and the `+1` carries up to the lowest set bit.**
 So `-x` matches `x` at that bit (and the zeros below it) and is its
-complement above it; the AND keeps exactly that bit. Use `unsigned`
-or wider: a `uint8_t` promotes to `int` before `-` applies.
+complement above it; the AND keeps exactly that bit. Use an unsigned
+type: for a signed `x`, `-x` overflows (UB) when `x` is `INT_MIN`.

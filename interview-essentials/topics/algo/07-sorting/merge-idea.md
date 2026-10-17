@@ -11,7 +11,7 @@ refs:
   - https://en.wikipedia.org/wiki/Merge_sort
 ---
 
-## Merge sort runs on an 8-element array that is already sorted. Why does it still take Θ(n log n)?
+## A plain top-down merge sort (always splits in half, always merges) runs on an 8-element array that is already sorted. Why does it still take Θ(n log n)?
 
 ---
 

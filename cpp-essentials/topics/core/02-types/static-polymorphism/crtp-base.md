@@ -39,5 +39,5 @@ struct Square : {{c1::Shape<Square>}} {
 CRTP: the derived class passes **itself** as the base's template
 argument, so the base knows the exact type to `static_cast` to.
 `Shape<int>` casts to the wrong type. A `virtual` base forbids the
-downward `static_cast` altogether (here it also stops the `constexpr`
-constructor compiling first).
+downward `static_cast` altogether. What it buys: the base calls
+`compute_area` directly, with no run-time dispatch, so the call can inline.

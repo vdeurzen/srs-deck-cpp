@@ -11,7 +11,7 @@ refs:
   - https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
 ---
 
-## Bellman-Ford relaxes *every* edge, in any order, V − 1 times, and negative edges are allowed. Why is V − 1 rounds enough?
+## Bellman-Ford *relaxes* every edge (u, v, w), in any order, V − 1 times: if `dist[u] + w < dist[v]`, set `dist[v] = dist[u] + w`. With negative edges but no negative cycle, why is V − 1 rounds enough?
 
 ```
 s →(2) a →(1) b →(−3) c        s →(1) c

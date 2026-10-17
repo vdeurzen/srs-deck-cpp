@@ -11,13 +11,15 @@ refs:
   - https://eel.is/c++draft/class.copy.assign
 ---
 
-## `Row b = std::move(a);` — what happens to `key`?
+## The last line moves `a` into `b`. What happens to `key`?
 
 ```cpp
 struct Row {
     const std::string key;
     std::vector<int> vals;
 };
+Row a{"user-id", {1, 2, 3}};
+Row b = std::move(a);
 ```
 
 ---
@@ -26,5 +28,4 @@ struct Row {
 initialises each member from the corresponding xvalue, and a
 `const std::string` xvalue cannot bind `std::string&&`, so overload
 resolution picks `std::string`'s copy constructor for that member.
-Silent, decided per member, and the only way a `const` member can ever
-be "moved".
+Silent, decided per member: a `const` member is never moved, only copied.

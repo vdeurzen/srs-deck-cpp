@@ -11,7 +11,7 @@ refs:
   - https://eel.is/c++draft/temp.inst
 ---
 
-## This template is defined, yet the object file holds no code for it. What makes the compiler generate `twice<int>`?
+## This template is defined, yet the object file holds no code for it. With no explicit instantiation anywhere, what makes the compiler generate `twice<int>`?
 
 ```cpp
 template<class T>

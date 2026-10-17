@@ -10,9 +10,10 @@ requires:
   - technique-knapsack-direction
 refs:
   - https://leetcode.com/problems/coin-change-ii/
+  - https://leetcode.com/problems/unique-paths/
   - https://en.wikipedia.org/wiki/Change-making_problem
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
-elaborate: dp-grid-paths-chunk has the same `x[j] += x[j - step]` line. What is the step there, and what plays the role of a coin?
+elaborate: Unique Paths (LC 62), counting the right-and-down paths across an `m × n` grid, fits in one rolling row with the same `x[j] += x[j - step]` line. What is the step there, and what plays the role of a coin?
 ---
 
 ```cpp
@@ -26,7 +27,8 @@ return dp[amount];
 
 ---
 
-**Unbounded knapsack, counting combinations** (LC 518). Coins outer:
+**Unbounded knapsack, counting combinations**: Coin Change II (LC 518),
+the ways to make `amount` from reusable `coins`. Coins outer:
 each multiset is built once. `a` upwards: `dp[a - c]` may already use `c`.
 
 `unsigned`: coins {2, 4, …, 20} with amount 4999 answer 0, yet cells

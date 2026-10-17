@@ -13,6 +13,6 @@ refs:
 ---
 
 In the standard's own terms, `sizeof(int)` is
-{{c1::implementation-defined}} behaviour. Whether `f(g(), h())` calls `g`
-or `h` first is {{c2::unspecified}} behaviour. Reading `a[8]` from
-`int a[8];` is {{c3::undefined}} behaviour.
+{{c1::implementation-defined::each compiler documents its choice}} behaviour. Whether `f(g(), h())` calls `g`
+or `h` first is {{c2::unspecified::one of several allowed outcomes, not documented}} behaviour. Reading `a[8]` from
+`int a[8];` is {{c3::undefined::no requirements at all}} behaviour.

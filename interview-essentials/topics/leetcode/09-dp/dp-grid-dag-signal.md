@@ -10,20 +10,23 @@ refs:
   - https://leetcode.com/problems/minimum-path-sum/
   - https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
-elaborate: LC 2290 allows all four directions. Which algorithm does it need instead, and what cycle breaks the table order?
+elaborate: With moves down, right and up-right, row-major order fails, yet a table DP still works. Which fill order does, and why?
 ---
 
 > Given an `m x n` grid filled with non-negative numbers, find a path
 > from top left to bottom right which minimizes the sum of all numbers
 > along its path. You can only move either down or right at any point.
 
-## What property of the allowed moves lets each cell be computed from earlier cells, and in what order?
+A row-by-row table solves it with
+`d[i][j] = g[i][j] + min(d[i−1][j], d[i][j−1])`.
+
+## If moves up and left were allowed too, could any table fill order still work?
 
 ---
 
-**"Only down or right": the grid is a DAG, so a table DP filled row by row works.**
+**No: two cells could then reach each other, so neither can be filled first.**
 
-`d[i][j] = g[i][j] + min(d[i−1][j], d[i][j−1])` reads only final
-cells: row-major order is a topological order. With up or left moves too
-(LC 2290), cells reach each other, no fill order exists, and it becomes
-a shortest-path search.
+Down-or-right moves make the grid a DAG: `d[i][j]` reads only cells
+above and to the left, already final, so row-major is a topological
+order. A cycle has no such order; with non-negative costs it becomes a
+shortest-path search (Dijkstra).

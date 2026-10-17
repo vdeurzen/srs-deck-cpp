@@ -17,7 +17,9 @@ compile:
     static_assert(!has_pair(kA, 21));
     int main() {}
 refs:
-  - https://en.wikipedia.org/wiki/3SUM
+  - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
+requires:
+  - linear-two-pointers-sorted-pair
 ---
 
 Does a sorted array hold two elements (at different positions) that sum

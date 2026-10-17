@@ -14,10 +14,10 @@ refs:
 SPSC producer: load its own `tail` `relaxed`, load `head`, write the
 slot as a plain store, then store `tail + 1` with
 {{c1::release::a memory order}}, so a consumer that sees the new `tail`
-also sees the slot's contents. The producer's load of `head` is not
-about seeing space: it orders the consumer's
-earlier {{c2::read of the slot::an access to the ring}} before the
-producer's overwrite of it, which would otherwise be a data race.
+also sees the slot's contents. The producer's `acquire` load of `head`
+does two jobs: it shows free space, and it orders the consumer's
+earlier {{c2::read::which access of the consumer's?}} of the slot before
+the producer's overwrite of it, which would otherwise be a data race.
 
 ---
 
@@ -26,4 +26,4 @@ The `head` load is `acquire`, pairing with the consumer's release of
 Relaxed suffices for your own counter: you are its only writer, and
 coherence makes your own last store visible to you. Two release/acquire
 pairs in all, one per direction, each carrying the data written just
-before it. The consumer is the mirror image.
+before it. (c2: "load" is the same answer.) The consumer is the mirror image.

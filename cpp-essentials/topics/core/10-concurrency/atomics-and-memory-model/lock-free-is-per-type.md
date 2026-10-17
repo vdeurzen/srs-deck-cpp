@@ -35,13 +35,8 @@ std::atomic<Slot> slot;
 ---
 
 **Lock-freedom is a property of the type on a platform, not of
-`std::atomic`.** Eight bytes is one instruction on x86-64. The others
-*compile* — any trivially copyable type can be atomic — but GCC reports
-`is_always_lock_free == false` for them: a three-byte `Rgb` and a
-twelve-byte `Xyz` are not hardware sizes, and for sixteen bytes
-(`long double` included, a scalar) GCC gives no compile-time
-guarantee (even with `-mcx16`; `libatomic` picks `cmpxchg16b` at run
-time and falls back to a lock). `is_always_lock_free` is the
-compile-time check to `static_assert` on; `is_lock_free()` is the
-run-time one, and a "lock-free" structure built on an atomic that is
-not is just a slower mutex.
+`std::atomic`.** Every choice compiles, since any trivially copyable type
+can be atomic, but GCC on x86-64 sets `is_always_lock_free` only for the
+8-byte `uint64_t`: 3, 12 and 16 bytes (`long double` included) get no
+guarantee. `is_always_lock_free` is the compile-time check to
+`static_assert`; `is_lock_free()` asks at run time.

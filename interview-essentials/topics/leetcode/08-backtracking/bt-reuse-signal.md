@@ -3,25 +3,28 @@ id: bt-reuse-signal
 kind: cloze
 version: 1
 level: 3
-tags: [backtracking, combinations, recognition, lc-39, lc-40]
+tags: [backtracking, combinations, permutations, recognition, lc-39, lc-40, lc-377]
 requires:
   - bt-combination-start-index
 refs:
   - https://leetcode.com/problems/combination-sum/
   - https://leetcode.com/problems/combination-sum-ii/
+  - https://leetcode.com/problems/combination-sum-iv/
+  - https://leetcode.com/problems/permutations/
   - https://doi.org/10.1145/321296.321300
-elaborate: LC 216 (combination sum III) picks digits 1–9, "each number is used at most once". Which start index, and what plays the role of the sorted candidates?
+elaborate: Permutations (LC 46) lists every ordering of distinct `nums`, each used exactly once. Why is a fixed start index no longer enough on its own, and what must the recursion track instead?
 ---
 
-One template, sorted input `c`, and a loop
-`for (int j = i; j < n; ++j)` that tries `c[j]` next. LC 40 says "each
-number in candidates may only be used once in the combination", so the
-recursive call starts from {{c1::j + 1::an index}}.
+One template, sorted distinct values `c`, and a loop
+`for (int j = i; j < n; ++j)` that tries `c[j]` next. Listing
+combinations that sum to `target` with unlimited reuse recurses from
+`j`; with each value used at most once, from `j + 1`. Listing every
+*ordered* sequence that sums to `target`, with reuse, where [1, 2] and
+[2, 1] both count, recurses from {{c1::0::an index}}.
 
 ---
 
-The start index decides what a subtree may still pick: `j + 1` moves
-past the item just taken. LC 39's "the same number may be chosen an
-unlimited number of times" recurses from `j` instead, keeping that item
-available. Both only move forward, so no combination comes out twice in
-a different order.
+The start index decides what a subtree may still pick. `j` and `j + 1`
+only move forward, so each combination comes out once, in increasing
+index order. When order matters, every position may hold any value
+again, so each call restarts the loop at 0.

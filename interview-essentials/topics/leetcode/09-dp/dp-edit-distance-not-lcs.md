@@ -13,15 +13,17 @@ refs:
 elaborate: Which of your string problems allows a replace, and which only allows deletions? Check the statement before choosing the formula.
 ---
 
-LC 583 (make two words equal, deletions only) has the answer
-`m + n − 2 · LCS`. A candidate reuses it for LC 72, where inserts,
-deletes and replaces each cost 1.
+Delete Operation for Two Strings (LC 583), the fewest single-character
+deletions from either word that make two words equal, has the answer
+`m + n − 2 · LCS`, where LCS is the length of the longest common
+subsequence of the two words. A candidate reuses it for Edit Distance (LC 72),
+where inserts, deletes and replaces each cost 1.
 
 ## What does the formula return for `"abc"` → `"xbz"`?
 
 ---
 
-**4, but LC 72's answer is 2: replace `a`→`x` and `c`→`z`.**
+**4, but the edit distance is 2: replace `a`→`x` and `c`→`z`.**
 
 The LCS formula prices a mismatched pair as delete + insert, 2
 operations. Edit distance can fix it with one replace: the diagonal

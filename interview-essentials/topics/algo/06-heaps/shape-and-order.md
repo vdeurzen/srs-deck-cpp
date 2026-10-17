@@ -19,7 +19,7 @@ refs:
 
 A binary max-heap keeps two rules. Its shape is {{c1::complete::a shape}}:
 every level is full except the last, which fills from the left. Its order:
-every parent is {{c2::at least as large as its children::a comparison}},
+every parent is {{c2::≥::a comparison}} each of its children,
 so the maximum is at the root. Nothing orders siblings: 7 and 8 could
 swap places. The shape lets the tree live in an array in level order,
 with no pointers.

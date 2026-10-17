@@ -26,9 +26,9 @@ public:
 
 ---
 
-**Only the constructor and the member functions that write `lo_` or `hi_`.**
+**Only `Range`'s own members (plus any friends it declares).**
 
-`lo_` and `hi_` are `private`, so no code outside `Range` can change them.
-The constructor must establish `lo <= hi` (or reject its arguments) and
-`widen` must preserve it. Everything else, including every caller, may rely
+`lo_` and `hi_` are `private`, so no other code can change them. The
+constructor must establish `lo <= hi` and `widen` preserve it; `size()` is
+`const`, and the implicit copies copy a valid pair. Every caller may rely
 on it unchecked: that local reasoning is what `private` buys.

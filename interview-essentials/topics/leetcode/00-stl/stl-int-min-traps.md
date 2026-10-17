@@ -12,7 +12,9 @@ refs:
 elaborate: "Which other one-liners fail on exactly this input: `std::abs(x)`, `x / -1`, `x % -1`?"
 ---
 
-A common LC 7 (Reverse Integer) solution:
+Reverse Integer (LC 7): reverse the decimal digits of the 32-bit `int`
+`x`, keeping its sign; return 0 if the result does not fit in an `int`.
+A common solution:
 
 ```cpp
 #include <climits>

@@ -12,7 +12,7 @@ refs:
   - https://leetcode.com/problems/longest-substring-without-repeating-characters/
   - https://leetcode.com/problems/minimum-window-substring/
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 16 (aggregate analysis)
-elaborate: LC 76 wants the shortest valid window. Where does the `best` line move, and why?
+elaborate: Minimum Window Substring (LC 76) wants the shortest window of `s` containing every letter of `t`. Where does the `best` line move, and why?
 ---
 
 ```cpp
@@ -27,18 +27,19 @@ return best;
 
 ---
 
-**Variable sliding window** (LC 3, longest substring without repeating
-characters). `s[hi]` enters; `lo` moves right until `s[lo..hi]` is valid
+**Variable sliding window** (Longest Substring Without Repeating
+Characters, LC 3: the length of the longest substring of `s` with no
+repeated character). `s[hi]` enters; `lo` moves right until `s[lo..hi]` is valid
 again; the valid window is then measured.
 
 `while`, not `if`: in `"abcb"` the repeated `b` is two steps back, so
 one step is not enough. `lo` and `hi` only move right: O(n).
 
-For a *shortest* valid window (LC 76) the shape flips: record inside the
+For a *shortest* valid window (Minimum Window Substring, LC 76) the shape flips: record inside the
 `while`, while the window is still valid, then shrink.
 
 Graded by text (`compile: null`): it is the body of
 `int lengthOfLongestSubstring(std::string s)`, and a harness can only be
 appended after it. Checked by including it verbatim in a constexpr test
-of LC 3's examples, GCC 16.2; `-Wall` warns about the `char` subscript,
-harmless for LC 3's ASCII input.
+of the problem's examples, GCC 16.2; `-Wall` warns about the `char`
+subscript, harmless for its ASCII input.

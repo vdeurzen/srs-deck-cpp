@@ -24,9 +24,9 @@ for (int x : values) {
 
 ---
 
-**The vector, typically ~10× sooner: the search dominates, and list nodes miss cache.**
+**The vector, typically ~10× sooner: the search dominates, not the insert.**
 
-`list::insert` is O(1) only once you hold the position; reaching it is
-a chain of dependent pointer loads. The vector's shift is a sequential
-`memmove`. Measured (GCC 16.2 `-O2`, Ryzen 7 PRO 6850U): list 105 ms,
+`list::insert` is O(1) only once you hold the position. Reaching it is
+a chain of dependent loads, one node at a time; the vector's search and
+shift scan contiguous memory, prefetched and vectorisable. Measured (GCC 16.2 `-O2`, Ryzen 7 PRO 6850U): list 105 ms,
 vector 10 ms.

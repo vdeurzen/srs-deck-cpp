@@ -24,8 +24,7 @@ refs:
 ---
 
 A ring buffer keeps a monotonically increasing sequence number and maps it
-to a slot. Complete the wrap so a power-of-two capacity costs one AND
-instead of a division.
+to a slot. Complete the wrap for a power-of-two capacity.
 
 ```cpp
 #include <bit>
@@ -43,8 +42,8 @@ constexpr std::size_t slot_of(std::uint64_t sequence) {
 ---
 
 For a power of two, `x & (n − 1)` *is* `x % n` — the mask keeps exactly
-the low bits that survive the division — and it costs one cycle where an
-integer modulo costs twenty or more. The compiler can only make that
+the low bits that survive the division — and it costs one cycle where a
+64-bit integer division costs tens of cycles on most x86 cores. The compiler can only make that
 substitution for itself when the divisor is a compile-time power of two,
 which is one good reason to make the capacity a template parameter or a
 `constexpr` rather than a runtime field.
@@ -52,9 +51,8 @@ which is one good reason to make the capacity a template parameter or a
 Keeping a free-running 64-bit sequence and masking at the point of use,
 rather than storing an already-wrapped index, is the LMAX Disruptor's
 trick: `head` and `tail` never wrap in 64 bits at any plausible rate, so
-`tail − head` is the size, `tail == head` is empty, and there is no
-ambiguity to resolve — the comparison that makes naive index-based rings
-need an extra "full" flag or a wasted slot.
+`tail − head` is the size and `tail == head` is empty, where wrapped
+indices would need a "full" flag or a wasted slot.
 
 The `static_assert` on `std::has_single_bit` is part of the design, not
 decoration: with any other capacity the mask silently returns wrong

@@ -19,7 +19,7 @@ compile:
         {{1, 'a'}, {1, 'd'}, {3, 'b'}, {3, 'e'}, {4, 'f'}, {5, 'c'}}});
     int main() {}
 requires:
-  - sort-merge-space
+  - sort-merge-idea
   - sort-stable-meaning
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/merge

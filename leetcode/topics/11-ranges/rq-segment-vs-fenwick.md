@@ -14,7 +14,8 @@ refs:
 elaborate: Which other operations have the same problem as min (max, gcd, bitwise OR), and which could still use a Fenwick tree (xor, product mod p)?
 ---
 
-LC 307 interleaves `update(i, val)` with `sumRange(l, r)`, and a
+Range Sum Query - Mutable (LC 307) interleaves `update(i, val)` with
+`sumRange(l, r)` on an array `nums`, and a
 Fenwick tree does both in O(log n). The same problem with
 `minRange(l, r)` instead:
 

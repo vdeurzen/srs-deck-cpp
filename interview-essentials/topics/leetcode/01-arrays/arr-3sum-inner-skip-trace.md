@@ -15,7 +15,8 @@ refs:
 elaborate: Why is there no matching skip loop for `hi`? What does the next comparison do with a repeated `a[hi]`?
 ---
 
-LC 15's inner scan for the fixed `a[0] = -4`, one step per call.
+3Sum (LC 15): every triplet summing to 0, without duplicate triplets.
+Its inner scan for the fixed `a[0] = -4`, one step per call.
 
 ```cpp
 std::vector<int> a = {-4, 1, 1, 2, 3, 3};   // sorted

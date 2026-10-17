@@ -9,11 +9,11 @@ refs:
   - https://en.cppreference.com/w/cpp/algorithm/partial_sum
 ---
 
-## `p[i]` holds the sum of the first `i` elements of `a`. How do you get the sum of `a[2..5)` without a loop?
+## You must answer 1000 range-sum queries on a fixed array `a`. `p[i]` holds the sum of the first `i` elements. How do you get the sum of the elements at indices 2, 3 and 4 without a loop?
 
 ```cpp
 int a[] = {3, 1, 4, 1, 5, 9};
-int p[] = {0, 3, 4, 8, 9, 14, 23};   // p[0] = 0, p[i+1] = p[i] + a[i]
+int p[] = {0, 3, 4, 8, 9, 14, 23};   // p[i] = a[0] + … + a[i-1]
 ```
 
 ---

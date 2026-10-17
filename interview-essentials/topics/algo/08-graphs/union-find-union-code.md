@@ -22,11 +22,11 @@ compile:
     }
     static_assert(deepest() == 1);
     int main() {}
-requires:
-  - interview-essentials/graph-union-find-forest
 refs:
   - https://doi.org/10.1145/321879.321884
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure#Union_by_rank
+requires:
+  - graph-union-find-forest
 ---
 
 Union by rank: `rank[r]` bounds the height of the tree under root `r`.
@@ -54,6 +54,7 @@ struct Sets {
 then does not grow; only two equal ranks make the result one taller.
 
 Here the first union makes a rank-1 tree, and 2, 3, 4 each hang
-directly under its root: depth 1. Always hanging one fixed side
-(`false`, `a < b`) or the taller under the shorter builds the chain
-0 → 1 → 2 → 3 → 4, where `find` costs O(n).
+directly under its root: depth 1. Ignoring rank (`false`, or
+`a < b`, which compares vertex names, not heights) or hanging the taller
+under the shorter builds the chain 0 → 1 → 2 → 3 → 4 here, where `find`
+costs O(n).

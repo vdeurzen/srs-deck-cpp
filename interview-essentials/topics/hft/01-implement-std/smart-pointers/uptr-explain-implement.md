@@ -17,7 +17,7 @@ The interviewer: "Implement `std::unique_ptr`." Talk through what it
 stores, why it can't be copied, how `reset` is written, and what
 changes for arrays.
 ---
-- [ ] Stores the deleter as a member beside the `T*`, so a stateful deleter widens every `unique_ptr` and an empty one (EBO or `[[no_unique_address]]`) costs nothing
+- [ ] Stores the deleter beside the `T*`, so a stateful deleter widens every `unique_ptr` (an empty one costs nothing, via EBO or `[[no_unique_address]]`)
 - [ ] Deletes the copy constructor and copy assignment, because a second owner would delete the object twice
 - [ ] Adds no `p != q` guard to `reset`, as the standard specifies none, so `reset(get())` is the caller's double-delete bug
 - [ ] `reset(q)` stores `q` before calling the deleter on the old pointer, because the deleter may destroy `*this`

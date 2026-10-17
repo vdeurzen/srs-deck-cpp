@@ -12,11 +12,11 @@ refs:
   - https://en.wikipedia.org/wiki/Greedy_algorithm
 ---
 
-Why "earliest end first" is optimal: take any optimal schedule and let g
-be the talk greedy picks first. The optimal schedule's first talk ends
-{{c1::no earlier than g::compare the end times}}, so replacing it with g
-creates no conflict and keeps {{c2::the same number of talks}}: still
-optimal. Repeat on the talks after g.
+Why "earliest end first" is optimal: take any optimal schedule, let o be
+its first talk and g the talk greedy picks first. Then end(g)
+{{c1::≤}} end(o), so swapping o for g creates no {{c2::overlap}} with
+the later talks and keeps the count: still optimal. Repeat on the talks
+after g.
 
 ---
 

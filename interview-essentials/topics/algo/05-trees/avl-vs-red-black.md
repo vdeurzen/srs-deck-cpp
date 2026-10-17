@@ -18,9 +18,9 @@ requires:
 
 ---
 
-**Looser balance means less repair per insert and delete.**
+**Looser balance makes deletes cheap: at most 3 rotations, against one per level for AVL.**
 
 AVL stays within ~1.44 log₂ n, red-black within 2 log₂ n, so AVL lookups
-touch slightly fewer nodes. But a red-black delete needs at most three
-rotations, while an AVL delete may rotate at every level up the path. For
-a map updated as often as read, red-black wins.
+touch slightly fewer nodes. Inserts cost about the same (AVL at most one
+single or double rotation, red-black two). Maps that erase often favour
+red-black.

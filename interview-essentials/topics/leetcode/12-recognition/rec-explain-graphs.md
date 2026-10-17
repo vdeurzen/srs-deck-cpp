@@ -14,8 +14,9 @@ refs:
   - https://leetcode.com/problems/network-delay-time/
   - https://leetcode.com/problems/course-schedule/
   - https://leetcode.com/problems/redundant-connection/
+  - https://leetcode.com/problems/cheapest-flights-within-k-stops/
   - https://cp-algorithms.com/graph/01_bfs.html
-elaborate: LC 787 (cheapest flight with at most k stops) has non-negative prices, yet plain Dijkstra on cities gives wrong answers. What has to go into the state?
+elaborate: Cheapest Flights Within K Stops (LC 787) asks for the cheapest price from `src` to `dst` with at most `k` stops; prices are non-negative, yet plain Dijkstra on cities gives wrong answers. What has to go into the state?
 ---
 For each statement, name the algorithm and the property that decides
 it. (1) The fewest one-letter changes that turn `begin` into `end`,

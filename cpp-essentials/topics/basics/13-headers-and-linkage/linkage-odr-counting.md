@@ -12,9 +12,9 @@ refs:
 ---
 
 The one-definition rule. A non-`inline` function or global variable that
-the program uses is defined in
-{{c1::exactly one translation unit::how many, program-wide}}. A class, or
-an `inline` function, may be defined in
-{{c2::every translation unit that uses it::how many, program-wide}},
+the program uses is defined in exactly
+{{c1::one::a number}} translation unit. A class, or an
+`inline` function, may be defined in {{c2::every::a quantifier}}
+translation unit that uses it,
 provided all those definitions are
 {{c3::identical::or the program is broken, and no tool need say so}}.

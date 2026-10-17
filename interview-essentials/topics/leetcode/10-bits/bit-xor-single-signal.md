@@ -6,8 +6,9 @@ level: 2
 tags: [bit-tricks, xor, recognition, lc-136]
 refs:
   - https://leetcode.com/problems/single-number/
+  - https://leetcode.com/problems/missing-number/
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Bitwise_logic_operators
-elaborate: LC 268 (missing number in 0..n) has no pairs in its input. Which second sequence would you XOR in to create them?
+elaborate: Missing Number (LC 268) gives `n` distinct numbers from 0..n and asks for the one absent, with no pairs in its input. Which second sequence would you XOR in to create them?
 ---
 
 > Given a non-empty array of integers `nums`, every element appears

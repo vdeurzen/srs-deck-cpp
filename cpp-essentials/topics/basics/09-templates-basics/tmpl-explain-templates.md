@@ -5,9 +5,9 @@ version: 1
 level: 2
 tags: [templates, deduction, instantiation, concepts]
 requires:
-  - tmpl-explicit-argument
+  - tmpl-deduction-conflict
   - tmpl-distinct-types
-  - tmpl-constrained-auto
+  - tmpl-concept-error
 refs:
   - https://en.cppreference.com/w/cpp/language/templates
   - https://en.cppreference.com/w/cpp/language/function_template
@@ -15,7 +15,7 @@ refs:
 A newcomer writes `template <typename T> T larger(T a, T b)` and calls it a few times. Explain what the compiler does with it, from the definition to the code that runs.
 ---
 - [ ] A template is a pattern, not a function: no code exists for it until it is used with concrete types
-- [ ] At each call `T` is deduced from the arguments; every argument must deduce the same `T`, with no conversions considered, unless `T` is written explicitly (`larger<double>(1, 2.5)`)
+- [ ] At each call `T` is deduced from the arguments, and every argument must deduce the same `T`: `larger(1, 2.5)` does not compile
 - [ ] Each distinct set of template arguments instantiates a separate function or class: `larger<int>` and `larger<double>` (or `Box<int>` and `Box<long>`) are unrelated, with their own statics
 - [ ] The body is checked against the real type only at instantiation, so an operation the type lacks errors inside the template
-- [ ] A constraint (`template <std::integral T>`, or `std::integral auto`) moves that check to the call, with an error naming the unmet concept
+- [ ] A constraint (`template <std::integral T>`) moves that check to the call, with an error naming the unmet concept

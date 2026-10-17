@@ -47,6 +47,13 @@ retrievable units, linked into a graph, met from several angles.
 11. **Answerable in ~15 s.** Longer is an `explain` or a hands-on card.
 12. **Don't memorise lookups.** API lists and derivable trivia stay out; the
     structure that lets you find them goes in. (Nielsen)
+13. **Self-contained.** Everything the learner needs is on the card. Never
+    lean on a problem number, another card or an outside example: "LC 209"
+    or "the next card" means nothing to someone who hasn't memorised it.
+    Name a problem and state it in one line ("Minimum Size Subarray Sum:
+    shortest subarray with sum ≥ target, all values positive"). The
+    number may follow the name in parentheses, as a lookup handle only, and
+    belongs in `refs` as the problem's URL.
 
 ## 3. Sequencing (`requires`)
 

@@ -29,7 +29,7 @@ refs:
 elaborate: "`ans[i >> 1] + (i & 1)` is the other O(n) recurrence. Which bit of `i` does each recurrence drop?"
 ---
 
-LC 338: return the number of 1 bits of every `i` in `0..n`, in O(n)
+Counting Bits (LC 338): return the number of 1 bits of every `i` in `0..n`, in O(n)
 and without a built-in popcount. Complete the index of the earlier
 answer that `i` extends by one bit.
 

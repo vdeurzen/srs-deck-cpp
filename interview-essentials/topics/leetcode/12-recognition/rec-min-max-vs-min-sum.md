@@ -10,8 +10,10 @@ requires:
 refs:
   - https://leetcode.com/problems/split-array-largest-sum/
   - https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/
+  - https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+  - https://leetcode.com/problems/koko-eating-bananas/
   - https://cp-algorithms.com/num_methods/binary_search.html
-elaborate: LC 1011 (ship within D days) and LC 875 (Koko) also minimise a largest value. What is the greedy check `ok(x)` in each?
+elaborate: Capacity To Ship Packages Within D Days (LC 1011, the least ship capacity that carries `weights` in order within `days` days) and Koko Eating Bananas (LC 875, the least hourly rate that eats all `piles` within `h` hours, one pile per hour) also binary-search the least value that passes a test. What is the greedy check `ok(x)` in each?
 ---
 
 Both cut an array into `k` contiguous, non-empty pieces in order.

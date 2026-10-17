@@ -40,7 +40,7 @@ requires:
 refs:
   - https://www.kernel.org/doc/html/latest/core-api/kernel-api.html#list-management-functions
   - https://en.cppreference.com/w/cpp/container/list/splice
-elaborate: Which line of `trace-lru-order`'s `std::list` version does this body replace, and what does that version allocate that this one doesn't?
+elaborate: Which `splice` call in the `std::list` LRU does this body replace, and what does that version allocate that this one doesn't?
 ---
 
 The interviewer: "Write the LRU's hit path with no pointers and no

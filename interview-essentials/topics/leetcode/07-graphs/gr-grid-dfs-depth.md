@@ -13,8 +13,10 @@ refs:
 elaborate: Which of your own recursive walks (AST, directory tree, dependency graph) has a depth set by the input's size rather than its shape?
 ---
 
-The recursive `sink` from LC 200 (mark the cell, then recurse down,
-right, up, left) is accepted: LeetCode's grids are at most 300 × 300.
+Number of Islands (LC 200): count the groups of `'1'` cells joined up,
+down, left and right. A recursive `sink` (mark the cell, then recurse
+down, right, up, left) is accepted: LeetCode's grids are at most
+300 × 300.
 
 ## What bounds `sink`'s recursion depth on an m × n all-`'1'` grid, and is 1000 × 1000 safe?
 

@@ -7,6 +7,8 @@ tags: [raw-storage, allocator, lifetime]
 refs:
   - https://en.cppreference.com/w/cpp/memory/allocator/allocate
   - https://timsong-cpp.github.io/cppwp/n4950/allocator.members#5
+requires:
+  - class-constructor-intro
 ---
 
 ## After the last line, how many `Order` objects exist?

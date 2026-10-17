@@ -11,11 +11,12 @@ refs:
   - https://en.cppreference.com/w/cpp/language/storage_duration#Linkage
 ---
 
-## `config.h` contains `int verbosity = 1;`, and three `.cpp` files include it. The link fails with `multiple definition of 'verbosity'`. What should the header say instead?
+## `config.h` contains `int verbosity = 1;`, and three `.cpp` files include it. The link fails with `multiple definition of 'verbosity'`. What should the header say, so that exactly one `.cpp` file holds the definition?
 
 ---
 
-**`extern int verbosity;`: a declaration that defines nothing.** Exactly
-one `.cpp` then holds the definition, `int verbosity = 1;`. Every file
-can use the variable, and the program has one object. (`extern` with an
-initializer would be a definition again.)
+**`extern int verbosity;`: a declaration that defines nothing.** One
+`.cpp` then writes `int verbosity = 1;`. Every file can use the variable,
+and the program has one object. (`extern` with an initializer would be a
+definition again.) The header-only alternative, since C++17, is
+`inline int verbosity = 1;`.

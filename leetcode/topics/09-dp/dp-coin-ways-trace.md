@@ -14,7 +14,9 @@ refs:
   - https://en.wikipedia.org/wiki/Change-making_problem
 ---
 
-LC 518 on `coins = {1, 2, 5}`, `amount = 5`, one coin per call. Write
+Coin Change II (LC 518): count the combinations of `coins` that make
+`amount`, each coin reusable. Here `coins = {1, 2, 5}`, `amount = 5`,
+one coin per call. Write
 `dp` as its six values, `dp[0]` first, separated by spaces.
 
 ```cpp

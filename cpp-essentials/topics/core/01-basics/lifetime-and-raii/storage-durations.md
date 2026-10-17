@@ -12,11 +12,11 @@ refs:
 ---
 
 Every object's storage duration fixes when it is destroyed. A local
-declared inside a block has {{c1::automatic::the enclosing block decides}}
+declared inside a block has {{c1::automatic}}
 storage duration: it is destroyed, destructor and all, when control leaves
 the block, however it leaves. An object created with `new` has
-{{c2::dynamic::nothing ends it but you}} storage duration and lives until
+{{c2::dynamic}} storage duration and lives until
 the matching `delete`, which is why a forgotten `delete` is a leak. A
-namespace-scope variable has {{c3::static::one per program}} storage
+namespace-scope variable has {{c3::static}} storage
 duration: it lives for the whole program and is destroyed after `main`
 returns.

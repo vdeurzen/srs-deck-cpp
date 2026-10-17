@@ -11,14 +11,15 @@ Decks into two foundation Decks. Their old review history is gone, and each Card
 one schedule, so nothing is reviewed twice after the sprint. `moved.tsv` maps every old
 id to its new one, `added-edges.tsv` lists the prerequisites added afterwards to replace the ones lost in the move, `selection/` holds the per-Deck picks with a reason for each (tier A
 was moved; tier B stayed behind, but was the next cut), and `move.py` is the script that
-did it.
+did it. `review/` holds the 2026-10-17 quality review: one findings file per
+batch, each ending with what was applied.
 
 | Deck | Cards | From | Covers |
 | --- | --- | --- | --- |
-| `cpp-essentials` | 295 | cpp-basics, cpp-core | pointers/references, const, classes and special members, lifetime and RAII, value categories, move semantics, smart pointers, virtual dispatch, templates and concepts, lambdas, containers and invalidation, exceptions and noexcept, UB, layout, threads, atomics |
-| `interview-essentials` | 265 | algo-basics, leetcode, hft-interview, algo-systems | complexity, hashing, binary search, trees, heaps, sorting, graphs, greedy and DP, LeetCode templates and recognition cues, STL traps, implementing vector / unique_ptr / shared_ptr, SPSC, LRU, the trivia round, cache and false sharing |
+| `cpp-essentials` | 300 | cpp-basics, cpp-core | pointers/references, const, classes and special members, lifetime and RAII, value categories, move semantics, smart pointers, virtual dispatch, templates and concepts, lambdas, containers and invalidation, exceptions and noexcept, UB, layout, threads, atomics |
+| `interview-essentials` | 273 | algo-basics, leetcode, hft-interview, algo-systems | complexity, hashing, binary search, trees, heaps, sorting, graphs, greedy and DP, LeetCode templates and recognition cues, STL traps, implementing vector / unique_ptr / shared_ptr, SPSC, LRU, the trivia round, cache and false sharing |
 
-That comes to 609 review items (a cloze Card counts once per blank). Left out:
+That comes to 619 review items (a cloze Card counts once per blank). Left out:
 coroutines, senders/execution, modules, raw-storage exotica, compilers, databases,
 formal asymptotics, and the deeper on-site chains (order book, SSO, type erasure).
 
@@ -35,7 +36,7 @@ formal asymptotics, and the deeper on-site chains (order book, SSO, type erasure
    evening. A Card unlocks only once its prerequisites have been rated, so a second
    session picks up what the first one unlocked. With one session a day, the deepest
    chains (move semantics → `move_if_noexcept` → building a vector, depth 11) would
-   still be arriving on day 12. With two, everything is in by day 11.
+   still be arriving on day 13. With two, everything is in by day 12.
 
 ## Expected load (rough model)
 
@@ -44,8 +45,8 @@ formal asymptotics, and the deeper on-site chains (order book, SSO, type erasure
 | 1–3 | 60 | 0–70 | 1–1.5 h |
 | 4–7 | 60 | ~140 | ~1.75 h |
 | 8–10 | 60 | ~210 | ~2.25 h (peak) |
-| 11 | ~15 | ~200 | ~1.5 h |
-| 12–14 | 0 | 90–160 | < 1 h, plus mock interviews |
+| 11–12 | ~15–30 | ~200 | ~1.5–2 h |
+| 13–14 | 0 | 90–140 | < 1 h, plus mock interviews |
 
 ## How to study for interview speed
 
@@ -57,7 +58,7 @@ formal asymptotics, and the deeper on-site chains (order book, SSO, type erasure
   pattern appears (sliding window, prefix sum, BFS, binary search on the answer, DP),
   solve 1–2 real problems with it, unaided, against a 25-minute timer. The Cards make the
   template automatic; the problems train choosing it.
-- **Days 12–14:** no new Cards are left. Do the due reviews, then use **Practice** on
+- **Days 13–14:** no new Cards are left. Do the due reviews, then use **Practice** on
   both Decks (it doesn't touch the schedule), plus two timed mock rounds: one C++
   ("implement `push_back`", "explain move semantics", "why is the destructor virtual?")
   and one LeetCode medium.

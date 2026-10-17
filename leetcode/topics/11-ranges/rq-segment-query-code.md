@@ -32,7 +32,7 @@ refs:
   - https://leetcode.com/problems/range-sum-query-mutable/
   - https://codeforces.com/blog/entry/18051
   - https://cp-algorithms.com/data_structures/segment_tree.html
-elaborate: LC 307's `sumRange(left, right)` includes `right`. What do you pass as `r`, and what goes wrong if you pass `right` itself?
+elaborate: Range Sum Query - Mutable (LC 307) asks for `sumRange(left, right)`, which includes `right`. What do you pass as `r`, and what goes wrong if you pass `right` itself?
 ---
 
 Bottom-up segment tree: leaves at `t[n..2n)`, `t[v] = t[2v] + t[2v + 1]`.

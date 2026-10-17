@@ -19,8 +19,9 @@ elaborate: Which of these five could drop a dimension by keeping only the previo
 ---
 Give the DP state for each statement, and why it is enough. (1) The
 fewest inserts, deletes and replaces turning `word1` into `word2`.
-(2) The number of ways to pay `amount` with reusable coins. (3) The
-longest strictly increasing subsequence of `nums`. (4) The cheapest
+(2) The number of combinations (order ignored) of reusable coins that
+pay `amount`. (3) The longest strictly increasing subsequence of
+`nums` (the state of the O(n²) DP). (4) The cheapest
 top-left to bottom-right path through a grid, moving only down or
 right. (5) The cheapest order to visit all of `n <= 12` nodes, with a
 cost on each ordered pair.

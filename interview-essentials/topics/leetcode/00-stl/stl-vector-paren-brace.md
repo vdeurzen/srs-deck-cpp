@@ -31,7 +31,7 @@ requires:
   - cpp-essentials/initialization-brace-prefers-initializer-list
 ---
 
-LC 118 (Pascal's Triangle): row `i` has `i + 1` entries and its outer
+Pascal's Triangle (LC 118): return its first `rows` rows. Row `i` has `i + 1` entries and its outer
 entries are 1. Complete the row's initialiser.
 
 ```cpp

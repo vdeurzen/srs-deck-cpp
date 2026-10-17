@@ -29,5 +29,3 @@ vector read-only; `const auto&` in the loop does the same for each
 element. Plain `auto name` would copy every string on every iteration;
 the `const` states, right in the loop, that the body only reads. The
 same line works for any container, and recurs constantly.
-Graded by text: without its `#include` lines the snippet is not a whole
-program.

@@ -28,16 +28,17 @@ requires:
 refs:
   - https://leetcode.com/problems/subsets-ii/
   - https://leetcode.com/problems/combination-sum-ii/
+  - https://leetcode.com/problems/combination-sum/
   - https://doi.org/10.1145/321296.321300
-elaborate: LC 40 uses the same skip on LC 39's loop. Which other line of the LC 39 template changes, and why does the skip still need sorting?
+elaborate: Combination Sum II (LC 40, combinations of `candidates` summing to `target`, each used at most once, duplicates in the input) adds this skip to the loop that solves Combination Sum (LC 39, the same with distinct, reusable candidates). Which other line of that loop changes, and why does the skip still need sorting?
 ---
 
 > Given an integer array `nums` that **may contain duplicates**, return
 > all possible subsets. The solution set **must not contain duplicate
 > subsets**.
 
-LC 90. `a` is `nums` sorted, so equal values sit side by side. Complete
-the condition that skips a repeated value.
+That is Subsets II (LC 90). `a` is `nums` sorted, so equal values sit
+side by side. Complete the condition that skips a repeated value.
 
 ```cpp
 #include <vector>
@@ -61,7 +62,8 @@ the first is tried. The first candidate at a depth (`j == i`) is always
 allowed, even when it equals the item the parent just took: that is how
 [2, 2] gets built.
 
-`j > 0` compares across depths, so [2, 2] and [1, 2, 2] are never
-produced. `j >= i` reads `a[-1]` at `j = 0`. `j > i + 1` lets a
+On `{1, 2, 2}`: `j > 0` compares across depths, so [2, 2] and
+[1, 2, 2] are never produced. `j >= i` skips even the first choice when it equals the parent's item,
+so [2, 2] is lost (and it reads `a[-1]` at `j = 0`). `j > i + 1` lets a
 second copy through when it sits right after the first choice, so
 [1, 2] comes out twice.

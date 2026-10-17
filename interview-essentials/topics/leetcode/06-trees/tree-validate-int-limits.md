@@ -12,8 +12,9 @@ refs:
 elaborate: Where else have you used a "can't happen" value as a sentinel (−1 for a missing index, 0 for no timestamp), and what input would make it real?
 ---
 
-LC 98, validate a binary search tree, with
-`-2^31 <= Node.val <= 2^31 - 1`:
+Validate Binary Search Tree (LC 98): return whether every left subtree
+is strictly smaller, and every right subtree strictly larger, than its
+node, with `-2^31 <= Node.val <= 2^31 - 1`:
 
 ```cpp
 bool valid(TreeNode* n, int lo = INT_MIN, int hi = INT_MAX) {

@@ -11,7 +11,7 @@ refs:
 elaborate: "In your matcher, which variable holds the trade price when you emit a fill, the aggressor's limit or `best`?"
 ---
 
-## Your limit buy at 6 arrives and hits a resting ask at 4. At what price do you trade?
+## On a continuous price-time-priority venue, your limit buy at 6 arrives and hits a resting ask at 4. At what price do you trade?
 
 ---
 

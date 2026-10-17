@@ -8,8 +8,9 @@ requires:
   - linear-prefix-sum-range
 refs:
   - https://leetcode.com/problems/corporate-flight-bookings/
+  - https://leetcode.com/problems/car-pooling/
   - https://cp-algorithms.com/data_structures/fenwick.html#2-range-update-and-point-query
-elaborate: LC 1094 (car pooling) only asks whether some stop ever exceeds capacity. How does the same array answer that?
+elaborate: Car Pooling (LC 1094) gives trips `[passengers, from, to]` along one road and only asks whether the car's `capacity` is ever exceeded. How does the same array answer that?
 ---
 
 > There are `n` flights labeled 1 to `n`. `bookings[i] = [first, last, seats]`

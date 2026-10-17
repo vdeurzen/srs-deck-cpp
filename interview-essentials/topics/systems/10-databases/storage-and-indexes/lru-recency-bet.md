@@ -9,13 +9,12 @@ refs:
   - https://www.cs.cmu.edu/~christos/courses/721-resources/p297-o_neil.pdf
 ---
 
-## A full LRU cache evicts the entry unused for the longest. Which access pattern gives it a 0 % hit rate however long it runs?
+## A loop cycles over K + 1 distinct keys, again and again, through an LRU cache of K entries (LRU evicts the entry unused for the longest). What hit rate does it get?
 
 ---
 
-**A loop over one more distinct key than the cache holds.** Each access
-evicts exactly the key that the loop needs next.
+**0 %: each access evicts exactly the key the loop needs next.**
 
 LRU bets on temporal locality: recently used means soon used again. A
-cyclic or sequential scan breaks the bet — the pattern behind a buffer
-pool's sequential flooding.
+cyclic scan just larger than the cache breaks the bet; a database buffer
+pool hit by a large table scan suffers the same way.

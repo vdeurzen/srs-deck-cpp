@@ -16,7 +16,6 @@ refs:
   - https://en.cppreference.com/w/cpp/language/reference#Dangling_references
 requires:
   - ptr-dangling-local
-  - ptr-bump-by-reference
 ---
 
 `shout` builds its result in the local variable `s`. Pick the return type
@@ -34,9 +33,8 @@ constexpr {{c1::std\::string}} shout(const char* word) {
 
 ---
 
-**Return by value**: the caller gets its own `std::string`; the result is
-moved or elided from `s`, never copied, so it is cheap. A reference return would
-refer to `s`, which is destroyed when `shout` returns: a dangling reference.
-`const std::string&` compiles and dangles (the constant evaluation catches
-the read); `std::string&` does not even compile, because since C++23
-`return s;` treats the local `s` as an rvalue.
+**Return by value**: the caller gets its own `std::string`, moved or
+elided from `s`, so it is cheap. A reference would refer to `s`, which
+dies when `shout` returns. `const std::string&` compiles and dangles (the
+constant evaluation catches the read); in C++23 `std::string&` cannot even
+bind to the returned local.

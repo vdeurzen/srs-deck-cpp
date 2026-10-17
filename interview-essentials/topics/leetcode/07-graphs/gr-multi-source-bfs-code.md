@@ -38,12 +38,13 @@ requires:
 refs:
   - https://leetcode.com/problems/01-matrix/
   - https://leetcode.com/problems/rotting-oranges/
+  - https://leetcode.com/problems/as-far-from-land-as-possible/
   - https://cp-algorithms.com/graph/breadth-first-search.html
-elaborate: LC 994 (rotting oranges) and LC 1162 (as far from land as possible) are this same search. What does each change in the guard, and how does each read its answer out of `d`?
+elaborate: Rotting Oranges (LC 994, each minute every rotten orange rots its fresh neighbours; the minutes until none is fresh, or −1) and As Far from Land as Possible (LC 1162, the largest Manhattan distance from a water cell to its nearest land, or −1) are this same search. What does each change in the guard, and how does each read its answer out of `d`?
 ---
 
-LC 542: for every cell of a 0/1 grid, find the number of steps to the
-nearest 0. The queue is a `vector` read through index `h`. Complete what
+01 Matrix (LC 542): for every cell of a 0/1 grid, find the number of
+up, down, left or right steps to the nearest 0. The queue is a `vector` read through index `h`. Complete what
 runs for each 0 cell.
 
 ```cpp
@@ -69,8 +70,7 @@ an edge to each of them, so each cell gets the distance to its nearest
 Each distractor is a real slip. Pushing without setting `d[c] = 0`
 ("it gets marked when it is popped") leaves the source at d = −1, so its
 neighbours get −1 + 1 = 0 and the source itself, reached again from
-them, ends at 1. `d[c] = 1` is the off-by-one LC 994 invites ("rotten at
-minute 1"): every distance comes out one too large. Marking without
+them, ends at 1. `d[c] = 1` is the off-by-one "rotten at minute 1" invites: every distance comes out one too large. Marking without
 pushing never expands the sources at all.
 
 On LeetCode the grid is a 2-D vector and this line sits inside a

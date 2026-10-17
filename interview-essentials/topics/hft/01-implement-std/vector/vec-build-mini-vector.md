@@ -73,8 +73,8 @@ refs:
 
 Capstone. `MiniVec`'s `push_back` and `emplace_back` call
 `realloc_append` when `n == cap`. Complete the new capacity, so that
-`push_back` stays amortised O(1), and the relocation, so that growth can
-roll back if a copy throws. The test runs in a constant expression.
+`push_back` stays amortised O(1), and the relocation, so that a throwing
+move never leaves the old elements damaged. The test runs in a constant expression.
 
 ```cpp
 #include <memory>

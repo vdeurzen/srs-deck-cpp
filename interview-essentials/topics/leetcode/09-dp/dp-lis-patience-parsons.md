@@ -25,8 +25,10 @@ refs:
 elaborate: For a longest non-decreasing subsequence, which line changes, and what would {7, 7, 7} give then?
 ---
 
-LC 300 in O(n log n): `t[k]` is the smallest value that can end a
-strictly increasing subsequence of length k + 1. Order the lines.
+Longest Increasing Subsequence (LC 300): the length of the longest
+strictly increasing subsequence of `nums`, here in O(n log n). `t[k]` is
+the smallest value that can end a strictly increasing subsequence of
+length k + 1. Order the lines.
 
 ```cpp
 #include <bits/stdc++.h>

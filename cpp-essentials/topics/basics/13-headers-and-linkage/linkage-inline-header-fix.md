@@ -17,5 +17,5 @@ it, and `sq` stays one function shared by the whole program:
 
 ```cpp
 // util.h
-{{c1::inline::the specifier that allows identical definitions in many files}} int sq(int x) { return x * x; }
+{{c1::inline::a keyword before the return type}} int sq(int x) { return x * x; }
 ```

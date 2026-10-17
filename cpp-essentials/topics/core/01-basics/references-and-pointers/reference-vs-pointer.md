@@ -11,13 +11,20 @@ refs:
   - https://en.cppreference.com/w/cpp/language/pointer
 ---
 
-## `int& r = x;` versus `int* p = &x;` — what single property decides which one a parameter or member should be?
+## `p = &y;` makes `p` point at `y`. What does `r = y;` do?
+
+```cpp
+int x = 1, y = 2;
+int& r = x;
+int* p = &x;
+p = &y;
+r = y;
+```
 
 ---
 
-**Whether "none" or "a different one later" must be representable.** A
-pointer is an object holding an address: it can be null, reseated,
-compared, stepped. A reference is a name bound once, at
-initialisation, to an object that must exist: never null, never reseated;
-using `r` *is* using `x`. Target guaranteed and fixed: reference.
-Optional or re-pointable: pointer.
+**It copies `2` into `x`; `r` still refers to `x`.** A reference is bound
+once, at initialisation, and every later use of `r` *is* a use of `x`, so
+it can never be re-pointed. A pointer is an object holding an address, and
+assigning it changes the address. A member that must switch targets later
+needs a pointer.

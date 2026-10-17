@@ -11,19 +11,19 @@ refs:
   - https://en.wikipedia.org/wiki/Binary_search_tree
 ---
 
-## Searching this binary search tree for 6, why may you ignore everything right of 8?
+## Searching this binary search tree for 3, why may you skip 12, 9 and 15 without looking at any of them?
 
 ```
-        8
-       / \
-      4   9
-     / \
-    2   6
+          8
+        /   \
+       4     12
+      / \   /  \
+     2   6 9    15
 ```
 
 ---
 
-**Because 6 < 8, and every key in 8's right subtree is larger than 8.**
+**Because 3 < 8, and every key in 8's right subtree is larger than 8.**
 
 The BST invariant: every key in a node's left subtree is smaller than the
 node, every key in its right subtree is larger. It covers whole subtrees,

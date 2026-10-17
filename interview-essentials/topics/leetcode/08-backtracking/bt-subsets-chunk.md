@@ -22,8 +22,9 @@ requires:
   - technique-backtracking-undo
 refs:
   - https://leetcode.com/problems/subsets/
+  - https://leetcode.com/problems/permutations/
   - https://doi.org/10.1145/321296.321300
-elaborate: LC 46 (permutations) may place any unused item at every position. What replaces the start index `i`, and which line then needs an un-choose of its own?
+elaborate: Permutations (LC 46), every ordering of distinct `nums`, may place any unused item at every position. What replaces the start index `i`, and which line then needs an un-choose of its own?
 ---
 
 ```cpp
@@ -38,6 +39,9 @@ constexpr void subsets(const auto& a, int i, auto& cur, auto& out) {
 ```
 
 ---
+
+Subsets (LC 78): return every subset of an array `nums` of distinct
+integers.
 
 **The backtracking template: choose, explore, un-choose.** `cur` is the
 path from the root of the decision tree; one shared vector is grown and

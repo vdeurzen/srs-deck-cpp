@@ -12,7 +12,7 @@ refs:
   - https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm#Proof_of_correctness
 ---
 
-## Dijkstra always pops the unfinished vertex with the smallest tentative distance. With non-negative weights, why is that distance already final?
+## Dijkstra keeps a *tentative* distance per vertex: the best found so far via finished (popped) vertices. It always pops the unfinished vertex with the smallest one. With non-negative weights, why is that distance already final?
 
 ```
 s →(1) a →(1) b          s →(3) b

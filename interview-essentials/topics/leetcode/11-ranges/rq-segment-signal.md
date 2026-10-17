@@ -3,13 +3,15 @@ id: rq-segment-signal
 kind: basic
 version: 1
 level: 2
-tags: [segment-tree, range-queries, recognition, lc-307]
+tags: [segment-tree, fenwick-tree, range-queries, recognition, lc-307]
 requires:
   - linear-prefix-sum-range
 refs:
   - https://leetcode.com/problems/range-sum-query-mutable/
+  - https://leetcode.com/problems/range-sum-query-immutable/
   - https://cp-algorithms.com/data_structures/segment_tree.html
-elaborate: LC 303 is the same query with no updates. Which simpler structure wins there, and what does it cost per query?
+  - https://cp-algorithms.com/data_structures/fenwick.html
+elaborate: Range Sum Query - Immutable (LC 303) is the same query with no updates. Which simpler structure wins there, and what does it cost per query?
 ---
 
 > Given an integer array `nums`, handle multiple queries: **update** the
@@ -20,8 +22,8 @@ elaborate: LC 303 is the same query with no updates. Which simpler structure win
 
 ---
 
-**A tree of partial results: each node holds the sum of one block of the array.**
+**A segment tree or a Fenwick tree: each node holds the sum of one block.**
 
-An update rewrites only the blocks containing that index, one per level;
-a query adds O(log n) blocks that tile the range. A prefix-sum array
+An update rewrites only the O(log n) blocks containing that index; a
+query adds O(log n) blocks that tile the range. A prefix-sum array
 answers in O(1) but rewrites O(n) prefixes per update.

@@ -4,6 +4,7 @@ kind: basic
 version: 1
 level: 1
 tags: [lifetime, raii]
+elaborate: "`std::string`, `std::unique_ptr` and `std::lock_guard` are this same idiom: for each, whose destructor releases what?"
 requires:
   - raii-storage-durations
   - life-destructor-frees
@@ -12,7 +13,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/destructor
 ---
 
-## This function leaks `f` on its second `return`. What does the RAII fix tie the `fclose` call to, so that no exit path can skip it?
+## This function leaks `f` on its second `return`. In the RAII fix, what guarantees the `fclose` runs on every exit path?
 
 ```cpp
 void save(const char* path) {
@@ -38,6 +39,3 @@ struct File {
 };
 File file{std::fopen(path, "w")};   // closed when `file` dies
 ```
-
-`std::string`, `std::unique_ptr` and `std::lock_guard` are this idiom:
-"who owns this?" means "whose destructor releases it?".

@@ -11,7 +11,7 @@ refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 10 (queues)
 ---
 
-## A queue that pops with `v.erase(v.begin())` pays O(n) per pop, because every element shifts. What does a ring buffer do instead?
+## A queue that pops with `v.erase(v.begin())` pays O(n) per pop, because every element shifts. A fixed-size array used as a circular queue never shifts. What does its pop do instead?
 
 ---
 
@@ -19,4 +19,4 @@ refs:
 
 The elements never move; the oldest is wherever `head` points. Order is preserved
 because a queue (first in, first out) only ever removes the oldest
-element, which is at `head`.
+element, which is at `head`. This layout is a ring buffer.

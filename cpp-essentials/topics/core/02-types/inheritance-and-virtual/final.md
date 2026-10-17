@@ -13,13 +13,12 @@ compile:
     static_assert(Circle{}.area() == 3);
     int main() {}
 requires:
-  - virtual-vptr-sizeof
+  - virtual-dispatch-dynamic-type
 refs:
   - https://en.cppreference.com/w/cpp/language/final
 ---
 
-No class may derive from `Circle`. That also tells the optimiser what
-`c.area()` on a `Circle&` will call.
+No class may derive from `Circle`. Complete its declaration.
 
 ```cpp
 #include <type_traits>

@@ -24,6 +24,7 @@ whenever.
 | 7 LRU, rate limit, packets, pools (hft-interview) | done (2026-10-14): lru 4, rate-limit 6, packets 3, pools 3, reviewed |
 | 8 LeetCode rest + deferred items + capstones | done (2026-10-14): leetcode +63 Cards (groups D/E/F, recognition), hft-interview +5, algo-systems +1, reviewed |
 | 9 Interview sprint | done (2026-10-17): 558 Cards moved (+2 new) into `cpp-essentials` + `interview-essentials`; see `sprint/README.md` |
+| 10 Sprint quality pass | done (2026-10-17): every essentials Card reviewed (`sprint/review/`), ~190 findings applied, LC numbers replaced by named problems (PEDAGOGY §2.13), +15 Cards |
 
 ## 0. Decisions (2026-10-12)
 

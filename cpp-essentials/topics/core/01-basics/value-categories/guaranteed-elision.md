@@ -6,7 +6,7 @@ level: 3
 tags: [value-categories, copy-elision]
 input: chips
 choices:
-  c1: ["return Pinned{};", "Pinned local; return local;", "Pinned local; return std::move(local);"]
+  c1: ["return Pinned{};", "Pinned local; return local;", "return std::move(Pinned{});"]
 compile:
   harness: |
     constexpr Pinned p = make();
@@ -23,6 +23,7 @@ refs:
 `make()` can still initialize a `Pinned` by value.
 
 ```cpp
+#include <utility>
 struct Pinned {
     int id = 7;
     constexpr Pinned() = default;
@@ -39,5 +40,7 @@ constexpr Pinned make() {
 `Pinned{}` is a prvalue, and C++17 makes a prvalue initialize its result
 object directly: through the `return` and into `p`, nothing is
 materialized, so no copy or move constructor is needed, not even an
-accessible one. A named local is an object already; returning it needs a
-move (or copy) constructor even when NRVO would elide the call.
+accessible one. `std::move(Pinned{})` is an xvalue: the temporary is
+materialized, and the return must move from it. A named local is an object
+already; returning it needs a move (or copy) constructor even when NRVO
+would elide the call.

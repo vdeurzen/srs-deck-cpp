@@ -11,8 +11,9 @@ refs:
   - https://leetcode.com/problems/shortest-path-in-binary-matrix/
   - https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/
   - https://leetcode.com/problems/network-delay-time/
+  - https://leetcode.com/problems/minimum-cost-to-make-at-least-one-valid-path-in-a-grid/
   - https://cp-algorithms.com/graph/01_bfs.html
-elaborate: LC 1368 lets you follow a cell's arrow or pay 1 to change it. Which of the three is it, and what is the cost of each move?
+elaborate: Minimum Cost to Make at Least One Valid Path in a Grid (LC 1368) asks for the cheapest way from top-left to bottom-right when you may follow a cell's arrow or pay 1 to change it. Which of the three is it, and what is the cost of each move?
 ---
 
 Three shortest-route statements:
@@ -20,8 +21,9 @@ Three shortest-route statements:
 > (a) Return the length of the shortest clear path from the top-left to
 > the bottom-right cell; you step to any of the 8 neighbouring `0` cells.
 >
-> (b) Return the minimum number of obstacles to remove so you can walk
-> from the top-left to the bottom-right cell.
+> (b) In a grid of `0` (empty) and `1` (obstacle) cells, moving up,
+> down, left or right, return the minimum number of obstacles to remove
+> so you can walk from the top-left to the bottom-right cell.
 >
 > (c) `times[i] = (u, v, w)`, `0 <= w <= 100`, is a signal's travel time.
 > Return how long until every node has received it.

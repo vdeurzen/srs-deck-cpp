@@ -32,9 +32,10 @@ requires:
   - tree-traversal-orders
 refs:
   - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+  - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii/
   - https://doi.org/10.1145/800125.804056
   - https://cp-algorithms.com/graph/lca.html
-elaborate: LC 1644 drops the promise that both `p` and `q` are in the tree. Which return value now lies, and what extra fact must the recursion report?
+elaborate: Lowest Common Ancestor of a Binary Tree II (LC 1644) drops the promise that both `p` and `q` are in the tree, and returns null if either is missing. Which return value now lies, and what extra fact must the recursion report?
 ---
 
 ```cpp
@@ -48,7 +49,11 @@ template <class Node> constexpr Node* lca(Node* r, Node* p, Node* q) {
 
 ---
 
-**Lowest common ancestor in one postorder pass** (LC 236). Each call
+Lowest Common Ancestor of a Binary Tree (LC 236): given the root and
+two nodes `p` and `q` in the tree, return the deepest node with both in
+its subtree, a node counting as in its own.
+
+**Lowest common ancestor in one postorder pass.** Each call
 reports what it found in its subtree: null for neither, `p` or `q` for
 one of them, the answer once both are found.
 
@@ -58,6 +63,6 @@ one of them, the answer once both are found.
 - Found on both sides: `r` is the split point, so `r` is the LCA.
 - Found on one side: pass that result up unchanged.
 
-O(n) time, O(h) stack. It relies on LC's promise that both nodes exist.
+O(n) time, O(h) stack. It relies on the problem's promise that both nodes exist.
 On LC write `TreeNode*` throughout; the template is here only because
 the harness that defines `TreeNode` is appended after the snippet.

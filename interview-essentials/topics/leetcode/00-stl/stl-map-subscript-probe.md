@@ -32,11 +32,13 @@ requires:
   - cpp-essentials/iter-map-subscript-inserts
 refs:
   - https://leetcode.com/problems/two-sum/
+  - https://leetcode.com/problems/subarray-sum-equals-k/
   - https://en.cppreference.com/w/cpp/container/unordered_map/contains
-elaborate: LC 1 only stores indexes. What else could a `[]` probe silently store a zero for in LC 560 (subarray sum equals k)?
+elaborate: Two Sum only stores indexes. Subarray Sum Equals K (LC 560) counts the contiguous subarrays summing to `k`. What else could a `[]` probe silently store a zero for there?
 ---
 
-LC 1 (Two Sum): `seen` maps each value already passed to its index.
+Two Sum (LC 1): return the indices of the two values in `nums` that add
+up to `target`. `seen` maps each value already passed to its index.
 Complete the probe for the partner of `nums[i]`.
 
 ```cpp

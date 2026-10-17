@@ -6,6 +6,7 @@ level: 2
 tags: [arrays, dynamic-arrays, amortised]
 requires:
   - linear-array-index-contiguity
+  - complexity-amortised-vs-average
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 16 (dynamic tables)

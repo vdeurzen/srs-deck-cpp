@@ -27,7 +27,10 @@ refs:
 elaborate: Many solutions loop over the interval length first instead. Why is that order valid too?
 ---
 
-LC 312, burst balloons. `a` is `nums` with a 1 added at each end, and
+Burst Balloons (LC 312): bursting balloon `i` scores
+`nums[i - 1] * nums[i] * nums[i + 1]`, then its neighbours become
+adjacent; return the most coins. `a` is `nums` with a 1 added at each
+end, and
 `dp[l][r]` is the best score for the balloons strictly between `l` and
 `r`, with `k` the last one burst. Complete the outer loop header.
 
@@ -49,7 +52,7 @@ constexpr int max_coins(const std::vector<int>& a) {
 **`l` downwards: `dp[k][r]` has `k > l`, so its row must already be done.**
 `dp[l][k]` is in the current row, left of `r`, and `r` runs upwards.
 
-`l` upwards reads `dp[k][r]` rows that are still 0: example 1 gives 63,
-not 167. Stopping at `l > 0` never fills `dp[0][n − 1]`, the answer. Interval
-DP fills short intervals before the long ones that contain them; LC 516
-(longest palindromic subsequence) uses the same downward `l`.
+`l` upwards reads `dp[k][r]` rows that are still 0: `nums = {3, 1, 5, 8}`
+gives 63, not 167. Stopping at `l > 0` never fills `dp[0][n − 1]`, the answer. Interval
+DP fills short intervals before the long ones that contain them; Longest
+Palindromic Subsequence (LC 516) uses the same downward `l`.

@@ -13,6 +13,9 @@ requires:
   - err-noexcept-broken-promise
 ---
 
+`noexcept(expr)` here is the operator, not the specifier: it asks the
+compiler whether `expr` may throw.
+
 ```cpp
 int calls = 0;
 void save() { ++calls; }

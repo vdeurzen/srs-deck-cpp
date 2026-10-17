@@ -22,10 +22,10 @@ requires:
 refs:
   - https://leetcode.com/problems/find-the-shortest-superstring/
   - https://doi.org/10.1137/0110015
-elaborate: LC 943 needs the order of the words, not only the cost. What would you store beside `d[m][v]` to rebuild the path at the end?
+elaborate: Find the Shortest Superstring (LC 943), the shortest string containing every one of `words`, needs the order of the words, not only the cost. What would you store beside `d[m][v]` to rebuild the path at the end?
 ---
 
-Held–Karp, written the other way round from the push form: `d[m][v]`
+Held–Karp in pull form: `d[m][v]`
 is the shortest path that starts at node 0, visits exactly the nodes in
 mask `m`, and ends at `v`, computed from the masks without `v`. Return
 the shortest path through all `n` nodes. Order the lines.

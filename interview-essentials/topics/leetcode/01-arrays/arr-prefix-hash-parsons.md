@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [prefix-sums, hash-map, lc-560, lc-974]
 distractors:
-  - "  ++seen[0];"
-  - "  n += seen[k - p];"
+  - "    ++seen[x];"
+  - "    n += seen[k - p];"
 compile:
   harness: |
     #include <array>
@@ -19,11 +19,11 @@ compile:
     constexpr bool count_is(std::array<int, 3> a, int k, int want, int zeros) {
       Seen s;
       int n = subarray_sum(a, k, s);
-      return n == want && s.c[20] == zeros && s.lookups == 6;   // prefix 0 seen `zeros` times
+      return n == want && s.c[20] == zeros && s.lookups == 7;   // prefix 0 seen `zeros` times
     }
     static_assert(count_is({1, 1, 1}, 2, 2, 1));
     static_assert(count_is({1, 2, 3}, 3, 2, 1));    // {1, 2} starts at the empty prefix
-    static_assert(count_is({1, -1, 0}, 0, 3, 2));   // a prefix must not pair with itself
+    static_assert(count_is({1, -1, 0}, 0, 3, 3));   // a prefix must not pair with itself
     static_assert(count_is({2, 4, -3}, 3, 1, 1));
     static_assert(count_is({3, 0, 0}, 3, 3, 1));
     int main() {                                    // and with the real map
@@ -35,38 +35,38 @@ requires:
 refs:
   - https://leetcode.com/problems/subarray-sum-equals-k/
   - https://leetcode.com/problems/subarray-sums-divisible-by-k/
+  - https://leetcode.com/problems/contiguous-array/
   - https://en.cppreference.com/w/cpp/container/unordered_map/operator_at
-elaborate: LC 525 wants the longest such subarray, not the count. What would `seen` store instead, and when would you write it?
+elaborate: Contiguous Array (LC 525) wants the longest subarray of a 0/1 array with equally many 0s and 1s, not a count. What would `seen` store instead, and when would you write it?
 ---
 
 ```cpp
 constexpr int subarray_sum(const auto& a, int k, auto& seen) {
-  int p = 0, n = 0;
+  int p = 0, n = 0;  seen[0] = 1;
   for (int x : a) {
-    ++seen[p];
     p += x;
     n += seen[p - k];
+    ++seen[p];
   }
-  return n;
-}
+  return n;  }
 ```
 
 ---
 
-**Prefix sum + hash map of prefix counts** (LC 560). Each turn first
-records the prefix *before* `x`, then looks up `p − k` for the prefix
-that ends at `x`: every earlier prefix equal to it starts a subarray
-that sums to `k`.
+**Prefix sum + hash map of prefix counts** (Subarray Sum Equals K,
+LC 560: count the contiguous subarrays summing to `k`). `seen` counts
+the prefix sums so far. After `p += x`, every earlier prefix equal to
+`p − k` starts a subarray that ends at `x` and sums to `k`.
 
-- The first turn records the empty prefix, so no separate seed is
-  needed. Adding `++seen[0]` as well counts it twice. Most editorials
-  write the same count the other way round: seed `seen[0] = 1`, look
-  up, then record after `p += x`.
-- Recording after `p += x` would let a prefix pair with itself, the
-  empty subarray, which counts wrongly when `k == 0`.
+- `seen[0] = 1` seeds the empty prefix, so a subarray starting at index
+  0 counts. Without it, `{1, 2, 3}` with `k = 3` finds only `{3}`.
+- `++seen[p]` comes after the lookup: before it, `p` would pair with
+  itself, the empty subarray, which counts wrongly when `k == 0`.
 - `p - k`, not `k - p`: `p[j] − p[i] = k` gives `p[i] = p[j] − k`.
+- Count prefixes, not values: `++seen[x]` loses the sums.
 
-LC 974 (sums divisible by `k`) is the same loop keyed on
+Subarray Sums Divisible by K (LC 974: count the subarrays whose sum is
+divisible by `k`) is the same loop keyed on
 `((p % k) + k) % k`.
 
 `seen` is a parameter, so `seen[...]` is resolved only when the function

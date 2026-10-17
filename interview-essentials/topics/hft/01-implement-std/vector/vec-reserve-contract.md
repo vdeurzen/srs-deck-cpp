@@ -13,5 +13,5 @@ refs:
 
 Your `Vec::reserve(n)`, matching `std::vector`'s contract:
 
-- It reallocates if and only if {{c1::`n > capacity()`::a comparison}}.
-- A smaller `n` {{c2::leaves the capacity unchanged::effect on the buffer}}.
+- It reallocates if and only if `n` is {{c1::greater than::a comparison}} `capacity()`.
+- It never {{c2::changes::a verb}} `size()`, so indexing past `size()` after `reserve` is still out of bounds.

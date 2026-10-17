@@ -13,8 +13,9 @@ refs:
 elaborate: Go's `for k, v := range m` hands you copies too. Where in your own loops does `auto [a, b]` copy something that owns heap memory?
 ---
 
-LC 49 groups words under their sorted letters. Before returning, a
-solution sorts each group:
+Group Anagrams (LC 49): group the words that are anagrams of each
+other. A solution keys each group on its sorted letters and, before
+returning, sorts each group:
 
 ```cpp
 std::map<std::string, std::vector<std::string>> groups;

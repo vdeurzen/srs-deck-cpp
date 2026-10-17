@@ -17,6 +17,6 @@ the callback is safe.
 ---
 - [ ] A by-reference capture is valid only while the referent lives; calling the closure after the variable's scope has ended is undefined behaviour, because a capture extends no lifetime
 - [ ] The closure outlives its scope when it is returned, stored (a member, a container, a `std::function`), or posted to another thread or queue: those are the captures to audit
-- [ ] Inside a member function, `[=]` captures `this` (a pointer), not the members, so member reads dangle once the object dies; C++20 deprecates this implicit `this` capture
-- [ ] `[*this]` copies the whole object and `[m = m]` copies one member, so the closure reads its own copy
+- [ ] Inside a member function, `[=]` captures `this` (a pointer), not the members, so member reads dangle once the object dies
+- [ ] `[*this]` or an init-capture such as `[m = m]` copies the data, so the closure owns what it reads
 - [ ] When the callback needs the owner itself, capture a `shared_ptr` to keep it alive, or a `weak_ptr` and `lock()` it in the body to skip the work if the owner is gone

@@ -17,7 +17,8 @@ refs:
 elaborate: Dijkstra reads `d` after the pop to relax edges. With the reference form, which distance would it relax from, and would any test notice?
 ---
 
-Dijkstra (LC 743) pops `(dist, node)` pairs from a min-heap. Two ways
+Dijkstra, as in Network Delay Time (LC 743), pops `(dist, node)`
+pairs from a min-heap. Two ways
 to read the top before popping:
 
 ```cpp

@@ -33,7 +33,7 @@ struct Logger {
     virtual void write(int) {}
 };
 struct FileLogger : Logger {
-    std::string path = "/var/log/app";
+    std::string path = "/var/log/payments/service-01.log";
 };
 ```
 
@@ -41,7 +41,8 @@ struct FileLogger : Logger {
 
 `delete` through a `Logger*` (what `unique_ptr<Logger>` does) calls the
 destructor of the **static** type. Without `virtual`, the behaviour is
-undefined; in practice only `~Logger` runs, so `path`'s heap buffer leaks.
+undefined; in practice only `~Logger` runs, so `path`'s heap buffer leaks
+(32 characters: more than libstdc++'s 15-character small-string buffer).
 A virtual destructor dispatches to `~FileLogger` first, then `~Logger`.
 Rule: a base class meant for deletion through a base pointer gets a public
 virtual destructor (or a protected non-virtual one to forbid that use).

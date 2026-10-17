@@ -19,11 +19,12 @@ requires:
   - interview-essentials/dp-coin-ways-chunk
 refs:
   - https://leetcode.com/problems/coin-change-ii/
+  - https://leetcode.com/problems/combination-sum-iv/
   - https://en.wikipedia.org/wiki/Change-making_problem
-elaborate: LC 377 counts ordered sequences instead. Which two lines trade places, and what changes in the inner loop's start?
+elaborate: Combination Sum IV (LC 377) counts the ordered sequences of distinct `nums` that sum to `target` instead. Which two lines trade places, and what changes in the inner loop's start?
 ---
 
-LC 518: the number of ways to pay `amount`, each coin usable any number
+Coin Change II (LC 518): the number of ways to pay `amount`, each coin usable any number
 of times, each combination counted once. Order the lines.
 
 ```cpp

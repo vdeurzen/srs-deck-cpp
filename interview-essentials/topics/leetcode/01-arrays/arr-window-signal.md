@@ -8,8 +8,9 @@ requires:
   - linear-variable-window-shrink
 refs:
   - https://leetcode.com/problems/max-consecutive-ones-iii/
+  - https://leetcode.com/problems/longest-repeating-character-replacement/
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 16 (aggregate analysis)
-elaborate: LC 424 (longest repeating character replacement) also allows "at most k" changes. What plays the role of the zero count there?
+elaborate: Longest Repeating Character Replacement (LC 424) asks for the longest substring of one repeated letter after changing at most `k` letters. What plays the role of the zero count there?
 ---
 
 > Given a binary array `nums` and an integer `k`, return the maximum
@@ -24,4 +25,4 @@ elaborate: LC 424 (longest repeating character replacement) also allows "at most
 
 Flipping the window's zeros makes it all ones. When a zero makes it
 `k + 1`, move `lo` past the leftmost zero. Valid because the zero count
-only grows with `hi` (counts are non-negative), unlike LC 560's sums.
+only grows with `hi` (counts are non-negative), unlike sums over values that may be negative.

@@ -20,11 +20,13 @@ requires:
   - technique-lcs-match
 refs:
   - https://leetcode.com/problems/edit-distance/
+  - https://leetcode.com/problems/longest-common-subsequence/
+  - https://leetcode.com/problems/minimum-ascii-delete-sum-for-two-strings/
   - https://doi.org/10.1145/321796.321811
-elaborate: LC 1143 (LCS) and LC 712 (minimum ASCII delete sum) fill the same table. What does each change in the mismatch line?
+elaborate: Longest Common Subsequence (LC 1143, the length of the longest subsequence of both strings) and Minimum ASCII Delete Sum for Two Strings (LC 712, the least total ASCII value of characters deleted to make the strings equal) fill the same table. What does each change in the mismatch line?
 ---
 
-LC 72: the fewest single-character inserts, deletes and replaces that
+Edit Distance (LC 72): the fewest single-character inserts, deletes and replaces that
 turn `a` into `b`. `d[i][j]` is that number for the first `i` characters
 of `a` and the first `j` of `b`. Complete the third option in the
 mismatch case.

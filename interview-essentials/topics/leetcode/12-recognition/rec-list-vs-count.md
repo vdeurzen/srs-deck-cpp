@@ -10,8 +10,9 @@ requires:
 refs:
   - https://leetcode.com/problems/combination-sum/
   - https://leetcode.com/problems/coin-change-ii/
+  - https://leetcode.com/problems/combination-sum-iv/
   - https://en.wikipedia.org/wiki/Memoization
-elaborate: LC 377 counts ordered sequences that sum to target. Which side of this split is it on, and what single number is its state?
+elaborate: Combination Sum IV (LC 377) counts the ordered sequences of distinct `nums` that sum to `target`. Which side of this split is it on, and what single number is its state?
 ---
 
 Same input: distinct positive values, each reusable any number of
@@ -27,9 +28,8 @@ times.
 
 ---
 
-**(a) must output every combination, and there can be exponentially many.**
+**(a) must output every combination, and their number grows faster than any polynomial.**
 
-(b) only counts, so equal states share work: every path reaching
-(coin index, amount left) has the same number of completions, and a
-table of n × amount cells suffices. A listing can't share; each answer
-is written out on its own.
+Candidates 1..n with target n list every partition of n: 5604 at
+n = 30, 190 569 292 at n = 100. (b) only counts, so every path reaching
+(coin index, amount left) shares one answer: n × amount cells suffice.

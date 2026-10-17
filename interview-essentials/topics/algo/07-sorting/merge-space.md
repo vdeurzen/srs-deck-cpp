@@ -11,12 +11,13 @@ requires:
   - sort-merge-idea
 ---
 
-## Why does merge sort on an array need a Θ(n) extra buffer? Picture merging the two runs of `[5 6 | 1 2]` in place.
+## Why does the simple two-pointer merge on an array need a Θ(n) buffer? Picture merging the two runs of `[5 6 | 1 2]` in place.
 
 ---
 
-**A linear-time merge cannot write in place: it would overwrite left-run elements not yet read.**
+**Writing output in place would overwrite left-run elements not yet read.**
 
 The first output, 1, belongs in slot 0, which still holds the unread 5.
-So the merge writes into a separate buffer (or copies one run out
-first), up to n elements for the top-level merge.
+So the merge writes into a separate buffer, or copies one run out first
+(n/2 for the top-level merge). Without a buffer, `std::inplace_merge`
+falls back to O(n log n).

@@ -46,5 +46,6 @@ constexpr bool contains(const std::array<int, N>& t, int key) {
 Insert walks the same sequence and takes the first empty slot, so a
 present key always sits before the first gap of its run.
 
-`i < N` never fails once `i` wraps, so a missing key loops forever. The
+`i < N` is always true because `i` is wrapped, so a missing key loops
+forever. The
 stop rule is also why deletion cannot simply empty a slot.

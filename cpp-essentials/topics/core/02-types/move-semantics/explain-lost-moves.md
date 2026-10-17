@@ -17,8 +17,8 @@ A code review turns up `return std::move(local);`, a `std::move` inside
 `template<class T> void f(T&& x)`, and a `std::vector` that copies on
 every reallocation. Explain what each one costs and the fix.
 ---
-- [ ] `return std::move(local);` disables NRVO: a local returned by name is already treated as an rvalue and may be built in place; the cast forces a move where elision would have cost nothing
-- [ ] A by-value or `Widget&&` parameter returned by name is implicitly moved too (C++20 P1825, C++23 P2266), so `std::move` there is redundant; it is needed for a subobject of a local (`return std::move(p.first);`), and a forwarding reference needs `std::forward<T>`
-- [ ] `T&&` with `T` deduced is a forwarding reference: for an lvalue argument `T` is `U&`, so `std::move(x)` would move the caller's lvalue out from under it
-- [ ] `std::forward<T>(x)` uses the deduced `T` to restore the caller's value category: an rvalue stays an rvalue, an lvalue stays an lvalue
-- [ ] `std::vector` reallocates with `std::move_if_noexcept`: a copyable type whose move constructor is not `noexcept` is copied to keep `push_back`'s strong guarantee; mark the move `noexcept` (a defaulted one inherits a throwing member's specification)
+- [ ] `return std::move(local);` disables NRVO: the cast makes the operand no longer a plain name, so a move is forced where the object could have been built in place for free
+- [ ] Fix: `return local;` — a local returned by name is elided or, failing that, implicitly treated as an rvalue, so nothing is copied
+- [ ] `T&&` with `T` deduced is a forwarding reference: for an lvalue argument `T` is `U&`, so `std::move(x)` moves the caller's lvalue out from under it
+- [ ] Fix: `std::forward<T>(x)` uses the deduced `T` to keep the caller's value category: an rvalue stays an rvalue, an lvalue stays an lvalue
+- [ ] `std::vector` reallocates with `std::move_if_noexcept`, so an element whose move constructor is not `noexcept` is copied; fix: mark the move constructor `noexcept`

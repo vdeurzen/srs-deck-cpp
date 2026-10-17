@@ -34,14 +34,16 @@ requires:
 refs:
   - https://leetcode.com/problems/course-schedule/
   - https://leetcode.com/problems/course-schedule-ii/
+  - https://leetcode.com/problems/parallel-courses/
   - https://doi.org/10.1145/368996.369025
-elaborate: LC 1136 (parallel courses) asks for the fewest semesters. What would you record for each course as it is appended, and how is the answer read off?
+elaborate: Parallel Courses (LC 1136) asks for the fewest semesters to take every course, when any course whose prerequisites are all done may be taken in the same semester. What would you record for each course as it is appended, and how is the answer read off?
 ---
 
-LC 207 / 210: `prerequisites[i] = {a, b}` means you must take course
-`b` before course `a`. Kahn's algorithm needs the edge in the direction
-the courses are taken. Complete the loop body so the order comes out
-right.
+Course Schedule (LC 207) asks whether all `numCourses` courses can be
+finished; Course Schedule II (LC 210) returns an order to take them in,
+or an empty array. In both, `prerequisites[i] = {a, b}` means you must
+take course `b` before course `a`. Complete the loop body so Kahn's
+algorithm gets an order that respects every prerequisite.
 
 ```cpp
 #include <vector>
@@ -58,8 +60,10 @@ unmet prerequisite.** A course is ready when its in-degree reaches 0,
 so `indeg` must count the prerequisites *of* `a`.
 
 Reading `{a, b}` as `a → b` builds the reversed graph: the cycle test
-still answers LC 207, but LC 210 gets the order backwards ({3, 1, 2, 0}).
-Counting `indeg` on the edge's source counts out-degree instead, so a
-course with no successors looks ready first. Attaching both to `a`
-gives `a` the out-edges with `a`'s own in-degree, so the counts never
-match the edges that decrement them.
+still answers Course Schedule, but Course Schedule II gets the order
+backwards: {3, 1, 2, 0} when 0 comes before 1 and 2, both before 3.
+The other two chips count on the edge's source. `++indeg[p[1]]` with
+`b → a` counts `b`'s dependents, so a course no one needs starts ready
+though its prerequisites are unmet. `adj[p[0]].push_back(p[1]);
+++indeg[p[0]];` builds `a → b` and counts on `a`: each pop then
+decrements a course's prerequisites, not its dependents.

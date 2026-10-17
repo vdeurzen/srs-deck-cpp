@@ -19,7 +19,6 @@ An optimum built from optima of its subproblems is called
 
 ---
 
-That is what licenses the recurrence
-`best(a) = 1 + min over coins c of best(a − c)`: try every last coin,
-trust the subproblem answers. For 11: 1 + min(best(10), best(6),
-best(5), best(2)) = 1 + min(2, 1, 1, 2) = 2. Bellman called it the principle of optimality.
+It lets DP try every last coin and trust each rest's best answer.
+Without it, combining sub-answers fails: a longest simple path in a
+graph need not be built from longest simple paths.

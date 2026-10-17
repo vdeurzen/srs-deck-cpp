@@ -21,9 +21,9 @@ a → c → d
 
 ---
 
-**`d` must be grey: started but not finished, an ancestor on the current path.**
+**`d` must be on the current DFS path: started, not yet finished ("grey").**
 
-Here `d` is black (finished) on the second visit, so `a → c → d` merely
-rejoins. An edge to a grey vertex points back up the active path: a
-cycle. So "already visited" is not enough; DFS needs three colours:
-white, grey, black.
+Colours: white = not started, grey = started, black = finished. Here
+`d` is black on the second visit, so `a → c → d` merely rejoins. An
+edge to a grey vertex points back up the active path: a cycle. So
+"already visited" is not enough.

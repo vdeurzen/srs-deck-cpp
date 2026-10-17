@@ -10,8 +10,9 @@ refs:
 elaborate: If the value might be absent, what must the fix check?
 ---
 
-LC 480 keeps the window in a `std::multiset<int>`. The value 5 leaves
-the window:
+Sliding Window Median (LC 480): return the median of every window of `k`
+consecutive values. A solution keeps the window in a
+`std::multiset<int>`. The value 5 leaves the window:
 
 ```cpp
 std::multiset<int> window{2, 5, 5, 7};

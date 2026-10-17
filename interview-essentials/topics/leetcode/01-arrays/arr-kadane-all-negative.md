@@ -29,7 +29,7 @@ return best;
 
 ---
 
-**0, the empty subarray; LC 53 wants a non-empty one, so the answer is −1.**
+**0, the empty subarray; Maximum Subarray (LC 53) wants a non-empty one, so the answer is −1.**
 
 Resetting to 0 and starting `best` at 0 both allow "take nothing".
 Bentley's 1984 version allows it on purpose. Keep the choice per

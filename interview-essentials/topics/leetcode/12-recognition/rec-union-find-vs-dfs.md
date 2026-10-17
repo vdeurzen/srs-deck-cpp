@@ -11,7 +11,7 @@ refs:
   - https://leetcode.com/problems/number-of-provinces/
   - https://leetcode.com/problems/redundant-connection/
   - https://doi.org/10.1145/364099.364331
-elaborate: Union-find can merge sets but not split them. If edges were also deleted between questions, what would you have to do?
+elaborate: Union-find can merge sets but not split them. If edges were also deleted between questions, but every deletion was known up front, how could you still use it?
 ---
 
 > (a) `isConnected` is an n × n matrix of which cities are directly
@@ -20,7 +20,7 @@ elaborate: Union-find can merge sets but not split them. If edges were also dele
 > (b) A tree had one extra edge added. Given the edges in order, return
 > the one to remove; if several work, the one that occurs last.
 
-## Union-find clearly beats a plain DFS in one of them. Which property of its statement decides that?
+## Union-find fits one of them better than a plain DFS. Which property of its statement decides that?
 
 ---
 

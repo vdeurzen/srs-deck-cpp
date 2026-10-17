@@ -11,7 +11,7 @@ refs:
 Assume about 10⁸ simple steps per second. A one-second budget then
 covers n ≈ 10⁸ for O(n), n ≈ 4·10⁶ for O(n log n),
 n ≈ {{c1::10⁴}} for O(n²), and only
-n ≈ {{c2::26}} for O(2ⁿ).
+n ≈ {{c2::25 to 27::a narrow range}} for O(2ⁿ).
 
 ---
 

@@ -9,7 +9,7 @@ requires:
   - virtual-is-a
 input: chips
 choices:
-  c1: ["std::runtime_error", "std::exception", "std::string"]
+  c1: ["std::runtime_error", "std::exception", "std::bad_alloc"]
 compile:
   harness: |
     #include <type_traits>
@@ -37,7 +37,7 @@ struct ConfigError : Base {
 
 `std::runtime_error` derives from `std::exception`, takes the message in
 its constructor and returns it from `what()`; inheriting its constructors
-is all a custom exception needs. `std::exception` itself has no
-constructor taking a message, so `ConfigError("...")` does not compile.
-`std::string` can be thrown, but it is no `std::exception`, so that
-handler would never see it.
+is all a custom exception needs. `std::exception` itself, like
+`std::bad_alloc`, has no constructor taking a message, so
+`ConfigError("...")` does not compile: their `what()` returns an
+implementation-defined text.

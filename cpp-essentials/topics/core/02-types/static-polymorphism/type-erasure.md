@@ -19,7 +19,22 @@ refs:
 **Type erasure: a wrapper (like `std::function`) that stores any `T` with
 `area()` behind an internal virtual interface.**
 
-It is the inverse trade of templates: one type at the call site, run-time
-dispatch inside, and usually a heap allocation per object. For a closed
-list of types known up front, `std::variant` would do; an open set needs
-erasure.
+```cpp
+class AnyShape {
+    struct Concept { virtual ~Concept() = default; virtual double area() const = 0; };
+    template<class T> struct Model : Concept {
+        T t;
+        explicit Model(T x) : t(std::move(x)) {}
+        double area() const override { return t.area(); }
+    };
+    std::unique_ptr<Concept> p_;
+public:
+    template<class T> AnyShape(T t) : p_(std::make_unique<Model<T>>(std::move(t))) {}
+    double area() const { return p_->area(); }
+};
+```
+
+`std::vector<AnyShape>` then holds a `Square` and a `Circle` alike: one
+type at the call site, run-time dispatch inside, usually a heap
+allocation per object. For a closed set known up front, `std::variant`
+would do.

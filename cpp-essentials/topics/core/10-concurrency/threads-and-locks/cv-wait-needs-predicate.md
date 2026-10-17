@@ -11,13 +11,20 @@ refs:
   - https://en.cppreference.com/w/cpp/thread/condition_variable
 ---
 
-## Why is `cv.wait(lk)` on its own wrong, when `cv.wait(lk, pred)` is right?
+## `cv.notify_one()` wakes one thread blocked in `cv.wait(lk)`. A producer pushes a job under `m`, then calls `cv.notify_one()`. Why is this consumer wrong?
+
+```cpp
+std::unique_lock lk(m);
+cv.wait(lk);                 // unlocks m, sleeps, relocks m on wake
+use(queue.front());
+```
 
 ---
 
 **Because a wake-up is not the condition.**
 
-`wait` may return *spuriously*, and a `notify` sent before the thread
-waits is *lost*. The predicate overload is `while (!pred()) wait(lk);`:
-it tests the shared state, under the mutex, before sleeping and after
-every wake, so both failures are harmless.
+`wait` may return *spuriously* with `queue` empty, and a notify sent
+before the consumer waits is *lost*, so it sleeps forever.
+`cv.wait(lk, [&] { return !queue.empty(); })` loops `while (!pred())
+wait(lk);`, testing the shared state under the mutex before sleeping and
+after every wake.

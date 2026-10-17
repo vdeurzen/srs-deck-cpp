@@ -12,11 +12,13 @@ refs:
   - https://eel.is/c++draft/defns.static.type
 ---
 
-## `Dog` derives publicly from `Animal`. After these two lines, what is the *dynamic* type of the object `pet` refers to?
+## `Dog` derives publicly from `Animal`. While `groom(rex)` runs, what is the *dynamic* type of the object `pet` refers to?
 
 ```cpp
+void groom(Animal& pet) { /* ... */ }
+
 Dog rex;
-Animal& pet = rex;
+groom(rex);
 ```
 
 ---
@@ -24,5 +26,5 @@ Animal& pet = rex;
 **`Dog`.** The dynamic type is the type of the object actually there,
 fixed when that object was created. The *static* type is the type the
 code declares, `Animal` for `pet`, and it is all the compiler sees when
-it checks the expression. A base-class reference or pointer is exactly
+it checks `groom`'s body. A base-class reference or pointer is exactly
 where the two differ.

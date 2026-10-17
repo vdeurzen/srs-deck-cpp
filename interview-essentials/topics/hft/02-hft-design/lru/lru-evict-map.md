@@ -37,12 +37,12 @@ requires:
 refs:
   - https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_Recently_Used_(LRU)
   - https://en.cppreference.com/w/cpp/container/unordered_map/erase
-elaborate: Which line of `trace-lru-order`'s `touch` makes the same choice, and what does popping the list first break there?
+elaborate: In the `std::list` + `unordered_map` LRU, which line makes the same choice, and what breaks if you pop the list first?
 ---
 
-The interviewer: "Now the miss path, with the cache full." The
-three-entry LRU from `lru-touch` also stores each slot's key, and a
-key → slot table stands in for the hash map. The miss reuses the
+The interviewer: "Now the miss path, with the cache full." A
+three-entry LRU keeps its recency ring in fixed arrays and stores each
+slot's key; a key → slot table stands in for the hash map. The miss reuses the
 least recently used slot in place. Complete `miss`.
 
 ```cpp

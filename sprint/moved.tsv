@@ -556,3 +556,5 @@ algo-basics/tree-terms	interview-essentials/tree-terms
 cpp-core/smart-pointers-unique-ptr-deleter-size	cpp-essentials/smart-pointers-unique-ptr-deleter-size
 cpp-core/ranges-sort-projection	cpp-essentials/ranges-sort-projection
 algo-basics/hashing-direct-address-limit	interview-essentials/hashing-direct-address-limit
+algo-basics/graph-union-find-union-code	interview-essentials/graph-union-find-union-code
+algo-basics/graph-bfs-distance-code	interview-essentials/graph-bfs-distance-code

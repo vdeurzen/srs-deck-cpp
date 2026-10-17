@@ -17,6 +17,7 @@ refs:
 
 **If the operation throws, the state is exactly as it was before the call.**
 
-Commit or roll back. The basic guarantee only promises that invariants hold
-and nothing leaks; the contents may have changed. `std::vector::push_back`
-gives the strong one for copyable or nothrow-movable elements.
+Basic only promises intact invariants and no leaks; contents may change.
+If `v.push_back(x)` throws while reallocating, `v` is unchanged (strong, for
+copyable or nothrow-movable elements). If the third `push_back` in a loop
+throws, the first two stay: the loop is only basic.

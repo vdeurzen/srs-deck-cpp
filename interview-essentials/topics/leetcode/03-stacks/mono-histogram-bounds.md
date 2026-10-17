@@ -12,8 +12,9 @@ refs:
 elaborate: The stack gives each bar its nearest lower bar on both sides in one pass. Where else would "nearest smaller on each side" answer a problem?
 ---
 
-LC 84: `st` holds bar indices, heights rising from bottom to top. Bar
-`i` is lower than the top bar `b`, so `b` is popped:
+Largest Rectangle in Histogram (LC 84): the largest rectangle area
+under bars of heights `h`, each 1 wide. `st` holds bar indices,
+heights strictly rising from bottom to top. Bar `i` is no taller than the top bar `b`, so `b` is popped:
 
 ```cpp
 int b = st.back();
@@ -25,8 +26,9 @@ int left = st.back();   // or -1 if st is now empty
 
 ---
 
-**`i - left - 1`: `i` is the first lower bar on the right, `left` the last lower on the left.**
+**`i - left - 1`: the bars strictly between `left` and `i`.**
 
-Every bar strictly between them is at least `h[b]` tall: those right of
-`b` were popped before it, those left of it were popped by `b` or
-earlier. With nothing lower on the left, `left` is -1.
+`i` is the first bar right of `b` no taller than it, `left` the nearest
+shorter bar on its left. Every bar between is at least `h[b]` tall:
+those right of `b` were popped before it, those left of it by `b` or
+earlier.

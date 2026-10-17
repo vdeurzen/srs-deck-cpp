@@ -10,9 +10,9 @@ requires:
   - tree-terms
 ---
 
-Depth-first traversals visit both subtrees, left before right, and
-differ in when they visit the node itself. Inorder visits it
-{{c2::between the left and the right subtree::a position in time}}.
+Depth-first traversals visit the left subtree before the right and
+differ in when they visit the node itself: preorder before both
+subtrees, inorder between them, postorder after both.
 
 ```
       7
@@ -22,10 +22,11 @@ differ in when they visit the node itself. Inorder visits it
   1   5
 ```
 
-Preorder visits this tree as {{c1::7 3 1 5 9::a sequence of keys}}.
+Preorder visits this tree as {{c1::7 3 1 5 9::a sequence of keys}};
+postorder as {{c2::1 5 3 9 7::a sequence of keys}}.
 
 ---
 
-Preorder visits the node before its subtrees: 7, then all of 3's
-subtree (3 1 5), then 9. Inorder gives 1 3 5 7 9; postorder, node after
-both subtrees, gives 1 5 3 9 7.
+Each rule applies at every node, not only the root. Preorder: 7, then
+all of 3's subtree (3 1 5), then 9. Postorder finishes 3's whole subtree
+(1 5 3) and then 9 before it can emit 7. Inorder gives 1 3 5 7 9.

@@ -42,7 +42,8 @@ public:
 ---
 
 Implicit here is right because the conversion is lossless and unsurprising,
-unlike `Meters` from `double`. A `friend` defined in the class is a
+unlike a length type built from a bare `double`, where any unit-less
+number would silently pass as a length. A `friend` defined in the class is a
 **non-member**, so both operands are ordinary parameters and `2` converts on
 either side. The explicit-object (`this Rational l`) version is still a
 member: `2 + r` finds no candidate. Without `friend`, two parameters make an

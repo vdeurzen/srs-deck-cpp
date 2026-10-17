@@ -5,7 +5,6 @@ version: 1
 level: 2
 tags: [inheritance, virtual, destructors, new-delete]
 requires:
-  - virtual-construct-order
   - virtual-enable-dispatch
 refs:
   - https://en.cppreference.com/w/cpp/language/destructor#Virtual_destructors
@@ -31,6 +30,6 @@ delete p;
 
 **Undefined behaviour: `Plugin` has no virtual destructor.** Deleting
 through a base pointer needs one to find the derived destructor. Typically
-only `~Plugin` runs, so `samples` is never freed. Fix: give the base
-`virtual ~Plugin() = default;`, as every class meant to be used through a
-base pointer should have.
+only `~Plugin` runs: `~Reverb` and its `samples` member never run, so the
+buffer leaks. Fix: give the base `virtual ~Plugin() = default;`, as every
+class meant to be used through a base pointer should have.

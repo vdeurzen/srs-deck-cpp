@@ -8,8 +8,9 @@ requires:
   - technique-lcs-match
 refs:
   - https://leetcode.com/problems/edit-distance/
+  - https://leetcode.com/problems/interleaving-string/
   - https://doi.org/10.1145/321796.321811
-elaborate: LC 97 asks whether `s3` interleaves `s1` and `s2`. What does subproblem `(i, j)` mean there, and which character of `s3` does it look at?
+elaborate: Interleaving String (LC 97) asks whether `s3` is formed by interleaving `s1` and `s2`. What does subproblem `(i, j)` mean there, and which character of `s3` does it look at?
 ---
 
 > Given two strings `word1` and `word2`, return the minimum number of

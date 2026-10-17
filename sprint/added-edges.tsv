@@ -68,3 +68,11 @@ interview-essentials/hashing-explain-chained-table	interview-essentials/hashing-
 interview-essentials/hashing-explain-chained-table	interview-essentials/hashing-load-factor
 interview-essentials/hashing-probe-lookup-stop	interview-essentials/hashing-open-addressing
 interview-essentials/stl-vector-paren-brace	cpp-essentials/initialization-brace-prefers-initializer-list
+cpp-essentials/conc-start-with-arguments	cpp-essentials/conc-thread-shares-memory
+cpp-essentials/ub-static-assert-finds-ub	cpp-essentials/ub-passing-tests-prove-nothing
+cpp-essentials/types-reinterpret-cast-intro	cpp-essentials/ptr-holds-an-address
+cpp-essentials/tmpl-constrained-auto	cpp-essentials/tmpl-concept-error
+cpp-essentials/storage-allocate-vs-construct	cpp-essentials/class-constructor-intro
+cpp-essentials/ranges-sort-projection	cpp-essentials/stdalgo-sort-by-length
+interview-essentials/graph-union-find-union-code	interview-essentials/graph-union-find-forest
+interview-essentials/graph-bfs-distance-code	interview-essentials/graph-bfs-why-shortest

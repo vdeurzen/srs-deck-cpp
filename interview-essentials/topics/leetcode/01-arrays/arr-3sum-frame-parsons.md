@@ -19,11 +19,13 @@ requires:
   - linear-two-pointers-code
 refs:
   - https://leetcode.com/problems/3sum/
+  - https://leetcode.com/problems/3sum-closest/
   - https://en.wikipedia.org/wiki/3SUM
-elaborate: LC 16 (3Sum Closest) keeps this frame. What replaces `return true`, and does the pointer step change?
+elaborate: 3Sum Closest (LC 16) returns the sum of three values closest to `target`, and keeps this frame. What replaces `return true`, and does the pointer step change?
 ---
 
-The frame of LC 15 before any de-duplication: does some triplet at three
+3Sum (LC 15) returns every triplet summing to 0, without duplicates.
+Its frame before any de-duplication: does some triplet at three
 different positions sum to 0? Order the lines.
 
 ```cpp

@@ -22,7 +22,7 @@ return -1;
 ```
 
 In the sorted array `a`, if `key` occurs at all, it occurs in
-{{c1::`a[lo..hi]`, both ends included::which slice?}}. When
+`a[lo..hi]` with both ends {{c1::included::inclusive or exclusive?}}. When
 `a[mid] < key`, everything in `a[0..mid]` is {{c2::smaller than `key`::compare with the key}},
 so `lo = mid + 1` keeps that true. When `lo > hi` the slice is empty,
 so `return -1` is correct.

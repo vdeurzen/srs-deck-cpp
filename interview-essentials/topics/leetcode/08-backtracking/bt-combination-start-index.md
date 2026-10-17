@@ -26,11 +26,12 @@ refs:
   - https://leetcode.com/problems/combination-sum/
   - https://leetcode.com/problems/combination-sum-ii/
   - https://doi.org/10.1145/321296.321300
-elaborate: LC 40 gives each candidate once, with duplicates in the input. Besides the start index, which skip makes [1, 7] appear once when the input has two 1s?
+elaborate: Combination Sum II (LC 40) allows each candidate at most once, and its input may hold duplicates. Which of `j` and `j + 1` does it recurse from, and what new problem do the duplicates add?
 ---
 
-LC 39, Combination Sum: the candidates are distinct, any candidate may
-be used any number of times, and each combination must be listed once.
+Combination Sum (LC 39): list every combination of `candidates` that
+sums to `target`. The candidates are distinct, any candidate may be
+used any number of times, and each combination must be listed once.
 `c` is sorted ascending. Complete the start index of the recursive call.
 
 ```cpp
@@ -51,10 +52,11 @@ constexpr void combos(const V& c, int i, int left, V& cur, std::vector<V>& out) 
 **`j`: stay on the item just taken (reuse), never go back to an earlier one (no reordered repeats).**
 The start index decides what the subtree may still pick.
 
-`j + 1` is the subsets rule and LC 40's: each item at most once, so
-[2, 2, 3] is never found. `i` and `i + 1` measure from where the
-*parent* started, not from the item just taken: `i` lets a branch go
-back to earlier items, so [2, 2, 3] also comes out as [2, 3, 2] and
-[3, 2, 2]; `i + 1` both repeats orderings and forbids some reuse. Sorting
-lets `c[j] <= left` stop the loop early, since every later candidate is
+`j + 1` is the subsets rule and Combination Sum II's: each item at
+most once, so candidates {2, 3, 6, 7} with target 7 never find
+[2, 2, 3]. `i` and `i + 1` measure from where the *parent* started,
+not from the item just taken: `i` lets a branch go back to earlier
+items, so [2, 2, 3] also comes out as [2, 3, 2] and [3, 2, 2]; `i + 1`
+both repeats orderings and forbids some reuse. Sorting lets
+`c[j] <= left` stop the loop early, since every later candidate is
 larger too.

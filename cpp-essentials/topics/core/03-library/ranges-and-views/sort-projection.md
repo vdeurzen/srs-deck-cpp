@@ -13,6 +13,8 @@ compile:
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/ranges/sort
+requires:
+  - stdalgo-sort-by-length
 ---
 
 Sort `people` by age without writing a comparator, using `std::ranges::sort`'s

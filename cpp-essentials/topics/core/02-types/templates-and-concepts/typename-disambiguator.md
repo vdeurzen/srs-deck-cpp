@@ -6,7 +6,7 @@ level: 3
 tags: [templates, lookup]
 input: chips
 choices:
-  c1: ["typename", "template", "auto", "class"]
+  c1: ["typename", "template", "const", "class"]
 compile:
   harness: |
     #include <array>
@@ -16,11 +16,12 @@ requires:
   - templates-two-phase-lookup
 refs:
   - https://en.cppreference.com/w/cpp/language/dependent_name#The_typename_disambiguator_for_dependent_names
+  - https://wg21.link/p0634r3
 ---
 
-Every standard container has a member type `value_type`, but while `first`
-is being parsed, `C` is unknown and so is what `C::value_type` names.
-Complete the declaration so the template compiles.
+`first` should work for any standard container, each of which has a
+member type `value_type`. Complete the declaration so the template
+compiles.
 
 ```cpp
 template<class C>
@@ -37,5 +38,7 @@ a value, not a type, unless it is prefixed with `typename`. Without it
 this line is a parse error at the definition, before any call. `template`
 answers a different question: whether a `<` after a dependent name opens
 template arguments.
-`auto C::value_type x` is not a declaration at all, and `class
-C::value_type` demands a class type, so it fails for `int`.
+`const` alone does not help: C++20 dropped `typename` only where nothing
+but a type can appear (P0634), and a statement in a function body is not
+such a place. `class C::value_type` demands a class type, so it fails for
+`int`.

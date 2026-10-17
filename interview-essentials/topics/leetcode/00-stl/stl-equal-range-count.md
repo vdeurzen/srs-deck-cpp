@@ -21,12 +21,13 @@ requires:
   - search-lower-bound-meaning
 refs:
   - https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
+  - https://leetcode.com/problems/find-target-indices-after-sorting-array/
   - https://en.cppreference.com/w/cpp/algorithm/equal_range
-elaborate: LC 2089 asks for every index of the target after sorting. What do `lo` and `hi` give you directly?
+elaborate: Find Target Indices After Sorting Array (LC 2089) returns every index the target would have once `nums` is sorted, in increasing order. What do `lo` and `hi` give you directly?
 ---
 
-LC 34: return the first and last index of `t` in the sorted `v`, or
-`{-1, -1}`. Complete the last index.
+Find First and Last Position of Element in Sorted Array (LC 34): return
+the first and last index of `t` in the sorted `v`, or `{-1, -1}`. Complete the last index.
 
 ```cpp
 #include <algorithm>
