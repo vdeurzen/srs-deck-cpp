@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+"""Estimate how long one review of each Card takes, and flag Cards over the
+time budget in TEACHING.md §3.
+
+The estimate is for a learner who knows the Card's prerequisites but is
+rebuilding: read the front, solve, check the back. It is a coarse model
+(prose ~4 words/s, code ~2 s/line, a fixed cost per blank, chip, line, probe
+cell or rubric item), good for ranking and for catching outliers, not a
+stopwatch. A cloze is timed per item, since each blank is reviewed alone.
+
+Structural flags check the trace budget (PEDAGOGY.md §3.1) directly, because the time
+model can't see how many iterations a loop runs:
+
+  wide-input     a brace list with more than 5 elements
+  many-probes    more than 3 probes, or a probe with more than 2 values
+  nested-loop    a loop inside a loop
+  long-snippet   more code lines than the Kind allows
+
+Cards tagged `stretch` get the stretch budget instead of their Kind's; a
+`basic` tagged `worked-example` and a `code` Card with several blanks get the
+next tier up, as TEACHING.md §3 says.
+
+usage: scripts/estimate-time <deck-dir> [<deck-dir> ...] [--topic [<deck-id>/]<prefix>]
+                             [--id <id> ...] [--all] [--summary]
+  default: list only Cards over budget or flagged; --all lists every Card.
+"""
+
+import collections
+import os
+import re
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from cards import FENCE, Deck, clozes, in_topic  # noqa: E402
+
+# Seconds per review, by Kind (TEACHING.md §3).
+BUDGET = {"basic": 20, "cloze": 20, "code": 45, "chunk": 45,
+          "parsons": 75, "trace": 75, "explain": 150}
+STRETCH = 180
+MAX_LINES = {"code": 10, "chunk": 7, "parsons": 9, "trace": 15}
+
+WORD_S, LINE_S, CHECK_S = 0.25, 2.0, 0.05   # reading prose, reading code, skimming the back
+BRACE_LIST = re.compile(r"\{([^{}]*)\}")
+LOOP = re.compile(r"\b(for|while)\s*\(")
+
+
+def prose_words(md):
+    return len(FENCE.sub("", md).split())
+
+
+def code_lines(md):
+    return sum(len([l for l in m.group(3).splitlines() if l.strip()])
+               for m in FENCE.finditer(md))
+
+
+def widest_list(code):
+    best = 0
+    for m in BRACE_LIST.finditer(code):
+        items = [x for x in m.group(1).split(",") if x.strip()]
+        if len(items) > 1 and all(re.fullmatch(r"\s*[-\w.'\"]+\s*", x) for x in items):
+            best = max(best, len(items))
+    return best
+
+
+def nested_loop(code):
+    """True if a loop header appears inside another loop's body (by indentation)."""
+    stack = []
+    for line in code.splitlines():
+        if not line.strip():
+            continue
+        indent = len(line) - len(line.lstrip())
+        stack = [i for i in stack if i < indent]
+        if LOOP.search(line):
+            if stack:
+                return True
+            stack.append(indent)
+    return False
+
+
+def estimate(card):
+    """(seconds, flags) for one review of `card` (one item, for a cloze)."""
+    front, back = card.split()
+    fm, kind = card.fm, card.kind
+    code = card.code() or ""
+    lines = code_lines(card.body if kind in ("chunk", "parsons", "trace", "code") else front)
+    read = prose_words(front) * WORD_S + lines * LINE_S
+    check = prose_words(back) * CHECK_S
+    flags = []
+    if kind in MAX_LINES and lines > MAX_LINES[kind]:
+        flags.append(f"long-snippet {lines} lines")
+
+    if kind == "basic":
+        t = read + 4 + check
+    elif kind == "cloze":
+        t = read + 4 + check
+    elif kind == "code":
+        blanks = {c[2] for c in clozes(code)}
+        chips = sum(len(v) for v in (fm.get("choices") or {}).values())
+        t = read + 6 * len(blanks) + 1.0 * chips + check
+    elif kind == "chunk":
+        t = (fm.get("expose_ms") or 8000) / 1000 + 3 * lines + 3
+    elif kind == "parsons":
+        t = read + 3 * lines + 4 * len(fm.get("distractors") or []) + check
+    elif kind == "trace":
+        probes = fm.get("probes") or {}
+        cells = sum(len(v) if isinstance(v, dict) else 1 for v in probes.values())
+        loops = len(LOOP.findall(code))
+        t = read + 6 * cells + 8 * loops + 15 * nested_loop(code) + check
+        n = len([k for k in probes if k != "out"])
+        if n > 3 or any(isinstance(v, dict) and len(v) > 2 for v in probes.values()):
+            flags.append(f"many-probes {n} probes/{cells} cells")
+        if widest_list(code) > 5:
+            flags.append(f"wide-input {widest_list(code)} elements")
+        if nested_loop(code):
+            flags.append("nested-loop")
+    elif kind == "explain":
+        items = len(re.findall(r"^\s*- \[ \]", back, re.M))
+        t = read + 20 * items + 10
+    else:
+        t = read
+    return round(t), flags
+
+
+def budget(card):
+    tags = card.fm.get("tags") or []
+    if "stretch" in tags:
+        return STRETCH
+    if card.kind == "basic" and "worked-example" in tags:
+        return BUDGET["code"]      # T2: reading a worked example
+    if card.kind == "code" and len({c[2] for c in clozes(card.code() or "")}) > 1:
+        return BUDGET["trace"]     # T3: several blanks
+    return BUDGET.get(card.kind, 15)
+
+
+def main(argv):
+    def take(name, many=False):
+        if name not in argv:
+            return [] if many else None
+        i = argv.index(name)
+        j = i + 1
+        while many and j < len(argv) and not argv[j].startswith("--"):
+            j += 1
+        vals = argv[i + 1:j if many else i + 2]
+        del argv[i:j if many else i + 2]
+        return vals if many else vals[0]
+
+    show_all = "--all" in argv
+    summary = "--summary" in argv
+    argv = [a for a in argv if a not in ("--all", "--summary")]
+    prefix = take("--topic")
+    ids = set(take("--id", many=True))
+    if not argv:
+        sys.exit(__doc__)
+    totals = collections.defaultdict(list)
+    over = 0
+    for root in argv:
+        deck = Deck(root)
+        for card in sorted(deck.cards.values(), key=lambda c: c.path):
+            if not in_topic(card, prefix) or (ids and card.id not in ids and card.qid not in ids):
+                continue
+            t, flags = estimate(card)
+            b = budget(card)
+            totals[(deck.id, card.kind)].append(t)
+            bad = t > b or flags
+            over += bool(bad)
+            if not summary and (show_all or bad):
+                mark = "OVER" if t > b else ("flag" if flags else "ok")
+                print(f"{mark:4s} {t:4d}s/{b:<3d} {card.kind:8s} {card.qid}  {'; '.join(flags)}")
+    print()
+    print(f"{'deck':22s} {'kind':8s} {'n':>4s} {'median':>7s} {'max':>5s}")
+    for (deck, kind), ts in sorted(totals.items()):
+        ts.sort()
+        print(f"{deck:22s} {kind:8s} {len(ts):4d} {ts[len(ts) // 2]:6d}s {ts[-1]:4d}s")
+    print(f"{over} card(s) over budget or flagged")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
