@@ -1,56 +1,25 @@
 ---
 id: heap-build-swap-count
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 3
-tags: [heaps, complexity, tracing]
+tags: [heaps, complexity]
 requires:
   - heap-build-linear
   - heap-array-layout
-probes:
-  1: { push: "34" }
-  2: { bulk: "11" }
 refs:
   - https://doi.org/10.1145/355588.365103
   - https://en.cppreference.com/w/cpp/algorithm/make_heap
+elaborate: Say aloud why building a `std::priority_queue` from a whole range at once is cheaper than pushing its elements one by one.
 ---
 
-```cpp
-// a and b: std::array<int, 15> holding 1, 2, ..., 15 (a full 4-level tree).
-void sift_up(std::array<int, 15>& h, std::size_t i) {
-  for (; i > 0 && h[(i - 1) / 2] < h[i]; i = (i - 1) / 2, ++swaps)
-    std::swap(h[(i - 1) / 2], h[i]);
-}
-void sift_down(std::array<int, 15>& h, std::size_t i) {
-  for (std::size_t c; (c = 2 * i + 1) < 15; i = c, ++swaps) {
-    if (c + 1 < 15 && h[c + 1] > h[c]) ++c;   // larger child
-    if (h[i] >= h[c]) return;
-    std::swap(h[i], h[c]);
-  }
-}
-
-swaps = 0;
-for (std::size_t i = 1; i < a.size(); ++i) sift_up(a, i);  // 14 pushes
-int push = swaps;                                           // @1
-swaps = 0;
-for (std::size_t i = b.size() / 2; i-- > 0;) sift_down(b, i);  // make_heap
-int bulk = swaps;                                           // @2
-```
+## Build a max-heap from the array `1 2 3 4 5 6 7`. Pushing the keys one at a time makes 10 swaps, since each new key climbs to the root. How many swaps does the bottom-up build make, sifting down slots 2, 1 and 0 in turn?
 
 ---
 
-Increasing input into a max-heap is the push-build's worst case: slot 0
-is already a heap of one, and each of the 14 later elements is the
-largest so far and climbs to the root, paying its full depth. Depths
-1, 1, 2, 2, 2, 2 and eight 3s sum to 2 + 8 + 24 = **34**.
+**4: each internal node sinks its full height, 1 + 1 + 2.**
 
-The bottom-up build pays each internal node's *height* at most: four
-nodes of height 1, two of height 2, one of height 3, so at most
-4 + 4 + 3 = **11** — and this input hits that bound exactly. The leaves,
-half the array, cost nothing. Both arrays end with 15 at the root.
-
-Grow the tree and the gap widens: the push-build's total is about
-n log n, the bulk build's stays below n.
-
-Verified by compiling and running an instrumented copy under GCC 16.2,
-`g++ -std=c++23 -Wall -Wextra`, printing both counters.
+Slots 1 and 2 sit one level above the leaves, slot 0 two levels; the
+four leaves cost nothing. Pushing pays each key's *depth*, largest where
+most nodes are; sifting down pays *height*, smallest there. Grown, that
+is about n log n against under n.

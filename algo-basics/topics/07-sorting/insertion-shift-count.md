@@ -1,12 +1,9 @@
 ---
 id: sort-insertion-shift-count
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 1
-tags: [foundations, tracing, sorting, insertion-sort]
-probes:
-  1: { x: "6" }
-  2: { y: "7" }
+tags: [foundations, sorting, insertion-sort, inversions]
 requires:
   - sort-inversion-count
   - sort-insertion-idea
@@ -16,28 +13,12 @@ refs:
   - https://algs4.cs.princeton.edu/21elementary/
 ---
 
-`shifts(a)` insertion-sorts a copy of `a`: each value slides left past
-every larger value before it. It counts the one-slot moves.
-
-```cpp
-constexpr int shifts(std::array<int, 5> a) {
-  int s = 0;
-  for (std::size_t i = 1; i < a.size(); ++i) {
-    const int key = a[i];
-    std::size_t j = i;
-    while (j > 0 && a[j - 1] > key) { a[j] = a[j - 1]; --j; ++s; }
-    a[j] = key;
-  }
-  return s;
-}
-int x = shifts({3, 5, 1, 4, 2});   // @1
-int y = shifts({5, 2, 3, 4, 1});   // @2
-```
+## An array has k inversions. How many one-slot shifts does insertion sort make while sorting it?
 
 ---
 
-**Shifts = inversions** (pairs `i < j` with `a[i] > a[j]`): 6 and 7.
-Each shift moves `key` past exactly one larger value on its left, which
-undoes exactly one inversion and touches no other pair. So insertion
-sort costs Θ(n + inversions): linear on nearly sorted input.
-(Run with GCC 16.2.)
+**Exactly k: each shift undoes one inversion and no other pair.**
+
+A shift moves the key past one larger value on its left, fixing exactly
+that pair. `[3 1 2]` has 2 inversions (3·1, 3·2) and takes 2 shifts. So
+the sort costs Θ(n + k): linear on nearly sorted input.

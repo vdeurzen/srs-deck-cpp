@@ -1,17 +1,17 @@
 ---
 id: execution-trace-continuation-thread
 kind: trace
-version: 1
+version: 2
 level: 4
 tags: [execution, async, c++26, scheduling, tracing]
 requires:
+  - execution-trace-continuation-thread-worked
   - execution-starts-on-vs-continues-on
+elaborate: Say aloud, as to an interviewer, why a library that completes on its own I/O thread forces callers to write `continues_on` before touching UI state.
 probes:
   1: { t1: "main" }
   2: { t2: "pool" }
-  3: { t3: "pool" }
-  4: { t4: "ui" }
-  out: "15"
+  3: { t3: "ui" }
 refs:
   - https://eel.is/c++draft/exec.continues.on
   - https://eel.is/c++draft/exec.then
@@ -20,29 +20,27 @@ refs:
 
 `pool` and `ui` are schedulers for two single-thread contexts, and
 `where()` returns `"main"`, `"pool"` or `"ui"` for the thread calling
-it. `main` runs this. Which thread runs each `then`?
+it. `main` runs this. Which thread runs each marked `then`?
 
 ```cpp
-std::string t1, t2, t3, t4;
+std::string t1, t2, t3;
 auto w = just(5)
        | then([&](int x) { t1 = where(); return x + 1; })  // @1
        | continues_on(pool)
-       | then([&](int x) { t2 = where(); return x * 2; })  // @2
-       | then([&](int x) { t3 = where(); return x; })      // @3
+       | then([&](int x) { return x * 2; })
+       | then([&](int x) { t2 = where(); return x; })      // @2
        | continues_on(ui)
-       | then([&](int x) { t4 = where(); return x + 3; }); // @4
-auto [r] = std::this_thread::sync_wait(std::move(w)).value();
-std::cout << r;
+       | then([&](int x) { t3 = where(); return x + 3; }); // @3
+std::this_thread::sync_wait(std::move(w));
 ```
 
 ---
 
 A `then` runs where its predecessor completed. `just` completes inline
 inside `start`, which `sync_wait` calls on `main`: `t1` is `main`.
-`continues_on(pool)` moves the rest onto the pool, and `@3` stays
-there because nothing moved it again; only `continues_on(ui)` makes
-`@4` run on `ui`. `r` is `(5 + 1) * 2 + 3 = 15`, read on `main` after
-`sync_wait` returns.
+`continues_on(pool)` moves the rest onto the pool, and `@2`, two steps
+later, is still there because nothing moved it again; only
+`continues_on(ui)` makes `@3` run on `ui`.
 
 GCC 14 has no `std::execution`, so this Card is not compiled. The
 values were produced by running this snippet against NVIDIA's `stdexec`

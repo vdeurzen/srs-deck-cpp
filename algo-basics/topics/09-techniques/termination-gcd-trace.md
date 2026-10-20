@@ -6,6 +6,7 @@ level: 1
 tags: [foundations, termination, tracing]
 requires:
   - technique-termination-measure
+elaborate: Say in one sentence, as to an interviewer, which value shrinks on every pass of a loop you wrote recently, and why it cannot shrink forever.
 probes:
   1: { a: "18", b: "12" }
   2: { a: "12", b: "6" }

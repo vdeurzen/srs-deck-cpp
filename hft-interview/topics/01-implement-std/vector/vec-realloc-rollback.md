@@ -13,6 +13,7 @@ requires:
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/vector.modifiers#2
   - https://timsong-cpp.github.io/cppwp/n4950/specialized.destroy#1
+elaborate: If `Tok` had a `noexcept` move constructor, which line here would change, and could the rollback still be needed?
 ---
 
 ```cpp

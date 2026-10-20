@@ -8,6 +8,7 @@ requires:
   - interview-essentials/heap-shape-and-order
   - interview-essentials/linear-array-index-contiguity
   - interview-essentials/heap-child-index-code
+elaborate: Where else does an index formula stand in for pointers, such as a 2-D grid stored in one flat array?
 probes:
   1: { l: "30", r: "50" }
   2: { p: "80" }

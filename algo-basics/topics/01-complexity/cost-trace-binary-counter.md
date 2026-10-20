@@ -1,47 +1,26 @@
 ---
 id: complexity-cost-trace-binary-counter
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [foundations, complexity, amortised, tracing]
+tags: [foundations, complexity, counters]
 requires:
   - complexity-cost-amortized
-  - interview-essentials/complexity-cost-geometric-sum
-probes:
-  1: { flips: "15", biggest: "4" }
-  2: { flips: "31", biggest: "5" }
+  - interview-essentials/complexity-geometric-sum-intro
+elaborate: Where else is an operation occasionally expensive yet cheap over any sequence of calls, and what pays for the expensive ones?
 refs:
   - https://epubs.siam.org/doi/10.1137/0606031
 ---
 
-An 8-bit counter stored as an array of bits, `bit[0]` lowest. `flips`
-counts every bit written; `biggest` is the most flips one increment
-made. Each probe reads both after the loop on its line.
+A 4-bit counter is incremented by turning its trailing 1s into 0s and
+the next 0 into a 1, so `0111 → 1000` writes 4 bits.
 
-```cpp
-int flips = 0, biggest = 0;
-void increment(bool* bit, int width) {
-  int f = 0, i = 0;
-  while (i < width && bit[i]) { bit[i] = false; ++i; ++f; }
-  if (i < width) { bit[i] = true; ++f; }
-  flips += f;
-  if (f > biggest) biggest = f;
-}
-
-int main() {
-  bool bit[8] = {};
-  for (int k = 0; k < 8; ++k) increment(bit, 8);  // @1
-  for (int k = 0; k < 8; ++k) increment(bit, 8);  // @2
-}
-```
+## Counting from `0000` up to `1000` (8 increments), how many bits are written in total?
 
 ---
 
-Per increment: 1, 2, 1, 3, 1, 2, 1, 4 flips (0111 → 1000 is the 4),
-total 15; the next eight add 16 more, with 01111 → 10000 costing 5.
-Bit 0 flips every time, bit 1 every second time, bit 2 every fourth…
-so n increments flip fewer than n + n/2 + n/4 + … < **2n** bits:
-amortised 2 per increment, though one increment can flip log n bits.
+**15 = 8 + 4 + 2 + 1: bit k changes every 2ᵏ-th increment.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+Per increment: 1, 2, 1, 3, 1, 2, 1, 4. One increment can write log n
+bits, but n increments write fewer than n + n/2 + n/4 + … < 2n: about 2
+per increment, amortised.

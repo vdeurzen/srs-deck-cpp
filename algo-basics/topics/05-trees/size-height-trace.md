@@ -1,14 +1,17 @@
 ---
 id: tree-size-height-trace
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [foundations, trees, recursion, tracing]
 requires:
   - tree-node-pointers
+  - interview-essentials/technique-call-stack-worked
+  - cpp-essentials/ptr-arrow-member
+  - interview-essentials/stl-min-max
 probes:
-  1: { s: "6" }
-  2: { h: "4", hl: "2" }
+  1: { h: "4" }
+elaborate: Where else does "combine the children's answers with max" appear, such as the deepest folder or the longest call chain?
 refs:
   - https://en.wikipedia.org/wiki/Binary_tree#Properties_of_binary_trees
   - https://xlinux.nist.gov/dads/HTML/height.html
@@ -21,30 +24,23 @@ points at the drawn tree. Height counts levels.
 //        40
 //       /  \
 //     20    60
-//       \     \
-//       30     70
-//             /
-//           65
-int size(const Node* n) {
-  if (n == nullptr) return 0;
-  return 1 + size(n->left) + size(n->right);
-}
+//             \
+//             70
+//            /
+//          65
 int height(const Node* n) {
   if (n == nullptr) return 0;
   return 1 + std::max(height(n->left), height(n->right));
 }
-int s = size(root);                              // @1
-int h = height(root), hl = height(root->left);   // @2
+int h = height(root);   // @1
 ```
 
 ---
 
-Both functions are the definition run backwards: an empty tree answers
-0, a node combines its two subtrees' answers. Size **adds** them (every
-node counts), height takes the **larger** (only the longest path
-counts): 40 → 60 → 70 → 65 is 4 levels, while 20's subtree has 2.
-
-Each node is visited once with O(1) work, so both walks are O(n).
+An empty tree answers 0; a node adds 1 to the **larger** of its two
+subtrees' heights, not their sum. The longest path, 40 → 60 → 70 → 65,
+has 4 levels, while 20's side adds only 1. Counting nodes instead would
+give 5. Each node is visited once with O(1) work: O(n).
 
 Verified by compiling and running an instrumented copy under GCC 16.2
 (`g++ -std=c++23 -Wall -Wextra`).

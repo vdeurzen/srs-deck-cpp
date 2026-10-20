@@ -1,50 +1,34 @@
 ---
 id: technique-dp-memo-calls
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [dynamic-programming, recursion, tracing]
+tags: [dynamic-programming, recursion]
 requires:
   - interview-essentials/technique-dp-overlapping-subproblems
-probes:
-  1: { calls: "15" }
-  2: { calls: "9" }
+elaborate: Plain fib(30) makes over 2.6 million calls. Say in one sentence, as to an interviewer, how many this memo makes and why.
 refs:
   - https://en.wikipedia.org/wiki/Memoization
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
 ---
 
-Each probe reads `calls` after the statement on its line.
+## Plain recursive `fib(5)` makes 15 calls. Counting the first call, how many calls does this memoised `fib_memo(5)` make?
 
 ```cpp
-int calls = 0;
-long fib(int n) { ++calls; return n < 2 ? n : fib(n - 1) + fib(n - 2); }
-
 long memo[32]; bool seen[32];
 long fib_memo(int n) {
-  ++calls;
   if (n < 2) return n;
   if (seen[n]) return memo[n];
+  memo[n] = fib_memo(n - 1) + fib_memo(n - 2);
   seen[n] = true;
-  return memo[n] = fib_memo(n - 1) + fib_memo(n - 2);
-}
-
-int main() {
-  fib(5);                  // @1
-  calls = 0; fib_memo(5);  // @2
+  return memo[n];
 }
 ```
 
 ---
 
-Naively, `calls(n) = calls(n − 1) + calls(n − 2) + 1`: 1, 1, 3, 5, 9,
-15, 25. It grows like fib itself, about ×1.6 per step, so `fib(30)` makes
-over 2.6 million calls. With the memo, each `n` from 2 to 5 recurses once
-and every other call returns from the table: `2n − 1 = 9` calls, linear.
+**9, that is 2n − 1: linear, not exponential.**
 
-Same recurrence, same answer; a repeated subproblem is looked up instead
-of recomputed. That is the memo half of dynamic programming; the other half builds the
-same table bottom-up.
-
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+Calls for 5, 4, 3 and 2 each recurse, making two calls apiece:
+1 + 2·4 = 9. Every `fib_memo(n − 2)` returns at once, because the
+`fib_memo(n − 1)` just before it already filled that entry.

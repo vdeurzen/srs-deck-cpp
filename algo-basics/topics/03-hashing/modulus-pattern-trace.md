@@ -1,48 +1,26 @@
 ---
 id: hashing-modulus-pattern-trace
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [hashing, hash-functions, tracing]
+tags: [hashing, hash-functions]
 requires:
   - interview-essentials/hashing-chaining
-  - interview-essentials/hashing-index-mod-trace
-probes:
-  1: { b10: "1" }
-  2: { b7: "5" }
+elaborate: Where do real keys arrive with a fixed step (ids, addresses, timestamps), and which bucket counts would you avoid for them?
 refs:
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/functional_hash.h
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/hashtable_policy.h
 ---
 
-Order ids are handed out in steps of 10 and hashed as themselves (`h(k)
-= k`). `distinct(m)` counts how many different buckets `k % m` the five
-ids use.
+Order ids come in steps of 10 (10, 20, 30, 40, 50) and are hashed as
+themselves, `h(k) = k`, into bucket `k % m`.
 
-```cpp
-int ids[] = {10, 20, 30, 40, 50};
-
-int distinct(int m) {
-  bool used[16] = {};
-  int d = 0;
-  for (int k : ids) if (!used[k % m]) { used[k % m] = true; ++d; }
-  return d;
-}
-
-int main() {
-  int b10 = distinct(10);   // @1
-  int b7  = distinct(7);    // @2
-}
-```
+## Which bucket count m spreads these five ids over the most buckets: 10, 15 or 7?
 
 ---
 
-With 10 buckets every id lands in bucket 0: one chain of five. With 7
-they land in 3, 6, 2, 5 and 1. **A bucket count sharing a factor with the
-keys' stride collapses them into few buckets**; a prime count has no
-factor to share.
+**7: it shares no factor with the step 10, so all five buckets differ.**
 
-This is real: libstdc++'s `std::hash<int>` is the identity, which is why
-its `unordered_map` picks prime bucket counts (`_Prime_rehash_policy`).
-
-(Values from running it under GCC 16.2.)
+With 10 every id lands in bucket 0; with 15, sharing the factor 5, only
+in 10, 5 and 0. libstdc++'s `std::hash<int>` is the identity, so its
+`unordered_map` uses prime bucket counts, which share no factor.

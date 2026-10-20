@@ -1,36 +1,26 @@
 ---
 id: trace-coroutine-lazy-generator
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [tracing, coroutines]
 requires:
-  - coroutines-generator-yield-value
+  - trace-coroutine-lazy-generator-worked
   - coroutines-eager-vs-lazy-start
+elaborate: Say in one sentence, as to an interviewer, where cleanup code in a generator's body runs when the consumer loops `while (gen.next())`.
 probes:
   1: { produced: "0" }
-  2: { produced: "1", "gen.value()": "10", more: "true" }
-  3: { produced: "2", "gen.value()": "20", more: "true" }
-  4: { produced: "3", more: "false" }
+  2: { produced: "2", "gen.value()": "20" }
+  3: { produced: "3", more: "false" }
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_yield
 ---
 
-```cpp
-struct IntGen {  // a lazy generator of int (no destructor: trimmed)
-  struct promise_type {
-    int current = 0;
-    std::suspend_always initial_suspend() { return {}; }
-    std::suspend_always yield_value(int v) { current = v; return {}; }
-    std::suspend_always final_suspend() noexcept { return {}; }
-    // get_return_object() wraps the handle; return_void() and
-    // unhandled_exception() do nothing
-  };
-  std::coroutine_handle<promise_type> h;
-  bool next() { h.resume(); return !h.done(); }
-  int value() const { return h.promise().current; }  // last yielded
-};
+`IntGen` is a lazy generator: `initial_suspend`, `yield_value` and
+`final_suspend` all return `std::suspend_always`. `gen.next()` resumes
+the body and returns `!done()`; `gen.value()` is the last yielded value.
 
+```cpp
 int produced = 0;
 
 IntGen numbers() {
@@ -43,28 +33,19 @@ IntGen numbers() {
 
 int main() {
   auto gen = numbers();       // @1
-  bool more = gen.next();     // @2
+  bool more = gen.next();
+  more = gen.next();          // @2
   more = gen.next();          // @3
-  more = gen.next();          // @4
 }
 ```
 
 ---
 
-Each `next()` buys exactly one more segment of the body. Creating the
-generator runs none of it — `produced` is still `0` — because
-`initial_suspend()` suspended first. The first `next()` runs up to and
-including `co_yield 10`, so `produced` is `1` and the value is `10`;
-the second picks up *after* that `co_yield` and stops at the next one.
-
-The last `next()` is the interesting one: it runs the tail of the body
-(`produced = 3`), falls off the end, and suspends at `final_suspend`,
-so `done()` is true and `next()` reports `false`. The third value never
-existed — the coroutine's last act was to update a variable, not to
-yield. A consumer that loops `while (gen.next())` therefore executes
-everything after the final `co_yield` and then stops, which is where
-cleanup code in a generator body actually runs.
-
-Verified by compiling and running this program, with the three
-trimmed hooks written out as described, under GCC 16.2
-(`g++ -std=c++23`).
+Creating the generator runs none of the body, because `initial_suspend()`
+suspended first: `produced` is still `0`. The first `next()` runs up to
+`co_yield 10`; the second picks up *after* it and stops at `co_yield 20`,
+so `produced` is `2` and the value is `20`. The third runs the tail
+(`produced = 3`), falls off the end and suspends at `final_suspend`:
+`done()` is true, so `next()` reports `false`, with no third value.
+Verified by compiling and running this program, with `IntGen` written out
+as described, under GCC 16.2 (`g++ -std=c++23`).

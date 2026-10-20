@@ -1,13 +1,11 @@
 ---
 id: tree-kth-smallest-trace
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [trees, traversal, explicit-stack, tracing, lc-230]
 probes:
-  1: { got: "1", st: "5 3 2", cur: "null" }
-  2: { got: "2", st: "5 3", cur: "null" }
-  3: { got: "3", st: "5", cur: "4" }
+  1: { got: "3", "st.size()": "2" }
 requires:
   - interview-essentials/tree-inorder-iterative-parsons
 refs:
@@ -17,21 +15,21 @@ elaborate: The problem's follow-up modifies the BST often (inserts and deletes) 
 ---
 
 Kth Smallest Element in a BST (LC 230): return the `k`-th smallest
-value (1-indexed) in a binary search tree. Here `k = 3`, and each
-`next()` is one pop of the iterative inorder loop. Write `st` as the
-keys of its nodes, bottom to top, and `cur` as the key it points at,
-or `null`.
+value (1-indexed) in a binary search tree. Here `k = 2`, and each
+`next()` is one pop of the iterative inorder loop. The first call has
+already returned 2: the stack holds 6, and `cur` points at 4, the right
+child of 2. Trace the second call.
 
 ```cpp
-//          5
-//         / \
-//        3   6
-//       / \
-//      2   4
+//      6
 //     /
-//    1
-std::stack<TreeNode*> st;
-TreeNode* cur = root;
+//    2
+//     \
+//      4
+//     /
+//    3
+std::stack<TreeNode*> st;   // holds 6
+TreeNode* cur;              // points at 4
 
 int next() {
   while (cur) { st.push(cur); cur = cur->left; }
@@ -42,17 +40,16 @@ int next() {
 
 int main() {
   int got = next();   // @1
-  got = next();       // @2
-  got = next();       // @3
 }
 ```
 
 ---
 
-The first call dives to 1, pushing 5, 3, 2, 1, then pops 1.
-Its right child is null, so the second call pops 2 straight away, and
-the third pops 3: the answer. **3's right child is now `cur`, not
-yet pushed**, and 6 has never been touched.
+The next value after 2 is not 4 or 6 but the **leftmost node of 2's
+right subtree**. The call pushes 4, dives to 3, pushes it, and pops 3:
+the answer. 4 and 6 stay on the stack, waiting their turn, so the stack
+never holds more than one root-to-leaf path. The walk stops at the
+k-th pop: O(h + k), not O(n).
 
-So the walk costs O(h + k), not O(n): it stops at the k-th pop, and
-the stack never holds more than one root-to-leaf path.
+Values from compiling and running an instrumented copy under GCC 16.2
+(`g++ -std=c++23 -Wall -Wextra`).

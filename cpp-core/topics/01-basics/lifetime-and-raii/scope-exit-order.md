@@ -5,7 +5,9 @@ version: 1
 level: 1
 tags: [lifetime, raii, tracing]
 requires:
+  - raii-scope-exit-worked
   - cpp-essentials/raii-storage-durations
+elaborate: Say in one sentence, as to an interviewer, what an early `return` in the middle of a function does to the locals declared before it, and in what order.
 probes:
   1: { trail: "cb" }
   2: { trail: "cbda" }
@@ -44,8 +46,5 @@ destroys `c` and then `b`, so `trail` reads `cb` at Probe 1; `a` is
 untouched because its scope is the whole function. `return 0;` is an exit
 from `f`'s scope too: `d` goes first (constructed last), then `a`. No
 statement in `f` mentions destruction; the closing brace and the `return`
-do it, and they would do the same on a `break`, a `goto`, or an exception
-leaving the scope (one caveat: for an exception nothing ever catches,
-whether the stack unwinds before `std::terminate` is
-implementation-defined). Verified by compiling and running this program under
-GCC 16.2 (`g++ -std=c++23`).
+do it. Verified by compiling and running this program under GCC 16.2
+(`g++ -std=c++23`).

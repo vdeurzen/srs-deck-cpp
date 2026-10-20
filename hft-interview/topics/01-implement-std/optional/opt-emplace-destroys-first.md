@@ -12,6 +12,7 @@ requires:
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/optional.assign#34
   - https://en.cppreference.com/w/cpp/utility/optional/emplace
+elaborate: A caller needs the old value kept if the new construction throws. What would you write instead of `emplace`, and what does it cost?
 ---
 
 ```cpp

@@ -1,38 +1,37 @@
 ---
 id: sort-partition-regions
 kind: trace
-version: 1
+version: 2
 level: 1
 tags: [foundations, tracing, sorting, quicksort, partition, invariants]
 probes:
-  1: { small: "2 1", big: "8 6" }
-  2: { small: "2 1 3", big: "6 9 8" }
+  1: { x: "8", y: "6" }
 requires:
-  - interview-essentials/sort-swap-temp
+  - interview-essentials/sort-lomuto-worked
   - interview-essentials/sort-quick-idea
+  - cpp-essentials/iter-array-fixed-size
+  - cpp-essentials/types-size-t
+elaborate: Say in one sentence, as to an interviewer, what partition guarantees about the two regions and what it leaves to the recursion.
 refs:
   - https://en.wikipedia.org/wiki/Quicksort#Lomuto_partition_scheme
   - https://doi.org/10.1093/comjnl/5.1.10
 ---
 
-A partition scan around pivot 5 (kept in `a[6]`) grows two regions:
-`small` = `a[0, s)` and `big` = `a[s, i)`. At each probe, write the
-contents of both regions as space-separated values.
+A partition scan around pivot 5, kept in `a[4]`, grows two regions:
+`small` = `a[0]` … `a[s - 1]`, and `big` = `a[s]` … `a[i - 1]`.
 
 ```cpp
-std::array a{6, 2, 8, 1, 9, 3, 5};
+std::array a{6, 2, 8, 1, 5};
 std::size_t s = 0;
-auto step = [&](std::size_t i) {
+for (std::size_t i = 0; i < 4; ++i)
   if (a[i] < 5) { std::swap(a[s], a[i]); ++s; }
-};
-for (std::size_t i = 0; i < 4; ++i) step(i);    // @1  (i = 4)
-for (std::size_t i = 4; i < 6; ++i) step(i);    // @2  (i = 6)
+int x = a[2], y = a[3];        // @1
 ```
 
 ---
 
-A value below 5 is swapped into slot `s`, so `small` grows by one and
-the big value it displaced moves to the far end of `big`. A big value
-needs no swap: `big` grows just because `i` moves on. So **neither
-region ends up sorted**: `8 6` became `6 9 8`. A final swap of `a[s]`
-with the pivot puts 5 between the regions. (Run with GCC 16.2.)
+2 swaps into slot 0, sending 6 to slot 1; then 1 swaps into slot 1,
+sending that 6 on to slot 3. The scan ends with `2 1 | 8 6`: `big` holds
+8 before 6, the reverse of their input order. **Neither region ends up
+sorted**, which is why quicksort recurses on both. A final swap of
+`a[s]` with the pivot would put 5 between them. (Run with GCC 16.2.)

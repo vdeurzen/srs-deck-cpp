@@ -1,16 +1,17 @@
 ---
 id: search-binary-search-trace
 kind: trace
-version: 1
+version: 2
 level: 1
 tags: [binary-search, tracing]
 requires:
+  - interview-essentials/search-half-open-worked
   - interview-essentials/search-binary-search-halving
-  - interview-essentials/search-binary-search-chunk
 probes:
-  1: { lo: "5", hi: "8" }
-  2: { lo: "5", hi: "6" }
-  3: { lo: "5", hi: "5" }
+  1: { lo: "3", hi: "5" }
+  2: { lo: "3", hi: "4" }
+  3: { lo: "3", hi: "3" }
+elaborate: Say in one sentence, as to an interviewer, why `hi = mid` here cannot loop forever.
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm
 ---
@@ -18,8 +19,8 @@ refs:
 The answer lies in `[lo, hi)`; each `step()` halves it.
 
 ```cpp
-int a[] = {3, 8, 15, 23, 42, 57, 61, 90};   // sorted
-int key = 57, lo = 0, hi = 8;
+int a[] = {3, 8, 15, 23, 42};   // sorted
+int key = 23, lo = 0, hi = 5;
 
 void step() {
   int mid = lo + (hi - lo) / 2;
@@ -36,12 +37,11 @@ int main() {
 
 ---
 
-Probe 1: `mid = 4`, `42 < 57`, so the left half goes. Probe 2: `mid = 6`,
-`61 ≥ 57`, so `hi` drops to 6. Probe 3: `mid = 5`, `57 ≥ 57`, so `hi = 5`
-and the range is empty: `lo == hi == 5`, and `a[5]` is the key.
+Probe 1: `mid = 2`, `15 < 23`, so the left part goes. Probe 2: `mid = 4`,
+`42 ≥ 23`, so `hi` drops to 4. Probe 3: `mid = 3`, `23 ≥ 23`, so `hi = 3`
+and the range is empty: `lo == hi == 3`, and `a[3]` is the key.
 
 The range shrinks every step because `lo` moves *past* `mid` and `hi`
-moves *to* it. Eight elements take three or four steps, at most
-⌊log₂ 8⌋ + 1 = 4 (a key below `a[0]` needs four).
+moves *to* it, so five elements take at most three steps.
 
 (Values from running it under GCC 16.2.)

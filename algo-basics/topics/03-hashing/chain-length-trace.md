@@ -1,43 +1,25 @@
 ---
 id: hashing-chain-length-trace
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [foundations, chaining, load-factor, tracing]
+tags: [foundations, chaining, load-factor]
 requires:
-  - interview-essentials/hashing-pigeonhole
-probes:
-  1: { "len[0]": "3", "len[3]": "3" }
-  2: { "len[0]": "2", "len[7]": "1" }
+  - interview-essentials/hashing-load-factor
+elaborate: Say in one sentence, as to an interviewer, what assumption hides inside "a hash lookup is O(1)".
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §11.2
 ---
 
-Each bucket keeps a chain (list) of the keys that land in it.
-`len[b]` is the length of bucket `b`'s chain. Keys `0 … n−1`, with
-`h(k) = k`.
+A chained table keeps its bucket count fixed at 4, and its hash spreads
+keys evenly. It grows from 12 keys to 12 000.
 
-```cpp
-#include <vector>
-
-std::vector<int> len;
-
-void fill(int n, int m) {
-  len.assign(m, 0);
-  for (int k = 0; k < n; ++k) ++len[k % m];
-}
-
-int main() {
-  fill(12, 4);   // @1
-  fill(12, 8);   // @2
-}
-```
+## How does the cost of an average unsuccessful lookup change?
 
 ---
 
-These keys spread perfectly, so every chain is close to **n / m long:
-3, then 1.5 on average.** That ratio is the *load factor* α. A
-lookup scans one chain, so it costs O(1 + α) on average: constant as
-long as m grows with n.
+**It grows 1 000×, from about 3 compares to about 3 000.**
 
-(Values from running it under GCC 16.2.)
+A lookup hashes once, then scans one chain of about α = n / m keys:
+O(1 + α). That is constant only while m grows with n, which is why real
+tables add buckets as they fill.

@@ -1,16 +1,17 @@
 ---
 id: compiler-liveness-trace
 kind: trace
-version: 1
+version: 2
 level: 4
 tags: [compilers, dataflow, registers, tracing]
 probes:
-  1: { "live": "{a}" }
-  2: { "live": "{a, c}" }
-  3: { "live": "{a, b}" }
-  4: { "live": "{a}" }
+  1: { "live": "{a, c}" }
+  2: { "live": "{a, b}" }
+  3: { "live": "{a}" }
 requires:
   - compiler-liveness
+  - interview-essentials/std-set-multiset
+  - cpp-essentials/lambda-amp-capture-intro
 refs:
   - https://en.wikipedia.org/wiki/Live-variable_analysis
   - https://suif.stanford.edu/~courses/cs243/
@@ -25,17 +26,17 @@ auto before = [&](char def, std::string uses) {
   live.erase(def);
   for (char u : uses) live.insert(u);
 };
-before(0,   "a");   // @1 return a
-before('a', "ac");  // @2 a = a + c
-before('c', "ab");  // @3 c = a * b
-before('b', "a");   // @4 b = a + 1
+before(0,   "a");   // return a
+before('a', "ac");  // @1 a = a + c
+before('c', "ab");  // @2 c = a * b
+before('b', "a");   // @3 b = a + 1
 ```
 
 ---
 
 Each step applies one instruction's backward transfer: **kill the
-definition, then add the uses**. Probe 2 is the point: `a = a + c`
+definition, then add the uses**. Probe 1 is the point: `a = a + c`
 kills `a` and reads it again, so `a` stays live. Adding the uses first
-would drop it. `c` is live only between its definition and line 3, and
-probe 4 is the block's `live_in`. Values from an instrumented run,
+would drop it. `c` is live only between its definition and its use, and
+probe 3 is the block's `live_in`. Values from an instrumented run,
 GCC 16.2.

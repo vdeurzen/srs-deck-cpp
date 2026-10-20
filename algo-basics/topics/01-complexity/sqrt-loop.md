@@ -1,44 +1,30 @@
 ---
 id: complexity-sqrt-loop
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [complexity, tracing]
+tags: [complexity, primes]
 requires:
   - interview-essentials/complexity-count-loop-steps
-probes:
-  1: { tries: "99" }
-  2: { tries: "999" }
+elaborate: Where else does pairing each candidate d with n / d let a search stop at √n?
 refs:
   - https://en.wikipedia.org/wiki/Trial_division
 ---
 
-Trial division tests divisors `d` while `d * d <= n`. Both inputs
-are prime, so no early exit. Each probe reads `tries` after the call.
-
 ```cpp
-int tries = 0;
 bool is_prime(int n) {
-  tries = 0;
-  for (int d = 2; d * d <= n; ++d) {
-    ++tries;
+  for (int d = 2; d * d <= n; ++d)
     if (n % d == 0) return false;
-  }
   return n >= 2;
-}
-
-int main() {
-  is_prime(10'007);     // @1
-  is_prime(1'000'003);  // @2
 }
 ```
 
+## For the prime 10 007 the loop tries 99 divisors. How many does it try for the prime 1 000 003?
+
 ---
 
-The loop stops at d = ⌊√n⌋, so it runs about √n − 1 times: 99 (d = 2..100)
-and 999 (d = 2..1000). That is O(√n): input ×100, work
-×10. A composite stops early (91 = 7·13 quits at d = 7), so √n is the
-worst case.
+**999: it stops at √n, so 100× the input costs only 10× the tries.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+d runs from 2 up to √n rounded down: 100, then 1 000. That is O(√n).
+A composite exits early (91 = 7 · 13 stops at d = 7), so √n is the worst
+case.

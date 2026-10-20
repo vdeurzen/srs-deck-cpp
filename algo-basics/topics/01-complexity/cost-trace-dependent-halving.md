@@ -1,21 +1,16 @@
 ---
 id: complexity-cost-trace-dependent-halving
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [foundations, complexity, cost-model, tracing]
+tags: [foundations, complexity, cost-model]
 requires:
-  - interview-essentials/complexity-cost-geometric-sum
+  - interview-essentials/complexity-geometric-sum-intro
   - complexity-cost-trace-triangular
-probes:
-  1: { steps: "197" }
-  2: { steps: "1994" }
+elaborate: Where else does each round of a loop do half the work of the round before, and what does the whole loop cost?
 refs:
   - https://en.wikipedia.org/wiki/Geometric_series#Sum
 ---
-
-The inner loop runs `len` times while `len` halves. Each probe reads
-`steps` after the call on its line.
 
 ```cpp
 int steps = 0;
@@ -23,20 +18,14 @@ void shrink(int n) {
   for (int len = n; len > 0; len /= 2)
     for (int j = 0; j < len; ++j) ++steps;
 }
-
-int main() {
-  shrink(100);              // @1
-  steps = 0; shrink(1000);  // @2
-}
 ```
+
+## How many times does `shrink(16)` run `++steps`?
 
 ---
 
-Add the passes: 100 + 50 + 25 + 12 + 6 + 3 + 1 = 197, and
-1000 + 500 + … + 1 = 1 994. Each pass costs half the one before, so the
-sum is **less than twice the first pass**: linear in n, not n·log n.
-"Outer runs log n times, inner runs up to n" multiplies two bounds that
-are never large at the same time; add the actual per-pass counts.
+**31: 16 + 8 + 4 + 2 + 1, under 2 · 16.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+Each pass does half the work of the one before, so the total stays below
+2n: linear. "log n passes of up to n each" multiplies two bounds that are
+never large together; add the actual passes.

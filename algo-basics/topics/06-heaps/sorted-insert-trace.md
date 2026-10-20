@@ -1,44 +1,23 @@
 ---
 id: heap-sorted-insert-trace
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [foundations, heaps, priority-queue, arrays, complexity, tracing]
+tags: [foundations, heaps, priority-queue, arrays, complexity]
 requires:
   - interview-essentials/heap-pq-adt-trace
-probes:
-  1: { s: "0" }
-  2: { s: "5" }
-  3: { m: "10" }
+elaborate: When would you still pick this sorted vector over a heap, given how often you insert compared with how often you extract?
 refs:
   - https://xlinux.nist.gov/dads/HTML/priorityque.html
   - https://en.wikipedia.org/wiki/Insertion_sort
 ---
 
-A min-priority queue kept as a vector in **decreasing** order.
-`insert_desc` returns how many keys it moved.
-
-```cpp
-int insert_desc(std::vector<int>& a, int x) {
-  a.push_back(x);
-  int i = a.size() - 1, shifts = 0;
-  for (; i > 0 && a[i - 1] < x; --i, ++shifts) a[i] = a[i - 1];
-  a[i] = x;
-  return shifts;
-}
-std::vector<int> a{90, 70, 50, 30};
-int s = insert_desc(a, 10);      // @1
-s = insert_desc(a, 95);          // @2
-int m = a.back();  a.pop_back(); // @3
-```
+## A min-priority queue keeps its keys in a vector in **decreasing** order, such as `90 70 50 30`. The minimum sits at the back, so extract-min is `back()` then `pop_back()`, O(1). What does insert cost in the worst case?
 
 ---
 
-Decreasing order parks the minimum at the back, so extract-min is
-`back()` plus `pop_back()`: **O(1)**. The price moves to insert: every
-key smaller than the new one shifts one slot right. 10 is the new
-minimum and moves nothing; 95 is the new maximum and moves all 5.
-So **insert O(n)**.
+**Θ(n): a new maximum shifts every key one slot right.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+The vector must stay in order, so every key smaller than the new one
+moves one slot toward the back: inserting 95 into `90 70 50 30` moves
+all 4. A heap makes both operations O(log n).

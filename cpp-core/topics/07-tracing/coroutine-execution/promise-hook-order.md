@@ -5,7 +5,9 @@ version: 1
 level: 4
 tags: [tracing, coroutines]
 requires:
+  - trace-coroutine-hook-order-worked
   - coroutines-done-and-destroy-preconditions
+elaborate: Say in one sentence, as to an interviewer, why a task type usually makes `final_suspend()` return `suspend_always`.
 probes:
   1: { hooks: "GI" }
   2: { hooks: "GIBRF" }

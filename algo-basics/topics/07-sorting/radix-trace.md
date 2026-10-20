@@ -1,38 +1,37 @@
 ---
 id: sort-radix-trace
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [tracing, sorting, radix-sort, stability]
 probes:
-  1: { v: "31 32 12 13 23" }
-  2: { v: "12 13 23 31 32" }
+  1: { first: "13", second: "12" }
 requires:
+  - sort-radix-worked
   - sort-counting-code
+  - cpp-essentials/iter-range-for-const-auto-ref
+elaborate: Where would you sort records on several keys this way, least important key first, with a stable sort for each key?
 refs:
   - https://en.wikipedia.org/wiki/Radix_sort
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html
 ---
 
-LSD radix sort: one stable pass per decimal digit, least significant
-first. Write `v` as space-separated values.
+One radix pass, on the tens digit only. `v` has not had a ones-digit
+pass.
 
 ```cpp
-auto by_digit = [](const std::vector<int>& v, int div) {
-  std::vector<int> out;                 // buckets 0..9, each in input order
-  for (int d = 0; d < 10; ++d)
-    for (int x : v)
-      if (x / div % 10 == d) out.push_back(x);
-  return out;
-};
-std::vector<int> v{32, 13, 31, 23, 12};
-v = by_digit(v, 1);     // @1
-v = by_digit(v, 10);    // @2
+std::vector<int> v{13, 32, 12, 31};
+std::vector<int> bucket[10];
+for (int x : v) bucket[x / 10 % 10].push_back(x);   // tens digit
+v.clear();
+for (const auto& b : bucket)
+  for (int x : b) v.push_back(x);
+int first = v[0], second = v[1];                     // @1
 ```
 
 ---
 
-The ones pass leaves 12 before 13 and 31 before 32. The tens pass puts
-12 and 13 in one bucket and, **being stable, keeps the ones order**, so
-the array ends sorted; an unstable tens pass could emit 13 before 12.
-Cost: d passes of O(n + b) for d digits in base b. (Run with GCC 16.2.)
+13 and 12 share tens digit 1 and keep their input order, so the pass
+yields `13 12 32 31`: **a stable pass orders by its own digit and leaves
+ties as they came**. That is why LSD radix sort runs the ones pass
+first: its order is exactly what this pass preserves. (Run with GCC 16.2.)

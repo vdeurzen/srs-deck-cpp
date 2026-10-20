@@ -1,14 +1,12 @@
 ---
 id: trace-vector-growth
 kind: trace
-version: 2
+version: 3
 level: 2
 tags: [tracing, sequences, amortised]
 probes:
-  1: { "v.size()": "1", "v[0]": "1" }
-  2: { "v.size()": "2", "v[0]": "1" }
-  3: { "v.size()": "3", "v[0]": "1" }
-  4: { "v.size()": "4", "v[0]": "0", "v[1]": "1" }
+  1: { "v.size()": "3", "v[0]": "1" }
+  2: { "v[0]": "0", "v[1]": "1" }
 requires:
   - interview-essentials/foundations-growth-factor
 refs:
@@ -17,6 +15,7 @@ refs:
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc++-v3/include/bits/stl_vector.h
   - https://github.com/llvm/llvm-project/blob/main/libcxx/include/__vector/vector.h
   - https://github.com/microsoft/STL/blob/main/stl/inc/vector
+elaborate: You took a pointer to `v[0]` before the third push. Say why using it afterwards is a bug even when the program seems to work.
 ---
 
 ```cpp
@@ -25,10 +24,10 @@ refs:
 int main() {
   std::vector<int> v;
   v.reserve(2);
-  v.push_back(1);           // @1
-  v.push_back(2);           // @2
-  v.push_back(3);           // @3
-  v.insert(v.begin(), 0);   // @4
+  v.push_back(1);
+  v.push_back(2);
+  v.push_back(3);           // @1
+  v.insert(v.begin(), 0);   // @2
 }
 ```
 

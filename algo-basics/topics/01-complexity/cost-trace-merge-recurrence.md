@@ -1,22 +1,17 @@
 ---
 id: complexity-cost-trace-merge-recurrence
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [foundations, complexity, recurrences, tracing]
+tags: [foundations, complexity, recurrences]
 requires:
   - complexity-cost-trace-shrink-recurrence
-probes:
-  1: { work: "64" }
-  2: { work: "384" }
+  - interview-essentials/complexity-recursion-tree-calls
+elaborate: Which well-known sort has exactly this shape, and what is the n units of work in each of its calls?
 refs:
   - https://en.wikipedia.org/wiki/Recursion_tree
   - https://en.wikipedia.org/wiki/Merge_sort#Analysis
 ---
-
-`split` does `n` units of work, then calls itself on both halves: the
-shape of merge sort. Each probe reads `work` after the statement on its
-line.
 
 ```cpp
 long work = 0;
@@ -25,20 +20,14 @@ void split(int n) {
   work += n;
   split(n / 2); split(n / 2);
 }
-
-int main() {
-  split(16);            // @1
-  work = 0; split(64);  // @2
-}
 ```
+
+## How much `work` does `split(16)` add up?
 
 ---
 
-Draw the calls as a tree. The root does 16; its two children do 8 each,
-16 again; the four grandchildren 4 each, 16 again. **Every level does n
-work**, and halving 16 to 1 takes 4 levels: 4 · 16 = 64. For 64, six
-levels of 64 is 384. That is T(n) = 2T(n/2) + n = n·log₂ n: levels ×
-work per level.
+**64: four levels of calls, each level adding 16 in total.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+As a tree: the root adds 16, two children 8 each, four calls 4 each,
+eight calls 2 each. Every level adds n, and halving 16 down to 1
+takes log₂ 16 = 4 levels: n · log₂ n.

@@ -1,45 +1,27 @@
 ---
 id: hashing-reserve-trace
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 3
-tags: [hashing, load-factor, tracing]
+tags: [hashing, load-factor]
 requires:
   - hashing-grow-amortised
-probes:
-  1: { buckets: "128", rehashes: "4" }
-  2: { buckets: "128", rehashes: "0" }
+elaborate: Where in a latency-sensitive service would you call reserve, and what does a too-high estimate cost you?
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/reserve
 ---
 
-A model of a table with 8 buckets and maximum load factor 1.0 that
-doubles before an insert would exceed it. `reserve(n)` sizes it for `n`
-keys up front.
+A hash table starts with 8 buckets and rehashes every stored key into
+twice as many buckets whenever an insert would push its load factor past
+1.0. It is about to receive 100 000 inserts, a number known in advance.
 
-```cpp
-int buckets = 8, rehashes = 0;
-
-void insert(int size) {   // size = keys already stored
-  if (size + 1 > buckets) { buckets *= 2; ++rehashes; }
-}
-void reserve(int n) { while (buckets < n) buckets *= 2; }   // before any key
-
-int main() {
-  for (int s = 0; s < 100; ++s) insert(s);   // @1
-  buckets = 8; rehashes = 0;
-  reserve(100);
-  for (int s = 0; s < 100; ++s) insert(s);   // @2
-}
-```
+## Inserts are already amortised O(1). What does calling `reserve(100000)` before the first insert change?
 
 ---
 
-Without `reserve`, the 9th, 17th, 33rd and 65th inserts each rehash
-every key stored so far. **Reserving when n is known moves all that work
-before the first insert**, so no single insert pays O(n): the fix for
-latency spikes, not for throughput, which was already amortised O(1).
+**No single insert pays an O(n) rehash: it removes latency spikes.**
 
-`std::unordered_map::reserve(n)` does this for real.
-
-(Values from running it under GCC 16.2.)
+Without it, the 9th, 17th, 33rd, … inserts each rehash every key stored
+so far. Reserving moves that work before the first insert. The total was
+already O(n), so throughput barely changes. `std::unordered_map::reserve`
+does this.

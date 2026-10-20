@@ -1,39 +1,32 @@
 ---
 id: complexity-cost-trace-sequential-vs-nested
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 1
-tags: [foundations, complexity, cost-model, tracing]
+tags: [foundations, complexity, cost-model]
 requires:
   - interview-essentials/complexity-cost-sum-rule
   - interview-essentials/complexity-cost-product-rule
-probes:
-  1: { a: "40" }
-  2: { b: "400" }
+elaborate: In code you reviewed recently, which loops were nested and which merely followed each other, and what did that make the cost?
 refs:
   - https://en.wikipedia.org/wiki/Analysis_of_algorithms#Growth_rate_analysis_of_other_resources
 ---
 
-Two loops over the same `n`, arranged two ways. Each probe reads its
-counter after that block has finished.
-
 ```cpp
-int main() {
-  const int n = 20;
-  int a = 0, b = 0;
-  for (int i = 0; i < n; ++i) ++a;
-  for (int j = 0; j < n; ++j) ++a;       // @1
-  for (int i = 0; i < n; ++i)
-    for (int j = 0; j < n; ++j) ++b;     // @2
-}
+const int n = 20;
+int a = 0, b = 0;
+for (int i = 0; i < n; ++i) ++a;
+for (int j = 0; j < n; ++j) ++a;     // a ends at 40
+for (int i = 0; i < n; ++i)
+  for (int j = 0; j < n; ++j) ++b;
 ```
+
+## The two loops one after the other leave `a` at 40. What do the nested loops leave `b` at?
 
 ---
 
-Same two loops, same n: **one after the other adds** (n + n = 40),
-**one inside the other multiplies** (n · n = 400). At n = 20 the gap is
-10×; at n = 10⁶ it is a million times. The first thing to see in any
-piece of code is which loops are nested, and which merely follow.
+**400: nested loops multiply, n · n, where loops in sequence add.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+At n = 20 the two shapes are 10× apart; at n = 10⁶ they are a million
+times apart. The first thing to see in any piece of code is which loops
+are nested and which merely follow.

@@ -1,15 +1,15 @@
 ---
 id: tree-bst-delete-trace
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [trees, bst, tracing]
 requires:
+  - tree-bst-delete-worked
   - interview-essentials/tree-bst-delete-cases
 probes:
-  1: { r: "60", rl: "30" }
-  2: { r: "60", rl: "40" }
-  3: { r: "70", rl: "40" }
+  1: { r: "60", l: "65" }
+elaborate: Say in one sentence, as to an interviewer, why removing the successor never runs into the two-children case again.
 refs:
   - https://doi.org/10.1145/321105.321108
   - https://en.wikipedia.org/wiki/Binary_search_tree#Deletion
@@ -17,7 +17,7 @@ refs:
 
 `erase(t, k)` replaces a node that has two children by its in-order
 successor. `root(t)` is the root's key, `left(t, k)` the key of k's left
-child (0 if none).
+child.
 
 ```cpp
 //          50
@@ -25,24 +25,19 @@ child (0 if none).
 //      30      70
 //     /  \    /  \
 //   20    40 60   80
+//              \
+//               65
 erase(t, 50);
-int r = root(t), rl = left(t, r);   // @1
-erase(t, 30);
-r = root(t);  rl = left(t, r);      // @2
-erase(t, 60);
-r = root(t);  rl = left(t, r);      // @3
+int r = root(t), l = left(t, 70);   // @1
 ```
 
 ---
 
-1. 50 has two children; its successor is 60, the leftmost node right of
-   it. 60 moves into the root and its old leaf disappears.
-2. 30 has two children; its successor is 40, a leaf, so 40 replaces 30.
-3. The root 60 now has children 40 and 70. 70 has no left child, so 70 is
-   the successor; it moves up and its right child 80 takes its old place.
-
-Each delete is a search plus a walk down to the successor: O(h). The
-in-order sequence only loses the deleted key, which is the point.
+50 has two children. Its successor is the leftmost node right of it: one
+step right to 70, then left to 60, which has no left child. 60 is copied
+into the root, and its old node goes by the one-child case: its right
+child 65 becomes 70's left child. The in-order sequence just loses 50,
+at O(h) for the search and the walk down.
 
 Verified by compiling and running an instrumented copy under GCC 16.2
 (`g++ -std=c++23 -Wall -Wextra`).

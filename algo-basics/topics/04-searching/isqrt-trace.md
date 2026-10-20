@@ -1,24 +1,26 @@
 ---
 id: search-isqrt-trace
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [binary-search, search-on-answer, tracing]
 requires:
+  - interview-essentials/search-half-open-worked
   - interview-essentials/search-on-answer-monotone
 probes:
-  1: { lo: "0", hi: "10" }
-  2: { lo: "6", hi: "8" }
-  3: { lo: "7", hi: "7" }
+  1: { lo: "0", hi: "5" }
+  2: { lo: "3", hi: "4" }
+  3: { lo: "4", hi: "4" }
+elaborate: Name another quantity you could find this way, by binary searching a yes/no test instead of an array.
 refs:
   - https://en.wikipedia.org/wiki/Integer_square_root
 ---
 
-The integer square root of 40 by searching on the answer: find the first
-`x` in `[0, 41)` with `x * x > n`, then subtract one.
+The integer square root of 10 by searching on the answer: find the first
+`x` in `[0, 11)` with `x * x > n`, then subtract one.
 
 ```cpp
-int n = 40, lo = 0, hi = 41;
+int n = 10, lo = 0, hi = 11;
 
 void step() {
   int mid = lo + (hi - lo) / 2;
@@ -27,17 +29,16 @@ void step() {
 }
 
 int main() {
-  step(); step();   // @1
+  step();           // @1
   step(); step();   // @2
-  step(); step();   // @3
+  step();           // @3
 }
 ```
 
 ---
 
-Midpoints 20, 10, 5, 8, 7, 6. `x * x > 40` is false up to 6 and true
-from 7 on, so the search ends at 7 and ⌊√40⌋ = 6. **The predicate
-replaces the array**: same loop, same invariant, ⌈log₂ 41⌉ = 6
-steps.
+Midpoints 5, 2, 4, 3. `x * x > 10` is false up to 3 and true from 4 on,
+so the search ends at 4, and √10 rounded down is 3. **The predicate replaces the
+array**: same loop, same invariant, about log₂ 11 steps.
 
 (Values from running it under GCC 16.2.)

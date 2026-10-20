@@ -1,36 +1,39 @@
 ---
 id: fn-recursion-trace
 kind: trace
-version: 1
+version: 2
 level: 1
 tags: [functions, recursion, tracing]
+requires:
+  - fn-recursion-worked
+elaborate: Say in one sentence, as to an interviewer, what in a recursive tree walk runs "on the way back up", and why that order matters there.
 probes:
-  1: { down: "321", up: "123" }
+  1: { s: "2112" }
 refs:
   - https://eel.is/c++draft/expr.call#14
 ---
 
 ```cpp
 #include <string>
-std::string down, up;
+std::string s;
 
 void count(int n) {
     if (n == 0) return;
-    down += char('0' + n);
+    s += char('0' + n);
     count(n - 1);
-    up += char('0' + n);
+    s += char('0' + n);
 }
 
 int main() {
-    count(3);       // @1
+    count(2);       // @1
 }
 ```
 
 ---
 
-A **recursive** function calls itself. Each call gets its own `n`, so
-`count(3)` → `count(2)` → `count(1)` → `count(0)`, which returns at once
-(the **base case**). Work before the recursive call happens on the way
-down (3, 2, 1); work after it waits until the inner call returns, so it
-runs on the way back up (1, 2, 3). Verified by running an instrumented copy
+`count(2)` appends `2`, then calls `count(1)`, which appends `1` and calls
+`count(0)`; that base case returns at once. Now the paused calls finish,
+innermost first: `count(1)` appends `1`, then `count(2)` appends `2`. The
+append before the call runs on the way in, the one after it on the way
+back out, so `s` reads `2112`. Verified by running an instrumented copy
 under GCC 16.2 (`g++ -std=c++23`).

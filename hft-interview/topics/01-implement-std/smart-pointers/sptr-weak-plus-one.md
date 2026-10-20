@@ -13,6 +13,7 @@ requires:
 refs:
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/shared_ptr_base.h
   - https://en.cppreference.com/w/cpp/memory/shared_ptr#Implementation_notes
+elaborate: Where else would you fold "an owner still exists" into a count, so that one decrement alone decides who cleans up?
 ---
 
 A single-threaded model of your control block's counts: `make_shared`,

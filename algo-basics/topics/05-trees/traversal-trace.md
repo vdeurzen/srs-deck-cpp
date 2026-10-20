@@ -1,14 +1,16 @@
 ---
 id: tree-traversal-trace
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [trees, traversal, recursion, tracing]
 requires:
   - interview-essentials/tree-traversal-orders
   - interview-essentials/tree-bst-inorder-trace
+  - cpp-essentials/vector-basics
 probes:
-  1: { pre: "8 4 2 6 9", in: "2 4 6 8 9", post: "2 6 4 9 8" }
+  1: { first: "2", third: "4" }
+elaborate: Which order would you use to copy a tree, and why must each node come before its children there?
 refs:
   - https://en.wikipedia.org/wiki/Tree_traversal#Depth-first_search
 ---
@@ -19,30 +21,26 @@ refs:
 //      4   9
 //     / \
 //    2   6
-std::string pre, in, post;
+std::vector<int> out;
 
 void walk(const Node* n) {
-  if (!n) return;
-  pre += std::to_string(n->key) + ' ';
+  if (n == nullptr) return;
   walk(n->left);
-  in += std::to_string(n->key) + ' ';
   walk(n->right);
-  post += std::to_string(n->key) + ' ';
+  out.push_back(n->key);
 }
 
-walk(root);   // @1
+walk(root);
+int first = out[0], third = out[2];   // @1
 ```
 
 ---
 
-Preorder writes a node on the way down, so the root comes first.
-Postorder writes it on the way back up, so the root comes last and every
-node follows its children: the order to free a tree or total up subtree
+This walk records a node only after both its subtrees are done:
+**postorder**. The first key out is the leftmost leaf, 2, not the root;
+4 waits for its children 2 and 6, so it comes third. The root comes
+last, which makes this the order to free a tree or total up subtree
 sizes.
 
-Inorder came out **sorted**. That is no accident: this tree is a binary
-search tree, and inorder visits all of a node's smaller keys (its left
-subtree) before it and all of its larger keys after it.
-
 Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`), trailing spaces trimmed.
+(`g++ -std=c++23 -Wall -Wextra`).

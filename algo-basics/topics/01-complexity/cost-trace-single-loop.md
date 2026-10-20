@@ -1,40 +1,27 @@
 ---
 id: complexity-cost-trace-single-loop
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 1
-tags: [foundations, complexity, cost-model, tracing]
-probes:
-  1: { steps: "10" }
-  2: { steps: "1000" }
-  3: { steps: "1000" }
+tags: [foundations, complexity, cost-model]
+elaborate: Where in your own code does a loop's cost depend on something other than its number of passes?
 refs:
   - https://en.wikipedia.org/wiki/Analysis_of_algorithms#Cost_models
 ---
-
-`scan` visits every index from `lo` up to (not including) `hi`. Each
-probe reads `steps` after the call on its line.
 
 ```cpp
 int steps = 0;
 void scan(int lo, int hi) {
   for (int i = lo; i < hi; ++i) ++steps;
 }
-
-int main() {
-  scan(0, 10);                 // @1
-  steps = 0; scan(500, 1500);  // @2
-  steps = 0; scan(0, 1000);    // @3
-}
 ```
+
+## `scan(0, 1000)` runs `++steps` 1 000 times. How many times does `scan(500, 1500)` run it?
 
 ---
 
-A single loop costs its number of passes: `hi − lo`, whatever the body
-does per pass (a constant). Only the *length* of the range counts, never
-the size of the indices: 500..1500 costs the same as 0..1000. A hundred
-times the range is a hundred times the steps: the cost grows **linearly**
-with n = hi − lo.
+**1 000 as well: a loop costs its number of passes, `hi − lo`.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+Only the length of the range counts, never how large the indices are.
+The body costs the same on every pass, so the total grows linearly
+with n = hi − lo.

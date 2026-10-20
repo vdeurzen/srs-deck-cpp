@@ -1,49 +1,26 @@
 ---
 id: linear-growth-trace
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [dynamic-arrays, amortised, tracing]
+tags: [dynamic-arrays, amortised]
 requires:
   - interview-essentials/linear-dynamic-array-growth
-probes:
-  1: { cap: "8", copies: "7" }
-  2: { cap: "16", copies: "15" }
+elaborate: Where in your own code could one slow push_back matter even though the average is constant, and how would you avoid it?
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
 ---
 
-A model of a dynamic array that doubles when full. `copies` counts the
-elements moved into a new block.
+A dynamic array starts with capacity 1. When a push finds it full, it
+allocates twice the capacity and copies every element over.
 
-```cpp
-int cap = 1, size = 0, copies = 0;
-
-void push() {
-  if (size == cap) {     // full: allocate 2*cap, move everything over
-    copies += size;
-    cap *= 2;
-  }
-  ++size;
-}
-
-int main() {
-  for (int k = 0; k < 5; ++k) push();   // @1
-  for (int k = 0; k < 4; ++k) push();   // @2
-}
-```
+## The 9th push copies 8 elements. How many copies have all 9 pushes made?
 
 ---
 
-The fifth and ninth pushes find the block full. After 9 pushes the
-copies were 1 + 2 + 4 + 8 = 15, **less than twice the 9 elements**:
-each doubling copies as much as all earlier ones together, plus one
-(8 = 1 + 2 + 4 + 1).
-So the total stays under 2n and each push costs O(1) on average over the
-sequence, even though the ninth push alone copied 8.
+**15 = 1 + 2 + 4 + 8: fewer than twice the 9 elements.**
 
-This is a model: `std::vector`'s growth factor is implementation-defined
-(libstdc++ doubles, MSVC grows by 1.5); the standard only requires
-amortised O(1).
-
-(Values from running it under GCC 16.2.)
+Each doubling copies as many as all earlier ones together, plus one, so
+the total stays under 2n and a push is O(1) amortised. This is a model:
+`std::vector`'s growth factor is implementation-defined (libstdc++
+doubles, MSVC grows by 1.5).

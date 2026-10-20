@@ -1,11 +1,12 @@
 ---
 id: class-static-data-member
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [classes, static-members, tracing]
+elaborate: Say aloud where a per-class counter like this would become a data race, and what you would change.
 probes:
-  1: { "a.number": "1", "c.number": "3", "Order::issued": "3" }
+  1: { "a.number": "1", "Order::issued": "3" }
 requires:
   - cpp-essentials/class-member-function-this
   - cpp-essentials/class-init-list-required
@@ -17,7 +18,7 @@ refs:
 struct Order {
     inline static int issued = 0;
     int number;
-    Order() : number(++issued) {}
+    Order() { ++issued; number = issued; }
 };
 
 int main() {
@@ -30,7 +31,7 @@ int main() {
 
 A **`static` data member** belongs to the class, not to any object: there
 is one `Order::issued` shared by every `Order`, while each object gets its
-own `number`. Each constructor bumps the shared counter, so `a`, `b`, `c`
-are numbered 1, 2, 3. `inline` lets it be defined and initialised right in
-the class. Verified by running an instrumented copy under GCC 16.2
+own `number`. Each constructor bumps the shared counter, so `a` keeps the
+`1` it was given while `Order::issued` reaches 3 after `c`. `inline` lets
+it be defined and initialised right in the class. Verified by running an instrumented copy under GCC 16.2
 (`g++ -std=c++23`).

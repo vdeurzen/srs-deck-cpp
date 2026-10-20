@@ -1,15 +1,16 @@
 ---
 id: linear-stack-queue-order-trace
 kind: trace
-version: 1
+version: 2
 level: 1
 tags: [foundations, stacks, queues, tracing]
 requires:
   - interview-essentials/linear-stack-adt
   - interview-essentials/linear-queue-adt
 probes:
-  1: { a: "8", b: "3" }
-  2: { c: "2", d: "5" }
+  1: { "s.top()": "5", "q.front()": "3" }
+  2: { "s.top()": "3", "q.front()": "5" }
+elaborate: Name a task from your own work that needs the newest item first, and one that needs the oldest first.
 refs:
   - https://en.cppreference.com/w/cpp/container/stack
   - https://en.cppreference.com/w/cpp/container/queue
@@ -25,19 +26,18 @@ enqueue `push` and dequeue `pop`.)
 int main() {
   std::stack<int> s;
   std::queue<int> q;
-  for (int x : {3, 5, 8}) { s.push(x); q.push(x); }
-  int a = s.top(), b = q.front();   // @1
+  s.push(3); s.push(5);
+  q.push(3); q.push(5);
+  // @1
   s.pop(); q.pop();
-  s.push(2); q.push(2);
-  int c = s.top(), d = q.front();   // @2
+  // @2
 }
 ```
 
 ---
 
-The stack now holds 3 5 2, the queue 5 8 2. **A stack removes at the
-end it adds to; a queue removes at the opposite end.** That one
-property is the whole difference: the newest 2 is the stack's top at
-once, but waits behind 5 and 8 in the queue.
+**A stack removes at the end it adds to; a queue removes at the opposite
+end.** So `s.pop()` takes the 5 that went in last, leaving 3 on top, while
+`q.pop()` takes the 3 that went in first, leaving 5 at the front.
 
 (Values from running it under GCC 16.2.)

@@ -5,11 +5,13 @@ version: 1
 level: 1
 tags: [foundations, binary-search, tracing]
 requires:
-  - interview-essentials/search-binary-search-chunk
+  - interview-essentials/search-half-open-worked
+  - interview-essentials/search-binary-search-halving
 probes:
   1: { lo: "3", hi: "4" }
   2: { lo: "4", hi: "4" }
   3: { lo: "5", hi: "4" }
+elaborate: Where in your own code could a sorted-input assumption silently stop holding, and how would you catch it?
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm
 ---

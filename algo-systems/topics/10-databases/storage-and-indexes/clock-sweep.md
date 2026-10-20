@@ -1,27 +1,28 @@
 ---
 id: db-clock-sweep
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [caching, databases, tracing]
 requires:
+  - db-clock-sweep-worked
   - interview-essentials/db-lru-recency-bet
 probes:
-  1: { out: "2", hand: "2" }
-  2: { out: "1", hand: "1", "ref[2]": "false" }
+  1: { out: "1", hand: "1" }
 refs:
   - https://github.com/postgres/postgres/blob/master/src/backend/storage/buffer/README
+  - https://github.com/postgres/postgres/blob/master/src/include/storage/buf_internals.h
   - https://en.wikipedia.org/wiki/Page_replacement_algorithm#Clock
+elaborate: Postgres keeps a small usage count per frame instead of one bit. What does a count buy that a bit cannot?
 ---
 
 Three frames, a reference bit per frame (set on every access), and a
-clock hand. `out` is the page evicted.
+clock hand. Every page has been accessed since the hand last moved.
+`out` is the page evicted.
 
 ```cpp
-#include <array>
-
-std::array<int, 3>  page{1, 2, 3};
-std::array<bool, 3> ref{true, false, true};
+int page[3] = {1, 2, 3};
+bool ref[3] = {true, true, true};
 int hand = 0;
 
 int evict() {                                   // returns the victim frame
@@ -32,22 +33,20 @@ int evict() {                                   // returns the victim frame
 }
 
 int main() {
-  int f = evict(); int out = page[f]; page[f] = 4; ref[f] = true;   // @1
-  f = evict();     out = page[f];     page[f] = 5; ref[f] = true;   // @2
+  int out = page[evict()];   // @1
 }
 ```
 
 ---
 
-**CLOCK (second chance)**: a set bit buys a page one more lap — the hand
-clears it and moves on — and the first page found with a clear bit is
-evicted. Probe 1: page 1 is spared, page 2 goes. Probe 2: page 3 is
-spared (its bit is now clear), and page 1, spared last lap, goes.
+**CLOCK (second chance)**: every set bit buys its page one more lap.
+Here all three bits are set, so the hand clears each in turn and comes
+back round to frame 0, whose bit is now clear: page 1 goes, and the
+hand stops one past it. With every page hot, the sweep degrades to
+evicting in the hand's order, like FIFO.
 
-It approximates LRU with **one bit per frame**: a hit only sets that bit —
-no list reordering and no lock — instead of moving a node to the front. Postgres's buffer
-manager uses this clock sweep, with a small usage count (capped at 5)
-instead of a single bit.
+Postgres's buffer manager runs this sweep with a small usage count
+(capped at 5) instead of a single bit.
 
 Verified by compiling and running an instrumented copy under GCC 16.2
 (`g++ -std=c++23 -Wall -Wextra`).

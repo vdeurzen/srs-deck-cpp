@@ -5,8 +5,9 @@ version: 1
 level: 4
 tags: [tracing, coroutines]
 requires:
+  - trace-awaiter-hook-order-worked
   - coroutines-await-suspend-return-types
-  - coroutines-eager-vs-lazy-start
+elaborate: Say aloud why an awaiter whose result is often already available should answer `true` from `await_ready()` rather than resuming itself from `await_suspend`.
 probes:
   1: { hooks: "RVRS" }
   2: { hooks: "RVRSVE", "t.handle.done()": "true" }
@@ -15,8 +16,7 @@ refs:
 ---
 
 ```cpp
-std::string hooks;   // await_ready appends 'R', await_suspend 'S',
-                     // await_resume 'V'; the body appends 'E'
+std::string hooks;
 
 struct Step {
   bool ready;

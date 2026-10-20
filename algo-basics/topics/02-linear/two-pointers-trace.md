@@ -1,15 +1,17 @@
 ---
 id: linear-two-pointers-trace
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [two-pointers, tracing]
 requires:
+  - linear-two-pointers-worked
   - interview-essentials/linear-two-pointers-sorted-pair
 probes:
-  1: { lo: "1", hi: "5", found: "false" }
-  2: { lo: "2", hi: "4", found: "false" }
-  3: { lo: "2", hi: "4", found: "true" }
+  1: { lo: "0", hi: "3" }
+  2: { lo: "2", hi: "3" }
+  3: { found: "true" }
+elaborate: What would you have to do first if the array were not sorted, and what would that cost?
 refs:
   - https://en.wikipedia.org/wiki/3SUM
 ---
@@ -17,8 +19,8 @@ refs:
 Look for a pair summing to `target` in a sorted array.
 
 ```cpp
-int a[] = {1, 3, 4, 6, 9, 11};
-int target = 13, lo = 0, hi = 5;
+int a[] = {1, 2, 4, 7, 12};
+int target = 11, lo = 0, hi = 4;
 bool found = false;
 
 void step() {
@@ -37,8 +39,8 @@ int main() {
 
 ---
 
-Sums: 1 + 11 = 12 (drop 1), 3 + 11 = 14 (drop 11), 3 + 9 = 12 (drop 3),
-4 + 9 = 13 (found). **Each step moves exactly one pointer inward**, so
+Sums: 1 + 12 = 13 (drop 12), 1 + 7 = 8 (drop 1), 2 + 7 = 9 (drop 2),
+4 + 7 = 11 (found). **Each step moves exactly one pointer inward**, so
 the pointers meet after at most n − 1 steps: O(n).
 
 (Values from running it under GCC 16.2.)

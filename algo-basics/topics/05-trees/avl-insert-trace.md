@@ -1,49 +1,41 @@
 ---
 id: tree-avl-insert-trace
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [trees, avl, rotations, tracing]
 requires:
   - tree-avl-double-rotation
 probes:
-  1: { r1: "2", n1: "1" }
-  2: { r2: "2", n2: "2" }
-  3: { r3: "4", h3: "3", n3: "4" }
+  1: { r: "2", rr: "4" }
+elaborate: Where would sorted inserts like these hit a tree in real data, and what would a plain BST cost you there?
 refs:
   - https://en.wikipedia.org/wiki/AVL_tree#Rebalancing
 ---
 
-`avl_insert(t, k)` is a BST insert followed by the AVL repair; it adds
-every rotation it makes to `t.rotations`. `root(t)` is the root's key,
-`height(t)` counts levels.
+`t` is the AVL tree drawn below. `avl_insert(t, k)` is a BST insert
+followed by the AVL repair. `root(t)` is the root's key, `right(t, k)`
+the key of k's right child.
 
 ```cpp
-Avl a, b, c;
-for (int k : {1, 2, 3}) avl_insert(a, k);
-int r1 = root(a), n1 = a.rotations;                     // @1
-for (int k : {3, 1, 2}) avl_insert(b, k);
-int r2 = root(b), n2 = b.rotations;                     // @2
-for (int k : {1, 2, 3, 4, 5, 6, 7}) avl_insert(c, k);
-int r3 = root(c), h3 = height(c), n3 = c.rotations;     // @3
+//      2
+//     / \
+//    1   3
+//         \
+//          4
+avl_insert(t, 5);
+int r = root(t), rr = right(t, r);   // @1
 ```
 
 ---
 
-Both small trees end as 2(1, 3), but by different routes. (a) is a
-straight line: one left rotation at 1. (b) is a zig-zag: rotate the child
-to straighten it, then rotate at 3, two rotations.
+5 lands under 4, and both 3 and 2 reach balance factor −2. The repair
+fixes the **lowest** one, 3: a left rotation there lifts 4 over 3 and 5,
+giving 2(1, 4(3, 5)). That subtree is back to its old height, so 2 is
+balanced again without a rotation of its own, and the root stays 2.
 
-Sorted input (c), the plain BST's worst case, ends as the perfect tree
-
-        4
-      /   \
-     2     6
-    / \   / \
-   1   3 5   7
-
-with height 3, not 7. Inserting 3, 5, 6 and 7 each needed one single
-rotation; 1, 2 and 4 needed none.
+The same sorted keys in a plain BST would make a chain of 5 levels;
+this tree has 3.
 
 Verified by compiling and running an instrumented copy under GCC 16.2
 (`g++ -std=c++23 -Wall -Wextra`).

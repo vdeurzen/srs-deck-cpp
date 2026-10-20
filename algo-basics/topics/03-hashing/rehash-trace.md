@@ -1,14 +1,15 @@
 ---
 id: hashing-rehash-trace
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [hashing, load-factor, tracing]
 requires:
   - interview-essentials/hashing-load-factor
 probes:
-  1: { x: "3", y: "3", z: "3" }
-  2: { x: "3", y: "11", z: "3" }
+  1: { x: "3", y: "3" }
+  2: { x: "3", y: "11" }
+elaborate: Why can't a growing table just copy its old bucket array into the bigger one, and what does that cost one insert?
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/rehash
 ---
@@ -21,9 +22,9 @@ int m = 8;
 int b(int key) { return key % m; }
 
 int main() {
-  int x = b(3), y = b(11), z = b(19);   // @1
-  m = 16;                              // the table doubled
-  x = b(3); y = b(11); z = b(19);      // @2
+  int x = b(3), y = b(11);   // @1
+  m = 16;                    // the table doubled
+  x = b(3); y = b(11);       // @2
 }
 ```
 
@@ -33,7 +34,7 @@ int main() {
 belongs in bucket 11, not 3. The old bucket array cannot just be copied:
 every key is rehashed into the new array, O(n) for that one insert.
 
-Here the chain of three in bucket 3 split into two buckets: growing is
+Here the chain of two in bucket 3 split into two buckets: growing is
 what keeps chains short.
 
 (Values from running it under GCC 16.2.)

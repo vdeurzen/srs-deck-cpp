@@ -1,23 +1,25 @@
 ---
 id: tree-bst-search-steps
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [foundations, trees, bst, complexity, tracing]
 requires:
-  - interview-essentials/tree-bst-rule
+  - tree-bst-search-worked
   - tree-depth-vs-height
+  - cpp-essentials/ptr-arrow-member
+  - cpp-essentials/expr-conditional-operator
 probes:
-  1: { a: "1", b: "4" }
-  2: { c: "4", d: "2" }
+  1: { v: "4" }
+elaborate: What would this loop cost on a BST built by inserting sorted keys, and why?
 refs:
   - https://doi.org/10.1145/321105.321108
   - https://en.wikipedia.org/wiki/Binary_search_tree#Searching
 ---
 
 `Node` has `key`, `left`, `right`; `nullptr` is the empty tree; `root`
-points at the drawn tree. `visits(n, k)` searches the binary search tree
-for `k` and counts the nodes it compares against.
+points at the drawn tree. The loop searches it for 35, counting the
+nodes it compares against in `v`.
 
 ```cpp
 //          60
@@ -27,26 +29,22 @@ for `k` and counts the nodes it compares against.
 //   10    40      95
 //        /
 //      33
-int visits(const Node* n, int k) {
-  int v = 0;
-  while (n != nullptr) {
-    ++v;
-    if (k == n->key) break;
-    n = k < n->key ? n->left : n->right;
-  }
-  return v;
+int v = 0;
+const Node* n = root;
+while (n != nullptr) {
+  ++v;
+  if (n->key == 35) break;
+  n = 35 < n->key ? n->left : n->right;
 }
-int a = visits(root, 60), b = visits(root, 33);   // @1
-int c = visits(root, 35), d = visits(root, 70);   // @2
+// @1
 ```
 
 ---
 
-Each comparison goes one level down one path, so a hit costs the key's
-**depth** (60 at 1, 33 at 4). A miss costs the depth of the last node
-before the empty link: 35 ends below 33, 70 below 80. No search can pass
-the **height**, 4 here, so search is O(h): O(log n) only if the tree is
-short, O(n) if it is a chain.
+35 is not in the tree. The search compares 60, 25, 40 and 33, then steps
+to 33's empty right link and stops: a miss costs the depth of the last
+node before the empty link, here 4. No search can pass the **height**,
+4 here, so search is O(h).
 
 Verified by compiling and running an instrumented copy under GCC 16.2
 (`g++ -std=c++23 -Wall -Wextra`).

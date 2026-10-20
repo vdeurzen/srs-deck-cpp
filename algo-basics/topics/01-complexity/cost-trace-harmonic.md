@@ -1,50 +1,33 @@
 ---
 id: complexity-cost-trace-harmonic
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [foundations, complexity, cost-model, tracing]
+tags: [foundations, complexity, cost-model]
 requires:
   - complexity-cost-trace-stride
   - complexity-cost-harmonic-number
-probes:
-  1: { a: "16" }
-  2: { b: "4" }
-  3: { c: "61" }
+elaborate: Where does a sum n/1 + n/2 + … + n/n appear in real code, as in a prime sieve, and why is it cheaper than its nesting suggests?
 refs:
   - https://en.wikipedia.org/wiki/Harmonic_number
   - https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes#Algorithmic_complexity
 ---
 
-The inner loop's stride is the outer index, as in a sieve that strikes
-out every i-th cell. Each probe reads the variable on its line.
-
 ```cpp
-int inner(int n, int i) {
-  int c = 0;
-  for (int j = 0; j < n; j += i) ++c;
-  return c;
-}
 int total(int n) {
   int s = 0;
-  for (int i = 1; i <= n; ++i) s += inner(n, i);
+  for (int i = 1; i <= n; ++i)
+    for (int j = 0; j < n; j += i) ++s;
   return s;
-}
-
-int main() {
-  int a = inner(16, 1);  // @1
-  int b = inner(16, 5);  // @2
-  int c = total(16);     // @3
 }
 ```
 
+## The inner loop's stride is the outer index. How does `total(n)` grow with n?
+
 ---
 
-Pass i costs ⌈n / i⌉: 16, 8, 6, 4, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1,
-which add to 61. The sum n/1 + n/2 + … + n/n is n times the **harmonic
-number** H(n) ≈ ln n + 0.58, so the whole thing costs about **n log n**:
-much less than the n² the nested shape suggests, since most passes do
-only a handful of steps.
+**Like n log n: pass i costs about n/i, summing to n · H(n).**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+H(n) = 1 + 1/2 + … + 1/n grows like ln n, so the total is about n ln n
+(`total(16)` is 61), far below the n² the nesting suggests: most passes
+take a handful of steps.

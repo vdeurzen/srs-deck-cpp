@@ -1,17 +1,18 @@
 ---
 id: db-trace-redo-lsn
 kind: trace
-version: 1
+version: 2
 level: 4
 tags: [databases, durability, recovery, tracing]
 requires:
   - db-page-lsn
 probes:
-  1: { "value[0]": "5", "value[1]": "7", applied: "0" }
-  2: { "value[0]": "9", "value[1]": "7", applied: "1" }
-  3: { "value[0]": "9", "value[1]": "10", applied: "2" }
+  1: { "value[0]": "5", "value[1]": "7" }
+  2: { "value[0]": "9", "page_lsn[0]": "12" }
+  3: { "value[1]": "10" }
 refs:
   - https://cs.stanford.edu/people/chrismre/cs345/rl/aries.pdf
+elaborate: Recovery itself crashes halfway through redo and is run again from the start. Which line keeps the second run from double-applying?
 ---
 
 Two pages started at 0. Each log record adds `delta` to one page. Page 0
@@ -23,13 +24,11 @@ struct Rec { int lsn, page, delta; };
 Rec wal[] = {{10, 0, +5}, {11, 1, +7}, {12, 0, +4}, {13, 1, +3}};
 int value[2]    = {5, 7};      // on disk at the crash
 int page_lsn[2] = {10, 11};    // the LSN each page had reached when written
-int applied = 0;
 
 void redo(Rec r) {
   if (r.lsn <= page_lsn[r.page]) return;
   value[r.page] += r.delta;
   page_lsn[r.page] = r.lsn;
-  ++applied;
 }
 
 int main() {

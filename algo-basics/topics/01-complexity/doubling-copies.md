@@ -1,42 +1,32 @@
 ---
 id: complexity-doubling-copies
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [complexity, amortised, tracing]
+tags: [complexity, dynamic-arrays]
 requires:
-  - interview-essentials/complexity-count-loop-steps
-  - complexity-cost-amortized-doubling
-probes:
-  1: { cap: "8", copies: "7" }
-  2: { cap: "16", copies: "15" }
+  - complexity-cost-amortized
+  - interview-essentials/complexity-geometric-sum-intro
+elaborate: Say in one sentence why a single push can still cost O(n), even though 16 pushes made only 15 copies.
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://epubs.siam.org/doi/10.1137/0606031
 ---
 
-A model of a growable array: when full, it copies every element into a
-block twice the size. Each probe reads the state after its line.
-
 ```cpp
 int cap = 1, size = 0, copies = 0;
 void push() {
-  if (size == cap) { copies += size; cap *= 2; }
+  if (size == cap) { copies += size; cap *= 2; }   // full: move all
   ++size;
-}
-
-int main() {
-  for (int k = 0; k < 8; ++k) push();  // @1
-  push();                              // @2
 }
 ```
 
+## How many copies have been made in total after 16 calls to `push()`?
+
 ---
 
-Copies happen at sizes 1, 2, 4, 8: 1 + 2 + 4 = 7 after 8 pushes. The
-9th push alone copies 8, for 15 in all, and doubles cap to 16. The next
-seven pushes copy nothing, so after 16 pushes the total is still 15: the geometric series 1 + 2 + … + n/2 < n. So n pushes cost O(n) in total,
-O(1) each **amortised**, even though one push costs O(n).
+**15 = 1 + 2 + 4 + 8, fewer than the 16 pushes.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+Copies happen only when the size reaches a power of two; the 9th push
+copies 8 and makes room for pushes 10 to 16. So n pushes copy fewer than
+n elements: O(1) each, amortised.

@@ -1,14 +1,15 @@
 ---
 id: hashing-map-count-trace
 kind: trace
-version: 1
+version: 2
 level: 1
 tags: [hashing, maps, tracing]
 probes:
-  1: { a: "2", "count.size()": "4" }
-  2: { z: "0", "count.size()": "5" }
+  1: { a: "2", "count.size()": "2" }
+  2: { z: "0", "count.size()": "3" }
 requires:
   - hashing-map-set-purpose
+elaborate: In code you have written, where did a read with `[]` add an entry you did not mean to add?
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/operator_at
 ---
@@ -16,10 +17,12 @@ refs:
 Count word frequencies with a hash map.
 
 ```cpp
-std::unordered_map<std::string, int> count;
+#include <string>
+#include <unordered_map>
 
 int main() {
-  for (auto w : {"to", "be", "or", "not", "to", "be"}) ++count[w];
+  std::unordered_map<std::string, int> count;
+  ++count["to"]; ++count["be"]; ++count["to"];
   int a = count["to"];    // @1
   int z = count["xyz"];   // @2
 }
