@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, complexity, little-o]
 requires:
-  - complexity-asym-big-o-definition
+  - interview-essentials/complexity-asym-big-o-definition
 refs:
   - https://dl.acm.org/doi/10.1145/1008328.1008329
   - https://en.wikipedia.org/wiki/Big_O_notation#Little-o_notation

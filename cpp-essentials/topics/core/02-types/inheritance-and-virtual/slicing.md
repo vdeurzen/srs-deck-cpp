@@ -1,43 +1,39 @@
 ---
 id: virtual-slicing
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [inheritance, virtual, tracing, misconception]
-elaborate: Where in your code does a container hold a base class by value? What would a derived object lose on the way in?
+elaborate: Say aloud where in your own code a container holds a base class by value, and what a derived object would lose on the way in.
 probes:
   1: { a: "..." }
-  2: { b: "woof" }
 requires:
-  - virtual-dispatch-dynamic-type
   - virtual-slice-parameter
+  - vector-basics
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_constructor
   - https://en.cppreference.com/w/cpp/language/virtual
 ---
 
+Many expect a container of a base class to keep each derived object's
+own behaviour, as passing by reference does. Predict `a`.
+
 ```cpp
 struct Animal {
-    virtual ~Animal() = default;
-    virtual std::string sound() const { return "..."; }
+    virtual std::string sound() { return "..."; }
 };
 struct Dog : Animal {
-    std::string sound() const override { return "woof"; }
+    std::string sound() { return "woof"; }
 };
 std::vector<Animal> zoo;
 zoo.push_back(Dog{});
 std::string a = zoo[0].sound();    // @1
-std::vector<std::unique_ptr<Animal>> pets;
-pets.push_back(std::make_unique<Dog>());
-std::string b = pets[0]->sound();  // @2
 ```
 
 ---
 
 `zoo` stores `Animal` objects, so `push_back` **slices**: it constructs a
 brand-new `Animal` from the `Animal` part of the `Dog`. That element's
-dynamic type is `Animal`, forever, so it says `"..."`. `pets` stores
-pointers to separately allocated objects, so the `Dog` stays whole and the
-virtual call dispatches to `Dog::sound`. A container of a polymorphic
-base holds `std::unique_ptr<Base>`, never `Base`. Verified by running an
-instrumented copy under GCC 16.2 (`g++ -std=c++23`).
+dynamic type is `Animal`, forever, so it says `"..."`. A container of a
+polymorphic base holds `std::unique_ptr<Base>`, so each object stays whole.
+Values verified with GCC 16.2.

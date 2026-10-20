@@ -8,15 +8,20 @@ requires:
   - value-categories-std-move-cloze
   - raii-move-steals-handle
   - move-semantics-moved-from-state
+  - vc-named-rvalue-ref-is-lvalue
+elaborate: Which type in your own code owns a resource, and what would its move constructor take from the source?
 refs:
   - https://en.cppreference.com/w/cpp/language/move_constructor
+  - https://en.cppreference.com/w/cpp/language/move_assignment
   - https://en.cppreference.com/w/cpp/utility/move
 ---
-Explain to a colleague what a move is in C++: what `std::move` does,
-what a move constructor does, and what the source is afterwards.
+Move assignment is the same steal as the move constructor, into an object
+that already exists.
+
+Explain to a colleague, in about a minute, what a move is in C++.
 ---
-- [ ] Motivation: copying a resource-owning type duplicates the resource; when the source is about to be discarded, transferring its handle is enough
-- [ ] `std::move(x)` is only a cast of `x` to an xvalue (an rvalue reference); it moves nothing itself
-- [ ] Overload resolution then selects the move constructor or move assignment, which steals the handle and leaves the source owning nothing, so exactly one destructor releases it
-- [ ] Moved-from standard types are valid but unspecified: only operations without preconditions (destroy, assign, `clear()`) are safe until a value is set again
-- [ ] A named `T&& x` parameter is itself an lvalue, so passing it on as a move needs another `std::move`
+- [ ] Problem: copying a resource-owning object duplicates its resource, although the source is about to be discarded
+- [ ] Mechanism: `std::move` only casts to an rvalue, so overload resolution picks the move constructor
+- [ ] Example: a handle owner's move constructor takes the handle and sets the source's to "owns nothing"
+- [ ] Cost: the source is left valid but unspecified, so only assign to it or destroy it
+- [ ] Pitfall: a named `T&& x` parameter is an lvalue, so passing it on as a move needs another `std::move`

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, graphs, trees]
 requires:
-  - graph-cycle-spot
+  - interview-essentials/graph-cycle-spot
   - graph-component-count
 refs:
   - https://en.wikipedia.org/wiki/Spanning_tree

@@ -3,9 +3,9 @@ id: bt-reuse-signal
 kind: cloze
 version: 1
 level: 3
-tags: [backtracking, combinations, permutations, recognition, lc-39, lc-40, lc-377]
+tags: [recognition, lc-39, lc-40, lc-377]
 requires:
-  - bt-combination-start-index
+  - technique-backtracking-state-space
 refs:
   - https://leetcode.com/problems/combination-sum/
   - https://leetcode.com/problems/combination-sum-ii/

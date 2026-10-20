@@ -1,11 +1,13 @@
 ---
 id: tree-balance-families
 kind: cloze
-version: 1
+version: 2
 level: 2
 tags: [trees, complexity]
 requires:
-  - tree-why-balance
+  - tree-rotation-intro
+  - tree-btree-insert-intro
+elaborate: "Why do databases favour B-trees over red-black trees? Say it in terms of how many nodes a lookup touches."
 refs:
   - https://doi.org/10.1109/SFCS.1978.3
   - https://doi.org/10.1007/BF00288683
@@ -13,8 +15,14 @@ refs:
 ---
 
 Balanced search trees keep the height O(log n) whatever the insertion
-order, by repairing the shape after every insert and delete. AVL and
-red-black trees are binary and restore their balance rule with
-{{c1::rotations::a local restructuring}}, which reshape a few links but
-keep the keys in order. B-trees hold many keys per node and keep every
-leaf at the same depth by {{c2::splitting and merging nodes::structural operations on whole nodes}}.
+order, by repairing their shape after every insert. Binary ones repair
+with {{c1::rotations::an operation on links}}; B-trees, whose nodes
+hold several keys, repair by
+{{c2::splitting a full node::an operation on nodes}}.
+
+---
+
+AVL and red-black trees are the common binary kind: each insert runs at
+most a few rotations along one path. A B-tree never rotates; a node
+that overflows splits and sends its middle key up, so the tree grows
+only at the root.

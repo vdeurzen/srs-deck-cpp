@@ -6,13 +6,14 @@ level: 3
 tags: [binary-search, lower-bound]
 requires:
   - search-lower-bound-meaning
+elaborate: "Name a yes/no question about a number in your own work whose answer flips exactly once as the number grows."
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/partition_point
 ---
 
 Lower-bound-style searches find the boundary in a sequence of answers
 shaped `true, …, true, false, …, false`. On a range shaped that way under
-`p`, `std::partition_point(first, last, p)` returns the first element
+a test `p` (a function returning `true` or `false`), `std::partition_point(first, last, p)` returns the first element
 where `p` is false. `std::lower_bound(first, last, key)` returns the same
 position when `p(x)` is {{c1::`x < key`::a test that holds on the left part}}.
 

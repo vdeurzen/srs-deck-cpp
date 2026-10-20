@@ -6,7 +6,7 @@ level: 2
 tags: [exceptions, inheritance]
 requires:
   - err-catch-by-reference-why
-  - virtual-is-a
+  - types-using-alias
 input: chips
 choices:
   c1: ["std::runtime_error", "std::exception", "std::bad_alloc"]
@@ -19,6 +19,7 @@ compile:
 refs:
   - https://en.cppreference.com/w/cpp/error/runtime_error
   - https://en.cppreference.com/w/cpp/error/exception
+elaborate: Say what a caller gains from catching `ConfigError` by name instead of `std::exception`, and when you would not bother defining one.
 ---
 
 `load_config` must be able to `throw ConfigError("port is missing");`, and
@@ -39,5 +40,5 @@ struct ConfigError : Base {
 its constructor and returns it from `what()`; inheriting its constructors
 is all a custom exception needs. `std::exception` itself, like
 `std::bad_alloc`, has no constructor taking a message, so
-`ConfigError("...")` does not compile: their `what()` returns an
-implementation-defined text.
+`ConfigError("...")` does not compile: their `what()` returns a fixed
+library text.

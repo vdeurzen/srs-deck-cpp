@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [graphs, vocabulary]
 requires:
-  - graph-path-cycle-component
+  - interview-essentials/graph-path-cycle-component
 refs:
   - https://en.wikipedia.org/wiki/Glossary_of_graph_theory
 ---

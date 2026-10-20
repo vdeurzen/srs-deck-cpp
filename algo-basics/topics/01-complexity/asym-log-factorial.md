@@ -5,8 +5,8 @@ version: 1
 level: 2
 tags: [foundations, complexity, logarithms]
 requires:
-  - complexity-asym-log-rules
-  - complexity-asym-theta-sandwich
+  - interview-essentials/complexity-asym-log-rules
+  - interview-essentials/complexity-asym-theta-sandwich
 input: chips
 choices:
   c1: ["pw(n / 2, n / 2)", "pw(2, n)", "pw(n / 2, n)", "pw(n, 2)"]

@@ -11,16 +11,18 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/object#Alignment
   - https://en.cppreference.com/w/cpp/language/alignas
+elaborate: Which struct in a loop you care about would you audit first, and what number would you pin?
 ---
 
-A struct sits in a large array that a hot loop scans, and each element
-must start on its own 64-byte boundary. Explain to a teammate how you
-decide its layout and how you keep it from regressing.
+A struct sits in a large array scanned by the loop that dominates your
+program's run time, and each element must start on its own 64-byte
+boundary. Explain to a teammate how you decide its layout and how you
+keep it from regressing.
 
 ---
 
-- [ ] Each member starts at an offset that is a multiple of its `alignof`; padding fills the gaps
-- [ ] `sizeof` is rounded up to a multiple of the struct's alignment, so array elements stay aligned
-- [ ] Declaring members in decreasing order of alignment removes most of the padding
-- [ ] `alignas(64)` on the struct rounds its `sizeof` up to a multiple of 64
-- [ ] A `static_assert` on `sizeof`/`offsetof` makes an edit that adds padding fail the build
+- [ ] Problem: padding bytes between members are memory the scan reads but never uses
+- [ ] Mechanism: each member's offset is a multiple of its alignment, so the compiler inserts padding
+- [ ] Example: `char, double, char` takes 24 bytes; `double, char, char` takes 16
+- [ ] Cost: `alignas(64)` rounds `sizeof` up to 64, spending padding to give each element its own boundary
+- [ ] Pitfall: a later edit silently adds padding unless a `static_assert` on `sizeof` pins it

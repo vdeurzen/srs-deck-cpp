@@ -11,13 +11,17 @@ compile:
   harness: |
     static_assert(sorted_as_expected());
     int main() {}
+elaborate: Say how you would break ties so that words of equal length come out alphabetically.
 requires:
-  - stdalgo-lambda-syntax
+  - stdalgo-sort-basics
+  - constexpr-fn-static-assert
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/sort
 ---
 
-Complete the comparator so `sort` orders `w` by `size()`, ascending.
+A `std::string_view` is a read-only view of some characters, with
+`size()` and `<` like a string. Complete the comparator so `sort` leaves `w`
+as `fig`, `pear`, `banana`.
 
 ```cpp
 #include <algorithm>

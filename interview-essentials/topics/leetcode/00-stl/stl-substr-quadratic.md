@@ -6,6 +6,8 @@ level: 3
 tags: [stl, strings, complexity, lc-151]
 requires:
   - cpp-essentials/strings-string-view-parameter
+  - complexity-count-loop-steps
+  - cpp-essentials/types-auto-deduces
 refs:
   - https://leetcode.com/problems/reverse-words-in-a-string/
   - https://leetcode.com/problems/decode-ways/
@@ -16,14 +18,15 @@ elaborate: "Decode Ways (LC 91: count the ways to decode a digit string, 1 = A .
 ---
 
 Reverse Words in a String (LC 151): return the words of `s` in reverse
-order. A split helper for it, if words are separated by single spaces:
+order. A split helper for it, if words are separated by single spaces
+(`find` returns the position of the first `' '`, or `npos` if none):
 
 ```cpp
 std::vector<std::string> split(std::string rest) {
   std::vector<std::string> words;
-  for (;;) {
+  while (true) {
     auto sp = rest.find(' ');
-    words.emplace_back(rest.substr(0, sp));
+    words.push_back(rest.substr(0, sp));
     if (sp == rest.npos) return words;
     rest = rest.substr(sp + 1);
   }

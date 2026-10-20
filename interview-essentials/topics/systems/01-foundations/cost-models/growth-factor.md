@@ -4,8 +4,10 @@ kind: basic
 version: 1
 level: 3
 requires:
-  - complexity-amortised-vs-average
+  - linear-dynamic-array-growth
+  - complexity-asym-theta-sandwich
 tags: [complexity, amortised, sequences, allocators]
+elaborate: What would break if the growth factor were 1.01 instead of 2, and would push_back still be O(1) amortised?
 refs:
   - https://epubs.siam.org/doi/10.1137/0606031
   - https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md

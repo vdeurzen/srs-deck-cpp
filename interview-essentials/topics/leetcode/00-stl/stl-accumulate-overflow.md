@@ -12,11 +12,13 @@ choices:
     - "0u"
 compile:
   harness: |
-    static_assert(mean(std::vector<int>(50'000, 100'000)) == 100'000);
-    static_assert(mean({1, 2, 6}) == 3);
+    static_assert(total(std::vector<int>(50'000, 100'000)) == 5'000'000'000LL);
+    static_assert(total({1, 2, 6}) == 9);
     int main() {}
 requires:
-  - cpp-essentials/stdalgo-accumulate-init
+  - stl-accumulate-init-type
+  - cpp-essentials/types-overflow-rules
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/minimum-average-difference/
   - https://en.cppreference.com/w/cpp/algorithm/accumulate
@@ -24,15 +26,15 @@ elaborate: Before your next submission, which line of the constraints tells you 
 ---
 
 Minimum Average Difference (LC 2256) averages prefixes and suffixes of
-`nums`: up to 10⁵ values, each up to 10⁵, so sums reach 10¹⁰. The mean
-itself fits an `int`. Complete the call so it is right for every such
-input.
+`nums`: up to 10⁵ values, each up to 10⁵, so sums reach 10¹⁰. The
+suffix `LL` makes a literal a 64-bit `long long`. Complete the call so
+`total` is right for every such input.
 
 ```cpp
 #include <numeric>
 #include <vector>
-constexpr int mean(const std::vector<int>& nums) {
-  return std::accumulate(nums.begin(), nums.end(), {{c1::0LL}}) / std::ssize(nums);
+constexpr long long total(const std::vector<int>& nums) {
+  return std::accumulate(nums.begin(), nums.end(), {{c1::0LL}});
 }
 ```
 
@@ -40,6 +42,6 @@ constexpr int mean(const std::vector<int>& nums) {
 
 **`0LL`: `accumulate` adds in the type of `init`, so `init` sets the
 sum's type.** With `0` the sum is an `int` (max ≈ 2.1 × 10⁹) and
-overflows inside `accumulate`, before the division: undefined
-behaviour, which the harness's constant evaluation rejects. `0u` wraps
+overflows inside `accumulate`, before the return widens it: undefined
+behaviour. `0u` wraps
 at 2³². `0L` works where `long` is 64-bit (Linux), not on Windows.

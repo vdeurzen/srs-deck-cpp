@@ -18,6 +18,9 @@ compile:
     int main() {}
 requires:
   - technique-lcs-match
+  - stl-bits-stdcpp-header
+  - stl-min-max
+  - dp-edit-distance-signal
 refs:
   - https://leetcode.com/problems/edit-distance/
   - https://leetcode.com/problems/longest-common-subsequence/
@@ -28,19 +31,19 @@ elaborate: Longest Common Subsequence (LC 1143, the length of the longest subseq
 
 Edit Distance (LC 72): the fewest single-character inserts, deletes and replaces that
 turn `a` into `b`. `d[i][j]` is that number for the first `i` characters
-of `a` and the first `j` of `b`. Complete the third option in the
-mismatch case.
+of `a` and the first `j` of `b`; `std::size_t` is the unsigned type
+`size()` returns. Complete the third option in the mismatch case.
 
 ```cpp
 #include <bits/stdc++.h>
 constexpr int min_distance(std::string_view a, std::string_view b) {
-  std::vector d(a.size() + 1, std::vector<int>(b.size() + 1));
+  std::vector<std::vector<int>> d(a.size() + 1, std::vector<int>(b.size() + 1));
   for (std::size_t i = 0; i <= a.size(); ++i)
     for (std::size_t j = 0; j <= b.size(); ++j)
       if (i == 0 || j == 0) d[i][j] = i + j;
       else if (a[i - 1] == b[j - 1]) d[i][j] = d[i - 1][j - 1];
       else d[i][j] = 1 + std::min({d[i - 1][j], d[i][j - 1], {{c1::d[i - 1][j - 1]}}});
-  return d.back().back();
+  return d[a.size()][b.size()];
 }
 ```
 

@@ -6,14 +6,16 @@ level: 3
 tags: [hashing, containers]
 requires:
   - hash-chaining-vs-open-addressing
+  - cpp-essentials/containers-stable-references
+  - cpp-essentials/iter-map-subscript-inserts
 refs:
   - https://eel.is/c++draft/unord.req.general
   - https://en.cppreference.com/w/cpp/container/unordered_map
   - https://abseil.io/about/design/swisstables
-elaborate: If you swapped one of your `unordered_map`s for `absl::flat_hash_map`, which pointer into it would you have to audit first?
+elaborate: If you swapped one of your `unordered_map`s for a faster flat table, which pointer into it would you have to audit first?
 ---
 
-## Why can no conforming `std::unordered_map` be a flat open-addressed table?
+## A rehash rebuilds the table with more buckets. Why can no `std::unordered_map` that meets the standard be a flat open-addressed table?
 
 ```cpp
 struct Order { int qty; };
@@ -27,7 +29,6 @@ o.qty = 7;
 
 **The standard keeps references valid across rehash, so elements cannot move.**
 
-Each element therefore lives in its own node, and the bucket interface
-(`bucket()`, `local_iterator`) assumes chains too. That is why
-`absl::flat_hash_map` and `boost::unordered_flat_map` exist: they drop
-reference stability to be faster.
+Each element therefore lives in its own node, and a rehash only relinks
+the nodes into the new buckets. Flat hash tables outside the standard
+library are faster precisely because they drop that guarantee.

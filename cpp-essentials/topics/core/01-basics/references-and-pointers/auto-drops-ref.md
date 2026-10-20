@@ -6,7 +6,9 @@ level: 2
 tags: [auto, references, const]
 requires:
   - ptr-reference-vs-pointer
-  - types-auto-drops-const
+  - types-auto-deduces
+  - string-basics
+  - class-struct-members
 input: chips
 choices:
   c1: ["const auto&", "auto&", "auto", "const auto"]
@@ -16,6 +18,7 @@ compile:
     static_assert(std::is_same_v<decltype(n), const std::string&>,
                   "n must be a read-only reference, not a copy");
     int main() {}
+elaborate: Say aloud where a plain `auto` in your own code silently copies a string or a container that you only meant to read.
 refs:
   - https://en.cppreference.com/w/cpp/language/auto
   - https://en.cppreference.com/w/cpp/language/template_argument_deduction
@@ -36,11 +39,8 @@ Config cfg{"prod"};
 
 ---
 
-Plain `auto` deduces the way a by-value template parameter does: the
-reference of the initialiser is discarded, and `n` becomes a brand-new
-`std::string` holding a copy. `const auto` still copies; it only makes the
+Plain `auto` discards the reference of the initialiser, and `n` becomes
+a brand-new `std::string` holding a copy. `const auto` still copies; it only makes the
 copy read-only. `auto&` keeps the reference, but `label()` returns a
 non-`const` one, so `n` could modify `cfg.name`. Both halves have to be
-written: `const auto&`. The rule holds everywhere
-`auto` appears: `for (auto s : names)` copies every string, and
-`for (const auto& s : names)` does not.
+written: `const auto&`.

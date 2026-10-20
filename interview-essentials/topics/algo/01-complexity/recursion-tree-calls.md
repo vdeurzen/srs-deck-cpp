@@ -1,39 +1,29 @@
 ---
 id: complexity-recursion-tree-calls
-kind: trace
-version: 1
+kind: basic
+version: 2
 level: 2
-tags: [complexity, recurrences, tracing]
+tags: [complexity, recurrences]
 requires:
   - complexity-log-halvings
-probes:
-  1: { calls: "5" }
-  2: { calls: "31" }
+  - technique-call-stack-worked
+elaborate: "How would the count change with three recursive calls instead of two, and where have you met a recursion that branches like that?"
 refs:
   - https://en.wikipedia.org/wiki/Recursion_tree
   - https://dl.acm.org/doi/10.1145/1008861.1008865
 ---
 
-Each probe reads `calls` after the statement on its line.
+## How many calls does `split(16)` make in total, counting itself?
 
 ```cpp
-int calls = 0;
-void halve(int n) { ++calls; if (n > 1) halve(n / 2); }
-void split(int n) { ++calls; if (n > 1) { split(n / 2); split(n / 2); } }
-
-int main() {
-  halve(16);             // @1
-  calls = 0; split(16);  // @2
-}
+void split(int n) { if (n > 1) { split(n / 2); split(n / 2); } }
 ```
 
 ---
 
-`halve` makes one call per level: 16, 8, 4, 2, 1 → log₂ n + 1 = 5.
-`split` makes two per call, so level k has 2ᵏ calls: 1 + 2 + … + 16 =
-31 = 2n − 1. Same depth, but the number
-of children per call decides whether the tree is a path (O(log n)) or
-fills out to n leaves (O(n)).
+**31 = 2n − 1: level k has 2ᵏ calls, 1 + 2 + 4 + 8 + 16.**
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+Small case: `split(2)` makes 3 calls. With one recursive call
+instead, the tree is a path (16, 8, 4, 2, 1: 5 calls,
+O(log n)); two children fill it out to n leaves, O(n).
+(Run under GCC 16.2.)

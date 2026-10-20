@@ -6,6 +6,9 @@ level: 2
 tags: [trees, bst, invariants, misconception]
 requires:
   - tree-bst-property
+  - technique-call-stack-worked
+  - stl-const-auto-param
+  - cpp-essentials/constexpr-fn-static-assert
 elaborate: Where else does a property have to hold for a whole region rather than for neighbours — a sorted array checked pairwise, a heap, a lock order?
 input: chips
 choices:
@@ -32,7 +35,8 @@ refs:
 
 Every node here is larger than its left child and smaller than its right
 child, yet it is not a BST. Complete both recursive calls so `is_bst`
-rejects it.
+rejects it (`INT_MIN` and `INT_MAX`, from `<climits>`, are the smallest
+and largest `int`).
 
 ```cpp
 #include <climits>
@@ -42,6 +46,7 @@ rejects it.
 //       /
 //      4
 
+// t.key[v], t.left[v], t.right[v]: node v; -1 means no child
 // true if every key in v's subtree lies strictly between lo and hi
 constexpr bool is_bst(const auto& t, int v, int lo, int hi) {
   if (v < 0) return true;
@@ -57,7 +62,7 @@ constexpr bool is_bst(const auto& t, int v, int lo, int hi) {
 8. Checking each parent against its children misses that: the invariant
 is about every ancestor. Passing `(k, hi)` down narrows the window at
 every step, so each node is checked against all its ancestors at once,
-in O(n). The left call mirrors it: `(lo, k)`.
+visiting each node only once. The left call mirrors it: `(lo, k)`.
 
 `INT_MIN, k` or `k, INT_MAX` drops an inherited bound, which is exactly
 the children-only check, and accepts a bad tree; a search for 4 would

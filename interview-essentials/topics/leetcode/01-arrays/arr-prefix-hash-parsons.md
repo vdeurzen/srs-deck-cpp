@@ -32,6 +32,8 @@ compile:
     }
 requires:
   - arr-prefix-hash-signal
+  - cpp-essentials/iter-map-subscript-inserts
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/subarray-sum-equals-k/
   - https://leetcode.com/problems/subarray-sums-divisible-by-k/
@@ -68,8 +70,3 @@ the prefix sums so far. After `p += x`, every earlier prefix equal to
 Subarray Sums Divisible by K (LC 974: count the subarrays whose sum is
 divisible by `k`) is the same loop keyed on
 `((p % k) + k) % k`.
-
-`seen` is a parameter, so `seen[...]` is resolved only when the function
-is called. The harness passes a constexpr array-backed stand-in, since
-`std::unordered_map` is not constexpr, and `main` compiles the same code
-with the real map.

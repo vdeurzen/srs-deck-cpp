@@ -9,7 +9,7 @@ probes:
   2: { b: "false" }
 requires:
   - cpp-essentials/const-ref-parameter
-  - fn-by-value-vs-reference
+  - cpp-essentials/fn-by-value-vs-reference
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization
   - https://eel.is/c++draft/expr.call#7

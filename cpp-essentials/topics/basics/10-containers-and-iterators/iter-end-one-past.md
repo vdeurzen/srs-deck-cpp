@@ -4,6 +4,10 @@ kind: basic
 version: 1
 level: 1
 tags: [iterators]
+requires:
+  - iter-iterator-basics
+  - ub-definition
+elaborate: Say why a half-open range makes an empty range and a loop `while (it != end)` need no special case.
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/end
   - https://en.cppreference.com/w/cpp/iterator
@@ -15,5 +19,5 @@ refs:
 
 **None: it points one past the last element, just after the `9`.**
 Iterator ranges are half-open, `[begin, end)`: `begin()` is included,
-`end()` is not. So `end() - begin()` equals `size()`, an empty range has
-`begin() == end()`, and `*v.end()` is undefined behaviour.
+`end()` is not. So an empty range has `begin() == end()`, and `*v.end()`
+is undefined behaviour.

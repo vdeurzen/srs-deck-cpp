@@ -6,6 +6,9 @@ level: 1
 tags: [references, functions, parameters]
 requires:
   - ptr-trace-reference-assign
+  - fn-param-change-intro
+  - constexpr-fn-static-assert
+elaborate: Say how a Go function changes its caller's `int`, and what the C++ caller no longer has to write.
 input: chips
 choices:
   c1: ["int&", "int", "const int&", "int*"]
@@ -32,8 +35,9 @@ constexpr void bump({{c1::int&}} n) { ++n; }
 
 ---
 
-With `int& n`, the parameter is another name for the caller's `x`, so
-`++n` increments `x`, and the caller writes plain `bump(x)`. By value
+**`int&`: the parameter is another name for the caller's `x`.**
+
+So `++n` increments `x`, and the caller writes plain `bump(x)`. By value
 (`int n`) the function increments its own copy and `x` stays 1.
 `const int&` refers to `x` but forbids writes: `++n` does not compile.
 `int*` would need the caller to write `bump(&x)`, and `++n` would then

@@ -5,10 +5,12 @@ version: 1
 level: 2
 tags: [linkage, namespaces]
 requires:
-  - linkage-which-step-fails
+  - linkage-odr-counting
+  - fn-namespace-clash
 refs:
   - https://en.cppreference.com/w/cpp/language/namespace#Unnamed_namespaces
   - https://eel.is/c++draft/basic.link
+elaborate: Go hides a helper by giving it a lower-case name; say how that differs from what this fix hides it from.
 ---
 
 ## `a.cpp` and `b.cpp` each define a helper `int clamp01(int v)` for their own use, with different bodies. The link fails with `multiple definition`. What should each file do?

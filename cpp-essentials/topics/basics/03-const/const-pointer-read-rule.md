@@ -6,6 +6,8 @@ level: 1
 tags: [const, pointers]
 requires:
   - ptr-holds-an-address
+  - types-char-is-integer
+elaborate: Say aloud how you would read `const char* const name` right to left.
 refs:
   - https://en.cppreference.com/w/cpp/language/pointer#Constness
   - https://eel.is/c++draft/dcl.ptr

@@ -4,6 +4,7 @@ kind: basic
 version: 1
 level: 1
 tags: [foundations, trees, bst, invariants]
+elaborate: "Which bug would a parent-only check let into a tree you built, and how would a later search reveal it?"
 refs:
   - https://doi.org/10.1145/321105.321108
   - https://xlinux.nist.gov/dads/HTML/binarySearchTree.html

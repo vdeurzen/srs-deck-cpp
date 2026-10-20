@@ -13,12 +13,17 @@ choices:
     - "hi - lo - 1"
 compile:
   harness: |
-    static_assert(search_range({5, 7, 7, 8, 8, 10}, 8) == std::vector<int>{3, 4});
-    static_assert(search_range({5, 7, 7, 8, 8, 10}, 6) == std::vector<int>{-1, -1});
-    static_assert(search_range({1}, 1) == std::vector<int>{0, 0});
+    static_assert(search_range({5, 7, 7, 8, 8, 10}, 8) == std::vector<long>{3, 4});
+    static_assert(search_range({5, 7, 7, 8, 8, 10}, 6) == std::vector<long>{-1, -1});
+    static_assert(search_range({1}, 1) == std::vector<long>{0, 0});
+    static_assert(search_range({5, 7, 7, 8, 8, 10}, 10) == std::vector<long>{5, 5});
+    static_assert(search_range({5, 7, 7, 8, 8, 10}, 4) == std::vector<long>{-1, -1});
+    static_assert(search_range({5, 7, 7, 8, 8, 10}, 11) == std::vector<long>{-1, -1});
     int main() {}
 requires:
   - search-lower-bound-meaning
+  - cpp-essentials/structured-bindings-basics
+  - cpp-essentials/constexpr-fn-static-assert
 refs:
   - https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
   - https://leetcode.com/problems/find-target-indices-after-sorting-array/
@@ -27,15 +32,17 @@ elaborate: Find Target Indices After Sorting Array (LC 2089) returns every index
 ---
 
 Find First and Last Position of Element in Sorted Array (LC 34): return
-the first and last index of `t` in the sorted `v`, or `{-1, -1}`. Complete the last index.
+the first and last index of `t` in the sorted `v`, or `{-1, -1}`.
+`std::equal_range` returns a pair of iterators bounding the elements
+equal to `t`. Complete the last index.
 
 ```cpp
 #include <algorithm>
 #include <vector>
-constexpr std::vector<int> search_range(const std::vector<int>& v, int t) {
+constexpr std::vector<long> search_range(std::vector<int> v, int t) {
   auto [lo, hi] = std::equal_range(v.begin(), v.end(), t);
   if (lo == hi) return {-1, -1};
-  return {int(lo - v.begin()), int({{c1::hi - v.begin() - 1}})};
+  return {lo - v.begin(), {{c1::hi - v.begin() - 1}}};
 }
 ```
 

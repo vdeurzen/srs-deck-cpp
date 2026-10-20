@@ -13,7 +13,7 @@ refs:
 elaborate: "`std::unique_ptr<Base> q = std::make_unique<Derived>();` has no control block. What happens at its closing brace, and what one-line change to `Base` fixes it?"
 ---
 
-## `Base` has no virtual destructor. Which destructors run at the closing brace?
+## `Base` has no virtual destructor (`std::puts(s)` prints `s` and a newline). Which destructors run at the closing brace?
 
 ```cpp
 struct Base    { ~Base()    { std::puts("~Base"); } };

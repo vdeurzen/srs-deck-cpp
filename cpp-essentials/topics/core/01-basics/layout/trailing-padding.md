@@ -5,7 +5,9 @@ version: 1
 level: 2
 tags: [layout, alignment, padding]
 requires:
-  - layout-padding-sizeof
+  - layout-padding-worked
+  - class-struct-members
+elaborate: Where else does "the size is rounded up so the next one starts aligned" show up, for example in a buffer of records you lay out by hand?
 refs:
   - https://eel.is/c++draft/expr.sizeof#2
   - https://en.cppreference.com/w/cpp/language/sizeof

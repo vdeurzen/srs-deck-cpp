@@ -6,6 +6,9 @@ level: 2
 tags: [value-categories]
 requires:
   - value-categories-taxonomy
+  - value-categories-reference-binding-cloze
+  - cast-static-cast-intro
+elaborate: Say aloud what happens if you `std::move` an object into a function that only has a `const T&` overload.
 refs:
   - https://en.cppreference.com/w/cpp/utility/move
 ---

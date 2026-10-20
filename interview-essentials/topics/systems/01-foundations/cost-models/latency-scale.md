@@ -4,18 +4,19 @@ kind: basic
 version: 2
 level: 2
 tags: [memory-hierarchy, cost-model, low-latency]
-elaborate: Re-measure it on the machine you ship on — NUMA, huge pages and the memory controller move these figures by a factor of two. Which of your design decisions would survive a factor of two?
+requires:
+  - foundations-memory-hierarchy
+elaborate: Say in one sentence, as to an interviewer, which design choice of yours would change if a cache miss cost a hundred cache hits.
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/latency/
   - https://www.agner.org/optimize/
 ---
 
-## On a current x86-64 server, to the nearest power of ten, how many times slower than an L1 hit is a random DRAM access?
+## L1 is the smallest, fastest cache, beside each core. On a current server CPU, to the nearest power of ten, how many times slower than an L1 hit is a random read from main memory (DRAM)?
 
 ---
 
 **~100× (two orders of magnitude): ~1 ns (4 cycles) against ~80 ns.**
 That is several hundred instructions of time, so a structure that spends
-a few extra comparisons to save one miss wins: a B-tree node over a
-red-black node, open addressing over chaining. Memorise the ratio, not
-the digits.
+a few extra comparisons to save one miss beats a pointer-chasing
+structure that misses at every node. Memorise the ratio, not the digits.

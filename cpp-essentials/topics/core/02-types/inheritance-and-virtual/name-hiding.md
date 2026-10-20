@@ -6,7 +6,7 @@ level: 3
 tags: [inheritance, lookup]
 input: chips
 choices:
-  c1: ["using Base::scale;", "using Base;", "friend struct Base;", "virtual int scale(int) const;"]
+  c1: ["using Base::scale;", "using Base;", "friend struct Base;", "virtual int scale(int);"]
 compile:
   harness: |
     static_assert(Derived{}.scale(3) == 1);
@@ -14,21 +14,26 @@ compile:
     int main() {}
 requires:
   - virtual-static-dispatch
+  - fn-overload-ranking
+  - constexpr-fn-static-assert
 refs:
   - https://en.cppreference.com/w/cpp/language/using_declaration#In_class_definition
   - https://en.cppreference.com/w/cpp/language/unqualified_lookup#Class_definition
+elaborate: Say aloud what would break if someone later added a `scale(long)` to `Derived` without the fix, and how a code reviewer would spot it.
 ---
 
 `Derived{}.scale(3)` calls the `double` version, although `Base` has an
-exact `scale(int)`. Make `Base`'s overload take part again.
+exact `scale(int)`: the compiler finds a name by searching the innermost
+scope first and stops at the first scope that declares it. Make `Base`'s
+overload take part again.
 
 ```cpp
 struct Base {
-    constexpr int scale(int) const { return 1; }
+    constexpr int scale(int) { return 1; }
 };
 struct Derived : Base {
     {{c1::using Base\::scale;}}
-    constexpr int scale(double) const { return 2; }
+    constexpr int scale(double) { return 2; }
 };
 ```
 

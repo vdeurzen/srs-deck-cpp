@@ -11,6 +11,10 @@ compile:
   harness: |
     static_assert(apply_twice() == 7);
     int main() {}
+requires:
+  - stdalgo-capture-ref-vs-copy
+  - constexpr-fn-static-assert
+elaborate: Say aloud when you would capture by reference instead, and what could then go wrong.
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture

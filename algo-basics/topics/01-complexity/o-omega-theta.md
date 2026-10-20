@@ -6,7 +6,7 @@ level: 2
 tags: [complexity, big-o]
 requires:
   - complexity-big-o-definition
-  - complexity-asym-theta-sandwich
+  - interview-essentials/complexity-asym-theta-sandwich
 refs:
   - https://dl.acm.org/doi/10.1145/1008328.1008329
 ---

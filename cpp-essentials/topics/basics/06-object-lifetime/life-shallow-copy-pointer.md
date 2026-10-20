@@ -5,8 +5,11 @@ version: 1
 level: 2
 tags: [lifetime, copy, new-delete, special-members]
 requires:
-  - life-destructor-frees
+  - life-delete-matches-new
+  - life-destructor-intro
+  - class-ctor-colon-part
   - life-copy-init-not-assign
+elaborate: Find a class of yours that holds a raw owning pointer; what does copying it do today?
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_constructor#Implicitly-defined_copy_constructor
   - https://en.cppreference.com/w/cpp/language/rule_of_three
@@ -17,7 +20,7 @@ refs:
 ```cpp
 struct IntBuf {
   int* data;
-  explicit IntBuf(int n) : data(new int[n]{}) {}
+  IntBuf(int n) : data(new int[n]) {}
   ~IntBuf() { delete[] data; }
 };
 void f() {
@@ -28,8 +31,8 @@ void f() {
 
 ---
 
-**The array is `delete[]`d twice.** The compiler-generated copy
+**The array is `delete[]`d twice.** The compiler-written copy
 constructor copies each member, so `b.data` holds the same address as
 `a.data`: one array, two owners. Both destructors free it, which is
 undefined behaviour. A class that owns a resource must define or `= delete`
-its copy operations (the Rule of Three).
+its copy operations.

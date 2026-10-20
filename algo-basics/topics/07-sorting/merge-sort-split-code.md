@@ -23,7 +23,7 @@ compile:
     static_assert(sorted({3, 6, 1, 5, 2, 4}) == Arr{1, 2, 3, 4, 5, 6});
     int main() {}
 requires:
-  - sort-merge-runs-trace
+  - interview-essentials/sort-merge-runs-trace
   - interview-essentials/sort-merge-idea
 refs:
   - https://algs4.cs.princeton.edu/22mergesort/

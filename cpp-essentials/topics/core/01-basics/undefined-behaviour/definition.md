@@ -6,6 +6,7 @@ level: 1
 tags: [undefined-behaviour]
 requires:
   - ub-passing-tests-prove-nothing
+elaborate: Say aloud why "it crashed later, somewhere else" is a typical symptom of undefined behaviour rather than a contradiction.
 refs:
   - https://en.cppreference.com/w/cpp/language/ub
   - https://timsong-cpp.github.io/cppwp/n4950/intro.abstract#5

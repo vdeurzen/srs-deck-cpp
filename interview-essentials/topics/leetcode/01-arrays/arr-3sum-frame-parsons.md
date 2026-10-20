@@ -17,6 +17,8 @@ compile:
     int main() {}
 requires:
   - linear-two-pointers-code
+  - stl-size-t-unsigned
+  - stl-bits-stdcpp-header
 refs:
   - https://leetcode.com/problems/3sum/
   - https://leetcode.com/problems/3sum-closest/
@@ -26,7 +28,8 @@ elaborate: 3Sum Closest (LC 16) returns the sum of three values closest to `targ
 
 3Sum (LC 15) returns every triplet summing to 0, without duplicates.
 Its frame before any de-duplication: does some triplet at three
-different positions sum to 0? Order the lines.
+different positions sum to 0? `std::ranges::sort(a)` sorts the whole
+container `a`. Order the lines.
 
 ```cpp
 #include <bits/stdc++.h>
@@ -34,8 +37,8 @@ constexpr bool has_zero_triple(std::vector<int> a) {
   std::ranges::sort(a);
   for (std::size_t i = 0; i + 2 < a.size(); ++i)
     for (std::size_t lo = i + 1, hi = a.size() - 1; lo < hi;)
-      if (int s = a[i] + a[lo] + a[hi]; s == 0) return true;
-      else if (s < 0) ++lo; else --hi;
+      if (a[i] + a[lo] + a[hi] == 0) return true;
+      else if (a[i] + a[lo] + a[hi] < 0) ++lo; else --hi;
   return false;
 }
 ```

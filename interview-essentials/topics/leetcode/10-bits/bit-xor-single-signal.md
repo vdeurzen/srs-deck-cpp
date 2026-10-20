@@ -3,7 +3,10 @@ id: bit-xor-single-signal
 kind: basic
 version: 1
 level: 2
-tags: [bit-tricks, xor, recognition, lc-136]
+tags: [recognition, lc-136]
+requires:
+  - foundations-bitwise-operators
+  - complexity-space-stack-depth
 refs:
   - https://leetcode.com/problems/single-number/
   - https://leetcode.com/problems/missing-number/
@@ -16,7 +19,7 @@ elaborate: Missing Number (LC 268) gives `n` distinct numbers from 0..n and asks
 > solution with linear runtime complexity and use only **constant
 > extra space**.
 
-## Which one-pass fold finds it?
+## Which one-pass fold (combining every element into one accumulator) finds it?
 
 ---
 

@@ -18,6 +18,9 @@ compile:
 requires:
   - move-semantics-forwarding-reference
   - value-categories-overload-binding
+  - constexpr-fn-static-assert
+  - std-names-and-headers
+elaborate: Where else would a wrapper need to pass arguments on unchanged, such as a factory or a logging decorator, and what breaks if it uses `std::move`?
 refs:
   - https://en.cppreference.com/w/cpp/utility/forward
 ---

@@ -4,9 +4,12 @@ kind: cloze
 version: 1
 level: 1
 tags: [heaps, invariants, trees]
+requires:
+  - tree-terms
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://en.wikipedia.org/wiki/Binary_heap
+elaborate: Say in one sentence, as to an interviewer, why a priority queue needs only the parent-over-child rule and not a fully sorted array.
 ---
 
 ```

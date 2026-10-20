@@ -4,11 +4,14 @@ kind: basic
 version: 1
 level: 1
 tags: [two-pointers, arrays]
+requires:
+  - complexity-big-o-scaling
+elaborate: "Say in one sentence why this argument collapses if the array is not sorted."
 refs:
   - https://en.wikipedia.org/wiki/3SUM
 ---
 
-## Find two elements of a sorted array that sum to 13. With `lo` at the smallest and `hi` at the largest, `a[lo] + a[hi]` is 12. Why is it safe to discard `a[lo]` for good?
+## Find two elements of a sorted array that sum to 13. With index `lo` at the smallest and index `hi` at the largest, `a[lo] + a[hi]` is 12. Why is it safe to discard `a[lo]` for good?
 
 ```cpp
 int a[] = {1, 3, 4, 6, 9, 11};   // a[lo] = 1, a[hi] = 11

@@ -7,6 +7,7 @@ tags: [smart-pointers, move-semantics]
 requires:
   - smart-pointers-unique-ptr-ownership
   - move-semantics-moved-from-state
+elaborate: Where in your own code would `a == nullptr` after a move be a real test, and why may you never write that test for a moved-from `std::string`?
 refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr/unique_ptr
   - https://eel.is/c++draft/unique.ptr.single.ctor
@@ -16,8 +17,7 @@ refs:
 
 ---
 
-**No: `a` is guaranteed null (`a.get() == nullptr`).** Exclusive
+**No: `a` is guaranteed null: it owns nothing.** Exclusive
 ownership demands it: `b` now owns the object, so `a` must own nothing,
 or two destructors would delete it. The standard states this as a
-postcondition, so `if (a)` after a move is a reliable test.
-`shared_ptr` promises the same: a moved-from one is empty.
+postcondition, so `a == nullptr` after a move is a reliable test.

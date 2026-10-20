@@ -7,6 +7,7 @@ tags: [initialization]
 requires:
   - raii-storage-durations
   - types-uninit-local-read
+elaborate: Go zeroes every variable for you; say aloud which C++ spelling you will now use for a local counter, and why.
 refs:
   - https://en.cppreference.com/w/cpp/language/default_initialization
   - https://en.cppreference.com/w/cpp/language/value_initialization

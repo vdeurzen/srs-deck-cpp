@@ -10,6 +10,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic/compare_exchange
   - https://eel.is/c++draft/atomics.types.operations
+elaborate: Say in one sentence why a failed `compare_exchange` writing the current value into `expected` saves the caller a separate load.
 ---
 
 ## After these lines, what are `ok`, `expected` and `v`?

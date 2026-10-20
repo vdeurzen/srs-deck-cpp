@@ -6,6 +6,8 @@ level: 2
 tags: [smart-pointers, ownership, api-design]
 requires:
   - smart-pointers-unique-ptr-ownership
+  - value-categories-std-move-cloze
+  - fn-param-change-intro
 elaborate: Find a function of yours that takes a raw pointer; does it delete it, keep it, or only read through it, and which parameter type would say so?
 refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr#Notes

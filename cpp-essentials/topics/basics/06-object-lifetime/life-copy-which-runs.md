@@ -6,6 +6,10 @@ level: 1
 tags: [lifetime, copy, special-members, tracing]
 requires:
   - life-copy-init-not-assign
+  - fn-param-change-intro
+  - class-this-pointer
+  - const-ref-names-caller
+elaborate: Find a function in your code that takes a class type by value; how many copies does each call make?
 probes:
   1: { copies: "1", assigns: "0" }
   2: { copies: "1", assigns: "1" }
@@ -14,6 +18,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/copy_constructor
   - https://en.cppreference.com/w/cpp/language/copy_assignment
 ---
+
+`Note& operator=(const Note&)` is `Note`'s copy assignment operator.
 
 ```cpp
 int copies = 0;    // counts copy-constructor calls

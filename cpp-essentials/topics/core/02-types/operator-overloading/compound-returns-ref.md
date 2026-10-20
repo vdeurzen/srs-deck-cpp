@@ -19,8 +19,11 @@ compile:
 refs:
   - https://en.cppreference.com/w/cpp/language/operators#Canonical_implementations
 requires:
-  - ptr-bump-by-reference
-  - vc-classify-cloze
+  - operator-overloading-basics
+  - ptr-reference-vs-pointer
+  - const-member-on-const-ref
+  - class-this-pointer
+elaborate: What would break in code that writes `(a += b) += c` or `x = y = z` if your type's assignment returned by value?
 ---
 
 Give `operator+=` its canonical return type.
@@ -40,5 +43,5 @@ struct Vec2 {
 
 Assignment operators, compound ones included, return `*this` **by
 reference**, as built-in types do. Returning `Vec2` by value compiles, but
-the second `+=` then updates a temporary copy and `a` misses the `+3`; `void`
+the second `+=` then updates a copy and `a` misses the `+3`; `void`
 cannot be chained at all; `const Vec2&` cannot be modified by the next `+=`.

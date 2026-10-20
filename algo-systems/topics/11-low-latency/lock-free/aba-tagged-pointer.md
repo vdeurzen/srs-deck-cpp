@@ -6,7 +6,7 @@ level: 5
 tags: [low-latency, lock-free, concurrency]
 requires:
   - ll-aba-problem
-  - cpp-essentials/atomics-lock-free-is-per-type
+  - cpp-core/atomics-lock-free-is-per-type
 refs:
   - https://www.cs.rochester.edu/~scott/papers/1996_PODC_queues.pdf
   - https://en.cppreference.com/w/cpp/atomic/atomic/is_always_lock_free

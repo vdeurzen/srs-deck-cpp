@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [polymorphism, type-erasure, idioms]
 requires:
-  - cpp-essentials/staticpoly-type-erasure
+  - staticpoly-type-erasure
 expose_ms: 9000
 compile:
   harness: |

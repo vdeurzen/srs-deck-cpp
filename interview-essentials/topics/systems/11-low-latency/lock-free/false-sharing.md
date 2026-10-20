@@ -14,8 +14,10 @@ compile:
     int main() {}
 requires:
   - ll-hardware-numbers
-  - cpp-essentials/layout-alignas-sizeof
   - ll-shared-counter-scaling
+  - cpp-essentials/layout-alignas-intro
+  - cpp-essentials/const-vs-constexpr-initializer
+elaborate: Say in one sentence, as to an interviewer, why false sharing never shows up when you read the source.
 refs:
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/
@@ -27,14 +29,12 @@ lines.
 
 ```cpp
 #include <atomic>
-#include <cstddef>
-#include <cstdint>
 
-inline constexpr std::size_t kAlign = {{c1::64}};
+constexpr int kAlign = {{c1::64}};
 
 struct alignas(kAlign) Counters {
-  alignas(kAlign) std::atomic<std::uint64_t> produced{0};
-  alignas(kAlign) std::atomic<std::uint64_t> consumed{0};
+  alignas(kAlign) std::atomic<long> produced{0};
+  alignas(kAlign) std::atomic<long> consumed{0};
 };
 ```
 
@@ -46,8 +46,6 @@ core's copy and the line ping-pongs — a few-cycle store becomes a
 40–100 ns transfer, invisible in the source.
 
 The member `alignas` separates the fields; the struct `alignas` stops the
-object sharing its first line with a neighbour. 64 is the line on x86-64
-and most AArch64; `std::hardware_destructive_interference_size` is the
-standard spelling, but it is baked into your ABI (GCC warns in headers),
-and Apple silicon or Intel's adjacent-line prefetcher effectively want
-128.
+object sharing its first line with a neighbour. 64 is the line on
+x86-64; 32 still puts both counters in one line, and 128 pads more than
+needed.

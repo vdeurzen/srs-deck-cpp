@@ -7,12 +7,13 @@ tags: [templates, concepts, diagnostics]
 requires:
   - tmpl-error-at-instantiation
   - tmpl-concept-intro
+elaborate: Say in one sentence, as to an interviewer, what a concept in the declaration tells the caller that the body alone does not.
 refs:
   - https://en.cppreference.com/w/cpp/language/constraints
   - https://en.cppreference.com/w/cpp/concepts/integral
 ---
 
-## Both calls fail to compile. How does the error for `half_b` differ from the one for `half_a`?
+## Both calls fail to compile (`x >> 1` shifts the bits right by one and works on integers only). How does the error for `half_b` differ from the one for `half_a`?
 
 ```cpp
 template <typename T>

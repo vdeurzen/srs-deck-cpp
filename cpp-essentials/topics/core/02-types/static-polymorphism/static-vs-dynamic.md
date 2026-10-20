@@ -5,18 +5,19 @@ version: 1
 level: 2
 tags: [polymorphism, templates]
 requires:
-  - virtual-static-dispatch
+  - virtual-pure-syntax
   - templates-instantiation
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
   - https://en.cppreference.com/w/cpp/language/function_template
+elaborate: Say aloud when you would still choose the `virtual` version over the template, despite the lost inlining.
 ---
 
-## Compiled on its own, why can't `total` inline `s.area()`, though it could if `total` were a function template over the shape type?
+## Inlining pastes the callee's body at the call site. Compiled on its own, why can't `total` inline `s.area()`, though it could if `total` were a function template over the shape type?
 
 ```cpp
-struct Shape { virtual double area() const = 0; };
-double total(const Shape& s) { return s.area(); }
+struct Shape { virtual double area() = 0; };
+double total(Shape& s) { return s.area(); }
 ```
 
 ---

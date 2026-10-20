@@ -4,12 +4,15 @@ kind: basic
 version: 1
 level: 2
 tags: [strings, performance]
-elaborate: Moving a long string steals its heap pointer. What must a move of a short, in-object string do instead, and what does that cost?
+requires:
+  - string-basics
+  - life-stack-vs-heap
+elaborate: Say what a type gives up in its own size to keep short contents inline, and where else you have seen that trade.
 refs:
   - https://en.cppreference.com/w/cpp/string/basic_string/capacity
 ---
 
-## In libstdc++, why does `std::string code = "EUR";` not allocate on the heap?
+## In libstdc++ (GCC's standard library), why does `std::string code = "EUR";` not allocate on the heap?
 
 ---
 

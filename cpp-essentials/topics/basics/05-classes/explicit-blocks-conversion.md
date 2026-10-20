@@ -7,7 +7,8 @@ tags: [classes, constructors, conversions]
 refs:
   - https://en.cppreference.com/w/cpp/language/explicit
 requires:
-  - class-explicit-constructor
+  - class-converting-constructor
+elaborate: Say in one sentence when you would leave a one-argument constructor without `explicit`.
 ---
 
 Add the keyword that makes the second call a compile error while the

@@ -6,6 +6,8 @@ level: 1
 tags: [lifetime, destructors, classes]
 requires:
   - class-constructor-intro
+  - life-scope-automatic
+elaborate: Say what Go's `defer` and a C++ destructor have in common, and what the destructor does that `defer` cannot.
 refs:
   - https://en.cppreference.com/w/cpp/language/destructor
   - https://eel.is/c++draft/class.dtor

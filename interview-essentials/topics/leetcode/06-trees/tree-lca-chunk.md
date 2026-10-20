@@ -4,10 +4,9 @@ kind: chunk
 version: 1
 level: 3
 tags: [trees, lca, recursion, lc-236]
-expose_ms: 8000
+expose_ms: 12000
 compile:
   harness: |
-    struct TreeNode { int val; TreeNode* left; TreeNode* right; };
     constexpr bool example() {       // LC 236: [3,5,1,6,2,0,8,null,null,7,4]
       TreeNode n[9] = {};
       n[0] = {3, &n[1], &n[2]};
@@ -30,6 +29,8 @@ compile:
     int main() {}
 requires:
   - tree-traversal-orders
+  - linear-list-node
+  - cpp-essentials/expr-conditional-operator
 refs:
   - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
   - https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree-ii/
@@ -38,11 +39,14 @@ refs:
 elaborate: Lowest Common Ancestor of a Binary Tree II (LC 1644) drops the promise that both `p` and `q` are in the tree, and returns null if either is missing. Which return value now lies, and what extra fact must the recursion report?
 ---
 
+`constexpr` lets the compiler run `lca`.
+
 ```cpp
-template <class Node> constexpr Node* lca(Node* r, Node* p, Node* q) {
+struct TreeNode { int val; TreeNode* left; TreeNode* right; };
+constexpr TreeNode* lca(TreeNode* r, TreeNode* p, TreeNode* q) {
   if (!r || r == p || r == q) return r;
-  Node* a = lca(r->left, p, q);
-  Node* b = lca(r->right, p, q);
+  TreeNode* a = lca(r->left, p, q);
+  TreeNode* b = lca(r->right, p, q);
   return a && b ? r : a ? a : b;
 }
 ```
@@ -64,5 +68,3 @@ one of them, the answer once both are found.
 - Found on one side: pass that result up unchanged.
 
 O(n) time, O(h) stack. It relies on the problem's promise that both nodes exist.
-On LC write `TreeNode*` throughout; the template is here only because
-the harness that defines `TreeNode` is appended after the snippet.

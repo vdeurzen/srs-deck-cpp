@@ -30,6 +30,8 @@ compile:
     int main() {}
 requires:
   - arr-3sum-frame-parsons
+  - cpp-essentials/tmpl-auto-param-cloze
+  - cpp-essentials/vector-of-vectors
 refs:
   - https://leetcode.com/problems/3sum/
   - https://leetcode.com/problems/subsets-ii/
@@ -40,16 +42,16 @@ elaborate: Subsets II (LC 90) lists every subset of an array with duplicates, no
 3Sum (LC 15): return all triplets that sum to 0, without duplicate
 triplets.
 `pairs(a, i, out)` runs the two-pointer scan right of `i` (its code is
-hidden here) and appends each distinct `{a[i], a[lo], a[hi]}` once. Complete the test that skips
-an `i`.
+hidden here) and appends each distinct `{a[i], a[lo], a[hi]}` once;
+`using VV = ...;` gives that type a second name `VV`. Complete the test
+that skips an `i`.
 
 ```cpp
 #include <bits/stdc++.h>
 using VV = std::vector<std::vector<int>>;
 constexpr VV three_sum(std::vector<int> a, auto pairs) {
-  std::ranges::sort(a);
-  VV out;
-  for (int i = 0; i + 2 < int(a.size()); ++i) {
+  std::ranges::sort(a);  VV out;
+  for (std::size_t i = 0; i + 2 < a.size(); ++i) {
     if ({{c1::i > 0 && a[i] == a[i - 1]}}) continue;
     pairs(a, i, out);
   }

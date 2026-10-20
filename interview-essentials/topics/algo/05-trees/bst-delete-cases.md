@@ -4,12 +4,13 @@ kind: cloze
 version: 1
 level: 2
 tags: [trees, bst]
+elaborate: "Why would the in-order predecessor work just as well as the successor here? Say which subtree it comes from."
 refs:
   - https://doi.org/10.1145/321105.321108
   - https://en.wikipedia.org/wiki/Binary_search_tree#Deletion
 requires:
-  - tree-bst-rule
   - tree-traversal-orders
+  - tree-bst-delete-one-child
 ---
 
 ```

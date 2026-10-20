@@ -11,9 +11,10 @@ compile:
   harness: |
     int main() {}
 requires:
-  - iter-map-subscript-inserts
-  - iter-end-one-past
-  - const-ref-parameter
+  - map-unordered-map-intro
+  - ptr-arrow-member
+  - const-ref-names-caller
+elaborate: Say why `find` is the right lookup in a function that takes the map by `const` reference, where `[]` is not.
 refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/find
 ---
@@ -22,12 +23,11 @@ Return the price stored for `item`, or `-1` if it is not listed. The map is
 borrowed read-only.
 
 ```cpp
-#include <string>
 #include <unordered_map>
-int price_of(const std::unordered_map<std::string, int>& prices,
-             const std::string& item) {
+int price_of(const std::unordered_map<int, int>& prices, int item) {
     auto it = prices.{{c1::find(item)}};
-    return it == prices.end() ? -1 : it->second;
+    if (it == prices.end()) return -1;
+    return it->second;
 }
 ```
 

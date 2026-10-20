@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [sliding-window, prefix-sums, misconception, lc-560, lc-209]
 requires:
-  - arr-window-variable-chunk
+  - linear-variable-window-shrink
 refs:
   - https://leetcode.com/problems/subarray-sum-equals-k/
   - https://leetcode.com/problems/minimum-size-subarray-sum/
@@ -19,7 +19,7 @@ Size Subarray Sum (LC 209: the shortest subarray with sum ≥ `target`):
 ```cpp
 for (int hi = 0; hi < n; ++hi) {
   sum += a[hi];
-  while (sum > k && lo <= hi) sum -= a[lo++];
+  while (sum > k && lo <= hi) { sum -= a[lo]; ++lo; }
   if (sum == k) ++count;
 }
 ```

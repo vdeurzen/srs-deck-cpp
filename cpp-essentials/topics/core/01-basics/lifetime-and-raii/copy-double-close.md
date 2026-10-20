@@ -7,13 +7,13 @@ tags: [raii, lifetime, special-members]
 requires:
   - raii-owner-in-destructor
   - life-shallow-copy-pointer
+  - class-delete-copy
 input: chips
 choices:
   c1:
     - "FileGuard(const FileGuard&) = delete;"
     - "FileGuard(const FileGuard&) = default;"
     - "FileGuard& operator=(const FileGuard&) = delete;"
-    - "explicit FileGuard(const FileGuard&) = default;"
 compile:
   harness: |
     #include <type_traits>
@@ -21,6 +21,7 @@ compile:
                   "two guards holding one FILE* would both fclose it");
     static_assert(std::is_destructible_v<FileGuard>);
     int main() {}
+elaborate: Which class in your code holds a raw handle or pointer it closes in its destructor, and is its copy constructor deleted?
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_constructor#Deleted_copy_constructor
   - https://en.cppreference.com/w/cpp/language/rule_of_three
@@ -33,8 +34,8 @@ declaration that turns that line into a compile error.
 ```cpp
 #include <cstdio>
 struct FileGuard {
-  explicit FileGuard(std::FILE* f) : f_(f) {}
-  ~FileGuard() { if (f_) std::fclose(f_); }
+  FileGuard(std::FILE* f) : f_(f) {}
+  ~FileGuard() { if (f_ != nullptr) std::fclose(f_); }
   {{c1::FileGuard(const FileGuard&) = delete;}}
   std::FILE* f_;
 };
@@ -47,5 +48,4 @@ destructors would `fclose` the same `FILE*`, and the second call is
 undefined behaviour. Deleting the copy constructor makes the mistake
 unrepresentable: the bug becomes a compile error at the line that would
 have introduced it. Deleting only copy *assignment* leaves copy
-construction available, and `explicit` restricts how a copy may be
-spelled, not whether one exists.
+construction available.

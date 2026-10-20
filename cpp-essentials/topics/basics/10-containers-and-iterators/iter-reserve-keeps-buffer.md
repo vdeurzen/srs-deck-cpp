@@ -4,21 +4,26 @@ kind: trace
 version: 1
 level: 2
 tags: [containers, vector, tracing]
-requires:
-  - iter-size-vs-capacity
 probes:
   1: { n0: "0" }
   2: { same: "true" }
+requires:
+  - iter-size-vs-capacity
+  - ptr-holds-an-address
+  - types-auto-deduces
+elaborate: Name a loop where you know the final size up front and would call `reserve` first.
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/reserve
   - https://eel.is/c++draft/vector.capacity
 ---
 
+`v.data()` is a pointer to the vector's first slot.
+
 ```cpp
 std::vector<int> v;
 v.reserve(4);
 auto n0 = v.size();              // @1
-const int* buf = v.data();       // address of the buffer
+int* buf = v.data();
 v.push_back(10);
 v.push_back(20);
 v.push_back(30);

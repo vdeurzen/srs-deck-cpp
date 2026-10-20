@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 1
 tags: [concurrency, threads]
+requires:
+  - io-cout-insertion
+elaborate: Say how this compares with two goroutines touching one package-level variable in Go, and what both languages then require of you.
 refs:
   - https://en.cppreference.com/w/cpp/thread/thread
   - https://eel.is/c++draft/intro.multithread
@@ -16,12 +19,12 @@ void bonus() { score += 10; }
 int main() {
     int local = 5;
     std::thread worker(bonus);
-    worker.join();                   // wait for bonus to finish
+    worker.join();
     std::cout << score + local;
 }
 ```
 
-## What does this program print?
+## `std::thread worker(bonus);` starts `bonus` on a new thread, and `worker.join();` waits for it to return. What does this program print?
 
 ---
 

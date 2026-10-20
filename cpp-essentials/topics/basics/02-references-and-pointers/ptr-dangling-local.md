@@ -6,6 +6,8 @@ level: 2
 tags: [pointers, lifetime, misconception]
 requires:
   - ptr-amp-and-star-cloze
+  - life-scope-automatic
+  - ub-definition
 elaborate: Find a function in your own code that hands out a pointer or reference. What object does it point to, and who keeps that object alive after the function returns?
 refs:
   - https://en.cppreference.com/w/cpp/language/pointer#Invalid_pointers
@@ -28,7 +30,6 @@ int v = *p;
 
 **Undefined behaviour: `m` died when `larger` returned, so `p`
 dangles.** "Right away" does not matter; the object is gone, not merely
-at risk. The stack slot often still holds 8, which is why the belief
-survives testing. GCC warns (`-Wreturn-local-addr`) and may replace the
-returned pointer with null, so the read can crash. Return the `int` by
-value.
+at risk. That memory often still holds 8, which is why the belief
+survives testing; GCC may even return null instead, so the read can
+crash. Return the `int` by value.

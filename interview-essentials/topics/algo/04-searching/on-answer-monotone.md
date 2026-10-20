@@ -6,6 +6,8 @@ level: 3
 tags: [binary-search, search-on-answer]
 requires:
   - search-first-true-predicate
+  - cpp-essentials/fn-declaration-vs-definition
+elaborate: "Name another problem where you could binary search on the answer, and say what makes its yes/no test monotone."
 refs:
   - https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
   - https://en.cppreference.com/w/cpp/algorithm/partition_point

@@ -1,7 +1,7 @@
 ---
 id: raii-explain-owning-type
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [raii, lifetime, special-members]
 requires:
@@ -12,11 +12,13 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/raii
   - https://en.cppreference.com/w/cpp/language/rule_of_three
+elaborate: Which handle in your current code (a socket, a lock, a mapped file) has no owner type yet, and what would you call it?
 ---
-From memory, design a type that owns one `std::FILE*` (or any handle with a close function). Name each member you write and the bug it prevents, then say what changes if the type must own two handles.
+At a whiteboard, an interviewer asks you to design, from memory, a type
+that owns one `std::FILE*`. Talk them through it.
 ---
-- [ ] The constructor takes the handle, so acquisition *is* initialisation: there is no window in which the handle exists but nothing owns it
-- [ ] The destructor is the single release point and must not throw, because it runs during unwinding
-- [ ] Copy constructor and copy assignment are deleted: a shallow copy would mean two destructors closing one handle
-- [ ] Moves steal the handle and null the source (`std::exchange`); the destructor skips a null handle, so a moved-from owner releases nothing
-- [ ] Two handles: each lives in its own owning member, so if acquiring the second throws, unwinding still releases the first
+- [ ] Problem: a raw handle leaks when an early return or exception skips the one `fclose`
+- [ ] Mechanism: the destructor is the single release point, run on every path out of scope
+- [ ] Example: a local guard built from `fopen` closes the file however the function exits
+- [ ] Trade-off: copying is deleted, so the type is move-only and one handle never has two owners
+- [ ] Pitfall: two handles opened in one constructor body leak the first if the second open throws

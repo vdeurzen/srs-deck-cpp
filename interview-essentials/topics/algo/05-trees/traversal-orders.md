@@ -4,6 +4,7 @@ kind: cloze
 version: 2
 level: 1
 tags: [trees, traversal, recursion]
+elaborate: "Which order would you use to free every node of a tree, and why must the children go first?"
 refs:
   - https://en.wikipedia.org/wiki/Tree_traversal#Depth-first_search
 requires:

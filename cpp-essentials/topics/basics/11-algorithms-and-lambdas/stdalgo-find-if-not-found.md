@@ -12,11 +12,14 @@ compile:
     static_assert(first_negative({3, -1, -4}) == -1);
     static_assert(first_negative({3, 4}) == 0);
     int main() {}
+requires:
+  - stdalgo-find-vs-find-if
+  - expr-conditional-operator
+  - constexpr-fn-static-assert
+  - ptr-null-pointer
+elaborate: Say how this `end()` check compares with Go's `v, ok := m[k]` or a returned `-1` index.
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/find
-requires:
-  - stdalgo-lambda-syntax
-  - iter-end-one-past
 ---
 
 Return the first negative number in `v`, or `0` if there is none.
@@ -24,7 +27,7 @@ Return the first negative number in `v`, or `0` if there is none.
 ```cpp
 #include <algorithm>
 #include <vector>
-constexpr int first_negative(const std::vector<int>& v) {
+constexpr int first_negative(std::vector<int> v) {
     auto it = std::find_if(v.begin(), v.end(), [](int x) { return x < 0; });
     return {{c1::it != v.end() ? *it : 0}};
 }
@@ -35,5 +38,4 @@ constexpr int first_negative(const std::vector<int>& v) {
 The `find` family reports "no match" by returning the **end of the range
 you passed**, the one position that is never an element. An iterator is
 not a pointer, so it cannot be compared with `nullptr` or tested as a
-`bool`, and `*it` on a miss dereferences `end()`: undefined behaviour,
-caught here as a compile error in the second assertion.
+`bool`, and `*it` on a miss dereferences `end()`: undefined behaviour.

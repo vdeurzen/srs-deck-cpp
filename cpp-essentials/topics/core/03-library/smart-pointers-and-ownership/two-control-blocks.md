@@ -6,7 +6,8 @@ level: 2
 tags: [smart-pointers, ownership]
 requires:
   - smart-pointers-shared-ptr-control-block
-  - raii-copy-double-close
+  - ptr-dangling
+elaborate: Where might a raw pointer get wrapped twice in real code, for example a `this` pointer or a pointer from a C API, and how would you rule it out?
 refs:
   - https://en.cppreference.com/w/cpp/memory/shared_ptr/shared_ptr
 ---
@@ -21,7 +22,7 @@ std::shared_ptr<Node> b(raw);
 
 ---
 
-**Two control blocks, each with a strong count of one: `Node` is deleted
+**Two control blocks, each counting one owner: `Node` is deleted
 twice.** `b` is not a copy of `a`; it is a second, independent owner that
 knows nothing of the first. Copy an existing `shared_ptr` (`auto b = a;`)
 and the count becomes two. Better, never hold the raw pointer:

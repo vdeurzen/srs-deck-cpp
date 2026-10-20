@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, complexity, amortised]
 requires:
-  - complexity-cost-cases
+  - interview-essentials/complexity-cost-cases
 refs:
   - https://epubs.siam.org/doi/10.1137/0606031
 ---

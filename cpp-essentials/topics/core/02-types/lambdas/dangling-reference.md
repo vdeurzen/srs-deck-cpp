@@ -5,7 +5,9 @@ version: 1
 level: 2
 tags: [lambdas, lifetime, misconception]
 requires:
-  - lambda-capture-trace
+  - lambda-amp-capture-intro
+  - ptr-dangling-local
+  - fn-auto-return-type
 elaborate: In Go the compiler moves a captured variable to the heap when the closure escapes. Which C++ capture gives you that "the closure keeps it alive" behaviour, and who owns the value then?
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
@@ -30,4 +32,4 @@ closure holds a dangling reference.**
 
 The belief is right in Go, where escape analysis keeps captured
 variables alive. A C++ reference capture extends no lifetime. Capture by
-value instead: `[count]() mutable { return ++count; }`.
+value instead, so the closure owns its own copy.

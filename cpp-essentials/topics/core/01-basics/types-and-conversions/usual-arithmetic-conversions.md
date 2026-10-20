@@ -4,6 +4,10 @@ kind: basic
 version: 1
 level: 2
 tags: [types, integers, conversions]
+requires:
+  - types-overflow-rules
+  - types-promotion-rule
+elaborate: Go refuses to compare an `int` with a `uint` at all; say aloud which C++ habit gives you that safety back.
 refs:
   - https://en.cppreference.com/w/cpp/language/usual_arithmetic_conversions
   - https://eel.is/c++draft/expr.arith.conv
@@ -16,5 +20,5 @@ refs:
 **`i` converts to `unsigned int`, so `-1` becomes `4294967295`** (with a
 32-bit `int`) and `i < u` is false. The usual arithmetic conversions give
 both operands one common type; when a signed and an unsigned type share a
-rank, the unsigned one wins. GCC's
-`-Wsign-compare` (in `-Wall`) flags exactly this.
+rank (here, both are `int`-sized), the unsigned one wins. GCC's
+`-Wall` warnings flag exactly this.

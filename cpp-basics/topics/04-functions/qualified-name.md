@@ -12,7 +12,7 @@ compile:
     static_assert(probe == 9);
     int main() {}
 requires:
-  - fn-namespace-clash
+  - cpp-essentials/fn-namespace-clash
 refs:
   - https://en.cppreference.com/w/cpp/language/namespace
   - https://en.cppreference.com/w/cpp/language/qualified_lookup

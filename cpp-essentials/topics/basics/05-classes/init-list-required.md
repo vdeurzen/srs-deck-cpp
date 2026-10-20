@@ -12,8 +12,10 @@ compile:
     static_assert(Car(90).power() == 90);
     int main() {}
 requires:
-  - class-constructor-intro
+  - class-ctor-colon-part
   - class-struct-vs-class
+  - constexpr-fn-static-assert
+elaborate: Which kinds of member can only be set in the initialiser list, never by assignment in the body?
 refs:
   - https://en.cppreference.com/w/cpp/language/constructor#Member_initializer_list
 ---
@@ -35,9 +37,9 @@ public:
 
 ---
 
-The **member initialiser list**, between `:` and the body, says how each
-member is constructed; entries name the **member** (`engine_`), not its
+**The member initialiser list, between `:` and the body, says how each
+member is constructed;** entries name the **member** (`engine_`), not its
 type. `: Engine(hp)` and `: hp(hp)` fail because `Car` has no member
-or base with those names. `: engine_{}`, like leaving the list out,
+with those names. `: engine_{}`, like leaving the list out,
 builds `engine_` with no arguments, but `Engine` has no default
 constructor: compile error.

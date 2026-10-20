@@ -5,7 +5,8 @@ version: 1
 level: 3
 tags: [monotonic-stack, stacks, lc-84]
 requires:
-  - mono-next-greater-chunk
+  - mono-stack-signal
+  - cpp-essentials/vector-back-pop-back
 refs:
   - https://leetcode.com/problems/largest-rectangle-in-histogram/
   - https://en.wikipedia.org/wiki/All_nearest_smaller_values

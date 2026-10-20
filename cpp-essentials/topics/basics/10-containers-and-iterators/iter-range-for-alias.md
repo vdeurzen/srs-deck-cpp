@@ -12,12 +12,17 @@ compile:
     static_assert(doubled_sum() == 12);
     int main() {}
 requires:
+  - iter-range-for-intro
   - ptr-reference-must-bind
+  - iter-iterator-basics
+  - constexpr-fn-static-assert
+elaborate: Say which loop-variable type you reach for by default when reading a vector of large structs, and why.
 refs:
   - https://en.cppreference.com/w/cpp/language/range-for
 ---
 
-The first loop must double the elements of `v`. Complete the type of its
+`for (T x : v)` runs its body once per element of `v`. The first loop
+must double the elements of `v`. Complete the type of its
 loop variable.
 
 ```cpp

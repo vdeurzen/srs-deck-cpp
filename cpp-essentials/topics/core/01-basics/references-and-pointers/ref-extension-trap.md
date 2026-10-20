@@ -7,26 +7,29 @@ tags: [references, lifetime, misconception]
 requires:
   - ptr-lifetime-extension
   - ptr-dangling
-elaborate: Where in your code does a `const auto&` or a `std::string_view` take the result of a function call? For each one, who owns the object it refers to, and is that owner still alive on the next line?
+elaborate: Where in your code does a `const` reference take the result of a function call? For each one, who owns the object it refers to, and is that owner still alive on the next line?
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization#Lifetime_of_a_temporary
   - https://timsong-cpp.github.io/cppwp/n4950/class.temporary#6
 ---
 
-## "Binding `const auto&` extends a temporary's lifetime, so `name` is safe here." What actually happens on the last line?
+Many expect binding a `const` reference to extend a temporary's lifetime,
+so `name` would be safe here. The braces build a temporary
+`std::vector<std::string>`.
 
 ```cpp
-const std::string& first(const std::vector<std::string>& v) { return v.front(); }
+const std::string& first(const std::vector<std::string>& v) { return v[0]; }
 
-const auto& name = first({"ada", "bob"});
-std::size_t n = name.size();
+const std::string& name = first({"ada", "bob"});
+char c = name[0];
 ```
+
+## What does the last line do?
 
 ---
 
-**`name` dangles: `name.size()` is undefined behaviour.** Lifetime
-extension applies only when a reference binds *directly* to a temporary
-(`const auto& v = std::vector{...}`), hence the belief. Here it binds to
-what `first` returns: a reference into the temporary vector, which dies at
-the end of the full-expression. A function returning a reference lends its
-argument's lifetime, never its own.
+**Reads a dangling reference: undefined behaviour.** Extension applies
+only when a reference binds *directly* to a temporary
+(`const std::string& s = std::string{"ada"};`), hence the belief. Here
+`name` binds to what `first` returns, a reference into the temporary
+vector, which dies at the end of the full-expression.

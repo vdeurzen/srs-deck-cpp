@@ -11,14 +11,17 @@ compile:
   harness: |
     int main() {}
 requires:
-  - layout-alignment
+  - layout-padding-worked
+  - constexpr-fn-static-assert
+  - class-struct-members
+elaborate: Say aloud how many bytes a million of these structs waste, and where you would look first to win them back.
 refs:
   - https://en.cppreference.com/w/cpp/language/sizeof
   - https://eel.is/c++draft/expr.sizeof#2
 ---
 
-Predict the size on x86-64 (`char` 1 byte, `int` 4 bytes, both naturally
-aligned).
+Predict the size on x86-64 (`char`: 1 byte, alignment 1; `int`: 4 bytes,
+alignment 4).
 
 ```cpp
 struct Rec { char tag; int count; char flag; };

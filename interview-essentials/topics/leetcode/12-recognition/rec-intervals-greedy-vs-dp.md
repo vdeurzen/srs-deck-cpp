@@ -3,9 +3,9 @@ id: rec-intervals-greedy-vs-dp
 kind: basic
 version: 1
 level: 3
-tags: [greedy, dynamic-programming, intervals, recognition, lc-435, lc-1235]
+tags: [intervals, recognition, lc-435, lc-1235]
 requires:
-  - technique-exchange-argument
+  - technique-greedy-vs-dp
 refs:
   - https://leetcode.com/problems/non-overlapping-intervals/
   - https://leetcode.com/problems/maximum-profit-in-job-scheduling/
@@ -26,7 +26,7 @@ Two interval statements:
 
 ---
 
-**(b)'s intervals carry weights, so the exchange argument breaks.**
+**(b)'s jobs carry different profits, so swapping in the earliest-ending one can lose.**
 
 In (a) every interval counts 1, so swapping an optimal answer's first
 interval for an earlier-ending one never loses. In (b) that swap can

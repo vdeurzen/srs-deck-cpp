@@ -5,10 +5,11 @@ version: 1
 level: 2
 tags: [linkage, inline, headers]
 requires:
-  - linkage-odr-counting
+  - linkage-which-step-fails
 refs:
   - https://en.cppreference.com/w/cpp/language/inline
   - https://eel.is/c++draft/dcl.inline
+elaborate: Say why the same word does not fix two `.cpp` files that each define a helper of that name with different bodies.
 ---
 
 `util.h` is included by `a.cpp` and `b.cpp`, and the link fails with

@@ -31,6 +31,7 @@ compile:
     int main() {}
 requires:
   - gr-kahn-chunk
+  - cpp-essentials/types-using-alias
 refs:
   - https://leetcode.com/problems/course-schedule/
   - https://leetcode.com/problems/course-schedule-ii/

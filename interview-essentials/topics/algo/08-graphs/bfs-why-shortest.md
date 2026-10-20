@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [graphs, traversal, shortest-paths, invariants]
 requires:
-  - graph-bfs-and-dfs
+  - graph-bfs-worked
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search
 elaborate: Give every edge of this graph a weight of 1 or 5. Which step of the argument breaks?

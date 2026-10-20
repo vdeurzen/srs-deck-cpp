@@ -9,24 +9,28 @@ choices:
   c1: ["w.lock()", "w.lock().get()", "!w.expired()", "w"]
 compile:
   harness: |
+    #include <type_traits>
     static_assert(std::is_same_v<decltype(pin(std::weak_ptr<Node>{})),
                                  std::shared_ptr<Node>>);
     int main() {}
 requires:
   - smart-pointers-weak-ptr-breaks-cycles
+  - conc-thread-shares-memory
+  - fn-auto-return-type
+elaborate: Where in your own code does one thread read an object another thread may free, and what would "test, then use" without pinning cost you there?
 refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr/lock
 ---
 
 `w` observes a `Node` that another thread may destroy at any moment.
 Complete `pin` so that a caller can safely write
-`if (auto p = pin(w)) p->visit();`.
+`if (auto p = pin(w)) use(p);` (an `if` may declare a variable, then test
+it).
 
 ```cpp
 #include <memory>
-#include <type_traits>
-struct Node { void visit() {} };
-auto pin(const std::weak_ptr<Node>& w) {
+struct Node {};
+auto pin(std::weak_ptr<Node> w) {
     return {{c1::w.lock()}};
 }
 ```
@@ -35,9 +39,10 @@ auto pin(const std::weak_ptr<Node>& w) {
 
 `lock()` returns a `shared_ptr`: empty if the object was destroyed,
 otherwise an owner that keeps the `Node` alive for the caller's whole
-`if` body. Test and acquire are one atomic step. `w.lock().get()` hands
-back a raw pointer whose owner, the temporary, dies at the `;`: the
-`Node` can go before `visit()`. `!w.expired()` is a test with nothing
+`if` body. Test and acquire are one indivisible step. `w.lock().get()`
+hands back a raw pointer, and the `shared_ptr` that `lock()` made is
+destroyed at the end of `pin`'s `return`: the `Node` can go before `use`
+runs. `!w.expired()` is a test with nothing
 acquired; the answer can change before the next line. Returning `w`
-itself gives the caller a `weak_ptr`, which has no `operator->` at all,
-precisely because the object may already be gone.
+itself gives the caller a `weak_ptr`, which gives no access to the object
+at all, precisely because it may already be gone.

@@ -22,6 +22,8 @@ compile:
     int main() {}
 requires:
   - foundations-bits-trace
+  - cpp-essentials/vector-sized-constructor
+  - cpp-essentials/constexpr-fn-static-assert
 refs:
   - https://leetcode.com/problems/counting-bits/
   - https://graphics.stanford.edu/~seander/bithacks.html#CountBitsSetKernighan

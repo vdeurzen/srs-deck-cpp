@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, graphs, vocabulary, connectivity]
 requires:
-  - graph-path-cycle-component
+  - interview-essentials/graph-path-cycle-component
 refs:
   - https://en.wikipedia.org/wiki/Component_(graph_theory)
 ---

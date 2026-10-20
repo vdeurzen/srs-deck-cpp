@@ -13,13 +13,16 @@ refs:
   - https://eel.is/c++draft/intro.races
 ---
 
-## Two threads each run `++n` on a plain `int n`, with nothing synchronising them. What does the standard say about the program?
+Nothing (no lock, no atomic, no `join`) makes either access *happen
+before* the other, that is, guaranteed to finish before the other starts.
+
+## Two threads each run `++n` on the same plain `int n` at once. What does the standard say about the program?
 
 ---
 
 **Undefined behaviour: the two accesses are a data race.**
 
 A data race is two *conflicting* actions (same memory location, at
-least one a write), not both atomic, with neither *happening-before*
-the other. The consequence is not "a lost increment": the whole
+least one a write), not both atomic, with neither happening before the
+other. The consequence is not "a lost increment": the whole
 execution loses meaning, so "it works on x86" proves nothing.

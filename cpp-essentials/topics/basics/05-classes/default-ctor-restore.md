@@ -11,10 +11,11 @@ compile:
   harness: |
     constexpr Size s;
     static_assert(s.w == 0 && s.h == 0);
-    static_assert(Size(3, 4).w == 3);
     int main() {}
 requires:
-  - class-init-list-required
+  - class-default-delete-where
+  - class-default-member-init-intro
+elaborate: When would you rather leave a class without a no-argument constructor, so that `Size s;` cannot compile?
 refs:
   - https://en.cppreference.com/w/cpp/language/default_constructor
 ---
@@ -25,15 +26,15 @@ Bring it back, so that `s` is 0 × 0.
 ```cpp
 struct Size {
     int w = 0, h = 0;
-    constexpr Size(int w_, int h_) : w(w_), h(h_) {}
+    Size(int w_, int h_) : w(w_), h(h_) {}
     {{c1::Size() = default;}}
 };
 ```
 
 ---
 
-The compiler writes a default constructor for you only while you declare
-**no** constructor at all; `Size(int, int)` removed it. `= default` asks
+**The compiler writes a no-argument (default) constructor only while you
+declare no constructor at all;** `Size(int, int)` removed it. `= default` asks
 for the compiler-written one back, which uses the default member
 initialisers. `Size();` only declares a constructor nobody defines.
 `= default` cannot apply to `Size(int, int)`, and `= delete` forbids the

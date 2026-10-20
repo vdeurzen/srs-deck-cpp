@@ -5,12 +5,13 @@ version: 1
 level: 2
 tags: [templates, deduction]
 requires:
-  - tmpl-function-syntax
+  - tmpl-why-template
+elaborate: Say two ways you could make `bigger(1, 2.5)` compile, and what each costs.
 refs:
   - https://en.cppreference.com/w/cpp/language/template_argument_deduction
 ---
 
-## Why does the call on the last line not compile?
+## The compiler *deduces* `T` at each call: it infers `T` from the arguments' types. Why does the call on the last line not compile?
 
 ```cpp
 template <typename T>

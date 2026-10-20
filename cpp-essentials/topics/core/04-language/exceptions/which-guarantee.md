@@ -6,6 +6,9 @@ level: 2
 tags: [exceptions, exception-safety, tracing]
 requires:
   - exceptions-strong-vs-basic
+  - vector-back-pop-back
+  - iter-range-for-intro
+elaborate: How would you change `add_all` so a caller sees all of `extra` appended or none of it?
 probes:
   1: { n: "3" }
   2: { last: "2" }
@@ -16,13 +19,13 @@ refs:
 ```cpp
 void add_all(std::vector<int>& v, const std::vector<int>& extra) {
     for (int x : extra) {
-        if (x < 0) throw std::invalid_argument("negative");
+        if (x < 0) throw std::runtime_error("negative");
         v.push_back(x);
     }
 }
 std::vector<int> v{7};
-try { add_all(v, {1, 2, -3, 4}); } catch (const std::invalid_argument&) {}
-auto n = v.size();      // @1
+try { add_all(v, {1, 2, -3, 4}); } catch (const std::runtime_error&) {}
+int n = v.size();       // @1
 int last = v.back();    // @2
 ```
 

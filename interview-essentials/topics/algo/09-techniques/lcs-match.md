@@ -5,7 +5,10 @@ version: 1
 level: 3
 tags: [dynamic-programming, strings]
 requires:
-  - technique-dp-state
+  - technique-coin-change-table
+  - cpp-essentials/strings-string-view-parameter
+  - cpp-essentials/vector-of-vectors
+elaborate: Say aloud how you would recover the subsequence itself, not just its length, from the filled table.
 input: chips
 choices:
   c1:
@@ -29,19 +32,21 @@ refs:
 A subsequence keeps characters in order but not necessarily adjacent:
 "ABCBDAB" and "BDCABA" share "BCBA". `dp[i][j]` is the length of the
 longest common subsequence of the first `i` characters of `a` and the
-first `j` of `b`. Complete the case where the last
-characters match.
+first `j` of `b` (`std::max(x, y)` returns the larger). Complete the
+case where the last characters match.
 
 ```cpp
 #include <algorithm>
 #include <string_view>
+#include <vector>
 constexpr int lcs(std::string_view a, std::string_view b) {
-  int dp[16][16] = {};
-  for (std::size_t i = 1; i <= a.size(); ++i)
-    for (std::size_t j = 1; j <= b.size(); ++j)
-      dp[i][j] = a[i - 1] == b[j - 1] ? {{c1::dp[i - 1][j - 1] + 1}}
-                                      : std::max(dp[i - 1][j], dp[i][j - 1]);
-  return dp[a.size()][b.size()];
+  const int m = a.size(), n = b.size();
+  std::vector<std::vector<int>> dp(m + 1, std::vector<int>(n + 1));
+  for (int i = 1; i <= m; ++i)
+    for (int j = 1; j <= n; ++j)
+      if (a[i - 1] == b[j - 1]) dp[i][j] = {{c1::dp[i - 1][j - 1] + 1}};
+      else dp[i][j] = std::max(dp[i - 1][j], dp[i][j - 1]);
+  return dp[m][n];
 }
 ```
 
@@ -51,5 +56,5 @@ A matching last character belongs to the subsequence once, so **both**
 strings drop it: diagonal + 1. Dropping it from only one side lets
 one character pair with several: `dp[i − 1][j] + 1` scores "AAAA" vs
 "AA" as 4, `dp[i][j − 1] + 1` scores "AA" vs "AAAA" as 4. Adding 1 to the
-`max` overcounts "ABCBDAB" vs "BDCABA". Table size m × n, O(mn) time; each cell
-reads only up, left and the diagonal.
+`max` overcounts "ABCBDAB" vs "BDCABA". The table has (m + 1) × (n + 1) cells,
+each reading only up, left and the diagonal.

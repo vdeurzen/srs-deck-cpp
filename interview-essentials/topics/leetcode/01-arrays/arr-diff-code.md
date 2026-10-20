@@ -19,6 +19,8 @@ compile:
     int main() {}
 requires:
   - arr-diff-signal
+  - cpp-essentials/vector-of-vectors
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/corporate-flight-bookings/
   - https://leetcode.com/problems/range-addition/
@@ -29,11 +31,12 @@ elaborate: Range Addition (LC 370) applies updates `[start, end, inc]` to a zero
 Corporate Flight Bookings (LC 1109): return the seats booked on each
 flight. Flights are numbered 1 to `n`, and booking `e = [first, last,
 seats]` covers flights `first` through `last` inclusive. `d[k]` is the
-change at flight `k + 1`; it has one spare cell at the end. Complete the
-index where the booking stops counting.
+change at flight `k + 1`; it has one spare cell at the end, and
+`return {d.begin(), d.end() - 1}` builds a vector from all cells but
+that one. Complete the index where the booking stops counting.
 
 ```cpp
-#include <bits/stdc++.h>
+#include <vector>
 constexpr std::vector<int> bookings(const std::vector<std::vector<int>>& b, int n) {
   std::vector<int> d(n + 1);
   for (const auto& e : b) {

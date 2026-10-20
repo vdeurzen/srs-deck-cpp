@@ -10,6 +10,8 @@ choices:
 compile:
   harness: |
     #include <initializer_list>
+    #include <vector>
+    using V = std::vector<int>;
     using IL = std::initializer_list<std::initializer_list<int>>;   // g142 rejects nested
     constexpr bool power_set(const V& a, IL want) {                 // vector braces here
       V cur;
@@ -25,6 +27,7 @@ compile:
     int main() {}
 requires:
   - bt-combination-start-index
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/subsets-ii/
   - https://leetcode.com/problems/combination-sum-ii/
@@ -41,9 +44,7 @@ That is Subsets II (LC 90). `a` is `nums` sorted, so equal values sit
 side by side. Complete the condition that skips a repeated value.
 
 ```cpp
-#include <vector>
-using V = std::vector<int>;
-constexpr void subsets(const V& a, int i, V& cur, std::vector<V>& out) {
+constexpr void subsets(const auto& a, int i, auto& cur, auto& out) {
   out.push_back(cur);
   for (int j = i; j < int(a.size()); ++j) {
     if ({{c1::j > i}} && a[j] == a[j - 1]) continue;

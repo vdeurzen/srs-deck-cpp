@@ -9,27 +9,29 @@ choices:
   c1: ["if (s < target) ++lo; else --hi;", "if (s < target) --hi; else ++lo;", "if (a[lo] < a[hi]) ++lo; else --hi;", "if (s < target) ++hi; else --lo;"]
 compile:
   harness: |
-    inline constexpr int kA[] = {1, 3, 4, 6, 9, 11};
+    #include <array>
+    inline constexpr std::array kA{1, 3, 4, 6, 9, 11};
     static_assert(has_pair(kA, 13));    // 4 + 9
     static_assert(has_pair(kA, 7));     // 1 + 6 and 3 + 4
     static_assert(has_pair(kA, 20));    // 9 + 11
     static_assert(!has_pair(kA, 2));
     static_assert(!has_pair(kA, 21));
     int main() {}
+elaborate: "Which other sorted-input problem lets one comparison discard a whole row of candidates, and which pointer moves there?"
 refs:
   - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 requires:
   - linear-two-pointers-sorted-pair
+  - stl-const-auto-param
 ---
 
-Does a sorted array hold two elements (at different positions) that sum
-to `target`? Complete the step that moves a pointer when `s` misses.
+Does the sorted array `a` hold two elements (at different positions)
+that sum to `target`? Complete the step that moves an index when `s`
+misses.
 
 ```cpp
-#include <span>
-
-constexpr bool has_pair(std::span<const int> a, int target) {
-  int lo = 0, hi = (int)a.size() - 1;
+constexpr bool has_pair(const auto& a, int target) {
+  int lo = 0, hi = a.size() - 1;
   while (lo < hi) {
     int s = a[lo] + a[hi];
     if (s == target) return true;

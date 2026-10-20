@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [graphs, dfs, flood-fill, grids, recursion, lc-200]
 requires:
-  - gr-grid-dfs-code
+  - graph-bfs-and-dfs
   - technique-recursion-depth
 refs:
   - https://leetcode.com/problems/number-of-islands/
@@ -18,11 +18,12 @@ down, left and right. A recursive `sink` (mark the cell, then recurse
 down, right, up, left) is accepted: LeetCode's grids are at most
 300 × 300.
 
-## What bounds `sink`'s recursion depth on an m × n all-`'1'` grid, and is 1000 × 1000 safe?
+## Why can `sink` overflow the stack on a 1000 × 1000 all-`'1'` grid?
 
 ---
 
-**Up to m·n frames, not m + n: the walk can chain through every cell (10⁶ here), and the main-thread stack is typically 8 MB.**
+**The recursion can chain through all 10⁶ cells, one frame each, overflowing 8 MB.**
 
-Even 8 bytes a frame, a bare return address, is 8 MB. Real frames also
-hold `r`, `c`, `k` and saved registers. Use an explicit stack or BFS.
+The depth is m·n, not m + n. Even 8 bytes a frame, a bare return
+address, is 8 MB; real frames also hold `r`, `c`, `k` and saved
+registers. Use an explicit stack or BFS.

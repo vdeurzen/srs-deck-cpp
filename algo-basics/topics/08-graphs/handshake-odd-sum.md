@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, graphs, proof]
 requires:
-  - graph-degree-from-edge-list
+  - interview-essentials/graph-degree-from-edge-list
 refs:
   - https://en.wikipedia.org/wiki/Handshaking_lemma
 elaborate: A party of 9 people where everyone shook exactly 5 hands — possible?

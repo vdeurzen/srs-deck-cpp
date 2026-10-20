@@ -1,22 +1,23 @@
 ---
 id: const-loop-chunk
 kind: chunk
-version: 1
+version: 2
 level: 1
 tags: [const, references, loops, idioms]
-expose_ms: 8000
+expose_ms: 9500
 compile: null
 requires:
   - const-ref-parameter
-  - types-auto-drops-const
+  - iter-range-for-const-auto-ref
+elaborate: Where in your code does a loop copy each element when it only reads them?
 refs:
   - https://en.cppreference.com/w/cpp/language/range-for
   - https://en.cppreference.com/w/cpp/language/reference
 ---
 
 ```cpp
-std::size_t total_length(const std::vector<std::string>& names) {
-  std::size_t n = 0;
+int total_length(const std::vector<std::string>& names) {
+  int n = 0;
   for (const auto& name : names) n += name.size();
   return n;
 }

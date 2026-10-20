@@ -6,8 +6,8 @@ level: 1
 tags: [lifetime, temporaries, tracing]
 requires:
   - raii-storage-durations
-  - vc-trace-extended-temporary
   - life-temporary-full-expression
+elaborate: Say aloud which line in your own code keeps a pointer or reference to something a function returned by value, and whether it survives past the `;`.
 probes:
   1: { trail: "t~t", first: "t" }
   2: { trail: "t~tl" }
@@ -43,7 +43,4 @@ it is still alive at Probe 3 and only dies when `main` ends. The second
 temporary follows the first's pattern (`u~u`) while `local` sits
 untouched in between. Reading `.c` off the temporary was fine because
 the read happened *inside* the full-expression; keeping a pointer or
-reference to it past the `;` would not be. `return Noisy{c}` constructs
-the temporary directly (guaranteed elision), so no copies appear in the
-trail. Verified by compiling and running this program under GCC 16.2
-(`g++ -std=c++23`), including a clean run under `-fsanitize=address`.
+reference to it past the `;` would not be. Values verified with GCC 16.2.

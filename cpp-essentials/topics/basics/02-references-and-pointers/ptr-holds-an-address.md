@@ -9,7 +9,7 @@ refs:
   - https://eel.is/c++draft/basic.compound#3
 ---
 
-## After these two lines, what value is stored in the object `p` itself?
+## `int*` is C++'s spelling of Go's `*int`. After these two lines, what value is stored in the variable `p` itself?
 
 ```cpp
 int n = 5;
@@ -18,7 +18,7 @@ int* p = &n;
 
 ---
 
-**The address of `n`: where `n` lives, not the `5`.** `p` is an object
+**The address of `n`: where `n` lives, not the `5`.** `p` is a variable
 of its own, with its own storage and its own address. Its value only
 *designates* `n`; reaching the `5` takes one step through it, `*p`.
 Copying `p` copies the address, never the `int`, so two pointers can lead

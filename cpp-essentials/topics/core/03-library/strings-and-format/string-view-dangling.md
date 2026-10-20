@@ -14,6 +14,8 @@ compile:
 requires:
   - strings-string-view-parameter
   - ptr-dangling
+  - constexpr-fn-static-assert
+elaborate: Say, as to a reviewer, the one question that decides whether a function may return a `string_view`.
 refs:
   - https://en.cppreference.com/w/cpp/string/basic_string_view
   - https://en.cppreference.com/w/cpp/string/basic_string
@@ -37,6 +39,5 @@ constexpr {{c1::std\::string}} make_greeting(std::string_view name) {
 Ask who owns the characters. They live in the local `s`, which is destroyed
 when the function returns, so only a type that **owns a copy** survives:
 `std::string`. A `string_view` or `const std::string&` would point into the
-dead `s` (silent at run time, a compile error in this constant-evaluated
-harness), and `const char*` doesn't convert from `std::string` at all. Taking
-`string_view` *in* is fine; handing one *out* to a local is the bug.
+dead `s` (silent undefined behaviour at run time), and `const char*`
+doesn't convert from `std::string` at all. Taking `string_view` *in* is fine; handing one *out* to a local is the bug.

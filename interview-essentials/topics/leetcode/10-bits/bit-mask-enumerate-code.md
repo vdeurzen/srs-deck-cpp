@@ -15,8 +15,10 @@ compile:
     static_assert(subset_xor_sum({4}) == 4);
     int main() {}
 requires:
-  - foundations-bits-trace
   - bit-precedence-trap
+  - bits-mask-as-set
+  - cpp-essentials/vector-basics
+  - cpp-essentials/constexpr-fn-static-assert
 refs:
   - https://leetcode.com/problems/sum-of-all-subset-xor-totals/
   - https://leetcode.com/problems/subsets/

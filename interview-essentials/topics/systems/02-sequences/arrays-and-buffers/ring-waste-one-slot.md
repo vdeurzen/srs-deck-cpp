@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 2
 tags: [ring-buffer, queues]
+requires:
+  - linear-queue-ring
+elaborate: What would break if `full()` instead tested `tail == head`, and what extra state would fix it without wasting the slot?
 refs:
   - https://en.wikipedia.org/wiki/Circular_buffer
 ---
@@ -11,8 +14,8 @@ refs:
 ## A 16-slot ring keeps wrapped indices and declares itself full when `(tail + 1) % 16 == head`. How many items can it hold?
 
 ```cpp
-bool full()  const { return (tail + 1) % 16 == head; }
-bool empty() const { return tail == head; }
+bool full()  { return (tail + 1) % 16 == head; }
+bool empty() { return tail == head; }
 ```
 
 ---

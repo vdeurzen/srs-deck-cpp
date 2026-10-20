@@ -4,7 +4,7 @@ kind: chunk
 version: 1
 level: 2
 tags: [stl, counting, lc-242]
-expose_ms: 7000
+expose_ms: 11000
 compile:
   harness: |
     #include <string_view>
@@ -20,7 +20,9 @@ refs:
   - https://en.cppreference.com/w/cpp/container/array/operator_cmp
 elaborate: Find All Anagrams in a String (LC 438) returns every start index in `s` of an anagram of `p`, by sliding this counter along `s`. Which two updates happen per step, and what replaces the final comparison?
 requires:
-  - cpp-essentials/initialization-default-value-zero
+  - stl-array-brace-zero
+  - cpp-essentials/types-char-is-integer
+  - stl-const-auto-param
 ---
 
 ```cpp
@@ -42,7 +44,3 @@ fixed array replaces two hash maps: no allocation, no hashing.
 - `{}` zeroes the counts; without it they are indeterminate.
 - `c - 'a'` maps `'a'..'z'` to 0..25; `cnt[c]` would index 97 and up.
 - `std::array` compares element by element with `==`; a C array can't.
-
-Compile-checked against Valid Anagram's examples, so either loop may come
-first. Dropping the `{}` or the `- 'a'` fails that check. (`const auto&`
-lets the harness pass `string_view`s; on LeetCode it is `string s, t`.)

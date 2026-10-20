@@ -41,6 +41,8 @@ compile:
     int main() {}
 requires:
   - linear-list-node
+  - cpp-essentials/tmpl-why-template
+  - cpp-essentials/constexpr-fn-static-assert
 refs:
   - https://leetcode.com/problems/reverse-linked-list/
   - https://leetcode.com/problems/reverse-linked-list-ii/
@@ -52,7 +54,7 @@ Reverse Linked List (LC 206): reverse a singly linked list in place and
 return the new head. Order the lines.
 
 ```cpp
-template <class Node> constexpr Node* reverse(Node* head) {
+template <typename Node> constexpr Node* reverse(Node* head) {
   Node *prev = nullptr, *cur = head;
   while (cur) {
     Node* next = cur->next;
@@ -73,5 +75,4 @@ each pass moves one node across. O(n) time, O(1) space.
 only link to the rest. `prev = cur` must come before `cur = next`, or
 the node just flipped is lost. Return `prev`: at the end `cur` is null.
 The first distractor is what happens without the save: after the flip,
-`cur->next` leads backwards. On LC write `ListNode*`; the template is
-here only because the harness defines the node after it.
+`cur->next` leads backwards. On LC the node type is `ListNode`.

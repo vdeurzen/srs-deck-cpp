@@ -76,3 +76,11 @@ cpp-essentials/storage-allocate-vs-construct	cpp-essentials/class-constructor-in
 cpp-essentials/ranges-sort-projection	cpp-essentials/stdalgo-sort-by-length
 interview-essentials/graph-union-find-union-code	interview-essentials/graph-union-find-forest
 interview-essentials/graph-bfs-distance-code	interview-essentials/graph-bfs-why-shortest
+interview-essentials/stl-size-t-unsigned	cpp-essentials/types-size-t
+cpp-essentials/life-scope-automatic	cpp-essentials/class-struct-members
+cpp-essentials/ptr-auto-drops-ref	cpp-essentials/class-struct-members
+cpp-essentials/layout-alignas-intro	cpp-essentials/class-struct-members
+cpp-essentials/layout-padding-sizeof	cpp-essentials/class-struct-members
+cpp-essentials/layout-padding-worked	cpp-essentials/class-struct-members
+cpp-essentials/layout-trailing-padding	cpp-essentials/class-struct-members
+cpp-essentials/layout-declaration-order	cpp-essentials/class-struct-members

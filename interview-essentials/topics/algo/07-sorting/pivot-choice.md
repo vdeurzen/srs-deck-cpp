@@ -6,6 +6,7 @@ level: 2
 tags: [sorting, quicksort]
 requires:
   - sort-quick-worst
+  - complexity-cost-cases
 elaborate: If attackers can choose the input to your server's sort, which pivot rule would you trust?
 refs:
   - https://www.cs.dartmouth.edu/~doug/mdmspe.pdf
@@ -20,6 +21,6 @@ refs:
 
 The cost then depends on the coin flips, not the input: every input
 has expected Θ(n log n), and n² needs consistently bad luck.
-Median-of-three (first, middle, last) fixes sorted and reversed input,
-but an adversary can still build inputs that defeat it (McIlroy 1999).
-Median-of-medians is also safe, at a linear cost per pivot.
+Median-of-three (the median of the first, middle and last element)
+fixes sorted and reversed input, but an adversary can still build inputs
+that defeat it.

@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, complexity, capstone]
 requires:
-  - complexity-cost-sum-rule
+  - interview-essentials/complexity-cost-sum-rule
   - complexity-cost-trace-triangular
   - complexity-cost-trace-doubling
   - complexity-cost-trace-merge-recurrence

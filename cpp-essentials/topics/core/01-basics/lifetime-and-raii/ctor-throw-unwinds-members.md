@@ -53,8 +53,4 @@ fully constructed, in reverse order: `~b`, then `~a`. The `!` is skipped
 because the exception leaves the `try` block, and the program then
 carries on normally — `p` is built afterwards.
 
-This is why RAII is one owner per resource. Had `Whole` acquired two
-handles in its own body and thrown between them, nothing would release the
-first; held in two members, unwinding releases exactly what was acquired.
-Verified by compiling and running this program under GCC 16.2
-(`g++ -std=c++23`), including a clean run under `-fsanitize=address`.
+Values verified with GCC 16.2.

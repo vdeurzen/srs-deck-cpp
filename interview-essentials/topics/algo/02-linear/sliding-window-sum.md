@@ -6,6 +6,7 @@ level: 1
 tags: [sliding-window, arrays]
 requires:
   - complexity-big-o-scaling
+elaborate: "Where else does 'add the newcomer, drop the leaver' keep a running figure, such as a moving average or a rate limiter?"
 refs:
   - https://en.wikipedia.org/wiki/Moving_average#Simple_moving_average
 ---

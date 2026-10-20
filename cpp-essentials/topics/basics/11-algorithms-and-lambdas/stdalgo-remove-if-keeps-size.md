@@ -1,26 +1,26 @@
 ---
 id: stdalgo-remove-if-keeps-size
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [algorithms, tracing, misconception]
-requires:
-  - stdalgo-lambda-syntax
-  - iter-end-one-past
 elaborate: Where have you seen code call `std::remove_if` without using what it returns?
 probes:
-  1: { n: "4", kept: "2" }
+  1: { n: "4" }
   2: { a: "4", b: "7" }
+requires:
+  - stdalgo-remove-if-worked
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/remove
 ---
+
+Many expect `std::remove_if` to shrink the vector it is given.
 
 ```cpp
 std::vector<int> v{0, 4, 0, 7};
 auto keep_end = std::remove_if(v.begin(), v.end(),
                                [](int x) { return x == 0; });
-auto n = v.size();
-auto kept = keep_end - v.begin();   // @1
+auto n = v.size();                  // @1
 int a = v[0], b = v[1];             // @2
 ```
 

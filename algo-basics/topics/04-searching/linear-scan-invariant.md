@@ -6,7 +6,7 @@ level: 1
 tags: [foundations, linear-search, invariants]
 requires:
   - search-linear-scan-code
-  - technique-loop-invariant-sum
+  - interview-essentials/technique-loop-invariant-sum
 refs:
   - https://en.wikipedia.org/wiki/Loop_invariant
 ---

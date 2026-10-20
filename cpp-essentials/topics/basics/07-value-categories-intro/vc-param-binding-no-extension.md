@@ -5,7 +5,9 @@ version: 1
 level: 2
 tags: [value-categories, temporaries, lifetime]
 requires:
-  - vc-trace-extended-temporary
+  - ptr-lifetime-extension
+  - string-basics
+elaborate: Find a function in your code that returns a `const&` to a parameter; what happens when a caller passes it a temporary?
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization#Lifetime_of_a_temporary
   - https://eel.is/c++draft/class.temporary#6
@@ -26,5 +28,4 @@ const std::string& b = pass(std::string("abc"));
 created it (here, the `;`), unless a local reference binds to it
 *directly*: then it lives as long as that reference. `a` binds directly.
 For `b`, the temporary is bound to the parameter `s`, which never
-extends past the call's full-expression; `b` dangles. GCC warns
-(`-Wdangling-reference`).
+extends past the call's full-expression; `b` dangles.

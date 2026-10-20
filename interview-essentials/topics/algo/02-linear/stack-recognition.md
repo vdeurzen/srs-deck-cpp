@@ -3,7 +3,10 @@ id: linear-stack-recognition
 kind: basic
 version: 1
 level: 1
-tags: [stacks, recognition]
+tags: [recognition, parsing]
+requires:
+  - linear-stack-adt
+elaborate: "Name a check in code you have written where the latest thing opened must be the first one closed."
 refs:
   - https://en.cppreference.com/w/cpp/container/stack
 ---

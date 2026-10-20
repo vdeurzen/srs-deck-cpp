@@ -5,7 +5,8 @@ version: 1
 level: 1
 tags: [concurrency, threads]
 requires:
-  - conc-lost-update-trace
+  - conc-thread-shares-memory
+elaborate: Say what Go's `sync.Mutex` shares with `std::mutex` here, and what happens to every other thread if one forgets to unlock.
 refs:
   - https://en.cppreference.com/w/cpp/thread/mutex
   - https://en.cppreference.com/w/cpp/thread/lock_guard
@@ -29,6 +30,5 @@ void record() {
 **B blocks until A unlocks `m`; only then does B continue.**
 
 A `std::mutex` lets one thread at a time past `lock()`, so the two
-`++count` cannot interleave. Real code writes the pair as
-`std::lock_guard<std::mutex> g(m);`: its constructor locks and its
-destructor unlocks, so an exception cannot leave `m` locked forever.
+`++count` cannot interleave. If anything skips the `unlock()`, every
+later `lock()` waits forever.

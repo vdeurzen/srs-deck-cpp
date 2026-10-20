@@ -1,22 +1,39 @@
 ---
 id: atomics-modification-order
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [concurrency, atomics, memory-model]
+requires:
+  - atomics-memory-order-intro
 refs:
-  - https://en.cppreference.com/w/cpp/atomic/atomic
+  - https://en.cppreference.com/w/cpp/atomic/memory_order
   - https://eel.is/c++draft/intro.races
+elaborate: Say in one sentence, as to an interviewer, what `memory_order_relaxed` still promises and what it gives up.
 ---
 
-## What does `std::atomic<T>` guarantee about operations on *one* object, whatever `memory_order` they pass?
+`std::memory_order_relaxed` keeps each operation atomic but orders no
+other memory access.
+
+```cpp
+std::atomic<int> x{0};
+void a() {                                   // thread A
+    x.store(1, std::memory_order_relaxed);
+    x.store(2, std::memory_order_relaxed);
+}
+void b() {                                   // thread B
+    int r1 = x.load(std::memory_order_relaxed);
+    int r2 = x.load(std::memory_order_relaxed);
+}
+```
+
+## A and B run at the same time. Can B end with `r1 == 2` and `r2 == 1`?
 
 ---
 
-**Every operation is indivisible, and all writes to that object form a
-single modification order every thread agrees on.**
+**No: all writes to `x` form one modification order (0, 1, 2) that every thread reads along.**
 
-So a load never sees a torn value, a read-modify-write (`fetch_add`,
-`exchange`, `compare_exchange`) always acts on the latest value in that
-order, and no increment is lost. Not promised: any ordering against
-*other* objects — that is the `memory_order`'s job.
+A later load in B never reads an earlier write in that order than the
+load before it did, whatever `memory_order` either side passes. What
+`relaxed` gives up is ordering against *other* objects, such as a
+plain `int` written next to `x`.

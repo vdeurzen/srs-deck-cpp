@@ -6,6 +6,8 @@ level: 2
 tags: [hashing, complexity]
 requires:
   - hashing-load-factor
+  - hashing-open-addressing
+elaborate: "Which service of yours hashes keys that an outsider controls, and what would a flood of colliding keys do to it?"
 refs:
   - https://www.usenix.org/legacy/events/sec03/tech/full_papers/crosby/crosby.pdf
   - https://en.cppreference.com/w/cpp/container/unordered_map/find
@@ -19,6 +21,5 @@ refs:
 chain (or one probe run) holding every key.
 
 The O(1) assumes the hash spreads keys evenly and growth keeps the load
-factor bounded. An attacker who chooses the keys breaks the first
-assumption on purpose (hash flooding), so servers seed their hashes
-randomly.
+factor bounded. An attacker who chooses the keys can break the first assumption on
+purpose.

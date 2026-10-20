@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [types, integers]
 requires:
-  - cpp-basics/types-size-minimums
+  - cpp-essentials/types-size-minimums
 refs:
   - https://en.cppreference.com/w/cpp/language/types#Properties
   - https://en.cppreference.com/w/cpp/types/integer

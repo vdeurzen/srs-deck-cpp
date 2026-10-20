@@ -6,7 +6,8 @@ level: 1
 tags: [concurrency, threads, undefined-behaviour, misconception]
 elaborate: Which variable in your code is set by one thread and only read by another, such as a `stop` flag, and what orders those accesses?
 requires:
-  - conc-lost-update-trace
+  - ub-definition
+  - conc-atomic-int-intro
 refs:
   - https://en.cppreference.com/w/cpp/language/memory_model
   - https://eel.is/c++draft/intro.races

@@ -12,7 +12,7 @@ compile:
     static_assert(above({1, 7, 3, 9}, 4) == 2);
     int main() {}
 requires:
-  - stdalgo-find-vs-find-if
+  - cpp-essentials/stdalgo-find-vs-find-if
   - cpp-essentials/stdalgo-capture-ref-vs-copy
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/count

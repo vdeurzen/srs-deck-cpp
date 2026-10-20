@@ -1,31 +1,29 @@
 ---
 id: graph-list-from-edges-chunk
 kind: chunk
-version: 1
+version: 2
 level: 1
 tags: [foundations, graphs, representation]
-expose_ms: 9000
-compile:
-  harness: |
-    #include <array>
-    #include <utility>
-    // 0-1 1-2 1-3, undirected
-    constexpr std::array<std::pair<int, int>, 3> kE{{{0, 1}, {1, 2}, {1, 3}}};
-    static_assert(adjacency(4, kE)[1].size() == 3);
-    static_assert(adjacency(4, kE)[0].size() == 1 && adjacency(4, kE)[0][0] == 1);
-    static_assert(adjacency(4, kE)[3].size() == 1 && adjacency(4, kE)[3][0] == 1);
-    int main() {}
+expose_ms: 9500
+requires:
+  - graph-directed-vs-undirected
+  - cpp-essentials/structured-bindings-basics
+  - cpp-essentials/vector-of-vectors
+compile: null # a fragment: n and edges are declared by the surrounding code
 refs:
   - https://en.wikipedia.org/wiki/Adjacency_list
   - https://en.cppreference.com/w/cpp/container/vector
+elaborate: Where else have you turned a flat list of pairs into one list per key, and what played the role of `adj(n)` there?
 ---
 
+An undirected graph has `n` vertices; `edges` holds one pair (u, v) per
+edge, and `for (auto [u, v] : edges)` runs once per pair.
+
 ```cpp
-#include <vector>
-constexpr auto adjacency(int n, const auto& edges) {
-  std::vector<std::vector<int>> adj(n);
-  for (auto [u, v] : edges) { adj[u].push_back(v); adj[v].push_back(u); }
-  return adj;
+std::vector<std::vector<int>> adj(n);
+for (auto [u, v] : edges) {
+  adj[u].push_back(v);
+  adj[v].push_back(u);
 }
 ```
 

@@ -6,7 +6,7 @@ level: 2
 tags: [hashing, hash-functions, tracing]
 requires:
   - interview-essentials/hashing-chaining
-  - hashing-index-mod-trace
+  - interview-essentials/hashing-index-mod-trace
 probes:
   1: { b10: "1" }
   2: { b7: "5" }

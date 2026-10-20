@@ -6,7 +6,7 @@ level: 2
 tags: [value-categories, references, misconception]
 requires:
   - vc-rvalue-ref-binds-temporaries
-  - vc-classify-cloze
+  - value-categories-std-move-cloze
 elaborate: In a function of yours that takes a `T&&` parameter, where is that parameter used by name, and what does each of those uses bind to?
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category#lvalue

@@ -4,7 +4,7 @@ kind: basic
 version: 2
 level: 3
 tags: [ring-buffer, low-latency, queues]
-elaborate: The producer writes `tail` and the consumer writes `head`. What happens to throughput if the two counters share a cache line?
+elaborate: Where else does a counter that never wraps make a test simpler than an index that does?
 requires:
   - seq-ring-waste-one-slot
 refs:
@@ -12,7 +12,7 @@ refs:
   - https://en.wikipedia.org/wiki/Circular_buffer
 ---
 
-## A ring buffer keeps `head` and `tail` as free-running 64-bit counters and masks them only to index a slot. What does that buy over storing indices already wrapped into `[0, N)`?
+## A ring buffer of N slots (N a power of two) keeps `head` and `tail` as 64-bit counters that only ever increase, and turns one into a slot only when indexing (a cheap bit mask wraps it into `[0, N)`). What does that buy over storing indices already wrapped into `[0, N)`?
 
 ---
 

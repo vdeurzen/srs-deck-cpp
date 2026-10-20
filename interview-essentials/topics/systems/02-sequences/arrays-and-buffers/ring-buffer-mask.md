@@ -5,6 +5,9 @@ version: 1
 level: 2
 requires:
   - seq-ring-buffer-full-vs-empty
+  - foundations-bitwise-operators
+  - cpp-essentials/constexpr-fn-static-assert
+elaborate: What would break, silently, if someone later changed the capacity to 10, and how would you make the compiler catch it?
 tags: [ring-buffer, low-latency, bit-tricks]
 input: chips
 choices:
@@ -20,41 +23,24 @@ compile:
     int main() {}
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html
-  - https://en.cppreference.com/w/cpp/numeric/has_single_bit
+  - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Bitwise_logic_operators
 ---
 
 A ring buffer keeps a monotonically increasing sequence number and maps it
 to a slot. Complete the wrap for a power-of-two capacity.
 
 ```cpp
-#include <bit>
-#include <cstddef>
-#include <cstdint>
+constexpr unsigned kCapacity = 8;  // a power of two
 
-inline constexpr std::size_t kCapacity = 8;
-static_assert(std::has_single_bit(kCapacity), "capacity must be a power of two");
-
-constexpr std::size_t slot_of(std::uint64_t sequence) {
-  return static_cast<std::size_t>(sequence) & {{c1::(kCapacity - 1)}};
+constexpr unsigned slot_of(unsigned sequence) {
+  return sequence & {{c1::(kCapacity - 1)}};
 }
 ```
 
 ---
 
-For a power of two, `x & (n − 1)` *is* `x % n` — the mask keeps exactly
-the low bits that survive the division — and it costs one cycle where a
-64-bit integer division costs tens of cycles on most x86 cores. The compiler can only make that
-substitution for itself when the divisor is a compile-time power of two,
-which is one good reason to make the capacity a template parameter or a
-`constexpr` rather than a runtime field.
-
-Keeping a free-running 64-bit sequence and masking at the point of use,
-rather than storing an already-wrapped index, is the LMAX Disruptor's
-trick: `head` and `tail` never wrap in 64 bits at any plausible rate, so
-`tail − head` is the size and `tail == head` is empty, where wrapped
-indices would need a "full" flag or a wasted slot.
-
-The `static_assert` on `std::has_single_bit` is part of the design, not
-decoration: with any other capacity the mask silently returns wrong
-slots rather than failing, so the invariant is worth pinning at compile
-time.
+**`x & (n − 1)` is `x % n` when n is a power of two:** n − 1 is a run of
+1 bits below n's single bit, so the AND keeps exactly the remainder's
+bits. It costs one cycle, where an integer division costs tens of cycles
+on most x86 cores. `kCapacity` and `kCapacity + 1` keep the wrong bits;
+`~kCapacity` keeps nearly all of them.

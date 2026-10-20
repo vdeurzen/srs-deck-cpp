@@ -3,9 +3,11 @@ id: arr-prefix-hash-signal
 kind: basic
 version: 1
 level: 2
-tags: [prefix-sums, hash-map, recognition, lc-560]
+tags: [arrays, recognition, lc-560]
 requires:
   - linear-prefix-sum-range
+  - hashing-direct-address-limit
+  - arr-window-signal
 refs:
   - https://leetcode.com/problems/subarray-sum-equals-k/
   - https://leetcode.com/problems/contiguous-array/

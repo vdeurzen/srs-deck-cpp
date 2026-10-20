@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, complexity, big-omega]
 requires:
-  - complexity-asym-big-omega
+  - interview-essentials/complexity-asym-big-omega
 input: chips
 choices:
   c1: ["20", "10", "11", "40"]

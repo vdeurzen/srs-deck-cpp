@@ -6,6 +6,7 @@ level: 2
 tags: [complexity, amortised, latency]
 requires:
   - complexity-amortised-vs-average
+  - cpp-essentials/iter-size-vs-capacity
 elaborate: Which hot path of yours appends to a vector? Would `reserve` or a fixed-size buffer remove its slowest call?
 refs:
   - https://epubs.siam.org/doi/10.1137/0606031
@@ -19,4 +20,4 @@ refs:
 **Nothing: if it reallocates, this call copies all million elements.**
 The amortised bound is about the *sum* over a sequence; the cheap pushes
 before it paid for this one. A latency budget is about single calls, so
-`reserve` up front or use a structure with a per-call bound.
+set the capacity up front or use a structure with a per-call bound.

@@ -1,15 +1,16 @@
 ---
 id: virtual-slice-parameter
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [inheritance, virtual, slicing, tracing]
 requires:
-  - virtual-enable-dispatch
-  - ptr-bump-by-reference
+  - virtual-function-intro
+  - fn-param-change-intro
 probes:
-  1: { a: "circle" }
-  2: { b: "shape" }
+  1: { a: "4" }
+  2: { b: "0" }
+elaborate: Find a function in your code that takes a base class by value; what would a derived argument lose?
 refs:
   - https://en.cppreference.com/w/cpp/language/object#Subobjects
   - https://en.cppreference.com/w/cpp/language/virtual
@@ -17,27 +18,26 @@ refs:
 
 ```cpp
 struct Shape {
-  virtual ~Shape() = default;
-  virtual std::string name() const { return "shape"; }
+  virtual int corners() { return 0; }
 };
-struct Circle : Shape {
-  std::string name() const override { return "circle"; }
+struct Square : public Shape {
+  int corners() { return 4; }
 };
-std::string by_ref(const Shape& s) { return s.name(); }
-std::string by_value(Shape s)      { return s.name(); }
+int by_ref(Shape& s)  { return s.corners(); }
+int by_value(Shape s) { return s.corners(); }
 
 int main() {
-  Circle c;
-  std::string a = by_ref(c);     // @1
-  std::string b = by_value(c);   // @2
+  Square q;
+  int a = by_ref(q);     // @1
+  int b = by_value(q);   // @2
 }
 ```
 
 ---
 
-`by_ref` gets a reference to the `Circle` itself, so the virtual call
-dispatches to `Circle::name`. `by_value` gets a brand-new `Shape`,
-copy-constructed from only the `Shape` part of `c`: the `Circle` part is
+`by_ref` gets a reference to the `Square` itself, so the virtual call
+dispatches to `Square::corners`. `by_value` gets a brand-new `Shape`,
+copied from only the `Shape` part of `q`: the `Square` part is
 **sliced** off, and the parameter's dynamic type is `Shape`. Dispatch
 needs a reference or pointer to the original object. Verified by compiling
 and running an instrumented copy under GCC 16.2 (`g++ -std=c++23`).

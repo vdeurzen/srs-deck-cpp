@@ -4,6 +4,9 @@ kind: code
 version: 1
 level: 1
 tags: [foundations, heaps, arrays]
+requires:
+  - tree-terms
+  - cpp-essentials/constexpr-fn-static-assert
 input: chips
 choices:
   c1: ["2 * i + 1", "2 * i", "i + 1", "2 * i + 2"]
@@ -17,6 +20,7 @@ compile:
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://en.wikipedia.org/wiki/Binary_heap#Heap_implementation
+elaborate: What would break in this formula if the tree had a gap in its last level, and how would you have to store it then?
 ---
 
 A complete binary tree (every level full except the last, filled from
@@ -24,14 +28,13 @@ the left) is stored level by level in an array, root at slot 0. Complete
 the slot of node `i`'s left child.
 
 ```cpp
-#include <cstddef>
 //            a          slot:  0 1 2 3 4 5
 //          /   \        key:   a b c d e f
 //         b     c
 //        / \   /
 //       d   e f
-constexpr std::size_t left(std::size_t i) { return {{c1::2 * i + 1}}; }
-constexpr std::size_t right(std::size_t i) { return left(i) + 1; }
+constexpr int left(int i) { return {{c1::2 * i + 1}}; }
+constexpr int right(int i) { return left(i) + 1; }
 ```
 
 ---

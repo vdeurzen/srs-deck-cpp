@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, complexity, cost-model, tracing]
 requires:
-  - complexity-cost-geometric-sum
+  - interview-essentials/complexity-cost-geometric-sum
   - complexity-cost-trace-triangular
 probes:
   1: { steps: "197" }

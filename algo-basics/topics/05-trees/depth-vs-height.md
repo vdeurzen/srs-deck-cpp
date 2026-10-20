@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, trees, vocabulary]
 requires:
-  - tree-recursive-def
+  - interview-essentials/tree-recursive-def
 refs:
   - https://xlinux.nist.gov/dads/HTML/depth.html
   - https://xlinux.nist.gov/dads/HTML/height.html

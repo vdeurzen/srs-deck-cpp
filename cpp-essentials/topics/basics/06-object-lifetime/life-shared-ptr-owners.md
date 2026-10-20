@@ -6,7 +6,8 @@ level: 1
 tags: [lifetime, ownership, tracing]
 requires:
   - life-ctor-dtor-count
-  - life-unique-ptr-owns-trace
+  - smart-shared-ptr-intro
+elaborate: Pick a shared object in code you know; which owner do you expect to be the last one, and is that obvious from the code?
 probes:
   1: { owners: "2", alive: "1" }
   2: { owners: "1", alive: "1" }
@@ -26,7 +27,7 @@ struct Doc {
 
 int main() {
   std::shared_ptr<Doc> a = std::make_shared<Doc>();
-  long owners = 0;
+  int owners = 0;
   {
     std::shared_ptr<Doc> b = a;
     owners = a.use_count();     // @1
@@ -46,4 +47,4 @@ count drops to 1 and the `Doc` survives, because `a` still owns it.
 Setting `a` to `nullptr` releases the last owner, so the `Doc` is
 destroyed right there; an empty `shared_ptr` reports 0. Verified by
 compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23`), with a clean `-fsanitize=address` run.
+(`g++ -std=c++23`).

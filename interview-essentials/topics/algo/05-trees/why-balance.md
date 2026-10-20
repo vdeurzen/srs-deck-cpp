@@ -10,6 +10,8 @@ refs:
   - https://en.cppreference.com/w/cpp/container/map
 requires:
   - tree-bst-rule
+  - tree-terms-height
+  - complexity-big-o-scaling
 ---
 
 ## Keys arrive in sorted order (1, 2, 3, …) into a plain, unbalanced BST. What does a lookup cost once they are in?
@@ -27,6 +29,6 @@ requires:
 ```
 
 Each new key is larger than everything so far, so it always goes right
-and the height is n, not log₂ n. Random order gives expected depth about
+and the height is n − 1, not about log₂ n. Random order gives expected depth about
 1.39 log₂ n, but sorted input is common: bulk loads, log replay,
 timestamps, auto-increment ids.

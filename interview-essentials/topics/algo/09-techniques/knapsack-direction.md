@@ -6,6 +6,9 @@ level: 3
 tags: [dynamic-programming, knapsack]
 requires:
   - technique-coin-change-table
+  - stl-min-max
+  - cpp-essentials/class-struct-members
+elaborate: Say aloud which other in-place table update you know whose loop direction decides whether an item is reused.
 input: chips
 choices:
   c1:
@@ -15,27 +18,27 @@ choices:
     - "int w = 0; w <= W; ++w"
 compile:
   harness: |
-    static_assert(best_value(std::array<Item, 1>{{{2, 3}}}, 6) == 3);
-    static_assert(best_value(std::array<Item, 1>{{{6, 7}}}, 6) == 7);
-    static_assert(best_value(std::array<Item, 4>{{{5, 10}, {4, 40}, {6, 30}, {3, 50}}}, 10) == 90);
+    static_assert(best_value(std::vector<Item>{{2, 3}}, 6) == 3);
+    static_assert(best_value(std::vector<Item>{{6, 7}}, 6) == 7);
+    static_assert(best_value(std::vector<Item>{{5, 10}, {4, 40}, {6, 30}, {3, 50}}, 10) == 90);
     int main() {}
 refs:
   - https://en.wikipedia.org/wiki/Knapsack_problem#0-1_knapsack_problem
   - https://doi.org/10.1287/opre.5.2.266
 ---
 
-0/1 knapsack: each item can be packed **at most once**. `dp[w]` is the
-best value within weight `w`, updated in place, one item at a time.
+0/1 knapsack: pack items of total weight ≤ `W` for the most total value,
+each item **at most once**. `dp[w]` is the best value within weight `w`,
+updated in place, one item at a time.
 Complete the inner loop header.
 
 ```cpp
 #include <algorithm>
-#include <array>
-struct Item { int weight, value; };
+#include <vector>
+struct Item { int weight; int value; };
 
-template <std::size_t N>
-constexpr int best_value(std::array<Item, N> items, int W) {
-  std::array<int, 64> dp{};
+constexpr int best_value(std::vector<Item> items, int W) {
+  std::vector<int> dp(W + 1);
   for (Item it : items)
     for ({{c1::int w = W; w >= it.weight; --w}})
       dp[w] = std::max(dp[w], dp[w - it.weight] + it.value);

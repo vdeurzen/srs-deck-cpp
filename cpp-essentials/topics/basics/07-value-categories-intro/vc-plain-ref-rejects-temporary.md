@@ -6,8 +6,10 @@ level: 1
 tags: [value-categories, references, temporaries]
 requires:
   - vc-lvalue-has-identity
-  - ptr-bump-by-reference
+  - class-converting-constructor
   - ptr-reference-must-bind
+  - string-basics
+elaborate: Say why the rule that a plain `T&` refuses a temporary protects the caller rather than the function.
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization
   - https://eel.is/c++draft/dcl.init.ref#5

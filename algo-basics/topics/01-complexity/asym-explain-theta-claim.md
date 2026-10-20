@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, complexity, capstone]
 requires:
-  - complexity-asym-step-model
+  - interview-essentials/complexity-asym-step-model
   - complexity-asym-limit-test
   - complexity-asym-o-is-not-worst-case
 refs:

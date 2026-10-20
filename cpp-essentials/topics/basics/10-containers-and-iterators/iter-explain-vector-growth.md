@@ -1,9 +1,10 @@
 ---
 id: iter-explain-vector-growth
 kind: explain
-version: 1
+version: 2
 level: 2
 tags: [containers, vector, iterators]
+elaborate: Say how this compares with Go's `append`, which can also return a slice backed by a new array.
 requires:
   - iter-reserve-keeps-buffer
   - iter-growth-invalidates
@@ -11,11 +12,11 @@ refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://en.cppreference.com/w/cpp/container/vector/reserve
 ---
-Explain what `push_back` does inside a `std::vector`, and what it means for
-code that holds an iterator into that vector.
+An interviewer asks how a `std::vector` makes room when you call
+`push_back`. Explain it to them.
 ---
-- [ ] Distinguishes `size()` (elements that exist) from `capacity()` (slots in the current buffer)
-- [ ] With spare capacity, the new element goes into the next slot and the buffer stays put; only `end()` is invalidated
-- [ ] When `size() == capacity()`, it allocates a larger buffer, moves or copies the elements across and frees the old one
-- [ ] After that reallocation every iterator, pointer and reference into the vector dangles, and using one is undefined behaviour
-- [ ] Names a safe alternative: keep an index, re-fetch the iterator after growth, or `reserve` the final size up front
+- [ ] Problem: the vector must append at the end while keeping every element side by side in one buffer
+- [ ] Mechanism: when size equals capacity, `push_back` allocates a bigger buffer and transfers the elements into it
+- [ ] Example: after `reserve(4)`, three `push_back`s all write into the same buffer
+- [ ] Cost: a reallocation transfers every element, so that one `push_back` takes time proportional to the size
+- [ ] Pitfall: a reallocation leaves every iterator, pointer and reference into the old buffer dangling

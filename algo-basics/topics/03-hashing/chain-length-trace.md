@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, chaining, load-factor, tracing]
 requires:
-  - hashing-pigeonhole
+  - interview-essentials/hashing-pigeonhole
 probes:
   1: { "len[0]": "3", "len[3]": "3" }
   2: { "len[0]": "2", "len[7]": "1" }

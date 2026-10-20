@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [foundations, complexity, cost-model, tracing]
 requires:
-  - complexity-cost-sum-rule
-  - complexity-cost-product-rule
+  - interview-essentials/complexity-cost-sum-rule
+  - interview-essentials/complexity-cost-product-rule
 probes:
   1: { a: "40" }
   2: { b: "400" }

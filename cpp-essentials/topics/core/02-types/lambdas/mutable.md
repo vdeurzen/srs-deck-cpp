@@ -6,15 +6,17 @@ level: 2
 tags: [lambdas]
 requires:
   - lambda-capture-trace
+  - constexpr-fn-static-assert
 input: chips
 choices:
-  c1: ["mutable", "constexpr", "noexcept", "static"]
+  c1: ["mutable", "constexpr", "const"]
 compile:
   harness: |
     static_assert(check());
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda
+elaborate: When would you rather capture by reference than make a by-copy capture changeable, and what must then outlive the lambda?
 ---
 
 Complete the lambda so each call returns one more than the last,
@@ -33,6 +35,5 @@ constexpr bool check() {
 
 A closure's `operator()` is `const` by default, so `++count` on a
 by-value capture does not compile. `mutable` drops that `const`; the
-closure's copy changes, the outer `count` does not. `static` (C++23)
-forbids captures entirely; `constexpr` and `noexcept` leave the call
-operator `const`.
+closure's copy changes, the outer `count` does not. None of the other
+words lets the body change the copy.

@@ -5,8 +5,9 @@ version: 1
 level: 1
 tags: [smart-pointers, ownership]
 requires:
-  - raii-copy-double-close
+  - life-shallow-copy-pointer
   - life-unique-ptr-member-no-copy
+elaborate: Say in one sentence, as to an interviewer, which Go habit (copying a pointer freely) this deleted copy forbids, and what you write instead to hand the object on.
 refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr
   - https://eel.is/c++draft/unique.ptr

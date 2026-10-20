@@ -7,6 +7,9 @@ tags: [lifetime, ownership]
 requires:
   - life-unique-ptr-owns-trace
   - life-destructor-frees
+  - types-auto-deduces
+  - constexpr-fn-static-assert
+elaborate: Say why a function holding its heap object in a `std::unique_ptr` needs no cleanup code on its early returns.
 input: chips
 choices:
   c1:
@@ -44,5 +47,4 @@ destructor runs `delete` when `p` goes out of scope, by either `return`.
 That is the release-in-a-destructor pattern, already written for you.
 The template argument is the pointed-to type, so `unique_ptr<int*>`
 does not accept an `int*`. `int*` and `auto` (which deduces `int*`)
-own nothing: the early return leaks, which the `constexpr` evaluation
-rejects.
+own nothing, so the early return leaks the `int`.

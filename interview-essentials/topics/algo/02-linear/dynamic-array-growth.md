@@ -7,12 +7,14 @@ tags: [arrays, dynamic-arrays, amortised]
 requires:
   - linear-array-index-contiguity
   - complexity-amortised-vs-average
+  - complexity-geometric-sum-intro
+elaborate: "Why does a real `std::vector` grow by 1.5× or 2× rather than 10×? Say what the extra headroom would cost."
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 16 (dynamic tables)
 ---
 
-## A full dynamic array must allocate a bigger block and copy every element over. Why does it multiply its capacity (e.g. ×2) instead of adding a fixed 10 slots?
+## A full dynamic array must allocate a bigger block and copy every element over. Why does it multiply its capacity (e.g. ×2) instead of adding a fixed 10 slots? (Recall 1 + 2 + … + k = k(k + 1)/2.)
 
 ---
 

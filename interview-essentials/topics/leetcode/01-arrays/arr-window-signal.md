@@ -3,7 +3,7 @@ id: arr-window-signal
 kind: basic
 version: 1
 level: 2
-tags: [sliding-window, recognition, lc-1004]
+tags: [arrays, recognition, lc-1004]
 requires:
   - linear-variable-window-shrink
 refs:

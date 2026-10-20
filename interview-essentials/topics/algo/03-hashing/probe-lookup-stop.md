@@ -15,10 +15,13 @@ compile:
     static_assert(!contains(kT, 27));    // home 3, stops at slot 6
     static_assert(!contains(kT, 2));     // home 2 is empty
     int main() {}
+elaborate: "Why must insert and lookup follow exactly the same probe sequence? Say what breaks if they differ."
 refs:
   - Knuth, The Art of Computer Programming, vol. 3, 2nd ed., §6.4
 requires:
   - hashing-open-addressing
+  - cpp-essentials/iter-array-fixed-size
+  - cpp-essentials/constexpr-fn-static-assert
 ---
 
 A linear-probing table has 8 slots; `0` marks an empty slot. Insert
@@ -30,7 +33,7 @@ condition.
 #include <array>
 
 constexpr int N = 8;
-constexpr bool contains(const std::array<int, N>& t, int key) {
+constexpr bool contains(std::array<int, N> t, int key) {
   int i = key % N;
   while ({{c1::t[i] != 0}}) {
     if (t[i] == key) return true;

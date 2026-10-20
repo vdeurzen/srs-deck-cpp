@@ -4,7 +4,7 @@ kind: chunk
 version: 1
 level: 3
 tags: [binary-search, search-on-answer, lc-875]
-expose_ms: 7000
+expose_ms: 12000
 compile:
   harness: |
     #include <array>
@@ -29,6 +29,9 @@ compile:
     int main() {}
 requires:
   - search-first-true-predicate
+  - cpp-essentials/lambda-syntax-intro
+  - cpp-essentials/tmpl-auto-param-cloze
+  - search-midpoint-overflow
 refs:
   - https://leetcode.com/problems/koko-eating-bananas/
   - https://leetcode.com/problems/split-array-largest-sum/
@@ -60,5 +63,3 @@ hours), `ok(v)` is "the ⌈p / v⌉ sum to at most `h`", with `lo = 1` and `hi` 
 A true `mid` may be the answer, so `hi` keeps it; a false one is ruled
 out, so `lo` passes it. `lo + (hi − lo) / 2` cannot overflow;
 `(lo + hi) / 2` does near `INT_MAX`.
-
-Compile-checked: the harness runs Koko Eating Bananas' examples and the edge cases.

@@ -4,15 +4,17 @@ kind: basic
 version: 1
 level: 2
 tags: [transfer, misconception, engineering, cost-model]
-elaborate: What is the largest n your "scalable" structure will actually see this year — and what operations does it really serve?
+elaborate: What is the largest n your "scalable" structure will actually see this year, and which operations does it really serve?
 requires:
   - foundations-cache-cost-model
+  - search-lower-bound-meaning
+  - cpp-essentials/containers-map-vs-unordered-map
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/lower_bound
   - https://en.algorithmica.org/hpc/data-structures/binary-search/
 ---
 
-## A read-mostly table of `int` keys, built once, will grow from 1 000 to 1 M keys. You pick `std::map` over a sorted `std::vector` with `std::lower_bound` "so it scales". What happens at 1 M keys?
+## Many pick `std::map` over a sorted `std::vector` searched with `std::lower_bound` "so it scales". A read-mostly table of `int` keys, built once, grows from 1 000 to 1 M keys. At 1 M keys, roughly how do their lookup times compare?
 
 ```cpp
 std::map<int, Row> rows;                        // built once, read per request

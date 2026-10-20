@@ -18,8 +18,13 @@ that app. The app's source is not available here; what you need of it is bundled
   fixed. A new Deck's id must not collide with them.
 - The two essentials Decks were made on 2026-10-17 by moving the ~550 highest-payoff Cards
   out of the other six (the learner agreed to lose those Cards' history). `sprint/moved.tsv`
-  maps every old id to its new one; `sprint/README.md` is the study plan. That was a one-off:
-  the id rule below applies to the essentials Decks as to every other.
+  maps every old id to its new one; `sprint/README.md` is the study plan. On 2026-10-19/20
+  they were rebuilt foundations-first: ~110 foundation Cards moved in or written, ~70
+  advanced Cards moved back out to their original Decks and ids
+  (`sprint/foundations/moved-out.tsv`). Those were one-offs: the id rule below applies
+  to the essentials Decks as to every other.
+- PEDAGOGY.md is the authoring standard (teaching order, working-memory budget, no
+  give-aways); the agents in .claude/agents follow it.
 - Part of `cpp-core` is in active review (coroutines, move semantics, smart
   pointers). Bump `version` only when a Card's question changes meaning.
 - Card ids are [a-z0-9-]+, unique within the Deck, and never change once pushed:

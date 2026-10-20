@@ -11,8 +11,13 @@ probes:
 refs:
   - https://en.cppreference.com/w/cpp/language/cv
   - https://en.cppreference.com/w/cpp/language/reference
-elaborate: Which of your functions take a `const&` and a non-const reference of the same type? What would a caller passing the same object twice do to them?
+requires:
+  - const-member-on-const-ref
+elaborate: Say aloud where in your own code a function takes a `const&` and a non-const reference of the same type, and what a caller passing one object to both would do.
 ---
+
+Many expect a `const Counter&` parameter to see the same value for the
+whole call. (`int n = 0;` gives every new `Counter` an `n` of 0.)
 
 ```cpp
 struct Counter {
@@ -32,8 +37,7 @@ int d = observe(k, k);        // @3
 
 ---
 
-A tempting belief: "`c` is `const&`, so the object cannot change while I
-hold it." Wrong: `const` restricts this **access path**, not the object.
-`other` aliases the same `k`, so `bump()` changes what `c` sees. The
-optimiser must assume this too, which is why it reloads `c.value()`.
+**`const&` forbids writing through `c`; it does not freeze the object.**
+`other` names the same `k`, so `bump()` changes what `c` sees: `d` is 1.
+The belief is tempting because nothing in `observe` writes through `c`.
 Verified by running an instrumented copy under GCC 16.2 (`g++ -std=c++23`).

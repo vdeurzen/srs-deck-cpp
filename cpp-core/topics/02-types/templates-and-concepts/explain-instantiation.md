@@ -6,8 +6,8 @@ level: 3
 tags: [templates]
 requires:
   - templates-lazy-member-instantiation
-  - cpp-essentials/templates-two-phase-lookup
-  - cpp-essentials/templates-typename-disambiguator
+  - templates-two-phase-lookup
+  - templates-typename-disambiguator
 refs:
   - https://en.cppreference.com/w/cpp/language/template_instantiation
   - https://en.cppreference.com/w/cpp/language/dependent_name

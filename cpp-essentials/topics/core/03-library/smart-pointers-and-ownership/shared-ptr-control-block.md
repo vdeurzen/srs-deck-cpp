@@ -5,7 +5,8 @@ version: 1
 level: 2
 tags: [smart-pointers, ownership]
 requires:
-  - life-shared-ptr-owners
+  - smart-shared-ptr-intro
+elaborate: What would break if each copy carried its own count, and where in Go does the garbage collector make this question disappear?
 refs:
   - https://en.cppreference.com/w/cpp/memory/shared_ptr#Implementation_notes
   - https://eel.is/c++draft/util.sharedptr
@@ -16,6 +17,6 @@ refs:
 ---
 
 **So every copy sees one shared count; a count inside each copy changes only that copy.**
-Every copy points at the same block, which also holds the weak count and
-the type-erased deleter: a `shared_ptr` is two pointers wide, object and
-block. Strong count zero: the deleter runs. Weak count zero: the block goes.
+Every copy holds two pointers, one to the object and one to the same
+block, and bumps that block's count. The owner that takes the count to
+zero destroys the object.

@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, binary-search, recursion]
 requires:
   - interview-essentials/search-binary-search-chunk
-  - technique-recursion-sum-code
+  - interview-essentials/technique-recursion-sum-code
 input: chips
 choices:
   c1:

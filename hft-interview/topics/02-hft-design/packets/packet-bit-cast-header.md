@@ -18,7 +18,7 @@ compile:
     static_assert(seq_of(pkt) == 0x00010203);
     int main() {}
 requires:
-  - interview-essentials/packet-reinterpret-ub
+  - packet-reinterpret-ub
 refs:
   - https://en.cppreference.com/w/cpp/numeric/bit_cast
   - https://en.cppreference.com/w/cpp/numeric/byteswap

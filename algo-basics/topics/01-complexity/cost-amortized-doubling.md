@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, complexity, amortised]
 requires:
   - complexity-cost-amortized
-  - complexity-cost-geometric-sum
+  - interview-essentials/complexity-cost-geometric-sum
 input: chips
 choices:
   c1: ["2 * n", "n", "3 * n", "n * n / 2"]

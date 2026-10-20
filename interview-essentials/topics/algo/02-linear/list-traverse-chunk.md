@@ -6,13 +6,16 @@ level: 1
 tags: [foundations, linked-lists]
 requires:
   - linear-list-node
-expose_ms: 8000
+  - cpp-essentials/const-pointer-read-rule
+  - cpp-essentials/constexpr-fn-static-assert
+expose_ms: 11000
 compile:
   harness: |
     constexpr int three() { Node c{2, nullptr}, b{8, &c}, a{5, &b}; return sum(&a); }
     static_assert(three() == 15);
     static_assert(sum(nullptr) == 0);
     int main() {}
+elaborate: "Which loop in your own code walks a chain of pointers like this, and what would a null in the middle do to it?"
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.2
 ---

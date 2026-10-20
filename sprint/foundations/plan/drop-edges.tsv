@@ -1,0 +1,14 @@
+interview-essentials/stl-iota-argsort	cpp-essentials/ranges-sort-projection
+cpp-essentials/value-categories-guaranteed-elision	cpp-essentials/value-categories-temporary-materialization
+cpp-essentials/strings-string-view-parameter	cpp-essentials/value-categories-temporary-materialization
+interview-essentials/rec-dp-cell-vs-mask	interview-essentials/dp-bitmask-signal
+interview-essentials/sort-counting-idea	interview-essentials/sort-lower-bound
+interview-essentials/rec-intervals-greedy-vs-dp	interview-essentials/technique-exchange-argument
+cpp-essentials/virtual-dispatch-dynamic-type	cpp-essentials/virtual-static-dispatch
+cpp-essentials/exceptions-commit-by-swap	cpp-essentials/move-semantics-noexcept-move
+cpp-essentials/spaceship-rewritten-not-equal	cpp-essentials/spaceship-basics
+cpp-essentials/ptr-arrow-null-check	cpp-essentials/ptr-nullptr-overload
+cpp-essentials/tmpl-auto-param-cloze	cpp-essentials/tmpl-instantiation-statics
+interview-essentials/complexity-cost-cases	algo-basics/complexity-cost-trace-early-exit
+interview-essentials/complexity-cost-arithmetic-sum	algo-basics/complexity-cost-trace-triangular
+interview-essentials/complexity-cost-geometric-sum	algo-basics/complexity-cost-trace-doubling

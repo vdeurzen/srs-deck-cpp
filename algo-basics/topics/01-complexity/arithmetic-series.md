@@ -6,7 +6,7 @@ level: 1
 tags: [complexity, sums]
 requires:
   - interview-essentials/complexity-count-loop-steps
-  - complexity-cost-arithmetic-sum
+  - interview-essentials/complexity-cost-arithmetic-sum
 input: chips
 choices:
   c1: ["n * (n + 1) / 2", "n * n / 2", "n * (n - 1) / 2", "(n + 1) / 2 * n"]

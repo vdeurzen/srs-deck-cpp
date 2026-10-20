@@ -3,10 +3,10 @@ id: rec-one-vs-two-sequences
 kind: basic
 version: 1
 level: 4
-tags: [dynamic-programming, strings, lis, recognition, lc-300, lc-1143, lc-516]
+tags: [strings, recognition, lc-300, lc-1143, lc-516]
 requires:
   - dp-edit-distance-signal
-  - dp-lis-patience-parsons
+  - dp-lis-quadratic
 refs:
   - https://leetcode.com/problems/longest-increasing-subsequence/
   - https://leetcode.com/problems/longest-common-subsequence/

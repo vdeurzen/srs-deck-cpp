@@ -3,7 +3,7 @@ id: arr-kadane-signal
 kind: basic
 version: 1
 level: 3
-tags: [kadane, arrays, recognition, lc-121, lc-53]
+tags: [arrays, recognition, lc-121, lc-53]
 requires:
   - arr-kadane-all-negative
 refs:

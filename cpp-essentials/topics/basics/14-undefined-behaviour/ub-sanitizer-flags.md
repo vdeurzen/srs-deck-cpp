@@ -5,7 +5,8 @@ version: 1
 level: 2
 tags: [undefined-behaviour, tooling, sanitizers]
 requires:
-  - ub-passing-tests-prove-nothing
+  - ub-use-after-free
+elaborate: Say which sanitizer you would add to your test build first, and which bug from your own code it would have caught.
 refs:
   - https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
   - https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html

@@ -1,19 +1,21 @@
 ---
 id: err-unwind-runs-destructors
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [exceptions, raii, destructors, tracing]
 requires:
   - err-throw-jumps-to-catch
-  - life-scope-automatic
+  - life-destructor-intro
 probes:
-  1: { events: "owc" }
-  2: { events: "owcoc!" }
+  1: { events: "oc!" }
 refs:
   - https://eel.is/c++draft/except.ctor
   - https://en.cppreference.com/w/cpp/language/throw
+elaborate: Where in your own code does a lock or file rely on a destructor to be released on every exit path?
 ---
+
+`std::runtime_error` is a standard exception type derived from `std::exception`.
 
 ```cpp
 std::string events;
@@ -21,23 +23,19 @@ struct File {
     File()  { events += 'o'; }   // open
     ~File() { events += 'c'; }   // close
 };
-void save(bool fail) {
+void save() {
     File f;
-    if (fail) throw std::runtime_error("disk full");
-    events += 'w';               // write
+    throw std::runtime_error("disk full");
 }
 
-save(false);                                            // @1
-try { save(true); }
-catch (const std::exception&) { events += '!'; }        // @2
+try { save(); }
+catch (const std::exception&) { events += '!'; }   // @1
 ```
 
 ---
 
-Leaving `save` normally destroys `f` at the closing brace: `o w c`. On
-the second call the `throw` skips the write, but leaving the function by
-exception still destroys `f`: **stack unwinding runs the destructor of
-every fully constructed local** between the `throw` and the handler,
-before the handler body runs. That is why a file or lock held by such an
-object is released on every exit path. Values from running an
-instrumented copy built with GCC 16.2 (`g++ -std=c++23`).
+Leaving `save` by exception still destroys `f`: **stack unwinding runs the
+destructor of every fully constructed local** between the `throw` and the
+handler, before the handler body runs. So `c` lands before `!`. That is
+why a file or lock held by such an object is released on every exit path.
+Values from running an instrumented copy built with GCC 16.2.

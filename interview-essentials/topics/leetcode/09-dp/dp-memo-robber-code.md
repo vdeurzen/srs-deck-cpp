@@ -10,8 +10,9 @@ choices:
 compile:
   harness: |
     constexpr bool rob(std::vector<int> houses, int loot, int calls) {
-      Robber r{houses};
-      return r.best(0) == loot && r.calls == calls;
+      std::vector<int> memo(houses.size(), -1);
+      int n = 0;
+      return best(houses, memo, int(houses.size()) - 1, n) == loot && n == calls;
     }
     static_assert(rob({1, 2, 3, 1}, 4, 9));                       // LC 198, example 1
     static_assert(rob({2, 7, 9, 3, 1}, 12, 11));                  // LC 198, example 2
@@ -19,7 +20,8 @@ compile:
     int main() {}
 requires:
   - technique-dp-overlapping-subproblems
-  - technique-dp-state
+  - stl-min-max
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/house-robber/
   - https://leetcode.com/problems/climbing-stairs/
@@ -28,22 +30,20 @@ elaborate: Which line would you change to make this the bottom-up table, and in 
 ---
 
 House Robber (LC 198): the most money you can take from a row of
-houses without robbing two adjacent ones. `best(i)` is the most from
-houses `i..n-1`; `memo` starts at -1, and `calls` counts every call.
-Complete the check that reuses a solved subproblem.
+houses `v` without robbing two adjacent ones. `best(v, memo, i, calls)`
+is the most from houses `0..i`; `memo` starts all -1, and `calls`
+counts every call. Complete the check that reuses a solved subproblem.
 
 ```cpp
-#include <bits/stdc++.h>
-struct Robber {
-  std::vector<int> v, memo = std::vector<int>(v.size(), -1);
-  int calls = 0;
-  constexpr int best(int i) {
-    ++calls;
-    if (i >= int(v.size())) return 0;
-    if ({{c1::memo[i] != -1}}) return memo[i];
-    return memo[i] = std::max(v[i] + best(i + 2), best(i + 1));
-  }
-};
+#include <algorithm>
+#include <vector>
+constexpr int best(std::vector<int>& v, std::vector<int>& memo, int i, int& calls) {
+  ++calls;
+  if (i < 0) return 0;
+  if ({{c1::memo[i] != -1}}) return memo[i];
+  memo[i] = std::max(v[i] + best(v, memo, i - 2, calls), best(v, memo, i - 1, calls));
+  return memo[i];
+}
 ```
 
 ---

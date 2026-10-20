@@ -6,23 +6,25 @@ level: 2
 tags: [lambdas, callables]
 requires:
   - lambda-closure-type
+  - vector-basics
 input: chips
 choices:
   c1:
     - "std::function<int(int)>"
     - "auto"
     - "int(*)(int)"
-    - "decltype([](int x) { return x + 1; })"
 compile:
   harness: |
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/function
   - https://en.cppreference.com/w/cpp/language/lambda
+elaborate: Name a place in your own code, such as a list of callbacks, where storing `std::function` is worth its possible heap allocation, and say why.
 ---
 
-Complete the element type so `make_ops` can return both lambdas in one
-vector.
+`int(int)` is the type of a function taking an `int` and returning an
+`int`. Complete the element type so `make_ops` can return both lambdas in
+one vector.
 
 ```cpp
 #include <functional>
@@ -34,7 +36,7 @@ std::vector<{{c1::std\::function<int(int)>}}> make_ops(int k) {
 
 ---
 
-Each lambda expression has its own closure type, so even an identical
-`decltype([]...)` names a different type. A function pointer accepts only
+Each lambda expression has its own closure type, so `auto` cannot name
+one element type for both. A function pointer, `int(*)(int)`, accepts only
 the captureless lambda. `std::function<int(int)>` **type-erases**: it
 stores a copy of any callable with that signature, possibly on the heap.

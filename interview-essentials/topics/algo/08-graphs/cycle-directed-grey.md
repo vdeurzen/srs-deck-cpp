@@ -5,7 +5,8 @@ version: 1
 level: 2
 tags: [graphs, dfs, cycles]
 requires:
-  - graph-dfs-discovery-finish-trace
+  - graph-dfs-worked
+  - graph-cycle-spot
 refs:
   - https://en.wikipedia.org/wiki/Depth-first_search#Output_of_a_depth-first_search
   - https://doi.org/10.1137/0201010
@@ -25,5 +26,4 @@ a → c → d
 
 Colours: white = not started, grey = started, black = finished. Here
 `d` is black on the second visit, so `a → c → d` merely rejoins. An
-edge to a grey vertex points back up the active path: a cycle. So
-"already visited" is not enough.
+edge to a grey vertex points back up the active path: a cycle.

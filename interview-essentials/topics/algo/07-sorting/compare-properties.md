@@ -1,27 +1,26 @@
 ---
 id: sort-compare-properties
 kind: cloze
-version: 1
+version: 2
 level: 2
-tags: [sorting, stability, memory]
+tags: [sorting, memory]
 requires:
-  - sort-heap-sort
-  - sort-stable-meaning
+  - sort-quick-worst
   - sort-counting-idea
 refs:
   - https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms
   - https://en.wikipedia.org/wiki/Quicksort#Space_complexity
+elaborate: Which of these extra-space costs would decide your choice on an embedded device with a few kilobytes of stack, and why?
 ---
 
-Stability and extra space for an array of n elements:
+Extra memory beyond the input array of n elements (a recursive call
+holds one stack frame until it returns):
 
-| sort | stable | extra space |
-| --- | --- | --- |
-| insertion | yes | O(1) |
-| merge | yes | Θ(n) |
-| quicksort, smaller side recursed first | no | {{c1::O(log n)::the call stack}} |
-| heap sort | {{c2::no}} | O(1) |
-| counting, keys in [0, k) | yes | {{c3::O(n + k)::two arrays}} |
+| sort | extra space |
+| --- | --- |
+| merge sort | Θ(n) |
+| quicksort, smaller side recursed first | {{c1::O(log n)::the call stack}} |
+| counting sort, keys in [0, k) | {{c2::O(n + k)::two arrays}} |
 
 For 10⁶ ints, merge sort's buffer is 4 MB.
 
@@ -29,7 +28,5 @@ For 10⁶ ints, merge sort's buffer is 4 MB.
 
 Quicksort recursing into the smaller side and looping on the larger
 keeps the stack ≤ log₂ n deep, since each recursive call at least
-halves the range; naive recursion can go n deep. Heap sort's
-root-to-end swaps jump over equal keys: (1,a) (1,b) (2,c) (1,d) comes
-out with (1,b) before (1,a). Counting sort needs the k
-counters plus an n-element output array.
+halves the range; naive recursion can go n deep. Counting sort needs
+the k counters plus an n-element output array.

@@ -1,18 +1,18 @@
 ---
 id: virtual-static-dynamic-type
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [inheritance, types]
 requires:
   - virtual-is-a
-  - ptr-reference-must-bind
+elaborate: Say what in a Go interface value plays the role of C++'s dynamic type, and where you have relied on it.
 refs:
   - https://eel.is/c++draft/defns.dynamic.type
   - https://eel.is/c++draft/defns.static.type
 ---
 
-## `Dog` derives publicly from `Animal`. While `groom(rex)` runs, what is the *dynamic* type of the object `pet` refers to?
+## `Dog` derives publicly from `Animal`, and `groom(rex)` passes it a `Dog`. When the compiler compiles `groom`'s body, which type does it know `pet` refers to: `Animal`, `Dog`, or both?
 
 ```cpp
 void groom(Animal& pet) { /* ... */ }
@@ -23,8 +23,7 @@ groom(rex);
 
 ---
 
-**`Dog`.** The dynamic type is the type of the object actually there,
-fixed when that object was created. The *static* type is the type the
-code declares, `Animal` for `pet`, and it is all the compiler sees when
-it checks `groom`'s body. A base-class reference or pointer is exactly
-where the two differ.
+**Only `Animal`, the *static* type: `Dog`, the *dynamic* type, is known only at run time.**
+The static type is the one the code declares for `pet`. The dynamic type
+is the type of the object actually there, fixed when it was created.
+`groom` is compiled once for every `Animal` it may receive.

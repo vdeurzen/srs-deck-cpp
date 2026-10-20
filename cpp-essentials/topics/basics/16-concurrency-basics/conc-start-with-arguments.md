@@ -15,6 +15,8 @@ refs:
   - https://eel.is/c++draft/thread.thread.constr
 requires:
   - conc-thread-shares-memory
+  - lambda-syntax-intro
+elaborate: Say how this compares with Go's `go fill(3, 4)`, and when the arguments are evaluated in each.
 ---
 
 Complete the construction so the new thread runs `fill` with `rows` 3
@@ -33,9 +35,9 @@ void start() {
 
 ---
 
-**Pass the callable and its arguments separately.** The new thread then
+**Pass the function and its arguments separately.** The new thread then
 makes the call `fill(3, 4)` itself. Writing `fill(3, 4)` instead calls
 `fill` right here, on the current thread, and hands its `void` result to
 the constructor, which does not compile. `fill` alone, or with too few
-arguments, is not callable as given, and `std::thread` rejects it. A
-lambda works too: `std::thread worker([] { fill(3, 4); });`.
+arguments, cannot be called that way, and `std::thread` rejects it. A
+lambda works too: `std::thread worker([]() { fill(3, 4); });`.

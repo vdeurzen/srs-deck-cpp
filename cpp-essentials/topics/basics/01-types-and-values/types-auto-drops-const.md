@@ -6,20 +6,23 @@ level: 2
 tags: [types, auto, const]
 input: chips
 choices:
-  c1: ["auto", "const auto", "auto&", "decltype(auto)"]
+  c1: ["auto", "const auto", "auto&", "const auto&"]
 compile:
   harness: |
     static_assert(countdown() == 6);
     int main() {}
 requires:
-  - const-vs-constexpr-initializer
+  - types-auto-deduces
+  - ptr-reference-must-bind
+  - constexpr-fn-static-assert
+elaborate: Where in your code could `auto x = some_const_value;` hand you a copy when you meant to keep the original's `const`, or a reference?
 refs:
   - https://en.cppreference.com/w/cpp/language/auto
   - https://eel.is/c++draft/dcl.type.auto.deduct
 ---
 
-`left` must be a separate, modifiable copy of `limit`, so that counting
-it down leaves `limit` untouched. Complete its declaration.
+Complete the declaration of `left` so that `countdown()` compiles and
+returns `6`.
 
 ```cpp
 constexpr int countdown() {
@@ -33,8 +36,9 @@ constexpr int countdown() {
 
 ---
 
-Plain `auto` declares a fresh object: it takes the
-initializer's type and **drops a top-level `const`** (and any reference),
-so `left` is an ordinary `int` copy. `const auto` keeps the `const` and
-`auto&` binds to `limit` itself as `const int&`, so `--left` fails for
-both; `decltype(auto)` reproduces `limit`'s declared type, `const int`.
+**Plain `auto` drops the `const` on `limit` itself, so `left` is a modifiable `int` copy.**
+
+That `const` belongs to the object being copied, not to the new one, so
+`auto` leaves it behind. `const auto` keeps it; `auto&` and `const auto&`
+make `left` another name for `limit`, which is `const`, so `--left` fails
+in all three.

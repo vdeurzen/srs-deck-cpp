@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, stacks, linked-lists]
 requires:
-  - linear-stack-adt
+  - interview-essentials/linear-stack-adt
   - interview-essentials/linear-list-node
 input: chips
 choices:

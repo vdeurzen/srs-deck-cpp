@@ -5,8 +5,9 @@ version: 1
 level: 2
 tags: [concurrency, threads]
 requires:
-  - conc-single-counter-fix
-  - conc-lock-the-counter
+  - conc-atomic-int-intro
+  - conc-mutex-takes-turns
+elaborate: Say what change to the counter's job would make you switch from the atomic to a mutex.
 refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic
   - https://en.cppreference.com/w/cpp/thread/mutex
@@ -16,9 +17,8 @@ refs:
 
 ---
 
-**No thread ever waits: on mainstream hardware each increment is one lock-free instruction.**
+**No thread blocks or sleeps: each increment is one indivisible instruction.**
 
-With a mutex, a thread that finds it held blocks until it is free, and
-every increment pays a lock and an unlock. An atomic covers one
-object changed in one step; as soon as several values or steps must
-change together, the mutex is the tool.
+That holds on mainstream hardware. With a mutex, a thread that finds it
+held blocks until it is free, and every increment pays a lock and an
+unlock.

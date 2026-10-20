@@ -5,8 +5,9 @@ version: 1
 level: 2
 tags: [greedy, dynamic-programming]
 requires:
-  - technique-greedy-coins-counterexample
-  - technique-coin-change-table
+  - technique-greedy-idea
+  - technique-dp-optimal-substructure
+elaborate: Name a problem where greedy is provably safe and one where it is not, and say what separates them.
 refs:
   - https://en.wikipedia.org/wiki/Greedy_algorithm
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
@@ -18,5 +19,5 @@ refs:
 
 **DP tries every choice and keeps the best; greedy commits to one.**
 `dp[6] = 1 + min(dp[2], dp[3], dp[5]) = 1 + min(2, 1, 2) = 2`. Greedy
-never looks at "last coin 3". Use greedy only when an exchange argument
-proves its one choice safe; otherwise pay DP's amount × coins.
+never looks at "last coin 3". Use greedy only when you can prove its one
+choice is always safe; otherwise pay DP's amount × coins.

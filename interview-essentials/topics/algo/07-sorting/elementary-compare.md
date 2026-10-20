@@ -7,6 +7,7 @@ tags: [foundations, sorting, complexity]
 refs:
   - https://algs4.cs.princeton.edu/21elementary/
   - https://en.wikipedia.org/wiki/Insertion_sort#Best,_worst,_and_average_cases
+elaborate: Your data arrives almost sorted, a few keys out of place. Say aloud which of the two sorts you would pick and why.
 ---
 
 1000 keys arrive already sorted. Selection sort (each pass scans the

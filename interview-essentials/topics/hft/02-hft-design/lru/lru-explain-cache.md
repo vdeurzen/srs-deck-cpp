@@ -1,0 +1,25 @@
+---
+id: lru-explain-cache
+kind: explain
+version: 1
+level: 3
+tags: [hft, lru, caching, design]
+requires:
+  - lru-design-worked
+  - trace-lru-order
+  - lru-std-list-allocates
+  - lru-touch
+refs:
+  - https://leetcode.com/problems/lru-cache/
+  - https://en.cppreference.com/w/cpp/container/list/splice
+  - https://www.kernel.org/doc/html/latest/core-api/kernel-api.html#list-management-functions
+elaborate: Which cache or table in a system you know evicts by recency, and would its hot path tolerate an allocation on every miss?
+---
+An interviewer on a low-latency team asks you to design an LRU cache
+that every request will go through. Answer aloud.
+---
+- [ ] Problem: a fixed-capacity cache that, when full, evicts the key unused for longest, found without a scan
+- [ ] Mechanism: a list in recency order plus a hash map from each key to its list node
+- [ ] Example: capacity 2: put 1, put 2, get 1, then put 3 evicts 2, since the get refreshed 1
+- [ ] Cost: every operation is O(1), but with std::list and unordered_map each miss allocates twice
+- [ ] Contrast: slot arrays linked by index, with a sentinel slot, reuse the victim's slot, so a miss allocates nothing

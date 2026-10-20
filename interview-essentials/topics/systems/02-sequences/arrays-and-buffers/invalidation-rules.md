@@ -5,7 +5,9 @@ version: 2
 level: 3
 requires:
   - seq-vector-vs-deque
+  - cpp-essentials/containers-map-vs-unordered-map
 tags: [containers, lifetime]
+elaborate: Where in your own code do you keep a pointer into a container while it grows, and which container would make that safe?
 refs:
   - https://en.cppreference.com/w/cpp/container#Iterator_invalidation
 ---

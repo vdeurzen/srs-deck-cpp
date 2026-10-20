@@ -9,16 +9,19 @@ choices:
   c1: ["INT_MAX", "0", "-1", "INT_MIN"]
 compile:
   harness: |
+    using VV = std::vector<std::vector<int>>;
     constexpr bool examples() {   // GCC 14 needs nested braced vectors inside a function
-      return min_path_sum({{1, 3, 1}, {1, 5, 1}, {4, 2, 1}}) == 7    // LC 64, example 1
-          && min_path_sum({{1, 2, 3}, {4, 5, 6}}) == 12              // LC 64, example 2
-          && min_path_sum({{5}}) == 5
-          && min_path_sum({{1}, {2}, {3}}) == 6;
+      return min_path_sum(VV{{1, 3, 1}, {1, 5, 1}, {4, 2, 1}}) == 7    // LC 64, example 1
+          && min_path_sum(VV{{1, 2, 3}, {4, 5, 6}}) == 12              // LC 64, example 2
+          && min_path_sum(VV{{5}}) == 5
+          && min_path_sum(VV{{1}, {2}, {3}}) == 6;
     }
     static_assert(examples());
     int main() {}
 requires:
   - dp-grid-paths-chunk
+  - stl-int-limits
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/minimum-path-sum/
   - https://leetcode.com/problems/dungeon-game/
@@ -31,16 +34,18 @@ top-left to the bottom-right of a grid of non-negative numbers, moving
 only down or right. One rolling row of `n + 1` entries: `d[j]` holds
 column `j - 1`, and `d[0]` sits left of the grid, never a real cell.
 Before the first row, `d[1..n]` stand for a row above the grid, with
-`d[1] = 0` as the way in. Complete the start value.
+`d[1] = 0` as the way in (`std::min` returns the smaller of two
+values). Complete the start value.
 
 ```cpp
-#include <bits/stdc++.h>
-constexpr int min_path_sum(const std::vector<std::vector<int>>& g) {
-  int n = g[0].size();
-  std::vector<int> d(n + 1, {{c1::INT_MAX}});
-  d[1] = 0;
-  for (const auto& row : g)
-    for (int j = 1; j <= n; ++j) d[j] = std::min(d[j], d[j - 1]) + row[j - 1];
+#include <algorithm>
+#include <climits>
+#include <vector>
+constexpr int min_path_sum(const auto& g) {
+  int m = g.size(), n = g[0].size();
+  std::vector<int> d(n + 1, {{c1::INT_MAX}});  d[1] = 0;
+  for (int i = 0; i < m; ++i)
+    for (int j = 1; j <= n; ++j) d[j] = std::min(d[j], d[j - 1]) + g[i][j - 1];
   return d[n];
 }
 ```

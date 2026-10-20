@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 1
 tags: [classes, access]
+requires:
+  - class-struct-members
+elaborate: Say in one sentence how C++'s `private` compares with Go's lower-case, package-private names.
 refs:
   - https://en.cppreference.com/w/cpp/language/class
   - https://en.cppreference.com/w/cpp/language/access

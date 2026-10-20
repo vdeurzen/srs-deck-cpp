@@ -14,6 +14,10 @@ refs:
   - https://en.cppreference.com/w/cpp/string/basic_string_view/data
 ---
 
+Many expect `name.data()` below to be a C string holding just
+`report.txt`. (`substr(i, n)` gives the n characters starting at i;
+`data()` is a pointer to the first one.) Predict each probe.
+
 ```cpp
 std::string_view all = "report.txt.bak";
 std::string_view name = all.substr(0, 10);
@@ -23,10 +27,9 @@ std::string c_str = name.data();         // @2
 
 ---
 
+**A view's `data()` is not null-terminated: `c_str` reads on to `all`'s end.**
+
 `substr` on a view copies nothing: `name` is a pointer into `all` plus a
-length of 10. `data()` returns that pointer (hence `true` at @1), and nothing puts a `'\0'` after
-the tenth character, so anything that reads until a terminator (here the
-`std::string` constructor from `const char*`, in real code `fopen`) runs on
-to the end of `all`. A `string_view` is **not** null-terminated; pass
-`std::string(name).c_str()` to C APIs. Verified with GCC 16.2
+length of 10, so @1 is `true`. Code that reads to a `'\0'` (this
+`std::string` constructor, C library calls) ignores that length. Verified with GCC 16.2
 (`g++ -std=c++23`).

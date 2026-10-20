@@ -33,7 +33,8 @@ compile:
     int main() {}
 requires:
   - bt-subsets-chunk
-  - technique-backtracking-undo
+  - cpp-essentials/vector-sized-constructor
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/permutations/
   - https://leetcode.com/problems/permutations-ii/

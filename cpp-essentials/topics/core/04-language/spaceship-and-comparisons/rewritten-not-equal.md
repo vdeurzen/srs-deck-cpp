@@ -5,7 +5,10 @@ version: 2
 level: 2
 tags: [comparisons]
 requires:
-  - spaceship-basics
+  - operator-overloading-basics
+  - fn-overload-ranking
+  - const-member-on-const-ref
+elaborate: Say aloud which hand-written `operator!=` in older code you could now delete, and what bug that removes.
 refs:
   - https://en.cppreference.com/w/cpp/language/overload_resolution#Call_to_an_overloaded_operator
   - https://eel.is/c++draft/over.match.oper

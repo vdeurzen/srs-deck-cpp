@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, chaining]
 requires:
-  - hashing-pigeonhole
+  - interview-essentials/hashing-pigeonhole
 input: chips
 choices:
   c1: ["chain[bucket(k)]", "chain[k]", "chain[0]", "chain[bucket(k) + 1]"]

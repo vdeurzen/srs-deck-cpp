@@ -7,6 +7,9 @@ tags: [trees, traversal, queues, bfs]
 requires:
   - tree-traversal-orders
   - linear-queue-ring
+  - cpp-essentials/expr-increment-value
+  - stl-const-auto-param
+elaborate: "Which other problems need 'all of level k before level k + 1', such as the nearest exit in a grid or the fewest moves in a puzzle?"
 input: chips
 choices:
   c1: ["head++", "--tail", "head", "tail - 1"]
@@ -22,29 +25,28 @@ compile:
     //      5
     // nodes numbered out of level order: index 0..5 holds 8 2 9 4 5 6
     constexpr T t{{8, 2, 9, 4, 5, 6}, {3, -1, -1, 1, -1, 4}, {2, -1, -1, 5, -1, -1}};
-    static_assert(level_order(t) == std::array<int, 6>{8, 4, 9, 2, 6, 5});
+    static_assert(level_order(t) == 849265);
     int main() {}
 refs:
   - https://en.wikipedia.org/wiki/Tree_traversal#Breadth-first_search
 ---
 
 Level order visits the root, then all of level 2 left to right, then
-level 3, and so on. Node 0 is the root. Complete the line that takes the
-next node to visit.
+level 3, and so on. Node 0 is the root; the result lists the keys in
+visit order as decimal digits (`constexpr` lets the compiler run it).
+Complete the line that takes the next node to visit.
 
 ```cpp
-#include <array>
-
-constexpr std::array<int, 6> level_order(const auto& t) {
-  std::array<int, 6> pending{0}, out{};
-  int head = 0, tail = 1, n = 0;
+// t.key[v], t.left[v], t.right[v]: node v; -1 means no child
+constexpr int level_order(const auto& t) {
+  int pending[6] = {0}, head = 0, tail = 1, digits = 0;
   while (head < tail) {
     const int v = pending[{{c1::head++}}];
-    out[n++] = t.key[v];
+    digits = digits * 10 + t.key[v];
     if (t.left[v] >= 0) pending[tail++] = t.left[v];
     if (t.right[v] >= 0) pending[tail++] = t.right[v];
   }
-  return out;
+  return digits;
 }
 ```
 

@@ -6,6 +6,9 @@ level: 1
 tags: [lifetime, ownership]
 requires:
   - life-unique-ptr-frees
+  - ptr-arrow-member
+  - constexpr-fn-static-assert
+elaborate: Find a raw `new` in code you know; what would change if it became `std::make_unique`?
 input: chips
 choices:
   c1:

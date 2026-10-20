@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, complexity, big-theta]
 requires:
-  - complexity-asym-theta-sandwich
+  - interview-essentials/complexity-asym-theta-sandwich
 input: chips
 choices:
   c1: ["9", "7", "3", "18"]

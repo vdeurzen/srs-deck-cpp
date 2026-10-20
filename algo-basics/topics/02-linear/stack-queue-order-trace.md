@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [foundations, stacks, queues, tracing]
 requires:
-  - linear-stack-adt
-  - linear-queue-adt
+  - interview-essentials/linear-stack-adt
+  - interview-essentials/linear-queue-adt
 probes:
   1: { a: "8", b: "3" }
   2: { c: "2", d: "5" }

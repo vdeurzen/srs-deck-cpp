@@ -5,14 +5,15 @@ version: 1
 level: 2
 tags: [bit-tricks, operator-precedence, misconception, lc-78]
 requires:
-  - foundations-bits-trace
+  - foundations-bitwise-operators
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_precedence
   - https://leetcode.com/problems/subsets/
 elaborate: Which other bit tests in your code compare with `==` or `!=` after a `&`, and would they survive the same reading?
 ---
 
-A subset-mask loop adds node `v` to mask `m` only if it is not there yet:
+A subset-mask loop adds node `v` to mask `m` only if it is not there
+yet, and many read its test as `(m & 1 << v) == 0`:
 
 ```cpp
 if (m & 1 << v == 0) m |= 1 << v;

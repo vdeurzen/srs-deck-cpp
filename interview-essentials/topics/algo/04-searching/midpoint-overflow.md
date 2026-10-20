@@ -13,13 +13,17 @@ compile:
     static_assert(midpoint(5, 6) == 5);
     static_assert(midpoint(2'000'000'000, 2'100'000'000) == 2'050'000'000);
     int main() {}
+requires:
+  - cpp-essentials/types-overflow-rules
+  - cpp-essentials/constexpr-fn-static-assert
+elaborate: "Where else in your code could adding two large ints overflow, such as sums of sizes or timestamps, and how would you guard it?"
 refs:
   - https://research.google/blog/extra-extra-read-all-about-it-nearly-all-binary-searches-and-mergesorts-are-broken/
   - https://en.cppreference.com/w/cpp/numeric/midpoint
 ---
 
 Indices are `int` and an array may hold more than a billion elements.
-Complete the midpoint of `[lo, hi)` so it never overflows.
+Complete the midpoint of `[lo, hi)` (lo included, hi excluded) so it never overflows.
 
 ```cpp
 constexpr int midpoint(int lo, int hi) {   // 0 <= lo < hi
@@ -30,9 +34,8 @@ constexpr int midpoint(int lo, int hi) {   // 0 <= lo < hi
 ---
 
 **Add half the distance to `lo`; never add `lo` and `hi`.** With
-`lo = 2·10⁹` and `hi = 2.1·10⁹`, `lo + hi` exceeds `INT_MAX`
+`lo = 2·10⁹` and `hi = 2.1·10⁹`, `lo + hi` exceeds the largest `int`
 (≈ 2.147·10⁹): signed overflow is undefined behaviour, which a constant
 expression rejects.
 
-`hi - lo` always fits because both are non-negative. This bug sat in
-Java's `Arrays.binarySearch` for nine years. C++20 has `std::midpoint`.
+`hi - lo` always fits because both are non-negative.

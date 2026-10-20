@@ -1,44 +1,44 @@
 ---
 id: tmpl-instantiation-statics
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [templates, instantiation, tracing]
-requires:
-  - tmpl-function-syntax
 probes:
   1: { a: "1" }
-  2: { b: "2" }
-  3: { c: "1" }
-  4: { d: "1" }
-  5: { e: "3" }
+  2: { b: "1" }
+  3: { c: "2" }
+requires:
+  - tmpl-why-template
+  - life-function-local-static
+elaborate: Say what this means for a template that keeps a cache in a `static` variable.
 refs:
   - https://en.cppreference.com/w/cpp/language/function_template#Implicit_instantiation
   - https://en.cppreference.com/w/cpp/language/storage_duration#Static_block_variables
 ---
 
+`tick(T)` names no parameter: the argument is accepted and ignored, and
+only its type matters.
+
 ```cpp
 template <typename T>
 int tick(T) {
-  static int calls = 0;   // initialised once, then kept between calls
+  static int calls = 0;
   return ++calls;
 }
 
 int main() {
   int a = tick(1);     // @1
-  int b = tick(2);     // @2
-  int c = tick('x');   // @3
-  int d = tick(3.0);   // @4
-  int e = tick(4);     // @5
+  int b = tick('x');   // @2
+  int c = tick(2);     // @3
 }
 ```
 
 ---
 
 A template is not one function: each distinct `T` **instantiates** its
-own. `tick(1)`, `tick(2)` and `tick(4)` all deduce `T = int` and share
-`tick<int>`, whose `calls` reaches 3. `'x'` is a `char` and `3.0` a
-`double`, so they get the separate functions `tick<char>` and
-`tick<double>`, each with its own `calls` starting from 0. Verified by
+own. `'x'` is a `char`, so `tick('x')` calls the separate function
+`tick<char>`, whose `calls` starts from 0. `tick(1)` and `tick(2)` both
+deduce `T = int` and share `tick<int>`, so its `calls` reaches 2. Verified by
 compiling and running an instrumented copy under GCC 16.2
 (`g++ -std=c++23`).

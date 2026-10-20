@@ -6,6 +6,7 @@ level: 3
 tags: [hashing, open-addressing]
 requires:
   - hashing-probe-lookup-stop
+elaborate: "What happens to lookup cost when a table fills up with tombstones, and when would you rebuild it?"
 refs:
   - Knuth, The Art of Computer Programming, vol. 3, 2nd ed., §6.4 (Algorithm R)
   - https://abseil.io/about/design/swisstables

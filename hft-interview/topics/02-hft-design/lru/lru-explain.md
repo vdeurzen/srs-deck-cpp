@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [hft, lru, caching, design, interview]
 requires:
-  - interview-essentials/lru-evict-map
+  - lru-evict-map
   - interview-essentials/lru-std-list-allocates
   - algo-systems/hash-tombstone-buildup
 refs:

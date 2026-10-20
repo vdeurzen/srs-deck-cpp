@@ -4,7 +4,7 @@ kind: chunk
 version: 1
 level: 3
 tags: [idioms, concurrency, low-latency]
-expose_ms: 6000
+expose_ms: 11000
 compile:
   harness: |
     static_assert(alignof(PaddedCounter) == 64);
@@ -13,6 +13,8 @@ compile:
     int main() { counters[3].value.fetch_add(1, std::memory_order_relaxed); }
 requires:
   - ll-false-sharing
+  - cpp-essentials/iter-array-fixed-size
+elaborate: Where else would you put `alignas` on the element type rather than inside it, and why?
 refs:
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
   - https://en.algorithmica.org/hpc/cpu-cache/sharing/

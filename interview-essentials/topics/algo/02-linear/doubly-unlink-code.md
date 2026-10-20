@@ -6,13 +6,14 @@ level: 2
 tags: [foundations, linked-lists]
 requires:
   - linear-list-node
+  - cpp-essentials/constexpr-fn-static-assert
 input: chips
 choices:
   c1: ["x->prev->next = x->next; x->next->prev = x->prev;", "x->prev->next = x->next; x->next->prev = x;", "x->prev->next = x->next; x->prev->prev = x->next;", "x->prev = x->next; x->next = x->prev;"]
 compile:
   harness: |
     constexpr int walk() {               // 1 <-> 2 <-> 3, then unlink the 2
-      Node a{1}, b{2}, c{3};
+      Node a{1, nullptr, nullptr}, b{2, nullptr, nullptr}, c{3, nullptr, nullptr};
       a.next = &b; b.prev = &a; b.next = &c; c.prev = &b;
       unlink(&b);
       int fwd = 0, back = 0, steps = 0;
@@ -23,6 +24,7 @@ compile:
     }
     static_assert(walk() == 13031);      // forward 1 3, backward 3 1
     int main() {}
+elaborate: "Why does a singly linked list need the predecessor handed to it for the same removal, and what does that cost the caller?"
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.2
   - https://en.cppreference.com/w/cpp/container/list/erase
@@ -32,7 +34,7 @@ In a doubly linked list every node also points back at its predecessor.
 Node `x` has a neighbour on each side. Complete its removal.
 
 ```cpp
-struct Node { int value; Node* prev = nullptr; Node* next = nullptr; };
+struct Node { int value; Node* prev; Node* next; };
 
 constexpr void unlink(Node* x) {
   {{c1::x->prev->next = x->next; x->next->prev = x->prev;}}

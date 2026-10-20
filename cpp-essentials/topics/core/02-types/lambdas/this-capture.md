@@ -6,6 +6,7 @@ level: 3
 tags: [lambdas, lifetime, misconception]
 requires:
   - lambda-dangling-reference
+  - class-this-pointer
 elaborate: Which of your own callbacks store a lambda written inside a member function, and does any of them outlive the object it was created in?
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
@@ -29,5 +30,5 @@ auto cb = make();
 `t` is gone.**
 
 `ticks` means `this->ticks`, so only `this` is captured. C++20 deprecates
-this implicit capture. Copy the object with `[*this]`, or just the member
-with `[ticks = ticks]`.
+this implicit capture. Write `[*this]` to capture a copy of the whole
+object instead.

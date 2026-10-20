@@ -5,10 +5,13 @@ version: 1
 level: 1
 tags: [operators, conversions]
 requires:
-  - class-explicit-constructor
+  - operator-overloading-basics
+  - class-converting-constructor
+  - const-member-on-const-ref
 refs:
   - https://en.cppreference.com/w/cpp/language/operators
   - https://en.cppreference.com/w/cpp/language/overload_resolution
+elaborate: Say in one sentence why `std::string`'s `+` is a non-member, using `"id-" + name` as your example.
 ---
 
 ## `Rational` has a non-explicit `Rational(int)` and a **member** `Rational operator+(Rational) const`. Why does `r + 2` compile but `2 + r` not?

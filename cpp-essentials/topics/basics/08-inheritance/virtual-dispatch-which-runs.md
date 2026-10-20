@@ -6,6 +6,8 @@ level: 1
 tags: [inheritance, virtual, dispatch, tracing]
 requires:
   - virtual-static-dynamic-type
+  - virtual-function-intro
+elaborate: Say which of your own member functions are meant to be replaced by derived classes, and whether they are `virtual`.
 probes:
   1: { u: "0" }
   2: { r: "21" }
@@ -16,18 +18,17 @@ refs:
 
 ```cpp
 struct Sensor {
-  int unit() const { return 0; }
-  virtual int read() const { return 0; }
-  virtual ~Sensor() = default;
+  int unit() { return 0; }
+  virtual int read() { return 0; }
 };
-struct Thermo : Sensor {
-  int unit() const { return 1; }
-  int read() const override { return 21; }
+struct Thermo : public Sensor {
+  int unit() { return 1; }
+  int read() { return 21; }
 };
 
 int main() {
   Thermo t;
-  const Sensor& s = t;
+  Sensor& s = t;
   int u = s.unit();   // @1
   int r = s.read();   // @2
   int v = t.unit();   // @3

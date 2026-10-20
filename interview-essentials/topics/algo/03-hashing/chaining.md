@@ -4,6 +4,10 @@ kind: basic
 version: 1
 level: 1
 tags: [hashing, chaining]
+requires:
+  - hashing-direct-address
+  - hashing-pigeonhole
+elaborate: "What would you change if one bucket's list kept growing far longer than the rest?"
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 11
   - https://en.cppreference.com/w/cpp/container/unordered_map
@@ -13,7 +17,7 @@ refs:
 
 ---
 
-**Compares 7 with the next key in bucket 2's list, until it finds 7 or the list ends.**
+**Moves on through bucket 2's list, comparing each key with 7, until a match or the end.**
 
 This is chaining: a collision just makes one list longer, and no key
 ever leaves its own bucket. A lookup hashes once, then pays one key

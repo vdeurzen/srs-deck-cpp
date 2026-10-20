@@ -6,6 +6,7 @@ level: 2
 tags: [linkage, odr, headers]
 requires:
   - linkage-translation-unit
+elaborate: Say aloud what goes wrong, and who would notice, if two `.cpp` files saw different definitions of the same `struct Point`.
 refs:
   - https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule
   - https://eel.is/c++draft/basic.def.odr
@@ -16,7 +17,6 @@ refs:
 ---
 
 **The One Definition Rule allows one class definition per translation
-unit, provided all of them are identical.** A class is a type, not an
-object the linker places, so nothing clashes. The same "once per
-translation unit, identical everywhere" rule covers inline functions and
-variables and templates.
+unit, provided all of them are identical.** The linker only places
+functions and variables; a class is a type, so it gives the linker
+nothing to clash over.

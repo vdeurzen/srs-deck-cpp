@@ -7,13 +7,15 @@ tags: [lifetime, new-delete, raii, destructors]
 requires:
   - life-delete-matches-new
   - life-destructor-intro
+  - class-ctor-colon-part
+  - ptr-null-pointer
+elaborate: Name another resource besides memory (a file, a lock, a socket) and say where its release would go in this pattern.
 input: chips
 choices:
   c1:
     - "delete[] data;"
     - "delete data;"
     - "data = nullptr;"
-    - "std::free(data);"
 compile:
   harness: |
     constexpr int use(bool leave_early) {
@@ -31,26 +33,24 @@ refs:
   - https://en.cppreference.com/w/cpp/language/raii
 ---
 
-`IntBuf` gets its array from the heap in its constructor. Complete the
+`IntBuf` gets its array from the heap in its constructor (`constexpr`
+only lets the compiler run both members inside a check). Complete the
 destructor so that every `IntBuf` gives the array back when it dies,
 whichever path its function returns by.
 
 ```cpp
-#include <cstdlib>
-
 struct IntBuf {
   int* data;
-  constexpr explicit IntBuf(int n) : data(new int[n]{}) {}
+  constexpr IntBuf(int n) : data(new int[n]) {}
   constexpr ~IntBuf() { {{c1::delete[] data;}} }
 };
 ```
 
 ---
 
-Memory from `new T[n]` must be released with **`delete[]`**; plain
-`delete` on it is undefined behaviour. Putting the release in the
-destructor of a local object means no return path can skip it, which is
-what raw `new`/`delete` in a function body cannot promise. That pattern
-is RAII. `std::free` releases only `malloc` memory, never `new`'s, and
-`data = nullptr;` leaks the array; the harness's `constexpr` evaluation
-rejects the leak and both mismatched releases.
+**`delete[] data;` in the destructor: no return path can skip a destructor.**
+
+Memory from `new T[n]` needs `delete[]`; plain `delete` is undefined
+behaviour, and `data = nullptr;` loses the array for ever (a leak). Raw
+`delete` in a function body can be skipped by an early return. This
+pattern, acquire in the constructor and release in the destructor, is RAII.

@@ -6,6 +6,7 @@ level: 1
 tags: [value-categories]
 requires:
   - ptr-amp-and-star-cloze
+elaborate: Say in one sentence why "has a name" and "has an address" are good first tests for an lvalue.
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category#Primary_categories
   - https://eel.is/c++draft/expr.unary.op#3

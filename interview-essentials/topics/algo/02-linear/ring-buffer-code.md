@@ -6,13 +6,15 @@ level: 2
 tags: [queues, ring-buffers]
 requires:
   - linear-queue-ring
+  - cpp-essentials/class-struct-members
+  - cpp-essentials/constexpr-fn-static-assert
 input: chips
 choices:
   c1: ["(head + 1) % N", "head + 1", "(tail + 1) % N", "(head - 1) % N"]
 compile:
   harness: |
     constexpr int run() {                 // 9 pushes and pops through 4 slots
-      Ring r; int got = 0;
+      Ring r{}; int got = 0;              // every member starts at 0
       r.push(1); r.push(2); r.push(3);
       got = got * 10 + r.pop();           // 1
       r.push(4); r.push(5);
@@ -24,18 +26,19 @@ compile:
     }
     static_assert(run() == 1234567);
     int main() {}
+elaborate: "Why do real ring buffers often make N a power of two, and what can replace the `%` then?"
 refs:
   - https://en.cppreference.com/w/cpp/container/queue
 ---
 
 A FIFO queue in a fixed array of 4 slots: `tail` is where the next push
-goes, `head` is the oldest element. Complete the pop.
+goes, `head` is the oldest element, and both start at 0. Complete the pop.
 
 ```cpp
 constexpr int N = 4;
 struct Ring {
-  int buf[N] = {}, head = 0, tail = 0;
-  constexpr void push(int x) { buf[tail] = x; tail = tail + 1 == N ? 0 : tail + 1; }
+  int buf[N], head, tail;
+  constexpr void push(int x) { buf[tail] = x; tail = tail + 1; if (tail == N) tail = 0; }
   constexpr int pop() {
     int x = buf[head];
     head = {{c1::(head + 1) % N}};
@@ -47,7 +50,7 @@ struct Ring {
 ---
 
 **Advance `head` and wrap it back to 0 past the last slot.** `% N` and
-push's `== N ? 0` are the same wrap. Both
+push's `if (tail == N) tail = 0` are the same wrap. Both
 indices chase each other round the array, so neither push nor pop moves
 an element: O(1) each.
 

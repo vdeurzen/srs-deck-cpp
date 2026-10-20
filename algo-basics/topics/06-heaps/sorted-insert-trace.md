@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, heaps, priority-queue, arrays, complexity, tracing]
 requires:
-  - heap-pq-adt-trace
+  - interview-essentials/heap-pq-adt-trace
 probes:
   1: { s: "0" }
   2: { s: "5" }

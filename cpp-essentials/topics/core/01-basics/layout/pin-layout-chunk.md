@@ -4,12 +4,14 @@ kind: chunk
 version: 1
 level: 2
 tags: [layout, padding, static-assert]
-expose_ms: 8000
+expose_ms: 6500
 compile:
   harness: |
     int main() {}
 requires:
   - layout-offsets-trace
+  - std-names-and-headers
+elaborate: Which struct in your code is written to a file or sent over a network, and what would pinning its layout have caught?
 refs:
   - https://en.cppreference.com/w/cpp/types/offsetof
   - https://en.cppreference.com/w/cpp/language/static_assert
@@ -26,5 +28,5 @@ static_assert(offsetof(Order, side) == 12 && sizeof(Order) == 16);
 **Pinning a layout.** A `static_assert` on `offsetof` and `sizeof` turns
 the layout into a checked fact: someone who adds a member, reorders
 fields or changes a type in a way that adds padding breaks the build
-instead of silently growing every array, file record or wire message
-built from `Order`.
+instead of silently growing every array, file format or network
+message built from `Order`.

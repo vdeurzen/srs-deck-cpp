@@ -9,6 +9,7 @@ choices:
   c1: ["std::unique_ptr<int[]>", "int*", "std::shared_ptr<int[]>", "const std::unique_ptr<int[]>"]
 compile:
   harness: |
+    #include <type_traits>
     static_assert(!std::is_copy_constructible_v<Buffer>);
     static_assert(std::is_nothrow_move_constructible_v<Buffer>);
     static_assert(std::is_nothrow_move_assignable_v<Buffer>);
@@ -16,21 +17,23 @@ compile:
     int main() {}
 requires:
   - smart-pointers-unique-ptr-ownership
+  - move-semantics-const-member-copies
+  - smart-shared-ptr-intro
 refs:
   - https://en.cppreference.com/w/cpp/language/rule_of_three#Rule_of_zero
+  - https://en.cppreference.com/w/cpp/memory/unique_ptr
+elaborate: Say aloud which class in your own code declares a destructor, and which member type would let it declare none.
 ---
 
-`Buffer` is the sole owner of its heap array. It declares **no** special
-members, yet must free the array, refuse to be copied, and move cheaply.
-Choose the member type.
+`Buffer` must be the sole owner of its heap array and stay movable, yet
+it declares no destructor, copy or move operation. Choose the member type
+(a smart pointer's `<int[]>` form calls `delete[]` and allows `p[i]`).
 
 ```cpp
-#include <cstddef>
 #include <memory>
-#include <type_traits>
 class Buffer {
     {{c1::std\::unique_ptr<int[]>}} data_;
-    std::size_t size_ = 0;
+    int size_ = 0;
 };
 ```
 

@@ -3,7 +3,7 @@ id: arr-diff-signal
 kind: basic
 version: 1
 level: 2
-tags: [difference-array, prefix-sums, recognition, lc-1109]
+tags: [arrays, recognition, lc-1109]
 requires:
   - linear-prefix-sum-range
 refs:

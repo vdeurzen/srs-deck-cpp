@@ -6,6 +6,7 @@ level: 1
 tags: [references]
 requires:
   - ptr-reference-must-bind
+elaborate: Say what a Go programmer expects `r = b;` to do, and why C++ gives a different result.
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
   - https://eel.is/c++draft/dcl.ref#5

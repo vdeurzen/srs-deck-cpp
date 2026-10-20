@@ -1,7 +1,7 @@
 ---
 id: linkage-explain-build
 kind: explain
-version: 1
+version: 2
 level: 2
 tags: [linkage, headers, build]
 requires:
@@ -10,13 +10,13 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/translation_phases
   - https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule
+elaborate: Go builds a whole package at once; say which of these errors that hides from a Go programmer, and why.
 ---
 A teammate's program is `main.cpp` plus `util.cpp`, sharing `util.h`.
-Walk them through how it is built into one executable, and which error
-comes from which step.
+Walk them through how it is built into one executable.
 ---
-- [ ] `#include` pastes the header's text; each `.cpp` plus its pasted headers is one translation unit, compiled alone
-- [ ] A translation unit must see a declaration of everything it uses, so headers carry declarations; a missing one is a compile error
-- [ ] The linker joins the translation units; a used function or variable that no unit defines gives `undefined reference`
-- [ ] Two units defining the same non-`inline` function or variable gives `multiple definition` at link time
-- [ ] `inline` lets an identical definition sit in every translation unit and still be one entity, which is how a header may define a function
+- [ ] Problem: each `.cpp` compiles alone, so a header shares the declarations every file needs
+- [ ] Mechanism: each `.cpp` file, with its headers pasted in, compiles to an object file the linker joins
+- [ ] Example: a function `util.h` declares but no file defines fails at link time with `undefined reference`
+- [ ] Trade-off: `inline` lets a header carry a function's definition, provided every copy is identical
+- [ ] Pitfall: a non-`inline` function defined in a header fails to link with `multiple definition`

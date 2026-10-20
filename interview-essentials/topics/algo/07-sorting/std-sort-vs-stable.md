@@ -6,7 +6,7 @@ level: 3
 tags: [sorting, stability, cpp]
 requires:
   - sort-compare-properties
-  - sort-merge-stable-code
+  - sort-stable-meaning
 elaborate: When does code you own depend on equal keys staying in order without saying so?
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/stable_sort
@@ -14,13 +14,13 @@ refs:
   - https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libstdc%2B%2B-v3/include/bits/stl_algo.h
 ---
 
-## `std::sort` is O(n log n) comparisons, in place. What does `std::stable_sort` need to match that bound while keeping equal keys in order?
+## `std::sort` is O(n log n) comparisons, in place (O(1) extra memory). What does `std::stable_sort` need to match that bound while keeping equal keys in order?
 
 ---
 
-**A merge-sort buffer; if it can't get one, O(n log² n) comparisons instead.**
+**A merge-sort buffer; if it can't get one, O(n·(log n)²) comparisons instead.**
 
 `std::sort` is introsort: quicksort that falls back to heap sort when
 recursion gets too deep, so in place, O(n log n) worst case, unstable.
-libstdc++'s `stable_sort` requests ⌈n/2⌉ elements: 32 MB for 10⁶
+GCC's `stable_sort` requests ⌈n/2⌉ elements: 32 MB for 10⁶
 64-byte records.

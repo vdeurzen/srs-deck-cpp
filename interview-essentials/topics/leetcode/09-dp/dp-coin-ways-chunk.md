@@ -4,10 +4,11 @@ kind: chunk
 version: 1
 level: 3
 tags: [dynamic-programming, knapsack, coin-change, lc-518]
-expose_ms: 7000
-compile: null # a function body: graded by text, see below
+expose_ms: 11000
+compile: null # a function body
 requires:
   - technique-knapsack-direction
+  - cpp-essentials/types-overflow-rules
 refs:
   - https://leetcode.com/problems/coin-change-ii/
   - https://leetcode.com/problems/unique-paths/
@@ -34,5 +35,3 @@ each multiset is built once. `a` upwards: `dp[a - c]` may already use `c`.
 `unsigned`: coins {2, 4, …, 20} with amount 4999 answer 0, yet cells
 pass 10¹⁸. Unsigned wraps where `int` overflow is UB; the answer stays
 exact.
-
-Graded by text (`compile: null`): the diff is the judge.

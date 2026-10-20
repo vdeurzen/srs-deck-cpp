@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, arrays, memory]
 requires:
-  - linear-address-formula
+  - interview-essentials/linear-address-formula
 input: chips
 choices:
   c1: ["i * sizeof(T)", "i", "(i + 1) * sizeof(T)", "i + sizeof(T)"]

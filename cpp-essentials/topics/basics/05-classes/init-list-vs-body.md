@@ -1,30 +1,30 @@
 ---
 id: class-init-list-vs-body
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [classes, constructors, initialization, tracing, misconception]
 probes:
-  1: { trail: "d=" }
-  2: { trail: "d=c" }
+  1: { built: "2" }
+  2: { built: "3" }
 requires:
-  - class-init-list-required
+  - class-ctor-colon-part
 refs:
   - https://en.cppreference.com/w/cpp/language/constructor#Member_initializer_list
 elaborate: Find a constructor in your code that assigns its members in the body. Which of those members are built twice, and does it matter for their types?
 ---
 
-```cpp
-#include <string>
-std::string trail;
+Many expect assigning a member in the constructor body to initialise it,
+just as the initialiser list does. `built` counts every `Name` constructed.
 
+```cpp
+int built = 0;
 struct Name {
-    Name()                        { trail += 'd'; }
-    Name(const char*)             { trail += 'c'; }
-    Name& operator=(const char*)  { trail += '='; return *this; }
+    Name()    { ++built; }
+    Name(int) { ++built; }
 };
-struct InBody { Name n; InBody() { n = "ann"; } };
-struct InList { Name n; InList() : n("bob") {} };
+struct InBody { Name n; InBody() { n = Name(7); } };
+struct InList { Name n; InList() : n(7) {} };
 
 int main() {
     InBody a;       // @1
@@ -34,9 +34,8 @@ int main() {
 
 ---
 
-A tempting belief: "assigning a member in the constructor body initialises
-it." It doesn't. Every member is constructed **before** the body runs: with
-no list entry, `InBody::n` is default-constructed (`d`), and the body's
-`n = "ann"` is a second write (`=`). `InList` constructs `n` once, from
-`"bob"` (`c`). Verified by running an instrumented copy under GCC 16.2
-(`g++ -std=c++23`).
+**Every member is constructed before the body runs, so the body's
+assignment is a second step.** With no list entry, `InBody`'s `n` is
+built by `Name()` (1), then the body builds a nameless `Name(7)` (2) and
+assigns it. `InList` builds `n` once, from 7 (3). Verified by running an
+instrumented copy under GCC 16.2 (`g++ -std=c++23`).

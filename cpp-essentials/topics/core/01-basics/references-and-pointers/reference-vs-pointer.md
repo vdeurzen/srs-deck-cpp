@@ -6,6 +6,7 @@ level: 1
 tags: [pointers, references]
 requires:
   - ptr-pointer-param-meaning
+elaborate: Say in one sentence, as to an interviewer, when you would hold a pointer member rather than a reference member.
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
   - https://en.cppreference.com/w/cpp/language/pointer

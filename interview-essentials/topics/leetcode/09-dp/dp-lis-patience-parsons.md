@@ -16,8 +16,10 @@ compile:
     static_assert(lis({}) == 0);
     int main() {}
 requires:
-  - technique-dp-state
   - search-lower-bound-meaning
+  - dp-lis-quadratic
+  - stl-bits-stdcpp-header
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/longest-increasing-subsequence/
   - https://cp-algorithms.com/sequences/longest_increasing_subsequence.html
@@ -28,7 +30,8 @@ elaborate: For a longest non-decreasing subsequence, which line changes, and wha
 Longest Increasing Subsequence (LC 300): the length of the longest
 strictly increasing subsequence of `nums`, here in O(n log n). `t[k]` is
 the smallest value that can end a strictly increasing subsequence of
-length k + 1. Order the lines.
+length k + 1. `std::ranges::lower_bound(t, x)` is `std::lower_bound`
+over all of `t`. Order the lines.
 
 ```cpp
 #include <bits/stdc++.h>

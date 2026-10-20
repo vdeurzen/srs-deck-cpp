@@ -6,9 +6,10 @@ level: 1
 tags: [inheritance, virtual, dispatch]
 requires:
   - virtual-dispatch-which-runs
-input: chips
-choices:
-  c1: ["virtual", "inline", "explicit", "final"]
+  - const-member-on-const-ref
+  - constexpr-fn-static-assert
+elaborate: Say in one sentence what Go uses instead of `virtual` to get a call that depends on the concrete type.
+input: type
 compile:
   harness: |
     static_assert(loudness(Siren{}) == 9, "loudness ran Sound's version");
@@ -18,14 +19,14 @@ refs:
   - https://en.cppreference.com/w/cpp/language/virtual
 ---
 
-`loudness` only knows it has some `Sound`. Make it report 9 when that
-`Sound` is really a `Siren`.
+`loudness` only knows it has some `Sound`. Type the one keyword that makes
+it report 9 when that `Sound` is really a `Siren`.
 
 ```cpp
 struct Sound {
   {{c1::virtual}} constexpr int volume() const { return 1; }
 };
-struct Siren : Sound {
+struct Siren : public Sound {
   constexpr int volume() const { return 9; }
 };
 constexpr int loudness(const Sound& s) { return s.volume(); }
@@ -33,10 +34,8 @@ constexpr int loudness(const Sound& s) { return s.volume(); }
 
 ---
 
-A call through a base-class reference or pointer only reaches the derived
-version if the base declares the function **`virtual`**. Then any
-derived function with the same name and parameters overrides it, and the
-call is dispatched on the object's dynamic type. `inline` compiles but
-changes nothing about dispatch. `explicit` belongs on constructors, and
-`final` only goes *after* the parameter list of a function that is
-already virtual, so both fail to compile here.
+**`virtual` on the base declaration: only then does a call through a
+`Sound&` reach the derived version.** `Siren::volume`, with the same
+name, parameters and `const`, then overrides it, and `s.volume()` is
+chosen from the object's dynamic type. Without it, the static type
+`Sound` decides and `loudness` returns 1.

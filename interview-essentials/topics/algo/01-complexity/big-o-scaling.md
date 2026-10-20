@@ -4,6 +4,9 @@ kind: cloze
 version: 1
 level: 1
 tags: [complexity, big-o]
+requires:
+  - complexity-asym-log-rules
+elaborate: "Which routine in your own code would go from milliseconds to minutes if its input grew 1 000×, and what is its growth class?"
 refs:
   - https://dl.acm.org/doi/10.1145/1008328.1008329
   - https://en.wikipedia.org/wiki/Big_O_notation

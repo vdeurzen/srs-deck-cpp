@@ -9,15 +9,15 @@ requires:
 refs:
   - https://eel.is/c++draft/intro.races
   - https://en.cppreference.com/w/cpp/atomic/memory_order
+elaborate: Where else have you handed data from one thread to another, and which operation played the role of the release store there?
 ---
-A writer sets a plain `int payload` and then `ready.store(true,
-release)`; a reader spins on `ready.load(acquire)` and then reads
-`payload`. Walk through, in the standard's own terms, the chain of
-guarantees that makes the read correct — and where that chain breaks if
-both orders become `relaxed`.
+A writer sets a plain `int payload`, then calls `ready.store(true,
+release)`; a reader spins (loops re-reading `ready`) on
+`ready.load(acquire)`, then reads `payload`. Explain to an interviewer
+why the reader is guaranteed to get the writer's value.
 ---
-- [ ] `payload = 42` is *sequenced before* the release store because they are in one thread, in program order
-- [ ] The acquire load that ends the spin read the value the release store wrote, so the store *synchronizes with* that load; an acquire load that read `false` would synchronise with nothing
-- [ ] *happens-before* is sequenced-before plus synchronizes-with, closed transitively, so the write of `payload` happens-before the read of `payload`
-- [ ] Two conflicting accesses ordered by happens-before are not a data race, and the read sees the write it is ordered after: 42, on every platform
-- [ ] With `relaxed` on either side nothing synchronizes, the two accesses conflict with no happens-before, and the program has undefined behaviour — not "may read 0" — even on x86, where it appears to work
+- [ ] Problem: two threads touch plain `payload`, one writing; without ordering that is a data race
+- [ ] Mechanism: the acquire load that reads the release store's value synchronizes with that store
+- [ ] Example: the write precedes the store and the read follows the load, so the reader sees 42
+- [ ] Cost: the reader must spin until a load reads `true`; only that load synchronizes
+- [ ] Pitfall: with `relaxed` on either side nothing synchronizes, so reading `payload` is a data race

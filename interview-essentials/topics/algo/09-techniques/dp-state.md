@@ -6,6 +6,9 @@ level: 2
 tags: [dynamic-programming]
 requires:
   - technique-dp-overlapping-subproblems
+  - stl-array-brace-zero
+  - cpp-essentials/constexpr-fn-static-assert
+elaborate: For a problem you solved recently, say its DP state in one sentence and the last decision its recurrence splits on.
 input: chips
 choices:
   c1: ["dp[i - 1] + dp[i - 2]", "2 * dp[i - 1]", "dp[i - 1] + 2", "dp[i - 2] + 1"]
@@ -21,7 +24,8 @@ refs:
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
 ---
 
-A DP starts by saying in words what one cell means. Here: `dp[i]` is the
+A DP table (cell `dp[i]` holds the answer for subproblem `i`, filled in
+increasing `i`) starts by saying in words what one cell means. Here: `dp[i]` is the
 number of ways to climb to step `i`, taking 1 or 2 steps at a time.
 Complete the recurrence that follows from it.
 

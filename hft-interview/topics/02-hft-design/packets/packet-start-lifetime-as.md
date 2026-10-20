@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [packets, lifetime, alignment, c++23]
 requires:
-  - interview-essentials/packet-reinterpret-ub
+  - packet-reinterpret-ub
   - cpp-essentials/layout-alignment
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/obj.lifetime#2

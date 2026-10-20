@@ -16,7 +16,11 @@ compile:
     static_assert(after_find() == std::array<int, 6>{0, 0, 0, 0, 0, 0});
     int main() {}
 requires:
-  - graph-union-find-forest
+  - graph-union-find-union-code
+  - technique-call-stack-worked
+  - cpp-essentials/class-struct-members
+  - cpp-essentials/iter-array-fixed-size
+elaborate: Where else would you rewrite pointers on the way back from a lookup so the next one is shorter — a symlink chain, a redirect cache?
 refs:
   - https://doi.org/10.1145/364099.364331
   - https://doi.org/10.1145/321879.321884
@@ -31,7 +35,9 @@ struct Sets {
   std::array<int, 6> parent;
   constexpr int find(int x) {
     if (parent[x] == x) return x;
-    return parent[x] = {{c1::find(parent[x])}};
+    const int root = {{c1::find(parent[x])}};
+    parent[x] = root;
+    return root;
   }
 };
 ```

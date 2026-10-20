@@ -13,7 +13,7 @@ compile:
     static_assert(std::is_same_v<decltype(arr), const std::array<int, 3>>);
     int main() {}
 requires:
-  - initialization-aggregate-braces
+  - cpp-essentials/initialization-aggregate-braces
 refs:
   - https://en.cppreference.com/w/cpp/container/array/deduction_guides
   - https://en.cppreference.com/w/cpp/language/class_template_argument_deduction

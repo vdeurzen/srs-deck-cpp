@@ -7,7 +7,7 @@ tags: [classes, static-members, tracing]
 probes:
   1: { "a.number": "1", "c.number": "3", "Order::issued": "3" }
 requires:
-  - class-member-function-this
+  - cpp-essentials/class-member-function-this
   - cpp-essentials/class-init-list-required
 refs:
   - https://en.cppreference.com/w/cpp/language/static#Static_data_members

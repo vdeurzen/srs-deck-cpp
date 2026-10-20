@@ -8,18 +8,21 @@ probes:
   1: { a: "3" }
   2: { b: "4" }
 requires:
-  - virtual-static-dispatch
+  - virtual-override-mismatch
+  - ptr-holds-an-address
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
+elaborate: Say aloud how you would get the same "one call site, many behaviours" in Go, and what plays the role of the dynamic type there.
 ---
+
+`p->sides()` calls `sides` on the object `p` points to.
 
 ```cpp
 struct Shape {
-    virtual ~Shape() = default;
-    virtual int sides() const { return 0; }
+    virtual int sides() { return 0; }
 };
-struct Tri  : Shape { int sides() const override { return 3; } };
-struct Quad : Shape { int sides() const override { return 4; } };
+struct Tri  : Shape { int sides() override { return 3; } };
+struct Quad : Shape { int sides() override { return 4; } };
 Tri t;
 Quad q;
 Shape* p = &t;

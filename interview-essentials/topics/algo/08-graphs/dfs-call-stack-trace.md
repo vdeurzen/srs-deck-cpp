@@ -1,33 +1,35 @@
 ---
 id: graph-dfs-call-stack-trace
 kind: trace
-version: 1
+version: 3
 level: 2
 tags: [foundations, graphs, traversal, dfs, tracing]
 probes:
-  1: { path: "034", order: "034" }
-  2: { path: "012", order: "03412" }
+  1: { "path[1]": "2", "seen[1]": "true" }
 requires:
-  - graph-list-from-edges-chunk
+  - graph-dfs-worked
+  - cpp-essentials/vector-back-pop-back
 refs:
   - https://doi.org/10.1137/0201010
   - https://en.wikipedia.org/wiki/Depth-first_search
+elaborate: A DFS on a path of a million vertices crashes but the same walk with an explicit stack does not. Say why, as to an interviewer.
 ---
 
-Recursive depth-first search from 0. `path` lists the vertices whose
-`dfs` call is still running; `order` lists every vertex visited so far.
-Probe 1 fires once, when `u` is 4; probe 2 once, when `u` is 2.
+Recursive depth-first search from 0; the braces give each `adj[u]`, the
+list of u's neighbours. `path` lists the vertices whose `dfs` call is
+still running. The probe fires once, when `u` is 2.
 
 ```cpp
-// undirected: 0-1 0-3 1-2 3-4
-const std::vector<int> adj[5] = {{3, 1}, {0, 2}, {1}, {0, 4}, {3}};
-bool seen[5] = {};
-std::string path, order;
+// undirected: 0-1 0-2
+const std::vector<int> adj[3] = {{1, 2}, {0}, {0}};
+bool seen[3] = {false, false, false};
+std::vector<int> path;
 void dfs(int u) {
-  seen[u] = true; path += char('0' + u); order += char('0' + u);
-  if (u == 4) {}   // @1
-  if (u == 2) {}   // @2
-  for (int v : adj[u]) if (!seen[v]) dfs(v);
+  seen[u] = true;
+  path.push_back(u);
+  if (u == 2) {}   // @1
+  for (int v : adj[u])
+    if (!seen[v]) dfs(v);
   path.pop_back();
 }
 int main() { dfs(0); }
@@ -35,14 +37,12 @@ int main() { dfs(0); }
 
 ---
 
-DFS follows the first unseen neighbour as deep as it goes: 0, 3, 4.
-At 4 nothing is new, so the calls for 4 and 3 return and leave `path`.
-Only then does 0 try its next neighbour, 1, and 1 goes on to 2.
+DFS follows 0's first neighbour, 1. 1's only neighbour is 0, already
+seen, so the call for 1 returns and **pops 1 off `path`**. Only then does
+0 try 2: `path` is `0 2`, while `seen[1]` stays true.
 
-Probe 2 is the point: `order` remembers 3 and 4, but `path` is just
-0 1 2. The call stack *is* the DFS stack, and it holds one path from
-the start, never the whole visited set. An explicit `std::vector` used
-as a stack does the same job without recursion.
+The call stack *is* the DFS stack: it holds one path from the start,
+never the whole visited set, which `seen` records. An explicit
+`std::vector` used as a stack does the same job without recursion.
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+(Values from running it under GCC 16.2.)

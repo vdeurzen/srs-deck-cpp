@@ -17,7 +17,7 @@ compile:
     static_assert(!Accepts<double>);
     int main() {}
 requires:
-  - cpp-essentials/templates-concepts-vs-sfinae
+  - templates-concepts-vs-sfinae
   - cpp-essentials/tmpl-constrained-auto
 refs:
   - https://en.cppreference.com/w/cpp/concepts/integral

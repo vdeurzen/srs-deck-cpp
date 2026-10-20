@@ -5,7 +5,9 @@ version: 1
 level: 1
 tags: [const, classes, member-functions]
 requires:
-  - const-ref-parameter
+  - const-ref-names-caller
+  - class-struct-members
+elaborate: Which member functions in your own classes only read, and do they say so with a trailing `const`?
 refs:
   - https://en.cppreference.com/w/cpp/language/member_functions#Member_functions_with_cv-qualifiers
   - https://eel.is/c++draft/class.this

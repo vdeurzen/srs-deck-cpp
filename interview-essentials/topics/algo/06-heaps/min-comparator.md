@@ -6,6 +6,8 @@ level: 2
 tags: [heaps, c++, containers]
 requires:
   - heap-shape-and-order
+  - cpp-essentials/stdalgo-comparator-strict
+  - cpp-essentials/constexpr-fn-static-assert
 input: chips
 choices:
   c1: ["std::greater<>()", "std::less<>()", "std::ranges::less()"]
@@ -17,10 +19,13 @@ compile:
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/make_heap
   - https://en.cppreference.com/w/cpp/container/priority_queue
+elaborate: Where else in the standard library does passing a different comparator flip which element counts as "first"?
 ---
 
-A timer queue must hand out the earliest deadline first. Pick the
-comparator that puts it at the heap's front.
+A timer queue must hand out the earliest deadline first.
+`std::make_heap(b, e, comp)` rearranges `[b, e)` into a heap ordered by
+`comp` (`std::less` computes `a < b`, `std::greater` computes `a > b`).
+Pick the comparator that puts the earliest deadline at the front.
 
 ```cpp
 #include <algorithm>
@@ -38,8 +43,7 @@ constexpr int next_deadline(std::vector<int> due) {
 The standard heap algorithms build a **max**-heap *for the comparator*:
 the front `f` is an element with no `e` such that `comp(f, e)`. With the
 default `less` that is the largest; `greater` flips it, so the front is
-the smallest. `std::priority_queue<int, std::vector<int>, std::greater<>>`
-is the min-queue for the same reason.
+the smallest.
 
 Go's `container/heap` reads the other way: it pops the element `Less`
 ranks first, so a min-heap uses `<`.

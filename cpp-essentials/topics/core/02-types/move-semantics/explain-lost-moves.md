@@ -1,24 +1,22 @@
 ---
 id: move-semantics-explain-lost-moves
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [move-semantics]
 requires:
   - move-semantics-return-std-move
-  - move-semantics-perfect-forwarding
-  - move-semantics-vector-move-if-noexcept
+elaborate: Where else have you seen code that adds a cast "to be safe", and what did the cast actually cost?
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_elision
-  - https://en.cppreference.com/w/cpp/utility/forward
-  - https://en.cppreference.com/w/cpp/utility/move_if_noexcept
+  - https://en.cppreference.com/w/cpp/language/return#Notes
 ---
-A code review turns up `return std::move(local);`, a `std::move` inside
-`template<class T> void f(T&& x)`, and a `std::vector` that copies on
-every reallocation. Explain what each one costs and the fix.
+In a code review you find a function that builds a local `std::vector`
+and ends with `return std::move(result);` "so it isn't copied". Explain to
+the author, aloud, what that line really does.
 ---
-- [ ] `return std::move(local);` disables NRVO: the cast makes the operand no longer a plain name, so a move is forced where the object could have been built in place for free
-- [ ] Fix: `return local;` — a local returned by name is elided or, failing that, implicitly treated as an rvalue, so nothing is copied
-- [ ] `T&&` with `T` deduced is a forwarding reference: for an lvalue argument `T` is `U&`, so `std::move(x)` moves the caller's lvalue out from under it
-- [ ] Fix: `std::forward<T>(x)` uses the deduced `T` to keep the caller's value category: an rvalue stays an rvalue, an lvalue stays an lvalue
-- [ ] `std::vector` reallocates with `std::move_if_noexcept`, so an element whose move constructor is not `noexcept` is copied; fix: mark the move constructor `noexcept`
+- [ ] Problem: returning a local by value should not copy its contents
+- [ ] Mechanism: a local returned by name may be built in the caller's slot (NRVO), else it is moved
+- [ ] Example: plain `return result;` costs zero or one move, never a copy
+- [ ] Cost: `std::move(result)` is no longer a plain name, so elision is lost and one move is forced
+- [ ] Contrast: `std::move` is only a cast to an xvalue; it never moves anything itself

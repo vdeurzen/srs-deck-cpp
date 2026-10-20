@@ -4,7 +4,7 @@ kind: chunk
 version: 1
 level: 3
 tags: [containers, idioms, lifetime]
-expose_ms: 9000
+expose_ms: 12000
 compile:
   harness: |
     int main() {
@@ -13,7 +13,8 @@ compile:
     }
 requires:
   - containers-reference-invalidated-by-growth
-  - stdalgo-erase-if
+  - containers-map-vs-unordered-map
+elaborate: Say where else in your code an operation hands back the next valid position because the old one died.
 refs:
   - https://en.cppreference.com/w/cpp/container/map/erase
   - https://en.cppreference.com/w/cpp/container/map/erase_if

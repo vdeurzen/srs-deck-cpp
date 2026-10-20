@@ -16,7 +16,7 @@ compile:
     static_assert(!kM[0][0] && !kM[1][1] && !kM[2][2] && !kM[3][3] && !kM[0][2]);
     int main() {}
 requires:
-  - graph-edge-ordered-pair
+  - interview-essentials/graph-edge-ordered-pair
 refs:
   - https://en.wikipedia.org/wiki/Adjacency_matrix
 ---

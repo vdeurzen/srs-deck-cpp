@@ -1,11 +1,12 @@
 ---
 id: dp-grid-dag-signal
 kind: basic
-version: 1
+version: 2
 level: 2
-tags: [dynamic-programming, grids, recognition, lc-64, lc-2290]
+tags: [grids, recognition, lc-64, lc-2290]
 requires:
   - technique-memo-vs-table
+  - graph-topo-order
 refs:
   - https://leetcode.com/problems/minimum-path-sum/
   - https://leetcode.com/problems/minimum-obstacle-removal-to-reach-corner/
@@ -20,13 +21,12 @@ elaborate: With moves down, right and up-right, row-major order fails, yet a tab
 A row-by-row table solves it with
 `d[i][j] = g[i][j] + min(d[i−1][j], d[i][j−1])`.
 
-## If moves up and left were allowed too, could any table fill order still work?
+## What property of the down-or-right moves lets row-by-row order finish every cell before any cell reads it?
 
 ---
 
-**No: two cells could then reach each other, so neither can be filled first.**
+**No cycles: a cell is only reached from above or the left, so the grid is a DAG.**
 
-Down-or-right moves make the grid a DAG: `d[i][j]` reads only cells
-above and to the left, already final, so row-major is a topological
-order. A cycle has no such order; with non-negative costs it becomes a
-shortest-path search (Dijkstra).
+Row-major order is then a topological order: `d[i][j]` reads only cells
+already final. With moves in all four directions, two neighbours would
+each read the other, and no order could fill either first.

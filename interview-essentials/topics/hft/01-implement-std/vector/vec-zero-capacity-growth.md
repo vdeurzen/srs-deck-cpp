@@ -39,7 +39,10 @@ compile:
     static_assert(push_17());
     int main() {}
 requires:
-  - cpp-essentials/iter-size-vs-capacity
+  - linear-dynamic-array-growth
+  - cpp-essentials/expr-conditional-operator
+  - stl-size-t-unsigned
+elaborate: Say to an interviewer what goes wrong with a growth rule that has a fixed point, and where else a starting value of zero breaks a multiply.
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/stl_vector.h
@@ -48,7 +51,8 @@ refs:
 You're implementing `push_back`. When `size == cap` it allocates
 `next_capacity(cap)` slots and moves the elements across. A
 default-constructed vector starts with `cap == 0` and no buffer.
-Complete `next_capacity` so growth stays geometric.
+Complete `next_capacity` so growth stays geometric (`constexpr` lets
+the compiler run it).
 
 ```cpp
 #include <cstddef>
@@ -60,8 +64,8 @@ constexpr std::size_t next_capacity(std::size_t cap) {
 ---
 
 **Doubling has a fixed point at zero.** `2 * cap` and `cap + cap / 2`
-both return 0 for an empty vector: `allocate(0)`, then a construct one
-past the end, which the test's constant evaluation rejects. Guarding
+both return 0 for an empty vector: `allocate(0)`, then a construct past
+the end of a zero-slot buffer, undefined behaviour. Guarding
 zero isn't enough for 1.5: `1 + 1 / 2` is 1 again, so it stalls there.
 `cap + 1` works from zero but reallocates on every push: O(n²) in total.
 

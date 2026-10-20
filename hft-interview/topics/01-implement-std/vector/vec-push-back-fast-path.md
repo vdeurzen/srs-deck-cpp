@@ -7,7 +7,7 @@ tags: [vector, low-latency, inlining, implement-std]
 expose_ms: 9000
 compile: null # two members out of a class: graded by text, see below
 requires:
-  - interview-essentials/vec-realloc-order
+  - vec-realloc-order
 refs:
   - https://en.cppreference.com/w/cpp/language/attributes/likely
   - https://gcc.gnu.org/onlinedocs/gcc/Common-Function-Attributes.html

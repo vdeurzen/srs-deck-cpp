@@ -22,6 +22,8 @@ compile:
     int main() {}
 requires:
   - bt-subsets-chunk
+  - cpp-essentials/types-using-alias
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/combination-sum/
   - https://leetcode.com/problems/combination-sum-ii/
@@ -31,7 +33,8 @@ elaborate: Combination Sum II (LC 40) allows each candidate at most once, and it
 
 Combination Sum (LC 39): list every combination of `candidates` that
 sums to `target`. The candidates are distinct, any candidate may be
-used any number of times, and each combination must be listed once.
+used any number of times, and each combination must be listed once (a
+combination ignores order: [2, 3] and [3, 2] are the same one).
 `c` is sorted ascending. Complete the start index of the recursive call.
 
 ```cpp

@@ -4,12 +4,16 @@ kind: basic
 version: 1
 level: 1
 tags: [inheritance, conversions]
+requires:
+  - ptr-reference-must-bind
+  - class-struct-members
+elaborate: Say how this differs from Go struct embedding, where a `Car` never converts to a `Vehicle` on its own.
 refs:
   - https://en.cppreference.com/w/cpp/language/derived_class
   - https://eel.is/c++draft/conv.ptr#3
 ---
 
-## Why does `service(car)` compile, while `tune(van)` does not?
+## `: public Vehicle` gives every `Car` all of `Vehicle`'s members, like Go struct embedding. Why does `service(car)` compile, while `tune(van)` does not?
 
 ```cpp
 struct Vehicle { int wheels = 4; };

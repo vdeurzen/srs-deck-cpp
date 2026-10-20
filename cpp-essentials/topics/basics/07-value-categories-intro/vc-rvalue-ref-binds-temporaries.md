@@ -6,6 +6,7 @@ level: 2
 tags: [value-categories, references, temporaries]
 requires:
   - vc-plain-ref-rejects-temporary
+elaborate: Say what a function taking `T&&` may do with its argument that a function taking `const T&` should not.
 refs:
   - https://en.cppreference.com/w/cpp/language/reference#Rvalue_references
   - https://eel.is/c++draft/dcl.init.ref#5

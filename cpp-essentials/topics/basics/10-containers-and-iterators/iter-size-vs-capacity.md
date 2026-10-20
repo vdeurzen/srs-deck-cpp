@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 1
 tags: [containers, vector]
+requires:
+  - vector-basics
+elaborate: How does this split compare with `len` and `cap` of a Go slice?
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/capacity
   - https://en.cppreference.com/w/cpp/container/vector/size

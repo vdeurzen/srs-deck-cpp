@@ -1,26 +1,15 @@
 ---
 id: gr-kahn-chunk
 kind: chunk
-version: 1
+version: 2
 level: 3
 tags: [graphs, topological-sort, kahn, lc-207, lc-210]
-expose_ms: 10000
-compile:
-  harness: |
-    #include <array>
-    constexpr bool courses() {   // 0 before 1 and 2, both before 3
-      const std::vector<int> adj[4] = {{1, 2}, {3}, {3}, {}};
-      return topo(adj, std::array{0, 1, 1, 2}) == std::vector{0, 1, 2, 3};
-    }
-    static_assert(courses());
-    constexpr bool cycle() {     // 1 -> 2 -> 1; 0 and 3 are free
-      const std::vector<int> adj[4] = {{1}, {2}, {1}, {}};
-      return topo(adj, std::array{0, 2, 1, 0}) == std::vector{0, 3};
-    }
-    static_assert(cycle());
-    int main() {}
+expose_ms: 12000
+compile: null # a function body
 requires:
   - graph-kahn-trace
+  - cpp-essentials/cast-functional-notation
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/course-schedule/
   - https://leetcode.com/problems/course-schedule-ii/
@@ -29,15 +18,16 @@ refs:
 elaborate: Course Schedule (LC 207) only asks whether all courses can be finished, given prerequisite pairs. Which single comparison on the result answers it, and what does Course Schedule II (LC 210), which returns a valid order, return when there is none?
 ---
 
+`order` doubles as the queue: `h` is the index of its head.
+
 ```cpp
-#include <vector>
-constexpr std::vector<int> topo(const auto& adj, auto indeg) {     // indeg by value: it is used up
-  std::vector<int> order;
-  for (int v = 0; v < int(indeg.size()); ++v) if (indeg[v] == 0) order.push_back(v);
-  for (std::size_t h = 0; h < order.size(); ++h)                    // order doubles as the queue
-    for (int v : adj[order[h]]) if (--indeg[v] == 0) order.push_back(v);
-  return order;                                                     // shorter than V: a cycle
-}
+std::vector<int> order;
+for (int v = 0; v < int(indeg.size()); ++v)
+  if (indeg[v] == 0) order.push_back(v);
+for (std::size_t h = 0; h < order.size(); ++h)
+  for (int v : adj[order[h]])
+    if (--indeg[v] == 0) order.push_back(v);
+return order;
 ```
 
 ---
@@ -45,11 +35,9 @@ constexpr std::vector<int> topo(const auto& adj, auto indeg) {     // indeg by v
 **Kahn's algorithm with the output as its own queue.** Before `h`:
 popped, out-edges removed. From `h` on: ready, waiting to be popped.
 Seed with every in-degree-0 vertex, then each pop removes the vertex's
-out-edges and appends whatever that frees. O(V + E), no recursion, so
-no stack overflow on a long dependency chain, which a recursive DFS sort
-risks.
+out-edges and appends whatever that frees. O(V + E), no recursion.
 
 The cycle check is free: a vertex on a cycle never reaches in-degree 0,
 so `order.size() < V`. The decrement-and-test `--indeg[v] == 0` appends
 each vertex exactly once, on its last incoming edge. On LeetCode,
-`std::queue<int> q` plus `order.push_back` is the same loop.
+`std::queue<int> q` plus `order.push_back` is the same loop. `indeg` is a copy: the loop uses it up.

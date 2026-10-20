@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, stacks, arrays]
 requires:
-  - linear-stack-adt
+  - interview-essentials/linear-stack-adt
 input: chips
 choices:
   c1: ["--n", "n--", "n", "n - 1"]

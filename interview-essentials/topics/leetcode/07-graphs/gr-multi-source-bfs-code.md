@@ -22,12 +22,13 @@ compile:
       return n;
     }
     constexpr auto N = grid_nbrs();
-    static_assert(nearest({1, 1, 1,
+    using Grid = std::array<int, 9>;
+    static_assert(nearest(Grid{1, 1, 1,
                            1, 0, 1,
                            1, 1, 0}, N) == Grid{2, 1, 2,
                                                 1, 0, 1,
                                                 2, 1, 0});
-    static_assert(nearest({0, 1, 1,
+    static_assert(nearest(Grid{0, 1, 1,
                            1, 1, 1,
                            1, 1, 1}, N) == Grid{0, 1, 2,
                                                 1, 2, 3,
@@ -35,6 +36,9 @@ compile:
     int main() {}
 requires:
   - graph-bfs-mark-on-push
+  - graph-grid-as-graph
+  - stl-const-auto-param
+  - cpp-essentials/iter-array-fixed-size
 refs:
   - https://leetcode.com/problems/01-matrix/
   - https://leetcode.com/problems/rotting-oranges/
@@ -44,15 +48,17 @@ elaborate: Rotting Oranges (LC 994, each minute every rotten orange rots its fre
 ---
 
 01 Matrix (LC 542): for every cell of a 0/1 grid, find the number of
-up, down, left or right steps to the nearest 0. The queue is a `vector` read through index `h`. Complete what
-runs for each 0 cell.
+up, down, left or right steps to the nearest 0. `g` is a 3×3 grid,
+row-major, and `nbrs[c]` lists cell `c`'s 4 neighbours, -1 off the grid.
+The queue is a `vector` read through index `h`; `std::size_t` is the
+unsigned type `size()` returns. Complete what runs for each 0 cell.
 
 ```cpp
 #include <array>
 #include <vector>
-using Grid = std::array<int, 9>;                             // 3x3, row-major
-constexpr Grid nearest(const Grid& g, const auto& nbrs) {    // nbrs[c]: 4 cells, -1 = off grid
-  Grid d; d.fill(-1); std::vector<int> q;                     // d[c] == -1: not reached yet
+constexpr std::array<int, 9> nearest(const auto& g, const auto& nbrs) {
+  std::array<int, 9> d{-1, -1, -1, -1, -1, -1, -1, -1, -1};   // -1: not reached yet
+  std::vector<int> q;
   for (int c = 0; c < 9; ++c) if (g[c] == 0) { {{c1::d[c] = 0; q.push_back(c);}} }
   for (std::size_t h = 0; h < q.size(); ++h)
     for (int v : nbrs[q[h]]) if (v >= 0 && d[v] < 0) { d[v] = d[q[h]] + 1; q.push_back(v); }

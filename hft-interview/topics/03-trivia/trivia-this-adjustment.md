@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [hft-trivia, inheritance, virtual, abi]
 requires:
-  - interview-essentials/trivia-mi-sizeof
+  - trivia-mi-sizeof
 refs:
   - https://itanium-cxx-abi.github.io/cxx-abi/abi.html#mangling-special-thunks
   - https://timsong-cpp.github.io/cppwp/n4950/conv.ptr#3

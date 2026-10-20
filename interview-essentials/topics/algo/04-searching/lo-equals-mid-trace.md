@@ -5,11 +5,12 @@ version: 1
 level: 2
 tags: [binary-search, invariants, tracing]
 requires:
-  - search-half-open-invariant
+  - search-half-open-worked
 probes:
   1: { lo: "2", hi: "4" }
   2: { lo: "2", hi: "3" }
   3: { lo: "2", hi: "3" }
+elaborate: "Which other loop of yours could stop making progress the same way, such as a retry that never changes its input?"
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm
 ---

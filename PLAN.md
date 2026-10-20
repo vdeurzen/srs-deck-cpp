@@ -25,6 +25,7 @@ whenever.
 | 8 LeetCode rest + deferred items + capstones | done (2026-10-14): leetcode +63 Cards (groups D/E/F, recognition), hft-interview +5, algo-systems +1, reviewed |
 | 9 Interview sprint | done (2026-10-17): 558 Cards moved (+2 new) into `cpp-essentials` + `interview-essentials`; see `sprint/README.md` |
 | 10 Sprint quality pass | done (2026-10-17): every essentials Card reviewed (`sprint/review/`), ~190 findings applied, LC numbers replaced by named problems (PEDAGOGY §2.13), +15 Cards |
+| 11 Foundations-first rebuild | done (2026-10-20): PEDAGOGY §0 ladder, §3 Novice-complete, §3.1 trace budget; 5 review rounds of PEDAGOGY + agents; novice audits (`sprint/foundations/`); ~70 Cards moved out, ~110 foundations in/new, every essentials Card wired; traces rebuilt (`sprint/traces/`) |
 
 ## 0. Decisions (2026-10-12)
 

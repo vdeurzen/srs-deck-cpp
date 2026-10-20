@@ -55,7 +55,9 @@ compile:
     }
 requires:
   - graph-dijkstra-popped-final
-  - stl-pq-min-heap-type
+  - std-priority-queue-api
+  - cpp-essentials/structured-bindings-basics
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/network-delay-time/
   - https://leetcode.com/problems/path-with-minimum-effort/
@@ -69,16 +71,16 @@ edges with travel times; how long until every node has it? Dijkstra
 gives the shortest time to each node. `g[u]` lists `{v, w}` edges with
 `w ≥ 0`, `dist` starts all infinite, and `pq` arrives as an empty
 `std::priority_queue<P, std::vector<P>, std::greater<P>>` of
-`P = {distance, vertex}`. Order the lines.
+`P = {distance, vertex}`, smallest pair on top. Order the lines.
 
 ```cpp
 constexpr void dijkstra(const auto& g, auto& dist, int s, auto pq) {
-  pq.push({dist[s] = 0, s});
+  dist[s] = 0;  pq.push({0, s});
   while (!pq.empty()) {
     auto [d, u] = pq.top();
     pq.pop();
     if (d > dist[u]) continue;
-    for (auto [v, w] : g[u]) if (d + w < dist[v]) pq.push({dist[v] = d + w, v});
+    for (auto [v, w] : g[u]) if (d + w < dist[v]) { dist[v] = d + w;  pq.push({d + w, v}); }
   }
 }
 ```
@@ -96,7 +98,5 @@ final.
 `top()` is read before `pop()` because `pop()` returns nothing. `>=`
 skips every live entry too, since a fresh entry has `d == dist[u]`.
 `{u, d}` reads the pair backwards: distance goes first so that pair
-comparison orders the heap by distance. `pq` is a parameter only so the
-harness can also pass a constexpr heap, since `priority_queue` is not
-constexpr. Network Delay Time's answer is the largest `dist`, or −1 if
+comparison orders the heap by distance. Network Delay Time's answer is the largest `dist`, or −1 if
 any is still infinite.

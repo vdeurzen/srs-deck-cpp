@@ -4,7 +4,7 @@ kind: chunk
 version: 1
 level: 2
 tags: [operators, idioms]
-expose_ms: 10000
+expose_ms: 9500
 compile:
   harness: |
     #include <type_traits>
@@ -17,6 +17,7 @@ requires:
   - operators-hidden-friend-symmetric
 refs:
   - https://en.cppreference.com/w/cpp/language/operators#Canonical_implementations
+elaborate: Which other operator pairs (`-` and `-=`, `*` and `*=`) would you write this way, and what bug does keeping the logic in one place prevent?
 ---
 
 ```cpp
@@ -30,7 +31,7 @@ struct Vec2 {
 ---
 
 The canonical arithmetic pair. `+=` is the member that does the work and
-returns `*this` by reference. `+` is a hidden friend (symmetric
-conversions, found only by ADL) that takes its left operand **by value**:
+returns `*this` by reference. `+` is a hidden friend (a non-member
+defined in the class, found only through its `Vec2` arguments) that takes its left operand **by value**:
 that copy is the result, so `+` reuses `+=` and the logic lives in one
 place.

@@ -6,7 +6,7 @@ level: 1
 tags: [foundations, complexity, growth-order, tracing]
 requires:
   - complexity-asym-little-o
-  - complexity-asym-log-rules
+  - interview-essentials/complexity-asym-log-rules
 probes:
   1: { a: "16" }
   2: { b: "3" }

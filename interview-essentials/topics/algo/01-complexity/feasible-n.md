@@ -4,6 +4,9 @@ kind: cloze
 version: 1
 level: 1
 tags: [complexity, estimation]
+requires:
+  - complexity-big-o-scaling
+elaborate: "A problem says n ≤ 20, another n ≤ 10⁵. Say aloud which growth classes each one allows."
 refs:
   - https://en.wikipedia.org/wiki/Time_complexity#Table_of_common_time_complexities
 ---
@@ -11,7 +14,8 @@ refs:
 Assume about 10⁸ simple steps per second. A one-second budget then
 covers n ≈ 10⁸ for O(n), n ≈ 4·10⁶ for O(n log n),
 n ≈ {{c1::10⁴}} for O(n²), and only
-n ≈ {{c2::25 to 27::a narrow range}} for O(2ⁿ).
+n ≈ {{c2::25 to 27::a narrow range}} for O(2ⁿ), whose cost doubles
+with every extra element.
 
 ---
 

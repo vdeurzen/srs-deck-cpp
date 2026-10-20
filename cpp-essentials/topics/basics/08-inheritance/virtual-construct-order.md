@@ -10,6 +10,7 @@ requires:
 probes:
   1: { seq: "VC" }
   2: { seq: "VC~C~V" }
+elaborate: Say why a base class constructor cannot safely call into the derived part of the object.
 refs:
   - https://en.cppreference.com/w/cpp/language/constructor#Explanation
   - https://en.cppreference.com/w/cpp/language/destructor#Destruction_sequence
@@ -21,7 +22,7 @@ struct Vehicle {
   Vehicle()  { seq += 'V'; }
   ~Vehicle() { seq += "~V"; }
 };
-struct Car : Vehicle {
+struct Car : public Vehicle {
   Car()  { seq += 'C'; }
   ~Car() { seq += "~C"; }
 };

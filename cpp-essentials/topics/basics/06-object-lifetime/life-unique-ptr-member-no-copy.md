@@ -5,8 +5,10 @@ version: 1
 level: 2
 tags: [lifetime, smart-pointers, ownership, special-members]
 requires:
-  - life-make-unique
+  - smart-unique-ptr-intro
   - life-shallow-copy-pointer
+  - class-default-member-init-intro
+elaborate: If `Car` really must be copyable, say what you would write so each copy gets its own `Engine`.
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_constructor#Deleted_copy_constructor
   - https://en.cppreference.com/w/cpp/memory/unique_ptr

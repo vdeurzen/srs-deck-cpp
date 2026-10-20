@@ -1,15 +1,15 @@
 ---
 id: arr-window-trace
 kind: trace
-version: 1
+version: 3
 level: 3
 tags: [sliding-window, tracing, lc-76]
 probes:
-  1: { missing: "1", lo: "0" }
-  2: { lo: "2", best: "4" }
-  3: { lo: "4", best: "3", from: "3" }
+  1: { lo: "1", missing: "0" }
+  2: { best: "2", missing: "1" }
 requires:
-  - arr-window-variable-chunk
+  - arr-window-min-worked
+  - cpp-essentials/string-basics
 refs:
   - https://leetcode.com/problems/minimum-window-substring/
   - https://leetcode.com/problems/longest-substring-without-repeating-characters/
@@ -18,39 +18,36 @@ elaborate: Longest Substring Without Repeating Characters (LC 3) records `best` 
 ---
 
 Minimum Window Substring (LC 76): the shortest substring of `s` that
-contains every letter of `t`, repeats included. Here `s = "bbaacb"`,
-`t = "abc"`.
-`need[x]` is how many more `x` the window still lacks (negative:
-spares); `missing` counts letters whose `need` is still above 0.
+contains every letter of `t`, repeats included. Here `s = "aab"`,
+`t = "ab"`. `need[x]` is how many more `x` the window still lacks
+(negative: spares); `missing` counts letters whose `need` is above 0.
+The window `s[0..2]` has just become valid, so the shrink loop calls
+`step(2)` for as long as `missing == 0`.
 
 ```cpp
-std::string s = "bbaacb";             // t = "abc"
-int need[26]{1, 1, 1}, missing = 3;   // still needed: one a, one b, one c
-int lo = 0, best = 7, from = 0;       // best = 7: nothing found yet
+std::string s = "aab";               // t = "ab"
+int need[26]{-1, 0};                 // a: one spare; b: none lacking; rest 0
+int missing = 0, lo = 0, best = 4;   // best = 4: nothing recorded yet
 
-void extend(int hi) {
-  if (need[s[hi] - 'a']-- > 0) --missing;
-  while (missing == 0) {
-    if (hi - lo + 1 < best) { best = hi - lo + 1; from = lo; }
-    if (++need[s[lo++] - 'a'] > 0) ++missing;
-  }
+void step(int hi) {                  // one turn of the shrink loop
+  if (hi - lo + 1 < best) best = hi - lo + 1;
+  ++need[s[lo] - 'a'];
+  if (need[s[lo] - 'a'] > 0) ++missing;
+  ++lo;
 }
 
 int main() {
-  for (int hi = 0; hi < 4; ++hi) extend(hi);   // @1
-  extend(4);                                    // @2
-  extend(5);                                    // @3
+  step(2);   // @1
+  step(2);   // @2
 }
 ```
 
 ---
 
-`bbaa` supplies `a` and `b`, but the second `b` and `a` are spares, so
-only `c` is missing and `lo` never moves. At 4, `bbaac` is valid and
-recorded (5); dropping the spare `b` leaves `baac`, recorded (4);
-dropping the next `b` breaks it. **Record inside the `while`, before
-each shrink, while still valid**: the opposite of a longest-window problem. At 5, `aacb`
-ties and `acb` wins.
+The first turn records `aab` (3) and drops the spare `a`: `need[a]`
+rises only to 0, so `missing` stays 0 and the loop runs again. The
+second turn records `ab` (2), then dropping the last `a` makes it
+missing. **Record before each shrink, while the window is still
+valid**: recording after the loop would see only the broken window.
 
-Values from compiling and running an instrumented copy under GCC 16.2
-(`-std=c++23 -Wall -Wextra -fsanitize=address,undefined`, clean).
+Values from running it under GCC 16.2.

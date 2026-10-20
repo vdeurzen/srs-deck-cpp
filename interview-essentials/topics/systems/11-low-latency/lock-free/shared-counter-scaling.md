@@ -5,13 +5,16 @@ version: 1
 level: 3
 tags: [concurrency, cache-coherence, scaling]
 requires:
+  - foundations-cache-line-ownership
+  - cpp-essentials/conc-atomic-int-intro
   - foundations-latency-scale
+elaborate: Where else does a single shared write target become the bottleneck as you add threads, and how would you split it?
 refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic/fetch_add
   - https://www.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.html
 ---
 
-## Sixteen threads each run `hits.fetch_add(1)` on one `std::atomic<long>`. Why is the total rate lower than one thread's?
+## Sixteen threads each run `++hits` in a loop on one `std::atomic<long> hits`. Why is the total rate lower than one thread's?
 
 ---
 

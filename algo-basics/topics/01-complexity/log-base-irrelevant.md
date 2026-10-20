@@ -7,7 +7,7 @@ tags: [complexity, logarithms]
 requires:
   - interview-essentials/complexity-log-halvings
   - interview-essentials/complexity-drop-terms
-  - complexity-asym-log-rules
+  - interview-essentials/complexity-asym-log-rules
 refs:
   - https://en.wikipedia.org/wiki/Logarithm#Change_of_base
 ---

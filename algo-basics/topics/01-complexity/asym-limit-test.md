@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, complexity, limit-test]
 requires:
-  - complexity-asym-theta-sandwich
+  - interview-essentials/complexity-asym-theta-sandwich
   - complexity-asym-little-omega
 refs:
   - https://en.wikipedia.org/wiki/Big_O_notation#Related_asymptotic_notations

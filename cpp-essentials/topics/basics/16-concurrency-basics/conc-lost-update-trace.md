@@ -9,6 +9,7 @@ requires:
 probes:
   1: { regB: "6" }
   2: { count: "6" }
+elaborate: Say which line of your own code looks like one step but is really a load, a change and a store.
 refs:
   - https://en.cppreference.com/w/cpp/language/memory_model
   - https://eel.is/c++draft/intro.races
@@ -32,6 +33,4 @@ count = regB;         // @2 B stores
 B loaded `count` before A stored, so B adds to the stale 5 and gets 6.
 Its store then overwrites A's 6 with another 6: two increments, but
 `count` went up by one. That is a *lost update*. Values from running
-this single-threaded copy (`g++ -std=c++23`); an actual two-thread run
-of 100 000 increments each printed totals well below 200 000, different
-on every run.
+this single-threaded copy under GCC 16.2.

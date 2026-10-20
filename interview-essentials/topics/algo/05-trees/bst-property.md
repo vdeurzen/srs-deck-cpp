@@ -6,6 +6,7 @@ level: 1
 tags: [trees, bst, invariants]
 requires:
   - tree-bst-rule
+elaborate: "Where else does one comparison let you skip a whole region, such as a sorted array or a phone book?"
 refs:
   - https://doi.org/10.1145/321105.321108
   - https://en.wikipedia.org/wiki/Binary_search_tree

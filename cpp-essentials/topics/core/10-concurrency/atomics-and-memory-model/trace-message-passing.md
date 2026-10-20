@@ -1,51 +1,43 @@
 ---
 id: atomics-trace-message-passing
 kind: trace
-version: 1
+version: 3
 level: 2
 tags: [concurrency, atomics, memory-model, tracing]
 probes:
-  1: { seen: "42" }
-  2: { was: "true" }
+  1: { a: "5" }
+  2: { b: "15" }
 requires:
   - atomics-synchronizes-with
 refs:
   - https://en.cppreference.com/w/cpp/atomic/memory_order
   - https://eel.is/c++draft/intro.races
+elaborate: Say what would go wrong, and why, if `second` stored 2 with `std::memory_order_relaxed` instead.
 ---
 
+`first` and `second` start at the same time, each on its own thread.
+
 ```cpp
-int payload = 0;
-std::atomic<bool> ready{false};
-void producer() {
-  payload = 42;
-  ready.store(true, std::memory_order_release);
+int a = 0, b = 0;
+std::atomic<int> turn{0};
+void first() {
+  a = 1;
+  turn.store(1, std::memory_order_release);
+  while (turn.load(std::memory_order_acquire) != 2) {}
+  b = a + 10;               // @2
 }
-int seen = -1;
-void consumer() {
-  while (!ready.load(std::memory_order_acquire)) {
-  }
-  seen = payload;               // @1
-}
-int main() {
-  std::jthread c(consumer), p(producer);
-  c.join();
-  p.join();
-  bool was = ready.exchange(false);   // @2
+void second() {
+  while (turn.load(std::memory_order_acquire) != 1) {}
+  a = a * 5;                // @1
+  turn.store(2, std::memory_order_release);
 }
 ```
 
 ---
 
-The **message-passing litmus test**. The loop exits only on a load that
-read `true`, the value the release store wrote, so that store
-synchronizes-with that load; `payload = 42` is sequenced before the
-store and `seen = payload` after the load, so the write happens-before
-the read and 42 is the only outcome, on every platform. At @2 `exchange` returns
-the value it replaced: `true`, because `join` orders the producer's
-store before anything `main` does afterwards. Make both orders `relaxed`
-and no synchronizes-with exists: the two accesses to `payload` conflict
-with no happens-before, which is a data race — undefined behaviour, not
-"0 or 42". (Only if `payload` were itself a relaxed atomic would `0`
-become a legal outcome.) Verified by running an instrumented copy under
-GCC 16.2 (`g++ -std=c++23 -pthread`), including under ThreadSanitizer.
+The handoff runs both ways. `second` leaves its loop only on reading the
+1 that `first` stored with release, so `a = 1` happens before `a * 5`:
+`a` is 5. Then `first` leaves its loop only on reading the 2 that
+`second` stored with release, so `a = a * 5` happens before `a + 10`:
+`b` is 15, never 11. Each acquire load synchronizes with the release
+store whose value it read. Verified with GCC 16.2 under ThreadSanitizer.

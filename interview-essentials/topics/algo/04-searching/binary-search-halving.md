@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 1
 tags: [binary-search, complexity]
+requires:
+  - complexity-big-o-scaling
+elaborate: "Where else does one comparison rule out half of what is left, such as hunting the commit that introduced a bug?"
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm
   - https://en.cppreference.com/w/cpp/algorithm/binary_search

@@ -35,6 +35,9 @@ compile:
     int main() {}
 requires:
   - graph-dfs-call-stack-trace
+  - graph-grid-as-graph
+  - cpp-essentials/cast-functional-notation
+  - cpp-essentials/constexpr-fn-static-assert
 refs:
   - https://leetcode.com/problems/number-of-islands/
   - https://leetcode.com/problems/max-area-of-island/
@@ -45,7 +48,9 @@ elaborate: Max Area of Island (LC 695) wants the largest island's area, its numb
 Number of Islands (LC 200): count the islands of `'1'`s in a
 `vector<vector<char>>`, joined up, down, left and right. The caller starts one `sink` at each
 `'1'` it finds and counts one island per call, so `sink` has to deal
-with the whole island around `(r, c)`. Complete its last line.
+with the whole island around `(r, c)`. The `auto&` parameter makes
+`sink` a template, compiled for whatever grid type it is passed.
+Complete its last line.
 
 ```cpp
 constexpr int dr[] = {1, 0, -1, 0}, dc[] = {0, 1, 0, -1};   // down, right, up, left

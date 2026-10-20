@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, complexity, amortised, misconception]
 requires:
   - complexity-cost-amortized
-  - complexity-cost-cases
+  - interview-essentials/complexity-cost-cases
 elaborate: Which "constant time on average" operation in your code could an adversary who chooses the inputs make slow, and which amortised one could they not?
 refs:
   - https://epubs.siam.org/doi/10.1137/0606031

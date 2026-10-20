@@ -5,20 +5,20 @@ version: 1
 level: 2
 tags: [sorting, heap-sort, complexity]
 requires:
-  - heap-heapify-order-code
+  - heap-op-costs
   - sort-elementary-compare
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://en.wikipedia.org/wiki/Heapsort
+elaborate: Say in one sentence, as to an interviewer, why heap sort needs no buffer beyond the array it sorts.
 ---
 
 ## Heap sort is selection sort with the unsorted part kept as a max-heap. Why is it O(n log n) even in the worst case?
 
 ---
 
-**Each max costs an O(log n) sift-down, not an O(n) scan.**
+**Each max costs one O(log n) walk down the heap, not an O(n) scan.**
 
-Build the heap, O(n). Then n − 1 times: swap the root to the heap's
-end, sift the new root down ≤ log₂ n levels, whatever the keys. The
-sorted suffix grows as the heap shrinks. No bad input, unlike
-quicksort.
+Build the heap once. Then n − 1 times: swap the root to the heap's
+end, move the new root down ≤ log₂ n levels, whatever the keys. The
+sorted suffix grows as the heap shrinks. No input is a bad one.

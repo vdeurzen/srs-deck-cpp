@@ -5,13 +5,15 @@ version: 1
 level: 2
 tags: [backtracking, recursion]
 requires:
-  - technique-recursion-unwind
+  - technique-call-stack-worked
+  - tree-terms
+elaborate: Say aloud what the tree looks like for a problem you know where each level has more than two choices.
 refs:
   - https://doi.org/10.1145/321296.321300
   - https://en.wikipedia.org/wiki/Backtracking
 ---
 
-## Backtracking for subset sum over {2, 4, 6} walks a tree of decisions. What is one node of that tree?
+## Backtracking for subset sum over {2, 4, 6} (choose some of the items so that they add up to a target) walks a tree of decisions. What is one node of that tree?
 
 ---
 

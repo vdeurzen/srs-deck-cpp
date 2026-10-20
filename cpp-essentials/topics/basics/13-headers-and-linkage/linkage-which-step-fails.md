@@ -4,12 +4,12 @@ kind: cloze
 version: 1
 level: 1
 tags: [linkage, build, declarations]
+requires:
+  - linkage-translation-unit
 refs:
   - https://en.cppreference.com/w/cpp/language/definition
   - https://en.cppreference.com/w/cpp/language/translation_phases
-requires:
-  - fn-declaration-vs-definition
-  - linkage-translation-unit
+elaborate: Say which other message would tell you the compiler, not the linker, stopped the build.
 ---
 
 `main.cpp` includes `rect.h` and calls `area(2, 3)`. `rect.h` declares

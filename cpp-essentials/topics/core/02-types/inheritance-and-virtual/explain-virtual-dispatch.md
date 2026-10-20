@@ -1,22 +1,23 @@
 ---
 id: virtual-explain-dispatch
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [inheritance, virtual]
 requires:
   - virtual-vptr-sizeof
-  - virtual-call-in-constructor
-  - virtual-destructor
   - virtual-slicing
+  - staticpoly-static-vs-dynamic
+  - virtual-destructor
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
+elaborate: Say aloud which class in your own code you would make `virtual`, and which you would keep non-virtual, and why.
 ---
-A colleague asks what `virtual` actually costs and where it bites. Explain
-how a virtual call works and the three classic traps.
+A colleague who knows Go interfaces asks what `virtual` does in C++, what
+it costs and where it bites. Answer them in about a minute.
 ---
-- [ ] Each polymorphic object carries a vptr to its class's vtable; a virtual call goes through that table indirectly
-- [ ] The main cost is that an indirect call usually cannot be inlined, which blocks further optimisation
-- [ ] Trap: deleting through a base pointer without a virtual destructor is UB and skips the derived destructor
-- [ ] Trap: copying a derived object into a base value slices it; dispatch needs a reference or pointer
-- [ ] Trap: virtual calls in a constructor or destructor dispatch to the class currently being built or destroyed, not the most-derived one
+- [ ] Problem: one call site runs each derived type's own override, chosen by the object's dynamic type
+- [ ] Mechanism: each polymorphic object holds a vptr to its class's vtable, which the call indexes
+- [ ] Example: a `Dog` reached through an `Animal&` runs `Dog`'s override
+- [ ] Cost: each call is indirect through the vtable, so the compiler usually cannot inline it
+- [ ] Pitfall: deleting through a base pointer without a virtual destructor is undefined behaviour

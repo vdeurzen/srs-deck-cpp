@@ -5,7 +5,8 @@ version: 1
 level: 1
 tags: [inheritance, virtual, abstract]
 requires:
-  - virtual-enable-dispatch
+  - virtual-delete-through-base
+elaborate: Say when you would give a base class a default implementation instead of making the function pure virtual.
 refs:
   - https://en.cppreference.com/w/cpp/language/abstract_class
 ---
@@ -16,7 +17,7 @@ it no implementation, and requires every derived class to provide one:
 ```cpp
 struct Shape {
   virtual ~Shape() = default;
-  virtual double area() const {{c1::= 0::two tokens before the semicolon}};
+  virtual double area() {{c1::= 0::two tokens before the semicolon}};
 };
 ```
 

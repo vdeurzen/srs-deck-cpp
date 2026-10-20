@@ -11,6 +11,7 @@ probes:
   2: { b: "36" }
 refs:
   - https://en.cppreference.com/w/cpp/language/pack#Pack_expansion
+elaborate: Say aloud what `add3(sq(args...))` would expand to, and why it fails to compile.
 ---
 
 ```cpp

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [sorting, insertion-sort, invariants]
 requires:
-  - sort-sorted-postcondition
+  - interview-essentials/sort-sorted-postcondition
 refs:
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html
   - https://en.wikipedia.org/wiki/Insertion_sort

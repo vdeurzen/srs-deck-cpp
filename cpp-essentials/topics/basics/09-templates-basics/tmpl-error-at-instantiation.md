@@ -5,13 +5,15 @@ version: 1
 level: 2
 tags: [templates, instantiation, diagnostics]
 requires:
-  - tmpl-function-syntax
+  - templates-instantiation
+  - class-struct-members
+elaborate: Recall a long template error you have seen and say where in it the real cause usually sits.
 refs:
   - https://en.cppreference.com/w/cpp/language/function_template#Implicit_instantiation
   - https://eel.is/c++draft/temp.res.general
 ---
 
-## The template compiles on its own. Where does the compiler report the error for the last line?
+## The template compiles on its own (and `a < b` on a struct compiles only if the struct defines `operator<`). Where does the compiler report the error for the last line?
 
 ```cpp
 template <typename T>

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, arrays, complexity]
 requires:
-  - linear-address-formula
+  - interview-essentials/linear-address-formula
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.1 (arrays)
   - https://en.cppreference.com/w/cpp/container/vector/insert

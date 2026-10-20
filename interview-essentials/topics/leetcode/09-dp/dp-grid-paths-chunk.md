@@ -4,10 +4,11 @@ kind: chunk
 version: 1
 level: 2
 tags: [dynamic-programming, grids, lc-62, lc-63]
-expose_ms: 6000
-compile: null # a function body: graded by text, see below
+expose_ms: 9500
+compile: null # a function body
 requires:
   - dp-grid-dag-signal
+  - cpp-essentials/vector-sized-constructor
 refs:
   - https://leetcode.com/problems/unique-paths/
   - https://leetcode.com/problems/unique-paths-ii/
@@ -35,7 +36,3 @@ the *left*. One row of memory, O(mn) time.
 
 The first row and the first column start at 1: one straight path each,
 which is why `i` and `j` start at 1.
-
-Graded by text (`compile: null`); body of `int uniquePaths(int m, int n)`.
-The diff is the judge: an equivalent rewrite is marked different, so
-compare it line by line and rate yourself.

@@ -5,8 +5,9 @@ version: 1
 level: 2
 tags: [foundations, binary-search, invariants]
 requires:
-  - search-binary-search-chunk
-  - technique-max-invariant-code
+  - search-binary-search-halving
+  - technique-loop-invariant-sum
+elaborate: "Say aloud, as to an interviewer, what this loop promises about `a[lo..hi]` on every pass."
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm#Procedure
 ---

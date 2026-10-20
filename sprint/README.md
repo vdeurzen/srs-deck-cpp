@@ -1,76 +1,81 @@
-# Interview sprint: 2026-10-17 → 2026-10-31
+# Foundations-first study plan (from 2026-10-20)
 
-Two weeks to rebuild C++ fundamentals plus DS&A and coding patterns, to the level a
-screening call or first-round interview expects. After that, the rest of the repo builds
-on the same base for long-term depth.
+The goal: rebuild C++ and DS&A foundations as long-term chunks and patterns, so you
+recognise a problem's pattern in seconds and can talk about any topic for a minute,
+in an interview or a screening call.
 
-## What's in it
+## What changed, and why
 
-On 2026-10-17 the 558 highest-payoff Cards were **moved** (not copied) from the six existing
-Decks into two foundation Decks. Their old review history is gone, and each Card now has
-one schedule, so nothing is reviewed twice after the sprint. `moved.tsv` maps every old
-id to its new one, `added-edges.tsv` lists the prerequisites added afterwards to replace the ones lost in the move, `selection/` holds the per-Deck picks with a reason for each (tier A
-was moved; tier B stayed behind, but was the next cut), and `move.py` is the script that
-did it. `review/` holds the 2026-10-17 quality review: one findings file per
-batch, each ending with what was applied.
+The first sprint (2026-10-17) picked the "interview-payoff" Cards and cut the
+vocabulary and foundation Cards as trivia. Those were exactly what a rebuild needs:
+Cards leaned on words, notation and C++ constructs nothing had taught, and some
+traces asked for several full runs of an algorithm in your head. On 2026-10-19/20
+both essentials Decks were rebuilt foundations-first:
 
-| Deck | Cards | From | Covers |
-| --- | --- | --- | --- |
-| `cpp-essentials` | 300 | cpp-basics, cpp-core | pointers/references, const, classes and special members, lifetime and RAII, value categories, move semantics, smart pointers, virtual dispatch, templates and concepts, lambdas, containers and invalidation, exceptions and noexcept, UB, layout, threads, atomics |
-| `interview-essentials` | 273 | algo-basics, leetcode, hft-interview, algo-systems | complexity, hashing, binary search, trees, heaps, sorting, graphs, greedy and DP, LeetCode templates and recognition cues, STL traps, implementing vector / unique_ptr / shared_ptr, SPSC, LRU, the trivia round, cache and false sharing |
+- **Teaching order, written down** (PEDAGOGY.md §0, §3): every concept climbs a
+  ladder, each rung requiring the one below: meet it → see it worked → recognise
+  it → run it once → produce it → talk about it. A Card may use only what its
+  prerequisites taught you, measured from a Go programmer's baseline.
+- **Foundations added**: ~150 foundation and worked-example Cards (vectors, pairs, iterators, `auto`,
+  `static_assert`, structs, stack vs heap, Big-O, recursion, hashing and graph
+  vocabulary, bit operators, memory hierarchy, …), moved back in from the paused
+  Decks or newly written.
+- **Too advanced moved out**: ~70 Cards (raw-storage `vector` internals,
+  implement-`shared_ptr`, SPSC, Fenwick, bitmask DP, language-lawyer C++) went back to
+  `cpp-core`, `algo-systems`, `hft-interview` and `leetcode`, with their old history.
+  They come back when you unpause those Decks.
+- **Traces rebuilt** to a working-memory budget (PEDAGOGY §3.1): one run, ≤ 5
+  elements, ≤ 4 changing values, ≤ 3 probes, about a minute. A count or bound is
+  asked as reasoning, not simulated. Every algorithm trace has a **worked example**
+  Card first: it shows you the full step table and asks *why* one step happens.
+- **Every topic ends in a capstone** you answer aloud, in a fixed order you'll reuse
+  in interviews: the problem it solves → how it works → an example → its cost → the
+  pitfall. "Which pattern?" topics use: the cue → the pattern → an example → the
+  complexity → the look-alike.
+- **Mixed recognition** Cards make you choose between patterns from different
+  topics, which is the real interview skill.
+- Every Card is self-contained: problems are stated, never "LC 209".
 
-That comes to 619 review items (a cloze Card counts once per blank). Left out:
-coroutines, senders/execution, modules, raw-storage exotica, compilers, databases,
-formal asymptotics, and the deeper on-site chains (order book, SSO, type erasure).
+An independent audit of 80 random Cards after the rebuild found ~80 % fully clean
+(up from ~50 %), every trace within budget and no wrong facts; the residue was fixed.
 
-## App settings for the sprint
+Files: `foundations/` holds the audits, the plan and what was applied;
+`traces/` the trace rebuild; `review/` the earlier quality review; `moved.tsv`
+and `foundations/moved-out.tsv` map ids between Decks.
 
-1. **Pause** `cpp-basics`, `cpp-core`, `algo-basics`, `algo-systems`, `hft-interview` and
-   `leetcode`. Only the two essentials Decks should be active.
-2. **New cards per day: 60.** The two Decks interleave round-robin, so that's ~30 C++
-   and ~30 DS&A per day. If 2+ hours a day isn't possible, use **50**: everything still
-   gets introduced, but it finishes around day 13, with almost no consolidation time.
-3. **Respect prerequisites: on.** Cards unlock in order (`requires`), so concepts
-   come before the code and trace Cards that use them.
-4. **Study in two sessions a day**, e.g. ~30 new in the morning and the rest in the
-   evening. A Card unlocks only once its prerequisites have been rated, so a second
-   session picks up what the first one unlocked. With one session a day, the deepest
-   chains (move semantics → `move_if_noexcept` → building a vector, depth 11) would
-   still be arriving on day 13. With two, everything is in by day 12.
+## App settings
 
-## Expected load (rough model)
+1. **Active: only `cpp-essentials` and `interview-essentials`.** Keep the other six
+   paused.
+2. **New cards per day: 30**, in **two sessions of ~15**. A Card unlocks only once its
+   prerequisites have been rated, so the second session picks up what the first one
+   unlocked. That covers both Decks' ~770 items (~720 Cards) in about 3½ weeks. If you have the
+   time and your reviews stay under ~1 hour, 40 is fine; if Cards start feeling
+   confusing, drop to 20.
+3. **Respect prerequisites: on.**
 
-| Days | New items/day | Reviews/day | Time/day |
-| --- | --- | --- | --- |
-| 1–3 | 60 | 0–70 | 1–1.5 h |
-| 4–7 | 60 | ~140 | ~1.75 h |
-| 8–10 | 60 | ~210 | ~2.25 h (peak) |
-| 11–12 | ~15–30 | ~200 | ~1.5–2 h |
-| 13–14 | 0 | 90–140 | < 1 h, plus mock interviews |
+Many Cards you'd already studied changed meaning and had their `version` bumped,
+so they come back as new; that's intended.
 
-## How to study for interview speed
+## How to study for long-term memory and fluent talk
 
-- **Rate honestly.** A Card counts as known only once rated Hard or better. Rating Good
-  when you weren't sure locks the gaps in.
-- **Answer `explain` Cards out loud, against the timer.** That's the screening-call skill;
-  the rubric shows what an interviewer listens for.
-- **`code`, `parsons` and `chunk` Cards are the templates.** On the day a LeetCode
-  pattern appears (sliding window, prefix sum, BFS, binary search on the answer, DP),
-  solve 1–2 real problems with it, unaided, against a 25-minute timer. The Cards make the
-  template automatic; the problems train choosing it.
-- **Days 13–14:** no new Cards are left. Do the due reviews, then use **Practice** on
-  both Decks (it doesn't touch the schedule), plus two timed mock rounds: one C++
-  ("implement `push_back`", "explain move semantics", "why is the destructor virtual?")
-  and one LeetCode medium.
+- **Rate honestly.** Again when you didn't know it. A Card that keeps failing is a
+  sign of a bad Card, not of you: note its id and it gets fixed.
+- **Worked examples: read the table, then answer the "why".** Don't skip to the back.
+- **Traces: one run, on paper if you like.** If one takes more than ~90 s, note the
+  id; it's over budget.
+- **`explain` Cards: say the answer out loud, against the timer**, in the order
+  above. That order is the chunk you'll reuse in interviews.
+- **The `elaborate` box**: answer it in a sentence. The app shows your last answer
+  next time, so each pass builds on the one before.
+- **LeetCode alongside**: when a pattern's code Card appears, solve one real problem
+  with it, unaided, against a 25-minute timer.
 
-## After the sprint (from ~2026-11-01)
+## After the essentials
 
-The six other Decks now build on the essentials Decks, so their entry Cards are
-unlocked as soon as the matching essentials Card is known. Then:
-
-1. Lower **new cards per day to 15–20**. Keep reviewing the essentials Decks; that's the
-   long-term memory part.
-2. Unpause one Deck at a time, in this order: `cpp-core` and `leetcode`, then
-   `hft-interview` and `cpp-basics`, then `algo-basics`, then `algo-systems`.
-   The app can't prioritise Cards within a Deck, so tier B isn't scheduled first;
-   `selection/sel-*.tsv` lists it if you want to look those Cards up in Browse.
+Once both essentials Decks are introduced and your reviews feel easy (roughly 3–4
+weeks), lower new cards to 15–20 a day and unpause one Deck at a time: `cpp-core` and
+`leetcode`, then `hft-interview` (the implement-it questions: `vector::push_back`,
+smart pointers, SPSC) and `cpp-basics`, then `algo-basics`, then `algo-systems`. Their
+trace Cards haven't been rebuilt to the new budget yet; that's the next job before
+unpausing them.

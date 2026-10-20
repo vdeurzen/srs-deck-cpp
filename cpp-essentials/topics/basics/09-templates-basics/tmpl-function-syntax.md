@@ -17,6 +17,10 @@ compile:
     static_assert(larger(2.5, 1.5) == 2.5);
     static_assert(larger('a', 'z') == 'z');
     int main() {}
+requires:
+  - tmpl-why-template
+  - constexpr-fn-static-assert
+elaborate: Say aloud what a call like `larger(2, 3)` makes the compiler do with this definition.
 refs:
   - https://en.cppreference.com/w/cpp/language/function_template
   - https://en.cppreference.com/w/cpp/language/template_parameters
@@ -27,7 +31,7 @@ arguments. Complete the line that introduces `T`.
 
 ```cpp
 {{c1::template <typename T>}}
-constexpr T larger(T a, T b) { return a < b ? b : a; }
+constexpr T larger(T a, T b) { if (a < b) return b; return a; }
 ```
 
 ---

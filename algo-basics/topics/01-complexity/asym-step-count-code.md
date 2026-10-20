@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, complexity, step-model]
 requires:
-  - complexity-asym-step-model
+  - interview-essentials/complexity-asym-step-model
 input: chips
 choices:
   c1: ["4 * n + 3", "4 * n", "4 * n + 2", "5 * n + 2"]

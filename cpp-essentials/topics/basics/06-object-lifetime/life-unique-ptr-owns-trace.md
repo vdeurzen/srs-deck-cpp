@@ -6,6 +6,8 @@ level: 1
 tags: [lifetime, ownership, tracing]
 requires:
   - life-new-outlives-scope
+  - smart-unique-ptr-intro
+elaborate: Say how you would spot, in a code review, a `new` whose result nobody owns.
 probes:
   1: { alive: "2" }
   2: { alive: "1" }
@@ -36,5 +38,4 @@ But `owned` is a local object that **owns** its `Lamp`: its destructor
 runs `delete` on the pointer it holds, so leaving the block destroys
 that `Lamp`. `raw` is just an address; its `Lamp` is never destroyed
 (a leak). Verified by compiling and running an instrumented copy under
-GCC 16.2 (`g++ -std=c++23`); AddressSanitizer reports exactly the one
-leaked `Lamp`.
+GCC 16.2 (`g++ -std=c++23`).

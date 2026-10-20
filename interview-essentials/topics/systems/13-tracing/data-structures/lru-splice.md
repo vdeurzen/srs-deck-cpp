@@ -1,17 +1,21 @@
 ---
 id: trace-lru-splice
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [tracing, containers, iterators]
 probes:
-  1: { "order.front()": "1", "order.back()": "2", "*it": "1" }
-  2: { "order.front()": "7", "order.back()": "2", "*it": "7" }
+  1: { "order.front()": "1", "order.back()": "2" }
+  2: { "order.front()": "7" }
 requires:
   - seq-invalidation-rules
+  - std-list-basics
+elaborate: What would break if this were a `std::vector` and the cache had stored indices instead of iterators?
 refs:
   - https://en.cppreference.com/w/cpp/container/list/splice
 ---
+
+`l.splice(pos, l, it)` moves the element at `it` to just before `pos` in the same list.
 
 ```cpp
 #include <iterator>
@@ -36,5 +40,4 @@ hash map and move entries on every hit in O(1). A `std::vector` would
 shift the elements and leave every stored iterator pointing at the
 wrong one.
 
-Verified by compiling and running this program under GCC 16.2 and
-printing the values at each probe.
+(Values from running it under GCC 16.2.)

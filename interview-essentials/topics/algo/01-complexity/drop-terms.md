@@ -6,6 +6,7 @@ level: 1
 tags: [complexity, big-o]
 requires:
   - complexity-big-o-scaling
+elaborate: "When would the dropped 100n term matter in practice, and how would you say so to an interviewer?"
 refs:
   - https://dl.acm.org/doi/10.1145/1008328.1008329
 ---

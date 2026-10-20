@@ -6,22 +6,30 @@ level: 2
 tags: [classes, conversions]
 input: chips
 choices:
-  c1: ["explicit", "constexpr", "inline", "noexcept"]
+  c1: ["explicit", "const", "constexpr"]
 compile:
   harness: |
+    #include <type_traits>
     static_assert(std::is_constructible_v<Meters, double>);
     static_assert(!std::is_convertible_v<double, Meters>);
     int main() {}
+requires:
+  - class-explicit-blocks-conversion
+  - class-ctor-colon-part
+  - const-no-modify
+  - const-vs-constexpr-initializer
 refs:
   - https://en.cppreference.com/w/cpp/language/explicit
   - https://en.cppreference.com/w/cpp/language/converting_constructor
+elaborate: Say aloud which one-argument constructor in your own code you would leave implicit, and what conversion it would then allow.
 ---
 
 Today `set_height(1.8)` compiles, and nobody can tell whether `1.8` was
-metres or feet. Make the caller write `set_height(Meters{1.8})`.
+metres or feet: a one-argument constructor lets the compiler turn a
+`double` into a `Meters` silently. Make the caller write
+`set_height(Meters{1.8})`.
 
 ```cpp
-#include <type_traits>
 class Meters {
     double value_;
 public:

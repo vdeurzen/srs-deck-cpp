@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, recursion]
 requires:
-  - technique-recursion-sum-code
+  - interview-essentials/technique-recursion-sum-code
   - technique-termination-measure
 refs:
   - https://en.wikipedia.org/wiki/Recursion_(computer_science)#Base_case

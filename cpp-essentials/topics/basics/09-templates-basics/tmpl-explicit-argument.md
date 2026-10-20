@@ -4,8 +4,6 @@ kind: code
 version: 1
 level: 2
 tags: [templates, deduction]
-requires:
-  - tmpl-deduction-conflict
 input: chips
 choices:
   c1: ["double", "int", "long", "float"]
@@ -13,6 +11,11 @@ compile:
   harness: |
     static_assert(r == 2.1, "r does not hold the larger value");
     int main() {}
+requires:
+  - tmpl-deduction-conflict
+  - types-auto-deduces
+  - constexpr-fn-static-assert
+elaborate: Name a standard library call where you write the template argument explicitly because it cannot be deduced.
 refs:
   - https://en.cppreference.com/w/cpp/language/function_template#Template_argument_deduction
   - https://en.cppreference.com/w/cpp/language/template_argument_deduction
@@ -23,7 +26,7 @@ does and `r == 2.1` holds.
 
 ```cpp
 template <typename T>
-constexpr T maximum(T a, T b) { return a < b ? b : a; }
+constexpr T maximum(T a, T b) { if (a < b) return b; return a; }
 
 constexpr auto r = maximum<{{c1::double}}>(1, 2.1);
 ```

@@ -6,6 +6,7 @@ level: 2
 tags: [value-categories, references]
 requires:
   - value-categories-categories-cloze
+elaborate: Which parameter in your own code takes `const T&` so that callers can pass temporaries, and what would `T&` break?
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
 ---

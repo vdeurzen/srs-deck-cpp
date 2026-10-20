@@ -9,43 +9,46 @@ requires:
 input: chips
 choices:
   c1:
-    - "std::size_t i = h.size() / 2; i-- > 0;"
-    - "std::size_t i = h.size() / 2; i-- > 1;"
-    - "std::size_t i = 0; i < h.size() / 2; ++i"
-    - "std::size_t i = 0; i < h.size(); ++i"
+    - "int i = n / 2 - 1; i >= 0; --i"
+    - "int i = n / 2 - 1; i > 0; --i"
+    - "int i = 0; i < n / 2; ++i"
+    - "int i = 0; i < n; ++i"
 compile:
   harness: |
-    #include <array>
-    constexpr void sift_down(auto& h, std::size_t i) {
-      const std::size_t n = h.size();
-      for (std::size_t c; (c = 2 * i + 1) < n; i = c) {
+    constexpr void sift_down(std::vector<int>& h, int i) {
+      const int n = h.size();
+      while (2 * i + 1 < n) {
+        int c = 2 * i + 1;
         if (c + 1 < n && h[c + 1] > h[c]) ++c;
         if (h[i] >= h[c]) return;
         std::swap(h[i], h[c]);
+        i = c;
       }
     }
-    constexpr std::array<int, 7> built(std::array<int, 7> a) { heapify(a); return a; }
-    static_assert(built({1, 2, 3, 4, 5, 6, 7}) == std::array<int, 7>{7, 5, 6, 4, 2, 1, 3});
-    static_assert(built({3, 1, 6, 5, 2, 4, 7}) == std::array<int, 7>{7, 5, 6, 1, 2, 4, 3});
+    constexpr std::vector<int> built(std::vector<int> a) { heapify(a); return a; }
+    static_assert(built({1, 2, 3, 4, 5, 6, 7}) == std::vector<int>{7, 5, 6, 4, 2, 1, 3});
+    static_assert(built({3, 1, 6, 5, 2, 4, 7}) == std::vector<int>{7, 5, 6, 1, 2, 4, 3});
     int main() {}
 refs:
   - https://doi.org/10.1145/355588.365103
   - https://en.cppreference.com/w/cpp/algorithm/make_heap
+elaborate: What would go wrong if you reused this loop on a heap stored with its root at slot 1, and what would you change?
 ---
 
-Floyd's heapify turns an arbitrary array into a max-heap in place by
-sifting nodes down. `sift_down(h, i)` swaps `h[i]` down until it is no
-smaller than its children, and it is correct only when both subtrees of
-`i` are already heaps. Complete the loop.
+Floyd's heapify turns an arbitrary array into a max-heap by sifting
+nodes down. `sift_down(h, i)` swaps `h[i]` down until it is no smaller
+than its children, and it is correct only when both subtrees of `i` are
+already heaps. Complete the loop.
 
 ```cpp
-#include <cstddef>
 #include <utility>
+#include <vector>
 
-constexpr void sift_down(auto& h, std::size_t i);
+constexpr void sift_down(std::vector<int>& h, int i);
 
-constexpr void heapify(auto& h) {
-  for ({{c1::std\::size_t i = h.size() / 2; i-- > 0;}}) sift_down(h, i);
+constexpr void heapify(std::vector<int>& h) {
+  const int n = h.size();
+  for ({{c1::int i = n / 2 - 1; i >= 0; --i}}) sift_down(h, i);
 }
 ```
 
@@ -58,4 +61,4 @@ skipped.
 
 Top-down (`i = 0` upward) sifts the root while its subtrees are still
 unsorted: from 1 2 3 4 5 6 7 it leaves 3 at the root above 7.
-`i-- > 1` stops before the root and leaves 1 on top.
+`i > 0` stops before the root and leaves 1 on top.

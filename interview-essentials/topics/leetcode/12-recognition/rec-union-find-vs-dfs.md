@@ -1,12 +1,13 @@
 ---
 id: rec-union-find-vs-dfs
 kind: basic
-version: 1
+version: 2
 level: 3
-tags: [graphs, union-find, connectivity, recognition, lc-547, lc-684]
+tags: [graphs, recognition, lc-547, lc-684]
 requires:
   - graph-union-find-forest
-  - graph-components-code
+  - graph-union-find-problem
+  - graph-bfs-and-dfs
 refs:
   - https://leetcode.com/problems/number-of-provinces/
   - https://leetcode.com/problems/redundant-connection/
@@ -15,18 +16,17 @@ elaborate: Union-find can merge sets but not split them. If edges were also dele
 ---
 
 > (a) `isConnected` is an n × n matrix of which cities are directly
-> linked. Return the number of provinces (groups of linked cities).
+> linked, `n <= 200`. Return the number of provinces (groups of linked
+> cities).
 >
-> (b) A tree had one extra edge added. Given the edges in order, return
-> the one to remove; if several work, the one that occurs last.
+> (b) Up to 1000 edges are added to a graph one at a time. Before adding
+> each, report whether its two ends are already connected.
 
-## Union-find fits one of them better than a plain DFS. Which property of its statement decides that?
+## Union-find fits one of them better than a plain DFS. Which one?
 
 ---
 
-**(b)'s edges arrive one at a time, with a connectivity question before each.**
+**(b): it asks a connectivity question after every added edge.**
 
-Before adding `u–v`, check `find(u) == find(v)`: the first edge whose
-ends are already joined closes the cycle. A DFS would rewalk the graph
-per edge. (a) asks once about a fixed graph: one DFS per unvisited city
-counts the provinces.
+Each question is `find(u) == find(v)`, then a union. A DFS would rewalk the graph for every question. (a) asks once
+about a fixed graph: one DFS per unvisited city counts the provinces.

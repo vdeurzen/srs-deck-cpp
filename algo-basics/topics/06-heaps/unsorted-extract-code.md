@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, heaps, priority-queue, arrays, complexity]
 requires:
-  - heap-pq-adt-trace
+  - interview-essentials/heap-pq-adt-trace
 input: chips
 choices:
   c1: ["a[m] = a.back();", "a.back() = a[m];", "std::swap(a[0], a.back());", "a[m] = a[0];"]

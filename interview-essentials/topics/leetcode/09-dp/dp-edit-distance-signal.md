@@ -3,9 +3,9 @@ id: dp-edit-distance-signal
 kind: basic
 version: 1
 level: 3
-tags: [dynamic-programming, strings, edit-distance, recognition, lc-72]
+tags: [strings, recognition, lc-72]
 requires:
-  - technique-lcs-match
+  - technique-memo-vs-table
 refs:
   - https://leetcode.com/problems/edit-distance/
   - https://leetcode.com/problems/interleaving-string/

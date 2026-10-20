@@ -5,7 +5,8 @@ version: 2
 level: 3
 tags: [low-latency, memory-hierarchy, cost-model]
 requires:
-  - foundations-latency-scale
+  - foundations-cache-line-ownership
+elaborate: Where in your own code do two threads write fields that sit next to each other in one struct?
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/
   - https://en.cppreference.com/w/cpp/thread/hardware_destructive_interference_size
@@ -20,6 +21,6 @@ contend as if they were one variable.
 ---
 
 Coherence tracks lines, not variables: the line holding both counters
-moves between the cores on every write. 64 bytes is the line on x86-64
-and most AArch64 (Apple M-series: 128); it is what padding with
-`alignas` is sized by, and the unit a scan's cost is counted in.
+moves between the cores on every write. 64 bytes is the line on x86-64;
+it is what padding with `alignas` is sized by, and the unit a scan's
+cost is counted in.

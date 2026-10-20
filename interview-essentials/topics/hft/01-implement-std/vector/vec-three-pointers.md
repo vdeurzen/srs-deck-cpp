@@ -7,12 +7,14 @@ tags: [vector, layout, implement-std]
 elaborate: Which of your own containers stores a size and a capacity where two pointers would do?
 requires:
   - cpp-essentials/iter-size-vs-capacity
+  - cpp-essentials/layout-trailing-padding
+  - cpp-essentials/iter-end-one-past
 refs:
   - https://en.cppreference.com/w/cpp/container/vector
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/stl_vector.h
 ---
 
-## libstdc++'s `std::vector<int>` is 24 bytes on x86-64 and stores no size field. What are its members?
+## In libstdc++ (GCC's standard library), `std::vector<int>` is 24 bytes on a 64-bit machine and stores no size field. What are its members?
 
 ---
 

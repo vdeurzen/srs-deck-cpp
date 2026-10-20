@@ -4,12 +4,15 @@ kind: basic
 version: 1
 level: 1
 tags: [const, constexpr]
+requires:
+  - const-no-modify
+elaborate: Say in one sentence how Go's `const` compares with C++'s `const` and `constexpr`.
 refs:
   - https://en.cppreference.com/w/cpp/language/constexpr
   - https://eel.is/c++draft/dcl.constexpr#6
 ---
 
-## `int read_port();` is an ordinary function. Which line fails to compile?
+## `int read_port();` is an ordinary function, declared here and defined elsewhere. Which line fails to compile?
 
 ```cpp
 const int a = read_port();

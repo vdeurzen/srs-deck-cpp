@@ -9,7 +9,7 @@ probes:
   2: { a: "true", cached_head: "1", "buf[0]": "14" }
   3: { b: "false", refreshes: "2" }
 requires:
-  - interview-essentials/spsc-try-push
+  - spsc-try-push
 refs:
   - https://rigtorp.se/ringbuffer/
 ---

@@ -5,7 +5,7 @@ version: 1
 level: 5
 tags: [low-latency, concurrency, market-data]
 requires:
-  - interview-essentials/ll-memory-orders
+  - ll-memory-orders
 elaborate: Which state in your system is read on every event but written rarely — and could readers live with retrying?
 refs:
   - https://www.kernel.org/doc/html/latest/locking/seqlock.html

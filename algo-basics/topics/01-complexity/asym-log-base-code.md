@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [foundations, complexity, logarithms]
 requires:
-  - complexity-asym-log-rules
-  - complexity-asym-big-o-definition
+  - interview-essentials/complexity-asym-log-rules
+  - interview-essentials/complexity-asym-big-o-definition
 input: chips
 choices:
   c1: ["5", "8", "28", "4"]

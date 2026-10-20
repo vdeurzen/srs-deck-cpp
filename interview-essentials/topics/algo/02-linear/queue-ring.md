@@ -5,13 +5,15 @@ version: 1
 level: 2
 tags: [queues, ring-buffers]
 requires:
-  - linear-array-insert-shift
+  - linear-array-insert-worked
+  - linear-queue-adt
+elaborate: "Where have you met a fixed-size circular buffer in practice, such as a log, an audio buffer or a network ring, and what happens when it fills?"
 refs:
   - https://en.cppreference.com/w/cpp/container/queue
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 10 (queues)
 ---
 
-## A queue that pops with `v.erase(v.begin())` pays O(n) per pop, because every element shifts. A fixed-size array used as a circular queue never shifts. What does its pop do instead?
+## A queue that pops with `v.erase(v.begin())` (remove `v`'s first element) pays O(n) per pop, because every element shifts. A fixed-size array used as a circular queue never shifts. What does its pop do instead?
 
 ---
 

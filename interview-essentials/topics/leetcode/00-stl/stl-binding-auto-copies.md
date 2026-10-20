@@ -5,7 +5,9 @@ version: 1
 level: 2
 tags: [stl, structured-bindings, misconception, lc-49]
 requires:
-  - cpp-essentials/iter-range-for-alias
+  - cpp-essentials/iter-range-for-const-auto-ref
+  - cpp-essentials/structured-bindings-basics
+  - cpp-essentials/containers-map-vs-unordered-map
 refs:
   - https://leetcode.com/problems/group-anagrams/
   - https://en.cppreference.com/w/cpp/language/structured_binding
@@ -15,7 +17,8 @@ elaborate: Go's `for k, v := range m` hands you copies too. Where in your own lo
 
 Group Anagrams (LC 49): group the words that are anagrams of each
 other. A solution keys each group on its sorted letters and, before
-returning, sorts each group:
+returning, sorts each group (`std::ranges::sort(v)` sorts the whole
+container `v`). Many expect the loop to sort the groups inside the map:
 
 ```cpp
 std::map<std::string, std::vector<std::string>> groups;

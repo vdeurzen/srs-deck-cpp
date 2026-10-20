@@ -1,14 +1,15 @@
 ---
 id: arr-3sum-inner-skip-trace
 kind: trace
-version: 1
+version: 2
 level: 3
 tags: [two-pointers, 3sum, tracing, lc-15]
 probes:
-  1: { lo: "3", hi: "4", found: "1" }
-  2: { lo: "3", hi: "3", found: "1" }
+  1: { lo: "3", hi: "4" }
+  2: { hi: "3", found: "1" }
 requires:
-  - linear-two-pointers-code
+  - linear-two-pointers-sorted-pair
+  - cpp-essentials/vector-basics
 refs:
   - https://leetcode.com/problems/3sum/
   - https://en.wikipedia.org/wiki/3SUM
@@ -48,5 +49,4 @@ again** from `lo = 2, hi = 4`.
 `a[hi]` gives a different sum, so the ordinary `--hi` passes it. Here
 `2 + 3` is too big, and the scan ends.
 
-These values follow from C++'s rules for this code; a compiled run on
-two compilers agreed.
+Values from running it under GCC 16.2.

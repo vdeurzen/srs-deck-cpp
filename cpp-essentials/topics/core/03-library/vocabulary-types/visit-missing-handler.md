@@ -15,25 +15,27 @@ compile:
     int main() {}
 requires:
   - vocab-variant-closed-set
+  - constexpr-fn-static-assert
+elaborate: Where would a compile error for a missing case have caught a bug in your own code, for example a Go type switch with a silent default?
 refs:
   - https://en.cppreference.com/w/cpp/utility/variant/visit
 ---
 
-`std::visit` refuses to compile until every alternative of `Shape` has a
-handler. Supply the missing one.
+Complete the third overload so `layer` compiles; the shape it handles
+sits on layer 5. (A struct with `operator()` overloads is
+called like a function, picking the overload by argument type.)
 
 ```cpp
 #include <variant>
-struct Circle {};
-struct Square {};
-struct Triangle {};
-using Shape = std::variant<Circle, Square, Triangle>;
-struct Layer {                     // drawing layer per shape
-    constexpr int operator()(Triangle) const { return 2; }
-    constexpr int operator()(Circle) const { return 1; }
-    constexpr int operator()({{c1::Square}}) const { return 5; }
+struct Circle {}; struct Square {}; struct Triangle {};
+struct Layer {
+    constexpr int operator()(Triangle) { return 2; }
+    constexpr int operator()(Circle) { return 1; }
+    constexpr int operator()({{c1::Square}}) { return 5; }
 };
-constexpr int layer(Shape s) { return std::visit(Layer{}, s); }
+constexpr int layer(std::variant<Circle, Square, Triangle> s) {
+    return std::visit(Layer{}, s);
+}
 ```
 
 ---
@@ -43,6 +45,6 @@ visitor must accept **every** alternative; the check happens at compile
 time, for all of them at once. A second `Circle` or `Triangle` overload
 redeclares an existing one and still leaves `Square` unhandled;
 `const Circle&` beside `Circle` makes a `Circle` call ambiguous.
-Overloads are chosen by ordinary resolution, so a catch-all such as
-`operator()(auto)` would compile and quietly swallow any alternative
+Overloads are chosen by ordinary resolution, so a catch-all overload
+that accepts any type would compile and quietly swallow any alternative
 added later.

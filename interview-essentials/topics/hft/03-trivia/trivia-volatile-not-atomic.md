@@ -6,6 +6,7 @@ level: 3
 tags: [hft-trivia, concurrency, memory-model, misconception]
 requires:
   - cpp-essentials/threads-data-race-is-ub
+  - cpp-essentials/conc-atomic-or-mutex
 refs:
   - https://eel.is/c++draft/intro.races#def:data_race
   - https://en.cppreference.com/w/cpp/language/cv
@@ -13,18 +14,22 @@ refs:
 elaborate: Besides the flag itself, what else written by the stopping thread might the worker need to see, and what orders it?
 ---
 
+Many expect `volatile` to make a flag safe to share between threads.
+`poll_feed()` is any function that reads the market feed.
+
 ```cpp
 volatile bool stop = false;
 void worker()   { while (!stop) poll_feed(); }   // thread 1
 void shutdown() { stop = true; }                 // thread 2
 ```
 
-## Marking `stop` `volatile` made the worker loop exit reliably on x86. Is the program correct?
+## Under the C++ standard, what does this program do when both threads run?
 
 ---
 
-**No: it has a data race, so undefined behaviour.** `volatile`
+**It has a data race, so its behaviour is undefined.** `volatile`
 guarantees only that its accesses aren't elided or reordered relative to
 each other. It gives no atomicity and no ordering between threads; only
-atomics, fences or locks do. `volatile` is for memory-mapped I/O and
-signal handlers. Write `std::atomic<bool> stop`.
+atomics, fences or locks do. It works on x86 by luck of the hardware.
+`volatile` is for device registers and signal handlers. Write
+`std::atomic<bool> stop`.

@@ -8,7 +8,7 @@ probes:
   1: { stack: "1 0 1", popped: "02" }
   2: { stack: "1 0 0 0 1", popped: "0212" }
 requires:
-  - graph-cycle-spot
+  - interview-essentials/graph-cycle-spot
   - graph-stack-walk-code
 refs:
   - https://en.wikipedia.org/wiki/Depth-first_search#Pseudocode

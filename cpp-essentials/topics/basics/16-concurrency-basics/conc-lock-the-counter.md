@@ -4,19 +4,19 @@ kind: code
 version: 1
 level: 1
 tags: [concurrency, threads]
-requires:
-  - conc-mutex-takes-turns
-  - life-scope-automatic
+elaborate: Say what would go wrong if `bump` called `m.lock()` and `m.unlock()` by hand and a line between them returned early.
 input: chips
 choices:
   c1:
     - "std::lock_guard<std::mutex> hold(m);"
-    - "std::lock_guard<std::mutex>(m);"
+    - "std::lock_guard<std::mutex> hold(&m);"
     - "std::lock_guard<std::mutex> hold(count);"
     - "std::lock_guard<std::mutex> hold(std::mutex{});"
 compile:
   harness: |
     int main() {}
+requires:
+  - conc-lock-guard-intro
 refs:
   - https://en.cppreference.com/w/cpp/thread/mutex
   - https://en.cppreference.com/w/cpp/thread/lock_guard
@@ -39,7 +39,7 @@ void bump() {
 ---
 
 **A named guard on the shared `m` holds it until the end of the scope.**
-Without a name, `(m)` declares a new guard *called* `m` that locks
-nothing (here it fails to compile). The guard locks the mutex, not the
-data, so `count` is the wrong argument. A fresh `std::mutex{}` per call
-would be shared by no one; the guard refuses a temporary.
+The guard takes the mutex itself: `&m` is a pointer, and `count` is the
+data, not a mutex. A fresh `std::mutex{}` per call would be shared by no
+one, and does not compile. An unnamed `std::lock_guard<std::mutex>{m};`
+would compile, yet unlock at the end of its own line.

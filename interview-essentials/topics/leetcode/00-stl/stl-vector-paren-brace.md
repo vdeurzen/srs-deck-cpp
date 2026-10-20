@@ -29,6 +29,8 @@ refs:
 elaborate: What do `std::string s(3, 'x')` and `std::string s{3, 'x'}` each hold?
 requires:
   - cpp-essentials/initialization-brace-prefers-initializer-list
+  - cpp-essentials/vector-of-vectors
+  - cpp-essentials/constexpr-fn-static-assert
 ---
 
 Pascal's Triangle (LC 118): return its first `rows` rows. Row `i` has `i + 1` entries and its outer

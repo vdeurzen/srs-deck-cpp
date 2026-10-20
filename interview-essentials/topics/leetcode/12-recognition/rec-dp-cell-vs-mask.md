@@ -1,35 +1,34 @@
 ---
 id: rec-dp-cell-vs-mask
 kind: basic
-version: 1
+version: 2
 level: 4
-tags: [dynamic-programming, bitmask-dp, grids, recognition, lc-64, lc-847]
+tags: [grids, recognition, lc-64, lc-714]
 requires:
   - dp-grid-dag-signal
-  - dp-bitmask-signal
 refs:
   - https://leetcode.com/problems/minimum-path-sum/
-  - https://leetcode.com/problems/shortest-path-visiting-all-nodes/
-  - https://leetcode.com/problems/unique-paths-iii/
-  - https://doi.org/10.1137/0110015
-elaborate: Unique Paths III (LC 980) counts the walks from the start cell to the end cell that move in all four directions and cover every empty cell exactly once. Which of the two is it?
+  - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-transaction-fee/
+  - https://leetcode.com/problems/best-time-to-buy-and-sell-stock-with-cooldown/
+elaborate: Best Time to Buy and Sell Stock with Cooldown (LC 309) forbids buying on the day after a sale. What third value joins the state, and why?
 ---
 
-Two cheapest-route statements:
+Two best-route statements:
 
 > (a) In an `m x n` grid of non-negative numbers, find the path from
 > top left to bottom right with the smallest sum; you move only down or
 > right.
 >
-> (b) Return the length of the shortest path that visits every node of
-> a graph; you may start and stop anywhere and revisit nodes. `n <= 12`.
+> (b) `prices[i]` is a stock's price on day `i`. Buy and sell as often
+> as you like, holding at most one share at a time and paying `fee` on
+> each sale. Return the largest profit.
 
-## In one of them the current position alone is not enough state. What about its goal decides that?
+## In one of them the position (cell or day) alone is not enough state. What decides that?
 
 ---
 
-**(b) must cover every node, so the rest of the walk depends on which nodes are done.**
+**(b): holding a share changes your next moves, so the state is (day, holding).**
 
-Two walks at the same node can owe different work, so (b)'s state is
-(visited mask, node). In (a) moves never revisit a cell and the goal is
-fixed, so a cell's best finish is the same however you arrived.
+Two histories reaching the same day can face different futures: one may
+sell, the other may only buy. In (a) every route into a cell faces the
+same remaining grid, so the cell alone fixes the best finish.

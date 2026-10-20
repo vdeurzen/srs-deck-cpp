@@ -8,16 +8,18 @@ requires:
   - class-init-list-vs-body
   - class-invariant-who-checks
   - class-default-ctor-restore
+  - types-uninit-local-read
+elaborate: Pick a constructor in your code; which of its members are built in the list, which by default, and which only assigned in the body?
 refs:
   - https://en.cppreference.com/w/cpp/language/constructor
   - https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
 ---
-Explain what happens to an object's members when a constructor such as
-`Car(int hp) : engine_(hp) { /* body */ }` runs, and what the constructor
-owes the rest of the program when it finishes.
+An interviewer asks what a constructor such as
+`Car(int hp) : engine_(hp) { /* body */ }` does for the object it builds.
+Explain it to them.
 ---
-- [ ] Every member is constructed before the first statement of the body runs
-- [ ] A member named in the initialiser list is constructed from that entry
-- [ ] A member left out uses its default member initialiser, else default construction (an `int` stays indeterminate)
-- [ ] An assignment in the body is a second write to an already-constructed member, not its initialisation
-- [ ] On return the class invariant must hold; arguments that can't satisfy it must be rejected
+- [ ] Problem: a constructor establishes the class invariant before any other code can use the object
+- [ ] Mechanism: every member is constructed before the body runs, from its list entry if it has one
+- [ ] Example: a member missing from the list uses its default member initialiser, such as `int retries = 3`
+- [ ] Cost: assigning a member in the body is a second write to an object already built
+- [ ] Pitfall: an `int` member with neither a list entry nor a default holds an indeterminate value

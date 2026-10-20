@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, trees, pointers]
 requires:
-  - tree-recursive-def
+  - interview-essentials/tree-recursive-def
 expose_ms: 6000
 compile:
   harness: |

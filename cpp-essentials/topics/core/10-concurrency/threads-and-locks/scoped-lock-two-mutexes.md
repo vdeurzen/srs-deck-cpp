@@ -11,10 +11,12 @@ compile:
   harness: |
     int main() {}
 requires:
-  - threads-data-race-is-ub
+  - conc-deadlock-intro
+  - conc-lock-guard-intro
 refs:
   - https://en.cppreference.com/w/cpp/thread/scoped_lock
   - https://en.cppreference.com/w/cpp/thread/lock
+elaborate: Say in one sentence when you would still pick one fixed lock order over `scoped_lock`, for example when the two locks are taken in different functions.
 ---
 
 Two threads transfer between the same two accounts at once, one
@@ -33,8 +35,8 @@ void transfer(Account& from, Account& to, int amount) {
 
 ---
 
-**`std::scoped_lock` takes any number of mutexes and acquires them
-with `std::lock`'s deadlock-avoidance algorithm**, so two callers
+**`std::scoped_lock` takes any number of mutexes and locks them all
+without deadlocking**, so two callers
 naming the same pair in opposite orders cannot each hold one and wait
 for the other. `std::lock_guard` and `std::unique_lock` guard exactly
 one mutex — with two arguments neither deduces, and locking the pair by

@@ -6,6 +6,9 @@ level: 1
 tags: [lifetime, new-delete, storage-duration, tracing]
 requires:
   - life-ctor-dtor-count
+  - life-stack-vs-heap
+  - ptr-null-pointer
+elaborate: Say who is responsible for `delete kept;` here, and how a reader of the code would know.
 probes:
   1: { alive: "2" }
   2: { alive: "1" }
@@ -40,5 +43,4 @@ pointer `kept` is a local, and a pointer's lifetime ending (it does not
 here) would not destroy what it points to either. The object lives until
 `delete kept;` runs its destructor and frees the memory. Forget that line
 and it is never destroyed: a leak. Verified by compiling and running an
-instrumented copy under GCC 16.2 (`g++ -std=c++23`), with a clean
-`-fsanitize=address` run.
+instrumented copy under GCC 16.2 (`g++ -std=c++23`).

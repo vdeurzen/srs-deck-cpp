@@ -4,12 +4,16 @@ kind: basic
 version: 1
 level: 2
 tags: [bit-tricks, twos-complement]
+requires:
+  - foundations-bitwise-operators
+  - cpp-essentials/types-overflow-rules
+elaborate: Say in one sentence, as to an interviewer, where a loop over the set bits of a mask would use this.
 refs:
   - https://graphics.stanford.edu/~seander/bithacks.html
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic
 ---
 
-## For a 32- or 64-bit unsigned `x`, why does `x & -x` keep only the lowest set bit?
+## `~x` flips every bit of `x`. For a 32- or 64-bit unsigned `x`, why does `x & -x` keep only the lowest set bit?
 
 ---
 

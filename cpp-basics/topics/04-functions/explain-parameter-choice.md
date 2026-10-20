@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [functions, parameters, return]
 requires:
-  - fn-by-value-vs-reference
+  - cpp-essentials/fn-by-value-vs-reference
   - fn-reference-same-object
   - cpp-essentials/fn-return-by-value
 refs:

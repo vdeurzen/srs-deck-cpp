@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, complexity, big-o]
 requires:
-  - complexity-asym-big-o-definition
+  - interview-essentials/complexity-asym-big-o-definition
 input: chips
 choices:
   c1: ["4", "2", "3", "12"]

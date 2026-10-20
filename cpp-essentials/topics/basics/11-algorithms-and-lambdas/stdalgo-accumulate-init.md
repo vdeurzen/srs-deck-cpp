@@ -13,11 +13,15 @@ compile:
     int main() {}
 requires:
   - iter-end-one-past
+  - constexpr-fn-static-assert
+elaborate: Name another place where the type of a starting value silently decides the type of a whole computation.
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/accumulate
 ---
 
-Complete the call so `total` returns the exact sum of `v`.
+`std::accumulate(first, last, init)`, from `<numeric>`, adds each element
+of `[first, last)` onto `init`. Complete the call so `total` returns the
+exact sum of `v`.
 
 ```cpp
 #include <numeric>

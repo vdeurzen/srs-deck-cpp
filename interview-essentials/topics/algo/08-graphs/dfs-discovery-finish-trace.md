@@ -1,47 +1,49 @@
 ---
 id: graph-dfs-discovery-finish-trace
 kind: trace
-version: 1
+version: 3
 level: 2
 tags: [graphs, dfs, tracing]
 probes:
-  1: { d: "1 2 6 3 0", f: "8 5 7 4 0" }
-  2: { d: "1 2 6 3 9", f: "8 5 7 4 10" }
+  1: { "f[2]": "3", "d[1]": "4" }
 requires:
-  - graph-bfs-and-dfs
+  - graph-dfs-worked
 refs:
   - https://doi.org/10.1137/0201010
   - https://en.wikipedia.org/wiki/Depth-first_search#Vertex_orderings
+elaborate: Sort the vertices by decreasing finish time. What order do you get on this graph, and which build tool would want it?
 ---
 
 A recursive DFS stamps each vertex with a discovery time `d` when it
-starts and a finish time `f` when its whole subtree is done. `0` means
-"not stamped yet". Give each array as five numbers, vertex 0 first.
+starts and a finish time `f` when everything it reaches is done, from one
+counter `t`. `d[v] == 0` means v has not been started.
 
 ```cpp
-// directed: 0→1 0→2 1→3 2→3 4→2
-const std::vector<int> adj[5] = {{1, 2}, {3}, {3}, {}, {2}};
-int d[5], f[5], t = 0; bool seen[5] = {};
+// directed: 0→2 0→1, in that order
+const std::vector<int> adj[3] = {{2, 1}, {}, {}};
+int d[3] = {0, 0, 0}, f[3] = {0, 0, 0}, t = 0;
 void dfs(int u) {
-  seen[u] = true; d[u] = ++t;
-  for (int v : adj[u]) if (!seen[v]) dfs(v);
-  f[u] = ++t;
+  ++t;
+  d[u] = t;
+  for (int v : adj[u])
+    if (d[v] == 0) dfs(v);
+  ++t;
+  f[u] = t;
 }
 int main() {
-  dfs(0);                                                // @1
-  for (int u = 0; u < 5; ++u) if (!seen[u]) dfs(u);      // @2
+  dfs(0);   // @1
 }
 ```
 
 ---
 
-The intervals nest: 3's [3, 4] sits inside 1's [2, 5], inside 0's
-[1, 8]. An interval contains exactly its vertex's DFS descendants. 2
-reaches 3 already finished, so 2 finishes at 7 without going deeper.
-Vertex 4 is unreachable from 0; the outer loop restarts DFS there, and
-its interval [9, 10] is disjoint from the rest.
+0 is stamped 1 and enters 2 first, its first listed edge: 2 gets
+[2, 3] and finishes, having nowhere to go. Only then does 0 try its
+second edge, so 1 starts at 4, after 2's finish: `f[2]` = 3, `d[1]` = 4.
+1 closes at 5 and 0 at 6.
 
-Each vertex is stamped twice and each edge looked at once: O(V + E).
+The intervals nest: 0's [1, 6] contains both children's, and siblings'
+intervals never overlap. Each vertex is stamped twice and each edge
+looked at once: O(V + E).
 
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`).
+(Values from running it under GCC 16.2.)

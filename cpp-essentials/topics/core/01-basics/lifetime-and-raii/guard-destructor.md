@@ -6,6 +6,8 @@ level: 2
 tags: [raii, lifetime]
 requires:
   - raii-owner-in-destructor
+  - life-temporary-intro
+elaborate: Say in one sentence, as to an interviewer, why an unnamed guard object is a bug that compiles cleanly.
 input: chips
 choices:
   c1:
@@ -28,6 +30,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/storage_duration
 ---
 
+`Lock` models a lock with a flag: `*held` is `true` while it is held
+(`constexpr` only lets the compiler run these functions in a check).
 `update` must hold the lock while its body runs and release it on every
 path out, including the early `return`. Complete the line that takes the
 lock.
@@ -35,7 +39,7 @@ lock.
 ```cpp
 struct Lock {
   bool* held;
-  constexpr explicit Lock(bool* h) : held(h) { *held = true; }
+  constexpr Lock(bool* h) : held(h) { *held = true; }
   constexpr ~Lock() { *held = false; }
 };
 constexpr int update(bool* held, bool fail) {
@@ -52,7 +56,4 @@ duration**: its destructor then runs when `update`'s scope ends, by any
 route. An unnamed `Lock{held};` is a temporary, destroyed at the end of
 its own statement, so the body runs unlocked. Setting `*held = true;` by
 hand has no destructor, so the early `return` never releases. A `Lock`
-made with `new` lives until someone `delete`s it, which nobody does. Each
-mistake changes what `run` returns, so the harness's `static_assert`s
-reject it (the leaked `new` is also not allowed in a constant
-expression).
+made with `new` lives until someone `delete`s it, which nobody does.

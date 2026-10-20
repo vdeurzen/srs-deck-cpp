@@ -12,7 +12,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Additive_operators
   - https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_subscript_operator
 requires:
-  - ptr-array-name-to-pointer
+  - ptr-arith-counts-elements
+elaborate: Where would `q - p` be clearer than keeping a separate index alongside a pointer?
 ---
 
 ```cpp
@@ -21,7 +22,7 @@ int* p = v;
 p += 2;
 int x = *p;              // @1
 int* q = p + 2;
-long gap = q - p;
+int gap = q - p;
 int y = *q;              // @2
 p[1] = 0;
 int w = v[3];            // @3
@@ -33,4 +34,5 @@ int w = v[3];            // @3
 `&v[4]` (50), and `q - p` is 2: subtracting pointers into one array
 counts the elements between them. `p[i]` means `*(p + i)`, so `p[1]` is
 `v[3]` (measured from where `p` now is, not from `v[0]`), and `w` reads
-the 0 just stored there.
+the 0 just stored there. Verified by running an instrumented copy under
+GCC 16.2 (`g++ -std=c++23`).

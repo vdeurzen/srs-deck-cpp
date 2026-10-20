@@ -6,6 +6,7 @@ level: 2
 tags: [stl, integers, undefined-behaviour, misconception, lc-7]
 requires:
   - cpp-essentials/types-overflow-rules
+  - cpp-essentials/cast-functional-notation
 refs:
   - https://leetcode.com/problems/reverse-integer/
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Overflows
@@ -14,7 +15,9 @@ elaborate: "Which other one-liners fail on exactly this input: `std::abs(x)`, `x
 
 Reverse Integer (LC 7): reverse the decimal digits of the 32-bit `int`
 `x`, keeping its sign; return 0 if the result does not fit in an `int`.
-A common solution:
+`INT_MIN` and `INT_MAX` (from `<climits>`) are the smallest and largest
+`int`, −2³¹ and 2³¹ − 1. Many expect the `long long` accumulator to make
+this common solution overflow-proof:
 
 ```cpp
 #include <climits>

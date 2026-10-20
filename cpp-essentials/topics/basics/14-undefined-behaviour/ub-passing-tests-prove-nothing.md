@@ -5,6 +5,8 @@ version: 1
 level: 1
 tags: [undefined-behaviour, misconception]
 elaborate: Which code of yours has only ever been checked by "it gives the right answer when I run it"?
+requires:
+  - io-cout-insertion
 refs:
   - https://en.cppreference.com/w/cpp/language/ub
   - https://eel.is/c++draft/intro.abstract

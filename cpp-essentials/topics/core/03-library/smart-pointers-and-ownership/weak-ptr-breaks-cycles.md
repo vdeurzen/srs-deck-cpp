@@ -6,6 +6,7 @@ level: 3
 tags: [smart-pointers, ownership]
 requires:
   - smart-pointers-shared-ptr-cycle-leaks
+elaborate: Say aloud the rule for which direction gets `shared_ptr` and which gets `weak_ptr`, using a tree or an observer from your own code.
 refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr
 ---
@@ -14,9 +15,9 @@ refs:
 
 ---
 
-**It observes the object without adding to the strong count.** Only
+**It observes the object without adding to the owner count.** Only
 `shared_ptr`s keep an object alive: when the last outside
-`shared_ptr<Parent>` goes, `Parent`'s strong count reaches zero and it is
+`shared_ptr<Parent>` goes, `Parent`'s owner count reaches zero and it is
 destroyed, taking its `shared_ptr<Child>` with it — the `Child`'s
 `weak_ptr` cannot hold it. Owner points down with `shared_ptr`; owned
 points back with `weak_ptr`.

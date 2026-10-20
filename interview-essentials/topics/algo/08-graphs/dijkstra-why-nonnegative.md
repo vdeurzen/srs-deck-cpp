@@ -12,7 +12,7 @@ refs:
 elaborate: Where might a negative weight sneak into a graph you work with — a refund, a rebate, a log of a rate?
 ---
 
-## Dijkstra treats a vertex as final once it is popped with the smallest distance. With this one negative edge, what does it report for `u`?
+## Many expect Dijkstra to work for any edge weights, since it treats a vertex as final once it is popped with the smallest distance. With this one negative edge, what does it report for `u`?
 
 ```
 s → u   weight  1

@@ -1,25 +1,15 @@
 ---
 id: bt-subsets-chunk
 kind: chunk
-version: 1
+version: 2
 level: 2
 tags: [backtracking, subsets, lc-78]
-expose_ms: 8000
-compile:
-  harness: |
-    #include <vector>
-    constexpr bool power_set() {
-      const std::vector<int> a{1, 2, 3};
-      std::vector<int> cur;
-      std::vector<std::vector<int>> out;
-      subsets(a, 0, cur, out);
-      const std::vector<std::vector<int>> want{{}, {1}, {1, 2}, {1, 2, 3}, {1, 3}, {2}, {2, 3}, {3}};
-      return out == want && cur.empty();
-    }
-    static_assert(power_set());
-    int main() {}
+expose_ms: 11000
+compile: null # a function body
 requires:
   - technique-backtracking-undo
+  - cpp-essentials/vector-back-pop-back
+  - cpp-essentials/cast-functional-notation
 refs:
   - https://leetcode.com/problems/subsets/
   - https://leetcode.com/problems/permutations/
@@ -28,13 +18,11 @@ elaborate: Permutations (LC 46), every ordering of distinct `nums`, may place an
 ---
 
 ```cpp
-constexpr void subsets(const auto& a, int i, auto& cur, auto& out) {
-  out.push_back(cur);                        // every node of the tree is a subset
-  for (int j = i; j < int(a.size()); ++j) {
-    cur.push_back(a[j]);                     // choose
-    subsets(a, j + 1, cur, out);             // explore: only items after j
-    cur.pop_back();                          // un-choose
-  }
+out.push_back(cur);
+for (int j = i; j < int(a.size()); ++j) {
+  cur.push_back(a[j]);
+  subsets(a, j + 1, cur, out);
+  cur.pop_back();
 }
 ```
 
@@ -53,4 +41,4 @@ The **start index** is what makes these sets and not orderings: the
 call continues from `j + 1`, so items are picked in increasing index
 order and {1, 2} is never produced again as {2, 1}. 2ⁿ subsets, O(n·2ⁿ)
 with the copies. Forgetting `pop_back` leaks a branch's choice into its
-siblings.
+siblings. It is the body of `subsets(a, i, cur, out)`, first called with `i = 0`.

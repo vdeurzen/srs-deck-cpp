@@ -23,6 +23,7 @@ compile:
 requires:
   - layout-trailing-padding
   - layout-declaration-order
+elaborate: Pick a struct you have written recently; say aloud which member you would move first and how many bytes that saves.
 refs:
   - https://en.cppreference.com/w/cpp/language/object#Alignment
 ---

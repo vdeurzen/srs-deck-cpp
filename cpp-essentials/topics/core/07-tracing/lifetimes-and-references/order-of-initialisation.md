@@ -10,8 +10,10 @@ refs:
   - https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
   - https://eel.is/c++draft/class.base.init#15
 requires:
-  - class-init-list-vs-body
-  - class-default-ctor-restore
+  - class-ctor-colon-part
+  - class-default-member-init-intro
+  - string-basics
+elaborate: Find a constructor of yours whose initialiser list uses one member to compute another; is the one it reads declared above it?
 ---
 
 ```cpp
@@ -33,5 +35,4 @@ initialiser list is written in is ignored, and a default member
 initialiser (`c`) is not run "before" or "after" the list: it runs in its
 declared slot when the constructor does not name that member. So a member
 may safely read only members declared above it. Verified by running an
-instrumented copy under GCC 16.2 (`g++ -std=c++23`, `-Wreorder` warns
-under `-Wall`).
+instrumented copy under GCC 16.2 (`g++ -std=c++23`).

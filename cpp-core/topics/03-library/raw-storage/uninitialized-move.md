@@ -6,7 +6,7 @@ level: 3
 tags: [raw-storage, algorithms, misconception]
 elaborate: Where in your own code does a loop assign into memory that came from an allocator rather than from a container?
 requires:
-  - cpp-essentials/storage-construct-at
+  - storage-construct-at
 refs:
   - https://en.cppreference.com/w/cpp/memory/uninitialized_move
   - https://en.cppreference.com/w/cpp/algorithm/move

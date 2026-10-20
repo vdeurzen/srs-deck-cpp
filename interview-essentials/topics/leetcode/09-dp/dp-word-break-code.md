@@ -16,8 +16,9 @@ compile:
     static_assert(!word_break("ab", {"b"}));
     int main() {}
 requires:
-  - technique-dp-state
-  - technique-memo-vs-table
+  - technique-coin-change-table
+  - cpp-essentials/strings-string-view-parameter
+  - stl-size-t-unsigned
 refs:
   - https://leetcode.com/problems/word-break/
   - https://leetcode.com/problems/word-break-ii/
@@ -27,13 +28,15 @@ elaborate: With a thousand dictionary words, none longer than 20 characters, wha
 
 Word Break (LC 139): can `s` be split into a sequence of dictionary
 words, each reusable? `dp[i]` says whether the first `i` characters
-can. Complete the condition that lets word `w` end the prefix.
+can; `s.substr(0, i).ends_with(w)` tests whether those first `i`
+characters end with `w`. Complete the condition that lets word `w` end
+the prefix.
 
 ```cpp
-#include <bits/stdc++.h>
+#include <string_view>
+#include <vector>
 constexpr bool word_break(std::string_view s, std::vector<std::string_view> dict) {
-  std::vector<bool> dp(s.size() + 1);
-  dp[0] = true;                                  // the empty prefix
+  std::vector<bool> dp(s.size() + 1);  dp[0] = true;   // dp[0]: the empty prefix
   for (std::size_t i = 1; i <= s.size(); ++i)
     for (std::string_view w : dict)
       if (s.substr(0, i).ends_with(w) && {{c1::dp[i - w.size()]}}) dp[i] = true;

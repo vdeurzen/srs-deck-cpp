@@ -7,9 +7,11 @@ tags: [heaps, trees, bst, invariants]
 requires:
   - heap-shape-and-order
   - tree-bst-property
+  - complexity-big-o-scaling
 refs:
   - https://en.wikipedia.org/wiki/Binary_heap
   - https://en.wikipedia.org/wiki/Binary_search_tree
+elaborate: When would you keep both a heap and a hash map over the same items, and what does each one answer?
 ---
 
 ## A balanced BST finds key 5 in O(log n). Why does this max-heap need O(n) to find it?

@@ -17,19 +17,24 @@ compile:
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode
 requires:
-  - graph-bfs-why-shortest
+  - graph-bfs-trace
+  - cpp-essentials/iter-array-fixed-size
+  - cpp-essentials/constexpr-fn-static-assert
+elaborate: Say in one sentence, as to an interviewer, why this distance would be wrong if the queue were a stack.
 ---
 
-Complete the line that records how many edges `v` is from `s`.
+Complete the line that records how many edges `v` is from `s`. Each
+`adj[u]` lists u's neighbours, padded with −1 to three slots, and
+`for (int v : adj[u])` visits its slots in order.
 
 ```cpp
 #include <array>
-constexpr std::array<int, 6> bfs(const auto& adj, int s) {   // -1 pads adj[u]
-  std::array<int, 6> dist{-1, -1, -1, -1, -1, -1}, queue{s}; dist[s] = 0;
-  for (int head = 0, tail = 1; head < tail;) {
-    const int u = queue[head++];
+constexpr std::array<int, 6> bfs(std::array<std::array<int, 3>, 6> adj, int s) {
+  std::array<int, 6> dist{-1, -1, -1, -1, -1, -1}, queue{s};  dist[s] = 0;
+  for (int head = 0, tail = 1; head < tail; ++head) {
+    const int u = queue[head];
     for (int v : adj[u])
-      if (v != -1 && dist[v] == -1) { dist[v] = {{c1::dist[u] + 1}}; queue[tail++] = v; }
+      if (v != -1 && dist[v] == -1) { dist[v] = {{c1::dist[u] + 1}}; queue[tail] = v; ++tail; }
   }
   return dist;
 }

@@ -9,7 +9,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/definition
 ---
 
-## `main` calls `area` before its body appears. Why does this compile?
+## `main` (where the program starts) calls `area` before its body appears. Why does this compile?
 
 ```cpp
 int area(int w, int h);                     // line A
@@ -25,5 +25,5 @@ int area(int w, int h) { return w * h; }    // line B
 
 The compiler checks each call against what it has seen. A
 declaration (`;` instead of a body) is enough to check `area(3, 4)`. Line B,
-the definition, supplies the body, here or in another `.cpp` file.
+the definition, supplies the body, here or in another source file.
 Without line A, the call is an error.

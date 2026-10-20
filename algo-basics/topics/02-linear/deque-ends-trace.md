@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [foundations, deques, tracing]
 requires:
-  - linear-queue-adt
-  - linear-stack-adt
+  - interview-essentials/linear-queue-adt
+  - interview-essentials/linear-stack-adt
 probes:
   1: { "d.front()": "0", "d.back()": "2" }
   2: { "d.front()": "-1", "d.back()": "1" }

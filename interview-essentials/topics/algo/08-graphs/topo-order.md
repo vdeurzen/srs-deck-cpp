@@ -3,7 +3,10 @@ id: graph-topo-order
 kind: basic
 version: 1
 level: 1
-tags: [graphs, topological-sort, scheduling]
+tags: [graphs, ordering, scheduling]
+requires:
+  - graph-directed-vs-undirected
+  - graph-cycle-spot
 refs:
   - https://doi.org/10.1145/368996.369025
   - https://en.wikipedia.org/wiki/Topological_sorting

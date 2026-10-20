@@ -4,12 +4,19 @@ kind: trace
 version: 1
 level: 1
 tags: [exceptions, control-flow, tracing]
+requires:
+  - err-throw-catch-intro
+  - types-char-is-integer
+  - string-basics
 probes:
   1: { total: "4", log: "4!" }
 refs:
   - https://en.cppreference.com/w/cpp/language/throw
   - https://en.cppreference.com/w/cpp/language/try
+elaborate: Say in one sentence what a Go version of `digit` would return instead, and what its caller would have to check after each call.
 ---
+
+`std::invalid_argument` is a standard exception type for bad arguments.
 
 ```cpp
 std::string log;

@@ -8,8 +8,8 @@ probes:
   1: { small: "2 1", big: "8 6" }
   2: { small: "2 1 3", big: "6 9 8" }
 requires:
-  - sort-swap-temp
-  - sort-quick-idea
+  - interview-essentials/sort-swap-temp
+  - interview-essentials/sort-quick-idea
 refs:
   - https://en.wikipedia.org/wiki/Quicksort#Lomuto_partition_scheme
   - https://doi.org/10.1093/comjnl/5.1.10

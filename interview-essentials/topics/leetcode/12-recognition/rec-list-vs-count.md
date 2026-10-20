@@ -3,10 +3,11 @@ id: rec-list-vs-count
 kind: basic
 version: 1
 level: 4
-tags: [backtracking, dynamic-programming, recognition, lc-39, lc-518]
+tags: [recognition, lc-39, lc-518]
 requires:
-  - bt-combination-start-index
-  - dp-coin-ways-chunk
+  - technique-backtracking-state-space
+  - technique-dp-overlapping-subproblems
+  - complexity-feasible-n
 refs:
   - https://leetcode.com/problems/combination-sum/
   - https://leetcode.com/problems/coin-change-ii/
@@ -23,6 +24,8 @@ times.
 >
 > (b) Return the number of combinations of `coins` that make up
 > `amount`.
+
+Polynomial time means a cost like n² or n³, never 2ⁿ.
 
 ## Only one of them can be solved in time polynomial in n and the target. Which property of the other rules that out?
 

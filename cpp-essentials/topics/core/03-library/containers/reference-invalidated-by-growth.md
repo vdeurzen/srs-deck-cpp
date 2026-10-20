@@ -12,9 +12,11 @@ compile:
     static_assert(first_after_push() == 10);
     int main() {}
 requires:
-  - containers-default-to-vector
-  - ptr-dangling
   - iter-growth-invalidates
+  - ptr-dangling
+  - constexpr-fn-static-assert
+  - vector-basics
+elaborate: Say where in your own code a stored reference or pointer into a `vector` could outlive the next `push_back`.
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://en.cppreference.com/w/cpp/container#Iterator_invalidation
@@ -38,5 +40,4 @@ Growing past `capacity()` makes the `vector` allocate a new buffer, move the
 elements over and free the old one: **every reference, pointer and iterator
 into it now dangles**. A copy owns its own value. `push_back` does the same
 whenever `size() == capacity()`; `reserve` beyond the capacity always does.
-At run time the dangling read is silent undefined behaviour; in a constant
-expression it is a compile error, which is how the harness catches it.
+At run time the dangling read is silent undefined behaviour.

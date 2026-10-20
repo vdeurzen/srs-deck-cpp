@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, graphs, trees, proof]
 requires:
-  - graph-cycle-spot
+  - interview-essentials/graph-cycle-spot
   - graph-component-count
 refs:
   - https://en.wikipedia.org/wiki/Tree_(graph_theory)

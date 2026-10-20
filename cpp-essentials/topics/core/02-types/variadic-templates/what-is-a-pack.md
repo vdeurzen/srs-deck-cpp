@@ -9,6 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/pack
   - https://eel.is/c++draft/temp.variadic
+elaborate: Say aloud how a C++ pack differs from Go's `args ...int`, which arrives as a slice.
 ---
 
 ## Given `template<typename... Ts> void f(Ts... args);`, what are `Ts` and `args` in the call `f(1, 'c', 2.0)`?
@@ -19,5 +20,5 @@ refs:
 three parameters of those types.**
 
 A pack is not a tuple or an array: it has no `[i]` and cannot be stored.
-You use it only by **expanding** it with `...` or counting it with
-`sizeof...`. It may also hold zero elements.
+You use it only by **expanding** it with `...`. It may also hold zero
+elements.

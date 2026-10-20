@@ -6,8 +6,8 @@ level: 1
 tags: [graphs, traversal]
 requires:
   - linear-stack-recognition
-  - linear-queue-ring
-  - graph-bfs-queue-chunk
+  - linear-queue-adt
+  - graph-adjacency-list-vs-matrix
 refs:
   - https://en.wikipedia.org/wiki/Breadth-first_search
   - https://doi.org/10.1137/0201010

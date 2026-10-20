@@ -6,7 +6,7 @@ level: 2
 tags: [classes, comparisons, c++20]
 requires:
   - class-less-than-handwritten
-  - class-default-delete-where
+  - cpp-essentials/class-default-delete-where
 refs:
   - https://en.cppreference.com/w/cpp/language/default_comparisons
   - https://eel.is/c++draft/class.compare.default#5

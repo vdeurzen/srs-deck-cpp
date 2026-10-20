@@ -10,7 +10,6 @@ distractors:
 compile:
   harness: |
     #include <vector>
-    struct TreeNode { int val; TreeNode* left; TreeNode* right; };
     struct Stack {                   // constexpr stand-in for std::stack<TreeNode*>
       std::vector<TreeNode*> v;
       constexpr bool empty() const { return v.empty(); }
@@ -52,6 +51,8 @@ compile:
     }
 requires:
   - tree-bst-inorder-trace
+  - std-queue-stack-adaptors
+  - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/binary-tree-inorder-traversal/
   - https://leetcode.com/problems/kth-smallest-element-in-a-bst/
@@ -60,13 +61,14 @@ refs:
 elaborate: Binary Search Tree Iterator (LC 173) asks for `next()`, the next value in order, in O(h) memory. Which lines become the constructor, and which become `next()`?
 ---
 
-Binary Tree Inorder Traversal (LC 94), without recursion. `cur`
-starts at the root, and `st` arrives as an empty `std::stack<TreeNode*>`
-(a parameter only so the harness can pass a constexpr stand-in).
-Order the lines.
+Binary Tree Inorder Traversal (LC 94), without recursion: append the
+values to `out` in order. `cur` starts at the root, and `st` arrives as
+an empty stack of `TreeNode*`, such as `std::stack<TreeNode*>`. Order
+the lines.
 
 ```cpp
-template <class Node> constexpr void inorder(Node* cur, auto& out, auto st) {
+struct TreeNode { int val; TreeNode* left; TreeNode* right; };
+constexpr void inorder(TreeNode* cur, auto& out, auto st) {
   while (cur || !st.empty()) {
     while (cur) { st.push(cur); cur = cur->left; }
     cur = st.top(); st.pop();
@@ -87,6 +89,5 @@ The outer test needs both halves. At the start the stack is empty but
 `cur` is not, so `while (!st.empty())` never runs. After the last pop,
 `cur` is null but the stack may still hold ancestors. `std::stack::pop`
 returns nothing, so `cur = st.pop()` does not compile: read `top()`
-first. On LC, `st` and `out` are locals declared first:
-`std::stack<TreeNode*> st; std::vector<int> out;`. Stop at the k-th pop and this is Kth Smallest Element in a BST
+first. Stop at the k-th pop and this is Kth Smallest Element in a BST
 (LC 230).

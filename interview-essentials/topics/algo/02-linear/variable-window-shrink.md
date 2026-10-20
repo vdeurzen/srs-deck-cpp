@@ -6,6 +6,7 @@ level: 2
 tags: [sliding-window, arrays]
 requires:
   - linear-sliding-window-sum
+elaborate: "Why does this argument fail once negative values are allowed, and what would you reach for instead?"
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., ch. 16 (aggregate analysis)
 ---

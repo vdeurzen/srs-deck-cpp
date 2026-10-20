@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [foundations, recursion, induction]
 requires:
-  - technique-recursion-sum-code
+  - interview-essentials/technique-recursion-sum-code
 refs:
   - https://en.wikipedia.org/wiki/Mathematical_induction
 ---

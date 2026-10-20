@@ -1,41 +1,44 @@
 ---
 id: linear-array-insert-shift
 kind: trace
-version: 1
+version: 3
 level: 1
 tags: [arrays, complexity, tracing]
 requires:
-  - linear-array-index-contiguity
-  - complexity-big-o-scaling
+  - linear-array-insert-worked
+  - cpp-essentials/containers-default-to-vector
 probes:
-  1: { i: "2", moved: "3" }
-  2: { n: "6", "a[2]": "5", "a[5]": "10" }
+  1: { i: "2", "a[3]": "6" }
+  2: { "a[2]": "5", "a[4]": "8" }
+elaborate: "Where in your own code do you insert into the middle of a vector, and how many elements does each insert move?"
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/insert
 ---
 
-Insert `x` into a sorted array that has spare room at the end.
+Insert `x` into the sorted first `n` elements of `a`
+(`int a[8] = {2, 4, 6, 8};` sets the other four to 0: spare room).
 
 ```cpp
 int main() {
-  int a[8] = {2, 4, 6, 8, 10};
-  int n = 5, x = 5, i = n, moved = 0;
+  int a[8] = {2, 4, 6, 8};
+  int n = 4, x = 5, i = n;
   while (i > 0 && a[i - 1] > x) {      // shift the larger tail right
     a[i] = a[i - 1];
-    --i; ++moved;
+    --i;
   }                                    // @1
-  a[i] = x; ++n;                       // @2
+  a[i] = x;                            // @2
 }
 ```
 
 ---
 
 Inserting into an array **moves every element after the insertion
-point** (here 6, 8 and 10), so it is O(n) in the worst case: inserting at
-the front moves all n. The array has no gaps, so room for `x` must be
-made by shifting.
+point** (here 6 and 8), so it is O(n) in the worst case: inserting at
+the front moves all n. At @1 `a[2]` and `a[3]` both hold 6; the old
+copy waits to be overwritten by `x`.
 
-For small elements those moves are one sequential `memmove`, which is why
-`vector::insert` is often faster in practice than its O(n) suggests.
+For small elements the moves are one sequential block copy, which is
+why `std::vector::insert` is often faster in practice than its O(n)
+suggests.
 
 (Values from running it under GCC 16.2.)

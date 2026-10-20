@@ -5,7 +5,11 @@ version: 1
 level: 2
 tags: [inheritance, virtual, destructors, new-delete]
 requires:
-  - virtual-enable-dispatch
+  - virtual-function-intro
+  - life-delete-matches-new
+  - life-destructor-intro
+  - class-default-delete-where
+elaborate: Find a base class in code you know that is deleted through a base pointer; does it have a virtual destructor?
 refs:
   - https://en.cppreference.com/w/cpp/language/destructor#Virtual_destructors
   - https://eel.is/c++draft/expr.delete#3
@@ -17,9 +21,9 @@ refs:
 struct Plugin {
   virtual void run() {}
 };
-struct Reverb : Plugin {
-  std::vector<float> samples = std::vector<float>(48000);
-  void run() override {}
+struct Reverb : public Plugin {
+  int* samples = new int[48000];
+  ~Reverb() { delete[] samples; }
 };
 
 Plugin* p = new Reverb;
@@ -29,7 +33,7 @@ delete p;
 ---
 
 **Undefined behaviour: `Plugin` has no virtual destructor.** Deleting
-through a base pointer needs one to find the derived destructor. Typically
-only `~Plugin` runs: `~Reverb` and its `samples` member never run, so the
-buffer leaks. Fix: give the base `virtual ~Plugin() = default;`, as every
-class meant to be used through a base pointer should have.
+through a base pointer needs one to reach the derived destructor.
+Typically only `~Plugin` runs, so `~Reverb` never frees `samples`. Fix:
+give the base `virtual ~Plugin() = default;`, as every class meant to be
+deleted through a base pointer should have.

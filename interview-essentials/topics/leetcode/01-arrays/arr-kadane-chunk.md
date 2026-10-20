@@ -4,10 +4,12 @@ kind: chunk
 version: 1
 level: 2
 tags: [kadane, dynamic-programming, arrays, lc-53]
-expose_ms: 6000
-compile: null # a function body: graded by text, see below
+expose_ms: 11000
+compile: null # a function body
 requires:
-  - technique-max-invariant-code
+  - arr-kadane-worked
+  - stl-int-limits
+  - cpp-essentials/iter-range-for-intro
 refs:
   - https://leetcode.com/problems/maximum-subarray/
   - https://leetcode.com/problems/maximum-product-subarray/
@@ -34,7 +36,3 @@ One pass, O(1) space.
 
 Start fresh exactly when the running sum before `x` is negative: it can
 only drag `x` down.
-
-Graded by text (`compile: null`); body of `int maxSubArray(std::vector<int>& nums)`.
-The diff is the judge: an equivalent rewrite is marked different, so
-compare it line by line and rate yourself.

@@ -4,11 +4,14 @@ kind: basic
 version: 1
 level: 1
 tags: [assert, error-handling]
+requires:
+  - err-assert-basics
 refs:
   - https://en.cppreference.com/w/cpp/error/assert
+elaborate: Say aloud which check in a program you know would silently vanish from its release build if it were an `assert`.
 ---
 
-## `assert(cfg.is_open());` checks that a config file the user may have deleted was opened. The debug build stops on a missing file; the release build carries on as if it were there. Why?
+## `assert(cfg.is_open());` checks that a config file the user may have deleted was opened (`is_open()` is true when the file stream opened it). The debug build stops on a missing file; the release build carries on as if it were there. Why?
 
 ---
 

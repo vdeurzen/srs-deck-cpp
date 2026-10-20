@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [polymorphism, templates, c++23]
 requires:
-  - cpp-essentials/staticpoly-crtp-base
+  - staticpoly-crtp-base
 input: chips
 choices:
   c1: ["this const auto& self", "const auto& self", "const Shape& self", "this Shape self"]

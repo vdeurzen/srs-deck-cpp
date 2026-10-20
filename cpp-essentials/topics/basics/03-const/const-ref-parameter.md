@@ -14,14 +14,19 @@ compile:
     static_assert(std::is_same_v<decltype(count_spaces), int(const std::string&)>);
     int main() {}
 requires:
-  - ptr-reference-must-bind
+  - const-ref-names-caller
+  - vc-plain-ref-rejects-temporary
+  - iter-range-for-intro
+  - constexpr-fn-static-assert
+elaborate: Find a function in your code that takes a `std::string` or vector by value only to read it; what would `const&` save?
 refs:
   - https://en.cppreference.com/w/cpp/language/reference_initialization
   - https://eel.is/c++draft/dcl.init.ref#5
 ---
 
-`count_spaces` only reads its text. Complete the parameter so the caller's
-string is never copied, and a temporary string can still be passed.
+`count_spaces` only reads its text, and callers pass temporaries such as
+`count_spaces(std::string("a b c"))`. Complete the parameter so that no
+call ever copies the string.
 
 ```cpp
 #include <string>
@@ -34,8 +39,8 @@ constexpr int count_spaces({{c1::const std\::string&}} text) {
 
 ---
 
-A **reference to `const`** names the caller's object without copying it
-and promises not to change it. Only a `const` reference may bind to a
-temporary, so a plain `std::string&` rejects `std::string("a b c")`. By
-value (with or without `const`) works but copies every character on each
-call.
+**`const std::string&`: it names the caller's string, copies nothing,
+and binds to a temporary.** A plain `std::string&` rejects
+`std::string("a b c")`, because only a reference to `const` binds a
+temporary. By value, with or without `const`, works but copies every
+character on each call.

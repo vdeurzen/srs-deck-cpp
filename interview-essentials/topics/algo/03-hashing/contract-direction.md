@@ -4,6 +4,7 @@ kind: basic
 version: 1
 level: 1
 tags: [foundations, hash-functions]
+elaborate: "If you wrote a hash for a struct of two ints, which mistake would break lookups and which would only slow them?"
 refs:
   - https://en.cppreference.com/w/cpp/named_req/Hash
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §11.2

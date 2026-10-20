@@ -6,6 +6,8 @@ level: 3
 tags: [trees, bst, invariants, misconception, lc-98]
 requires:
   - tree-bst-check-bounds
+  - stl-int-limits
+  - linear-list-node
 refs:
   - https://leetcode.com/problems/validate-binary-search-tree/
   - https://en.cppreference.com/w/cpp/types/climits
@@ -14,7 +16,9 @@ elaborate: Where else have you used a "can't happen" value as a sentinel (−1 f
 
 Validate Binary Search Tree (LC 98): return whether every left subtree
 is strictly smaller, and every right subtree strictly larger, than its
-node, with `-2^31 <= Node.val <= 2^31 - 1`:
+node, with `-2^31 <= Node.val <= 2^31 - 1`. Many expect the default
+bounds to mean "no bound yet" (`int lo = INT_MIN` is used whenever the
+caller omits `lo`):
 
 ```cpp
 bool valid(TreeNode* n, int lo = INT_MIN, int hi = INT_MAX) {

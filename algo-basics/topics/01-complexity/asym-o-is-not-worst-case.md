@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, complexity, best-worst-average, misconception]
 requires:
-  - complexity-asym-theta-sandwich
+  - interview-essentials/complexity-asym-theta-sandwich
 elaborate: Take a routine you own whose cost depends on the data, not just its size. Write its best case and its worst case each as a Θ bound.
 refs:
   - https://dl.acm.org/doi/10.1145/1008328.1008329

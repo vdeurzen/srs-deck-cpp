@@ -5,8 +5,9 @@ version: 1
 level: 2
 tags: [lifetime, ownership, misconception]
 requires:
-  - life-shared-ptr-owners
+  - smart-shared-ptr-intro
   - life-unique-ptr-member-no-copy
+  - ptr-arrow-member
 elaborate: Pick a shared_ptr in your own code. How many places really keep the object alive, and would one of them always outlive the rest?
 refs:
   - https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rr-unique
@@ -21,7 +22,7 @@ class Parser {
   std::shared_ptr<Lexer> lexer = std::make_shared<Lexer>();
 public:
   void step() { ++lexer->pos; }
-  int pos() const { return lexer->pos; }
+  int pos() { return lexer->pos; }
 };
 ```
 

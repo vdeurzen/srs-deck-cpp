@@ -6,6 +6,8 @@ level: 1
 tags: [foundations, linked-lists, complexity]
 requires:
   - linear-list-node
+  - cpp-essentials/containers-default-to-vector
+elaborate: "Say in one sentence, as to an interviewer, why `std::list` offers no `operator[]` at all."
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §10.2
 ---

@@ -1,54 +1,45 @@
 ---
 id: tree-bst-inorder-trace
 kind: trace
-version: 1
+version: 4
 level: 2
 tags: [foundations, trees, bst, traversal, tracing]
 requires:
-  - tree-bst-rule
+  - tree-bst-inorder-worked
+  - technique-call-stack-worked
+  - cpp-essentials/ptr-arrow-member
+  - cpp-essentials/ptr-null-pointer
 probes:
-  1: { out: "22 26" }
-  2: { out: "22 26 40 45" }
-  3: { out: "8 17 22 26 31 40 45" }
+  1: { second: "38" }
+elaborate: "Where would this walk help in an interview, such as checking a BST, and when could it stop early?"
 refs:
   - https://en.wikipedia.org/wiki/Tree_traversal#In-order,_LNR
   - https://doi.org/10.1145/321105.321108
 ---
 
-`Node` has `key`, `left`, `right`; `nullptr` is the empty tree; `root`
-points at the binary search tree drawn below.
+`root` points at the binary search tree drawn below. The walk counts
+the nodes it emits in `seen` and records the key of the second one.
 
 ```cpp
-//          31
-//        /    \
-//      17      45
-//     /  \    /
-//    8   22  40
-//          \
-//           26
-std::string out;
-void in_order(const Node* n) {
+struct Node { int key; Node* left; Node* right; };
+// root 31; 31's right child is 45; 45's left child is 38
+int seen = 0, second = -1;
+void in_order(Node* n) {
   if (n == nullptr) return;
   in_order(n->left);
-  out += std::to_string(n->key) + ' ';
+  seen = seen + 1;
+  if (seen == 2) second = n->key;
   in_order(n->right);
 }
-in_order(root->left->right);   // @1
-in_order(root->right);         // @2
-out.clear();
-in_order(root);                // @3
+in_order(root);   // @1
 ```
 
 ---
 
-Left subtree, then the node, then the right subtree: in-order. In a BST
-the left subtree holds exactly the smaller keys and the right exactly
-the larger ones, so if each subtree comes out sorted, the whole walk
-does. A call only ever emits its own subtree: 22's subtree is 22 and 26,
-45's is 40 and 45, and `out` keeps appending until it is cleared.
+The calls reach 31, then 45, then 38, but emitting waits for each left
+subtree. 31 has none, so it is first. In 45's call, its left subtree, 38,
+must finish before 45 is emitted, so **38 is second**. Left subtree,
+node, right subtree: in a BST that order is sorted, so the second
+emitted is the second smallest key.
 
-So a BST *is* a sorted sequence, stored as a tree; in-order reads it
-back in O(n).
-
-Verified by compiling and running an instrumented copy under GCC 16.2
-(`g++ -std=c++23 -Wall -Wextra`), trailing space trimmed.
+(Values from running it under GCC 16.2.)

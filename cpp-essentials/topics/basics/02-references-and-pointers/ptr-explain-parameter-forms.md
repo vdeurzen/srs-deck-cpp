@@ -8,19 +8,21 @@ requires:
   - ptr-bump-by-reference
   - const-ref-parameter
   - ptr-pointer-param-meaning
+  - ub-definition
+elaborate: Pick a function you wrote recently; which of the four parameter forms would you give it now, and why?
 refs:
   - https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f15-prefer-simple-and-conventional-ways-of-passing-information
   - https://en.cppreference.com/w/cpp/language/reference
   - https://en.cppreference.com/w/cpp/language/pointer
 ---
 
-A function needs one of its caller's objects. How do you choose between
-taking it as `T`, `T&`, `const T&` or `T*`?
+An interviewer asks: a function needs one of its caller's objects. How do
+you choose between taking it as `T`, `T&`, `const T&` or `T*`?
 
 ---
 
-- [ ] `T` (by value): the function works on its own copy, so the caller's object cannot change; right for small types such as `int`
-- [ ] `T&`: the parameter is the caller's object under another name, so writes reach the caller, who passes the object plainly (`f(x)`)
-- [ ] `const T&`: reads the caller's object without copying it; any write through it is a compile error
-- [ ] `T*`: chosen when "no object" is a valid argument; the caller passes `&x` or `nullptr`
-- [ ] With `T*`, the function must test for `nullptr` before every `*` or `->`, because dereferencing null is undefined behaviour
+- [ ] Problem: the parameter form tells the caller what the function will do with their object
+- [ ] Mechanism: a reference parameter is another name for the caller's object, not a copy
+- [ ] Example: a `bump` taking `int&` raises the caller's counter, called plainly as `bump(x)`
+- [ ] Trade-off: `const T&` reads a big object without the copy that `T` would make
+- [ ] Pitfall: `T*` admits `nullptr`, so the function must test for null before using it

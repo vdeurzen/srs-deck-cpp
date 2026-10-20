@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, complexity, amortised, tracing]
 requires:
   - complexity-cost-amortized
-  - complexity-cost-geometric-sum
+  - interview-essentials/complexity-cost-geometric-sum
 probes:
   1: { flips: "15", biggest: "4" }
   2: { flips: "31", biggest: "5" }

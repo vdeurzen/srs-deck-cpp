@@ -4,6 +4,9 @@ kind: basic
 version: 1
 level: 1
 tags: [prefix-sums, arrays]
+requires:
+  - complexity-big-o-scaling
+elaborate: "Where else does 'precompute once, answer each query by subtraction' apply, such as a 2D grid or running counts of one character?"
 refs:
   - https://en.wikipedia.org/wiki/Prefix_sum
   - https://en.cppreference.com/w/cpp/algorithm/partial_sum

@@ -10,6 +10,7 @@ probes:
   3: { d: "4294967295" }
 requires:
   - types-usual-arithmetic-conversions
+elaborate: Say aloud where in your code a `size()` result meets a signed index or a `-1`, and what this trace predicts there.
 refs:
   - https://en.cppreference.com/w/cpp/language/usual_arithmetic_conversions
 ---

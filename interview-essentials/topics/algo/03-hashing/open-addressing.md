@@ -6,6 +6,7 @@ level: 2
 tags: [hashing, open-addressing]
 requires:
   - hashing-chaining
+elaborate: "What must a lookup for an absent key do in this table that it need not do in a chained one?"
 refs:
   - Knuth, The Art of Computer Programming, vol. 3, 2nd ed., §6.4
   - https://abseil.io/about/design/swisstables
@@ -15,9 +16,8 @@ refs:
 
 ---
 
-**Into another empty slot of the same array, found by a fixed probe sequence (e.g. 4, 5, 6, …).**
+**Into the next empty slot along a fixed probe sequence through the array, such as 4, 5, 6, ….**
 
-That is the deciding difference from chaining: colliding keys live in
-the slot array itself, not in lists hanging off it. No node allocations
-and better cache behaviour, at the cost of keys crowding each other's
-slots.
+The deciding difference from chaining: colliding keys live in the
+slot array itself, not in lists hanging off it. No per-key allocations,
+at the cost of keys crowding each other's slots.

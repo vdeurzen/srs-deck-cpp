@@ -4,7 +4,7 @@ kind: chunk
 version: 1
 level: 3
 tags: [exceptions, exception-safety, idioms]
-expose_ms: 8000
+expose_ms: 12000
 compile:
   harness: |
     #include <utility>
@@ -15,7 +15,9 @@ compile:
     }
 requires:
   - exceptions-which-guarantee
-  - move-semantics-noexcept-move
+  - types-using-alias
+  - err-noexcept-broken-promise
+elaborate: Where else does "build it on the side, then swap it in" appear, for example in a config reload or a file written to a temporary name and renamed?
 refs:
   - https://en.cppreference.com/w/cpp/language/exceptions
   - https://en.cppreference.com/w/cpp/container/vector/swap

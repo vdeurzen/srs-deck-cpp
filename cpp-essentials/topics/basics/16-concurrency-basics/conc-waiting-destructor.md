@@ -6,6 +6,7 @@ level: 1
 tags: [concurrency, threads]
 requires:
   - conc-forgotten-join
+elaborate: Say where else a destructor doing the cleanup you might forget appears in C++, and what it replaces in Go.
 refs:
   - https://en.cppreference.com/w/cpp/thread/jthread
   - https://en.cppreference.com/w/cpp/thread/jthread/~jthread

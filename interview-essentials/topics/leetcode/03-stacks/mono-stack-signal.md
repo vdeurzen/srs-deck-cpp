@@ -3,9 +3,10 @@ id: mono-stack-signal
 kind: basic
 version: 1
 level: 2
-tags: [monotonic-stack, stacks, recognition, lc-739]
+tags: [stacks, recognition, lc-739]
 requires:
   - linear-stack-recognition
+  - linear-deque-both-ends
 refs:
   - https://leetcode.com/problems/daily-temperatures/
   - https://leetcode.com/problems/online-stock-span/

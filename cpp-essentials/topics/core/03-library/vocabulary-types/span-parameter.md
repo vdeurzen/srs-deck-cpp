@@ -9,35 +9,39 @@ choices:
   c1: ["span<const int>", "span<int>", "vector<int>", "array<int, 3>"]
 compile:
   harness: |
-    constexpr std::array<int, 3> fixed{1, 2, 3};
-    static_assert(sum(fixed) == 6);
-    static_assert(sum(std::vector{4, 5}) == 9);
+    #include <type_traits>
+    static_assert(std::is_invocable_r_v<int, decltype(first),
+                                        const std::array<int, 3>&>);
+    static_assert(std::is_invocable_r_v<int, decltype(first),
+                                        std::vector<int>>);
     int main() {}
 elaborate: Why does `span<int>` refuse a temporary `vector` that `span<const int>` accepts, and what bug does that refusal prevent?
 requires:
   - containers-default-to-vector
+  - iter-array-fixed-size
+  - vc-plain-ref-rejects-temporary
 refs:
   - https://en.cppreference.com/w/cpp/container/span
 ---
 
-Let `sum` read any contiguous run of `int`s without copying it: here a
-`const std::array` and a temporary `std::vector`.
+Let `first` read any contiguous run of `int`s without copying it: here a
+`const std::array` and a temporary `std::vector`. (A `std::span` is a view:
+it stores only a pointer to the first element and a length, and owns
+nothing.)
 
 ```cpp
 #include <array>
 #include <span>
 #include <vector>
-constexpr int sum(std::{{c1::span<const int>}} xs) {
-    int total = 0;
-    for (int x : xs) total += x;
-    return total;
+int first(std::{{c1::span<const int>}} xs) {
+    return xs[0];
 }
 ```
 
 ---
 
-`std::span<const int>` is a pointer and a length: it binds to any contiguous
-range of `int` and owns nothing, so the caller keeps the data alive. The
-`const` matters: `span<int>` refuses the `const` array and the temporary
-`vector`, since it could write through them. `vector<int>` would copy and
-rejects the `array`; `array<int, 3>` rejects the `vector`.
+`std::span<const int>` binds to any contiguous range of `int` and owns
+nothing, so the caller keeps the data alive. The `const` matters, as for
+a `const&` parameter: `span<int>` refuses the `const` array and the
+temporary `vector`, since it could write through them. `vector<int>`
+would copy and rejects the `array`; `array<int, 3>` rejects the `vector`.

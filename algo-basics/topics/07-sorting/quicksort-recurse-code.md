@@ -28,7 +28,7 @@ compile:
     int main() {}
 requires:
   - sort-partition-regions
-  - sort-quick-idea
+  - interview-essentials/sort-quick-idea
 refs:
   - https://doi.org/10.1093/comjnl/5.1.10
   - https://algs4.cs.princeton.edu/23quicksort/

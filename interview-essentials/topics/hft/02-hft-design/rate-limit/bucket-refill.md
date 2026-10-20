@@ -13,46 +13,44 @@ choices:
     - "last = now; credit = std::min(cap, credit + (now - last) * rate);"
 compile:
   harness: |
-    constexpr std::int64_t ms = 1'000'000;      // in ns
-    constexpr int burst(Bucket& b, std::int64_t now) {   // orders sent back to back at now
+    constexpr int burst(Bucket& b, long now) {     // orders sent back to back at now
       int sent = 0;
       while (sent < 1000 && b.try_take(now)) ++sent;
       return sent;
     }
     constexpr bool test() {
-      Bucket b{100, 20 * kToken, 20 * kToken, 0};          // 100/s, burst 20, full at t = 0
-      bool ok = burst(b, 0) == 20;                         // the stored burst, then refused
-      ok = ok && burst(b, 10 * ms) == 1;                   // 10 ms earns one token
+      Bucket b{1, 20, 20, 0};                      // 1 per tick, burst 20, full at tick 0
+      bool ok = burst(b, 0) == 20;                 // the stored burst, then refused
+      ok = ok && burst(b, 1) == 1;                 // one tick earns one token
       int sent = 0;
-      for (std::int64_t t = 11 * ms; t <= 1010 * ms; t += ms) sent += b.try_take(t);
-      ok = ok && sent == 100;                              // checked every 1 ms: 100 per s
-      return ok && burst(b, 60'000 * ms) == 20;            // idle a minute: still 20
+      for (long t = 2; t <= 101; ++t) sent += b.try_take(t);
+      ok = ok && sent == 100;                      // checked every tick: 100 in 100 ticks
+      return ok && burst(b, 6'000) == 20;          // idle a long time: still 20
     }
     static_assert(test());
     int main() {}
 requires:
   - bucket-burst-bound
+  - cpp-essentials/class-struct-members
+  - cpp-essentials/constexpr-fn-static-assert
 refs:
   - https://www.rfc-editor.org/rfc/rfc2697
   - https://en.cppreference.com/w/cpp/algorithm/min
-elaborate: At 1 000 000 tokens/s, how long can the bucket sit idle before `(now - last) * rate` overflows `int64_t`, and how would you clamp it?
+elaborate: Say to an interviewer why this limiter needs no timer thread, and what happens to `(now - last) * rate` after a very long idle spell.
 ---
 
 The interviewer: "Write the order-rate check. No timer thread." Each
-check refills the bucket from the time elapsed since the last one.
-Credit counts nano-tokens, so one token is `kToken` and refill needs no
-division. Complete the refill.
+check refills the bucket from the time elapsed since the last one;
+`std::min(a, b)` returns the smaller of two values. Complete the refill.
 
 ```cpp
 #include <algorithm>
-#include <cstdint>
-constexpr std::int64_t kToken = 1'000'000'000;  // nano-tokens per token
 struct Bucket {
-  std::int64_t rate, cap, credit, last;         // tokens/s; nano-tokens; nano-tokens; ns
-  constexpr bool try_take(std::int64_t now) {   // now: monotonic ns
+  long rate, cap, credit, last;          // tokens per tick; tokens; tokens; tick
+  constexpr bool try_take(long now) {    // now: the current tick, never decreasing
     {{c1::credit = std\::min(cap, credit + (now - last) * rate); last = now;}}
-    if (credit < kToken) return false;
-    credit -= kToken;  return true;
+    if (credit < 1) return false;
+    credit -= 1;  return true;
   }
 };
 ```

@@ -6,6 +6,8 @@ level: 1
 tags: [undefined-behaviour]
 requires:
   - ub-definition
+  - types-size-minimums
+elaborate: For each of the three, say aloud whether a test suite that passes today protects you on the next compiler.
 refs:
   - https://timsong-cpp.github.io/cppwp/n4950/defns.undefined
   - https://timsong-cpp.github.io/cppwp/n4950/defns.unspecified

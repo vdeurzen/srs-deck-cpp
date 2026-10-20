@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [raw-storage, allocator, c++20]
 requires:
-  - cpp-essentials/storage-allocate-vs-construct
+  - storage-allocate-vs-construct
 refs:
   - https://en.cppreference.com/w/cpp/memory/allocator_traits/construct
   - https://en.cppreference.com/w/cpp/memory/polymorphic_allocator/construct

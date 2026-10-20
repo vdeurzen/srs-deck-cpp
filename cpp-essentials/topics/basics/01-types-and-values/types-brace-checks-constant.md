@@ -1,35 +1,38 @@
 ---
 id: types-brace-checks-constant
 kind: code
-version: 1
+version: 3
 level: 1
 tags: [types, initialization, narrowing]
 input: chips
 choices:
-  c1: ["short", "unsigned char", "signed char", "bool"]
+  c1: ["signed char", "unsigned char", "bool"]
 compile:
   harness: |
-    static_assert(small == 300);
+    static_assert(sizeof(small) == 1 && small == code);
     int main() {}
+requires:
+  - const-vs-constexpr-initializer
+  - types-signed-unsigned-range
+elaborate: Say where in your code an `=` initialisation could silently squash a value that braces would have refused.
 refs:
   - https://en.cppreference.com/w/cpp/language/list_initialization#Narrowing_conversions
   - https://eel.is/c++draft/dcl.init.list#7
 ---
 
-`unsigned char small = code;` compiled and quietly stored `44`. The line
-now uses braces instead. Choose the type the braces accept.
+The line initialises `small` with braces (`T x{v};` initialises `x` from
+`v`). Choose the one-byte type that makes it compile.
 
 ```cpp
-constexpr int code = 300;
-constexpr {{c1::short}} small{code};
+constexpr int code = 200;
+constexpr {{c1::unsigned char}} small{code};
 ```
 
 ---
 
-Brace initialization refuses **narrowing**: a conversion that can lose
-the value. For a constant source the compiler checks the actual value:
-`300` fits a `short` (at least 16 bits), so that is fine, but not an
-8-bit `char` type or `bool`, so those are compile errors where `=` would
-have wrapped or squashed it. For a non-constant source the standard
-rejects narrowing too; GCC reports that as a `-Wnarrowing` warning, so do
-not ignore it.
+**Braces refuse narrowing: a conversion that would change the value.**
+
+For a constant source the compiler checks the actual value: `200` fits
+`unsigned char` (0..255) but not `signed char` (−128..127) or `bool`, so
+those are compile errors. With `=` all three compile, and the value is
+silently changed.

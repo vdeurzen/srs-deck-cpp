@@ -7,6 +7,7 @@ tags: [hashing, load-factor, open-addressing]
 requires:
   - hashing-load-factor
   - hashing-open-addressing
+elaborate: "For a workload of your own, would you accept a chained table's extra allocations or an open-addressing table's crowding, and why?"
 refs:
   - Knuth, The Art of Computer Programming, vol. 3, 2nd ed., §6.4
   - https://abseil.io/about/design/swisstables
@@ -20,4 +21,4 @@ refs:
 
 A chained bucket holds any number of keys; an open-addressing slot holds
 one. Long before α reaches 1, probe runs grow sharply, so such tables
-typically grow at about 0.5–0.875 (Abseil's Swiss tables: 7/8).
+typically grow at a load factor of about 0.5 to 0.875.

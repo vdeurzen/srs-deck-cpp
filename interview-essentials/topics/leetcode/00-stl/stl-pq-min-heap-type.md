@@ -28,6 +28,9 @@ compile:
     int main() { return kth_largest({1, 2}, 1); }
 requires:
   - heap-min-comparator
+  - std-priority-queue-api
+  - cpp-essentials/types-using-alias
+  - cpp-essentials/iter-range-for-intro
 refs:
   - https://leetcode.com/problems/kth-largest-element-in-an-array/
   - https://leetcode.com/problems/kth-largest-element-in-a-stream/
@@ -38,14 +41,15 @@ elaborate: Kth Largest Element in a Stream (LC 703) is a class whose `add(val)` 
 Kth Largest Element in an Array (LC 215): return the k-th largest
 element of `nums`. For O(n log k), keep a heap of the k largest values
 seen so far, dropping one whenever it holds
-k + 1. Complete the heap's type.
+k + 1; `std::size_t` is the unsigned type that `size()` returns.
+Complete the heap's type.
 
 ```cpp
 #include <functional>
 #include <queue>
 #include <vector>
 using KeepK = {{c1::std\::priority_queue<int, std\::vector<int>, std\::greater<>>}};
-int kth_largest(const std::vector<int>& nums, std::size_t k) {
+int kth_largest(std::vector<int> nums, std::size_t k) {
   KeepK pq;
   for (int x : nums) { pq.push(x); if (pq.size() > k) pq.pop(); }
   return pq.top();
@@ -61,5 +65,3 @@ what is left at the top at the end is the k-th largest. The default
 the k-th *smallest*. The parameters go element, container,
 comparator, with no way to skip the middle one: `priority_queue<int,
 greater<>>` makes `greater` the container and doesn't compile.
-The harness replays `KeepK`'s comparator with `push_heap`/`pop_heap`,
-which is what `priority_queue` is specified to do.

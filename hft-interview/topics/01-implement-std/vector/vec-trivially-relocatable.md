@@ -7,7 +7,7 @@ tags: [vector, relocation, strings, implement-std]
 elaborate: Which of your own types store a pointer into themselves, and would break the same way?
 requires:
   - cpp-essentials/strings-sso
-  - interview-essentials/vec-realloc-order
+  - vec-realloc-order
 refs:
   - https://en.cppreference.com/w/cpp/types/is_trivially_copyable
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/basic_string.h
