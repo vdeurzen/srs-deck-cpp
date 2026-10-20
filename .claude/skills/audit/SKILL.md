@@ -18,8 +18,7 @@ Also read `curriculum/feedback.md` entries for the scope.
 
 ## 2. Learner and reviewer passes
 Split the scope's Cards into batches of ~25 by topic, in `requires` order. For
-each batch, dispatch `novice-learner` and `learning-designer` (with the
-reviewer brief from `.claude/skills/teach/briefs.md`) in parallel
+each batch, dispatch `novice-learner` and `learning-designer` in parallel
 (at most ~8 agents at once; for a whole Deck, run batches in waves). Each
 learner writes its report under `curriculum/reviews/`; reviewers return
 findings to you.
@@ -30,9 +29,10 @@ needs something; Cards not listed are OK:
 
     <qid> | <decision> | <what, ≤ 20 words> | <bump?>
 
-Decisions: `SHRINK` (keep the lesson, cut the load) · `CONVERT` (a count or
+Decisions: `OK` is implied · `SHRINK` (keep the lesson, cut the load) · `CONVERT` (a count or
 rule asked as a trace → `basic`/`cloze`) · `WORKED FIRST` (add a worked
-example beneath it) · `SPLIT` · `REQUIRE <qid>` · `DEFINE <clause>` · `NEW
+example beneath it, PEDAGOGY §3.1) · `MISSING RUNG <rung>` (a §0 rung the
+concept lacks) · `SPLIT` · `REQUIRE <qid>` · `DEFINE <clause>` · `NEW
 VOCAB <one line>` · `SHARPEN` (ambiguous or leaking) · `FIX` (wrong) · `LATER`
 (belongs after the sprint, or in a deeper Deck; moving it would orphan its
 history, so recommend a new Card in the right place and leave this one, or
@@ -48,8 +48,7 @@ decides what to apply.
 - Check `git status` for uncommitted Card edits you didn't make, and leave
   those Cards out (list them).
 - Dispatch the right teacher per batch with the audit file, its lines for
-  that batch and the teacher brief (`.claude/skills/teach/briefs.md`);
-  `prereq-mapper`, with its brief, for the REQUIRE lines and new Cards' seams. Then
+  that batch; `prereq-mapper` for the REQUIRE lines and new Cards' seams. Then
   rerun `novice-learner` on the changed Cards only.
 - Done means the validate and check-code commands in CLAUDE.md print 0 errors,
   `scripts/check-code --remote --id <changed compile-graded ids>` passes, and

@@ -14,9 +14,12 @@ talk about them confidently)? You do not edit Cards.
 ## Method
 1. Read from disk (a copy of CLAUDE.md already in your context may be out of
    date) `CLAUDE.md`, `PEDAGOGY.md` (all of it, especially §0, §2, §3 incl.
-   "Novice-complete", §3.1 and §4) and `docs/FORMAT.md` (§4.2–4.11, §7.1 and the Per-Kind guide).
+   "Novice-complete", §3.1 and §4), `TEACHING.md`, the lesson plan if you
+   were given one, and `docs/FORMAT.md` (§4.2–4.11, §7.1 and the Per-Kind guide).
 2. Run `scripts/lint-shape <deck> --topic <prefix>` and
-   `scripts/graph cpp-essentials interview-essentials cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode --topic <prefix>`. lint-shape checks only six things
+   `scripts/graph cpp-essentials interview-essentials cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode --topic <prefix>`,
+   and `scripts/estimate-time <deck> --topic <prefix> --all` (time budgets,
+   TEACHING §2; its flags mean "look here", your own solve decides). lint-shape checks only six things
    (long basic back, multi-question front, > 3 cloze blanks, hint containing
    the answer, code front stating the answer, rubric > 5); check everything
    else by hand.
@@ -63,7 +66,11 @@ talk about them confidently)? You do not edit Cards.
    Cards; for each rubric item name the closure Card that teaches it, and list
    the rungs each concept reached. Then: missing foundations, missing contrast
    pairs, duplicate angles that add nothing, an idea only ever met in one
-   Kind, fan-in beyond §3, missing `elaborate`.
+   Kind, fan-in beyond §3, missing `elaborate`. Against TEACHING.md: does the
+   topic grow past its first task class; do a procedure's Cards use the same
+   subgoal labels; are `stretch` Cards ≤ 1 per ~10, at the top of a ladder,
+   required by nothing but other stretch Cards; does the batch match the
+   lesson plan (missing or extra Cards)?
 
 ## Output (≤ 300 words, unless the caller asks for a findings file)
 Findings, most important first, one line each:

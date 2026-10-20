@@ -5,7 +5,7 @@ directories holding a `deck.yaml`). The method is `TEACHING.md`.
 
 - `RESEARCH.md`: the evidence behind TEACHING.md.
 - `<deck>/<topic-path>.md`: lesson plans by `curriculum-designer`. Each lists
-  the topic's concepts, each concept's ladder (ids, Kinds, tiers,
+  the topic's concepts, each concept's ladder (rungs, ids, Kinds,
   `requires`), and the task classes. Teachers write from it; it stays as
   the record of why the topic is shaped the way it is.
 - `reviews/<date>-<scope>-learner.md`: `novice-learner` attempts (time, where

@@ -53,10 +53,11 @@ Pass every Deck in this repo in one run, so `requires` between them is checked.
 Do not report work as finished until this prints 0 errors.
 
 ## Teaching workflow
-- TEACHING.md is how a topic is taught: the lesson ladder (meet → worked → faded →
-  predict → produce → discriminate → transfer → talk), the time tier each Card must fit
-  (`scripts/estimate-time` checks it), and how complexity grows without long Cards.
-  PEDAGOGY.md wins where they overlap. Evidence: curriculum/RESEARCH.md.
+- TEACHING.md adds to PEDAGOGY.md what one Card's rules can't say: planning a topic
+  backwards from its capstones, time budgets per review (`scripts/estimate-time`
+  checks them), growing complexity through task classes and `stretch` Cards rather
+  than longer Cards, and subgoal labels. PEDAGOGY.md wins where they overlap.
+  Evidence: curriculum/RESEARCH.md.
 - `/teach <deck>/<topic> [goal]` plans, writes, wires, learner-tests and reviews a topic;
   `/card-feedback <id> <what happened>` fixes a Card the learner struggled with and logs
   it in curriculum/feedback.md; `/audit <deck>[/<topic>] [--fix]` sweeps an area.

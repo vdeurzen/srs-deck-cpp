@@ -15,8 +15,9 @@ the skill is in place: the scaffold becomes redundant load. Reisslein et al.
 2006: novices did best example → problem, while learners with prior knowledge
 did best problem → example. Adaptive fading beat fixed fading on delayed tests
 *(unverified, Salden et al. 2010)*. Strong, many studies.
-→ worked → last step blanked → independent (TEACHING §2 rungs 2–5). Skip the
-scaffolds for ideas the learner already holds from Go.
+→ PEDAGOGY §3.1's worked → faded → full trace. Expertise reversal is why
+PEDAGOGY §0 lets a Card skip a rung only when it adds nothing, and why
+Go-known ideas start from the C++ difference.
 
 **Subgoal labels** (Margulieux, Morrison, Catrambone). In programming
 courses: better quiz and problem-solving scores and fewer dropouts (265
@@ -25,7 +26,7 @@ studies show medium-to-large effects. Labels also help with Parsons problems
 (SIGCSE '16). Labels must appear in both the instruction and the example.
 Moderate to strong.
 → 3–5 named subgoals per procedure, worded identically on every Card that
-uses it, plus one `cloze` that asks for the sequence (TEACHING §5).
+uses it, plus one `cloze` that asks for the sequence (TEACHING §4).
 
 **4C/ID** (four-component instructional design; van Merriënboer).
 Meta-analyses: d = 0.79 (Costa et al. 2022), g = 0.67 for complex skills.
@@ -34,7 +35,7 @@ within each class, background information before each class, how-to details
 shown just in time, and drill only for steps that must become automatic.
 Strong.
 → task classes as `requires` tiers; "one change per step"; vocabulary as tiny
-`cloze` Cards (TEACHING §1.4, §4).
+`cloze` Cards (TEACHING §1, §3).
 
 **PRIMM and Parsons problems.** PRIMM: 13 schools, 493 pupils aged 11–14,
 better post-test scores than the control group; quasi-experimental and with
@@ -52,14 +53,15 @@ pre-question benefit is robust for the material that was pretested; transfer
 to other material is contested (St. Hilaire et al. 2024). Productive failure
 helps conceptual knowledge more than procedural *(unverified: g ≈ 0.36
 overall, ≈ 0.87 when implemented faithfully; Sinha & Kapur 2021)*.
-→ an optional puzzle rung 0: cheap, conceptual, and the back teaches the
-answer fully. Not for procedures.
+→ a rung-1 "meet" Card may pose the problem as a puzzle (PEDAGOGY §5,
+Feynman) when every piece is in its closure: cheap, conceptual, and the back
+teaches the answer fully. Not for procedures.
 
 **Interleaving** (Brunmair & Richter 2019 meta-analysis). g = 0.42 overall,
 0.34 for maths; strongest when categories look alike. It hurts for
 vocabulary-style learning (g = −0.39). Rohrer et al. 2020 cluster RCT with 787
 students: d = 0.83. Strong for problem-type discrimination.
-→ blocked ladders first, then mixed "which pattern?" Cards (TEACHING §6).
+→ blocked ladders first, then mixed-recognition Cards (PEDAGOGY §2 rule 14).
 
 **Concreteness fading; contrasting cases.** Fyfe et al. 2014 is a systematic
 review with no pooled effect, and the approach generalises less than first
@@ -80,7 +82,7 @@ minutes of future time. Anki users report 5–25 s per Card (anecdotal). FSRS's
 default target retention is 0.90; the claim that ~0.85 minimises workload is
 contested. Math Academy counts 1 XP as about 1 minute of focused work. Weak
 (practitioner data).
-→ the lifetime-cost argument and the tier budgets (TEACHING §3). The budgets
+→ the lifetime-cost argument and the time budgets (TEACHING §2). The budgets
 are a judgement call informed by these figures, not a measured optimum.
 
 **SRS products for programming.** Execute Program unlocks lessons only after
@@ -90,7 +92,7 @@ then up to 5 problems, advancing after 2 correct in a row. Its "fractional
 implicit repetition" credits the simpler topics that an advanced review
 practises; this app has no such credit. Practitioner writing, with no
 independent trials.
-→ higher Cards genuinely use their prerequisites (TEACHING §4); expect some
+→ higher Cards genuinely use their prerequisites (TEACHING §3); expect some
 redundant low-rung reviews.
 
 ## Weak or contested

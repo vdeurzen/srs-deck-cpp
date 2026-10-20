@@ -26,7 +26,7 @@ what happened.
 ## 2. Diagnose
 Name the cause(s) from the list in `curriculum/feedback.md`. Ask: what would
 the learner have had to hold in mind, or already know, to answer this in its
-tier (TEACHING §3)? Where exactly did that break? If the complaint is vague
+time (PEDAGOGY §4; budgets in TEACHING §2)? Where exactly did that break? If the complaint is vague
 ("confusing"), attempt the Card yourself as `novice-learner` would, or
 dispatch that agent on this one Card.
 
@@ -34,8 +34,8 @@ dispatch that agent on this one Card.
 | Cause | Default fix |
 | --- | --- |
 | too-long, bookkeeping | shrink to one run / fewer probes / a smaller input (PEDAGOGY §3.1); a count or bound becomes a `basic`/`cloze` |
-| missing-rung | add the worked example or the simpler Card beneath it (TEACHING §2) and `require` it |
-| unknown-term | `require` the Card that teaches it (grep the allowed Decks); else a one-clause definition; else a new vocabulary Card |
+| missing-rung | add the worked example or the missing §0 rung beneath it (PEDAGOGY §0, §3.1) and `require` it |
+| unknown-term | `require` the lowest-rung Card that teaches it (PEDAGOGY §3; grep the allowed Decks); else a one-clause definition; else a new vocabulary Card |
 | too-many-ideas | split: the original id keeps the part closest to its front |
 | ambiguous, leaks | sharpen the front so exactly one answer survives; vary the surface cue |
 | wrong | verify against the source or by compiling and running, then correct |
@@ -43,15 +43,15 @@ dispatch that agent on this one Card.
 
 Edit one Card yourself, following `card-craft`. For new Cards or splits of
 more than one Card, dispatch the right teacher (`cpp-teacher` for C++,
-`systems-teacher` for algorithms, systems and LeetCode) with your diagnosis,
-the fix, and the teacher brief from `.claude/skills/teach/briefs.md` (there's
-no lesson plan; the rung and tier come from your diagnosis). Bump `version` when the question or the expected answer changed;
-not for wording, refs or `requires`.
+`systems-teacher` for algorithms, systems and LeetCode) with your diagnosis
+and the fix (there's no lesson plan: give the Card's rung and the cause).
+Bump `version` when the question or the expected answer changed; not for
+wording, refs or `requires`.
 
 ## 4. Done means
     tool/validate cpp-essentials interview-essentials cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode   # 0 errors
     scripts/check-code <deck> --id <changed compile-graded ids> && scripts/check-code <deck> --remote --id <same>
-    scripts/estimate-time <deck> --id <changed and new ids>   # within tier
+    scripts/estimate-time <deck> --id <changed and new ids>   # within budget (TEACHING §2)
 
 ## 5. Log and report
 Append one line per Card to `curriculum/feedback.md` in its format. If this

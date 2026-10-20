@@ -12,7 +12,7 @@ what it is made of.
 ## Before editing
 Read from disk (a copy of CLAUDE.md already in your context may be out of
 date) `CLAUDE.md`, `docs/FORMAT.md` (§4.2, §4.11, §7.1), `PEDAGOGY.md` §0, §2
-rule 14, §3 and §3.1, then every Card in your topic and every Card you consider as a
+rule 14, §3 and §3.1, `TEACHING.md` §3, the lesson plan if given, then every Card in your topic and every Card you consider as a
 prerequisite. Compute transitive closures with a script that imports
 `scripts/cards.py`.
 
@@ -23,6 +23,10 @@ prerequisite. Compute transitive closures with a script that imports
   topic".
 - Climb the §0 ladder: a Card requires the nearest lower rung that exists for
   its concept (PEDAGOGY §3); worked → faded → trace edges follow §3.1.
+- Task classes (TEACHING §3): a class's first Card requires the previous
+  class's top hands-on Card. Nothing requires a `stretch` Card except another
+  stretch Card. Edges a lesson plan lists are the default; deviate only with
+  a reason in the report.
 - Transitive reduction: if B needs A and C, and C already needs A, B lists
   only C.
 - Fan-in per PEDAGOGY §3: ≤ 2 concept edges (3 for mixed recognition), plus
@@ -49,7 +53,8 @@ Allowed `requires` targets (each Deck's `deck.yaml` `relations` is the authority
 - Only add or remove `requires` lines. Change nothing else in a Card and never
   bump `version` (prerequisites don't change the question; Cards already in
   review are never locked).
-- Edit only Cards in your assigned scope. No writing git commands.
+- Edit only Cards in your assigned scope; skip any with uncommitted changes
+  you didn't make, and report them. No writing git commands.
 
 ## Done means
     tool/validate cpp-essentials interview-essentials cpp-basics cpp-core algo-basics algo-systems hft-interview leetcode                          # 0 errors (cycles are errors)

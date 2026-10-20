@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Estimate how long one review of each Card takes, and flag Cards over the
-time budget in TEACHING.md §3.
+time budget in TEACHING.md §2 (PEDAGOGY.md §4 answer times plus reading
+and checking).
 
 The estimate is for a learner who knows the Card's prerequisites but is
 rebuilding: read the front, solve, check the back. It is a coarse model
@@ -18,7 +19,7 @@ model can't see how many iterations a loop runs:
 
 Cards tagged `stretch` get the stretch budget instead of their Kind's; a
 `basic` tagged `worked-example` and a `code` Card with several blanks get the
-next tier up, as TEACHING.md §3 says.
+longer budget, as TEACHING.md §2 says.
 
 usage: scripts/estimate-time <deck-dir> [<deck-dir> ...] [--topic [<deck-id>/]<prefix>]
                              [--id <id> ...] [--all] [--summary]
@@ -33,9 +34,10 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cards import FENCE, Deck, clozes, in_topic  # noqa: E402
 
-# Seconds per review, by Kind (TEACHING.md §3).
-BUDGET = {"basic": 20, "cloze": 20, "code": 45, "chunk": 45,
-          "parsons": 75, "trace": 75, "explain": 150}
+# Seconds per review, by Kind (TEACHING.md §2).
+BUDGET = {"basic": 30, "cloze": 30, "code": 45, "chunk": 45,
+          "parsons": 75, "trace": 75, "explain": 90}
+WORKED = 75
 STRETCH = 180
 MAX_LINES = {"code": 10, "chunk": 7, "parsons": 9, "trace": 15}
 
@@ -115,7 +117,7 @@ def estimate(card):
             flags.append("nested-loop")
     elif kind == "explain":
         items = len(re.findall(r"^\s*- \[ \]", back, re.M))
-        t = read + 20 * items + 10
+        t = read + 12 * items + 10
     else:
         t = read
     return round(t), flags
@@ -126,9 +128,9 @@ def budget(card):
     if "stretch" in tags:
         return STRETCH
     if card.kind == "basic" and "worked-example" in tags:
-        return BUDGET["code"]      # T2: reading a worked example
+        return WORKED
     if card.kind == "code" and len({c[2] for c in clozes(card.code() or "")}) > 1:
-        return BUDGET["trace"]     # T3: several blanks
+        return BUDGET["trace"]
     return BUDGET.get(card.kind, 15)
 
 
