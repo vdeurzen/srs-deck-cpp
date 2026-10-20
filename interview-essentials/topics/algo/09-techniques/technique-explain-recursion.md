@@ -2,7 +2,7 @@
 id: technique-explain-recursion
 kind: explain
 version: 1
-level: 3
+level: 4
 tags: [recursion]
 requires:
   - technique-recursion-sum-code
@@ -20,4 +20,4 @@ to them how one runs. Answer aloud.
 - [ ] Mechanism: a base case answers directly, and the step calls itself on a smaller input and waits
 - [ ] Example: the sum of the first n elements is a[n − 1] plus the first n − 1 summed
 - [ ] Cost: every pending call keeps its own stack frame, so depth n costs O(n) stack space
-- [ ] Pitfall: recursing ten million calls deep overflows a default 8 MB stack, where a loop would not
+- [ ] Pitfall: a step whose call does not shrink the input never reaches the base case

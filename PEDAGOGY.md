@@ -15,6 +15,24 @@ retrievable units, linked into a graph, met from several angles.
   pointers and goroutines as **Go** ideas. The C++ spelling and semantics of
   each still need a Card. Assume nothing else unless a Card's `requires`
   chain has taught it (§3 "Novice-complete").
+- **Go is a reference, not the frame.** Teach C++ in C++ terms; the
+  interviewer asks about C++, not about how it differs from Go. Mention Go
+  only where a Go habit would actively mislead in C++ (unsigned `size()`,
+  no garbage collector, copies by default, no `defer`), once, in the
+  explanation or `elaborate`, never as the question or its answer
+  options ("which Go type…"). Budget: at most ~1 Card in 10 in a topic
+  names Go; a Card that would read the same with the Go clause deleted
+  should have it deleted.
+- **Strict terminology** (Walter Brown's standard: say what the Standard
+  says). Interviewers at compiler, database and HFT shops notice loose
+  words. A *lambda expression* is source code; evaluating it yields a
+  *closure object* of a unique *closure type*. Stored, copied, passed and
+  called is the closure object, never "the lambda". Likewise: an
+  *argument* is passed, a *parameter* receives it; *declaration* vs
+  *definition*; *object* (has storage and lifetime) vs *value*; *lvalue
+  expression*, not "lvalue variable"; *undefined behaviour*, not "crash";
+  *template* (`std::vector`) vs *specialization* (`std::vector<int>`).
+  Colloquial shorthand is a finding wherever it appears on a Card.
 - The end state: they recognise a pattern from a problem in seconds, produce
   its idiom from memory, and **talk about the topic confidently for a minute**
   in an interview. Every topic should lead there.
@@ -225,8 +243,8 @@ overload chosen, the line that fails, the rule that makes it UB) with ≥ 3
 plausible outcomes, rather than a true/false guess. Test: swap the belief for
 its opposite; if the answer is still obvious, rewrite. No strawmen. Back within §2 rule 2: the bold correction (≤ 15 words),
 the refuting code (≤ 8 lines), and why the belief is tempting (≤ 40 words).
-Always an `elaborate` prompt tying it back to the learner's own code or Go
-experience.
+Always an `elaborate` prompt tying it back to the learner's own code, or
+to a Go habit when that habit is the source of the belief (§0).
 
 **`elaborate`**: every card carries one, except a `basic` with no `requires`
 and a `worked-example` card. Phrase it to be said aloud: "Say in one sentence, as to an interviewer, why…",

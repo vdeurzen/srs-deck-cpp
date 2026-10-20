@@ -34,8 +34,9 @@ return best;
 
 **Variable sliding window** (Longest Substring Without Repeating
 Characters, LC 3: the length of the longest substring of `s` with no
-repeated character). `s[hi]` enters; `lo` moves right until `s[lo..hi]`
-is valid again; the valid window is then measured.
+repeated character). *Init* `lo` and `best`; per `hi`, *expand*:
+`s[hi]` enters; *shrink* while invalid: `lo` moves right until
+`s[lo..hi]` has no repeat; *record*: measure the valid window.
 
 `while`, not `if`: in `"abcb"` the repeated `b` is two steps back, so
 one step is not enough. `lo` and `hi` only move right: O(n).

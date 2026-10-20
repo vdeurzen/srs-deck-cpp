@@ -1,7 +1,7 @@
 ---
 id: types-using-alias
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [types, aliases]
 refs:
@@ -9,18 +9,20 @@ refs:
   - https://eel.is/c++draft/dcl.typedef
 ---
 
-## Does the last line need any conversion from `Score` to `int`?
+## Two functions may share a name if their parameter types differ. Exactly one line here fails to compile. Which one?
 
 ```cpp
 using Score = int;
-Score s = 5;
-int t = s;
+void show(int n) {}
+void show(Score s) {}
+void show(double d) {}
+Score total = 5;
 ```
 
 ---
 
-**No: `using Score = int;` gives `int` a second name, not a new type.**
+**`void show(Score s) {}`: `Score` is a second name for `int`, not a new type.**
 
-`Score` and `int` are the same type, so `t = s` is a plain copy, and an
-`int` is accepted anywhere a `Score` is. The point is shorter or clearer
-names for long types; it gives no type safety.
+So it repeats the definition of `show(int)`. `show(double)` differs, and
+`total` is a plain `int`. An alias gives long types shorter or clearer
+names; it gives no type safety.

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [sorting, merge-sort, complexity]
 requires:
-  - sort-merge-worked
+  - sort-merge-sort-worked
   - complexity-log-halvings
   - complexity-asym-theta-sandwich
 refs:

@@ -6,7 +6,7 @@ level: 2
 tags: [classes, rule-of-zero, ownership]
 input: chips
 choices:
-  c1: ["std::unique_ptr<int[]>", "int*", "std::shared_ptr<int[]>", "const std::unique_ptr<int[]>"]
+  c1: ["std::unique_ptr<int[]>", "int*", "std::shared_ptr<int[]>", "std::vector<int>"]
 compile:
   harness: |
     #include <type_traits>
@@ -16,8 +16,8 @@ compile:
     static_assert(!std::is_trivially_destructible_v<Buffer>);
     int main() {}
 requires:
+  - move-semantics-rule-of-five
   - smart-pointers-unique-ptr-ownership
-  - move-semantics-const-member-copies
   - smart-shared-ptr-intro
 refs:
   - https://en.cppreference.com/w/cpp/language/rule_of_three#Rule_of_zero
@@ -44,4 +44,4 @@ and the compiler-generated destructor, copy and move do the right thing.
 `unique_ptr` is move-only, so `Buffer` is too, and its destructor frees
 the array. A raw `int*` frees nothing and copies shallowly (double free
 once you add a destructor); `shared_ptr` makes copies share the array; a
-`const` member cannot be moved from, so the move assignment is deleted.
+`std::vector<int>` would be a fine owner, but copyable, so `Buffer` would be too.

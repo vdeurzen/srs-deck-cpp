@@ -8,17 +8,17 @@ requires:
   - search-lower-bound-meaning
 elaborate: "Name a yes/no question about a number in your own work whose answer flips exactly once as the number grows."
 refs:
+  - https://en.cppreference.com/w/cpp/algorithm/lower_bound
   - https://en.cppreference.com/w/cpp/algorithm/partition_point
 ---
 
-Lower-bound-style searches find the boundary in a sequence of answers
-shaped `true, …, true, false, …, false`. On a range shaped that way under
-a test `p` (a function returning `true` or `false`), `std::partition_point(first, last, p)` returns the first element
-where `p` is false. `std::lower_bound(first, last, key)` returns the same
-position when `p(x)` is {{c1::`x < key`::a test that holds on the left part}}.
+On a sorted range, a yes/no test on each element can read
+`true, …, true, false, …, false`. `std::lower_bound(first, last, key)`
+returns the first element where the test {{c1::`x < key`::a test that holds on the left part}}
+turns false.
 
 ---
 
 For `{1, 3, 3, 5}` and key 3 the test gives `true, false, false, false`, so
-both calls land on index 1. Seeing searches as "first place the answer
+`lower_bound` lands on index 1. Seeing searches as "first place the answer
 flips" is what makes searching on the answer possible.

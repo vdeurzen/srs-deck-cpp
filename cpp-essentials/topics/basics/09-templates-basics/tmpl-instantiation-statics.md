@@ -9,8 +9,7 @@ probes:
   2: { b: "1" }
   3: { c: "2" }
 requires:
-  - tmpl-why-template
-  - life-function-local-static
+  - tmpl-instantiation-statics-worked
 elaborate: Say what this means for a template that keeps a cache in a `static` variable.
 refs:
   - https://en.cppreference.com/w/cpp/language/function_template#Implicit_instantiation

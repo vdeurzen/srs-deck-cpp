@@ -1,30 +1,31 @@
 ---
 id: types-mixed-sign-compare
 kind: basic
-version: 1
+version: 2
 level: 2
-tags: [types, integers, conversions]
+tags: [types, integers, conversions, warnings]
 requires:
   - types-usual-arithmetic-conversions
-elaborate: Where in your code does a signed count meet an unsigned size in a comparison, and which side would you change?
+  - types-size-t
+elaborate: Say aloud when this warning points at a real bug rather than a harmless loop, and what you would change.
 refs:
   - https://en.cppreference.com/w/cpp/language/usual_arithmetic_conversions
   - https://eel.is/c++draft/expr.arith.conv
-  - https://en.cppreference.com/w/cpp/utility/intcmp
+  - https://gcc.gnu.org/onlinedocs/gcc/Warning-Options.html#index-Wsign-compare
 ---
-
-## With a 32-bit `int`, is the branch taken?
 
 ```cpp
-int balance = -5;
-unsigned limit = 10;
-if (balance < limit) { /* within limit */ }
+std::vector<int> v{7, 8, 9};
+for (int i = 0; i < v.size(); ++i) { /* ... */ }
 ```
+
+## GCC with `-Wall` warns here: *comparison of integer expressions of different signedness*. In what type is `i < v.size()` evaluated on x86-64?
 
 ---
 
-**No: `balance` is converted to `unsigned` before comparing.**
-The usual arithmetic conversions wrap `-5` modulo 2³² to `4294967291`,
-which is not less than `10`.
-Compilers can warn about this mix; the fix is to keep both values
-signed.
+**In the unsigned `std::size_t`: `i` is converted before comparing.**
+
+Here `i` starts at 0 and never goes negative, so the loop is right; the
+warning flags the pattern, because a negative `int` would become a huge
+unsigned value. Declaring `std::size_t i = 0` makes both sides unsigned
+and silences it.

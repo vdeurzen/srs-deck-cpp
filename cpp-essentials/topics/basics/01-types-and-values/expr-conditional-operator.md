@@ -22,5 +22,4 @@ int m = a < b ? b : a;
 
 It is the *conditional operator*, an expression rather than a statement,
 so it fits wherever a value does: an initializer, a `return`, an argument.
-Only the chosen side is evaluated. Go has no equivalent; there you would
-write an `if`.
+Only the chosen side is evaluated.

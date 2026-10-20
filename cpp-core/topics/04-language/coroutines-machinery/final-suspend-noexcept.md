@@ -12,11 +12,8 @@ choices:
 compile:
   harness: |
     Task nothing() { co_return; }
-    int main() {
-      auto t = nothing();
-      t.handle.resume();
-      t.handle.destroy();
-    }
+    int main() { nothing(); }
+elaborate: Say in one sentence, as to an interviewer, why an exception has nowhere to go once `final_suspend()` runs.
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---
@@ -28,14 +25,11 @@ coroutine promise.
 #include <coroutine>
 struct Task {
   struct promise_type {
-    Task get_return_object() { return Task{Handle::from_promise(*this)}; }
-    std::suspend_always initial_suspend() { return {}; }
-    std::suspend_always final_suspend() {{c1::noexcept}} { return {}; }
-    void return_void() {}
-    void unhandled_exception() {}
+    Task get_return_object() { return {}; }
+    std::suspend_never initial_suspend() { return {}; }
+    std::suspend_never final_suspend() {{c1::noexcept}} { return {}; }
+    void return_void() {}  void unhandled_exception() {}
   };
-  using Handle = std::coroutine_handle<promise_type>;
-  Handle handle;
 };
 ```
 

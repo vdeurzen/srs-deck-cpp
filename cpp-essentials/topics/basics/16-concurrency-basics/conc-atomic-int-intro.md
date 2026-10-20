@@ -1,11 +1,11 @@
 ---
 id: conc-atomic-int-intro
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [concurrency, atomics, threads, foundations]
 requires:
-  - conc-thread-shares-memory
+  - conc-lost-update-worked
   - std-names-and-headers
 elaborate: Say when one atomic counter is enough and when you would need a mutex instead.
 refs:
@@ -18,20 +18,16 @@ std::atomic<int> hits{0};
 void work() {
     for (int i = 0; i < 1000; ++i) ++hits;
 }
-int main() {
-    std::thread a(work);
-    std::thread b(work);
-    a.join();
-    b.join();
-}
+// two threads run work(); main joins both
 ```
 
-## After both joins, what is `hits`?
+## With a plain `int hits`, the total can end below 2000. What does `std::atomic<int>` change about `++hits`?
 
 ---
 
-**Exactly 2000: each `++hits` on an atomic is one indivisible step.**
+**`++hits` becomes one indivisible read-modify-write: no thread can load in the middle.**
 
-`std::atomic<int>` makes load, add and store a single read-modify-write,
-so no other thread can slip in between and no update is lost. With a
-plain `int` the same program loses updates and its total varies.
+A plain `int`'s `++` is a separate load, add and store, and a second
+thread can load between them and lose an update. `std::atomic<int>`
+(from `<atomic>`) does all three as one step, so the total is exactly
+2000 on every run.

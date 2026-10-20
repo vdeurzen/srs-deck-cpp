@@ -21,4 +21,4 @@ refs:
 The ADT is `push(x)` to add, `top()` to read and `pop()` to remove that
 newest element; nothing else is reachable, like a pile of plates. That
 narrow interface is what lets every implementation make all three
-O(1).
+take one step, whatever the size.

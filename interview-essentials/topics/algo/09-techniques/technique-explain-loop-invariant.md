@@ -2,7 +2,7 @@
 id: technique-explain-loop-invariant
 kind: explain
 version: 1
-level: 3
+level: 4
 tags: [invariants]
 requires:
   - technique-loop-invariant-sum
@@ -19,5 +19,5 @@ not just the ones you tested. Answer aloud.
 - [ ] Problem: tracing a few runs cannot show a loop is right for every input
 - [ ] Mechanism: a claim true before the first iteration, kept by every iteration, gives the answer at exit
 - [ ] Example: s sums a[0] to a[i − 1], so when i reaches n, s is the total
-- [ ] Trade-off: the claim fixes the start value, so starting the maximum at a[0] needs a non-empty array
+- [ ] Trade-off: writing the claim costs a sentence per loop but proves it for every input
 - [ ] Pitfall: starting the maximum at 0 returns 0 on all-negative input such as −5, −2, −9

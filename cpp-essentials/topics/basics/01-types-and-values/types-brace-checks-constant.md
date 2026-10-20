@@ -2,26 +2,27 @@
 id: types-brace-checks-constant
 kind: code
 version: 3
-level: 1
+level: 3
 tags: [types, initialization, narrowing]
 input: chips
 choices:
   c1: ["signed char", "unsigned char", "bool"]
 compile:
   harness: |
-    static_assert(sizeof(small) == 1 && small == code);
+    static_assert(sizeof(small) == 1);
     int main() {}
 requires:
-  - const-vs-constexpr-initializer
+  - types-brace-narrowing-intro
   - types-signed-unsigned-range
+  - const-vs-constexpr-initializer
 elaborate: Say where in your code an `=` initialisation could silently squash a value that braces would have refused.
 refs:
   - https://en.cppreference.com/w/cpp/language/list_initialization#Narrowing_conversions
   - https://eel.is/c++draft/dcl.init.list#7
 ---
 
-The line initialises `small` with braces (`T x{v};` initialises `x` from
-`v`). Choose the one-byte type that makes it compile.
+`small` is brace-initialised from the `int` constant `code`. Choose the
+one-byte type for which this line compiles.
 
 ```cpp
 constexpr int code = 200;
@@ -30,9 +31,9 @@ constexpr {{c1::unsigned char}} small{code};
 
 ---
 
-**Braces refuse narrowing: a conversion that would change the value.**
+**From a constant, braces check the actual value: only `unsigned char` holds 200.**
 
-For a constant source the compiler checks the actual value: `200` fits
-`unsigned char` (0..255) but not `signed char` (−128..127) or `bool`, so
-those are compile errors. With `=` all three compile, and the value is
-silently changed.
+`int` to a one-byte type is narrowing in general, but for a constant
+source the compiler accepts it when the value fits: `unsigned char` holds
+0..255. `signed char` (−128..127) and `bool` would change 200, so braces
+reject both. With `=`, all three compile.

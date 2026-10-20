@@ -11,8 +11,9 @@ choices:
   c1: ["Shape<Square>", "Shape", "Shape<int>", "virtual Shape<Square>"]
 compile:
   harness: |
-    static_assert(Square{3}.area() == 9);
+    static_assert(Square{}.area() == 9);
     int main() {}
+elaborate: When would you choose a virtual function over this pattern, despite the run-time dispatch?
 refs:
   - https://en.cppreference.com/w/cpp/language/crtp
 ---
@@ -28,8 +29,7 @@ struct Shape {
     }
 };
 struct Square : {{c1::Shape<Square>}} {
-    int side;
-    constexpr explicit Square(int s) : side(s) {}
+    int side = 3;
     constexpr int compute_area() const { return side * side; }
 };
 ```

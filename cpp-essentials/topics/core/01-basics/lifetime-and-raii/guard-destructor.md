@@ -7,6 +7,7 @@ tags: [raii, lifetime]
 requires:
   - raii-owner-in-destructor
   - life-temporary-intro
+  - constexpr-fn-static-assert
 elaborate: Say in one sentence, as to an interviewer, why an unnamed guard object is a bug that compiles cleanly.
 input: chips
 choices:
@@ -17,24 +18,26 @@ choices:
     - "*held = true;"
 compile:
   harness: |
-    constexpr int run(bool fail) {
+    constexpr bool released(int n) {
       bool held = false;
-      int r = update(&held, fail);
-      return held ? 100 : r;   // 100: still held after update returned
+      update(&held, n);
+      return !held;
     }
-    static_assert(run(false) == 1, "released before the body ran, or leaked");
-    static_assert(run(true) == -1, "the early return skipped the release");
+    constexpr bool body_locked() {
+      bool held = false;
+      return update(&held, 1);
+    }
+    static_assert(body_locked(), "the body ran without the lock");
+    static_assert(released(1) && released(-1), "a path out kept the lock");
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/language/raii
   - https://en.cppreference.com/w/cpp/language/storage_duration
 ---
 
-`Lock` models a lock with a flag: `*held` is `true` while it is held
-(`constexpr` only lets the compiler run these functions in a check).
-`update` must hold the lock while its body runs and release it on every
-path out, including the early `return`. Complete the line that takes the
-lock.
+`Lock` sets `*held` to `true` while it holds the lock. Hold it for the
+body of `update` and release it on every path out. Complete the line
+that takes it.
 
 ```cpp
 struct Lock {
@@ -42,10 +45,10 @@ struct Lock {
   constexpr Lock(bool* h) : held(h) { *held = true; }
   constexpr ~Lock() { *held = false; }
 };
-constexpr int update(bool* held, bool fail) {
+constexpr bool update(bool* held, int n) {
   {{c1::Lock guard{held};}}
-  if (fail) return -1;
-  return *held ? 1 : 0;   // 1: the body ran under the lock
+  if (n < 0) return false;
+  return *held;
 }
 ```
 
@@ -55,5 +58,5 @@ The guard only does its job as a **named object with automatic storage
 duration**: its destructor then runs when `update`'s scope ends, by any
 route. An unnamed `Lock{held};` is a temporary, destroyed at the end of
 its own statement, so the body runs unlocked. Setting `*held = true;` by
-hand has no destructor, so the early `return` never releases. A `Lock`
-made with `new` lives until someone `delete`s it, which nobody does.
+hand has no destructor, so nothing ever releases. A `Lock` made with
+`new` lives until someone `delete`s it, which nobody does.

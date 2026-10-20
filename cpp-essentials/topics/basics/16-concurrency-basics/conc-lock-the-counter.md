@@ -10,7 +10,7 @@ choices:
   c1:
     - "std::lock_guard<std::mutex> hold(m);"
     - "std::lock_guard<std::mutex> hold(&m);"
-    - "std::lock_guard<std::mutex> hold(count);"
+    - "std::lock_guard<std::mutex>(m);"
     - "std::lock_guard<std::mutex> hold(std::mutex{});"
 compile:
   harness: |
@@ -39,7 +39,7 @@ void bump() {
 ---
 
 **A named guard on the shared `m` holds it until the end of the scope.**
-The guard takes the mutex itself: `&m` is a pointer, and `count` is the
-data, not a mutex. A fresh `std::mutex{}` per call would be shared by no
-one, and does not compile. An unnamed `std::lock_guard<std::mutex>{m};`
-would compile, yet unlock at the end of its own line.
+`std::lock_guard<std::mutex>(m);` declares a new guard *named* `m`
+with no mutex, which does not compile. `&m` is a pointer, not a mutex.
+A fresh `std::mutex{}` per call would be shared by no one, and does not
+compile.

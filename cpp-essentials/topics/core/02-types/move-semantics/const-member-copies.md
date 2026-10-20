@@ -30,8 +30,8 @@ Row b = std::move(a);
 
 ---
 
-**`key` is copied; `vals` is moved.** The defaulted move constructor
-initialises each member from the corresponding xvalue. A
+**`key` is copied, not moved.** The defaulted move constructor
+initialises each member from the corresponding xvalue (`vals` is moved). A
 `const std::string` xvalue cannot bind `std::string&&`, but it binds
 `const std::string&`, so `std::string`'s copy constructor runs for that member.
 Silent, decided per member: a `const` member is never moved, only copied.

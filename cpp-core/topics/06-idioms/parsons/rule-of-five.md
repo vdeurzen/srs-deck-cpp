@@ -1,71 +1,52 @@
 ---
 id: parsons-rule-of-five
 kind: parsons
-version: 1
+version: 2
 level: 3
 tags: [idioms, move-semantics]
 requires:
   - cpp-essentials/move-semantics-rule-of-five
 compile:
   harness: |
-    int main() {
-      Buffer a(4);
-      Buffer b = a;
-      Buffer c = std::move(a);
-      b = c;
-      c = std::move(b);
+    constexpr bool check() {
+      Buffer a{new int[2]{1, 2}, 2};
+      Buffer b{new int[1]{9}, 1};
+      b = a;
+      bool ok = b.size_ == 2 && b.data_[0] == 1 && b.data_[1] == 2 && b.data_ != a.data_;
+      b = b;
+      ok = ok && b.size_ == 2 && b.data_[1] == 2;
+      delete[] a.data_;
+      delete[] b.data_;
+      return ok;
     }
+    static_assert(check());
+    int main() {}
+elaborate: If `Buffer` held a `std::vector<int>` instead of a raw array, which of its five special members would you still write, and why?
 refs:
   - https://en.cppreference.com/w/cpp/language/rule_of_three
 ---
 
+`Buffer` owns the array `data_` of `size_` ints; its destructor, copy
+and move constructors and move assignment are written elsewhere. Order
+the lines of its copy assignment so that a throwing `new` leaves `*this`
+untouched and `b = b` is safe without a self-check.
+
 ```cpp
-#include <cstddef>
-#include <utility>
-class Buffer {
- public:
-  Buffer(std::size_t n) : data_(new int[n]), size_(n) {}
-  ~Buffer() { delete[] data_; }
-  Buffer(const Buffer& other) : data_(new int[other.size_]), size_(other.size_) {
-    for (std::size_t i = 0; i < size_; ++i) data_[i] = other.data_[i];
-  }
-  Buffer& operator=(const Buffer& other) {
-    int* fresh = new int[other.size_];
-    for (std::size_t i = 0; i < other.size_; ++i) fresh[i] = other.data_[i];
-    delete[] data_;
-    data_ = fresh;
-    size_ = other.size_;
-    return *this;
-  }
-  Buffer(Buffer&& other) noexcept : data_(other.data_), size_(other.size_) {
-    other.data_ = nullptr;
-    other.size_ = 0;
-  }
-  Buffer& operator=(Buffer&& other) noexcept {
-    if (this == &other) return *this;
-    delete[] data_;
-    data_ = other.data_;
-    size_ = other.size_;
-    other.data_ = nullptr;
-    other.size_ = 0;
-    return *this;
-  }
- private:
-  int* data_;
-  std::size_t size_;
-};
+struct Buffer { int* data_; int size_; constexpr Buffer& operator=(const Buffer&); };
+constexpr Buffer& Buffer::operator=(const Buffer& other) {
+  int* fresh = new int[other.size_];
+  for (int i = 0; i < other.size_; ++i) fresh[i] = other.data_[i];
+  delete[] data_;
+  data_ = fresh; size_ = other.size_;
+  return *this;
+}
 ```
 
 ---
 
-`Buffer` owns a raw array, so the rule of five applies in full: whenever a
-class needs a user-provided destructor, it almost always needs to declare
-all five of destructor, copy constructor, copy assignment, move
-constructor and move assignment together, because the compiler-generated
-default for any of them assumes member-wise copying, which is wrong for
-an owning raw pointer.
-
-The copy assignment allocates and copies into `fresh` **before** releasing
-the old array: if `new` throws, `*this` is untouched (strong guarantee),
-and self-assignment needs no `this == &other` check because the old data
-is only deleted after it has been copied.
+**Allocate, copy, release, adopt: the old array is deleted only after
+the new one is full.** If `new` throws, `*this` is untouched (the strong
+guarantee). Self-assignment needs no `this == &other` check, because
+`other.data_` is read before `delete[] data_` frees it. Deleting first
+would make `b = b` copy from freed memory, and adopting `fresh` before
+the `delete[]` would free the new array instead of the old one.

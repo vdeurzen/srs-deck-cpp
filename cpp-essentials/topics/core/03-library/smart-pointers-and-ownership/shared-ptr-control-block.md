@@ -6,7 +6,7 @@ level: 2
 tags: [smart-pointers, ownership]
 requires:
   - smart-shared-ptr-intro
-elaborate: What would break if each copy carried its own count, and where in Go does the garbage collector make this question disappear?
+elaborate: What would break if each copy carried its own count?
 refs:
   - https://en.cppreference.com/w/cpp/memory/shared_ptr#Implementation_notes
   - https://eel.is/c++draft/util.sharedptr

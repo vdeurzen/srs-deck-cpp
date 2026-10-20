@@ -5,7 +5,7 @@ version: 2
 level: 2
 tags: [exceptions, inheritance, tracing]
 requires:
-  - err-catch-by-reference-why
+  - err-handler-order-warning
 probes:
   1: { got: "1" }
 refs:

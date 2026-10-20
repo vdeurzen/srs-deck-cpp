@@ -9,7 +9,7 @@ refs:
   - https://eel.is/c++draft/basic.compound#3
 ---
 
-## `int*` is C++'s spelling of Go's `*int`. After these two lines, what value is stored in the variable `p` itself?
+## `int* p` declares `p` as a pointer to `int`. After these two lines, what value is stored in the variable `p` itself?
 
 ```cpp
 int n = 5;

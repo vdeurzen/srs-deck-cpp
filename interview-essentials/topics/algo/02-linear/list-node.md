@@ -13,16 +13,19 @@ requires:
   - cpp-essentials/ptr-null-pointer
 ---
 
-## A singly linked list holds 5, 8, 2, in nodes scattered across memory. Besides its value, what does each node store?
+A list holds 5, 8, 2, each value in its own node; the nodes are not
+side by side in memory. `head` holds the address of the 5's node.
 
 ```text
-head ──► [ 5 | … ]   [ 8 | … ]   [ 2 | … ]
+head = 0x7a10    [ 5 | … ] at 0x7a10   [ 8 | … ] at 0x3c40   [ 2 | … ] at 0x9e08
 ```
+
+## Besides its value, what must each node hold so that a walk from `head` reaches every node in order?
 
 ---
 
 **The address of the next node (a `next` pointer); the last node's is null.**
 
-The nodes are not side by side, so no `base + i · size` can find them:
-each must say where its successor is. The list itself is just `head`, a
-pointer to the first node; an empty list has a null `head`.
+No `base + i · size` can find a node that is not side by side with the
+others: each must say where its successor is. Nodes chained this way
+form a singly linked list; an empty one has a null `head`.

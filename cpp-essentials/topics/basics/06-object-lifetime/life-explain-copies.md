@@ -13,8 +13,8 @@ refs:
 elaborate: Find a class of yours with a pointer member; say what its compiler-written copy would do, and whether that is safe.
 ---
 
-A Go teammate asks what actually runs when C++ code copies an object of a
-class you wrote. Explain it to them.
+A new colleague asks what actually runs when C++ code copies an object
+of a class you wrote. Explain it to them.
 
 ---
 

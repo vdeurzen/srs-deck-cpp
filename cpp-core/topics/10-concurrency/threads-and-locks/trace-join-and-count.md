@@ -12,19 +12,16 @@ requires:
   - cpp-essentials/threads-thread-destructor-joinable
   - cpp-essentials/threads-data-race-is-ub
   - cpp-essentials/conc-lock-the-counter
+elaborate: Say in one sentence, as to an interviewer, which line would race if the `scoped_lock` were removed, and what the final count could then be.
 refs:
   - https://en.cppreference.com/w/cpp/thread/jthread/join
   - https://en.cppreference.com/w/cpp/thread/scoped_lock
 ---
 
 ```cpp
-int n = 0;
-std::mutex m;
+int n = 0;  std::mutex m;
 void bump() {
-  for (int i = 0; i < 1000; ++i) {
-    std::scoped_lock lk(m);
-    ++n;
-  }
+  for (int i = 0; i < 1000; ++i) { std::scoped_lock lk(m); ++n; }
 }
 int main() {
   std::jthread a(bump), b(bump);

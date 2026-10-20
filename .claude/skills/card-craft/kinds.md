@@ -147,7 +147,7 @@ level: <n>
 tags: [<topic>, misconception]
 requires:
   - <the concept it corrects>
-elaborate: <Ties the correction to the learner's own code or Go habit.>
+elaborate: <Ties the correction to the learner's own code; to a Go habit only when that habit is the belief's source (PEDAGOGY §0).>
 refs:
   - <url>
 ---

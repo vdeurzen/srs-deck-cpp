@@ -27,9 +27,8 @@ elaborate: The answer always equals the OR of all elements times 2ⁿ⁻¹. Why 
 ---
 
 Sum of All Subset XOR Totals (LC 1863): add up the XOR of every subset
-of `nums` (the empty subset's XOR is 0; `n ≤ 12`). Each mask `m` from
-0 to 2ⁿ − 1 is one subset. Complete the test for whether element `i`
-is in it.
+of `nums` (`n ≤ 12`). Each mask `m` from 0 to 2ⁿ − 1 is one subset.
+Complete the test for whether element `i` is in it.
 
 ```cpp
 #include <vector>

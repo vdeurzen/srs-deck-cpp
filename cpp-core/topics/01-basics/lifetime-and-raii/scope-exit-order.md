@@ -18,10 +18,7 @@ refs:
 
 ```cpp
 std::string trail;   // every destructor appends its letter
-struct Noisy {
-  char c;
-  ~Noisy() { trail += c; }
-};
+struct Noisy { char c; ~Noisy() { trail += c; } };
 
 int f() {
   Noisy a{'a'};

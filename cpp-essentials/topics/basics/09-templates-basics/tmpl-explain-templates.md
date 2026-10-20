@@ -9,7 +9,7 @@ requires:
   - tmpl-distinct-types
   - tmpl-definition-in-header
   - tmpl-constrained-auto
-elaborate: Say how this compares with Go generics, and one thing C++ templates do that Go does not.
+elaborate: Say one place in code you use daily where you pass a type rather than a value, such as `std::vector<int>`, and what the compiler generates from it.
 refs:
   - https://en.cppreference.com/w/cpp/language/templates
   - https://en.cppreference.com/w/cpp/language/function_template

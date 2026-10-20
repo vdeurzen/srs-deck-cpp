@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/io/cout
   - https://en.cppreference.com/w/cpp/io/basic_ostream/operator_ltlt
-elaborate: Say how this differs from Go's `fmt.Println`, and what you would add to get the same output.
+elaborate: Which separator would you add to print `4 8`, and which to end the line?
 ---
 
 ```cpp

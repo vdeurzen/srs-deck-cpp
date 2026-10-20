@@ -1,7 +1,7 @@
 ---
 id: layout-trailing-padding
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [layout, alignment, padding]
 requires:
@@ -13,12 +13,19 @@ refs:
   - https://en.cppreference.com/w/cpp/language/sizeof
 ---
 
-## `struct S { double d; char c; };` holds 9 bytes of data, yet `sizeof(S)` is 16 on x86-64. Why?
+On x86-64 (`alignof`: `char` 1, `double` 8), both structs are 16 bytes.
+
+```cpp
+struct A { char c; double d; };
+struct B { double d; char c; };
+```
+
+## Where are the 7 padding bytes in each?
 
 ---
 
-**`sizeof` includes trailing padding so every element of an `S[]` keeps
-`d` 8-byte aligned.** Array elements sit exactly `sizeof(S)` apart, so
-`sizeof` is always a multiple of `alignof(S)`, which is the largest
-member alignment (8 here). With a size of 9, `arr[1].d` would land on
-offset 9.
+**`A`: between `c` and `d`. `B`: after `c`, at the end.**
+
+In `A`, `d` must start at a multiple of 8, so bytes 1–7 are padding. In
+`B` the data ends at 9, and `sizeof` rounds up to a multiple of
+`alignof(B)` = 8 so that `B[1].d` stays aligned: trailing padding.

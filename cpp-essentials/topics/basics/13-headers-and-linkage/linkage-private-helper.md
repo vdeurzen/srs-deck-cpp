@@ -10,7 +10,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/namespace#Unnamed_namespaces
   - https://eel.is/c++draft/basic.link
-elaborate: Go hides a helper by giving it a lower-case name; say how that differs from what this fix hides it from.
+elaborate: Say which helpers in a `.cpp` file you know belong in an unnamed namespace, and what a name clash would cost without it.
 ---
 
 ## `a.cpp` and `b.cpp` each define a helper `int clamp01(int v)` for their own use, with different bodies. The link fails with `multiple definition`. What should each file do?

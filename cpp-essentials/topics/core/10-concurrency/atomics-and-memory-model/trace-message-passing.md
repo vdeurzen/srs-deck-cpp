@@ -8,11 +8,12 @@ probes:
   1: { a: "5" }
   2: { b: "15" }
 requires:
+  - atomics-handoff-worked
   - atomics-synchronizes-with
 refs:
   - https://en.cppreference.com/w/cpp/atomic/memory_order
   - https://eel.is/c++draft/intro.races
-elaborate: Say what would go wrong, and why, if `second` stored 2 with `std::memory_order_relaxed` instead.
+elaborate: Say in one sentence where a two-way hand-off like this appears in real code, such as a request thread and a worker taking turns on one buffer.
 ---
 
 `first` and `second` start at the same time, each on its own thread.

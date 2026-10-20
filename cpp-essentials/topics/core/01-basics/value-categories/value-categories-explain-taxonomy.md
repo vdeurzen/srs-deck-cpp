@@ -7,7 +7,7 @@ tags: [value-categories, move-semantics]
 requires:
   - value-categories-taxonomy
   - value-categories-std-move-cloze
-  - value-categories-guaranteed-elision
+  - value-categories-prvalue-no-copy
   - value-categories-overload-binding
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category#Primary_categories
@@ -24,5 +24,5 @@ all. Answer them.
 - [ ] Problem: overloads must tell an object still in use from one whose contents may be taken
 - [ ] Mechanism: an xvalue has identity yet may be moved from, so it is both glvalue and rvalue
 - [ ] Example: `std::move(x)` moves nothing; its result is an xvalue naming `x`
-- [ ] Trade-off: a prvalue initialises its target directly, so `return T{};` needs no copy or move constructor
-- [ ] Pitfall: a named rvalue-reference parameter is an lvalue, so passing it on picks the `const T&` overload
+- [ ] Contrast: a prvalue has no identity; it initialises its target directly, so nothing is moved
+- [ ] Pitfall: naming an rvalue-reference parameter gives an lvalue expression, so passing it on picks the `const T&` overload

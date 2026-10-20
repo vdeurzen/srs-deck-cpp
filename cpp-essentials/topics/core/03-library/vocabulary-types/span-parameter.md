@@ -17,7 +17,7 @@ compile:
     int main() {}
 elaborate: Why does `span<int>` refuse a temporary `vector` that `span<const int>` accepts, and what bug does that refusal prevent?
 requires:
-  - containers-default-to-vector
+  - vocab-span-intro
   - iter-array-fixed-size
   - vc-plain-ref-rejects-temporary
 refs:
@@ -25,9 +25,7 @@ refs:
 ---
 
 Let `first` read any contiguous run of `int`s without copying it: here a
-`const std::array` and a temporary `std::vector`. (A `std::span` is a view:
-it stores only a pointer to the first element and a length, and owns
-nothing.)
+`const std::array` and a temporary `std::vector`.
 
 ```cpp
 #include <array>

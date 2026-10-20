@@ -9,7 +9,7 @@ requires:
 probes:
   1: { seen: "10" }
   2: { later: "21" }
-elaborate: Say what `join` gives you that Go's `sync.WaitGroup.Wait` also gives, and what a missing `join` would cost here.
+elaborate: Say what Probe 1 could read, and what would happen when `t` is destroyed, if `t.join();` were missing.
 refs:
   - https://en.cppreference.com/w/cpp/thread/thread/join
   - https://eel.is/c++draft/thread.thread.member

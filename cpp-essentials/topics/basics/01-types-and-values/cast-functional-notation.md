@@ -1,7 +1,7 @@
 ---
 id: cast-functional-notation
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [types, conversions, casts]
 requires:
@@ -20,11 +20,12 @@ for (int i = 0; i < int(g.size()); ++i) {
 }
 ```
 
-## `g.size()` is a `std::size_t`. What does `int(g.size())` do?
+## Written with `static_cast`, what is `int(g.size())`?
 
 ---
 
-**Converts the size to an `int`: `T(e)` is a cast, written like a call.**
-With one argument, `int(e)` is an explicit conversion of `e` to `int`;
-between arithmetic types it does exactly what `static_cast<int>(e)`
-does. Here it makes `i < ...` a comparison of two `int`s.
+**`static_cast<int>(g.size())`: `T(e)` with one argument is a cast, written like a call.**
+
+`int` is a type, not a function. Between arithmetic types this
+*functional cast* converts exactly as `static_cast<int>(e)` does. Here it
+turns the unsigned size into an `int`, so `i < ...` compares two `int`s.

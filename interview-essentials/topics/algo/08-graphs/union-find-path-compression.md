@@ -6,7 +6,7 @@ level: 2
 tags: [union-find, amortised]
 input: chips
 choices:
-  c1: ["find(parent[x])", "parent[x]", "parent[parent[x]]", "x"]
+  c1: ["find(parent[x])", "parent[x]", "parent[parent[x]]", "find(x)"]
 compile:
   harness: |
     constexpr Sets chain() { return Sets{{0, 0, 1, 2, 3, 4}}; }   // 5 → 4 → 3 → 2 → 1 → 0
@@ -20,7 +20,7 @@ requires:
   - technique-call-stack-worked
   - cpp-essentials/class-struct-members
   - cpp-essentials/iter-array-fixed-size
-elaborate: Where else would you rewrite pointers on the way back from a lookup so the next one is shorter — a symlink chain, a redirect cache?
+elaborate: With union by rank as well, m operations cost O(m α(n)), where α (inverse Ackermann) stays below 5 for any real n. Say aloud what that means for an interview answer about union-find's cost.
 refs:
   - https://doi.org/10.1145/364099.364331
   - https://doi.org/10.1145/321879.321884
@@ -49,8 +49,6 @@ back each node on the path is re-pointed at it. The chain 5 → 4 → … → 0
 costs 5 steps once; afterwards every node on it is one step from the
 root.
 
-With union by rank as well, a sequence of m operations costs
-O(m α(n)): α is the inverse Ackermann function, below 5 for any real n.
-
 `parent[x]` and `parent[parent[x]]` return a parent or grandparent, not
-the root; `x` cuts the node loose as its own set.
+the root. `find(x)` calls itself with the same argument forever, so the
+compiler's constant evaluation gives up.

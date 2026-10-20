@@ -21,9 +21,8 @@ T twice(T x) { return x + x; }
 
 ---
 
-**Using it with `int` where a definition is needed, such as the call
-`twice(3)`: implicit instantiation.**
+**Using it with `int`, such as `twice(3)`: implicit instantiation.**
 
-The compiler substitutes `int` for `T` and generates a real function, once
+It happens wherever a definition is needed. The compiler substitutes `int` for `T` and generates a real function, once
 per distinct set of template arguments. The template itself is not code;
 each function generated from it is.

@@ -12,7 +12,7 @@ compile:
     static_assert(r == 2.1, "r does not hold the larger value");
     int main() {}
 requires:
-  - tmpl-deduction-conflict
+  - tmpl-explicit-argument-intro
   - types-auto-deduces
   - constexpr-fn-static-assert
 elaborate: Name a standard library call where you write the template argument explicitly because it cannot be deduced.

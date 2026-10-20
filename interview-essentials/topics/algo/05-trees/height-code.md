@@ -5,16 +5,15 @@ version: 1
 level: 2
 tags: [trees, recursion, traversal]
 requires:
-  - tree-traversal-orders
+  - tree-terms-height
   - technique-call-stack-worked
-  - stl-const-auto-param
-  - cpp-essentials/constexpr-fn-static-assert
+  - tree-node-links
+  - cpp-essentials/ptr-arrow-member
 input: chips
 choices:
   c1: ["1 + std::max(l, r)", "std::max(l, r)", "1 + std::min(l, r)", "1 + l + r"]
 compile:
   harness: |
-    struct T { int key[6], left[6], right[6]; };
     //        8
     //       / \
     //      4   9
@@ -22,15 +21,17 @@ compile:
     //    2   6
     //       /
     //      5
-    constexpr T t{{8, 4, 9, 2, 6, 5}, {1, 3, -1, -1, 5, -1}, {2, 4, -1, -1, -1, -1}};
-    static_assert(height(t, 0) == 3);
-    static_assert(height(t, 1) == 2);
-    static_assert(height(t, 3) == 0);
-    static_assert(height(t, -1) == -1);
+    constexpr Node n5{5, nullptr, nullptr}, n2{2, nullptr, nullptr}, n9{9, nullptr, nullptr};
+    constexpr Node n6{6, &n5, nullptr}, n4{4, &n2, &n6}, n8{8, &n4, &n9};
+    static_assert(height(&n8) == 3);
+    static_assert(height(&n4) == 2);
+    static_assert(height(&n2) == 0);
+    static_assert(height(nullptr) == -1);
     int main() {}
-elaborate: "Which other tree question is the same postorder shape with a different combining step, such as size, sum or diameter?"
+elaborate: "Which other tree question has this shape, both subtrees first and then one combining step, such as size, sum or diameter?"
 refs:
   - https://en.wikipedia.org/wiki/Tree_traversal
+  - https://en.cppreference.com/w/cpp/algorithm/max
 ---
 
 Height in edges: an empty tree has −1, a lone node 0 (`std::max` and
@@ -39,23 +40,23 @@ the recursion.
 
 ```cpp
 #include <algorithm>
+struct Node { int key; const Node* left; const Node* right; };
 
-// t.left[v], t.right[v]: child indices, -1 for none
-constexpr int height(const auto& t, int v) {
-  if (v < 0) return -1;
-  const int l = height(t, t.left[v]);
-  const int r = height(t, t.right[v]);
+constexpr int height(const Node* n) {
+  if (n == nullptr) return -1;
+  const int l = height(n->left);
+  const int r = height(n->right);
   return {{c1::1 + std\::max(l, r)}};
 }
 ```
 
 ---
 
-A node's height is one edge down to its **taller** subtree, plus that subtree's height,
-because the longest path goes down whichever side is longer. Both
-subtrees are measured before the node uses them: a postorder traversal,
-which visits each node once.
+A node's height is one edge down to its **taller** subtree, plus that
+subtree's height, because the longest path goes down whichever side is
+longer. Both subtrees are measured before the node uses them, so each
+node is visited once: O(n).
 
-`1 + l + r` is the shape of the other classic postorder count, the
-subtree's size (with 0 for an empty tree); `min` would measure the
-shortest path to an empty link.
+`1 + l + r` is the shape of another classic count, the subtree's size
+(with 0 for an empty tree); `min` would measure the shortest path to an
+empty link.

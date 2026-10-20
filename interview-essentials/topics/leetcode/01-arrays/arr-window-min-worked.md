@@ -15,9 +15,10 @@ every letter of `t`. The sliding window for `s = "bab"`, `t = "ab"`:
 
 ```
 hi  window   holds a, b     action
-0   b        no             grow
-1   ba       yes            record 2; drop b
-2   ab       yes            2 not shorter; drop a
+—   (empty)  —              init: lo = 0
+0   b        no             expand
+1   ba       yes            expand; record 2; shrink, dropping b
+2   ab       yes            expand; 2 not shorter; shrink
 ```
 
 ## At `hi = 1`, why is the length recorded before `b` is dropped, not after?
@@ -25,6 +26,6 @@ hi  window   holds a, b     action
 ---
 
 **Dropping `b` breaks the window, so only before the drop is it valid to record.**
-A shortest-window search records inside the shrink loop, each time the
-window is still valid, then shrinks to try a shorter one. Recording
-after the loop sees only broken windows: here it never records `"ba"`.
+A shortest-window search runs init, then per `hi`: expand, then record
+and shrink while the window is valid. Recording after the shrink loop
+sees only broken windows: here it never records `"ba"`.

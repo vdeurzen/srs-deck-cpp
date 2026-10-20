@@ -7,6 +7,7 @@ tags: [low-latency, lock-free, queues, concurrency]
 requires:
   - cpp-essentials/atomics-compare-exchange-failure
   - seq-ring-buffer-full-vs-empty
+  - cpp-essentials/atomics-memory-order-intro
 elaborate: What would break if a second producer thread were added, and what would `tail` then need?
 refs:
   - https://lmax-exchange.github.io/disruptor/disruptor.html
@@ -18,6 +19,6 @@ refs:
 ---
 
 **Each counter has exactly one writer.** Only the producer stores
-`tail`, only the consumer stores `head`; each merely *reads* the other's.
-A read-modify-write exists to arbitrate between writers, and there are
-none to arbitrate, so plain atomic loads and stores suffice.
+`tail`, only the consumer `head`; each just *reads* the other's. A
+read-modify-write arbitrates between writers, and there are none, so a
+release store paired with the other thread's acquire load suffices.

@@ -7,7 +7,7 @@ tags: [lifetime, temporaries, foundations, misconception]
 requires:
   - life-destructor-intro
   - const-ref-names-caller
-elaborate: Say why a Go programmer never has to ask this question, and what a C++ function that keeps a reference parameter must therefore assume.
+elaborate: Say what a C++ function that keeps a reference parameter must therefore assume about its argument.
 refs:
   - https://en.cppreference.com/w/cpp/language/lifetime#Temporary_object_lifetime
   - https://eel.is/c++draft/class.temporary#4

@@ -14,15 +14,15 @@ compile:
                                  std::shared_ptr<Node>>);
     int main() {}
 requires:
-  - smart-pointers-weak-ptr-breaks-cycles
-  - conc-thread-shares-memory
+  - smart-pointers-weak-ptr-lock-intro
   - fn-auto-return-type
-elaborate: Where in your own code does one thread read an object another thread may free, and what would "test, then use" without pinning cost you there?
+elaborate: Where in your own code could an object be freed between a check and its use, and what would pinning it with `lock()` cost there?
 refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr/lock
 ---
 
-`w` observes a `Node` that another thread may destroy at any moment.
+`w` observes a `Node` whose last owner, in code running at the same time,
+may destroy it at any moment.
 Complete `pin` so that a caller can safely write
 `if (auto p = pin(w)) use(p);` (an `if` may declare a variable, then test
 it).

@@ -5,8 +5,8 @@ version: 1
 level: 1
 tags: [lifetime, ownership]
 requires:
+  - smart-unique-ptr-intro
   - life-unique-ptr-owns-trace
-  - life-destructor-frees
   - types-auto-deduces
   - constexpr-fn-static-assert
 elaborate: Say why a function holding its heap object in a `std::unique_ptr` needs no cleanup code on its early returns.
@@ -44,7 +44,6 @@ constexpr int scaled(int x, bool bail) {
 
 **`std::unique_ptr<int>`** is a local object that *owns* the `int`: its
 destructor runs `delete` when `p` goes out of scope, by either `return`.
-That is the release-in-a-destructor pattern, already written for you.
 The template argument is the pointed-to type, so `unique_ptr<int*>`
 does not accept an `int*`. `int*` and `auto` (which deduces `int*`)
 own nothing, so the early return leaks the `int`.

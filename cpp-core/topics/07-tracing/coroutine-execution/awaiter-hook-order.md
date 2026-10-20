@@ -15,9 +15,12 @@ refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
 ---
 
-```cpp
-std::string hooks;
+Each hook appends one letter to the global `std::string hooks`. `Task`
+starts eagerly (`initial_suspend()` returns `suspend_never`), suspends
+at `final_suspend()`, keeps its coroutine handle in `t.handle`, and its
+destructor destroys the frame.
 
+```cpp
 struct Step {
   bool ready;
   bool await_ready() const { hooks += 'R'; return ready; }
@@ -25,9 +28,6 @@ struct Step {
   void await_resume() const { hooks += 'V'; }
 };
 
-// Task holds its coroutine_handle in a public member `handle`.
-// It starts eagerly: initial_suspend() returns std::suspend_never,
-// final_suspend() returns std::suspend_always.
 Task demo() {
   co_await Step{true};
   co_await Step{false};
@@ -37,7 +37,6 @@ Task demo() {
 int main() {
   Task t = demo();       // @1
   t.handle.resume();     // @2
-  t.handle.destroy();
 }
 ```
 

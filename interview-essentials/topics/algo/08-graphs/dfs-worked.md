@@ -14,7 +14,7 @@ refs:
   - https://en.wikipedia.org/wiki/Depth-first_search
 ---
 
-## Recursive DFS from 0 on the directed graph 0→1, 0→2, 1→2 stamps `d[u]` on entry and `f[u]` on finish from one counter `t`. Why does 0 skip 2 in the last row?
+## Recursive DFS from 0 on the triangle 0–1, 0–2, 1–2 (each list in increasing order) stamps `d[u]` on entry and `f[u]` on finish from one counter `t`. Why does 0 skip 2 in the last row?
 
 ```cpp
 void dfs(int u) {
@@ -28,7 +28,7 @@ void dfs(int u) {
 event                  calls running   stamp
 enter 0                0               d[0] = 1
 enter 1 (0's 1st edge) 0 1             d[1] = 2
-enter 2 (1's edge)     0 1 2           d[2] = 3
+enter 2 (1's 2nd edge) 0 1 2           d[2] = 3
 2, then 1 finish       0               f[2] = 4, f[1] = 5
 0 skips 2 (seen)       —               f[0] = 6
 ```

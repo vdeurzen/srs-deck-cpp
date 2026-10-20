@@ -24,8 +24,9 @@ elaborate: Which graph walk in your own code would break if its queue were swapp
 
 ---
 
-**Queue: nearest first, level by level. Stack: one path as deep as it goes, then backtrack.**
+**The queue visits nearest first, level by level, instead of deepest first.**
 
-From 0, BFS visits 0 1 2 3 4, by hop count: hence unweighted shortest
-paths. The stack pops the last-pushed neighbour first, so DFS visits
-0 2 4 1 3: it finishes the branch through 2 before starting 1.
+From 0, BFS visits 0 1 2 3 4, by hop count. A stack pops the
+last-pushed neighbour first, finishing the branch through 2 before 1:
+0 2 4 1 3. Recursive DFS takes the first-listed first, 0 1 3 2 4:
+just as deep.

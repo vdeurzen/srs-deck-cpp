@@ -21,7 +21,6 @@ refs:
 requires:
   - operator-overloading-basics
   - ptr-reference-vs-pointer
-  - const-member-on-const-ref
   - class-this-pointer
 elaborate: What would break in code that writes `(a += b) += c` or `x = y = z` if your type's assignment returned by value?
 ---

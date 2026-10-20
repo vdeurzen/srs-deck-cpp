@@ -13,7 +13,7 @@ requires:
   - cpp-essentials/iter-range-for-intro
 ---
 
-## This BFS marks a vertex when it is *popped*. It still visits each vertex once. What does it cost on a dense graph (E close to V²)?
+## This BFS marks a vertex when it is *popped*. It still visits each vertex once. How large can its queue get on a dense graph (E close to V²)?
 
 ```cpp
 q.push(s);

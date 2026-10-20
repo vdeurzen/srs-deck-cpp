@@ -1,7 +1,7 @@
 ---
 id: technique-dp-optimal-substructure
 kind: cloze
-version: 1
+version: 2
 level: 2
 tags: [dynamic-programming]
 requires:
@@ -13,10 +13,10 @@ refs:
 ---
 
 Fewest coins for 11 from {1, 5, 6, 9} is 5 + 6. Take 6 as its last
-coin: the rest must itself be the fewest coins for {{c1::5}}; if a better way to
-pay that rest existed, swapping it in would beat the "optimal" answer.
-An optimum built from optima of its subproblems is called
-{{c2::optimal substructure}}.
+coin: the coins paying the remaining 5 must be the fewest that pay 5,
+because swapping in a better way to pay 5 would beat the "optimal"
+answer. A problem whose best answer always contains best answers to its
+smaller pieces has {{c1::optimal substructure}}.
 
 ---
 

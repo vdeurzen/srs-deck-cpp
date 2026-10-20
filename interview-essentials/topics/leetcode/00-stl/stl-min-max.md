@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/min
   - https://en.cppreference.com/w/cpp/algorithm/max
-elaborate: Say where you would write `best = std::max(best, x)` instead of an `if`, and what the two argument types must agree on.
+elaborate: Say where you would write `best = std::max(best, x)` instead of an `if`, and what it saves the reader.
 ---
 
 ```cpp
@@ -23,6 +23,6 @@ int hi = std::max(lo, 5);
 ---
 
 **3 and 5: `std::min` and `std::max` return the smaller and larger of two values.**
-Both arguments must have the same type: `std::min(1, 2.5)` does not
-compile. Given a braced list, `std::min({4, 9, 2})` returns the smallest
-of all of them, 2.
+
+Running bests are written with them: `best = std::max(best, x)` keeps
+the largest value seen so far in one line, with no branch to read.

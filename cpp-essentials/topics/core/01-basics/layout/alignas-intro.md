@@ -1,7 +1,7 @@
 ---
 id: layout-alignas-intro
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [layout, alignment, foundations]
 requires:
@@ -13,21 +13,23 @@ refs:
   - https://eel.is/c++draft/dcl.align
 ---
 
-On x86-64 an `int` is 4 bytes with alignment 4.
+On x86-64 a `double` is 8 bytes with alignment 8; a `char` is 1 byte.
 
 ```cpp
-struct Pair {
-    int a;
-    alignas(64) int b;
+struct Tick {
+    double bid;
+    double ask;
+    double last;
+    alignas(16) char flag;
 };
 ```
 
-## At what offset from the start of a `Pair` does `b` start?
+## At what offset from the start of a `Tick` does `flag` start?
 
 ---
 
-**64: `alignas(64)` makes `b`'s address a multiple of 64.**
+**32: the first multiple of 16 at or after byte 24.**
 
-`alignas(N)` raises an alignment requirement to `N`. `Pair` takes its
-largest member alignment, 64, so the compiler pads 60 bytes after `a`. On a type, `struct alignas(64) S`
-raises the alignment of every `S`.
+`alignas(N)` raises a member's alignment requirement to `N`. The three
+`double`s end at byte 24, which is not a multiple of 16, so the compiler
+inserts 8 padding bytes before `flag`.

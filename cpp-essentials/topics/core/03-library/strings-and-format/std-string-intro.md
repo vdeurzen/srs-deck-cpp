@@ -19,7 +19,7 @@ std::string b = a;
 b += "da";
 ```
 
-## Many expect `b = a` to leave both names sharing one set of characters, as two Go slices of one array do. What does `a` hold after the last line?
+## Many expect `b = a` to leave both names sharing one set of characters. What does `a` hold after the last line?
 
 ---
 

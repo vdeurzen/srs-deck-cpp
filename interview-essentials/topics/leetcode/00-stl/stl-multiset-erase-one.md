@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [stl, sliding-window, misconception, lc-480]
 requires:
-  - std-set-multiset
+  - std-multiset-keeps-dupes
   - cpp-essentials/iter-end-one-past
 refs:
   - https://leetcode.com/problems/sliding-window-median/

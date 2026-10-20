@@ -10,10 +10,10 @@ requires:
 refs:
   - https://eel.is/c++draft/except.handle
   - https://en.cppreference.com/w/cpp/error/terminate
-elaborate: Go has an unrecovered `panic`; say how this outcome compares, and where your `main` would catch to avoid it.
+elaborate: Say where in `main` you would put a `catch` so that such a failure ends with a clear message instead of `std::terminate`.
 ---
 
-## `main` calls `load()`, which throws a `std::runtime_error`. No `catch` anywhere in the program matches it. What happens?
+## `main` calls `load()`, which throws a `std::runtime_error` (a standard exception type). No `catch` anywhere in the program matches it. What happens?
 
 ---
 

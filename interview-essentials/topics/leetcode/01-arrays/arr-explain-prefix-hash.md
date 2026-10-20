@@ -14,9 +14,9 @@ refs:
   - https://en.cppreference.com/w/cpp/algorithm/partial_sum
 elaborate: Where else could "store what you have seen so far, keyed on what a future element will need" turn a nested loop into one pass, for example matching log events by id?
 ---
-An interviewer asks how you tell, from a problem statement alone, that
-you should count subarrays with a running sum and a lookup table rather
-than with a nested loop. Answer aloud.
+An interviewer asks how you tell from a problem statement that counting
+subarrays with a nested loop can become one pass, and what that pass
+keeps. Answer aloud.
 ---
 - [ ] Cue: count contiguous subarrays with an exact sum, and the values may be negative
 - [ ] Pattern: a hash map counts earlier prefix sums, and each step adds the count of prefix minus k

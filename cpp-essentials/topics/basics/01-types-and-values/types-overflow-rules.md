@@ -15,9 +15,8 @@ refs:
 ---
 
 When an integer result does not fit its type, the two families part ways.
-For an `unsigned` type the result {{c1::wraps around modulo 2ᴺ::what happens to it}}
-(N = the type's width in bits): after `unsigned u = UINT_MAX; ++u;`
-(`UINT_MAX` is the largest `unsigned` value),
-`u` is {{c1::0}}.
+For an N-bit `unsigned` type the result {{c1::wraps around modulo 2ᴺ::what happens to it}}:
+after `unsigned u = UINT_MAX; ++u;` (`UINT_MAX` is the largest
+`unsigned` value), `u` is {{c1::0}}.
 For a signed type such as `int`, the overflow is
 {{c2::undefined behaviour::the standard's term}}.

@@ -6,6 +6,7 @@ level: 2
 tags: [value-categories, overload-resolution]
 requires:
   - vc-named-rvalue-ref-is-lvalue
+  - value-categories-std-move-cloze
 elaborate: Where in your own code does a function take a `T&&` and pass it on, and does it pass it on as an lvalue?
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category

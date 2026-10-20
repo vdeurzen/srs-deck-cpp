@@ -4,7 +4,7 @@ kind: explain
 version: 2
 level: 2
 tags: [containers, vector, iterators]
-elaborate: Say how this compares with Go's `append`, which can also return a slice backed by a new array.
+elaborate: Say which loop in your own code you would add `reserve` to, and what that saves.
 requires:
   - iter-reserve-keeps-buffer
   - iter-growth-invalidates

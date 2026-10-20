@@ -20,7 +20,7 @@ if (p != nullptr) *p = 1;
 *p = 2;
 ```
 
-## `nullptr` is C++'s null pointer, like Go's `nil`: it points at no object. Many expect the last line to panic as it would in Go. What does it do?
+## `nullptr` is C++'s null pointer: it points at no object. Many expect the last line to stop the program with an error. What does it do?
 
 ---
 

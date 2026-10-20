@@ -19,5 +19,6 @@ refs:
 **0 %: each access evicts exactly the key the loop needs next.**
 
 LRU bets on temporal locality: recently used means soon used again. A
-cyclic scan just larger than the cache breaks the bet; a database's page
-cache read by one scan of a large table suffers the same way.
+cyclic scan just larger than the cache breaks the bet. A database page
+cache suffers a milder form: one large table scan pushes out the hot
+pages.

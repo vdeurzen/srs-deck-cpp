@@ -13,6 +13,7 @@ compile:
     int main() {}
 elaborate: Say what you would write instead before C++20, and which mistake that older form invites.
 requires:
+  - container-erase-if-intro
   - stdalgo-remove-if-keeps-size
   - constexpr-fn-static-assert
   - types-size-t

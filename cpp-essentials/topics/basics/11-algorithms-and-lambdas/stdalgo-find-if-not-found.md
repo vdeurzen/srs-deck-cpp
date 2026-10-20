@@ -13,11 +13,11 @@ compile:
     static_assert(first_negative({3, 4}) == 0);
     int main() {}
 requires:
-  - stdalgo-find-vs-find-if
+  - stdalgo-find-if-no-match
   - expr-conditional-operator
   - constexpr-fn-static-assert
   - ptr-null-pointer
-elaborate: Say how this `end()` check compares with Go's `v, ok := m[k]` or a returned `-1` index.
+elaborate: Say why the standard algorithms report "not found" with an iterator rather than a special value such as `-1`.
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/find
 ---

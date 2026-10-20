@@ -12,9 +12,8 @@ compile:
     static_assert(doubled_sum() == 12);
     int main() {}
 requires:
-  - iter-range-for-intro
+  - range-for-loop-variable
   - ptr-reference-must-bind
-  - iter-iterator-basics
   - constexpr-fn-static-assert
 elaborate: Say which loop-variable type you reach for by default when reading a vector of large structs, and why.
 refs:
@@ -40,7 +39,7 @@ constexpr int doubled_sum() {
 ---
 
 A range-for declares its variable afresh for each element, initialised
-from `*it`. As a plain `int` it is a **copy**: doubling it leaves `v`
+from the element. As a plain `int` it is a **copy**: doubling it leaves `v`
 untouched (sum stays 6). As `int&` it names the element itself. `const
 int&` also avoids the copy but forbids the assignment. Rule of thumb:
 `auto&` to modify, `const auto&` to read large elements, a value for

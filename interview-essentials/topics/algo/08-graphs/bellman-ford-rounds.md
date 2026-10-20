@@ -5,11 +5,11 @@ version: 1
 level: 2
 tags: [graphs, shortest-paths]
 requires:
-  - graph-dijkstra-why-nonnegative
+  - graph-bellman-ford-worked
 refs:
   - https://doi.org/10.1090/qam/102435
   - https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
-elaborate: Run one extra round and some distance still drops. Say aloud what that proves about the graph, and where currency rates turn this into a real check.
+elaborate: When would you pick this O(V · E) loop over Dijkstra in an interview problem, and what would you say to justify it?
 ---
 
 ## Bellman-Ford *relaxes* every edge (u, v, w), in any order, V − 1 times: if `dist[u] + w < dist[v]`, set `dist[v] = dist[u] + w`. With negative edges but no cycle whose weights sum below 0, why is V − 1 rounds enough?
@@ -21,8 +21,8 @@ V = 4: the best route to c, s→a→b→c = 0, uses 3 edges
 
 ---
 
-**Round k settles every shortest path of k edges; none needs more than V − 1.**
+**A cheapest path never repeats a vertex, so it has at most V − 1 edges.**
 
-Round k extends round k − 1's paths by one edge, in any edge order.
-With no such cycle, a shortest path never repeats a vertex, so it
-has at most V − 1 edges. Cost: O(V · E).
+Round k settles every vertex whose cheapest path has k edges, in any
+edge order. With no such cycle, going round a loop never makes a path
+cheaper, so no cheapest path needs more than V − 1 edges. Cost: O(V · E).

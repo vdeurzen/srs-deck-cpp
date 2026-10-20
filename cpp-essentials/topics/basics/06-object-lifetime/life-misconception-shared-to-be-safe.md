@@ -1,20 +1,20 @@
 ---
 id: life-misconception-shared-to-be-safe
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [lifetime, ownership, misconception]
 requires:
   - smart-shared-ptr-intro
   - life-unique-ptr-member-no-copy
   - ptr-arrow-member
-elaborate: Pick a shared_ptr in your own code. How many places really keep the object alive, and would one of them always outlive the rest?
+elaborate: Pick a shared_ptr member in your own code. Would a copy of its class be expected to share that object, or to own one of its own?
 refs:
   - https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#rr-unique
   - https://en.cppreference.com/w/cpp/memory/shared_ptr
 ---
 
-## A colleague makes every heap member a `std::shared_ptr`, reasoning that it can never free too early. After `Parser p; Parser q = p; q.step();`, what does `p.pos()` return?
+Many expect a `std::shared_ptr` member to make copying a class safe.
 
 ```cpp
 struct Lexer { int pos = 0; };
@@ -26,10 +26,13 @@ public:
 };
 ```
 
+## After `Parser p; p.step(); Parser q = p; q.step();`, what does `p.pos()` return?
+
 ---
 
-**1: the copy shares `p`'s `Lexer`, so `q.step()` moved `p` too.**
-"Never frees too early" is true, which makes the choice feel safe, but it
-also hides that `Parser` meant to own its `Lexer` alone. With
-`std::unique_ptr<Lexer>`, `Parser q = p;` is a compile error instead.
-Every copy also pays to update a shared count.
+**2: the copy shares `p`'s `Lexer`.**
+
+Nothing is freed twice, so it feels safe, but copying a `shared_ptr`
+adds an owner, not a `Lexer`: `q.step()` moves `p` too. A
+`std::unique_ptr` member makes `Parser q = p;` a compile error instead.
+Each copy also updates a shared count.

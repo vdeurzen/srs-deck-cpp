@@ -1,13 +1,11 @@
 ---
 id: layout-pin-chunk
 kind: chunk
-version: 1
+version: 2
 level: 2
 tags: [layout, padding, static-assert]
 expose_ms: 6500
-compile:
-  harness: |
-    int main() {}
+compile: null
 requires:
   - layout-offsets-trace
   - std-names-and-headers
@@ -17,16 +15,18 @@ refs:
   - https://en.cppreference.com/w/cpp/language/static_assert
 ---
 
+`struct Order { double price; int qty; char side; };` is written to a
+file as raw bytes on x86-64.
+
 ```cpp
 #include <cstddef>
-struct Order { double price; int qty; char side; };
-static_assert(offsetof(Order, side) == 12 && sizeof(Order) == 16);
+static_assert(sizeof(Order) == 16);
+static_assert(offsetof(Order, side) == 12);
 ```
 
 ---
 
-**Pinning a layout.** A `static_assert` on `offsetof` and `sizeof` turns
-the layout into a checked fact: someone who adds a member, reorders
-fields or changes a type in a way that adds padding breaks the build
-instead of silently growing every array, file format or network
-message built from `Order`.
+**Pinning a layout.** `<cstddef>` provides `offsetof`. The `sizeof` line
+fails the build if anyone adds padding or a member; the `offsetof` line
+fails it if a field moves, even when the total size stays the same. The
+file format can then never change silently.

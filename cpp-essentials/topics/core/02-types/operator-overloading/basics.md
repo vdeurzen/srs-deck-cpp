@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/operators
   - https://eel.is/c++draft/over.oper
-elaborate: Go has no operator overloading. Say in one sentence when defining `+` for one of your own types would mislead a reader.
+elaborate: Say in one sentence when defining `+` for one of your own types would mislead a reader.
 ---
 
 ```cpp

@@ -9,10 +9,15 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/definition
   - https://en.cppreference.com/w/cpp/language/translation_phases
-elaborate: Say which other message would tell you the compiler, not the linker, stopped the build.
+elaborate: Say which of the two messages you would get after renaming `area` in its `.cpp` file only, and why.
 ---
 
-`main.cpp` includes `rect.h` and calls `area(2, 3)`. `rect.h` declares
-`area`, but no file in the build has its body. The build stops with
-`undefined reference to 'area(int, int)'`, a message from the
-{{c1::linker::a build step}}.
+`main.cpp` calls `area(2, 3)`.
+
+- If `main.cpp` includes `rect.h`, which declares `area`, but no file in
+  the build has its body, the build stops with
+  `undefined reference to 'area(int, int)'`, a message from the
+  {{c1::linker::a build step}}.
+- If `main.cpp` forgets the `#include`, so nothing declares `area` before
+  the call, it stops with `'area' was not declared in this scope`, from
+  the {{c2::compiler::a build step}}.

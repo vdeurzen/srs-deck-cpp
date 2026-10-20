@@ -12,7 +12,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/thread/condition_variable
   - https://en.cppreference.com/w/cpp/thread/condition_variable/wait
-elaborate: Go would hand the job over a channel. Say what in the C++ version plays the channel's part, and what you must still write yourself.
+elaborate: Say what this wait still guarantees if two consumer threads share the queue and one job wakes both of them.
 ---
 
 A teammate's consumer thread loops, re-reading a shared queue until a

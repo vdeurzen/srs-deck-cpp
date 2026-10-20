@@ -44,7 +44,7 @@ constexpr void unlink(Node* x) {
 ---
 
 **Each neighbour now points at the other: forward past `x`, and back
-past `x`.** Two writes, O(1), and `x` itself is enough: the back pointer
+past `x`.** Two writes, whatever the list's length, and `x` itself is enough: the back pointer
 is what lets a doubly linked list remove a node without a walk to find
 its predecessor.
 

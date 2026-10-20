@@ -12,13 +12,8 @@ choices:
 compile:
   harness: |
     Answer forty_two() { co_return 42; }
-    int main() {
-      auto a = forty_two();
-      a.handle.resume();
-      const int got = a.handle.promise().result;
-      (void)got;
-      a.handle.destroy();
-    }
+    int main() { forty_two(); }
+elaborate: What keeps the stored result readable after `co_return`, and what would break if `final_suspend()` returned `suspend_never`?
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#Execution
 ---
@@ -27,17 +22,14 @@ Give the promise the hook that `co_return 42;` needs.
 
 ```cpp
 #include <coroutine>
-struct Answer {
-  struct promise_type {
-    int result = 0;
-    Answer get_return_object() { return Answer{Handle::from_promise(*this)}; }
-    std::suspend_always initial_suspend() noexcept { return {}; }
-    std::suspend_always final_suspend() noexcept { return {}; }
-    void {{c1::return_value}}(int value) { result = value; }
-    void unhandled_exception() {}
-  };
-  using Handle = std::coroutine_handle<promise_type>;
-  Handle handle;
+struct Answer { struct promise_type; };
+struct Answer::promise_type {
+  int result = 0;
+  Answer get_return_object() { return {}; }
+  std::suspend_always initial_suspend() noexcept { return {}; }
+  std::suspend_always final_suspend() noexcept { return {}; }
+  void {{c1::return_value}}(int value) { result = value; }
+  void unhandled_exception() {}
 };
 ```
 
@@ -47,8 +39,9 @@ struct Answer {
 name has to be exactly that — the compiler looks the hook up by name,
 not by signature. Storing the result in the promise, as here, is the
 usual pattern: the frame outlives the `co_return` because
-`final_suspend()` returns `suspend_always`, so the caller can still read
-`handle.promise().result` before destroying the frame.
+`final_suspend()` returns `suspend_always`, so a return object that keeps
+the handle can still read `handle.promise().result` before destroying
+the frame.
 
 Note what makes this Card compile at all: a promise with only
 `return_void` rejects `co_return 42;`, and a promise declaring *both*

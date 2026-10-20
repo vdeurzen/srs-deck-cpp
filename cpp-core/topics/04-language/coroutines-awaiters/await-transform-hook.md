@@ -12,11 +12,8 @@ choices:
 compile:
   harness: |
     Lazy counts() { co_await 42; }
-    int main() {
-      auto l = counts();
-      l.handle.resume();
-      l.handle.destroy();
-    }
+    int main() { counts(); }
+elaborate: Say in one sentence, as to an interviewer, why `await_transform` is the place to inject a scheduler or an I/O context.
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
 ---
@@ -28,15 +25,12 @@ legal inside a `Lazy`.
 #include <coroutine>
 struct Lazy {
   struct promise_type {
-    Lazy get_return_object() { return Lazy{Handle::from_promise(*this)}; }
-    std::suspend_always initial_suspend() noexcept { return {}; }
-    std::suspend_always final_suspend() noexcept { return {}; }
+    Lazy get_return_object() { return {}; }
+    std::suspend_never initial_suspend() noexcept { return {}; }
+    std::suspend_never final_suspend() noexcept { return {}; }
     std::suspend_never {{c1::await_transform}}(int) noexcept { return {}; }
-    void return_void() {}
-    void unhandled_exception() {}
+    void return_void() {}  void unhandled_exception() {}
   };
-  using Handle = std::coroutine_handle<promise_type>;
-  Handle handle;
 };
 ```
 

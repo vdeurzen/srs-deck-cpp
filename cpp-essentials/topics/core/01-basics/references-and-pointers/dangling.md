@@ -1,7 +1,7 @@
 ---
 id: ptr-dangling
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [pointers, lifetime]
 requires:
@@ -14,13 +14,21 @@ refs:
   - https://timsong-cpp.github.io/cppwp/n4950/basic.stc.general#4
 ---
 
-## After `delete p;`, which uses of `p` are undefined behaviour?
+```cpp
+int* p = new int{5};
+delete p;
+int a = *p;     // A
+int* q = p;     // B
+delete p;       // C
+```
+
+## In C++23, which of lines A, B and C have undefined behaviour?
 
 ---
 
-**Going through it (`*p`, or a member access) and a second `delete`.** `p` is *dangling*:
-the object's lifetime has ended, so `p` holds an invalid pointer value.
-Copying or comparing that stale value is implementation-defined, not
-undefined; only going *through* it is. Nothing in `p`'s bits reveals
-this. Pointers to ended
-locals dangle the same way.
+**A and C: both go through `p` to an object that no longer exists.**
+
+After `delete p;`, `p` is *dangling*: it holds an invalid pointer value.
+Reading or deleting through it is undefined. Merely copying the stale
+value, as B does, is implementation-defined. Nothing in `p`'s bits
+reveals which state it is in.

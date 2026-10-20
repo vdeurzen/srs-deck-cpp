@@ -10,12 +10,13 @@ choices:
     - "a.end < b.end"
     - "a.start < b.start"
     - "a.end - a.start < b.end - b.start"
-    - "a.end > b.end"
+    - "a.start + a.end < b.start + b.end"
 compile:
   harness: |
     static_assert(max_talks(std::vector<Talk>{{0, 10}, {1, 2}, {3, 4}}) == 2);
     static_assert(max_talks(std::vector<Talk>{{0, 5}, {4, 7}, {6, 11}}) == 2);
     static_assert(max_talks(std::vector<Talk>{{1, 3}, {2, 5}, {3, 6}, {6, 8}}) == 3);
+    static_assert(max_talks(std::vector<Talk>{{0, 6}, {4, 5}, {5, 7}}) == 2);
     int main() {}
 refs:
   - https://en.wikipedia.org/wiki/Activity_selection_problem
@@ -28,11 +29,10 @@ requires:
 elaborate: Say aloud, as to an interviewer, the swap argument for why the earliest-ending talk is always safe to take.
 ---
 
-One room, many talks, each holding it from `start` up to, not
-including, `end`, so one may start when another ends. `max_talks` sorts
-them, then takes each talk that starts after the last one taken ends
-(`for (Talk x : t)` runs once per element of `t`). Complete the sort
-order that makes this greedy pass optimal.
+Each talk holds one room from `start` up to, not including, `end`.
+`max_talks` sorts the talks, then takes each one that starts once the
+last taken has ended (`for (Talk x : t)` visits each element). Complete
+the sort order that makes this pass optimal.
 
 ```cpp
 #include <algorithm>
@@ -41,8 +41,7 @@ struct Talk { int start; int end; };
 
 constexpr int max_talks(std::vector<Talk> t) {
   std::sort(t.begin(), t.end(), [](Talk a, Talk b) { return {{c1::a.end < b.end}}; });
-  int count = 0;
-  int free_at = 0;
+  int count = 0, free_at = 0;
   for (Talk x : t)
     if (x.start >= free_at) { ++count; free_at = x.end; }
   return count;
@@ -54,4 +53,5 @@ constexpr int max_talks(std::vector<Talk> t) {
 **Earliest end first**: the talk that frees the room soonest leaves the
 most time for the rest. Earliest *start*, on 0–10, 1–2, 3–4, takes
 0–10 and loses both short talks. *Shortest*, on 0–5, 4–7, 6–11, takes
-4–7, which blocks both neighbours.
+4–7, which blocks both neighbours. Earliest *middle*, on 0–6, 4–5,
+5–7, takes 0–6 and blocks both.

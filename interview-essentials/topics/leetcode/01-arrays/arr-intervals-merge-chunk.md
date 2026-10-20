@@ -7,9 +7,8 @@ tags: [intervals, sorting, lc-56, lc-57]
 expose_ms: 8000
 compile: null # a function body
 requires:
-  - arr-intervals-merge-worked
+  - arr-intervals-merge-trace
   - cpp-essentials/iter-range-for-const-auto-ref
-  - cpp-essentials/vector-back-pop-back
 refs:
   - https://leetcode.com/problems/merge-intervals/
   - https://leetcode.com/problems/insert-interval/
@@ -34,8 +33,8 @@ return out;
 Merge Intervals (LC 56): given intervals `[start, end]`, merge all
 that overlap and return the disjoint result.
 
-**Sort by start, then extend the last output interval or open a new
-one.** After sorting, anything that overlaps the current run is
+**Sort by start, then open a new one or extend the end of the last
+output interval.** After sorting, anything that overlaps the current run is
 adjacent to it, so one pass after the sort suffices.
 
 - A gap is `back()[1] < v[0]`; `[1,4]` and `[4,5]` touch and merge.

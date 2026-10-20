@@ -2,7 +2,7 @@
 id: technique-explain-greedy
 kind: explain
 version: 1
-level: 3
+level: 4
 tags: [choosing, intervals]
 requires:
   - technique-activity-selection

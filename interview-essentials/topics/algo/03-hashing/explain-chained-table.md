@@ -6,7 +6,7 @@ level: 2
 tags: [foundations, chaining, capstone]
 requires:
   - hashing-direct-address-limit
-  - hashing-chaining
+  - hashing-chain-lookup-code
   - hashing-index-mod-trace
   - hashing-load-factor
   - hashing-average-vs-worst

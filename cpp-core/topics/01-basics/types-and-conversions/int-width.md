@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/types#Properties
   - https://en.cppreference.com/w/cpp/types/integer
-elaborate: Go's `int` is 32 or 64 bits depending on the platform; which Go types play the role of `std::int32_t`?
+elaborate: Name a file format or network protocol field that needs an exact width, and the `<cstdint>` type you would give it.
 ---
 
 ## A wire format needs a field exactly 32 bits wide. Is `int` guaranteed to be that size?

@@ -6,7 +6,7 @@ level: 1
 tags: [concurrency, threads]
 requires:
   - conc-thread-shares-memory
-elaborate: Say what Go's `sync.Mutex` shares with `std::mutex` here, and what happens to every other thread if one forgets to unlock.
+elaborate: Say what happens to every other thread if one returns early between `lock()` and `unlock()`.
 refs:
   - https://en.cppreference.com/w/cpp/thread/mutex
   - https://en.cppreference.com/w/cpp/thread/lock_guard

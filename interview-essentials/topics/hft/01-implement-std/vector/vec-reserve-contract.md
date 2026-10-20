@@ -1,7 +1,7 @@
 ---
 id: vec-reserve-contract
 kind: cloze
-version: 1
+version: 2
 level: 2
 tags: [vector, reserve, implement-std]
 requires:
@@ -12,7 +12,14 @@ refs:
   - https://en.cppreference.com/w/cpp/container/vector/reserve
 ---
 
-`reserve(n)` asks a vector for room for `n` elements. Your `Vec::reserve(n)`, matching `std::vector`'s contract:
+`reserve(n)` asks a vector for room for `n` elements; your `Vec::reserve`
+must match `std::vector`'s contract. Start from an empty `std::vector<int> v`:
 
-- It reallocates if and only if `n` is {{c1::greater than::a comparison}} `capacity()`.
-- It never {{c2::changes::a verb}} `size()`, so indexing past `size()` after `reserve` is still out of bounds.
+- After `v.reserve(10);`, `v.size()` is {{c1::0}}.
+- A further `v.reserve(4);` leaves `v.capacity()` {{c2::unchanged}}.
+
+---
+
+`reserve` changes only the capacity, never the size, so indexing past
+`size()` afterwards is still out of bounds. It reallocates only when `n`
+is greater than `capacity()`; it never shrinks the buffer.

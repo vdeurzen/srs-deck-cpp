@@ -13,7 +13,7 @@ refs:
   - https://github.com/facebook/folly/blob/main/folly/docs/FBVector.md
 ---
 
-## A dynamic array that grows by a fixed 16 slots each time it fills makes `push_back` cost O(n) amortised. Why does growing by a *factor* fix that?
+## A dynamic array that grows by a fixed 16 slots each time it fills makes `push_back` cost Θ(n) amortised. Why does growing by a *factor* fix that?
 
 ---
 

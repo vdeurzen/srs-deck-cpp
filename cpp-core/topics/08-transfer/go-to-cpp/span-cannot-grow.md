@@ -6,12 +6,12 @@ level: 2
 tags: [transfer, misconception, span]
 requires:
   - cpp-essentials/vocab-span-parameter
-elaborate: A Go function that appends returns the new slice, because the caller's copy may be stale. What in a C++ `std::vector<int>&` parameter makes that return unnecessary?
+elaborate: Say in one sentence, as to an interviewer, when a function should take `std::span<int>` and when `std::vector<int>&`.
 refs:
   - https://en.cppreference.com/w/cpp/container/span
 ---
 
-## In Go, `add` would do `s = append(s, 4)`. What must this signature become so `add` can append `4` to the caller's sequence?
+## What must this signature become so `add` can append `4` to the caller's sequence?
 
 ```cpp
 void add(std::span<int> s) {

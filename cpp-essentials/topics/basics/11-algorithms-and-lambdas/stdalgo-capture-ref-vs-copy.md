@@ -27,6 +27,6 @@ int b = snapshot();    // @2
 ---
 
 `[&hits]` captures by **reference**: `record` changes the caller's `hits`,
-so it is 2. `[hits]` captures by **copy**, taken when the lambda is
-created; `hits` was 0 then, and later changes never reach the copy.
+so it is 2. `[hits]` captures by **copy**, taken when the closure object
+is created; `hits` was 0 then, and later changes never reach the copy.
 Verified with GCC 16.2 (`g++ -std=c++23`).

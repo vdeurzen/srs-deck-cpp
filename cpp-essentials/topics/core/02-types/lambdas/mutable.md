@@ -9,18 +9,18 @@ requires:
   - constexpr-fn-static-assert
 input: chips
 choices:
-  c1: ["mutable", "constexpr", "const"]
+  c1: ["mutable", "static", "const"]
 compile:
   harness: |
     static_assert(check());
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda
-elaborate: When would you rather capture by reference than make a by-copy capture changeable, and what must then outlive the lambda?
+elaborate: When would you rather capture by reference than make a by-copy capture changeable, and what must then outlive the closure object?
 ---
 
-Complete the lambda so each call returns one more than the last,
-counting in the closure's own copy and leaving the local `count` at 0.
+Complete the lambda expression so each call returns one more than the last,
+counting in the closure object's own copy and leaving the local `count` at 0.
 
 ```cpp
 constexpr bool check() {
@@ -33,7 +33,8 @@ constexpr bool check() {
 
 ---
 
-A closure's `operator()` is `const` by default, so `++count` on a
+A closure type's `operator()` is `const` by default, so `++count` on a
 by-value capture does not compile. `mutable` drops that `const`; the
-closure's copy changes, the outer `count` does not. None of the other
-words lets the body change the copy.
+closure object's copy changes, the outer `count` does not. `static` (C++23) is
+allowed only on a lambda expression that captures nothing, and `const` is not a
+lambda specifier at all.

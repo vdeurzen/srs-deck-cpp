@@ -6,15 +6,15 @@ level: 3
 tags: [inheritance, virtual]
 requires:
   - virtual-vptr-sizeof
-  - virtual-slicing
+  - virtual-dispatch-dynamic-type
   - staticpoly-static-vs-dynamic
   - virtual-destructor
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
 elaborate: Say aloud which class in your own code you would make `virtual`, and which you would keep non-virtual, and why.
 ---
-A colleague who knows Go interfaces asks what `virtual` does in C++, what
-it costs and where it bites. Answer them in about a minute.
+In an interview you are asked what `virtual` does in C++, what it costs
+and where it bites. Answer in about a minute.
 ---
 - [ ] Problem: one call site runs each derived type's own override, chosen by the object's dynamic type
 - [ ] Mechanism: each polymorphic object holds a vptr to its class's vtable, which the call indexes

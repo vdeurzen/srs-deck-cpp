@@ -1,7 +1,7 @@
 ---
 id: tmpl-auto-param-cloze
 kind: cloze
-version: 1
+version: 2
 level: 2
 tags: [templates, abbreviated-templates]
 requires:
@@ -16,11 +16,11 @@ Since C++20, a function can be a template without a `template` line.
 These two declarations mean the same:
 
 ```cpp
-void show({{c1::auto::a keyword}} x);
+void show(auto x);
 
 template <typename T>
 void show(T x);
 ```
 
 So `show(1); show(2); show("hi");` makes the compiler generate
-{{c2::two::a number}} functions from it.
+{{c1::two::a number}} functions from it.

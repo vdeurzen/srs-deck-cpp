@@ -6,7 +6,8 @@ level: 2
 tags: [greedy, tracing, misconception]
 requires:
   - technique-greedy-idea
-  - cpp-essentials/ptr-array-name-to-pointer
+  - cpp-essentials/vector-basics
+  - cpp-essentials/iter-range-for-intro
 elaborate: Which "obviously take the biggest/cheapest first" rule in your own code has never been checked against a counterexample?
 probes:
   1: { used: "3" }
@@ -20,16 +21,16 @@ paid, always uses the fewest coins. `greedy` does exactly that (coins
 listed largest first). Pay 6 with coins 4, 3 and 1.
 
 ```cpp
-int greedy(int* coins, int k, int amount) {
+int greedy(std::vector<int> coins, int amount) {
   int used = 0;
-  for (int i = 0; i < k; ++i)
-    while (amount >= coins[i]) { amount -= coins[i]; ++used; }
+  for (int c : coins)
+    while (amount >= c) { amount -= c; ++used; }
   return used;
 }
 
 int main() {
-  int coins[] = {4, 3, 1};
-  int used = greedy(coins, 3, 6);   // @1
+  std::vector<int> coins{4, 3, 1};
+  int used = greedy(coins, 6);   // @1
 }
 ```
 

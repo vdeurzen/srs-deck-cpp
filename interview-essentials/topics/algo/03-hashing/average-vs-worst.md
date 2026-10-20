@@ -20,6 +20,6 @@ refs:
 **Keys that all hash to the same bucket.** The lookup then scans one
 chain (or one probe run) holding every key.
 
-The O(1) assumes the hash spreads keys evenly and growth keeps the load
+The O(1) assumes the hash function spreads keys evenly and growth keeps the load
 factor bounded. An attacker who chooses the keys can break the first assumption on
 purpose.

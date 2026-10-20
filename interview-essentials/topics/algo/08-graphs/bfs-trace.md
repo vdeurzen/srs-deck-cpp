@@ -1,11 +1,11 @@
 ---
 id: graph-bfs-trace
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [graphs, traversal, tracing]
 probes:
-  1: { "dist[1]": "1", "dist[2]": "1" }
+  1: { "dist[2]": "1" }
 requires:
   - graph-bfs-worked
   - graph-bfs-why-shortest
@@ -21,12 +21,12 @@ BFS from 0 on the triangle 0–1, 1–2, 0–2. `dist[v] == -1` means v has
 not been reached yet.
 
 ```cpp
-const std::vector<int> adj[3] = {{1, 2}, {0, 2}, {0, 1}};
+std::vector<int> adj[3] = {{1, 2}, {0, 2}, {0, 1}};
 int dist[3] = {0, -1, -1};
 std::queue<int> q;
 q.push(0);
 while (!q.empty()) {
-  const int u = q.front();
+  int u = q.front();
   q.pop();
   for (int v : adj[u])
     if (dist[v] == -1) {

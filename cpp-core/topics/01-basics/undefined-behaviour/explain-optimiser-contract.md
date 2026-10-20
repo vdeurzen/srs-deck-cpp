@@ -13,7 +13,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/ub
   - https://timsong-cpp.github.io/cppwp/n4950/intro.abstract#5
 ---
-A Go engineer joining your team has just watched the compiler delete their null check. Explain why that is allowed and what the team does about it.
+A new teammate has just watched the compiler delete their null check. Explain why that is allowed and what the team does about it.
 ---
 - [ ] Undefined behaviour means the standard places no requirement on the whole execution, not just the faulting operation, and no diagnostic is owed
 - [ ] The optimiser reasons from "undefined behaviour never happens": a dereference proves `p != nullptr`, a signed `+` proves no overflow, so a check those facts contradict is dead code

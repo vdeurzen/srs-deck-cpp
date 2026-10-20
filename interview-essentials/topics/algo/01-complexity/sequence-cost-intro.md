@@ -22,13 +22,11 @@ push   capacity   elements copied
 1      1          0
 2      1 → 2      1
 3      2 → 4      2
-4      4          0
-5      4 → 8      4
 ```
 
-Pushes 6 to 8 fit and copy nothing: 8 pushes copy 7 elements in all.
+Push 5 copies 4 more, the rest copy nothing: 8 pushes copy 7 in all.
 
-## Costing a push by its share of the whole sequence's total (under one copy each), not by its worst single call: what is that cost called?
+## Total copies stay below one per push. What is a cost averaged over the whole sequence this way called?
 
 ---
 

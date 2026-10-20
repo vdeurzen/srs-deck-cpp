@@ -7,13 +7,13 @@ tags: [lambdas, lifetime, misconception]
 requires:
   - lambda-dangling-reference
   - class-this-pointer
-elaborate: Which of your own callbacks store a lambda written inside a member function, and does any of them outlive the object it was created in?
+elaborate: Which of your own callbacks store a closure object created inside a member function, and does any of them outlive the object it was created in?
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
   - https://wg21.link/p0806
 ---
 
-## `[=]` copies what the lambda uses, so the returned callback owns its own `ticks`. What actually happens when `cb()` runs?
+## `[=]` copies what the lambda expression's body uses, so the returned callback owns its own `ticks`. What actually happens when `cb()` runs?
 
 ```cpp
 struct Timer {

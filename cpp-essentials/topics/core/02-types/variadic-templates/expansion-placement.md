@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [templates, variadic, tracing]
 requires:
-  - variadic-what-is-a-pack
+  - variadic-expansion-intro
 probes:
   1: { a: "14" }
   2: { b: "36" }

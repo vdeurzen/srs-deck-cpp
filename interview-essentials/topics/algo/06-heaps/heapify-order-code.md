@@ -6,6 +6,7 @@ level: 2
 tags: [heaps, arrays, invariants]
 requires:
   - heap-sift-down-code
+  - heap-heapify-worked
 input: chips
 choices:
   c1:
@@ -15,10 +16,8 @@ choices:
     - "int i = 0; i < n; ++i"
 compile:
   harness: |
-    constexpr void sift_down(std::vector<int>& h, int i) {
-      const int n = h.size();
-      while (2 * i + 1 < n) {
-        int c = 2 * i + 1;
+    constexpr void sift_down(std::vector<int>& h, int i, int n) {
+      for (int c = 2 * i + 1; c < n; c = 2 * i + 1) {
         if (c + 1 < n && h[c + 1] > h[c]) ++c;
         if (h[i] >= h[c]) return;
         std::swap(h[i], h[c]);
@@ -36,19 +35,19 @@ elaborate: What would go wrong if you reused this loop on a heap stored with its
 ---
 
 Floyd's heapify turns an arbitrary array into a max-heap by sifting
-nodes down. `sift_down(h, i)` swaps `h[i]` down until it is no smaller
-than its children, and it is correct only when both subtrees of `i` are
-already heaps. Complete the loop.
+nodes down. `sift_down(h, i, n)` swaps `h[i]` down until it is no
+smaller than its children, and it is correct only when both subtrees of
+`i` are already heaps. Complete the loop.
 
 ```cpp
 #include <utility>
 #include <vector>
 
-constexpr void sift_down(std::vector<int>& h, int i);
+constexpr void sift_down(std::vector<int>& h, int i, int n);
 
 constexpr void heapify(std::vector<int>& h) {
   const int n = h.size();
-  for ({{c1::int i = n / 2 - 1; i >= 0; --i}}) sift_down(h, i);
+  for ({{c1::int i = n / 2 - 1; i >= 0; --i}}) sift_down(h, i, n);
 }
 ```
 

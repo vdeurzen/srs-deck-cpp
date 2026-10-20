@@ -1,34 +1,34 @@
 ---
 id: graph-dfs-discovery-finish-trace
 kind: trace
-version: 3
+version: 4
 level: 2
 tags: [graphs, dfs, tracing]
 probes:
-  1: { "f[2]": "3", "d[1]": "4" }
+  1: { "done[0]": "1", "done[1]": "2" }
 requires:
   - graph-dfs-worked
+  - graph-edge-ordered-pair
+  - cpp-essentials/vector-basics
 refs:
   - https://doi.org/10.1137/0201010
   - https://en.wikipedia.org/wiki/Depth-first_search#Vertex_orderings
-elaborate: Sort the vertices by decreasing finish time. What order do you get on this graph, and which build tool would want it?
+elaborate: Read `done` backwards. What order do you get, and why does it respect every edge of this graph?
 ---
 
-A recursive DFS stamps each vertex with a discovery time `d` when it
-starts and a finish time `f` when everything it reaches is done, from one
-counter `t`. `d[v] == 0` means v has not been started.
+A recursive DFS from 0 appends each vertex to `done` when its call
+finishes, after everything it reaches is done.
 
 ```cpp
-// directed: 0→2 0→1, in that order
-const std::vector<int> adj[3] = {{2, 1}, {}, {}};
-int d[3] = {0, 0, 0}, f[3] = {0, 0, 0}, t = 0;
+// directed: 0→1 0→2 2→1, in that order
+std::vector<int> adj[3] = {{1, 2}, {}, {1}};
+bool seen[3] = {false, false, false};
+std::vector<int> done;
 void dfs(int u) {
-  ++t;
-  d[u] = t;
+  seen[u] = true;
   for (int v : adj[u])
-    if (d[v] == 0) dfs(v);
-  ++t;
-  f[u] = t;
+    if (!seen[v]) dfs(v);
+  done.push_back(u);
 }
 int main() {
   dfs(0);   // @1
@@ -37,13 +37,11 @@ int main() {
 
 ---
 
-0 is stamped 1 and enters 2 first, its first listed edge: 2 gets
-[2, 3] and finishes, having nowhere to go. Only then does 0 try its
-second edge, so 1 starts at 4, after 2's finish: `f[2]` = 3, `d[1]` = 4.
-1 closes at 5 and 0 at 6.
+0 enters 1 first, its first listed edge. 1 has no out-edge, so it
+finishes at once: `done[0]` = 1. Then 0 enters 2, whose edge to 1 finds
+1 already seen, so 2 finishes next: `done[1]` = 2, and 0 last.
 
-The intervals nest: 0's [1, 6] contains both children's, and siblings'
-intervals never overlap. Each vertex is stamped twice and each edge
-looked at once: O(V + E).
+So each vertex lands in `done` after every vertex it points to: 1
+before both 0 and 2, 2 before 0.
 
 (Values from running it under GCC 16.2.)

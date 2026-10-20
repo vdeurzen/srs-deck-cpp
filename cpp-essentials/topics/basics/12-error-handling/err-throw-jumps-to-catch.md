@@ -13,7 +13,7 @@ probes:
 refs:
   - https://en.cppreference.com/w/cpp/language/throw
   - https://en.cppreference.com/w/cpp/language/try
-elaborate: Say in one sentence what a Go version of `digit` would return instead, and what its caller would have to check after each call.
+elaborate: Say what a `throw` in the middle of a loop body would skip, in code you have written, and what state that could leave half-updated.
 ---
 
 `std::invalid_argument` is a standard exception type for bad arguments.

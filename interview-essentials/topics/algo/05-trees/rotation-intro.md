@@ -1,7 +1,7 @@
 ---
 id: tree-rotation-intro
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [trees, bst, foundations]
 requires:
@@ -12,29 +12,33 @@ refs:
 elaborate: Say in one sentence, as to an interviewer, why a rotation can never break the BST rule.
 ---
 
-Inserting 1, 2, 3 in that order into a plain BST gives a chain of
-height 2.
+This BST has height 3.
 
 ```text
-1
+2
  \
-  2
-   \
-    3
+  4
+ / \
+3   5
+     \
+      6
 ```
 
-## One local relinking turns it into a BST of height 1 with the same keys. Which node becomes the root?
+## A *rotation* lifts 4 above its parent 2: 4 becomes the root, 2 its left child, and the height drops to 2. Where must 3, 4's old left child, go?
 
 ---
 
-**2: lifting 2 above its parent 1 is a rotation; 1 becomes 2's left child.**
+**To 2's right child: 3 lies between 2 and 4.**
 
 ```text
-  2
- / \
-1   3
+    4
+   / \
+  2   5
+   \   \
+    3   6
 ```
 
-Only a few links change, and every key keeps the same keys on its left
-and right, so the BST rule still holds. Balanced BSTs run a few
-rotations after an insert to keep the height O(log n).
+4's left slot now holds 2, and 2's right slot was freed when 4 moved
+up. Only three links change and every key keeps its order, so balanced
+BSTs can run a few rotations after an insert to keep the height
+O(log n).

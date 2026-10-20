@@ -8,6 +8,7 @@ requires:
   - foundations-memory-hierarchy
   - foundations-latency-scale
   - foundations-cache-cost-model
+  - foundations-prefetch-scan-vs-chase
 refs:
   - https://en.algorithmica.org/hpc/cpu-cache/
   - https://en.algorithmica.org/hpc/cpu-cache/latency/

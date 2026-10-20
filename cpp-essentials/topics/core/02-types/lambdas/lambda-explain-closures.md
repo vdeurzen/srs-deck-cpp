@@ -16,13 +16,12 @@ refs:
 elaborate: Pick a callback in your own code; say what its closure object holds, and whether anything it captured can die first.
 ---
 
-A Go teammate asks what a C++ lambda really is, compared with a Go
-closure. Explain it to them.
+An interviewer asks what a C++ lambda expression really creates. Explain it to them.
 
 ---
 
 - [ ] Problem: hand a small piece of behaviour, with the local values it needs, to an algorithm or callback
 - [ ] Mechanism: the compiler makes an unnamed class whose data members are the captures
-- [ ] Example: `[n]` copies `n` when the lambda is made, so later changes to `n` go unseen
-- [ ] Cost: storing different lambdas together needs `std::function`, which may allocate on the heap
+- [ ] Example: `[n]` copies `n` when the closure object is created, so later changes to `n` go unseen
+- [ ] Cost: storing closure objects of different types together needs `std::function`, which may allocate on the heap
 - [ ] Pitfall: a reference capture extends no lifetime, so returning such a closure from a function dangles

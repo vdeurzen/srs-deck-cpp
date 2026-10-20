@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/greater
   - https://en.cppreference.com/w/cpp/algorithm/ranges/sort
-elaborate: Where else would you pass a ready-made comparator object instead of writing a lambda, and what does it save the reader?
+elaborate: Where else would you pass a ready-made comparator object instead of writing a lambda expression, and what does it save the reader?
 ---
 
 `std::ranges::sort(v, cmp)`, from `<algorithm>`, sorts all of `v`, like

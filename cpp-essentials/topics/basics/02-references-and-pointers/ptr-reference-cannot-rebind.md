@@ -1,22 +1,32 @@
 ---
 id: ptr-reference-cannot-rebind
 kind: basic
-version: 1
+version: 2
 level: 1
-tags: [references]
+tags: [references, misconception]
 requires:
   - ptr-reference-must-bind
-elaborate: Say what a Go programmer expects `r = b;` to do, and why C++ gives a different result.
+elaborate: Say where in your own code you would reach for a pointer instead of a reference, because the target must change later.
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
   - https://eel.is/c++draft/dcl.ref#5
 ---
 
-## After `int& r = a;`, is there any statement that makes `r` refer to `b` instead?
+Many expect `r = b;` to make `r` refer to `b` from then on.
+
+```cpp
+int a = 1, b = 2;
+int& r = a;
+r = b;
+```
+
+## After the last line, what are `a` and `b`?
 
 ---
 
-**No: a reference stays bound to the object it was initialised with.**
-`r = b;` is legal but means `a = b;`: every use of `r` is a use of `a`.
-To switch targets later you need a pointer, which is an object whose
-value (the address) you can overwrite.
+**Both are 2: `r = b;` copies 2 into `a`, and `r` still refers to `a`.**
+
+A reference stays bound to the object it was initialised with, so
+`r = b;` means `a = b;`. It looks like re-pointing because assigning a
+pointer, `p = &b;`, does re-point; to switch targets later you need a
+pointer.

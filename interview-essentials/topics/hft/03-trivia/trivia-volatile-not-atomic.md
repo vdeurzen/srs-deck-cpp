@@ -11,7 +11,7 @@ refs:
   - https://eel.is/c++draft/intro.races#def:data_race
   - https://en.cppreference.com/w/cpp/language/cv
   - https://en.cppreference.com/w/cpp/utility/program/sig_atomic_t
-elaborate: Besides the flag itself, what else written by the stopping thread might the worker need to see, and what orders it?
+elaborate: Say to an interviewer why this loop can seem to work on x86 in testing, and why that proves nothing.
 ---
 
 Many expect `volatile` to make a flag safe to share between threads.
@@ -28,8 +28,6 @@ void shutdown() { stop = true; }                 // thread 2
 ---
 
 **It has a data race, so its behaviour is undefined.** `volatile`
-guarantees only that its accesses aren't elided or reordered relative to
-each other. It gives no atomicity and no ordering between threads; only
-atomics, fences or locks do. It works on x86 by luck of the hardware.
-`volatile` is for device registers and signal handlers. Write
+only stops the compiler eliding or reordering those accesses among
+themselves: no atomicity, no ordering with other threads. Write
 `std::atomic<bool> stop`.

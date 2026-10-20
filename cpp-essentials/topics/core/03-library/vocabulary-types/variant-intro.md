@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/utility/variant
   - https://eel.is/c++draft/variant.variant.general
-elaborate: Where in Go would you have used an `any` value with a type switch, and what does a variant's fixed list of types add?
+elaborate: Where in your code is a value exactly one of a fixed list of types, and how is that encoded today?
 ---
 
 ```cpp

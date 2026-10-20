@@ -6,7 +6,7 @@ level: 1
 tags: [classes, constructors]
 requires:
   - class-struct-members
-elaborate: Say how a C++ constructor differs from Go's `NewCar(hp)` convention, and what C++ guarantees that Go does not.
+elaborate: What does a constructor guarantee about a new object that no later function can?
 refs:
   - https://en.cppreference.com/w/cpp/language/constructor
 ---
@@ -23,7 +23,7 @@ struct Car {
 
 ---
 
-**`Car(int hp);`: it has the class's exact name and no return type.**
+**`Car(int hp);`: it is named like the class and has no return type.**
 
 `make` returns a `Car` but is an ordinary function; `car` differs in case.
 The constructor runs automatically whenever a `Car` is created

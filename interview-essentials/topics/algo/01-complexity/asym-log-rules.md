@@ -6,6 +6,7 @@ level: 1
 tags: [foundations, complexity, logarithms]
 requires:
   - complexity-asym-big-o-definition
+  - complexity-log2-count
 elaborate: "Where else does a log with a base other than 2 appear, such as a tree whose nodes have 16 children or a count of decimal digits, and why does O not care?"
 refs:
   - https://en.wikipedia.org/wiki/Logarithm#Logarithmic_identities

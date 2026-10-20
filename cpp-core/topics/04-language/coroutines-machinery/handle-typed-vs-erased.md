@@ -16,29 +16,33 @@ choices:
     - "std::noop_coroutine_handle"
 compile:
   harness: |
+    struct Counter::promise_type {
+      int ticks = 0;
+      Counter get_return_object() { return Counter{Handle::from_promise(*this)}; }
+      std::suspend_always initial_suspend() noexcept { return {}; }
+      std::suspend_always final_suspend() noexcept { return {}; }
+      void return_void() {}
+      void unhandled_exception() {}
+    };
     Counter ticking() { co_return; }
     int main() {
       auto c = ticking();
       c.handle.promise().ticks = 1;
       c.handle.destroy();
     }
+elaborate: Say in one sentence, as to an interviewer, why a scheduler stores `std::coroutine_handle<>` rather than typed handles.
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle
 ---
 
-Give `Counter` the handle type that can still reach its own promise.
+`Counter::promise_type`, defined later, holds an `int ticks` and builds
+its `Counter` from `Handle::from_promise(*this)`. Give `Counter` the
+handle type that can still reach its own promise.
 
 ```cpp
 #include <coroutine>
 struct Counter {
-  struct promise_type {
-    int ticks = 0;
-    Counter get_return_object() { return Counter{Handle::from_promise(*this)}; }
-    std::suspend_always initial_suspend() noexcept { return {}; }
-    std::suspend_always final_suspend() noexcept { return {}; }
-    void return_void() {}
-    void unhandled_exception() {}
-  };
+  struct promise_type;
   using Handle = {{c1::std\::coroutine_handle<promise_type>}};
   Handle handle;
 };

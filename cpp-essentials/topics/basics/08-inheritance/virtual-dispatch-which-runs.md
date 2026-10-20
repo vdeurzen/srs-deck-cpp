@@ -5,7 +5,6 @@ version: 1
 level: 1
 tags: [inheritance, virtual, dispatch, tracing]
 requires:
-  - virtual-static-dynamic-type
   - virtual-function-intro
 elaborate: Say which of your own member functions are meant to be replaced by derived classes, and whether they are `virtual`.
 probes:

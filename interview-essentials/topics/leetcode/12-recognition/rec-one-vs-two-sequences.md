@@ -7,6 +7,7 @@ tags: [strings, recognition, lc-300, lc-1143, lc-516]
 requires:
   - dp-edit-distance-signal
   - dp-lis-quadratic
+  - dp-interval-subproblem
 refs:
   - https://leetcode.com/problems/longest-increasing-subsequence/
   - https://leetcode.com/problems/longest-common-subsequence/

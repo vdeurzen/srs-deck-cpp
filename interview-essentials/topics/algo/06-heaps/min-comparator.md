@@ -44,6 +44,3 @@ The standard heap algorithms build a **max**-heap *for the comparator*:
 the front `f` is an element with no `e` such that `comp(f, e)`. With the
 default `less` that is the largest; `greater` flips it, so the front is
 the smallest.
-
-Go's `container/heap` reads the other way: it pops the element `Less`
-ranks first, so a min-heap uses `<`.

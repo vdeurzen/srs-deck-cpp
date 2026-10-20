@@ -1,7 +1,7 @@
 ---
 id: conc-atomic-or-mutex
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [concurrency, threads]
 requires:
@@ -13,12 +13,21 @@ refs:
   - https://en.cppreference.com/w/cpp/thread/mutex
 ---
 
-## A hit counter is one `int` that many threads only increment. Why prefer `std::atomic<int>` over an `int` guarded by a `std::mutex`?
+```cpp
+std::atomic<int> a_hits{0};
+void hit_a() { ++a_hits; }
+
+int m_hits = 0;
+std::mutex m;
+void hit_m() { m.lock(); ++m_hits; m.unlock(); }
+```
+
+## Many threads call one of these counters. What does `hit_m` pay on every call that `hit_a` does not?
 
 ---
 
-**No thread blocks or sleeps: each increment is one indivisible instruction.**
+**A `lock()` and an `unlock()`, and a wait whenever another thread holds `m`.**
 
-That holds on mainstream hardware. With a mutex, a thread that finds it
-held blocks until it is free, and every increment pays a lock and an
-unlock.
+The atomic `++` is a single indivisible instruction on mainstream
+hardware, so no thread ever blocks on it. The mutex earns its cost once
+an update must change more than one value together.

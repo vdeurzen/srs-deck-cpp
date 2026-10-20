@@ -15,6 +15,11 @@ choices:
     - "template <typename Promise> void await_suspend(std::coroutine_handle<> h) const"
 compile:
   harness: |
+    #include <deque>
+    struct Pool {
+      std::deque<std::coroutine_handle<>> ready;
+      void enqueue(std::coroutine_handle<> h) { ready.push_back(h); }
+    };
     struct Task {
       struct promise_type {
         Pool* pool;
@@ -39,27 +44,23 @@ compile:
       t.handle.resume();
       t.handle.destroy();
     }
+elaborate: Besides a pool, what other context could an awaiter fetch through `h.promise()` the same way?
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle/promise
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
 ---
 
 `Reschedule` names no pool of its own. Every coroutine type that awaits
-it — such as `Task`, defined later — keeps a `Pool* pool` in its
-promise. Complete the hook's signature so it finds the pool through the
-awaiting coroutine's promise.
+it, such as `Task` (defined later, like `Pool`), keeps a `Pool* pool` in
+its promise. Complete the hook's signature so it finds the pool through
+the awaiting coroutine's promise.
 
 ```cpp
 #include <coroutine>
-#include <deque>
-struct Pool {
-  std::deque<std::coroutine_handle<>> ready;
-  void enqueue(std::coroutine_handle<> h) { ready.push_back(h); }
-};
 struct Reschedule {
   bool await_ready() const noexcept { return false; }
   {{c1::template <typename Promise> void await_suspend(std\::coroutine_handle<Promise> h) const}} {
-    h.promise().pool->enqueue(h);   // every awaiting promise has a Pool* pool
+    h.promise().pool->enqueue(h);
   }
   void await_resume() const noexcept {}
 };

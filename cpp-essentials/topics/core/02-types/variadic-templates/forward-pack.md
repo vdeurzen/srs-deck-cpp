@@ -49,6 +49,6 @@ constexpr T build(Args&&... args) {
 ---
 
 The pattern `std::forward<Args>(args)` expands pairwise: one forward per
-argument, each with its own deduced type. `args...` passes every
-argument as an lvalue and `std::move(args)...` every one as an rvalue;
+argument, each with its own deduced type. `args...` passes each
+parameter as an lvalue expression and `std::move(args)...` every one as an rvalue;
 `std::forward<Args>(args...)` leaves `Args` unexpanded.

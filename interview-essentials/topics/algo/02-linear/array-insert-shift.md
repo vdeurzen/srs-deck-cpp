@@ -6,7 +6,6 @@ level: 1
 tags: [arrays, complexity, tracing]
 requires:
   - linear-array-insert-worked
-  - cpp-essentials/containers-default-to-vector
 probes:
   1: { i: "2", "a[3]": "6" }
   2: { "a[2]": "5", "a[4]": "8" }
@@ -36,9 +35,5 @@ Inserting into an array **moves every element after the insertion
 point** (here 6 and 8), so it is O(n) in the worst case: inserting at
 the front moves all n. At @1 `a[2]` and `a[3]` both hold 6; the old
 copy waits to be overwritten by `x`.
-
-For small elements the moves are one sequential block copy, which is
-why `std::vector::insert` is often faster in practice than its O(n)
-suggests.
 
 (Values from running it under GCC 16.2.)

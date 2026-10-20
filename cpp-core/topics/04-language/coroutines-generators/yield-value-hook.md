@@ -11,15 +11,12 @@ choices:
   c1: ["yield_value", "return_value", "await_transform", "yield"]
 compile:
   harness: |
-    Generator<int> ones() {
+    Generator ones() {
       co_yield 1;
       co_yield 1;
     }
-    int main() {
-      auto g = ones();
-      g.handle.resume();
-      g.handle.destroy();
-    }
+    int main() { ones(); }
+elaborate: What would change for the consumer if `yield_value` returned `std::suspend_never` instead?
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines#co_yield
 ---
@@ -28,19 +25,14 @@ Give the promise the hook `co_yield` is rewritten into.
 
 ```cpp
 #include <coroutine>
-template <typename T>
-struct Generator {
-  struct promise_type {
-    T current;
-    Generator get_return_object() { return Generator{Handle::from_promise(*this)}; }
-    std::suspend_always initial_suspend() noexcept { return {}; }
-    std::suspend_always final_suspend() noexcept { return {}; }
-    std::suspend_always {{c1::yield_value}}(T value) { current = value; return {}; }
-    void return_void() {}
-    void unhandled_exception() {}
-  };
-  using Handle = std::coroutine_handle<promise_type>;
-  Handle handle;
+struct Generator { struct promise_type; };
+struct Generator::promise_type {
+  int current;
+  Generator get_return_object() { return {}; }
+  std::suspend_always initial_suspend() noexcept { return {}; }
+  std::suspend_always final_suspend() noexcept { return {}; }
+  std::suspend_always {{c1::yield_value}}(int value) { current = value; return {}; }
+  void return_void() {}  void unhandled_exception() {}
 };
 ```
 

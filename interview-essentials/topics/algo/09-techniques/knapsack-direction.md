@@ -5,8 +5,8 @@ version: 1
 level: 3
 tags: [dynamic-programming, knapsack]
 requires:
+  - technique-knapsack-worked
   - technique-coin-change-table
-  - stl-min-max
   - cpp-essentials/class-struct-members
 elaborate: Say aloud which other in-place table update you know whose loop direction decides whether an item is reused.
 input: chips

@@ -26,5 +26,5 @@ elaborate: Contiguous Array (LC 525), the longest subarray of a 0/1 array with e
 **Running prefix sum `p`; a hash map counts earlier prefixes; add `count[p − k]`.**
 
 A subarray `(i, j]` sums to `k` exactly when `p[j] − p[i] = k`, so each
-earlier prefix equal to `p − k` starts one. One pass, O(n). Signals:
-*contiguous*, *sum equals*, negatives allowed (which rules out a window).
+earlier prefix equal to `p − k` starts one. O(n) time, O(n) extra space
+for the map. Signals: *contiguous*, *sum equals*, negatives allowed.

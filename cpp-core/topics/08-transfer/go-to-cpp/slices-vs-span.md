@@ -13,7 +13,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/reference#Dangling_references
 ---
 
-## In Go, returning a slice of a local array is safe. A `std::span` is a pointer and a length, like a slice. What happens on the last line?
+Many expect a view returned from a function to keep the elements it
+views alive. A `std::span` is a pointer and a length.
 
 ```cpp
 std::span<const int> evens() {
@@ -23,11 +24,12 @@ std::span<const int> evens() {
 int first = evens()[0];
 ```
 
+## What happens on the last line?
+
 ---
 
 **Undefined behaviour: `v` was destroyed when `evens` returned, so the
 span points at freed memory.**
 
-In Go the collector keeps the backing array alive while any slice
-refers to it. A `span` owns nothing and keeps nothing alive; it is only
+A `span` owns nothing and keeps nothing alive; it is only
 valid while what it views is. Return the `std::vector` itself.

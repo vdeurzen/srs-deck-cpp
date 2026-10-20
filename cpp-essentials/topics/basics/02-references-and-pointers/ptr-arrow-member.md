@@ -7,7 +7,7 @@ tags: [pointers, operators, members]
 requires:
   - ptr-amp-and-star-cloze
   - class-struct-members
-elaborate: Go writes `r.h` for a pointer `r` too. Say what C++ gains or loses by making you write `->` instead.
+elaborate: In a linked-list loop `n = n->next;`, say aloud what `->` does at each step.
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_member_access_operators
   - https://eel.is/c++draft/expr.ref#2
@@ -20,7 +20,7 @@ Rect* r = &box;
 int b = r->h;
 ```
 
-## `r` is a `Rect*`. Spell `r->h` using only `*` and `.` instead.
+## `r` is a `Rect*`. Which of `r.h`, `*r.h` and `(*r).h` means the same as `r->h`?
 
 ---
 

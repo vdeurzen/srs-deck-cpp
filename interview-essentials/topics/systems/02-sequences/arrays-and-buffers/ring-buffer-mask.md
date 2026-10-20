@@ -5,7 +5,7 @@ version: 1
 level: 2
 requires:
   - seq-ring-buffer-full-vs-empty
-  - foundations-bitwise-operators
+  - seq-mask-is-mod
   - cpp-essentials/constexpr-fn-static-assert
 elaborate: What would break, silently, if someone later changed the capacity to 10, and how would you make the compiler catch it?
 tags: [ring-buffer, low-latency, bit-tricks]

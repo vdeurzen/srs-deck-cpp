@@ -36,9 +36,8 @@ constexpr T larger(T a, T b) { if (a < b) return b; return a; }
 
 ---
 
-A template declaration starts with the keyword `template` and a
-**template parameter list** in angle brackets; `typename T` inside it
-declares `T` as a type parameter (`class T` means exactly the same). The
-line applies to the one declaration that follows it, so it takes no `;`.
-`template <T>` uses `T` before declaring it, and an extra `U` that no
+**`template <typename T>` introduces `T` as a type parameter.**
+
+The line belongs to the declaration that follows, so it takes no `;`.
+`template <T>` uses `T` before declaring it. An extra `U` that no
 argument mentions cannot be deduced, so every call fails.

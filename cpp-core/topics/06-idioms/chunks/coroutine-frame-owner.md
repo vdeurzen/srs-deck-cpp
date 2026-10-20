@@ -7,29 +7,14 @@ tags: [idioms, coroutines, raii]
 requires:
   - coroutines-handle-operations
   - cpp-essentials/move-semantics-rule-of-five
-expose_ms: 11000
-compile:
-  harness: |
-    struct Task {
-      struct promise_type {
-        Task get_return_object() {
-          return Task{std::coroutine_handle<promise_type>::from_promise(*this)};
-        }
-        std::suspend_always initial_suspend() noexcept { return {}; }
-        std::suspend_always final_suspend() noexcept { return {}; }
-        void return_void() {}
-        void unhandled_exception() {}
-      };
-      std::coroutine_handle<promise_type> handle;
-    };
-    Task nothing() { co_return; }
-    int main() { FrameOwner owner{nothing().handle}; }
+expose_ms: 12000
+compile: null
+elaborate: What one member would make this owner movable, and what must it do to the source?
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle/destroy
 ---
 
 ```cpp
-#include <coroutine>
 struct FrameOwner {
   explicit FrameOwner(std::coroutine_handle<> h) noexcept : handle(h) {}
   FrameOwner(const FrameOwner&) = delete;

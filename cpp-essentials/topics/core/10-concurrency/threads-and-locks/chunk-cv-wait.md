@@ -1,10 +1,10 @@
 ---
 id: threads-chunk-cv-wait
 kind: chunk
-version: 2
+version: 3
 level: 2
 tags: [concurrency, threads, condition-variable, idioms]
-expose_ms: 12000
+expose_ms: 8000
 compile: null
 requires:
   - threads-cv-wait-lock-type
@@ -17,19 +17,17 @@ elaborate: Say what could go wrong if `pop` released the lock between the `wait`
 ---
 
 ```cpp
-int pop(std::mutex& m, std::condition_variable& cv, std::vector<int>& q) {
-  std::unique_lock<std::mutex> lk(m);
-  cv.wait(lk, [&q] { return q.size() > 0; });
-  int job = q.back();
-  q.pop_back();
-  return job;
-}
+std::unique_lock<std::mutex> lk(m);
+cv.wait(lk, [&q] { return q.size() > 0; });
+int job = q.back();
+q.pop_back();
 ```
 
 ---
 
-The **consumer side of a condition variable**: a `unique_lock` (never
-`lock_guard`, because `wait` must release it), a `wait` whose predicate
-is the real condition (so spurious wake-ups and early notifies cannot
-break it), and the shared state read and modified while the lock is
-still held: the pop happens before `lk` goes out of scope.
+The **consumer side of a condition variable**, popping a job from a
+shared `std::vector<int> q` guarded by `m` and `cv`: *lock* with a
+`unique_lock` (never `lock_guard`, because `wait` must release it),
+*wait* with the real condition as the predicate (so spurious wake-ups
+and early notifies cannot break it), then *take* the job while the lock
+is still held. Graded by text, so write the predicate exactly as shown.

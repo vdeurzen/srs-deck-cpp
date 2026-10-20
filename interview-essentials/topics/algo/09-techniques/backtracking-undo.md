@@ -1,7 +1,7 @@
 ---
 id: technique-backtracking-undo
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [backtracking, recursion]
 requires:
@@ -17,7 +17,6 @@ refs:
 ---
 
 **Marks from one branch leak into its siblings, so they skip valid
-choices.** After exploring every permutation starting with `a`, all
-three letters are still marked; the branches starting with `b` and `c`
-find nothing left to place. Choose, explore, **un-choose**: each branch
-must leave the state as it found it.
+choices.** After the first permutation, abc, every letter stays marked,
+so no other branch finds a free letter: only abc is produced. Choose,
+explore, **un-choose**: each branch must leave the state as it found it.

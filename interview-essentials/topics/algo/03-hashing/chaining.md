@@ -1,7 +1,7 @@
 ---
 id: hashing-chaining
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [hashing, chaining]
 requires:
@@ -13,13 +13,12 @@ refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map
 ---
 
-## A hash table has 5 buckets, each holding a list of the keys that hash there. Key 12 sits in bucket `12 % 5 = 2`; key 7, inserted later, also hashes to 2. A lookup for 7 reaches bucket 2 and meets 12 first. What does it do next?
+## A hash table has 5 buckets. Keys 12 and 7 both hash to bucket 2. How can the table store both so that a lookup finds either one?
 
 ---
 
-**Moves on through bucket 2's list, comparing each key with 7, until a match or the end.**
+**Each bucket holds a list (a *chain*) of its keys; a lookup scans that list.**
 
-This is chaining: a collision just makes one list longer, and no key
-ever leaves its own bucket. A lookup hashes once, then pays one key
-comparison per entry in that list, which is why short chains mean fast
-lookups.
+A lookup for 7 hashes to bucket 2, then compares each key in the chain
+with 7 until a match or the end. A collision just makes one list
+longer, which is why short chains mean fast lookups.

@@ -6,7 +6,7 @@ level: 1
 tags: [foundations, sorting, swap]
 requires:
   - cpp-essentials/std-names-and-headers
-elaborate: "Go writes this step as `a[0], a[2] = a[2], a[0]`. Say where a sort or a heap you know performs it, and how often."
+elaborate: Say where a sort or a heap you know performs this step, and how often.
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/swap
 ---
@@ -24,7 +24,7 @@ std::swap(a[0], a[2]);
 
 **`9 1 7`: `std::swap(x, y)` exchanges the values of its two arguments.**
 
-It takes both arguments by reference, so it changes the caller's
-variables, not copies. Sorting and heap code call it whenever two
+Both parameters are references, so it changes the caller's
+objects, not copies. Sorting and heap code call it whenever two
 elements trade places; inside it is a save, overwrite, restore with one
 temporary.

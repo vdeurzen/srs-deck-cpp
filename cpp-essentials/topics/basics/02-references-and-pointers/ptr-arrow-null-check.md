@@ -1,7 +1,7 @@
 ---
 id: ptr-arrow-null-check
 kind: code
-version: 1
+version: 2
 level: 1
 tags: [pointers, nullptr, undefined-behaviour]
 requires:
@@ -12,7 +12,6 @@ elaborate: Find a function in your code that takes a pointer. Where does it chec
 input: chips
 choices:
   c1: ["r == nullptr", "*r == nullptr", "r->w == 0", "&r == nullptr"]
-  c2: ["r->w", "r.w", "*r.w", "(*r)->w"]
 compile:
   harness: |
     constexpr int width_of_box() { Rect box{3, 4}; return width_or_zero(&box); }
@@ -24,22 +23,21 @@ refs:
   - https://en.cppreference.com/w/cpp/language/pointer#Null_pointers
 ---
 
-`r` may point to a `Rect`, or be null. Complete the guard and the
-member access so the function returns the width, or 0 when there is no
-`Rect`.
+`r` may point to a `Rect`, or be null. Complete the guard so the
+function returns the width, or 0 when there is no `Rect`.
 
 ```cpp
 struct Rect { int w, h; };
 constexpr int width_or_zero(Rect* r) {
   if ({{c1::r == nullptr}}) return 0;
-  return {{c2::r->w}};
+  return r->w;
 }
 ```
 
 ---
 
-**Test the pointer itself, then reach the member with `r->w`, short for `(*r).w`.**
+**Test the pointer itself: `r == nullptr` asks whether there is a `Rect` at all.**
 
-`r.w` fails because `r` is a pointer, not a `Rect`; `*r.w` parses as
-`*(r.w)`, the same mistake; `(*r)->w` dereferences twice. `r->w == 0` as
-a guard already reads through the null pointer it should catch.
+`*r == nullptr` and `r->w == 0` both read through `r` first, which is
+undefined behaviour exactly when `r` is null. `&r == nullptr` tests the
+address of the parameter `r`, which is never null.

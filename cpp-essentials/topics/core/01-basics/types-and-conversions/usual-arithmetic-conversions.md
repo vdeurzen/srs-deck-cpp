@@ -7,7 +7,7 @@ tags: [types, integers, conversions]
 requires:
   - types-overflow-rules
   - types-promotion-rule
-elaborate: Go refuses to compare an `int` with a `uint` at all; say aloud which C++ habit gives you that safety back.
+elaborate: Say aloud where in your code a signed index meets a `size()`, and how you would rewrite that comparison.
 refs:
   - https://en.cppreference.com/w/cpp/language/usual_arithmetic_conversions
   - https://eel.is/c++draft/expr.arith.conv

@@ -6,7 +6,7 @@ level: 2
 tags: [classes, conversions]
 input: chips
 choices:
-  c1: ["explicit", "const", "constexpr"]
+  c1: ["explicit", "virtual", "static"]
 compile:
   harness: |
     #include <type_traits>
@@ -16,8 +16,6 @@ compile:
 requires:
   - class-explicit-blocks-conversion
   - class-ctor-colon-part
-  - const-no-modify
-  - const-vs-constexpr-initializer
 refs:
   - https://en.cppreference.com/w/cpp/language/explicit
   - https://en.cppreference.com/w/cpp/language/converting_constructor

@@ -13,15 +13,14 @@ refs:
 elaborate: Where outside grids would "the first path found" and "the shortest path" differ, such as hops between services in a call graph?
 ---
 
-Two grid statements, each grid at most 100 × 100, moves up, down, left
-or right:
+Both grids are at most 100 × 100; moves go up, down, left or right.
 
 > (a) Given a grid of `'1'` (land) and `'0'` (water), return the number
 > of islands: groups of land cells joined to each other.
 >
-> (b) Given a maze of `'.'` (open) and `'+'` (wall) cells and an
+> (b) In a maze of `'.'` (open) and `'+'` (wall) cells, from an
 > entrance, return the fewest steps to the nearest exit (an open
-> border cell other than the entrance), or −1 if there is none.
+> border cell other than the entrance), or −1.
 
 ## A recursive depth-first search is the shortest code to write for both. Which one does it get wrong?
 
@@ -29,6 +28,6 @@ or right:
 
 **(b): DFS reaches an exit along some path, not necessarily the shortest one.**
 
-Fewest steps needs BFS: its queue holds cells in order of distance, so
-the first exit it pops is the nearest. (a) only needs every land cell
-marked once, which any traversal does.
+Fewest steps needs BFS: its queue holds cells in distance order, so the
+first exit it pops is nearest. (a) only marks every land cell once,
+which any traversal does.

@@ -13,7 +13,7 @@ refs:
   - https://timsong-cpp.github.io/cppwp/n4950/class.temporary#6
 ---
 
-## When is the `Noisy` returned by `make('k')` destroyed? Its destructor is the observable event.
+## When is the `Noisy` returned by `make('k')` destroyed?
 
 ```cpp
 struct Noisy { ~Noisy(); };
@@ -25,5 +25,4 @@ const Noisy& kept = make('k');
 
 **When `kept` goes out of scope — not at the `;`.** Binding a reference
 *directly* to a temporary extends the temporary's lifetime to the
-reference's. Only direct binding counts: no extension through a function
-that returns a reference.
+reference's.

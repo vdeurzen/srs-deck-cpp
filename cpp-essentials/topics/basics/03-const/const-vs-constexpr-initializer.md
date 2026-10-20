@@ -6,7 +6,7 @@ level: 1
 tags: [const, constexpr]
 requires:
   - const-no-modify
-elaborate: Say in one sentence how Go's `const` compares with C++'s `const` and `constexpr`.
+elaborate: Name a value in your code that is fixed after initialisation but only known at run time. Which keyword fits it?
 refs:
   - https://en.cppreference.com/w/cpp/language/constexpr
   - https://eel.is/c++draft/dcl.constexpr#6

@@ -23,5 +23,5 @@ to be exception-safe. Answer them.
 - [ ] Problem: a throw halfway through an update can leave an object partly changed
 - [ ] Mechanism: unwinding runs the destructor of every fully built local, in reverse order of construction
 - [ ] Example: a loop of `push_back`s that throws keeps the earlier elements: the basic guarantee
-- [ ] Cost: the strong guarantee builds the result in a copy, then commits with a `noexcept` swap
+- [ ] Cost: the strong guarantee pays for a full copy, and its allocation, on every call
 - [ ] Contrast: basic keeps invariants and leaks nothing; strong leaves the state exactly as before the call

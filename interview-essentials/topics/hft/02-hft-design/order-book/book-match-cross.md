@@ -2,7 +2,7 @@
 id: book-match-cross
 kind: code
 version: 1
-level: 4
+level: 3
 tags: [hft, order-book, matching, implement-it]
 input: chips
 choices:
@@ -27,7 +27,7 @@ compile:
     static_assert(eq(run(2, 7), {7, 3, 5}));     // limit below the best ask: no trade
     int main() {}
 requires:
-  - book-order-book-vocabulary
+  - book-match-worked
   - cpp-essentials/iter-array-fixed-size
   - cpp-essentials/ptr-reference-must-bind
 refs:
@@ -36,19 +36,17 @@ refs:
 elaborate: Mirror this for an incoming sell against the bids. Which comparison and which direction of `best` change?
 ---
 
-The interviewer: "on a price-time (FIFO) venue, an aggressive limit
-buy arrives; match it." Asks are indexed by price tick; `buy` trades
-against them and returns what is left to rest on the bid side.
-`qty[t]` holds the ask lots at tick `t`; `best` is the lowest tick with
-lots, 8 if none. `constexpr` lets the compiler run `buy`. Complete the
-loop.
+The interviewer: "a limit buy arrives; match it." `qty[t]` holds the
+ask lots at price tick `t`; `best` is the lowest tick with lots, 8 if
+none. `buy` returns the lots left to rest (`constexpr` lets the compiler
+run it). Complete the loop.
 
 ```cpp
 #include <array>
 constexpr long buy(std::array<long, 8>& qty, int& best, int limit, long q) {
   while ({{c1::q > 0 && best <= limit}}) {
     long f = qty[best];
-    if (q < f) f = q;                            // f: lots traded at tick best
+    if (q < f) f = q;                            // f: lots traded at best
     qty[best] -= f;  q -= f;
     while (best < 8 && qty[best] == 0) ++best;
   }

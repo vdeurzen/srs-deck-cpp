@@ -4,16 +4,17 @@ kind: cloze
 version: 1
 level: 2
 tags: [foundations, sorting, complexity]
+requires:
+  - sort-insertion-worked
+  - sort-selection-meet
 refs:
   - https://algs4.cs.princeton.edu/21elementary/
   - https://en.wikipedia.org/wiki/Insertion_sort#Best,_worst,_and_average_cases
 elaborate: Your data arrives almost sorted, a few keys out of place. Say aloud which of the two sorts you would pick and why.
 ---
 
-1000 keys arrive already sorted. Selection sort (each pass scans the
-unsorted rest for its minimum and swaps it to the front) makes 499 500
-comparisons on them. Insertion sort (each key, in turn, moves left past
-the larger keys of the sorted prefix) makes {{c1::999::a number}}.
+1000 keys arrive already sorted. Selection sort makes 499 500
+comparisons on them. Insertion sort makes {{c1::999::a number}}.
 
 ---
 

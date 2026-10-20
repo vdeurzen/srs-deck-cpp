@@ -20,6 +20,6 @@ them what `const` buys you.
 ---
 - [ ] Problem: `const` turns an accidental write into a compile error
 - [ ] Mechanism: a `const` object must get its value where it is declared and is never written again
-- [ ] Example: a `const std::string&` parameter reads the caller's string without copying it
-- [ ] Cost: a member function without a trailing `const` cannot be called through a `const&`
+- [ ] Example: a `const&` parameter lets the callee read the caller's object, uncopied and unchangeable
+- [ ] Cost: `const` spreads: every read-only member function needs a trailing `const`, or `const` callers cannot call it
 - [ ] Contrast: in `int* const p`, the `const` freezes the pointer, not the `int` it points to

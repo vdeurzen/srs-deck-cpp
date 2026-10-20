@@ -5,17 +5,14 @@ version: 1
 level: 2
 tags: [undefined-behaviour, tooling, sanitizers]
 requires:
-  - ub-use-after-free
-elaborate: Say which sanitizer you would add to your test build first, and which bug from your own code it would have caught.
+  - ub-optimiser-assumes-no-overflow
+elaborate: Say which overflow in code you know this flag would have caught, and why a passing run without it proves nothing.
 refs:
   - https://gcc.gnu.org/onlinedocs/gcc/Instrumentation-Options.html
   - https://clang.llvm.org/docs/UndefinedBehaviorSanitizer.html
 ---
 
-Sanitizers are run-time checkers that a compiler flag builds into the
-program. Signed overflow is reported by
-{{c1::`-fsanitize=undefined`::a GCC and Clang flag}}, which also checks
-indexing into arrays whose bound is known at compile time. Out-of-bounds
-access to heap, stack or global memory in general, and use of freed
-memory, need {{c2::`-fsanitize=address`::a second flag}}. Each reports only
+A sanitizer is a run-time checker that a compiler flag builds into the
+program. Signed `int` overflow, as it happens, is reported by building
+with {{c1::`-fsanitize=undefined`::a GCC and Clang flag}}. It reports only
 what the test run actually executes.

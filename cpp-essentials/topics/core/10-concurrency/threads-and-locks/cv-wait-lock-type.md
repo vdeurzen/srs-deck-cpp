@@ -6,12 +6,13 @@ level: 2
 tags: [concurrency, threads, condition-variable, mutex]
 input: chips
 choices:
-  c1: ["std::unique_lock<std::mutex>", "std::lock_guard<std::mutex>", "std::scoped_lock<std::mutex>"]
+  c1: ["std::unique_lock<std::mutex>", "std::lock_guard<std::mutex>", "std::mutex&"]
 compile:
   harness: |
     int main() {}
 requires:
   - threads-cv-wait-needs-predicate
+  - conc-lock-guard-intro
 refs:
   - https://en.cppreference.com/w/cpp/thread/unique_lock
   - https://en.cppreference.com/w/cpp/thread/condition_variable/wait
@@ -37,7 +38,7 @@ void wait_ready() {
 
 **`std::unique_lock` is the lock that can `unlock()` and `lock()`
 again mid-scope**, which is exactly what `wait` does on the caller's
-behalf; `condition_variable::wait` therefore takes a
-`unique_lock<mutex>&` and nothing else. `lock_guard` and `scoped_lock`
-lock on construction and unlock on destruction only: the right default
-everywhere a lock is not handed to something that must release it.
+behalf, so `condition_variable::wait` takes a `unique_lock<mutex>&`.
+`lock_guard` locks on construction and unlocks only on destruction: the
+right default wherever a lock is not handed on. A plain `std::mutex&`
+is not a lock object, so `wait` rejects it.

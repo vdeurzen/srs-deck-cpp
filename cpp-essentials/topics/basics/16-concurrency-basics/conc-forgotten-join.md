@@ -29,6 +29,6 @@ void shut_down() {
 **`std::terminate` is called: `writer` is destroyed without having been joined.**
 
 A `std::thread` that started a function stays *joinable* until someone
-calls `join()` on it. Its destructor will not guess which you
-meant, so it ends the program instead, whether or not `flush_cache` has
+calls `join()` on it. Its destructor will not guess whether to wait
+for it, so it ends the program instead, whether or not `flush_cache` has
 already finished. The fix is `writer.join();` before the closing brace.

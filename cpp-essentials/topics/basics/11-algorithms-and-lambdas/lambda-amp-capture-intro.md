@@ -7,7 +7,7 @@ tags: [lambdas, foundations]
 requires:
   - lambda-syntax-intro
   - ptr-reference-must-bind
-elaborate: Say how this compares with a Go closure that changes a variable of its enclosing function, and what C++ makes you decide that Go does not.
+elaborate: Say when capturing by reference would be a bug in your own code.
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
   - https://eel.is/c++draft/expr.prim.lambda.capture

@@ -17,14 +17,9 @@ other memory access.
 
 ```cpp
 std::atomic<int> x{0};
-void a() {                                   // thread A
-    x.store(1, std::memory_order_relaxed);
-    x.store(2, std::memory_order_relaxed);
-}
-void b() {                                   // thread B
-    int r1 = x.load(std::memory_order_relaxed);
-    int r2 = x.load(std::memory_order_relaxed);
-}
+const auto relaxed = std::memory_order_relaxed;
+void a() { x.store(1, relaxed); x.store(2, relaxed); }        // thread A
+void b() { int r1 = x.load(relaxed); int r2 = x.load(relaxed); } // thread B
 ```
 
 ## A and B run at the same time. Can B end with `r1 == 2` and `r2 == 1`?

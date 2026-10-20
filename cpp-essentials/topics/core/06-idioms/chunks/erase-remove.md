@@ -1,29 +1,29 @@
 ---
 id: chunks-erase-remove
-kind: chunk
-version: 1
+kind: cloze
+version: 2
 level: 2
 tags: [idioms, containers]
-expose_ms: 4000
-compile: null
 requires:
   - stdalgo-remove-if-keeps-size
-elaborate: Say aloud why `std::remove_if` alone cannot shrink the vector, and where you have seen this idiom in older code.
+  - containers-erase-invalidates-iterator
+elaborate: Say aloud what `v.erase(std::remove_if(v.begin(), v.end(), pred))`, with the second argument left out, would remove instead.
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/remove
+  - https://en.cppreference.com/w/cpp/container/vector/erase
   - https://en.cppreference.com/w/cpp/container/vector/erase2
 ---
 
+`v.erase(first, last)` removes the elements in `[first, last)`. Remove
+every element of the `std::vector<int> v` for which `pred` is true:
+
 ```cpp
-v.erase(std::remove_if(v.begin(), v.end(), pred), v.end());
+v.erase(std::remove_if(v.begin(), v.end(), pred), {{c1::v.end()}});
 ```
 
 ---
 
-The erase-remove idiom. `std::remove_if` cannot itself shrink `v` — it only
-shuffles the elements to keep to the front and returns an iterator to the
-new logical end, leaving the tail as leftover elements with unspecified
-values. `erase` is what
-actually shrinks the container. In C++20, prefer the free function
-`std::erase_if(v, pred)`, which does both steps for you and works
-uniformly across the sequence containers.
+**The erase-remove idiom.** `remove_if` moves the kept elements to the
+front and returns the new logical end; `erase` then cuts everything from
+there to `v.end()`. Without that second argument `erase` removes one
+element only. In C++20, `std::erase_if(v, pred)` does both steps.

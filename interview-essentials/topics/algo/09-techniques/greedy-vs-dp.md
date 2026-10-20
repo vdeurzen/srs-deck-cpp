@@ -18,6 +18,7 @@ refs:
 ---
 
 **DP tries every choice and keeps the best; greedy commits to one.**
-`dp[6] = 1 + min(dp[2], dp[3], dp[5]) = 1 + min(2, 1, 2) = 2`. Greedy
-never looks at "last coin 3". Use greedy only when you can prove its one
+Fewest for 6 is 1 + the best of fewest-for-2, fewest-for-3 and
+fewest-for-5: 1 + 1 = 2, via last coin 3. Greedy never looks at "last
+coin 3". Use greedy only when you can prove its one
 choice is always safe; otherwise pay DP's amount × coins.

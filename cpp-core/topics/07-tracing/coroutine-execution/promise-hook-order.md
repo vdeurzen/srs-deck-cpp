@@ -1,7 +1,7 @@
 ---
 id: trace-coroutine-hook-order
 kind: trace
-version: 1
+version: 2
 level: 4
 tags: [tracing, coroutines]
 requires:
@@ -10,22 +10,21 @@ requires:
 elaborate: Say in one sentence, as to an interviewer, why a task type usually makes `final_suspend()` return `suspend_always`.
 probes:
   1: { hooks: "GI" }
-  2: { hooks: "GIBRF" }
-  3: { hooks: "GIBRF", finished: "true" }
+  2: { hooks: "GIBRF", "t.handle.done()": "true" }
 refs:
   - https://en.cppreference.com/w/cpp/language/coroutines
 ---
 
-```cpp
-std::string hooks;   // every hook appends one letter
+Each hook appends one letter to the global `std::string hooks`, and
+`Task`'s destructor (not shown) destroys the frame.
 
+```cpp
 struct Task {
   struct promise_type {
     Task get_return_object() { hooks += 'G'; return Task{Handle::from_promise(*this)}; }
     std::suspend_always initial_suspend() noexcept { hooks += 'I'; return {}; }
     std::suspend_always final_suspend() noexcept { hooks += 'F'; return {}; }
-    void return_void() { hooks += 'R'; }
-    void unhandled_exception() {}
+    void return_void() { hooks += 'R'; }  void unhandled_exception() {}
   };
   using Handle = std::coroutine_handle<promise_type>;
   Handle handle;
@@ -36,8 +35,6 @@ Task run() { hooks += 'B'; co_return; }
 int main() {
   Task t = run();                         // @1
   t.handle.resume();                      // @2
-  const bool finished = t.handle.done();  // @3
-  t.handle.destroy();
 }
 ```
 
@@ -52,8 +49,8 @@ The caller is holding a `Task` whose coroutine has not started.
 (`R`), then `final_suspend()` (`F`) suspends again — which is what
 keeps the frame alive afterwards, so `done()` can be asked and answers
 `true`. Had `final_suspend()` returned `suspend_never`, the frame would
-already be gone at `// @3` and both `done()` and `destroy()` would be
-use-after-free.
+already be gone after `// @2`, and both `done()` and the destructor's
+`destroy()` would be use-after-free.
 
 The two suspensions at the ends are the ones you never write: the body
 contains a single statement, and four of the five letters come from the

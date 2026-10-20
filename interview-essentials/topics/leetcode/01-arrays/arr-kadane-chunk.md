@@ -7,8 +7,7 @@ tags: [kadane, dynamic-programming, arrays, lc-53]
 expose_ms: 11000
 compile: null # a function body
 requires:
-  - arr-kadane-worked
-  - stl-int-limits
+  - arr-kadane-trace
   - cpp-essentials/iter-range-for-intro
 refs:
   - https://leetcode.com/problems/maximum-subarray/
@@ -29,9 +28,10 @@ return best;
 ---
 
 **Kadane's algorithm** (Maximum Subarray, LC 53: the largest sum of a
-non-empty contiguous subarray). `cur` is the best sum
-of a subarray *ending at* `x`: either extend the previous one or start
-fresh at `x`, whichever is larger. `best` is the largest `cur` seen.
+non-empty contiguous subarray). *Extend or restart*: `cur`, the best
+sum of a subarray *ending at* `x`, extends the previous one or starts
+fresh at `x`, whichever is larger. *Record*: `best` keeps the largest
+`cur` seen.
 One pass, O(1) space.
 
 Start fresh exactly when the running sum before `x` is negative: it can

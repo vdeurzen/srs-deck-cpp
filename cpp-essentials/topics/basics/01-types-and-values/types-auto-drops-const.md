@@ -12,7 +12,7 @@ compile:
     static_assert(countdown() == 6);
     int main() {}
 requires:
-  - types-auto-deduces
+  - types-auto-copy-drops-const
   - ptr-reference-must-bind
   - constexpr-fn-static-assert
 elaborate: Where in your code could `auto x = some_const_value;` hand you a copy when you meant to keep the original's `const`, or a reference?

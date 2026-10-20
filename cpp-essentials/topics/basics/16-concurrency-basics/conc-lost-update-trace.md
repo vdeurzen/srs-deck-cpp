@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [concurrency, threads, tracing]
 requires:
-  - conc-thread-shares-memory
+  - conc-lost-update-worked
 probes:
   1: { regB: "6" }
   2: { count: "6" }

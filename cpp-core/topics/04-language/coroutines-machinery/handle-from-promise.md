@@ -22,6 +22,7 @@ compile:
       t.handle.resume();
       t.handle.destroy();
     }
+elaborate: Where else would you rebuild a handle from something you stored earlier, and which function would you use there?
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle/from_promise
 ---
@@ -33,14 +34,12 @@ return object can carry it back to the caller.
 #include <coroutine>
 struct Task {
   struct promise_type {
-    Task get_return_object() { return Task{Handle::{{c1::from_promise}}(*this)}; }
+    Task get_return_object() { return {std::coroutine_handle<promise_type>::{{c1::from_promise}}(*this)}; }
     std::suspend_always initial_suspend() noexcept { return {}; }
     std::suspend_always final_suspend() noexcept { return {}; }
-    void return_void() {}
-    void unhandled_exception() {}
+    void return_void() {}  void unhandled_exception() {}
   };
-  using Handle = std::coroutine_handle<promise_type>;
-  Handle handle;
+  std::coroutine_handle<promise_type> handle;
 };
 ```
 

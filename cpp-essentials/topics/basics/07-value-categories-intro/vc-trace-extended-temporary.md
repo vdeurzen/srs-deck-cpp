@@ -5,8 +5,7 @@ version: 2
 level: 2
 tags: [value-categories, temporaries, lifetime, tracing]
 requires:
-  - life-temporary-intro
-  - value-categories-reference-binding-cloze
+  - ptr-lifetime-extension
 probes:
   1: { a: "0" }
   2: { b: "1" }

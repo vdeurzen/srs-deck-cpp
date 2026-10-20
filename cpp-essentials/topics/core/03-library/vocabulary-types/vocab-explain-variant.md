@@ -14,9 +14,8 @@ refs:
 elaborate: Name a set of message or event kinds in your own code; is it closed enough for a `std::variant`, or does it need to stay open?
 ---
 
-A Go teammate would model "a shape is a circle, a square or a triangle"
-with an interface and a type switch. Explain the `std::variant` way to
-them.
+An interviewer asks you to explain `std::variant`: what it is for and how
+it works. Answer aloud in about a minute.
 
 ---
 

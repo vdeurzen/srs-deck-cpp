@@ -6,6 +6,7 @@ level: 2
 tags: [bit-tricks, tracing]
 requires:
   - foundations-bits-lowest-set-bit
+  - foundations-bits-clear-lowest
 elaborate: What would break in the counting loop if `x` were a signed int holding a negative value?
 probes:
   1: { low: "8" }

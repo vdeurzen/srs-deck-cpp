@@ -21,8 +21,8 @@ friends (undirected):   Ana ─ Cy
 
 ---
 
-**The directed edge once, in Ana's list; the undirected edge twice, in both lists.**
+**One entry per direction the edge can be followed: Ana → Bo once, Ana ─ Cy twice.**
 
 Follows: `Ana: Bo`, and Bo's list stays empty. Friends: `Ana: Cy` and
-`Cy: Ana`. So a directed vertex has an out-degree and an in-degree, and
-"reachable from" is no longer symmetric.
+`Cy: Ana`. So in a directed graph "reachable from" is no longer
+symmetric: Bo cannot reach Ana.

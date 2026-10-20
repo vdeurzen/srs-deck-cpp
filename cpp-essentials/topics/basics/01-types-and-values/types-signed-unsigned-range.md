@@ -4,8 +4,6 @@ kind: basic
 version: 1
 level: 1
 tags: [types, integers, signedness]
-requires:
-  - types-size-minimums
 elaborate: Say in one sentence why a counter that must go below zero should not be declared unsigned.
 refs:
   - https://en.cppreference.com/w/cpp/language/types#Range_of_values

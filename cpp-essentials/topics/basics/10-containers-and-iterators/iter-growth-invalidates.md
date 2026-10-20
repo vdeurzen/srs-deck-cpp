@@ -13,8 +13,7 @@ compile:
     int main() {}
 elaborate: Where in your own code could a loop that calls `push_back` invalidate a saved iterator or pointer?
 requires:
-  - iter-reserve-keeps-buffer
-  - iter-end-one-past
+  - vector-iterator-after-push-back
   - constexpr-fn-static-assert
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
@@ -38,7 +37,8 @@ constexpr int remembered() {
 ---
 
 Twenty `push_back`s outgrow the original capacity, so the vector allocates
-a new buffer, moves the elements into it and frees the old one. **Every
-iterator, pointer and reference into the old buffer now dangles**: `*it`
-reads freed memory: undefined behaviour. An index survives growth because it is re-applied to the
-current buffer; `v[0]` and `v.back()` are just other elements.
+a new buffer, moves every element into it and frees the old one; that one
+`push_back` takes time proportional to the size. **Every iterator, pointer
+and reference into the old buffer now dangles**: `*it` reads freed memory,
+undefined behaviour. An index survives growth because it is re-applied to
+the current buffer; `v[0]` and `v.back()` are just other elements.

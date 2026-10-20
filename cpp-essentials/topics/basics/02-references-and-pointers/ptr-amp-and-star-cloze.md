@@ -6,7 +6,7 @@ level: 1
 tags: [pointers, operators]
 requires:
   - ptr-holds-an-address
-elaborate: Say in one sentence how C++'s `&n` and `*p` compare with the same symbols in Go.
+elaborate: Say aloud what `*&n` denotes, and why.
 refs:
   - https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_address-of_operator
   - https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_indirection_operator

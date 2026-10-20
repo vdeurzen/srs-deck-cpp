@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [concurrency, atomics, memory-model]
 requires:
-  - atomics-modification-order
+  - atomics-memory-order-intro
   - threads-data-race-is-ub
 refs:
   - https://en.cppreference.com/w/cpp/atomic/memory_order

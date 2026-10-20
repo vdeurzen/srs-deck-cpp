@@ -20,7 +20,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
 ---
 
-Complete the lambda so `apply_twice` returns 7.
+Complete the lambda expression so `apply_twice` returns 7.
 
 ```cpp
 constexpr int apply_twice() {
@@ -33,9 +33,9 @@ constexpr int apply_twice() {
 
 ---
 
-A lambda is `[captures](parameters) { body }`. `[step]` stores a **copy**
-of `step` made when the lambda is created (3), so the later `step = 100`
+A lambda expression is `[captures](parameters) { body }`. `[step]` makes the closure object store a **copy**
+of `step` made when the closure object is created (3), so the later `step = 100`
 does not affect it. `[&step]` stores a **reference** and would add 100.
 `[]` captures nothing, so the body cannot use `step`. With no parameter
-list the lambda takes no arguments and `x` is undeclared; a lambda that
+list the closure object takes no arguments and `x` is undeclared; a lambda expression that
 needs none may omit `()` entirely: `[&n] { ++n; }`.

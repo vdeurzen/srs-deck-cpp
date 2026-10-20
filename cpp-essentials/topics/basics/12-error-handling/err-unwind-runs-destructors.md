@@ -5,8 +5,8 @@ version: 2
 level: 2
 tags: [exceptions, raii, destructors, tracing]
 requires:
+  - err-unwind-worked
   - err-throw-jumps-to-catch
-  - life-destructor-intro
 probes:
   1: { events: "oc!" }
 refs:

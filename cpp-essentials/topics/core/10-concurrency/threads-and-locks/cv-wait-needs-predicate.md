@@ -25,9 +25,12 @@ cv.wait(lk);                 // unlocks m, sleeps, relocks m on wake
 
 ---
 
-**Because a wake-up is not the condition.**
+**`wait` can return with `jobs` still 0, or sleep forever after a missed notify.**
 
-`wait` may return *spuriously* with `jobs` still 0, and a notify sent
-before the consumer waits is *lost*, so it sleeps forever.
-With `bool has_job() { return jobs > 0; }`, `cv.wait(lk, has_job)` loops `while (!has_job()) cv.wait(lk);`, testing
-the shared state under the mutex before sleeping and after every wake.
+A wake-up may be *spurious*, and a notify sent before the consumer waits
+is *lost*. Test the shared state under the mutex before sleeping and
+after every wake:
+
+```cpp
+while (jobs == 0) cv.wait(lk);
+```

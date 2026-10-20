@@ -1,14 +1,15 @@
 ---
 id: conc-explain-shared-counter
 kind: explain
-version: 1
+version: 2
 level: 2
 tags: [concurrency, threads]
 requires:
-  - conc-data-race-one-writer
-  - conc-atomic-or-mutex
-  - conc-check-then-act
+  - conc-lost-update-worked
+  - conc-mutex-takes-turns
   - conc-lock-the-counter
+  - conc-atomic-or-mutex
+  - conc-data-race-one-writer
 elaborate: Say where else in your own code a value is read, changed and written back by more than one thread, and which of these fixes fits it.
 refs:
   - https://en.cppreference.com/w/cpp/language/memory_model
@@ -20,7 +21,7 @@ total `main` prints is sometimes below 4 000. Talk the teammate who
 wrote it through this, aloud.
 ---
 - [ ] Problem: `++` is a load, an add and a store, so two threads can interleave them and lose updates
-- [ ] Mechanism: unordered writes to one plain `int` from two threads are a data race, so undefined behaviour
-- [ ] Fix: a named `std::lock_guard` on one shared `std::mutex` lets one thread at a time increment
-- [ ] Trade-off: for one counter, `std::atomic<int>` makes `++` one indivisible step, with no lock to block on
-- [ ] Pitfall: an atomic does not turn a test followed by a change into one indivisible step
+- [ ] Mechanism: a `std::mutex` lets one thread at a time past `lock()`, so those three steps cannot interleave
+- [ ] Example: here, a named `std::lock_guard` on one shared mutex around the `++` makes the total always 4 000
+- [ ] Trade-off: for one counter, `std::atomic<int>` makes `++` one indivisible step, with no lock to wait on
+- [ ] Pitfall: the original is not just lossy: unordered writes to a plain `int` are a data race, undefined behaviour

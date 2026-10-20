@@ -1,7 +1,7 @@
 ---
 id: stl-array-brace-zero
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [stl, foundations, initialization, arrays]
 requires:
@@ -15,18 +15,18 @@ elaborate: Go zeroes every array for you; say aloud which counting loop of yours
 
 ```cpp
 void f() {
-  int counts[4] = {};
-  std::array<bool, 3> seen{};
-  int hits[3] = {5};
+  int a[3] = {};
+  std::array<int, 3> b{};
+  int c[3];
 }
 ```
 
-## What do the three elements of `hits` hold?
+## Which of these local arrays are guaranteed to hold only zeros?
 
 ---
 
-**5, 0, 0: elements the braces leave out are value-initialized, which is zero.**
+**`a` and `b`: empty braces value-initialize every element, which is zero.**
 
-So empty braces zero a whole array: `counts` is four 0s, `seen` three
-`false`s. Without any braces a local array is indeterminate, and reading
-it is undefined behaviour. Values from running it under GCC 16.2.
+`c` has no initializer, so its elements are indeterminate and reading
+one is undefined behaviour. `std::array` follows the same rule:
+`std::array<int, 3> d;` is as indeterminate as `c`.

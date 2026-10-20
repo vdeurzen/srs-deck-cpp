@@ -6,7 +6,7 @@ level: 1
 tags: [containers, deque, foundations]
 requires:
   - vector-basics
-elaborate: Say which queue in your own Go code grows at the front as well as the back, and how you built it there.
+elaborate: Say which job, such as a sliding-window queue or a work list, needs `push_front`, and why a `vector` would be slow for it.
 refs:
   - https://en.cppreference.com/w/cpp/container/deque
   - https://eel.is/c++draft/deque.overview

@@ -6,9 +6,9 @@ level: 2
 tags: [vocabulary-types, expected, error-handling]
 requires:
   - vocab-optional-maybe-value
-  - strings-string-view-parameter
+  - vocab-expected-intro
   - err-throw-catch-intro
-elaborate: "Compare this to Go's `(int, error)` return: what does `std::expected` make the caller do that Go only asks by convention?"
+elaborate: Pick a function of yours that returns an empty value on failure; what would its caller do differently if it learned why?
 refs:
   - https://en.cppreference.com/w/cpp/utility/expected
 ---
@@ -23,7 +23,3 @@ Return `std::expected<int, PortError>` instead: either the port or an
 error value of a type you choose, so the reasons are visible in the
 signature and travel by value, with no exception and no extra reference
 parameter for the callee to fill in.
-
-```cpp
-std::expected<int, PortError> parse_port(std::string_view text);
-```

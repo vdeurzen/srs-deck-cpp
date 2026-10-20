@@ -39,9 +39,8 @@ elaborate: Kth Largest Element in a Stream (LC 703) is a class whose `add(val)` 
 ---
 
 Kth Largest Element in an Array (LC 215): return the k-th largest
-element of `nums`. For O(n log k), keep a heap of the k largest values
-seen so far, dropping one whenever it holds
-k + 1; `std::size_t` is the unsigned type that `size()` returns.
+element of `nums`. Keep a heap of the k largest values so far, dropping
+one whenever it holds k + 1 (`std::size_t` is `size()`'s unsigned type).
 Complete the heap's type.
 
 ```cpp
@@ -62,6 +61,6 @@ int kth_largest(std::vector<int> nums, std::size_t k) {
 overflows is the *smallest* of the k + 1, so it must sit at `top()`;
 what is left at the top at the end is the k-th largest. The default
 `priority_queue<int>` is a max-heap: it pops the largest and returns
-the k-th *smallest*. The parameters go element, container,
+the k-th *smallest*. The template parameters go element, container,
 comparator, with no way to skip the middle one: `priority_queue<int,
 greater<>>` makes `greater` the container and doesn't compile.

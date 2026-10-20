@@ -5,13 +5,14 @@ version: 1
 level: 2
 tags: [graphs, shortest-paths, worked-example]
 requires:
-  - graph-bfs-why-shortest
+  - graph-weighted-path-cost
+  - graph-edge-ordered-pair
 refs:
   - https://doi.org/10.1007/BF01386390
   - https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
 ---
 
-## Dijkstra on directed edges with non-negative lengths: pop the unpopped vertex with the smallest `dist`, then for each edge u → v of length w set `dist[v] = min(dist[v], dist[u] + w)`. Why does b pop at 3, not at the 4 that s offered?
+## Dijkstra on directed edges with non-negative weights: pop the unpopped vertex with the smallest `dist` (the cheapest cost found so far), then for each edge u → v of weight w set `dist[v] = min(dist[v], dist[u] + w)`. Why does b pop at 3, not at the 4 that s offered?
 
 ```
 edges: s→a 1, s→b 4, a→b 2, b→t 1      (∞ = not reached yet)

@@ -11,7 +11,12 @@ refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr
 ---
 
-## Making `Child`'s back-pointer a `weak_ptr<Parent>` fixes the parent/child `shared_ptr` leak. What about `weak_ptr` makes that work?
+`Parent` holds a `shared_ptr<Child>` and `Child` a `shared_ptr<Parent>`
+back, so the pair leaks. Making `Child`'s back-pointer a
+`std::weak_ptr<Parent>` (a `weak_ptr` refers to an object that
+`shared_ptr`s own) fixes the leak.
+
+## What about `weak_ptr` makes that work?
 
 ---
 

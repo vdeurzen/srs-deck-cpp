@@ -12,7 +12,7 @@ refs:
   - https://eel.is/c++draft/conv.prom
 ---
 
-## A `char` and an `unsigned char` meet in `x + y`. In what type is the addition done?
+## With a 32-bit `int`, a `char` and an `unsigned char` meet in `x + y`. Is the addition done in `char`, `unsigned char` or `int`?
 
 ---
 

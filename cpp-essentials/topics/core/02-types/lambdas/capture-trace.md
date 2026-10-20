@@ -28,7 +28,7 @@ int c = f() + g();   // @2
 
 ---
 
-`[n]` copies `n` into the closure **when the lambda is created**, so
+`[n]` copies `n` into the closure object **when the lambda expression is evaluated**, so
 `f` returns 1 forever. `[&n]` stores a reference, so `g` reads
 whatever `n` holds at the call: 5, then 7. Verified with GCC 16.2
 (`g++ -std=c++23`).

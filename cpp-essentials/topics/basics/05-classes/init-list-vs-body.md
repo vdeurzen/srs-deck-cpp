@@ -8,7 +8,7 @@ probes:
   1: { built: "2" }
   2: { built: "3" }
 requires:
-  - class-ctor-colon-part
+  - class-init-order-worked
 refs:
   - https://en.cppreference.com/w/cpp/language/constructor#Member_initializer_list
 elaborate: Find a constructor in your code that assigns its members in the body. Which of those members are built twice, and does it matter for their types?

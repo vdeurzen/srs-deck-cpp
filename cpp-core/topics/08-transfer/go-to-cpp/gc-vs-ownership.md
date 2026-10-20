@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 2
 tags: [transfer, misconception, ownership]
-elaborate: Which of your Go functions return a pointer to a freshly allocated struct, and what would the C++ port return instead?
+elaborate: Where else does a bare `new` in C++ code signal an owner nobody named, and what would you write there instead?
 requires:
   - cpp-essentials/smart-pointers-unique-ptr-ownership
 refs:
@@ -12,7 +12,8 @@ refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr
 ---
 
-## `tick` is ported line for line from Go's `b := new(Buffer)` and runs once per frame. What happens to each `Buffer` it creates?
+Many expect an object that nothing points to any more to be reclaimed
+automatically. `tick` runs once per frame.
 
 ```cpp
 void tick() {
@@ -20,6 +21,8 @@ void tick() {
     b->fill();
 }
 ```
+
+## What happens to each `Buffer` that `tick` creates?
 
 ---
 

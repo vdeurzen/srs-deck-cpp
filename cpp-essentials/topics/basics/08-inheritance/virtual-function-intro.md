@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [inheritance, virtual, dispatch, worked-example]
 requires:
-  - virtual-is-a
+  - virtual-static-dynamic-type
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
   - https://eel.is/c++draft/class.virtual

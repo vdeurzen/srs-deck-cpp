@@ -9,7 +9,7 @@ requires:
 probes:
   1: { x: "5", y: "10" }
   2: { x: "20", y: "10" }
-elaborate: Say how a by-value `int` parameter compares with Go, and where a by-value copy could cost you in C++.
+elaborate: Say when a by-value `std::vector` parameter would cost you, and what you would write instead.
 refs:
   - https://en.cppreference.com/w/cpp/language/function#Parameter_list
   - https://eel.is/c++draft/expr.call#7

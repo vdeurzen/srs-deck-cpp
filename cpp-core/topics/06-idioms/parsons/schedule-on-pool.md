@@ -1,7 +1,7 @@
 ---
 id: parsons-schedule-on-pool
 kind: parsons
-version: 1
+version: 2
 level: 4
 tags: [idioms, coroutines, scheduling]
 requires:
@@ -9,9 +9,12 @@ requires:
 distractors:
   - "std::coroutine_handle<> await_suspend(std::coroutine_handle<> h) const { return h; }"
   - "constexpr bool await_ready() const noexcept { return true; }"
-  - "void enqueue(std::coroutine_handle<> h) { ready.push_back(h.promise()); }"
 compile:
   harness: |
+    #include <deque>
+    #include <type_traits>
+    std::deque<std::coroutine_handle<>> ready_queue;
+    void Pool::enqueue(std::coroutine_handle<> h) { ready_queue.push_back(h); }
     inline Pool gp;
     static_assert(!ScheduleOn{gp}.await_ready());
     static_assert(std::is_void_v<decltype(ScheduleOn{gp}.await_suspend({}))>);
@@ -32,28 +35,21 @@ compile:
       Pool pool;
       int done = 0;
       job(pool, done);
-      pool.run();
-      return done == 1 ? 0 : 1;
     }
+elaborate: What would you change in this awaiter so that a coroutine already running on the pool does not pay for a hand-off?
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/coroutine_handle
   - https://en.cppreference.com/w/cpp/language/coroutines#co_await
 ---
 
+`Pool::enqueue`, defined elsewhere, pushes a handle onto the pool's
+ready queue, which a worker loop drains by resuming each handle. Order
+the lines of `ScheduleOn`, the awaiter after which the rest of a
+coroutine runs from the pool instead of here.
+
 ```cpp
 #include <coroutine>
-#include <deque>
-struct Pool {
-  std::deque<std::coroutine_handle<>> ready;
-  void enqueue(std::coroutine_handle<> h) { ready.push_back(h); }
-  void run() {
-    while (!ready.empty()) {
-      const auto h = ready.front();
-      ready.pop_front();
-      h.resume();
-    }
-  }
-};
+struct Pool { void enqueue(std::coroutine_handle<> h); };
 struct ScheduleOn {
   Pool& pool;
   constexpr bool await_ready() const noexcept { return false; }
@@ -64,22 +60,15 @@ struct ScheduleOn {
 
 ---
 
-The smallest complete scheduler: a queue of type-erased handles, a loop
-that resumes them, and an awaiter that puts the current coroutine into
-the queue instead of resuming it. `co_await ScheduleOn{pool};` inside
-any coroutine means "everything after this line runs from `pool.run()`
-rather than here".
+**A never-ready awaiter whose `void` `await_suspend` publishes the
+handle.** `co_await ScheduleOn{pool};` means "everything after this line
+runs from the pool's worker loop rather than here". The three hooks may
+sit in any order; the compile check accepts each.
 
-The Distractors are the tempting wrong turns. An `await_ready()` that
-returns `true` skips the hand-off altogether, so the coroutine never
-reaches the pool at all. An `await_suspend` that returns the handle it
-was given uses symmetric transfer to resume the same coroutine at once,
-which is the opposite of scheduling (a `void` `await_suspend` that calls
-`h.resume()` has the same flaw, and nests one `resume()` inside another).
-`std::coroutine_handle<>` is type-erased, so it has no `promise()`; only
-`coroutine_handle<P>` does.
-
-Replace the `std::deque` with a lock-free intrusive list whose nodes
-live in the awaiters, and give `run()` to several `std::jthread`s, and
-this is the core of a real thread-pool scheduler — nothing else about
+The distractors are the tempting wrong turns. An `await_ready()` that
+returns `true` skips the hand-off, so the coroutine never reaches the
+pool. An `await_suspend` that returns the handle it was given uses
+symmetric transfer to resume the same coroutine at once, the opposite of
+scheduling (a `void` `await_suspend` that calls `h.resume()` has the same
+flaw, and nests one `resume()` inside another).
 the shape changes.

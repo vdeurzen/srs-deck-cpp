@@ -18,7 +18,7 @@ refs:
 int total_a(std::vector<int> v);
 int total_b(const std::vector<int>& v);
 
-std::vector<int> scores(100000, 1);
+std::vector<int> scores(100000, 1);   // 100 000 ones
 int a = total_a(scores);
 int b = total_b(scores);
 ```

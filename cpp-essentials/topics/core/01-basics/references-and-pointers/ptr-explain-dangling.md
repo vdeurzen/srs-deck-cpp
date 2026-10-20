@@ -15,14 +15,13 @@ refs:
 elaborate: Name a function in your code that returns a reference or pointer; whose object does it point into, and who keeps that alive?
 ---
 
-A Go teammate is used to the garbage collector keeping alive whatever a
-pointer refers to. Explain to them when a C++ reference or pointer stops
-being safe to use.
+A teammate new to C++ asks when a reference or pointer stops being safe
+to use. Explain.
 
 ---
 
 - [ ] Problem: a reference or pointer never keeps its object alive; it dangles once that object's lifetime ends
 - [ ] Mechanism: a temporary dies at the end of the full-expression that created it, the `;`
-- [ ] Example: a `const` reference bound directly to a temporary keeps it alive as long as the reference
-- [ ] Trade-off: only direct binding extends; a reference a function returns into a temporary dangles
-- [ ] Pitfall: going through a dangling pointer is undefined behaviour that no check of its value detects
+- [ ] Example: a `const` reference bound directly to a temporary extends it; one a function returns does not
+- [ ] Cost: going through a dangling pointer is undefined behaviour that no check of its value detects
+- [ ] Contrast: a pointer to a deleted object, or to an ended local, dangles the same way

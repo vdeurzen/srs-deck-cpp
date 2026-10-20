@@ -15,8 +15,8 @@ refs:
 ---
 
 Many expect `name.data()` below to be a C string holding just
-`report.txt`. (`substr(i, n)` gives the n characters starting at i;
-`data()` is a pointer to the first one.) Predict each probe.
+`report.txt`. (`substr(i, n)` gives the n characters
+starting at index i.) Predict each probe.
 
 ```cpp
 std::string_view all = "report.txt.bak";

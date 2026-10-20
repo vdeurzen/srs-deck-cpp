@@ -8,13 +8,13 @@ requires:
   - lambda-amp-capture-intro
   - ptr-dangling-local
   - fn-auto-return-type
-elaborate: In Go the compiler moves a captured variable to the heap when the closure escapes. Which C++ capture gives you that "the closure keeps it alive" behaviour, and who owns the value then?
+elaborate: Which C++ capture makes the closure object own its value, and what does each copy of that object then cost?
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
   - https://en.cppreference.com/w/cpp/language/reference#Dangling_references
 ---
 
-## A closure "remembers" its variables, so `next()` returns 1, then 2. What really happens?
+## A closure object "remembers" its variables, so `next()` returns 1, then 2. What really happens?
 
 ```cpp
 auto make_counter() {
@@ -28,8 +28,8 @@ next();
 ---
 
 **Undefined behaviour: `count` died when `make_counter` returned; the
-closure holds a dangling reference.**
+closure object holds a dangling reference.**
 
 The belief is right in Go, where escape analysis keeps captured
 variables alive. A C++ reference capture extends no lifetime. Capture by
-value instead, so the closure owns its own copy.
+value instead, so the closure object owns its own copy.

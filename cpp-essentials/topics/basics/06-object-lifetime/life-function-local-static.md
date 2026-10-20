@@ -6,7 +6,7 @@ level: 1
 tags: [lifetime, storage-duration, static]
 requires:
   - life-scope-automatic
-elaborate: Say in one sentence what Go code you would write to get the same effect, and where its variable would live.
+elaborate: Say where a counter or cache like `n` would help in your code, and why it makes `step` harder to test.
 refs:
   - https://en.cppreference.com/w/cpp/language/storage_duration#Static_block_variables
   - https://eel.is/c++draft/stmt.dcl

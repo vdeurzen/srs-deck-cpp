@@ -1,11 +1,12 @@
 ---
 id: stl-int-min-traps
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [stl, integers, undefined-behaviour, misconception, lc-7]
 requires:
   - cpp-essentials/types-overflow-rules
+  - stl-int-limits
   - cpp-essentials/cast-functional-notation
 refs:
   - https://leetcode.com/problems/reverse-integer/
@@ -13,20 +14,16 @@ refs:
 elaborate: "Which other one-liners fail on exactly this input: `std::abs(x)`, `x / -1`, `x % -1`?"
 ---
 
-Reverse Integer (LC 7): reverse the decimal digits of the 32-bit `int`
-`x`, keeping its sign; return 0 if the result does not fit in an `int`.
-`INT_MIN` and `INT_MAX` (from `<climits>`) are the smallest and largest
-`int`, −2³¹ and 2³¹ − 1. Many expect the `long long` accumulator to make
-this common solution overflow-proof:
+`x` is a 32-bit `int`. Many expect the `long long` accumulator to make
+this digit reversal overflow-proof:
 
 ```cpp
-#include <climits>
-int reverse(int x) {
-    if (x < 0) return -reverse(-x);
-    long long r = 0;
-    for (; x != 0; x /= 10) r = r * 10 + x % 10;
-    if (r > INT_MAX) return 0;
-    return int(r);
+int reverse(int x) {   // 0 if the result doesn't fit
+  if (x < 0) return -reverse(-x);
+  long long r = 0;
+  for (; x != 0; x /= 10) r = r * 10 + x % 10;
+  if (r > INT_MAX) return 0;
+  return int(r);
 }
 ```
 
@@ -34,12 +31,8 @@ int reverse(int x) {
 
 ---
 
-**`INT_MIN`. Undefined behaviour: `-x` is not representable.** Nothing
-is guaranteed; typical builds wrap to `INT_MIN` and recurse until the
-stack overflows, but an optimiser may do anything. Skip the negation
-(`x % 10` keeps the sign):
+**`INT_MIN`: `-x` is not representable, so the negation is undefined behaviour.**
 
-```cpp
-for (; x != 0; x /= 10) r = r * 10 + x % 10;
-return r > INT_MAX || r < INT_MIN ? 0 : int(r);
-```
+Typical builds wrap `-x` back to `INT_MIN` and recurse until the stack
+overflows. `x % 10` keeps the sign, so drop the recursion and check both
+ends after the loop: `return r > INT_MAX || r < INT_MIN ? 0 : int(r);`

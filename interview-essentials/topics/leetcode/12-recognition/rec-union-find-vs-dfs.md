@@ -19,7 +19,7 @@ elaborate: Union-find can merge sets but not split them. If edges were also dele
 > linked, `n <= 200`. Return the number of provinces (groups of linked
 > cities).
 >
-> (b) Up to 1000 edges are added to a graph one at a time. Before adding
+> (b) Up to 2·10⁵ edges are added to a graph one at a time. Before adding
 > each, report whether its two ends are already connected.
 
 ## Union-find fits one of them better than a plain DFS. Which one?

@@ -6,7 +6,7 @@ level: 1
 tags: [concurrency, threads]
 requires:
   - io-cout-insertion
-elaborate: Say how this compares with two goroutines touching one package-level variable in Go, and what both languages then require of you.
+elaborate: Say what sharing one global between two running threads then requires of you, and what goes wrong without it.
 refs:
   - https://en.cppreference.com/w/cpp/thread/thread
   - https://eel.is/c++draft/intro.multithread

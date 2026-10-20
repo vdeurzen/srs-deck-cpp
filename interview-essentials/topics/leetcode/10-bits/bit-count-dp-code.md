@@ -21,7 +21,7 @@ compile:
     static_assert(matches_popcount());
     int main() {}
 requires:
-  - foundations-bits-trace
+  - foundations-bits-clear-lowest
   - cpp-essentials/vector-sized-constructor
   - cpp-essentials/constexpr-fn-static-assert
 refs:

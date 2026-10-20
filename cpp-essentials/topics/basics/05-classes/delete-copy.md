@@ -28,10 +28,9 @@ same type; it runs for `Ticket t2 = t1;` and `Ticket t2(t1);`. Each
 `Ticket` stands for one seat. Make every such copy a compile error.
 
 ```cpp
-class Ticket {
-    int seat_;
-public:
-    Ticket(int seat) : seat_(seat) {}
+struct Ticket {
+    int seat;
+    Ticket(int s) : seat(s) {}
     {{c1::Ticket(const Ticket&) = delete;}}
 };
 ```

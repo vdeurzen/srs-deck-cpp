@@ -5,7 +5,7 @@ version: 1
 level: 3
 tags: [hashing, memory-hierarchy, containers]
 requires:
-  - foundations-cache-cost-model
+  - foundations-prefetch-scan-vs-chase
   - hashing-open-addressing
   - cpp-essentials/ptr-holds-an-address
   - cpp-essentials/class-struct-members

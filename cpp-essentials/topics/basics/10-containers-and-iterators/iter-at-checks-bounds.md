@@ -8,8 +8,7 @@ probes:
   1: { got: "-1", threw: "true" }
 elaborate: Say aloud which of `v[i]` and `v.at(i)` you would put in a loop whose bound is `v.size()`, and why.
 requires:
-  - err-throw-catch-intro
-  - ub-definition
+  - vector-at-vs-subscript
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/at
   - https://en.cppreference.com/w/cpp/container/vector/operator_at

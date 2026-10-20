@@ -1,11 +1,11 @@
 ---
 id: sort-quickselect-trace
 kind: trace
-version: 2
+version: 3
 level: 3
 tags: [tracing, selection, quicksort]
 probes:
-  1: { lo: "3", "a[k]": "8" }
+  1: { lo: "3", "a[0]": "2" }
 requires:
   - sort-quickselect-worked
 elaborate: You need the median latency of a million requests. What does sorting cost you over this?
@@ -34,7 +34,8 @@ while (true) {
 
 Round 1 puts pivot 3 at index 2 < k, so the answer lies right of it:
 `lo` = 3. Round 2 partitions only `9 8` around 8, which lands at index
-3 = k, so the loop stops with `lo` = 3 and `a[3]` = 8. The left side
-`2 1` was never touched again: each round keeps one side.
+3 = k, so the loop stops with `lo` = 3. The left side `2 1` was never
+touched again, so `a[0]` is still 2: the array is not sorted, only
+`a[3]` is in its final slot. Each round keeps one side.
 
 (Values from running it under GCC 16.2.)

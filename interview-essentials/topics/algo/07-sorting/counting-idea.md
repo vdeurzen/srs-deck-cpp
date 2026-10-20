@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [sorting, complexity]
 requires:
-  - linear-prefix-sum-range
+  - sort-counting-worked
   - sort-merge-idea
 refs:
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html
@@ -13,7 +13,7 @@ refs:
 elaborate: Name one key you sort in your own work whose range is small enough for this, and one whose range is not.
 ---
 
-## Merge sort needs Θ(n log n), and a proof shows no sort that works the way it does can beat that. Counting sort orders 1 000 000 exam scores in 0–100 in O(n + k) time (k = 101 possible scores). How does it get under that bound?
+## Merge sort takes Θ(n log n), and a proof shows every sort built on merge sort's basic step does too. Counting sort orders 1 000 000 exam scores in 0–100 in linear time. How does it get under that bound?
 
 ---
 

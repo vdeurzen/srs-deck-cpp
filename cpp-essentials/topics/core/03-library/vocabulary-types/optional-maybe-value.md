@@ -7,7 +7,7 @@ tags: [vocabulary-types, optional, error-handling]
 requires:
   - ptr-reference-vs-pointer
   - life-stack-vs-heap
-elaborate: Say aloud what a caller of a Go `(User, bool)` return must remember that `std::optional<User>` makes the type itself carry.
+elaborate: Which function of yours returns a sentinel for "none", and what could its caller forget?
 refs:
   - https://en.cppreference.com/w/cpp/utility/optional
 ---

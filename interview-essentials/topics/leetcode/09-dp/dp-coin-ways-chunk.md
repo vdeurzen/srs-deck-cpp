@@ -32,6 +32,5 @@ return dp[amount];
 the ways to make `amount` from reusable `coins`. Coins outer:
 each multiset is built once. `a` upwards: `dp[a - c]` may already use `c`.
 
-`unsigned`: coins {2, 4, …, 20} with amount 4999 answer 0, yet cells
-pass 10¹⁸. Unsigned wraps where `int` overflow is UB; the answer stays
-exact.
+`unsigned`: intermediate cells can overflow even when the answer fits;
+unsigned wraps harmlessly where `int` overflow is UB.

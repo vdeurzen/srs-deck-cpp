@@ -21,8 +21,8 @@ site).
 
 ---
 
-**It lets every translation unit hold an identical definition without a
-link error; the linker keeps one.** Without it, a header-defined function
+**It permits an identical definition in every translation unit.** The
+linker keeps one copy, so there is no link error. Without it, a header-defined function
 is a duplicate definition in each `.cpp`. Inlining calls is the
 compiler's own decision, keyword or not. Since C++17 the same applies
 to `inline` variables.

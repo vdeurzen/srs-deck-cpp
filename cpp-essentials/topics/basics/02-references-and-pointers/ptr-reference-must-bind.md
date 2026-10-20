@@ -5,14 +5,15 @@ version: 2
 level: 1
 tags: [references]
 requires:
+  - ptr-reference-alias-write
   - ptr-holds-an-address
-elaborate: Say in one sentence what a Go programmer gains when a C++ function takes `T&` instead of `T*`.
+elaborate: Say in one sentence what bug a reference parameter rules out that a pointer parameter allows.
 refs:
   - https://en.cppreference.com/w/cpp/language/reference
   - https://eel.is/c++draft/dcl.ref#5
 ---
 
-## `int& r = a;` makes `r` a reference: another name for `a`. Which of these two declarations compiles on its own: `int* p;` or `int& r;`?
+## Which of these two declarations compiles on its own: `int* p;`, `int& r;`, both or neither?
 
 ---
 

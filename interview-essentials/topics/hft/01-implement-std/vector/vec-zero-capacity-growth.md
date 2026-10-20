@@ -68,7 +68,3 @@ both return 0 for an empty vector: `allocate(0)`, then a construct past
 the end of a zero-slot buffer, undefined behaviour. Guarding
 zero isn't enough for 1.5: `1 + 1 / 2` is 1 again, so it stalls there.
 `cap + 1` works from zero but reallocates on every push: O(n²) in total.
-
-libstdc++ computes `size() + max(size(), 1)`, so 0 → 1 → 2 → 4; MSVC
-grows by 1.5 but never to less than the size it needs. Both are implementation
-choices; the standard asks only for amortised O(1) `push_back`.

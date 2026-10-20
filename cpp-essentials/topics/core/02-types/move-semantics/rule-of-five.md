@@ -29,10 +29,8 @@ b = a;
 
 ---
 
-**The implicit copy assignment copies the pointer: `b`'s array leaks, and
-both destructors `delete[]` `a`'s array (double free).**
+**It copies the pointer, so both destructors `delete[]` `a`'s array.**
 
-Rule of Five: a destructor that releases a resource means copy
-assignment and both move operations must be written or deleted too. Here
-no move is declared at all, so moving a `Buffer` falls back to the
-copies, including the broken one.
+The implicit copy assignment is shallow, and `b`'s old array also leaks.
+Rule of Five: a destructor that releases a resource means copy assignment
+and both move operations must be written or deleted too.

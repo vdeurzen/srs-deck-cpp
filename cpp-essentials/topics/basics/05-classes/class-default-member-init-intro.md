@@ -19,7 +19,9 @@ struct Retry {
     Retry(int d) : delay(d) {}
 };
 
-Retry r(250);
+int main() {
+    Retry r(250);
+}
 ```
 
 ## The constructor's list sets only `delay`. What value does `r.limit` start with?

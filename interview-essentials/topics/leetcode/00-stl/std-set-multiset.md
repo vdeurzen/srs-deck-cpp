@@ -20,8 +20,8 @@ std::set<int> s{5, 2, 5, 9};
 
 ---
 
-**2, 5, 9: a set keeps each key once, in sorted order.**
+**2, 5, 9: duplicates collapse into one key.**
 
-The second 5 is dropped, so `s.size()` is 3. A set is a balanced search
-tree: insert, find and erase take about log₂ n steps.
-`std::multiset<int>` keeps duplicates: the same list gives 2, 5, 5, 9.
+The second 5 is dropped, so `s.size()` is 3. The keys come out sorted
+because a set is a balanced search tree: insert, find and erase take
+about log₂ n steps.

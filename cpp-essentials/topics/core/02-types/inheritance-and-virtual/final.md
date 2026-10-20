@@ -6,14 +6,14 @@ level: 3
 tags: [inheritance, virtual, performance]
 input: chips
 choices:
-  c1: ["final", "override", "sealed", "virtual"]
+  c1: ["final", "override", "static", "virtual"]
 compile:
   harness: |
     #include <type_traits>
     static_assert(std::is_final_v<Circle>);
     int main() {}
 requires:
-  - virtual-override-mismatch
+  - virtual-final-intro
   - staticpoly-static-vs-dynamic
 refs:
   - https://en.cppreference.com/w/cpp/language/final
@@ -37,4 +37,5 @@ struct Circle {{c1::final}} : Shape {
 function, it forbids further overriding). Since nothing can override
 `Circle::area`, a call through a `Circle&` or `Circle*` has exactly one
 possible target, so the compiler may **devirtualise** it: call it
-directly, and inline it. `override` belongs on functions, not classes; `sealed` is C#/MSVC.
+directly, and inline it. `override` belongs on functions, not classes; `static` cannot
+qualify a class at all.

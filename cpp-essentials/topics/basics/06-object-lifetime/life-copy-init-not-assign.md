@@ -5,14 +5,14 @@ version: 1
 level: 1
 tags: [lifetime, copy, special-members]
 requires:
-  - class-constructor-intro
-elaborate: Say how you would explain to a Go programmer why `Account b = a;` is not an assignment.
+  - life-copy-ctor-vocab
+elaborate: Say how you would tell, line by line, whether an `=` in your code initialises or assigns.
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_constructor
   - https://en.cppreference.com/w/cpp/language/copy_assignment
 ---
 
-## `Account` defines two functions: a *copy constructor*, which builds a new `Account` from an existing one, and a *copy assignment operator*, which `x = y;` calls. Which of the two runs on the second line?
+## `Account` defines a copy constructor and a *copy assignment operator*, the function `x = y;` calls. Which of the two runs on the second line?
 
 ```cpp
 Account a{"alice"};

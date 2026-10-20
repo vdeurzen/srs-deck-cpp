@@ -14,13 +14,13 @@ refs:
 
 A routine takes 1 ms at n = 1 000. Make the input 1 000× larger
 (n = 1 000 000). If the routine is O(n), it now takes about
-{{c1::1 second}}; if it is O(n²), about {{c2::17 minutes}}; if it is
+{{c1::1 second}}; if it is O(n²), about {{c2::1 000 seconds}}; if it is
 O(log n), about {{c3::2 ms}}. (log₂ 10³ ≈ 10, log₂ 10⁶ ≈ 20.)
 
 ---
 
 Big-O says how cost **grows** with n, so predict by scaling, not by
 plugging in n: ×1 000 for linear, ×1 000² = ×10⁶ for quadratic
-(1 000 s ≈ 17 min), and 20 / 10 = ×2 for logarithmic. The constant factor
+(1 ms × 10⁶ = 1 000 s), and 20 / 10 = ×2 for logarithmic. The constant factor
 cancels in the ratio, which is exactly why big-O drops it, and why it
 cannot tell you which of two O(n) routines is faster.

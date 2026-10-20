@@ -2,7 +2,7 @@
 id: technique-explain-dp
 kind: explain
 version: 1
-level: 3
+level: 4
 tags: [choosing, optimisation]
 requires:
   - technique-dp-overlapping-subproblems

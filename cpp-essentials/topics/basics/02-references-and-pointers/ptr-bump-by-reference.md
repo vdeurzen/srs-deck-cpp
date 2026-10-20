@@ -5,10 +5,10 @@ version: 1
 level: 1
 tags: [references, functions, parameters]
 requires:
-  - ptr-trace-reference-assign
-  - fn-param-change-intro
+  - fn-ref-param-intro
+  - const-ref-names-caller
   - constexpr-fn-static-assert
-elaborate: Say how a Go function changes its caller's `int`, and what the C++ caller no longer has to write.
+elaborate: Say aloud when you would still take `int*` instead of `int&` for a value the function changes.
 input: chips
 choices:
   c1: ["int&", "int", "const int&", "int*"]
@@ -35,7 +35,7 @@ constexpr void bump({{c1::int&}} n) { ++n; }
 
 ---
 
-**`int&`: the parameter is another name for the caller's `x`.**
+**`int&`: the parameter is another name for the argument `x`.**
 
 So `++n` increments `x`, and the caller writes plain `bump(x)`. By value
 (`int n`) the function increments its own copy and `x` stays 1.

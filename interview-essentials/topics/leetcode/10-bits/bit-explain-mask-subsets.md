@@ -15,9 +15,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic
 elaborate: Where else does a small set fit in one integer, such as feature flags or permission bits, and what does a loop over every mask then mean there?
 ---
-An interviewer asks how a problem statement tells you to try every
-subset by counting through integers, and what that costs. Answer
-aloud.
+An interviewer asks how you recognise, from a problem statement, that
+it calls for enumerating subsets as bitmasks. Answer aloud.
 ---
 - [ ] Cue: n is small, at most about 20, and every subset of the items must be tried
 - [ ] Pattern: count a mask from 0 to 2ⁿ − 1; bit i set means item i is in the subset

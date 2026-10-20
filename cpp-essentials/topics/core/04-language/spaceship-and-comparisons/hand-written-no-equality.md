@@ -5,10 +5,8 @@ version: 1
 level: 3
 tags: [comparisons, misconception]
 requires:
-  - spaceship-basics
-  - operator-overloading-basics
-  - class-default-delete-where
-  - const-member-on-const-ref
+  - spaceship-defaulted-which-compile
+  - spaceship-less-from-three-way
 elaborate: "For a type of yours with a hand-written `<=>`, would an `==` derived from it do more work than a dedicated one?"
 refs:
   - https://en.cppreference.com/w/cpp/language/default_comparisons
@@ -16,6 +14,7 @@ refs:
 ---
 
 Many expect `==` to come from `<=>` just as `<` does.
+`std::strong_ordering` is the type that `<=>` on two `int`s gives.
 
 ## `a < b` compiles for two `Version`s. What happens with `a == b`?
 

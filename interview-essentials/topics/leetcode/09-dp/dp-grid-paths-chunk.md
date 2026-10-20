@@ -7,8 +7,7 @@ tags: [dynamic-programming, grids, lc-62, lc-63]
 expose_ms: 9500
 compile: null # a function body
 requires:
-  - dp-grid-dag-signal
-  - cpp-essentials/vector-sized-constructor
+  - dp-grid-paths-faded
 refs:
   - https://leetcode.com/problems/unique-paths/
   - https://leetcode.com/problems/unique-paths-ii/

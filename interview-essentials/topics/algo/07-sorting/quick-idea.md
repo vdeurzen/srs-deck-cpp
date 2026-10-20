@@ -13,7 +13,7 @@ refs:
 
 ---
 
-**The pivot is already in its final slot, with every smaller key left of it and every larger key right.**
+**The pivot is already in its final slot: smaller keys left, larger right.**
 
 Sorting `[3 1]` and `[5 7]` independently finishes the array. Quicksort
 does its work before recursing (partition); merge sort does it after

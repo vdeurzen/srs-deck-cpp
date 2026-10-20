@@ -16,7 +16,7 @@ compile:
     static_assert(check());
     int main() {}
 requires:
-  - move-semantics-forwarding-reference
+  - move-semantics-forward-intro
   - value-categories-overload-binding
   - constexpr-fn-static-assert
   - std-names-and-headers

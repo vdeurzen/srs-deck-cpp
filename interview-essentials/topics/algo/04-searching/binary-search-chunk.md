@@ -7,7 +7,8 @@ tags: [foundations, binary-search]
 expose_ms: 12000
 compile: null
 requires:
-  - search-binary-search-halving
+  - search-closed-range-invariant
+  - search-midpoint-overflow
 elaborate: "Which line would you change so the loop finds the first element not less than `key`, instead of any match?"
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm#Procedure
@@ -30,9 +31,8 @@ while (lo <= hi) {
 ---
 
 **Binary search over a sorted array, closed-range form**: the candidates
-are `a[lo..hi]`, both ends included. Line by line: start with every
-index; loop while a candidate is left; probe the middle (written so
-`lo + hi` cannot overflow); stop on a hit; otherwise drop `mid` and the
-half on the wrong side of it, which the sorted order proves cannot hold
-the key. Leaving the loop means the range is empty: the key is
-absent, so `return -1` follows.
+are `a[lo..hi]`, both ends included. **Init**: every index is a
+candidate; loop while one is left. **Compute mid** so `lo + hi` cannot
+overflow. **Compare**: stop on a hit. **Shrink**: drop `mid` and the half
+the sorted order proves cannot hold the key. An empty range means the
+key is absent, so `return -1` follows.

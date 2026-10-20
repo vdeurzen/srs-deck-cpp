@@ -31,7 +31,7 @@ compile:
       return subarray_sum(std::array{1, 1, 1}, 2, seen);
     }
 requires:
-  - arr-prefix-hash-signal
+  - arr-prefix-count-trace
   - cpp-essentials/iter-map-subscript-inserts
   - stl-const-auto-param
 refs:
@@ -41,6 +41,9 @@ refs:
   - https://en.cppreference.com/w/cpp/container/unordered_map/operator_at
 elaborate: Contiguous Array (LC 525) wants the longest subarray of a 0/1 array with equally many 0s and 1s, not a count. What would `seen` store instead, and when would you write it?
 ---
+
+Count the contiguous subarrays of `a` summing to `k`; `seen` counts
+prefix sums. Order the lines.
 
 ```cpp
 constexpr int subarray_sum(const auto& a, int k, auto& seen) {
@@ -55,7 +58,7 @@ constexpr int subarray_sum(const auto& a, int k, auto& seen) {
 
 ---
 
-**Prefix sum + hash map of prefix counts** (Subarray Sum Equals K,
+**Seed, then add, look up, count: prefix sums with a hash map of their counts** (Subarray Sum Equals K,
 LC 560: count the contiguous subarrays summing to `k`). `seen` counts
 the prefix sums so far. After `p += x`, every earlier prefix equal to
 `p − k` starts a subarray that ends at `x` and sums to `k`.

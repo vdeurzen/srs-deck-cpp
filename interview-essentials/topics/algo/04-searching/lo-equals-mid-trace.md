@@ -15,8 +15,9 @@ refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm
 ---
 
-A binary search with one changed line. The loop would call `step()`
-while `lo < hi`.
+A binary search with one changed line in its shrink step. Each
+`step()` computes mid, compares, shrinks; the loop would call it while
+`lo < hi`.
 
 ```cpp
 int a[] = {2, 5, 8, 12};

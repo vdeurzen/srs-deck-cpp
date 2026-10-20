@@ -1,7 +1,7 @@
 ---
 id: rec-top-k-choice
 kind: basic
-version: 1
+version: 2
 level: 4
 tags: [recognition, lc-703, lc-347]
 requires:
@@ -24,12 +24,13 @@ Two "best k" statements:
 > (b) Given `nums` of length n, return the k most frequent elements,
 > in any order.
 
-## For each, what property of its data lets you beat sorting everything?
+## One of them can be solved without ever comparing two elements. What property of its data allows that?
 
 ---
 
-**(a) only the k best so far matter; (b) every count lies in 1..n.**
+**(b): every count lies in 1..n, so a count can index a bucket.**
 
-(a) A size-k min-heap: a new score competes with the root alone,
-O(log k). (b) Bucket `i` holds the values seen `i` times; read the
-buckets from n down until k values are taken: O(n), no comparison sort.
+Bucket `i` holds the values seen `i` times; read the buckets from n
+down until k values are taken: O(n). (a)'s scores have no bounded range
+and keep arriving, so it keeps a size-k min-heap: a new score competes
+with the root alone, O(log k).

@@ -26,7 +26,7 @@ refs:
 struct alignas(64) PaddedCounter {
   std::atomic<unsigned long> value{0};
 };
-std::array<PaddedCounter, 8> counters;   // one per thread
+std::array<PaddedCounter, 8> counters;
 ```
 
 ---

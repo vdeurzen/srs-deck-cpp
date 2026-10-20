@@ -19,8 +19,8 @@ A `std::vector` invalidates {{c1::all three::which of the three handles?}}
 whenever it reallocates. A `std::deque` invalidates all iterators on a
 push at either end but leaves {{c2::references and pointers::which
 handles?}} to the existing elements valid. A
-`std::map` erase invalidates {{c3::only the erased element's iterators
-and references::how much of the tree?}}.
+`std::map` erase invalidates {{c3::only the erased element's iterators,
+pointers and references::how much of the tree?}}.
 
 ---
 

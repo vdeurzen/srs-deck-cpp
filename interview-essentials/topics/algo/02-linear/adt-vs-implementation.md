@@ -1,7 +1,7 @@
 ---
 id: linear-adt-vs-implementation
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [foundations, adt]
 refs:
@@ -14,13 +14,13 @@ refs:
 ```text
 (a) the ids move from an array into a chain of linked nodes
 (b) add(id) now silently ignores ids above 1000
-(c) contains(id) becomes ten times slower
+(c) add(id) now keeps the stored ids sorted
 ```
 
 ---
 
-**Only (b): it changes what an operation promises.**
+**Only (b): it breaks the abstract data type (ADT), the operations' promised results.**
 
-The operations and their promised results form an *abstract data type*
-(ADT). (a) swaps the *implementation* and (c) changes a cost; neither
-changes a result, so the caller's code stays correct untouched.
+(a) and (c) change the *implementation*, how the ids are stored. No
+promised result changes, so `contains` answers exactly as before and
+the caller's code stays correct untouched.

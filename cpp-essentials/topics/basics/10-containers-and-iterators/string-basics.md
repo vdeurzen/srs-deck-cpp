@@ -7,7 +7,7 @@ tags: [containers, string, foundations, misconception]
 requires:
   - std-names-and-headers
   - types-char-is-integer
-elaborate: Say where a Go habit of building a new string for every change would cost you in C++, and what you would write instead.
+elaborate: Say why appending with `s += c` in a loop beats rebuilding with `s = s + c`, as you would to an interviewer.
 refs:
   - https://en.cppreference.com/w/cpp/string/basic_string
   - https://en.cppreference.com/w/cpp/string/basic_string/operator_at
@@ -19,7 +19,7 @@ std::string s = "cat";
 s[0] = 'b';
 ```
 
-## Go strings are immutable, so many expect the last line not to compile. What does `s` hold after it?
+## Many expect a string's characters to be read-only, so the last line would not compile. What does `s` hold after it?
 
 ---
 

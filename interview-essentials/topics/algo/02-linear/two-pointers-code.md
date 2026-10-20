@@ -21,13 +21,13 @@ elaborate: "Which other sorted-input problem lets one comparison discard a whole
 refs:
   - https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
 requires:
-  - linear-two-pointers-sorted-pair
+  - linear-two-pointers-worked
   - stl-const-auto-param
 ---
 
 Does the sorted array `a` hold two elements (at different positions)
-that sum to `target`? Complete the step that moves an index when `s`
-misses.
+that sum to `target`? Each pass is compare, then move: complete the
+move for when `s` misses.
 
 ```cpp
 constexpr bool has_pair(const auto& a, int target) {

@@ -1,11 +1,11 @@
 ---
 id: search-closed-range-invariant
 kind: cloze
-version: 1
+version: 2
 level: 2
 tags: [foundations, binary-search, invariants]
 requires:
-  - search-binary-search-halving
+  - search-closed-range-worked
   - technique-loop-invariant-sum
 elaborate: "Say aloud, as to an interviewer, what this loop promises about `a[lo..hi]` on every pass."
 refs:
@@ -22,14 +22,11 @@ while (lo <= hi) {
 return -1;
 ```
 
-In the sorted array `a`, if `key` occurs at all, it occurs in
-`a[lo..hi]` with both ends {{c1::included::inclusive or exclusive?}}. When
-`a[mid] < key`, everything in `a[0..mid]` is {{c2::smaller than `key`::compare with the key}},
-so `lo = mid + 1` keeps that true. When `lo > hi` the slice is empty,
-so `return -1` is correct.
+The loop invariant: in the sorted array `a`, if `key` occurs at all, it
+occurs in `a[lo..hi]` with both ends {{c1::included::inclusive or exclusive?}}.
 
 ---
 
-Example: `a = {2, 5, 8, 12, 17}`, `key = 12`. `mid = 2`, `8 < 12`: the
-key, if present, is in `a[3..4]`. `mid = 3`: found. Every update throws
-away only what the sorted order proves cannot match.
+That is why the loop runs while `lo <= hi` (one candidate is still a
+candidate) and why `lo = mid + 1` skips the `a[mid]` just tested. When
+`lo > hi` the slice is empty, so `return -1` is correct.

@@ -17,18 +17,19 @@ refs:
 ## "`*p` is read right away, before anything can overwrite that memory, so `v` is 8." What actually happens?
 
 ```cpp
-int* larger(int a, int b) {
-  int m = a;
-  if (b > m) m = b;
+int* sum(int a, int b) {
+  int m = a + b;
   return &m;
 }
-int* p = larger(3, 8);
-int v = *p;
+void use() {
+  int* p = sum(3, 5);
+  int v = *p;
+}
 ```
 
 ---
 
-**Undefined behaviour: `m` died when `larger` returned, so `p`
+**Undefined behaviour: `m` died when `sum` returned, so `p`
 dangles.** "Right away" does not matter; the object is gone, not merely
 at risk. That memory often still holds 8, which is why the belief
 survives testing; GCC may even return null instead, so the read can

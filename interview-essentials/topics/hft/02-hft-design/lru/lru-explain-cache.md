@@ -2,7 +2,7 @@
 id: lru-explain-cache
 kind: explain
 version: 1
-level: 3
+level: 4
 tags: [hft, lru, caching, design]
 requires:
   - lru-design-worked

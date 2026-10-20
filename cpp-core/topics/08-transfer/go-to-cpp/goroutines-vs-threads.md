@@ -4,7 +4,7 @@ kind: cloze
 version: 3
 level: 3
 tags: [transfer, misconception, concurrency]
-elaborate: Which of your Go services start one goroutine per request, and what would bound the number of tasks in flight once ported to C++?
+elaborate: Say in one sentence, as to an interviewer, why a pool sized to the core count beats one thread per request.
 requires:
   - cpp-essentials/threads-thread-destructor-joinable
 refs:
@@ -14,11 +14,10 @@ refs:
   - https://man7.org/linux/man-pages/man5/proc_sys_kernel.5.html
 ---
 
-A goroutine starts with a stack of a few KiB, and the Go runtime
-schedules millions of them itself. A `std::jthread` is exactly one
+A `std::jthread` is exactly one
 {{c1::OS thread}}, with no runtime in between to multiplex it. Spawn
 100k of them for 100k requests and system limits (`threads-max`, a
 cgroup's `pids.max`) and scheduling cost stop you long before memory
 does: on a 64-bit system each stack is mostly uncommitted address space.
-Goroutine-style CPU-bound work in C++ is a fixed number of `jthread`s,
+CPU-bound per-request work in C++ is a fixed number of `jthread`s,
 about {{c2::one per core}}, draining a task queue.

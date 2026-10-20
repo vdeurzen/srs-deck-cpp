@@ -3,21 +3,20 @@ id: ptr-explain-parameter-forms
 kind: explain
 version: 1
 level: 2
-tags: [pointers, references, parameters]
+tags: [pointers, references, parameters, interview]
 requires:
   - ptr-bump-by-reference
   - const-ref-parameter
   - ptr-pointer-param-meaning
-  - ub-definition
-elaborate: Pick a function you wrote recently; which of the four parameter forms would you give it now, and why?
+elaborate: Pick a function you wrote recently; which parameter form would you give it now, and why?
 refs:
   - https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines#f15-prefer-simple-and-conventional-ways-of-passing-information
   - https://en.cppreference.com/w/cpp/language/reference
   - https://en.cppreference.com/w/cpp/language/pointer
 ---
 
-An interviewer asks: a function needs one of its caller's objects. How do
-you choose between taking it as `T`, `T&`, `const T&` or `T*`?
+An interviewer asks: a function needs one of its caller's objects. Talk
+them through how you decide how the function should take it.
 
 ---
 

@@ -6,7 +6,7 @@ level: 1
 tags: [inheritance, types]
 requires:
   - virtual-is-a
-elaborate: Say what in a Go interface value plays the role of C++'s dynamic type, and where you have relied on it.
+elaborate: Say where in code you know a `Base&` parameter really refers to a derived object, and how you could tell from reading the call site.
 refs:
   - https://eel.is/c++draft/defns.dynamic.type
   - https://eel.is/c++draft/defns.static.type

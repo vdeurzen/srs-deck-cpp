@@ -12,22 +12,21 @@ requires:
 refs:
   - https://doi.org/10.1137/0201010
   - https://en.wikipedia.org/wiki/Depth-first_search
-elaborate: A DFS on a path of a million vertices crashes but the same walk with an explicit stack does not. Say why, as to an interviewer.
+elaborate: A DFS on a path of a million vertices has undefined behaviour (on Linux the process is killed) but the same walk with an explicit stack does not. Say why, as to an interviewer.
 ---
 
 Recursive depth-first search from 0; the braces give each `adj[u]`, the
 list of u's neighbours. `path` lists the vertices whose `dfs` call is
-still running. The probe fires once, when `u` is 2.
+still running. Probe @1 is read once, just after 2 is pushed.
 
 ```cpp
-// undirected: 0-1 0-2
+// edges 0-1 and 0-2, each stored in both lists
 const std::vector<int> adj[3] = {{1, 2}, {0}, {0}};
 bool seen[3] = {false, false, false};
 std::vector<int> path;
 void dfs(int u) {
   seen[u] = true;
-  path.push_back(u);
-  if (u == 2) {}   // @1
+  path.push_back(u);   // @1
   for (int v : adj[u])
     if (!seen[v]) dfs(v);
   path.pop_back();

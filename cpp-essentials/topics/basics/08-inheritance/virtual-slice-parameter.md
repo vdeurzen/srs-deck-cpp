@@ -5,8 +5,8 @@ version: 2
 level: 2
 tags: [inheritance, virtual, slicing, tracing]
 requires:
+  - virtual-slicing-intro
   - virtual-function-intro
-  - fn-param-change-intro
 probes:
   1: { a: "4" }
   2: { b: "0" }

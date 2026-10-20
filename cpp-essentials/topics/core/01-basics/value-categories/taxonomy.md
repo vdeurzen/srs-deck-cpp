@@ -5,8 +5,7 @@ version: 1
 level: 1
 tags: [value-categories]
 requires:
-  - value-categories-categories-cloze
-  - move-vs-copy-intro
+  - value-categories-third-category
 elaborate: Say in one sentence, as to an interviewer, why the language needs a category that is both a glvalue and an rvalue.
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category

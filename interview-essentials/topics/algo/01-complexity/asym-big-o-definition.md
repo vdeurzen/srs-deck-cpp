@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, complexity, big-o]
 requires:
-  - complexity-asym-step-model
+  - complexity-asym-upper-bound-intro
 elaborate: "Say aloud, as to an interviewer, why the freedom to pick c means O ignores whether the machine is twice as fast."
 refs:
   - https://dl.acm.org/doi/10.1145/1008328.1008329

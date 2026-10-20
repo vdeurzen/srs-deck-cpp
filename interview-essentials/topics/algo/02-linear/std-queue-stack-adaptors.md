@@ -1,33 +1,32 @@
 ---
 id: std-queue-stack-adaptors
 kind: basic
-version: 1
+version: 2
 level: 1
-tags: [foundations, queues, stacks, containers]
+tags: [foundations, queues, containers]
 requires:
   - linear-queue-adt
-  - linear-stack-adt
   - cpp-essentials/vector-basics
 refs:
   - https://en.cppreference.com/w/cpp/container/queue
-  - https://en.cppreference.com/w/cpp/container/stack
+  - https://en.cppreference.com/w/cpp/container/queue/pop
 elaborate: Say in one sentence why `std::queue::pop` returns nothing instead of the removed element.
 ---
 
-## What are `a` and `q.front()` after these lines?
+## `std::queue` is the standard library's FIFO queue. Which numbered line does not compile?
 
 ```cpp
 std::queue<int> q;
 q.push(1);
 q.push(2);
-int a = q.front();
-q.pop();
+int b = q.front();   // (1)
+q.pop();             // (2)
+int a = q.pop();     // (3)
 ```
 
 ---
 
-**1 and 2: `front()` reads the oldest; `pop()` removes it, returning nothing.**
+**(3): `pop()` returns `void`; it removes the oldest without handing it back.**
 
-So read before you pop. `std::stack` is the LIFO twin: `push`, `top`
-to read the newest, `pop` to remove it. Both are adaptors: a narrow
-queue or stack interface wrapped around another container.
+Read the oldest with `front()` first, then `pop()` it. Line (1)
+reads 1, and line (2) removes it, leaving 2 at the front.

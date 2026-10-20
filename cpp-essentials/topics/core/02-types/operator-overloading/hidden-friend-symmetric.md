@@ -44,6 +44,6 @@ public:
 ---
 
 Implicit is right here because the conversion is lossless. A `friend` defined in the class is a
-**non-member**, so both operands are ordinary parameters and `2` converts on
+**non-member**, so both operands bind to ordinary parameters and `2` converts on
 either side. Without `friend`, two parameters make an ill-formed member;
 a trailing `const` is allowed only on a member.

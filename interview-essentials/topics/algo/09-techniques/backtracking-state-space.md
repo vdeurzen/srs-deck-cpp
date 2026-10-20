@@ -25,6 +25,6 @@ refs:
 ```
 
 **A partial solution: the choices made so far.** Each level decides one
-item, take or skip, so 3 items give 2³ = 8 leaves. Backtracking walks
-this state-space tree depth-first, keeping only the current path, and
-abandons a node as soon as it cannot lead to a solution.
+item, take or skip, so 3 items give 2³ = 8 leaves, one per candidate
+subset. Backtracking walks this state-space tree depth-first, keeping
+only the current path.

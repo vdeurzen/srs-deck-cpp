@@ -1,7 +1,7 @@
 ---
 id: sort-std-sort-vs-stable
 kind: basic
-version: 1
+version: 2
 level: 3
 tags: [sorting, stability, cpp]
 requires:
@@ -14,13 +14,13 @@ refs:
   - https://gcc.gnu.org/git/?p=gcc.git;a=blob;f=libstdc%2B%2B-v3/include/bits/stl_algo.h
 ---
 
-## `std::sort` is O(n log n) comparisons, in place (O(1) extra memory). What does `std::stable_sort` need to match that bound while keeping equal keys in order?
+## `std::sort` is O(n log n) comparisons, in place (only O(log n) extra memory, for the call stack). What does `std::stable_sort` need to match that bound while keeping equal keys in order?
 
 ---
 
-**A merge-sort buffer; if it can't get one, O(n·(log n)²) comparisons instead.**
+**A Θ(n) merge buffer.**
 
-`std::sort` is introsort: quicksort that falls back to heap sort when
-recursion gets too deep, so in place, O(n log n) worst case, unstable.
-GCC's `stable_sort` requests ⌈n/2⌉ elements: 32 MB for 10⁶
-64-byte records.
+GCC's `stable_sort` requests ⌈n/2⌉ elements, 32 MB for 10⁶ 64-byte
+records; without them it falls back to O(n·(log n)²) comparisons.
+`std::sort` is introsort (quicksort, switching to heap sort when
+recursion runs deep): no buffer, but unstable.

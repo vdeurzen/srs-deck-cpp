@@ -1,12 +1,11 @@
 ---
 id: stl-size-t-unsigned
 kind: basic
-version: 1
+version: 2
 level: 1
-tags: [stl, foundations, integers]
+tags: [stl, foundations, integers, misconception]
 requires:
   - cpp-essentials/types-overflow-rules
-  - cpp-essentials/vector-basics
   - cpp-essentials/types-size-t
 refs:
   - https://en.cppreference.com/w/cpp/types/size_t
@@ -14,17 +13,22 @@ refs:
 elaborate: Say where in a loop over `v` you would write `i + 1 < v.size()` instead of `i < v.size() - 1`, and why.
 ---
 
+Many expect this adjacent-pairs check to run zero times on an empty `v`:
+
 ```cpp
-std::vector<int> v;                 // empty
-std::size_t last = v.size() - 1;    // size() returns std::size_t
+std::vector<int> v;                             // empty
+bool sorted = true;
+for (std::size_t i = 0; i < v.size() - 1; ++i)
+  if (v[i] > v[i + 1]) sorted = false;
 ```
 
-## On a 64-bit machine, what value does `last` hold?
+## What does the loop do?
 
 ---
 
-**2⁶⁴ − 1 (18446744073709551615): `std::size_t` is unsigned, so 0 − 1 wraps.**
-`std::size_t` is the unsigned integer type that `sizeof` and every
-container's `size()` return, as wide as a pointer. A loop bound such as
-`v.size() - 1` is therefore huge, not −1, when `v` is empty.
-Values from running it under GCC 16.2.
+**It runs: `v.size() - 1` wraps to 2⁶⁴ − 1, so it reads `v[0]` out of range.**
+
+`size()` returns `std::size_t`, which is unsigned, so 0 − 1 wraps to
+its largest value, 18446744073709551615 on a 64-bit machine. Reading
+past the end is undefined behaviour. `i + 1 < v.size()` never
+subtracts.

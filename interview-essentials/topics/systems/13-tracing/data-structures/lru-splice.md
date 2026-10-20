@@ -8,7 +8,7 @@ probes:
   1: { "order.front()": "1", "order.back()": "2" }
   2: { "order.front()": "7" }
 requires:
-  - seq-invalidation-rules
+  - cpp-essentials/containers-stable-references
   - std-list-basics
 elaborate: What would break if this were a `std::vector` and the cache had stored indices instead of iterators?
 refs:

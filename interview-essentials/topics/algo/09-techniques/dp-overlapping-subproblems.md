@@ -12,7 +12,7 @@ refs:
   - https://en.wikipedia.org/wiki/Overlapping_subproblems
 ---
 
-## Naive recursive `fib(n) = fib(n − 1) + fib(n − 2)` roughly doubles its work with each step of n. With a memo (a table that saves each call's answer by its argument, so a repeat returns at once) it is linear. What property of the recursion does the memo exploit?
+## Naive recursive `fib(n) = fib(n − 1) + fib(n − 2)` roughly doubles its work with each step of n. With a memo (a table of answers looked up by argument) it is linear. What property of the recursion does the memo exploit?
 
 ---
 

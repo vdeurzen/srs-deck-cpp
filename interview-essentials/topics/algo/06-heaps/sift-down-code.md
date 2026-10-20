@@ -15,7 +15,7 @@ compile:
         out.push_back(h[0]);
         h[0] = h.back();
         h.pop_back();
-        sift_down(h, 0);
+        sift_down(h, 0, h.size());
       }
       return out;
     }
@@ -26,24 +26,22 @@ refs:
   - https://doi.org/10.1145/355588.365103
   - https://en.cppreference.com/w/cpp/algorithm/pop_heap
 requires:
+  - heap-sift-down-worked
   - heap-push-trace
-  - heap-child-index-code
   - cpp-essentials/ptr-reference-must-bind
   - cpp-essentials/expr-increment-value
 elaborate: Say in one sentence, as to an interviewer, which invariant sift-down restores and why one walk from the root is enough to restore it.
 ---
 
-A pop moves the max-heap's last element into the root and sifts it down:
-swaps it with a child until it is no smaller than its children. Complete
-the test that decides which child it is compared and swapped with.
+A pop moves the max-heap's last element into the root and sifts it down
+within the heap's first `n` slots: swaps it with a child until it is no
+smaller than its children. Complete the test that picks the child.
 
 ```cpp
 #include <utility>
 #include <vector>
-constexpr void sift_down(std::vector<int>& h, int i) {
-  const int n = h.size();
-  while (2 * i + 1 < n) {
-    int c = 2 * i + 1;
+constexpr void sift_down(std::vector<int>& h, int i, int n) {
+  for (int c = 2 * i + 1; c < n; c = 2 * i + 1) {
     if (c + 1 < n && {{c1::h[c + 1] > h[c]}}) ++c;
     if (h[i] >= h[c]) return;
     std::swap(h[i], h[c]);

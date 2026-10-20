@@ -16,7 +16,7 @@ compile:
     int main() {}
 elaborate: Name one standard library class template you would use daily and say what its template parameter stands for.
 requires:
-  - tmpl-why-template
+  - tmpl-class-template-intro
   - class-struct-vs-class
   - types-auto-deduces
 refs:

@@ -19,5 +19,4 @@ refs:
 **It cannot: `temps` converts to a pointer to `temps[0]`, and the length is lost.**
 Where a pointer is needed, an array's name converts implicitly to a
 pointer to its first element (array-to-pointer conversion, "decay"). `p`
-carries only that start address, so the count must travel separately,
-as a second parameter.
+carries only that start address, so the count must travel separately.

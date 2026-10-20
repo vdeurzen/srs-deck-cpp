@@ -24,6 +24,6 @@ std::sort(v.begin(), v.end(),
 
 **{21, 32, 13}: `sort` puts a before b whenever the comparator returns true.**
 
-This lambda compares last digits (1, 3, 2), so `v` ends up ordered by
+This comparator compares last digits (1, 3, 2), so `v` ends up ordered by
 them. `std::sort(first, last)` sorts the range `[first, last)`; given no
 comparator it uses `<`, ascending.

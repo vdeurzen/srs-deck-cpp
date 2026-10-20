@@ -6,7 +6,7 @@ level: 1
 tags: [lifetime, new-delete, storage-duration, tracing]
 requires:
   - life-ctor-dtor-count
-  - life-stack-vs-heap
+  - life-delete-ends-heap-object
   - ptr-null-pointer
 elaborate: Say who is responsible for `delete kept;` here, and how a reader of the code would know.
 probes:

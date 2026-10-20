@@ -13,6 +13,7 @@ compile:
     static_assert(p.id == 7);
     int main() {}
 requires:
+  - value-categories-prvalue-no-copy
   - class-default-delete-where
   - value-categories-std-move-cloze
   - constexpr-fn-static-assert

@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/exceptions
   - https://en.cppreference.com/w/cpp/language/throw
-elaborate: Say how a Go program would pass this failure up ten calls, and what each of the nine middle functions would have to write.
+elaborate: Say what each of the nine middle functions would have to add if `read_port` returned the failure as a value instead.
 ---
 
 `read_port()` finds the config file missing. The only code that can react

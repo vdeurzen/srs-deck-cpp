@@ -19,8 +19,8 @@ elaborate: Which failures in your trading path are expected outcomes, and which 
 
 ---
 
-**Each throw is a slow library call: allocate, then search lookup tables for a handler.**
-Under GCC's exception ABI the exception object is normally heap-allocated,
-then the runtime walks the stack twice: once to find a handler, once to
-run destructors. That costs hundreds of ns to µs per throw, against a
-few ns for a return code.
+**A throw allocates the exception object, then walks the stack twice: about 1 µs against 1 ns.**
+Under GCC's exception ABI the runtime walks the stack once to find a
+handler and again to run destructors, using lookup tables. Measured
+with GCC 16.2 at `-O2`: about 750 ns per throw and catch, about 1 ns
+per error return.

@@ -6,7 +6,7 @@ level: 1
 tags: [classes, constructors, foundations]
 requires:
   - class-constructor-intro
-elaborate: Say how this compares with filling a Go struct literal inside a `NewCar` function, and what C++ lets you do here that Go does not.
+elaborate: Which of your members would you move from the constructor body into the list?
 refs:
   - https://en.cppreference.com/w/cpp/language/constructor#Member_initializer_list
   - https://eel.is/c++draft/class.base.init

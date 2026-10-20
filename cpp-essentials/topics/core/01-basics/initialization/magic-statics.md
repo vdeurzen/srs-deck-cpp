@@ -23,12 +23,11 @@ Widget& instance() {
 }
 ```
 
-## Two threads call `instance()` for the first time at once. How many `Widget`s get constructed?
+## In C++23, two threads call `instance()` for the first time at once. How many `Widget`s get constructed?
 
 ---
 
-**Exactly one; the second thread blocks until it is built.** Since C++11,
-if control enters a function-local `static`'s declaration while it is
-being initialized, the other thread waits for completion ([stmt.dcl]/3,
-informally "magic statics"). So one lazily built shared instance (the
-"Meyers singleton") needs no locking code of your own.
+**Exactly one; the second thread blocks until it is built.** If a thread
+reaches a function-local `static` while another is initializing it, it
+waits for completion ([stmt.dcl]/3, guaranteed since C++11). A lazily
+built shared instance needs no locking code of your own.

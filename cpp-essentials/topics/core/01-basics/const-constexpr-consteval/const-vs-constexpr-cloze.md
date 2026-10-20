@@ -1,7 +1,7 @@
 ---
 id: const-constexpr-const-vs-constexpr-cloze
 kind: cloze
-version: 1
+version: 2
 level: 1
 tags: [const-constexpr-consteval]
 requires:
@@ -15,7 +15,6 @@ refs:
 `const` promises only that a value is not {{c1::modified}} after
 initialization; its initializer may be anything, such as a size read
 from a file. `constexpr` promises more: the value must be
-{{c2::computable at compile time::when is it known?}}, so
+{{c2::computable at compile time::a property of the initializer}}, so
 `constexpr int seed = std::rand();` is rejected (`std::rand()` is the
-standard library's random-number function). A `constexpr` variable is
-also implicitly {{c3::const}}.
+standard library's random-number function).

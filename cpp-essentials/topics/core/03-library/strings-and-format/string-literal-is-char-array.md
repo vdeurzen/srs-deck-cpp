@@ -11,7 +11,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/string_literal
   - https://eel.is/c++draft/lex.string
-elaborate: A Go string carries its length. Say in one sentence what a C++ function given only a pointer to `"cat"` must do to find the end.
+elaborate: Say in one sentence what a C++ function given only a pointer to `"cat"` must do to find the end.
 ---
 
 ```cpp

@@ -6,7 +6,7 @@ level: 1
 tags: [namespaces, headers, standard-library]
 requires:
   - fn-namespace-clash
-elaborate: Say in one sentence how `#include <vector>` plus `std::` compares with Go's `import` plus a package-qualified name.
+elaborate: Which standard header would you include to use `std::string`, and what breaks without it?
 refs:
   - https://en.cppreference.com/w/cpp/standard_library
   - https://eel.is/c++draft/contents

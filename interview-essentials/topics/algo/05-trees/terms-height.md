@@ -22,8 +22,8 @@ refs:
       5
 ```
 
-A tree's height counts the edges on its longest path from the root down
-to a leaf, so this tree's height is {{c1::3::a number}}.
+A tree's height counts the edges (parent–child links) on its longest
+path from the root down to a leaf, so this tree's height is {{c1::3::a number}}.
 
 ---
 

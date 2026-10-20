@@ -1,7 +1,7 @@
 ---
 id: ptr-auto-drops-ref
 kind: code
-version: 1
+version: 2
 level: 2
 tags: [auto, references, const]
 requires:
@@ -11,12 +11,12 @@ requires:
   - class-struct-members
 input: chips
 choices:
-  c1: ["const auto&", "auto&", "auto", "const auto"]
+  c1: ["std::string", "std::string&", "const std::string&", "std::string*"]
 compile:
   harness: |
     #include <type_traits>
-    static_assert(std::is_same_v<decltype(n), const std::string&>,
-                  "n must be a read-only reference, not a copy");
+    static_assert(std::is_same_v<decltype(m), decltype(n)>,
+                  "m is not declared with the type auto gave n");
     int main() {}
 elaborate: Say aloud where a plain `auto` in your own code silently copies a string or a container that you only meant to read.
 refs:
@@ -24,8 +24,9 @@ refs:
   - https://en.cppreference.com/w/cpp/language/template_argument_deduction
 ---
 
-`label()` returns a reference to a string that the `Config` owns. Declare
-`n` as a read-only name for that same string, with no copy made.
+`label()` returns a reference to the string that `cfg` owns. Write the
+type that `auto` deduces for `n`, so that `m` is declared exactly as `n`
+is.
 
 ```cpp
 #include <string>
@@ -34,13 +35,13 @@ struct Config {
   std::string& label() { return name; }
 };
 Config cfg{"prod"};
-{{c1::const auto&}} n = cfg.label();
+auto n = cfg.label();
+{{c1::std\::string}} m = cfg.label();
 ```
 
 ---
 
-Plain `auto` discards the reference of the initialiser, and `n` becomes
-a brand-new `std::string` holding a copy. `const auto` still copies; it only makes the
-copy read-only. `auto&` keeps the reference, but `label()` returns a
-non-`const` one, so `n` could modify `cfg.name`. Both halves have to be
-written: `const auto&`.
+**`std::string`: plain `auto` drops the initialiser's reference.** `n` is
+a brand-new string holding a copy of `cfg.name`, so changing `n` leaves
+`cfg` alone. To keep the reference, write it: `auto&`, or `const auto&`
+for read-only access. A `std::string*` would need `&cfg.label()`.

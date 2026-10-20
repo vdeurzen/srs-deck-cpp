@@ -1,25 +1,25 @@
 ---
 id: linear-deque-both-ends
-kind: cloze
-version: 2
+kind: basic
+version: 3
 level: 2
 tags: [containers, queues]
 requires:
   - linear-queue-ring
   - linear-sequence-containers
-elaborate: "When would a fixed-capacity ring buffer beat `std::deque` for this history, and what would it give up?"
+elaborate: "What would change your answer: name the requirement that would make `std::deque` the better choice."
 refs:
   - https://en.cppreference.com/w/cpp/container/deque
+  - https://en.cppreference.com/w/cpp/container/queue
 ---
 
-An editor keeps the last 100 actions: each new action is added at one end
-and, when the history is full, the oldest is dropped from the other. The
-undo menu also reads the k-th most recent action directly. `std::vector`
-drops its oldest in O(n); the standard container that does all three in
-O(1) is {{c1::std\::deque::a container}}.
+## An editor keeps exactly the last 100 actions: a new action goes in at one end, and once 100 are held, the oldest drops off the other. The undo menu reads the k-th most recent directly. Ring buffer of 100 slots or `std::deque`?
 
 ---
 
-A deque (double-ended queue) gives O(1) at both ends plus O(1)
-indexing. `std::list` has the ends but walks k nodes to reach index k.
-A ring buffer gives the same two O(1) ends when the capacity is fixed.
+**A ring buffer: the capacity is fixed, so it never needs to grow.**
+
+Both give O(1) at both ends and O(1) reads by position. The ring is one
+array allocated once; elements never move. A deque can grow, so in practice it
+allocates and frees blocks as actions flow through. The ring gives up
+growing past 100.

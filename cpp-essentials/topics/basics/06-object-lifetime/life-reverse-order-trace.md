@@ -1,23 +1,26 @@
 ---
 id: life-reverse-order-trace
 kind: trace
-version: 2
-level: 1
+version: 3
+level: 2
 tags: [lifetime, constructors, destructors, members, tracing]
 requires:
-  - life-ctor-dtor-count
+  - life-members-after-body
   - class-default-member-init-intro
   - string-basics
 probes:
-  1: { seq: "P21x" }
+  1: { seq: "P21" }
 elaborate: Say why destroying in reverse order is what lets a later member safely use an earlier one in its destructor.
 refs:
   - https://en.cppreference.com/w/cpp/language/destructor#Destruction_sequence
-  - https://eel.is/c++draft/stmt.jump#general-2
+  - https://eel.is/c++draft/class.dtor#13
 ---
 
+Every destructor appends one character to `seq`. Read `seq` once
+`run()` has returned.
+
 ```cpp
-std::string seq;   // each destructor appends a char
+std::string seq;
 struct Tag {
   char c;
   ~Tag() { seq += c; }
@@ -27,20 +30,13 @@ struct Pair {
   Tag second{'2'};
   ~Pair() { seq += 'P'; }
 };
-
-int main() {
-  {
-    Tag x{'x'};
-    Pair p;
-  }                // @1 (just after this brace)
-}
+void run() { Pair p; }   // @1 (after run() returns)
 ```
 
 ---
 
-Objects are built in declaration order (`x`, then `p` with `first`, then
-`second`) and destroyed in **reverse**: `p` goes before `x`, because it
-was built after it. Destroying `p` first runs the body of `~Pair` (`P`),
-and only then destroys its members, again last-declared first: `2`, `1`.
-`x`, built first, dies last. Verified by compiling and running an
-instrumented copy under GCC 16.2 (`g++ -std=c++23`).
+`p` dies at `run`'s `}`. The body of `~Pair` runs first (`P`), and only
+then are the members destroyed, in reverse order of declaration:
+`second` (`2`) before `first` (`1`), exactly as locals die last-built
+first. Verified by compiling and running an instrumented copy under
+GCC 16.2 (`g++ -std=c++23`).

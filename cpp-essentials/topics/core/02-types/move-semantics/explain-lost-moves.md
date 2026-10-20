@@ -6,6 +6,7 @@ level: 4
 tags: [move-semantics]
 requires:
   - move-semantics-return-std-move
+  - move-semantics-return-move-trace
 elaborate: Where else have you seen code that adds a cast "to be safe", and what did the cast actually cost?
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_elision

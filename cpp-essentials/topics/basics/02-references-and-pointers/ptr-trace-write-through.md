@@ -23,7 +23,7 @@ int* p = &a;
 p = &b;
 *p += 5;        // @2
 int* q = p;
-*q = *p * 2;    // @3
+*q += 7;        // @3
 ```
 
 ---
@@ -31,7 +31,7 @@ int* q = p;
 `*p = 10` writes through `p` into `a`. `p = &b` has no `*`: it changes
 the pointer itself, which now leads to `b`, and `a` keeps its `10`. So
 `*p += 5` lands in `b` (7). `int* q = p` copies the address, not the
-number: `q` and `p` now both lead to `b`, so `*q = *p * 2` reads 7 and
-stores 14 into `b`. Rule of thumb: with a `*` you touch the pointee,
+number: `q` and `p` now both lead to `b`, so `*q += 7` takes `b` from 7
+to 14. Rule of thumb: with a `*` you touch the pointee,
 without one you touch the pointer. Verified by running an instrumented
 copy under GCC 16.2 (`g++ -std=c++23`).

@@ -12,6 +12,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/operator_arithmetic#Additive_operators
   - https://en.cppreference.com/w/cpp/language/operator_member_access#Built-in_subscript_operator
 requires:
+  - ptr-arith-worked
   - ptr-arith-counts-elements
 elaborate: Where would `q - p` be clearer than keeping a separate index alongside a pointer?
 ---

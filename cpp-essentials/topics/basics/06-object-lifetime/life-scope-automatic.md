@@ -9,23 +9,21 @@ refs:
   - https://eel.is/c++draft/stmt.jump#general-2
 requires:
   - class-struct-members
+elaborate: Say where a local in your own code stops existing when it is declared inside an `if`, and what that means for a pointer to it.
 ---
 
-## Each time the loop finds a positive `x`, it creates a `Tag` named `t`. At which marked brace does that `t` stop existing?
+## `f(3)` creates a `Tag` named `t`. At which marked brace does `t` stop existing?
 
 ```cpp
 struct Tag { int id; };
+int count = 0;
 
-int count_positive() {
-  int count = 0;
-  for (int x = -1; x <= 2; ++x) {
-    if (x > 0) {
-      Tag t{x};
-      ++count;
-    }              // A
-  }                // B
-  return count;
-}                  // C
+void f(int x) {
+  if (x > 0) {
+    Tag t{x};
+    ++count;
+  }              // A
+}                // B
 ```
 
 ---
@@ -33,5 +31,5 @@ int count_positive() {
 **At `A`: the closing brace of the block that declared it.** A local has
 *automatic storage duration*: it lives from its declaration to the end of
 its enclosing block, however control leaves it (`}`, `return`, `break`).
-Each positive `x` gets a fresh `t` that dies at `A`; unlike Go, nothing
+Each call gets a fresh `t` that dies at `A`; unlike Go, nothing
 referring to it keeps it alive.

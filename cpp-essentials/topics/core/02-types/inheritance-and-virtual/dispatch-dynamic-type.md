@@ -12,7 +12,7 @@ requires:
   - ptr-holds-an-address
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
-elaborate: Say aloud how you would get the same "one call site, many behaviours" in Go, and what plays the role of the dynamic type there.
+elaborate: Say aloud where in your own code one call site must run different code depending on the object behind it.
 ---
 
 `p->sides()` calls `sides` on the object `p` points to.

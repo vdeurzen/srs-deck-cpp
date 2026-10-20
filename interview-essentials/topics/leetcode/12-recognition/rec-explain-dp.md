@@ -17,8 +17,8 @@ refs:
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
 elaborate: Take a DP you have written. Could its state drop one dimension by keeping only the previous row, and what would you lose?
 ---
-An interviewer asks how you decide, from a problem statement, that it
-needs dynamic programming, and how you choose its state. Answer aloud.
+An interviewer asks how you recognise a dynamic-programming problem
+and set it up. Answer aloud.
 ---
 - [ ] Cue: an optimum or a count over choices, where different choice orders reach the same subproblem
 - [ ] Pattern: the state is the least information that fixes the best rest of the answer

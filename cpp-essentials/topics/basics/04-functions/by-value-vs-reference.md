@@ -7,9 +7,9 @@ tags: [functions, parameters, references, tracing]
 probes:
   1: { a: "15", r: "10" }
 requires:
-  - ptr-reference-must-bind
+  - fn-ref-param-intro
   - fn-param-change-intro
-elaborate: Say how a reader of a C++ call site can tell whether an argument may be changed, and how Go makes that visible.
+elaborate: How does a reader of a C++ call site tell whether an argument may be changed?
 refs:
   - https://en.cppreference.com/w/cpp/language/function
   - https://en.cppreference.com/w/cpp/language/reference

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [lifetime, new-delete]
 requires:
-  - life-stack-vs-heap
+  - life-delete-ends-heap-object
   - ub-definition
 elaborate: Say how you would make sure, in your own code, that every `new[]` meets its `delete[]`, or avoid writing either.
 refs:

@@ -20,7 +20,7 @@ holds one stack frame until it returns):
 | --- | --- |
 | merge sort | Θ(n) |
 | quicksort, smaller side recursed first | {{c1::O(log n)::the call stack}} |
-| counting sort, keys in [0, k) | {{c2::O(n + k)::two arrays}} |
+| counting sort, keys in [0, k) | {{c2::O(n + k)::a bound in n and k}} |
 
 For 10⁶ ints, merge sort's buffer is 4 MB.
 

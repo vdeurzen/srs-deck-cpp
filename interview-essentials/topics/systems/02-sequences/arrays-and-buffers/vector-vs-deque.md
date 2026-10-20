@@ -23,7 +23,7 @@ map:  [ * ][ * ][ * ]        array of pointers to blocks
 
 ---
 
-**Add room without moving any existing element, at either end.** A push
-fills the end block or allocates a new one, so `push_front` copies
-nothing and references to existing elements stay valid. A full `vector`
-must move every element into a bigger buffer.
+**Add room without moving any existing element.** A push fills the last
+block or allocates a new one and adds its pointer to the map, so
+references to existing elements stay valid. A full `vector` must move
+every element into a bigger buffer.

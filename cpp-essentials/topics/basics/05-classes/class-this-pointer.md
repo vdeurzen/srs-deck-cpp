@@ -10,7 +10,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/this
   - https://eel.is/c++draft/expr.prim.this
-elaborate: Say aloud what a Go method's receiver, as in `func (t *Tally) mark()`, corresponds to in a C++ member function.
+elaborate: Where does `this` appear in your own member functions, explicitly or implicitly?
 ---
 
 ```cpp
@@ -29,5 +29,5 @@ p = b.mark();
 
 **`&b`: `this` points to the object the member function was called on.**
 Its type here is `Tally*`, and each call gets its own: inside `a.mark()`
-it held `&a`. Go names the receiver in the method's signature; C++
-supplies it implicitly as `this`.
+it held `&a`. Every member function receives this pointer implicitly,
+with no parameter written for it.

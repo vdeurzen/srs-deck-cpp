@@ -13,8 +13,7 @@ compile:
     static_assert(Derived{}.scale(3.0) == 2);
     int main() {}
 requires:
-  - virtual-static-dispatch
-  - fn-overload-ranking
+  - virtual-name-hiding-intro
   - constexpr-fn-static-assert
 refs:
   - https://en.cppreference.com/w/cpp/language/using_declaration#In_class_definition
@@ -23,9 +22,8 @@ elaborate: Say aloud what would break if someone later added a `scale(long)` to 
 ---
 
 `Derived{}.scale(3)` calls the `double` version, although `Base` has an
-exact `scale(int)`: the compiler finds a name by searching the innermost
-scope first and stops at the first scope that declares it. Make `Base`'s
-overload take part again.
+exact `scale(int)`. Make `Base`'s overload take part in overload
+resolution again.
 
 ```cpp
 struct Base {

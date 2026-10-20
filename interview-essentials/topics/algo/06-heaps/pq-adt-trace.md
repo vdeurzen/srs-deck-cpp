@@ -36,5 +36,3 @@ queue would have answered 40 first. After @2 the queue holds only 40.
 That promise is the whole abstract data type: it says what comes out,
 not how or at what cost. An array, a sorted array or a heap can all keep
 it; they differ only in what each operation costs.
-
-(Values from running it under GCC 16.2.)

@@ -30,5 +30,6 @@ std::vector<int> primes(int n) {
 
 **It only takes away copy elision (NRVO).** A local returned by name is
 already an rvalue for overload resolution, and the compiler may build it
-in the caller's slot: zero moves. `std::move(result)` is an xvalue, not a
+directly in the caller's slot (NRVO, named return value optimisation):
+zero moves. `std::move(result)` is an xvalue, not a
 name, so that rule no longer applies: one move, guaranteed.

@@ -12,7 +12,7 @@ refs:
 elaborate: Where in your code is an enum value passed to an `int` parameter or compared with a bare number, and would you want that to compile?
 ---
 
-## An `enum` names a set of integer constants; `enum class` keeps them scoped. Exactly one line in `f` fails to compile. Which one?
+## `enum` and `enum class` each declare a type with a set of named integer constants. Exactly one line in `f` fails to compile. Which one?
 
 ```cpp
 enum Fruit { apple, pear };

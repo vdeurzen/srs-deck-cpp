@@ -4,7 +4,7 @@ kind: trace
 version: 1
 level: 2
 tags: [containers, misconception]
-elaborate: In Go, `m["pear"]` on a missing key returns the zero value and leaves the map alone. Where in your own C++ would `[]` have quietly grown a map instead?
+elaborate: Where in your own C++ would `[]` have quietly grown a map, and which lookup would you write there instead?
 requires:
   - cpp-essentials/containers-map-vs-unordered-map
   - cpp-essentials/initialization-default-value-zero

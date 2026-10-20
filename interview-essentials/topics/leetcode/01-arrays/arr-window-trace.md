@@ -22,7 +22,8 @@ contains every letter of `t`, repeats included. Here `s = "aab"`,
 `t = "ab"`. `need[x]` is how many more `x` the window still lacks
 (negative: spares); `missing` counts letters whose `need` is above 0.
 The window `s[0..2]` has just become valid, so the shrink loop calls
-`step(2)` for as long as `missing == 0`.
+`step(2)` for as long as `missing == 0`: each call records, then
+shrinks.
 
 ```cpp
 std::string s = "aab";               // t = "ab"

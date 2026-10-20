@@ -1,7 +1,7 @@
 ---
 id: move-semantics-implicit-move-suppressed
 kind: basic
-version: 1
+version: 2
 level: 2
 tags: [move-semantics, special-members]
 requires:
@@ -17,21 +17,22 @@ refs:
 
 `std::move(x)` only casts `x` to an rvalue, which lets a move constructor be chosen.
 
-## `Log` declares only a destructor. Does `b` steal `a`'s buffer?
+## `Log` declares only a destructor. Which constructor builds `b`: copy, move, or neither (no compile)?
 
 ```cpp
 struct Log {
-    ~Log() { flush(); }
+    ~Log() {}
     std::string buf;
 };
+Log a;
 Log b = std::move(a);
 ```
 
 ---
 
-**No: `buf` is copied.** Declaring a destructor (likewise a copy
-constructor, copy assignment or move assignment) stops the compiler
-from writing a move constructor for you. `std::move(a)` still compiles: the
-xvalue binds the copy constructor's `const Log&`. Nothing warns.
-`Log(Log&&) = default;` brings the move back; `= default` for the move
-assignment likewise.
+**The copy constructor: declaring the destructor suppresses the implicit move constructor.**
+
+A declared copy constructor, copy assignment or move assignment does the
+same. `std::move(a)` still compiles: the xvalue binds the copy
+constructor's `const Log&`, so `buf` is copied and nothing warns.
+`Log(Log&&) = default;` brings the move back.

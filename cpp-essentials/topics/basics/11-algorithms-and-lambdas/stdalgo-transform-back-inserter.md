@@ -12,6 +12,7 @@ compile:
     static_assert(squares_sum() == 14);
     int main() {}
 requires:
+  - iter-back-inserter-intro
   - lambda-syntax-intro
   - iter-end-one-past
   - constexpr-fn-static-assert
@@ -34,7 +35,6 @@ constexpr int squares_sum() {
     std::vector<int> out;
     std::transform(in.begin(), in.end(), {{c1::std\::back_inserter(out)}},
                    [](int x) { return x * x; });
-    if (out.size() != 3) return -1;
     return out[0] + out[1] + out[2];
 }
 ```

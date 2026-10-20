@@ -11,7 +11,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/catch
   - https://en.cppreference.com/w/cpp/error/exception/what
-elaborate: Where else have you seen a base-class copy lose the derived part, and how would a reference have avoided it?
+elaborate: Where else could a function that takes a base class by value lose the derived part of its argument, and what would you write instead?
 ---
 
 Standard exception types such as `std::runtime_error` derive from `std::exception`, and `what()` returns the message.

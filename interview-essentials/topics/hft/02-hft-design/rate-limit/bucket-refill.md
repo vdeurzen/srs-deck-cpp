@@ -2,15 +2,15 @@
 id: bucket-refill
 kind: code
 version: 1
-level: 4
+level: 3
 tags: [hft, rate-limit, token-bucket, implement-it]
 input: chips
 choices:
   c1:
     - "credit = std::min(cap, credit + (now - last) * rate); last = now;"
     - "credit += (now - last) * rate; last = now;"
-    - "credit = std::min(cap, credit + (now - last) * rate);"
-    - "last = now; credit = std::min(cap, credit + (now - last) * rate);"
+    - "credit = std::min(cap, credit + now * rate); last = now;"
+    - "credit = std::min(cap, credit + (now - last)); last = now;"
 compile:
   harness: |
     constexpr int burst(Bucket& b, long now) {     // orders sent back to back at now
@@ -25,12 +25,14 @@ compile:
       int sent = 0;
       for (long t = 2; t <= 101; ++t) sent += b.try_take(t);
       ok = ok && sent == 100;                      // checked every tick: 100 in 100 ticks
-      return ok && burst(b, 6'000) == 20;          // idle a long time: still 20
+      ok = ok && burst(b, 6'000) == 20;            // idle a long time: still 20
+      Bucket f{3, 6, 0, 0};                        // 3 per tick, burst 6, empty
+      return ok && burst(f, 1) == 3 && burst(f, 2) == 3;   // 3 tokens per tick
     }
     static_assert(test());
     int main() {}
 requires:
-  - bucket-burst-bound
+  - bucket-refill-worked
   - cpp-essentials/class-struct-members
   - cpp-essentials/constexpr-fn-static-assert
 refs:
@@ -59,6 +61,6 @@ struct Bucket {
 
 **Add the elapsed time times the rate, clamp to the capacity, then
 move `last` to now.** Without the clamp an idle bucket banks an
-unbounded burst. Without moving `last`, every check re-counts the same
-interval. Moving `last` before reading it makes every interval zero,
-so the bucket never refills. Refill on demand like this needs no timer.
+unbounded burst. `now * rate` counts all time since tick 0 on every
+check, not just the time since the last one. Leaving out `rate` refills
+one token per tick, whatever the rate. Refill on demand needs no timer.

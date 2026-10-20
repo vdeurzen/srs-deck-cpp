@@ -15,26 +15,25 @@ compile:
     int main() {}
 requires:
   - vocab-expected-unexpected
+elaborate: In a parser of your own, which steps would you chain with `and_then` and which with `transform`?
 refs:
   - https://en.cppreference.com/w/cpp/utility/expected/and_then
   - https://en.cppreference.com/w/cpp/utility/expected/transform
 ---
 
-`half` can fail too. Chain it after `digit` so `r` is a flat
-`std::expected<int, Err>` holding `4`, and the first error short-circuits.
+`half` can fail. Chain it after `eight` so `r` is a flat
+`std::expected<int, Err>` holding `4`, and an error in either step
+short-circuits.
 
 ```cpp
 #include <expected>
-enum class Err { not_digit, odd };
-constexpr std::expected<int, Err> digit(char c) {
-    if (c < '0' || c > '9') return std::unexpected(Err::not_digit);
-    return c - '0';
-}
+enum class Err { odd };
 constexpr std::expected<int, Err> half(int n) {
     if (n % 2 != 0) return std::unexpected(Err::odd);
     return n / 2;
 }
-constexpr auto r = digit('8').{{c1::and_then}}(half);
+constexpr std::expected<int, Err> eight = 8;
+constexpr auto r = eight.{{c1::and_then}}(half);
 ```
 
 ---

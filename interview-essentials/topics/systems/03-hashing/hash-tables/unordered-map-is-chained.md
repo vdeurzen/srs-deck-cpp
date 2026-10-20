@@ -29,6 +29,6 @@ o.qty = 7;
 
 **The standard keeps references valid across rehash, so elements cannot move.**
 
-Each element therefore lives in its own node, and a rehash only relinks
-the nodes into the new buckets. Flat hash tables outside the standard
+So each element is allocated separately (in practice a node), and a
+rehash only relinks those nodes into the new buckets. Flat hash tables outside the standard
 library are faster precisely because they drop that guarantee.

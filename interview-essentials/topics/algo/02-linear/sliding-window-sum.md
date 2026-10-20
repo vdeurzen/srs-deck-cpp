@@ -11,7 +11,7 @@ refs:
   - https://en.wikipedia.org/wiki/Moving_average#Simple_moving_average
 ---
 
-## The sum of every window of k consecutive elements can be computed in O(n) total, not O(n·k). What does each step do to the previous window's sum?
+## You need the sum of every window of k consecutive elements, with n = 10⁵ and k = 5 · 10⁴. Re-adding each window from scratch costs about 2.5 · 10⁹ additions. What can each step do to the previous window's sum instead?
 
 ```cpp
 // a = {5, 2, 7, 1, 4}, k = 3:  windows {5,2,7} {2,7,1} {7,1,4}

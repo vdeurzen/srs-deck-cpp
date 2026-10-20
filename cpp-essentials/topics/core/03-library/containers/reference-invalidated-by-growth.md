@@ -29,7 +29,7 @@ refs:
 constexpr int first_after_push() {
     std::vector<int> v{10, 20, 30};
     {{c1::int}} first = v[0];
-    v.reserve(v.capacity() + 1);   // must reallocate
+    v.reserve(v.capacity() + 1);
     return first;
 }
 ```

@@ -21,14 +21,15 @@ while (lo < hi) {
 }
 ```
 
-| lo | hi | mid | `a[mid] < 7` | update |
+| lo | hi | mid | compare `a[mid] < 7` | shrink |
 |---|---|---|---|---|
 | 0 | 5 | 2 | 6: yes | lo = 3 |
 | 3 | 5 | 4 | 13: no | hi = 4 |
 | 3 | 4 | 3 | 9: no | hi = 3 |
 | 3 | 3 | — | loop ends | answer: index 3 |
 
-Why does row 3 set `hi = 3` rather than `hi = 2`?
+After the init line, each row computes mid, compares, shrinks. Why
+does row 3 set `hi = 3` rather than `hi = 2`?
 
 ---
 

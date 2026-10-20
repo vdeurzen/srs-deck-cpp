@@ -7,7 +7,7 @@ tags: [iterators, vector, foundations]
 requires:
   - vector-basics
   - types-auto-deduces
-elaborate: How is an iterator like, and unlike, an index into a Go slice?
+elaborate: Say in one sentence what an iterator lets an algorithm do without knowing the container.
 refs:
   - https://en.cppreference.com/w/cpp/iterator
   - https://en.cppreference.com/w/cpp/container/vector/begin

@@ -1,11 +1,11 @@
 ---
 id: heap-push-trace
 kind: trace
-version: 2
+version: 3
 level: 2
 tags: [heaps, tracing]
 probes:
-  1: { "h[2]": "8", "h[6]": "5" }
+  1: { "h[2]": "8", "h[5]": "5" }
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://en.cppreference.com/w/cpp/algorithm/push_heap
@@ -23,9 +23,9 @@ elaborate: Say aloud why a push into a max-heap is cheap when the new value is s
 //          9
 //        /   \
 //       7     5
-//      / \   /
-//     3   6 4
-std::vector<int> h{9, 7, 5, 3, 6, 4};
+//      / \
+//     3   6
+std::vector<int> h{9, 7, 5, 3, 6};
 void push(int x) {
   h.push_back(x);
   int i = h.size() - 1;
@@ -39,9 +39,9 @@ push(8);   // @1
 
 ---
 
-8 lands at slot 6, under 5 (slot 2). It beats 5, so they swap: 8 moves
-to slot 2 and 5 drops to slot 6. Its new parent is 9 at the root, which
-is larger, so the climb stops: `9 7 8 3 6 4 5`.
+8 lands at slot 5, under 5 (slot 2). It beats 5, so they swap: 8 moves
+to slot 2 and 5 drops to slot 5. Its new parent is 9 at the root, which
+is larger, so the climb stops: `9 7 8 3 6 5`.
 
 A push stops as soon as its parent is at least as large, so it climbs
 the full height only when the new value is a new maximum.

@@ -21,9 +21,10 @@ auto it = std::find(v.begin(), v.end(), 10);
 ---
 
 **Call `std::find_if`, passing a predicate in place of `10`.**
-`std::find(first, last, value)` can only compare each element with one
-value, using `==`. `find_if` calls a predicate, a callable returning
-`bool`, on each element:
+`std::find(first, last, value)` compares each element with one value,
+using `==`. `find_if` calls a predicate, a callable returning `bool`, on
+each element. Both make one pass, so their time grows with the range's
+length:
 
 ```cpp
 auto it = std::find_if(v.begin(), v.end(), [](int x) { return x > 10; });

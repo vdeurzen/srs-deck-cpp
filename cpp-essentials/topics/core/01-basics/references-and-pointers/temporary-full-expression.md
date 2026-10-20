@@ -1,21 +1,24 @@
 ---
 id: ptr-temporary-full-expression
 kind: trace
-version: 1
-level: 1
-tags: [lifetime, temporaries, tracing]
+version: 2
+level: 2
+tags: [lifetime, temporaries, references, tracing]
 requires:
-  - raii-storage-durations
   - life-temporary-full-expression
-elaborate: Say aloud which line in your own code keeps a pointer or reference to something a function returned by value, and whether it survives past the `;`.
+  - ptr-lifetime-extension
+elaborate: Say aloud which line in your own code keeps a reference to something a function returned by value, and whether it survives past the `;`.
 probes:
-  1: { trail: "t~t", first: "t" }
-  2: { trail: "t~tl" }
-  3: { trail: "t~tlu~u", second: "u" }
+  1: { trail: "k" }
+  2: { trail: "kt~t" }
+  3: { trail: "kt~t~k" }
 refs:
-  - https://en.cppreference.com/w/cpp/language/lifetime
-  - https://timsong-cpp.github.io/cppwp/n4950/class.temporary#4
+  - https://en.cppreference.com/w/cpp/language/reference_initialization#Lifetime_of_a_temporary
+  - https://timsong-cpp.github.io/cppwp/n4950/class.temporary#6
 ---
+
+Read `trail` just after each marked line; @3 is after the inner block
+closes.
 
 ```cpp
 std::string trail;   // constructors append their letter, destructors '~' then the letter
@@ -27,20 +30,16 @@ struct Noisy {
 Noisy make(char c) { return Noisy{c}; }
 
 int main() {
-  char first = make('t').c;    // @1
-  Noisy local{'l'};            // @2
-  char second = make('u').c;   // @3
+  {
+    const Noisy& kept = make('k');   // @1
+    char first = make('t').c;        // @2
+  }                                  // @3
 }
 ```
 
 ---
 
-`make('t')` yields a **temporary**, and a temporary is destroyed at the
-end of the *full-expression* that created it — the `;` — so by Probe 1
-the `t` has already been built and torn down (`t~t`), after `first` took
-its copy of `c`. `local` is different: it is a named automatic object, so
-it is still alive at Probe 3 and only dies when `main` ends. The second
-temporary follows the first's pattern (`u~u`) while `local` sits
-untouched in between. Reading `.c` off the temporary was fine because
-the read happened *inside* the full-expression; keeping a pointer or
-reference to it past the `;` would not be. Values verified with GCC 16.2.
+`kept` binds directly to the temporary from `make('k')`, so that
+temporary lives as long as `kept`: no `~k` at @1. The `t` temporary is
+bound to nothing and dies at its `;`, after `.c` is read. The extended
+`k` dies with `kept`, at the block's `}`. Values verified with GCC 16.2.

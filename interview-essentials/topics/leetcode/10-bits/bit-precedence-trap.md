@@ -3,7 +3,7 @@ id: bit-precedence-trap
 kind: basic
 version: 1
 level: 2
-tags: [bit-tricks, operator-precedence, misconception, lc-78]
+tags: [bit-tricks, misconception, lc-78]
 requires:
   - foundations-bitwise-operators
 refs:

@@ -9,7 +9,7 @@ refs:
   - https://en.wikipedia.org/wiki/Order_book
 ---
 
-## A limit order offers to buy or sell some lots at its limit price or better; unmatched ones wait in the book. Which new order trades on arrival?
+## A limit order offers to buy or sell some lots (units) at its limit price or better; unmatched ones wait in the book. Which new order trades on arrival?
 
 ```
 book    side         price  lots
@@ -27,5 +27,4 @@ new:  buy 2 @ 100    sell 1 @ 101    buy 1 @ 101
 
 An order trades when its limit crosses the best price on the other
 side. The other two only join their own side and wait as resting
-orders. At one price, the earliest resting order fills first:
-price-time priority.
+orders.

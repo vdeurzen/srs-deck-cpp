@@ -1,19 +1,19 @@
 ---
 id: complexity-cost-sum-rule
 kind: basic
-version: 1
+version: 2
 level: 1
 tags: [foundations, complexity, cost-model]
 refs:
   - https://en.wikipedia.org/wiki/Analysis_of_algorithms#Growth_rate_analysis_of_other_resources
 ---
 
-## Decide the cost: a function runs a loop of n passes, then a second loop of n passes, then a loop of a fixed 1 000 passes. In steps, how does the total grow with n?
+## A function runs a loop of n passes, then a loop of n/2 passes, then a loop of a fixed 1 000 passes, one step per pass. How many steps in total?
 
 ---
 
-**Like n: the parts add, 2n + 1 000, and the fixed part stops mattering.**
-Blocks that run one after another add their costs; nothing here
-multiplies. In a sum the fastest-growing part decides: for n in the
-millions the 1 000 is noise and the 2 is a constant factor, so the
-function is "linear in n".
+**n + n/2 + 1 000: blocks that run one after another add.**
+
+Each loop finishes before the next starts, so no pass of one repeats
+inside another: nothing multiplies. For n = 10 000 that is
+10 000 + 5 000 + 1 000 = 16 000 steps.

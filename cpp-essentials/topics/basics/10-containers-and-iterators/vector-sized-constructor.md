@@ -6,7 +6,7 @@ level: 1
 tags: [containers, vector, initialization, foundations]
 requires:
   - vector-basics
-elaborate: What goes wrong if a table meant to hold n + 1 zeros is written `std::vector<int> dp{n + 1};`?
+elaborate: Say where in table or graph code you would size a vector up front with `(n)` rather than grow it with `push_back`, and why.
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/vector
 ---

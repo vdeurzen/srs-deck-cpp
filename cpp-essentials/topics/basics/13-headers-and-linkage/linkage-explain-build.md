@@ -10,7 +10,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/translation_phases
   - https://en.cppreference.com/w/cpp/language/definition#One_Definition_Rule
-elaborate: Go builds a whole package at once; say which of these errors that hides from a Go programmer, and why.
+elaborate: Say which of the two link errors, `undefined reference` or `multiple definition`, you would expect first in a new project, and why.
 ---
 A teammate's program is `main.cpp` plus `util.cpp`, sharing `util.h`.
 Walk them through how it is built into one executable.

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [pointers, nullptr, overload-resolution]
 requires:
-  - ptr-holds-an-address
+  - ptr-null-pointer
   - fn-overload-ranking
   - constexpr-fn-static-assert
   - std-names-and-headers

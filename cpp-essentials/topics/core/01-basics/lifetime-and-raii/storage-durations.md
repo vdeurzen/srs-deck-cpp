@@ -6,7 +6,7 @@ level: 1
 tags: [lifetime, raii, storage-duration]
 requires:
   - life-stack-vs-heap
-elaborate: Go decides stack or heap for you by escape analysis; say aloud which of the three durations you now pick by hand, and what it costs you to pick wrong.
+elaborate: Which object in your code has static duration, and when is it destroyed relative to `main`?
 refs:
   - https://en.cppreference.com/w/cpp/language/storage_duration
   - https://timsong-cpp.github.io/cppwp/n4950/basic.stc.general

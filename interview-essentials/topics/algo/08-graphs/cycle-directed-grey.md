@@ -7,6 +7,7 @@ tags: [graphs, dfs, cycles]
 requires:
   - graph-dfs-worked
   - graph-cycle-spot
+  - graph-edge-ordered-pair
 refs:
   - https://en.wikipedia.org/wiki/Depth-first_search#Output_of_a_depth-first_search
   - https://doi.org/10.1137/0201010

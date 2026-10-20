@@ -18,7 +18,7 @@ refs:
 
 ---
 
-**To give the object up: `adopt(std::move(p))`, or a fresh
-`std::make_unique`.** A by-value `unique_ptr` parameter is a *sink*: the
-callee becomes the owner and `p` is null after the call. `inspect`
+**To give the object up: the caller passes `std::move(p)`.** A by-value
+`unique_ptr` parameter is a *sink*: the callee becomes the owner and `p`
+is null after the call; a fresh `std::make_unique<Node>()` works too. `inspect`
 borrows: pass `*p` and keep ownership.

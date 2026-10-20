@@ -26,7 +26,7 @@ really happen). Complete the declaration so no increment is lost and
 there is no data race.
 
 ```cpp
-#include <atomic>
+#include <thread>
 {{c1::std\::atomic<int>}} hits{0};
 
 void count_hit() { ++hits; }
@@ -34,8 +34,8 @@ void count_hit() { ++hits; }
 
 ---
 
-**On `std::atomic<int>`, `++hits` is one indivisible step**, so no other
-thread can load between its load and its store: N calls add exactly N.
-A plain `int` loses updates and races. `volatile` keeps every load and
+**On `std::atomic<int>`, `++hits` is one indivisible step**, so no
+increment is lost. A plain `int` races. `volatile` keeps every load and
 store but still does them as separate steps, so it races too.
-`std::atomic<bool>` has no `++`.
+`std::atomic<bool>` has no `++`. (Real code includes `<atomic>`; here
+libstdc++'s `<thread>` brings it in, so the header can't name the answer.)

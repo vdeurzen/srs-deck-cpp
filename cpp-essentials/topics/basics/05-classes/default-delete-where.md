@@ -22,7 +22,7 @@ error.
 struct Gauge {
     Gauge() = default;
     int read() = default;
-    Gauge(const Gauge&) = delete;
+    Gauge(int) = delete;
     void calibrate(double) = delete;
 };
 ```
@@ -30,7 +30,7 @@ struct Gauge {
 ---
 
 **`int read() = default;`: only special members (and comparison
-operators) can be defaulted.** The compiler only knows how to write
-those, such as constructors, copies and the destructor; it cannot guess
-what `read` should return. `= delete` fits any function, ordinary ones
+operators) can be defaulted.** Special members are the few functions the
+compiler knows how to write, such as the no-argument constructor; it
+cannot guess what `read` should return. `= delete` fits any function, ordinary ones
 included.

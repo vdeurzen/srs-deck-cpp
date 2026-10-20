@@ -10,7 +10,7 @@ requires:
   - string-basics
   - vector-basics
   - types-auto-deduces
-elaborate: Say how `s += "de"` compares with Go string concatenation, which builds a new string each time.
+elaborate: Say when you would append with `push_back` and when with `+=`, and what each takes.
 refs:
   - https://en.cppreference.com/w/cpp/string/basic_string
   - https://en.cppreference.com/w/cpp/string/basic_string/size

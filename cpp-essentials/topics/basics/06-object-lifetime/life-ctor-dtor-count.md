@@ -5,7 +5,7 @@ version: 2
 level: 1
 tags: [lifetime, scope, constructors, destructors, tracing]
 requires:
-  - life-destructor-intro
+  - life-scope-exit-worked
 probes:
   1: { alive: "2" }
   2: { alive: "1" }

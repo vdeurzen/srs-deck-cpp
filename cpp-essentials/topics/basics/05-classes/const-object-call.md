@@ -9,7 +9,7 @@ probes:
   2: { y: "2" }
 requires:
   - const-member-on-const-ref
-  - fn-overload-ranking
+  - class-const-overload-intro
 elaborate: Where would a class of yours want one version of a member function for writers and another for read-only callers?
 refs:
   - https://en.cppreference.com/w/cpp/language/member_functions#Member_functions_with_cv-qualifiers

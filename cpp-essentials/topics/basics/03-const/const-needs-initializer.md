@@ -6,7 +6,7 @@ level: 1
 tags: [const, initialization]
 requires:
   - const-no-modify
-elaborate: Say how Go's `const` differs from a C++ `const` variable initialised from a function call.
+elaborate: What would break if a `const` could be declared without a value and assigned once later?
 refs:
   - https://en.cppreference.com/w/cpp/language/cv
   - https://eel.is/c++draft/dcl.init.general#8

@@ -5,7 +5,7 @@ version: 1
 level: 1
 tags: [foundations, graphs, connectivity]
 requires:
-  - graph-path-cycle-component
+  - graph-connected-component
 refs:
   - https://doi.org/10.1145/364099.364331
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure

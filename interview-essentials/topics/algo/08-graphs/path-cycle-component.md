@@ -25,4 +25,5 @@ elaborate: Where in your own code does a walk that revisits a node cause trouble
 
 A path steps along edges and never repeats a vertex. 0 1 3 jumps from
 1 to 3, which share no edge. 2 1 0 1 uses real edges but visits 1
-twice: a walk, not a path.
+twice: a walk, not a path. Texts that let a path repeat vertices
+call this one a *simple* path.

@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/thread/thread/~thread
   - https://en.cppreference.com/w/cpp/thread/jthread
-elaborate: Say in one sentence, as to an interviewer, why `std::jthread` can safely pick join where `std::thread` refused to pick.
+elaborate: Say in one sentence, as to an interviewer, which of the two hidden bugs a `std::jthread` that joins can still cause, and how its thread function must be written to avoid it.
 ---
 
 `t.detach()` lets the thread run on alone, with no `std::thread`
@@ -24,4 +24,4 @@ object attached to it.
 A silent `join` can block the destructor forever on a thread that
 never ends; a silent `detach` leaves the thread reading locals that
 were just destroyed. So `std::thread` refuses to choose. `std::jthread`
-picks `join`, and also asks the thread to stop first.
+picks `join`.

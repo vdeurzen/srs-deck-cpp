@@ -10,6 +10,7 @@ probes:
 requires:
   - virtual-slice-parameter
   - vector-basics
+  - string-basics
 refs:
   - https://en.cppreference.com/w/cpp/language/copy_constructor
   - https://en.cppreference.com/w/cpp/language/virtual

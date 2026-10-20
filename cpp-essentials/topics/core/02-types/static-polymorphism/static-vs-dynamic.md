@@ -7,6 +7,7 @@ tags: [polymorphism, templates]
 requires:
   - virtual-pure-syntax
   - templates-instantiation
+  - virtual-static-dynamic-type
 refs:
   - https://en.cppreference.com/w/cpp/language/virtual
   - https://en.cppreference.com/w/cpp/language/function_template

@@ -6,7 +6,7 @@ level: 2
 tags: [graphs, traversal, shortest-paths]
 input: chips
 choices:
-  c1: ["dist[u] + 1", "dist[v] + 1", "dist[u]", "dist[s] + 1"]
+  c1: ["dist[u] + 1", "dist[v] + 1", "dist[u]", "head + 1"]
 compile:
   harness: |
     // 0-1 0-2 1-3 2-3 2-4 3-5 4-5, undirected
@@ -32,7 +32,7 @@ Complete the line that records how many edges `v` is from `s`. Each
 constexpr std::array<int, 6> bfs(std::array<std::array<int, 3>, 6> adj, int s) {
   std::array<int, 6> dist{-1, -1, -1, -1, -1, -1}, queue{s};  dist[s] = 0;
   for (int head = 0, tail = 1; head < tail; ++head) {
-    const int u = queue[head];
+    int u = queue[head];
     for (int v : adj[u])
       if (v != -1 && dist[v] == -1) { dist[v] = {{c1::dist[u] + 1}}; queue[tail] = v; ++tail; }
   }
@@ -44,6 +44,6 @@ constexpr std::array<int, 6> bfs(std::array<std::array<int, 3>, 6> adj, int s) {
 
 `v` is discovered from `u`, one edge further out, so it is one more than
 `u`'s distance: the queue order guarantees `u` is a nearest discoverer.
-`dist[v] + 1` reads −1 + 1 = 0; `dist[u]` leaves every vertex at 0;
-`dist[s] + 1` measures from the source, not from the discoverer, so every
-vertex gets 1.
+`dist[v] + 1` reads −1 + 1 = 0; `dist[u]` leaves every vertex at 0.
+`head + 1` is u's place in the queue plus one, not its distance: from 0,
+vertex 4 is found while popping the third entry and would get 3, not 2.

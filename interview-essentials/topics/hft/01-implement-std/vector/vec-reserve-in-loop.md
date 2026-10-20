@@ -16,7 +16,7 @@ refs:
 ---
 
 Many expect a `reserve` before each push to avoid reallocations. `Order`
-is any small struct; `book` is a `std::vector<Order>`.
+is any small struct; `book` is a `std::vector<Order>` that starts empty.
 
 ## What does this loop cost for `n` orders?
 
@@ -29,7 +29,7 @@ for (const Order& o : incoming) {
 
 ---
 
-**O(n²): each `reserve` allocates exactly `size() + 1`, so every push reallocates and moves everything.**
-"Exactly" is what all three major standard libraries do; the standard says at
-least `n`. With libstdc++, 1000 pushes reallocate 1000 times. The intent needs one call before the loop:
-`book.reserve(book.size() + incoming.size())`.
+**O(n²): `reserve(size() + 1)` allocates exactly one more slot, so every push reallocates.**
+Each reallocation moves every element so far: 1 + 2 + … + n moves.
+Measured with libstdc++: 1000 pushes, 1000 reallocations. The intent needs one
+call before the loop: `book.reserve(incoming.size())`.

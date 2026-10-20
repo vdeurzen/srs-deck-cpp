@@ -6,7 +6,7 @@ level: 1
 tags: [exceptions, raii]
 requires:
   - err-throw-catch-intro
-  - life-reverse-order-trace
+  - life-locals-reverse-order
 elaborate: Say aloud which cleanup in your Go code lives in a `defer`, and what in C++ would run it when an exception passes through.
 refs:
   - https://en.cppreference.com/w/cpp/language/throw

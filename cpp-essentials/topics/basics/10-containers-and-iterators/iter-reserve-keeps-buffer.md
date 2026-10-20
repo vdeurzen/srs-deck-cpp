@@ -8,7 +8,7 @@ probes:
   1: { n0: "0" }
   2: { same: "true" }
 requires:
-  - iter-size-vs-capacity
+  - vector-reserve-basics
   - ptr-holds-an-address
   - types-auto-deduces
 elaborate: Name a loop where you know the final size up front and would call `reserve` first.

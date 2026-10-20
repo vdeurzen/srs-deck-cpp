@@ -8,7 +8,7 @@ requires:
   - virtual-dispatch-which-runs
   - const-member-on-const-ref
   - constexpr-fn-static-assert
-elaborate: Say in one sentence what Go uses instead of `virtual` to get a call that depends on the concrete type.
+elaborate: Say what `loudness` would return for a `Siren` if its parameter were a `Sound` by value instead of `const Sound&`, and why.
 input: type
 compile:
   harness: |

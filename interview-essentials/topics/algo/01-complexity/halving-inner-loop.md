@@ -12,7 +12,7 @@ refs:
   - https://en.wikipedia.org/wiki/Geometric_series
 ---
 
-## The outer loop runs log₂ n times. How does the number of `++work` runs grow with n?
+## The outer loop runs about log₂ n times. How does the number of `++work` runs grow with n?
 
 ```cpp
 for (int i = n; i > 0; i /= 2)

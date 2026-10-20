@@ -27,9 +27,7 @@ vector moves them instead.
 
 ```cpp
 #include <type_traits>
-#include <utility>
 struct Part {
-    Part() = default;
     Part(const Part&) = default;
     Part(Part&&) {}
 };

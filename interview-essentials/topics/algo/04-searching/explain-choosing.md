@@ -15,9 +15,9 @@ refs:
   - https://en.cppreference.com/w/cpp/algorithm/partition_point
 elaborate: Name a problem outside arrays, such as finding the first bad build or the largest batch size that fits in memory, where the same cue applies, and say what its yes/no test is.
 ---
-An interviewer asks how you know, from a problem statement alone, that
-you can find the answer by repeatedly ruling out half of the
-candidates. Answer aloud in about a minute.
+An interviewer gives you a problem statement. What would make you look
+for a method that rules out candidates in bulk instead of scanning
+them? Answer aloud in about a minute.
 ---
 - [ ] Cue: sorted data, or a yes/no test on candidate answers that switches from false to true only once
 - [ ] Pattern: binary search, which probes the middle and keeps only the half that can still hold the answer

@@ -27,5 +27,5 @@ r.w = 5;
 **15: a member function reads the members of the object it is called on.**
 
 Called as `r.area()`, its `w` and `h` mean `r.w` and `r.h` at the moment
-of the call, after `w` became 5. Every `Rect` has its own `w` and `h`:
-it is Go's method with a receiver, written inside the struct.
+of the call, after `w` became 5. Every `Rect` has its own `w` and `h`;
+the function is shared, the data is not.

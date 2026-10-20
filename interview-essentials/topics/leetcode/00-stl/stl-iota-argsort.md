@@ -10,6 +10,7 @@ choices:
     - "h[i]"
     - "i"
     - "h[idx[i]]"
+    - "-h[i]"
 compile:
   harness: |
     static_assert(tallest_first({180, 165, 170}, {0, 1, 2}) == std::vector<int>{0, 2, 1});
@@ -17,6 +18,7 @@ compile:
     static_assert(tallest_first({3, 9, 4, 1, 7}, {0, 1, 2, 3, 4}) == std::vector<int>{1, 4, 2, 0, 3});
     int main() {}
 requires:
+  - stl-argsort-meet
   - stl-greater-comparator
   - cpp-essentials/lambda-amp-capture-intro
   - cpp-essentials/constexpr-fn-static-assert
@@ -49,4 +51,5 @@ constexpr std::vector<int> tallest_first(std::vector<int> h, std::vector<int> id
 starts as 0..n−1 (`std::iota` fills it so); sorting it by `h[i]` leaves the heights alone,
 and the caller reads `names[idx[k]]`. Returning `i` sorts the positions
 themselves. The sort already passes each *element* of `idx` as `i`, so
-`h[idx[i]]` indexes twice: it looks up a position of a position.
+`h[idx[i]]` indexes twice: it looks up a position of a position. `-h[i]`
+compiles but, with `std::greater{}`, puts the shortest first.

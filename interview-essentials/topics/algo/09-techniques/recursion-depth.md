@@ -20,7 +20,7 @@ long count(long n) {
 }
 ```
 
-## Built with `-O0` (no optimisation), `count(10000000)` crashes; a loop counting to the same n does not. Why?
+## Built with `-O0` (no optimisation), `count(10000000)` has undefined behaviour (on Linux the process is killed); a loop counting to the same n does not. Why?
 
 ---
 

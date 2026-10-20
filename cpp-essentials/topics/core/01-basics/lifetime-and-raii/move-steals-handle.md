@@ -1,18 +1,18 @@
 ---
 id: raii-move-steals-handle
 kind: code
-version: 1
+version: 2
 level: 2
 tags: [raii, lifetime, special-members, move-semantics]
 requires:
   - raii-copy-double-close
   - move-vs-copy-intro
-  - err-noexcept-broken-promise
   - constexpr-fn-static-assert
+  - raii-exchange-intro
 elaborate: Say aloud what a moved-from owner of yours must look like so that its destructor, and any reassignment, stay safe.
 input: chips
 choices:
-  c1: ["std::exchange(o.h, 0)", "o.h", "o.h = 0"]
+  c1: ["std::exchange(o.h, 0)", "o.h", "o.h = 0", "std::move(o.h)"]
 compile:
   harness: |
     constexpr int releases_after_move() {
@@ -28,7 +28,6 @@ refs:
   - https://en.cppreference.com/w/cpp/language/move_constructor
 ---
 
-`std::exchange(x, v)` sets `x` to `v` and returns `x`'s old value.
 `Handle` releases its resource in the destructor; `0` means "owns
 nothing". Complete the move constructor so that moving a `Handle` from
 one owner to another still releases the resource exactly once.
@@ -38,7 +37,7 @@ one owner to another still releases the resource exactly once.
 struct Handle {
   int h; int* released;
   constexpr Handle(int v, int* r) : h(v), released(r) {}
-  constexpr Handle(Handle&& o) noexcept
+  constexpr Handle(Handle&& o)
       : h({{c1::std\::exchange(o.h, 0)}}), released(o.released) {}
   constexpr ~Handle() { if (h != 0) ++*released; }
 };
@@ -49,7 +48,8 @@ struct Handle {
 A move must leave the source **owning nothing**, or both destructors
 release the same handle: two owners of one resource, and the second
 release acts on something already gone. `o.h` copies the
-value and leaves the source armed; `o.h = 0` disarms the source but yields `0`, so the
+value and leaves the source armed, and so does `std::move(o.h)`: moving an
+`int` copies it; `o.h = 0` disarms the source but yields `0`, so the
 destination never owns the handle and the resource leaks. `std::exchange`
 does the read-then-reset in one expression. (Declaring this move
 constructor also makes the compiler delete the copy operations, so a

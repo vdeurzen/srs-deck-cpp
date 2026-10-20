@@ -16,6 +16,5 @@ refs:
 **1024, that is 1000 + 6 · 4.**
 
 The elements sit back to back with no gaps, so element `i` starts `i`
-element-sizes past the start: `base + i · size`. One multiply and one
-add for any `i`, so indexing costs O(1), constant time. `a[0]` sits at
-the base itself, which is why indices start at 0.
+element-sizes past the start: `base + i · size`. Here 6 elements of 4
+bytes lie before `a[6]`, so it starts 24 bytes in.

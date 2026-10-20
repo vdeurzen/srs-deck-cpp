@@ -22,6 +22,6 @@ p.first += 1;
 
 **4 and 0.5: a pair holds two values, named `first` and `second`.**
 
-`std::pair<int, double>` is like a Go struct with two fields of those
-types whose names are always `first` and `second`. `{3, 0.5}` fills them
+`std::pair<int, double>` holds an `int` and a `double`, whose names are
+always `first` and `second`. `{3, 0.5}` fills them
 in order. The library uses pairs wherever one thing carries two values.

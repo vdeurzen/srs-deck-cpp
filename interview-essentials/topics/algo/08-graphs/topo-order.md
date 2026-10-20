@@ -13,7 +13,7 @@ refs:
 elaborate: Where does your own tooling need this order — a build, a migration, a module loader?
 ---
 
-## A build has these dependencies (an edge `a → b` means a must be built before b). Which graphs have an order that respects every edge?
+## A build has these dependencies (an edge `a → b` means a must be built before b). What property of a directed graph decides whether some order respects every edge?
 
 ```
 lex → parse      parse → check      check → codegen

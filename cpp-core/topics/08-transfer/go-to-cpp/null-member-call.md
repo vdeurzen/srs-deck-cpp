@@ -13,7 +13,8 @@ refs:
   - https://en.cppreference.com/w/cpp/language/ub
 ---
 
-## In Go, calling `p.Name()` on a nil `*Cfg` is safe when `Name` never reads its receiver. What happens to this C++ call?
+Many expect a member call through a null pointer to be harmless when the
+function never reads a member.
 
 ```cpp
 struct Cfg {
@@ -23,11 +24,13 @@ Cfg* p = nullptr;
 const char* n = p->name();
 ```
 
+## What happens at the last line?
+
 ---
 
 **Undefined behaviour at the call itself, though the body never
 touches `this`.**
 
-It often "works", which is why the Go habit survives. But `p->name()`
+It often "works", which is why the belief survives. But `p->name()`
 means `(*p).name()`, and the compiler may assume `this` is non-null: a
 later `if (p)` can be deleted.

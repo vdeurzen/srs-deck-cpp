@@ -16,7 +16,7 @@ refs:
 elaborate: Pick an object in your own code that holds a file or a buffer; say at which exact line it is destroyed.
 ---
 
-A Go teammate asks: with no garbage collector, when does a C++ object
+An interviewer asks: with no garbage collector, when does a C++ object
 actually go away? Answer them.
 
 ---

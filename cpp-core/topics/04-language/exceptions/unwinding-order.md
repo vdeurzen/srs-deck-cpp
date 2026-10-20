@@ -17,10 +17,7 @@ refs:
 ```cpp
 std::string trail;
 struct Guard { char c; ~Guard() { trail += c; } };
-void step() {
-    Guard b{'b'};
-    throw 42;
-}
+void step() { Guard b{'b'}; throw 42; }
 void run() {
     Guard outer{'o'};
     try {

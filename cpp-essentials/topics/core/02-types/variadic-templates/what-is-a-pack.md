@@ -9,7 +9,7 @@ requires:
 refs:
   - https://en.cppreference.com/w/cpp/language/pack
   - https://eel.is/c++draft/temp.variadic
-elaborate: Say aloud how a C++ pack differs from Go's `args ...int`, which arrives as a slice.
+elaborate: Say aloud why a pack that cannot be indexed or stored still lets a function such as `std::make_unique` pass every argument on.
 ---
 
 ## Given `template<typename... Ts> void f(Ts... args);`, what are `Ts` and `args` in the call `f(1, 'c', 2.0)`?

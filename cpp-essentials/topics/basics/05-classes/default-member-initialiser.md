@@ -1,35 +1,42 @@
 ---
 id: class-default-member-initialiser
-kind: trace
-version: 2
-level: 1
-tags: [classes, constructors, initialization, tracing]
-probes:
-  1: { "b.retries": "3", "b.timeout": "5" }
+kind: code
+version: 3
+level: 3
+tags: [classes, constructors, initialization]
+input: chips
+choices:
+  c1: ["int retries = 3;", "int retries;", "int retries(3);"]
+compile:
+  harness: |
+    constexpr Conn b(5);
+    static_assert(b.retries == 3);
+    static_assert(b.timeout == 5);
+    int main() {}
 requires:
   - class-default-member-init-intro
+  - constexpr-fn-static-assert
 elaborate: Which members in your own structs could get a default member initialiser, so no constructor can forget them?
 refs:
   - https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
+  - https://eel.is/c++draft/class.mem.general
 ---
+
+`Conn`'s constructor never mentions `retries`, yet every `Conn` must start
+with `retries` at 3. Complete the member's declaration.
 
 ```cpp
 struct Conn {
-    int retries = 3;
-    int timeout = 30;
-    Conn(int t) : timeout(t) {}
+    {{c1::int retries = 3;}}
+    int timeout;
+    constexpr Conn(int t) : timeout(t) {}
 };
-
-int main() {
-    Conn b(5);      // @1
-}
 ```
 
 ---
 
-`= 3` and `= 30` are **default member initialisers**: the value a member
-gets from any constructor whose initialiser list doesn't mention it. `b`'s
-constructor lists `timeout`, so that entry wins for `timeout` only;
-`retries` still gets 3. Without `= 3`, an `int` member left out of the list
-would hold no reliable value. Verified by running an instrumented copy
-under GCC 16.2 (`g++ -std=c++23`).
+**`= 3` in the declaration is a default member initialiser.** Any
+constructor whose list leaves `retries` out starts it at 3. Plain
+`int retries;` leaves it indeterminate, so `b` is not a constant. A
+member declaration cannot take parentheses (`retries(3)`): inside a
+class that is a syntax error.

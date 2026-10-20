@@ -4,7 +4,7 @@ kind: basic
 version: 1
 level: 1
 tags: [functions, foundations]
-elaborate: Go has no default arguments; say what you would write in Go instead, and what the C++ version saves the caller.
+elaborate: What would break if the default sat on the first parameter instead of the last?
 refs:
   - https://en.cppreference.com/w/cpp/language/default_arguments
   - https://eel.is/c++draft/dcl.fct.default

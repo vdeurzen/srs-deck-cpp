@@ -15,7 +15,8 @@ elaborate: Where does the same visited-set idea keep one of your own tools from 
 ---
 
 A colleague's graph walk hangs on some inputs. Explain the `visited`
-record of a BFS or DFS to them, as you would in an interview.
+record of a BFS or DFS to them, and what that record does to the cost
+of a full walk, as you would in an interview.
 
 ---
 

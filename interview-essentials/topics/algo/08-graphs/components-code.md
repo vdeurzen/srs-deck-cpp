@@ -17,7 +17,7 @@ compile:
     int main() {}
 requires:
   - graph-dfs-worked
-  - graph-path-cycle-component
+  - graph-connected-component
   - stl-array-brace-zero
   - stl-const-auto-param
 refs:
@@ -26,19 +26,17 @@ elaborate: Edges now arrive one at a time and you must report the count after ea
 ---
 
 Complete the test so `components(adj)` returns the number of connected
-components (largest groups of vertices joined by paths) of this
-undirected graph.
+components of a graph on 6 vertices. `adj[u]` holds u's neighbours in
+two slots, −1 for an empty one; each edge is listed at both ends.
 
 ```cpp
 #include <array>
-// adj[u]: u's neighbours on 6 vertices, -1 = none; undirected
 constexpr void dfs(const auto& adj, auto& seen, int u) {
   seen[u] = true;
   for (int v : adj[u]) if (v >= 0 && !seen[v]) dfs(adj, seen, v);
 }
 constexpr int components(const auto& adj) {
-  std::array<bool, 6> seen{};
-  int count = 0;
+  std::array<bool, 6> seen{};  int count = 0;
   for (int s = 0; s < 6; ++s) if ({{c1::!seen[s]}}) { dfs(adj, seen, s); ++count; }
   return count;
 }

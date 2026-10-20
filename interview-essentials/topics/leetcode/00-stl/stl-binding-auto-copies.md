@@ -12,7 +12,7 @@ refs:
   - https://leetcode.com/problems/group-anagrams/
   - https://en.cppreference.com/w/cpp/language/structured_binding
   - https://en.cppreference.com/w/cpp/language/range-for
-elaborate: Go's `for k, v := range m` hands you copies too. Where in your own loops does `auto [a, b]` copy something that owns heap memory?
+elaborate: Where in your own loops does `auto [a, b]` copy something that owns dynamically allocated memory?
 ---
 
 Group Anagrams (LC 49): group the words that are anagrams of each

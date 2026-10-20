@@ -6,7 +6,6 @@ level: 3
 tags: [recognition, lc-875, lc-1011]
 requires:
   - search-on-answer-monotone
-  - technique-greedy-vs-dp
 refs:
   - https://leetcode.com/problems/koko-eating-bananas/
   - https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/

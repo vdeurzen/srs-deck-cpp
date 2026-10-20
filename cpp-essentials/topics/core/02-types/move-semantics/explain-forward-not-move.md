@@ -7,6 +7,7 @@ tags: [move-semantics, templates]
 requires:
   - move-semantics-perfect-forwarding
   - move-semantics-moved-from-state
+  - move-semantics-forward-intro
 elaborate: Say in one sentence how you decide, reading a template, whether a `&&` parameter should be passed on with `std::move` or `std::forward`.
 refs:
   - https://en.cppreference.com/w/cpp/utility/forward
@@ -19,5 +20,5 @@ goes wrong and what to write instead.
 - [ ] Problem: a wrapper must pass its argument on exactly as the caller gave it, lvalue or rvalue
 - [ ] Mechanism: with `T` deduced, `T&&` is a forwarding reference, binding lvalues and rvalues alike
 - [ ] Example: `std::forward<T>(x)` passes `x` on with the caller's value category
-- [ ] Cost: `std::move(x)` moves the caller's lvalue out from under it, leaving it valid but unspecified
-- [ ] Contrast: `std::move` casts to an rvalue always; `std::forward<T>` only when `T` is not a reference
+- [ ] Cost: `std::forward<T>(x)` is only a cast, so forwarding itself copies and moves nothing
+- [ ] Pitfall: `std::move(x)` moves the caller's lvalue out from under it, leaving it valid but unspecified

@@ -6,7 +6,7 @@ level: 1
 tags: [classes, access]
 requires:
   - class-struct-members
-elaborate: Say in one sentence how C++'s `private` compares with Go's lower-case, package-private names.
+elaborate: When do you reach for `class` over `struct` in your own code?
 refs:
   - https://en.cppreference.com/w/cpp/language/class
   - https://en.cppreference.com/w/cpp/language/access
@@ -29,6 +29,6 @@ void fill() {
 **`s.x = 1`: members of a `class` are `private` by default.**
 
 That default is the only difference between the two keywords; a `struct`'s
-members (and bases) start out `public`. Add `public:` and `Sample` behaves
+members start out `public`. Add `public:` and `Sample` behaves
 exactly like `Pixel`. Convention: `struct` for a plain bundle of data,
 `class` when the members guard a rule.

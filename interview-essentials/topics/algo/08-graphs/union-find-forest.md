@@ -6,7 +6,7 @@ level: 1
 tags: [union-find, graphs]
 requires:
   - graph-union-find-problem
-  - tree-terms-height
+  - tree-terms
 refs:
   - https://doi.org/10.1145/364099.364331
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure
@@ -28,5 +28,5 @@ parent = {0, 0, 1, 3, 3}        0       3
 **Follow parent pointers from each to its root (`parent[r] == r`): same root, same set.**
 
 Here `2 → 1 → 0` and `4 → 3`, so different sets. The root names the
-set. Union finds both roots, then makes one write: point one root at
-the other. A query costs the length of the path walked.
+set, so two elements share a set exactly when their walks end at the
+same root. A query costs the length of the path walked.

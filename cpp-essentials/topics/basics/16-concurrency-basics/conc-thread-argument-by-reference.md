@@ -14,9 +14,8 @@ refs:
   - https://en.cppreference.com/w/cpp/thread/thread/thread
   - https://en.cppreference.com/w/cpp/utility/functional/ref
 requires:
-  - conc-start-with-arguments
-  - ptr-reference-must-bind
-elaborate: Say why copying every argument is the safer default for a thread, and what you must then guarantee about `total` when you pass `std::ref`.
+  - conc-thread-copies-arguments
+elaborate: Say what must stay true of `total` for as long as the thread can use the reference, and which line here guarantees it.
 ---
 
 Complete the construction so the new thread adds 5 to `run`'s own
@@ -35,9 +34,7 @@ void run() {
 
 ---
 
-**`std::thread` copies every argument into the new thread**, so plain
-`total` would hand `add_into` a temporary copy; binding `int&` to it is
-rejected at compile time rather than silently changing the copy.
-`std::ref` wraps a reference that survives the copy. `std::cref` wraps
-a `const` one, which `int&` cannot bind, and `&total` is a pointer, not
-an `int&`.
+**`std::ref(total)` survives the thread's copy and still refers to `total`.**
+Plain `total` is copied, and `int&` cannot bind to the copy, so it does
+not compile. `std::cref` wraps a `const` reference, which `int&` cannot
+bind either, and `&total` is a pointer, not an `int&`.

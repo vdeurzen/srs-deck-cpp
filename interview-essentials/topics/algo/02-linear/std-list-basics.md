@@ -26,7 +26,6 @@ l.insert(it, 2);                  // l is now 1 2 3
 
 **3: list nodes never move, so `it` still refers to the same node.**
 
-`std::list` is a doubly linked list: each element is its own heap node
+`std::list` is a doubly linked list: each element is its own separately allocated node
 with links both ways. `insert` allocates one node and relinks its
-neighbours; nothing else moves. There is no `l[i]`: reaching position k
-walks k nodes.
+neighbours; nothing else moves.

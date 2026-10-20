@@ -6,7 +6,7 @@ level: 3
 tags: [value-categories, references, temporaries]
 requires:
   - vc-classify-cloze
-  - vc-plain-ref-rejects-temporary
+  - vc-const-ref-param-code
   - vc-param-binding-no-extension
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category

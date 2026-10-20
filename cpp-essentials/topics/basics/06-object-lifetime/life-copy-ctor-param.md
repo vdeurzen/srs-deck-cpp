@@ -5,11 +5,11 @@ version: 1
 level: 2
 tags: [lifetime, copy, special-members]
 requires:
-  - life-copy-init-not-assign
+  - life-copy-ctor-not-by-value
   - const-ref-names-caller
   - class-default-member-init-intro
   - constexpr-fn-static-assert
-elaborate: Say in one sentence why a copy constructor taking its parameter by value could never work.
+elaborate: Say which other parameters in your code you would write as `const T&`, and when plain by-value is the better choice.
 input: chips
 choices:
   c1:

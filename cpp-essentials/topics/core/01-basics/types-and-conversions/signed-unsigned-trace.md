@@ -1,37 +1,35 @@
 ---
 id: types-signed-unsigned-trace
 kind: trace
-version: 1
+version: 2
 level: 2
 tags: [types, integers, conversions, tracing]
 probes:
-  1: { lt: "false" }
-  2: { lt2: "true" }
-  3: { d: "4294967295" }
+  1: { before: "false" }
+  2: { gap: "4294967294" }
 requires:
   - types-usual-arithmetic-conversions
 elaborate: Say aloud where in your code a `size()` result meets a signed index or a `-1`, and what this trace predicts there.
 refs:
   - https://en.cppreference.com/w/cpp/language/usual_arithmetic_conversions
+  - https://eel.is/c++draft/expr.arith.conv
 ---
 
+`n` plays a container's size, `last` a "nothing yet" index. Read each
+variable just after its line runs.
+
 ```cpp
-// x86-64 Linux: int is 32 bits, long is 64 bits
-int i = -1;
-unsigned u = 1;
-bool lt = i < u;          // @1
-long wide = -1;
-bool lt2 = wide < u;      // @2
-unsigned d = u - 2;       // @3
+// x86-64 Linux: int and unsigned are 32 bits
+unsigned n = 3;
+int last = -2;
+bool before = last < n;     // @1
+unsigned gap = n - 5;       // @2
 ```
 
 ---
 
-`i < u`: same rank, so `i` converts to `unsigned` and `-1` becomes
-`4294967295`; the comparison is false. `wide < u`: `long` outranks
-`unsigned int` and, being 64 bits, can represent every `unsigned` value,
-so `u` converts to `long` instead and `-1 < 1` is true. The same source
-line flips meaning on a platform where `long` is 32 bits (Windows).
-`u - 2` is computed in `unsigned` and wraps modulo 2³² to `4294967295`.
-Values from running an instrumented copy built with GCC 16.2
-(`g++ -std=c++23`, x86-64 Linux).
+`last < n`: `int` and `unsigned` share a rank, so `last` converts to
+`unsigned`, and `-2` becomes 2³² − 2 = `4294967294`, which is not less
+than 3. `n - 5` is computed in `unsigned` too: 3 − 5 wraps modulo 2³² to
+the same `4294967294`. Values from an instrumented copy built with GCC
+16.2.

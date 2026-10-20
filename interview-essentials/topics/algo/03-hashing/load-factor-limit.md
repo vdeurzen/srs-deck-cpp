@@ -13,12 +13,12 @@ refs:
   - https://abseil.io/about/design/swisstables
 ---
 
-## A chained table can run at load factor 2.0. Why must an open-addressing table stay below 1.0?
+## A chained table can run at load factor 2.0. Why can an open-addressing table never go above 1.0?
 
 ---
 
 **Its keys live in the slots themselves, so n can never exceed the number of slots m.**
 
-A chained bucket holds any number of keys; an open-addressing slot holds
-one. Long before α reaches 1, probe runs grow sharply, so such tables
-typically grow at a load factor of about 0.5 to 0.875.
+A chained bucket holds any number of keys, a slot only one. At α = 1 an
+absent-key lookup finds no empty slot to stop at, and probe runs grow
+sharply well before that, so such tables grow at α ≈ 0.5–0.875.
