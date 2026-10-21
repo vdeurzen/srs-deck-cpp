@@ -7,9 +7,8 @@ tags: [backtracking, subsets, lc-78]
 expose_ms: 11000
 compile: null # a function body
 requires:
-  - technique-backtracking-undo
-  - cpp-essentials/vector-back-pop-back
-  - cpp-essentials/cast-functional-notation
+  - bt-subsets-trace
+  - technique-backtracking-trace
 refs:
   - https://leetcode.com/problems/subsets/
   - https://leetcode.com/problems/permutations/

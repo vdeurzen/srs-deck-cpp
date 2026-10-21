@@ -18,12 +18,12 @@ down, left and right. A recursive `sink` (mark the cell, then recurse
 down, right, up, left) is accepted: LeetCode's grids are at most
 300 × 300.
 
-## Why can `sink` overflow the stack on a 1000 × 1000 all-`'1'` grid?
+## Assume an 8 MB stack. Why can `sink` overflow it on a 1000 × 1000 all-`'1'` grid?
 
 ---
 
-**The recursion can chain through all 10⁶ cells, one frame each, overflowing 8 MB.**
+**The recursion can chain through all 10⁶ cells, one frame each.**
 
-The depth is m·n, not m + n. Even 8 bytes a frame, a bare return
-address, is 8 MB; real frames also hold `r`, `c`, `k` and saved
-registers. Use an explicit stack or BFS.
+The depth is m·n, not m + n. A real frame holds a return address, `r`,
+`c`, `k` and saved registers: 32 bytes or more, so 10⁶ frames need at
+least 32 MB. Use an explicit stack or BFS.

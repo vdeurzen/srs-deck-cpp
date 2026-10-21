@@ -50,9 +50,10 @@ compile:
       return out[0];
     }
 requires:
+  - tree-inorder-iterative-worked
   - tree-bst-inorder-trace
-  - std-queue-stack-adaptors
   - stl-const-auto-param
+  - std-stack-adaptor
 refs:
   - https://leetcode.com/problems/binary-tree-inorder-traversal/
   - https://leetcode.com/problems/kth-smallest-element-in-a-bst/
@@ -63,8 +64,8 @@ elaborate: Binary Search Tree Iterator (LC 173) asks for `next()`, the next valu
 
 Binary Tree Inorder Traversal (LC 94), without recursion: append the
 values to `out` in order. `cur` starts at the root, and `st` arrives as
-an empty stack of `TreeNode*`, such as `std::stack<TreeNode*>`. Order
-the lines.
+an empty stack of `TreeNode*`, such as `std::stack<TreeNode*>`. A
+pointer used as a condition is true when it is not null. Order the lines.
 
 ```cpp
 struct TreeNode { int val; TreeNode* left; TreeNode* right; };

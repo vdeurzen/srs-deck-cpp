@@ -1,7 +1,7 @@
 ---
 id: tree-validate-int-limits
 kind: basic
-version: 1
+version: 2
 level: 3
 tags: [trees, bst, invariants, misconception, lc-98]
 requires:
@@ -14,11 +14,9 @@ refs:
 elaborate: Where else have you used a "can't happen" value as a sentinel (−1 for a missing index, 0 for no timestamp), and what input would make it real?
 ---
 
-Validate Binary Search Tree (LC 98): return whether every left subtree
-is strictly smaller, and every right subtree strictly larger, than its
-node, with `-2^31 <= Node.val <= 2^31 - 1`. Many expect the default
-bounds to mean "no bound yet" (`int lo = INT_MIN` is used whenever the
-caller omits `lo`):
+Validate Binary Search Tree (LC 98), with `-2^31 <= Node.val <= 2^31 - 1`.
+Many expect the default bounds to mean "no bound yet" (`!n` is true
+when `n` is null):
 
 ```cpp
 bool valid(TreeNode* n, int lo = INT_MIN, int hi = INT_MAX) {
@@ -28,12 +26,12 @@ bool valid(TreeNode* n, int lo = INT_MIN, int hi = INT_MAX) {
 }
 ```
 
-## It passes every example. Which smallest input makes it wrong?
+## What does `valid(root)` do on the one-node tree `[2147483647]`: return true, return false, or overflow?
 
 ---
 
-**The one-node tree `[2147483647]` (or `[-2147483648]`): it returns false.**
+**It returns false: 2147483647 equals `INT_MAX`, so `n->val >= hi` holds.**
 
 The sentinels are legal values, so the strict test rejects a node that
-equals one. Widen the bounds to `long long` (`LLONG_MIN`, `LLONG_MAX`),
+equals one; `[-2147483648]` fails the same way. Widen the bounds to `long long` (`LLONG_MIN`, `LLONG_MAX`),
 or pass the bounding nodes as pointers, with null meaning "unbounded".

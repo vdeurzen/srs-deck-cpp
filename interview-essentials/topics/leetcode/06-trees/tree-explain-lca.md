@@ -1,7 +1,7 @@
 ---
 id: tree-explain-lca
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [trees, recognition, lc-236, lc-235]
 requires:
@@ -13,9 +13,8 @@ refs:
   - https://cp-algorithms.com/graph/lca.html
 elaborate: Where else does a tree question ask what two nodes share, such as the nearest common directory of two paths or the merge base of two git commits?
 ---
-An interviewer asks how you find the deepest node that has two given
-nodes of a binary tree below it, and how the answer changes when the
-tree is ordered. Answer aloud.
+An interviewer says: two files sit somewhere in a directory tree; find
+the closest folder that contains both. Talk it through. Answer aloud.
 ---
 - [ ] Cue: the deepest node with both given nodes in its subtree, a node counting as in its own
 - [ ] Pattern: in postorder, a node whose two subtrees each report a found node is the answer

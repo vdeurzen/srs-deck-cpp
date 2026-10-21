@@ -1,7 +1,7 @@
 ---
 id: tree-lca-bst
 kind: basic
-version: 1
+version: 2
 level: 3
 tags: [trees, bst, lca, lc-235, lc-236]
 requires:
@@ -15,7 +15,7 @@ elaborate: "If each node had a parent pointer and you had no root (Lowest Common
 
 Lowest Common Ancestor of a Binary Search Tree (LC 235): return the
 deepest node with both `p` and `q` in its subtree, a node counting as
-in its own. Values are distinct, and `p` and `q` are both present. A search of the whole tree still works, but visits O(n) nodes.
+in its own. Values are distinct; both nodes are present.
 
 ```
           6
@@ -25,12 +25,11 @@ in its own. Values are distinct, and `p` and `q` are both present. A search of t
      0   4 7   9
 ```
 
-## Walking down from the root, how do you recognise the LCA of `p = 0` and `q = 4`?
+## Walking down from the root for `p = 0`, `q = 4`, which test on a node's value ends the walk?
 
 ---
 
-**The first node whose value lies in `[min(p, q), max(p, q)]`: here 2.**
+**Its value lies between `p` and `q`, inclusive: here at 2.**
 
-Above it, both values are on one side (0 and 4 are both below 6), so
-step that way. At 2 they split, or 2 is one of them. One path from the
-root, no recursion: time grows with the tree's depth, O(1) space.
+Above it, both values lie on one side (both below 6), so step that
+way. At 2 they split, or 2 is one of them: O(depth) time.

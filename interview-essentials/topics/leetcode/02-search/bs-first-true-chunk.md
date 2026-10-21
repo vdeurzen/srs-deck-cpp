@@ -3,7 +3,7 @@ id: bs-first-true-chunk
 kind: chunk
 version: 1
 level: 3
-tags: [binary-search, search-on-answer, lc-875]
+tags: [binary-search, search-on-answer]
 expose_ms: 12000
 compile:
   harness: |
@@ -28,16 +28,16 @@ compile:
                   == 2'000'000'000);                                     // no overflow
     int main() {}
 requires:
-  - search-first-true-predicate
+  - search-on-answer-monotone
+  - search-midpoint-overflow
   - cpp-essentials/lambda-syntax-intro
   - cpp-essentials/tmpl-auto-param-cloze
-  - search-midpoint-overflow
 refs:
   - https://leetcode.com/problems/koko-eating-bananas/
   - https://leetcode.com/problems/split-array-largest-sum/
   - https://cp-algorithms.com/num_methods/binary_search.html
   - https://en.cppreference.com/w/cpp/algorithm/partition_point
-elaborate: Split Array Largest Sum (LC 410) splits `nums` into `k` non-empty contiguous parts, minimising the largest part's sum. What is `ok(x)`, and what are `lo` and `hi`?
+elaborate: What would break if a true `mid` set `hi = mid - 1`, and on which input would a test catch it?
 ---
 
 ```cpp
@@ -52,13 +52,10 @@ constexpr int first_true(int lo, int hi, auto ok) {
 
 ---
 
-**Binary search on the answer: the smallest `x` in `[lo, hi]` with
-`ok(x)`.** Preconditions: `ok` reads `false … false true … true`, and
-`hi` is a value known to satisfy `ok`, or a one-past sentinel; `ok(hi)`
-is never called. For Koko Eating Bananas (LC 875: the minimum integer
-eating speed that finishes all `piles` within `h` hours; each hour she
-eats up to `v` bananas from one pile, so a pile of `p` takes ⌈p / v⌉
-hours), `ok(v)` is "the ⌈p / v⌉ sum to at most `h`", with `lo = 1` and `hi` = the largest pile.
+**Binary search on the answer: the smallest `x` in `[lo, hi)` with
+`ok(x)`, or `hi` if none.** `ok` must read `false … false true … true`:
+`partition_point`'s shape with the test negated, so this finds the first
+true. `ok(hi)` is never called.
 
 A true `mid` may be the answer, so `hi` keeps it; a false one is ruled
 out, so `lo` passes it. `lo + (hi − lo) / 2` cannot overflow;

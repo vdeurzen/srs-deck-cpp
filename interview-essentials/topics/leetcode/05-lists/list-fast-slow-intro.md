@@ -27,9 +27,9 @@ B:  1 → 2 → 3 → 4
 
 ---
 
-**`fast` lands on `slow`'s node: inside the loop it gains one node per step.**
+**`fast` lands on `slow`'s node.**
 
-Once both are in the loop, `fast` closes the gap behind `slow` by
-exactly one node each step, so the gap reaches 0 within one lap. So
-"fast hit null" means no loop, and "they met" means a loop: two
-pointers and O(1) memory.
+Once both are in the loop, call the gap how many nodes `fast` trails
+`slow`. Each step `fast` gains one node, so the gap shrinks by exactly
+one and reaches 0 within one lap. "Fast hit null" means no loop; "they
+met" means a loop: two pointers, O(1) memory.

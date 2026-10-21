@@ -7,7 +7,7 @@ tags: [monotonic-stack, stacks, lc-739, lc-496]
 expose_ms: 12000
 compile: null # a loop from a function body
 requires:
-  - mono-stack-signal
+  - mono-next-greater-worked
   - cpp-essentials/vector-back-pop-back
   - cpp-essentials/cast-functional-notation
 refs:

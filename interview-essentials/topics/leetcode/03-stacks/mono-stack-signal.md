@@ -6,7 +6,7 @@ level: 2
 tags: [stacks, recognition, lc-739]
 requires:
   - linear-stack-recognition
-  - linear-deque-both-ends
+  - linear-sequence-containers
 refs:
   - https://leetcode.com/problems/daily-temperatures/
   - https://leetcode.com/problems/online-stock-span/
@@ -18,7 +18,7 @@ elaborate: Online Stock Span (LC 901) returns, for each new price, how many cons
 > have to wait until a warmer temperature. If there is none, 0.
 > `1 <= n <= 10^5`.
 
-## Which O(n) pattern fits this statement?
+## Which approach fits this statement?
 
 ---
 

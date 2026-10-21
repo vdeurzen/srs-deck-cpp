@@ -6,7 +6,7 @@ level: 2
 tags: [backtracking, permutations, lc-46]
 distractors:
   - "  out.push_back(cur);"
-  - "    cur.pop_back();"
+  - "  for (int j = int(cur.size()); j < int(a.size()); ++j) {"
 compile:
   harness: |
     #include <vector>
@@ -33,7 +33,6 @@ compile:
     int main() {}
 requires:
   - bt-subsets-chunk
-  - cpp-essentials/vector-sized-constructor
   - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/permutations/
@@ -43,7 +42,9 @@ elaborate: Permutations II (LC 47) allows duplicates in `nums` but wants each di
 ---
 
 Permutations (LC 46): return every ordering of an array `nums` of
-distinct integers. Order the lines.
+distinct integers. `used[j]` says whether `a[j]` is already placed (all
+false at first), `cur` is the ordering so far, `out` collects the
+finished ones. Order the lines.
 
 ```cpp
 constexpr void permute(const auto& a, auto& used, auto& cur, auto& out) {
@@ -65,6 +66,6 @@ leaves, O(n · n!) with the copies.
 
 Only full-length paths are answers, so the leaf records and returns.
 The first distractor is the subsets habit of recording every node: it
-adds the partial orderings too. The second un-chooses only `cur`: the
-first leaf leaves every item marked, so [1, 2, 3] is the only ordering
-found.
+adds the partial orderings too. The second starts the loop at the
+current position, a start-index habit: position 1 can then never take
+item 0, so [2, 1, 3] is never built.

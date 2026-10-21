@@ -17,7 +17,7 @@ pointers start at 1; each step `slow` moves one node and `fast` two.
 
 ```text
 step   slow   fast   gap
-0      1      1      — (slow not in the loop yet)
+0      1      1      — (slow outside loop)
 1      2      3      2
 2      3      2      1
 3      4      4      0: they meet

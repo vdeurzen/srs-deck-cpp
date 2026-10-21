@@ -3,7 +3,7 @@ id: list-fast-slow-parsons
 kind: parsons
 version: 1
 level: 2
-tags: [linked-lists, fast-slow-pointers, cycle-detection, lc-141, lc-876]
+tags: [linked-lists, fast-slow-pointers, cycle-detection, lc-141]
 distractors:
   - "  while (fast->next && fast) {"
   - "  while (fast) {"
@@ -21,7 +21,7 @@ compile:
     int main() {}
 requires:
   - linear-list-traverse-chunk
-  - list-fast-slow-worked
+  - list-fast-slow-trace
 refs:
   - https://leetcode.com/problems/linked-list-cycle/
   - https://leetcode.com/problems/middle-of-the-linked-list/
@@ -31,7 +31,7 @@ elaborate: Middle of the Linked List (LC 876) returns the middle node, the secon
 
 Linked List Cycle (LC 141): does the list contain a cycle, some node
 whose `next` leads back to an earlier node? Use O(1) extra memory.
-Order the lines.
+A pointer used as a condition is true when it is not null. Order the lines.
 
 ```cpp
 struct Node { int val; Node* next; };
@@ -48,15 +48,11 @@ constexpr bool has_cycle(Node* head) {
 ---
 
 **Floyd's tortoise and hare.** `slow` takes one step, `fast` two. On a
-list that ends, `fast` reaches null first. On a cycle, once both are
-inside, the gap closes by one node per step, so they meet within one
-lap: O(n) time and O(1) space, where a visited set costs O(n) memory.
+list that ends, `fast` reaches null first; on a cycle they meet within
+one lap. O(n) time and O(1) space, where a visited set costs O(n) memory.
 
-The two moves are independent, so they share one line. The comparison
-comes after both: before them, `slow == fast` is
+The comparison comes after both moves: before them, `slow == fast` is
 true at the head. The guard tests `fast` before `fast->next`, because
 `&&` evaluates left to right and `fast` itself may be null; both hops
 must exist, so `while (fast)` alone dereferences null on an even
-length. `slow` needs no test: it walks nodes `fast` has already passed.
-Remove the `if` and return `slow` after the loop for the middle node
-(Middle of the Linked List, LC 876). On LC the node type is `ListNode`.
+length.

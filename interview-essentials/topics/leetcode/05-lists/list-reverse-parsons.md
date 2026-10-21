@@ -7,42 +7,9 @@ tags: [linked-lists, in-place-reversal, lc-206, lc-92]
 distractors:
   - "    cur = cur->next;"
   - "  return cur;"
-compile:
-  harness: |
-    struct Node;
-    struct Link {                    // Node* that counts how often it is read
-      Node* p;  int* reads;
-      constexpr operator Node*() const { ++*reads; return p; }
-      constexpr Link& operator=(Node* q) { p = q; return *this; }
-    };
-    struct Node { int val; Link next; };
-    constexpr bool three() {
-      int r = 0;
-      Node n[3] = {{1, {&n[1], &r}}, {2, {&n[2], &r}}, {3, {nullptr, &r}}};   // 1 -> 2 -> 3
-      Node* h = reverse(&n[0]);
-      const int reads = r;           // one per node: the save; an extra read is an extra line
-      return reads == 3 && h == &n[2] && n[2].next == &n[1] && n[1].next == &n[0]
-          && n[0].next == nullptr;
-    }
-    static_assert(three());
-    constexpr bool one() {
-      int r = 0;
-      Node a{7, {nullptr, &r}};
-      return reverse(&a) == &a && r == 1 && a.next == nullptr;
-    }
-    static_assert(one());
-    struct Plain { int val; Plain* next; };   // and a plain node, as on LC
-    constexpr bool two() {
-      Plain n[2] = {{1, &n[1]}, {2, nullptr}};
-      return reverse(&n[0]) == &n[1] && n[1].next == &n[0] && n[0].next == nullptr;
-    }
-    static_assert(two());
-    static_assert(reverse(static_cast<Plain*>(nullptr)) == nullptr);
-    int main() {}
+compile: null # graded by line order: every line has one right place
 requires:
-  - linear-list-node
-  - cpp-essentials/tmpl-why-template
-  - cpp-essentials/constexpr-fn-static-assert
+  - list-reverse-trace
 refs:
   - https://leetcode.com/problems/reverse-linked-list/
   - https://leetcode.com/problems/reverse-linked-list-ii/
@@ -51,10 +18,12 @@ elaborate: Reverse Linked List II (LC 92) reverses only positions `left` through
 ---
 
 Reverse Linked List (LC 206): reverse a singly linked list in place and
-return the new head. Order the lines.
+return the new head. A node is `struct Node { int val; Node* next; };`,
+and a pointer used as a condition is true when it is not null. Order the
+lines.
 
 ```cpp
-template <typename Node> constexpr Node* reverse(Node* head) {
+Node* reverse(Node* head) {
   Node *prev = nullptr, *cur = head;
   while (cur) {
     Node* next = cur->next;
@@ -75,4 +44,4 @@ each pass moves one node across. O(n) time, O(1) space.
 only link to the rest. `prev = cur` must come before `cur = next`, or
 the node just flipped is lost. Return `prev`: at the end `cur` is null.
 The first distractor is what happens without the save: after the flip,
-`cur->next` leads backwards. On LC the node type is `ListNode`.
+`cur->next` leads backwards.

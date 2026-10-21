@@ -26,21 +26,19 @@ compile:
     static_assert(power_set({1, 1, 1}, {{}, {1}, {1, 1}, {1, 1, 1}}));
     int main() {}
 requires:
-  - bt-combination-start-index
+  - bt-dup-siblings
+  - bt-subsets-chunk
   - stl-const-auto-param
 refs:
   - https://leetcode.com/problems/subsets-ii/
   - https://leetcode.com/problems/combination-sum-ii/
   - https://leetcode.com/problems/combination-sum/
   - https://doi.org/10.1145/321296.321300
-elaborate: Combination Sum II (LC 40, combinations of `candidates` summing to `target`, each used at most once, duplicates in the input) adds this skip to the loop that solves Combination Sum (LC 39, the same with distinct, reusable candidates). Which other line of that loop changes, and why does the skip still need sorting?
+elaborate: Combination Sum II (LC 40) lists combinations of `candidates` summing to `target`, each used at most once, with duplicates in the input. Why does it need this same skip, and why only after sorting?
 ---
 
-> Given an integer array `nums` that **may contain duplicates**, return
-> all possible subsets. The solution set **must not contain duplicate
-> subsets**.
-
-That is Subsets II (LC 90). `a` is `nums` sorted, so equal values sit
+Subsets II (LC 90): every subset of `nums`, which may hold duplicates,
+with no subset listed twice. `a` is `nums` sorted, so equal values sit
 side by side. Complete the condition that skips a repeated value.
 
 ```cpp
@@ -58,13 +56,10 @@ constexpr void subsets(const auto& a, int i, auto& cur, auto& out) {
 ---
 
 **`j > i`: skip a copy only if it is not this depth's first choice.**
-At one depth, two equal values would root identical subtrees, so only
-the first is tried. The first candidate at a depth (`j == i`) is always
-allowed, even when it equals the item the parent just took: that is how
-[2, 2] gets built.
+The first candidate at a depth (`j == i`) is always allowed, even when
+it equals the item the parent just took: that is how [2, 2] gets built.
 
 On `{1, 2, 2}`: `j > 0` compares across depths, so [2, 2] and
-[1, 2, 2] are never produced. `j >= i` skips even the first choice when it equals the parent's item,
-so [2, 2] is lost (and it reads `a[-1]` at `j = 0`). `j > i + 1` lets a
-second copy through when it sits right after the first choice, so
-[1, 2] comes out twice.
+[1, 2, 2] are never produced. `j >= i` skips the first choice too and
+reads `a[-1]` at `j = 0`. `j > i + 1` lets a second copy through right
+after the first choice, so [1, 2] comes out twice.

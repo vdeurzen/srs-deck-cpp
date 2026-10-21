@@ -30,6 +30,5 @@ int left = st.back();   // or -1 if st is now empty
 **`i - left - 1`: the bars strictly between `left` and `i`.**
 
 `i` is the first bar right of `b` no taller than it, `left` the nearest
-shorter bar on its left. Every bar between is at least `h[b]` tall:
-those right of `b` were popped before it, those left of it by `b` or
-earlier.
+shorter bar on its left. Every bar between is at least `h[b]` tall: a
+shorter one would have popped `b`, or been popped by it.
