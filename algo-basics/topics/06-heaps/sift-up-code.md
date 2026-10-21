@@ -18,6 +18,7 @@ compile:
     static_assert(build({1, 2, 3, 4, 5, 6, 7}) == std::array<int, 7>{7, 4, 6, 1, 3, 2, 5});
     static_assert(build({3, 1, 6, 5, 2, 4, 7}) == std::array<int, 7>{7, 5, 6, 1, 2, 3, 4});
     int main() {}
+elaborate: Say in one sentence, as to an interviewer, why a push compares the new value only with its ancestors and never with its siblings.
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://en.cppreference.com/w/cpp/algorithm/push_heap
@@ -28,12 +29,11 @@ up. Root at slot 0. Complete the index it compares against.
 
 ```cpp
 #include <array>
-#include <cstddef>
 #include <utility>
 
-constexpr void sift_up(auto& h, std::size_t i) {
+constexpr void sift_up(auto& h, int i) {
   while (i > 0) {
-    const std::size_t p = {{c1::(i - 1) / 2}};
+    const int p = {{c1::(i - 1) / 2}};
     if (h[p] >= h[i]) return;
     std::swap(h[p], h[i]);
     i = p;

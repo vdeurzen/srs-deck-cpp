@@ -15,18 +15,19 @@ compile:
 requires:
   - graph-mst-cut-property
   - interview-essentials/graph-union-find-path-compression
+elaborate: Kruskal sorts edges while Prim grows one tree from a heap; which would you pick for a sparse graph given as an edge list, and why?
 refs:
   - https://doi.org/10.1090/S0002-9939-1956-0078686-7
   - https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
 ---
 
 Kruskal's MST on 4 vertices. The edges arrive sorted by weight,
-lightest first. Complete the test that decides whether to take an edge.
+lightest first: 0-1 (1), 1-2 (2), 0-2 (3), 2-3 (4), 1-3 (5), 0-3 (6).
+Complete the test that decides whether to take an edge.
 
 ```cpp
 #include <array>
 struct Edge { int w, u, v; };
-// called with 0-1 (1)  1-2 (2)  0-2 (3)  2-3 (4)  1-3 (5)  0-3 (6)
 constexpr int kruskal(const std::array<Edge, 6>& sorted_edges) {
   std::array<int, 4> parent{0, 1, 2, 3};
   auto find = [&](int x) { while (parent[x] != x) x = parent[x]; return x; };

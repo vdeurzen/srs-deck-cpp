@@ -19,6 +19,7 @@ compile:
     static_assert(find(kA, 9) == -1);
     static_assert(find(kA, 20) == -1);
     int main() {}
+elaborate: Say in one sentence, as to an interviewer, how you choose between the closed and the half-open form, and what you check first when a binary search hangs.
 refs:
   - https://en.wikipedia.org/wiki/Binary_search_algorithm
 ---
@@ -35,8 +36,7 @@ constexpr int find(std::span<const int> a, int key) {   // index or -1
   while (lo <= hi) {
     int mid = lo + (hi - lo) / 2;
     if (a[mid] == key) return mid;
-    if (a[mid] < key) lo = mid + 1;
-    else {{c1::hi = mid - 1;}}
+    if (a[mid] < key) lo = mid + 1; else {{c1::hi = mid - 1;}}
   }
   return -1;
 }

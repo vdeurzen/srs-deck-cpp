@@ -30,11 +30,9 @@ bool try_push(int x) {
   }
   buf[tail & (N - 1)] = x;  ++tail;  return true;
 }
-int main() {
-  bool a = try_push(14);                          // @1
-  head.store(2, std::memory_order_release);       // the consumer pops another
-  bool b = try_push(15);                          // @2
-}
+bool a = try_push(14);                            // @1
+head.store(2, std::memory_order_release);         // the consumer pops another
+bool b = try_push(15);                            // @2
 ```
 
 ---

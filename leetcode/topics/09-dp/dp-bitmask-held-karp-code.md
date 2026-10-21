@@ -28,15 +28,14 @@ refs:
 elaborate: Why does plain increasing `m` already fill every mask before any mask that extends it?
 ---
 
-Held–Karp: `d[m][v]` is the shortest path that starts at node 0, visits
-exactly the nodes in mask `m`, and ends at `v`. The function returns the
-row for the full mask. Complete the test that lets the path step to `v`.
+`d[m][v]` is the shortest path that starts at node 0, visits exactly
+the nodes in mask `m`, and ends at `v`; the result is the full mask's
+row. Complete the test that lets the path step to `v`.
 
 ```cpp
 #include <bits/stdc++.h>
 constexpr std::vector<int> held_karp(const std::vector<std::vector<int>>& w) {
-  std::vector d(1 << w.size(), std::vector<int>(w.size(), 1'000'000));
-  d[1][0] = 0;
+  std::vector d(1 << w.size(), std::vector<int>(w.size(), 1'000'000));  d[1][0] = 0;
   for (int m = 1; m < int(d.size()); ++m)
     for (std::size_t u = 0; u < w.size(); ++u)
       for (std::size_t v = 0; v < w.size(); ++v)

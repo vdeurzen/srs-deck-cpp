@@ -19,9 +19,9 @@ One step of BFS from 0; 0 and 1 have already been popped. `-1` means
 "not reached yet".
 
 ```cpp
-// edges: 0-1 0-2 1-3 2-3 2-4 3-5 4-5 (undirected)
-const std::vector<int> adj[6] = {{1, 2}, {0, 3}, {0, 3, 4}, {1, 2, 5}, {2, 5}, {3, 4}};
-int dist[6] = {0, 1, 1, 2, -1, -1};
+// edges: 0-1 0-2 1-3 2-3 2-4 (undirected)
+const std::vector<int> adj[5] = {{1, 2}, {0, 3}, {0, 3, 4}, {1, 2}, {2}};
+int dist[5] = {0, 1, 1, 2, -1};
 std::queue<int> q;                    // holds 2 3, front first
 const int u = q.front(); q.pop();
 for (int v : adj[u])

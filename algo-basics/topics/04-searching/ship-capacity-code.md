@@ -11,27 +11,28 @@ choices:
   c1: ["hi = mid;", "lo = mid + 1;", "hi = mid - 1;", "lo = mid;"]
 compile:
   harness: |
+    constexpr bool fits(std::span<const int> w, int days, int cap) {
+      int used = 1, load = 0;
+      for (int x : w) { if (load + x > cap) { ++used; load = 0; } load += x; }
+      return used <= days;
+    }
     inline constexpr int kW[] = {3, 2, 2, 4, 1, 4};
     static_assert(min_capacity(kW, 3) == 6);   // [3,2] [2,4] [1,4]
     static_assert(min_capacity(kW, 1) == 16);
     static_assert(min_capacity(kW, 6) == 4);
     int main() {}
+elaborate: Where else could you binary-search a number you cannot compute directly, given only a yes/no test that flips once?
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/partition_point
 ---
 
-Find the smallest capacity that ships the packages, in order, within
-`days`. `fits` is monotone in `cap`. Complete the branch taken when
-`mid` fits.
+Find the smallest capacity that ships the packages `w`, in order, within
+`days`. `fits(w, days, cap)` says whether capacity `cap` does it; it is
+monotone in `cap`. Complete the branch taken when `mid` fits.
 
 ```cpp
 #include <span>
-
-constexpr bool fits(std::span<const int> w, int days, int cap) {
-  int used = 1, load = 0;
-  for (int x : w) { if (load + x > cap) { ++used; load = 0; } load += x; }
-  return used <= days;
-}
+constexpr bool fits(std::span<const int> w, int days, int cap);
 constexpr int min_capacity(std::span<const int> w, int days) {
   int lo = 0, hi = 0;
   for (int x : w) { lo = lo > x ? lo : x; hi += x; }   // [heaviest, total]

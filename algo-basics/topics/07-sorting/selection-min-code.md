@@ -18,6 +18,7 @@ compile:
     int main() {}
 requires:
   - sort-selection-invariant
+elaborate: Selection sort makes at most n − 1 swaps; when would that matter more than its n²/2 comparisons?
 refs:
   - https://algs4.cs.princeton.edu/21elementary/
   - https://en.wikipedia.org/wiki/Selection_sort
@@ -28,13 +29,11 @@ slot `i`.
 
 ```cpp
 #include <array>
-#include <cstddef>
 #include <utility>
 constexpr std::array<int, 6> selection_sort(std::array<int, 6> a) {
-  for (std::size_t i = 0; i + 1 < a.size(); ++i) {
-    std::size_t m = i;
-    for (std::size_t j = i + 1; j < a.size(); ++j)
-      if ({{c1::a[j] < a[m]}}) m = j;
+  for (int i = 0; i < 5; ++i) {
+    int m = i;
+    for (int j = i + 1; j < 6; ++j) if ({{c1::a[j] < a[m]}}) m = j;
     std::swap(a[i], a[m]);
   }
   return a;

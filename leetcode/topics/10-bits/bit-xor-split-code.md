@@ -31,10 +31,9 @@ elaborate: Any set bit of `d` would split the two numbers. Why reach for the low
 ---
 
 Single Number III (LC 260): return the two values of `nums` that appear
-once; every other value appears twice, and
-`-2^31 <= nums[i] <= 2^31 - 1`. XOR-ing everything leaves `d`, the XOR of
-the two singles. Complete `bit`: the lowest set bit of `d`, safe at
-`INT_MIN`.
+once; every other value appears twice. XOR-ing everything leaves `d`,
+the XOR of the two singles. Complete `bit`: the
+lowest set bit of `d`, safe at `INT_MIN`.
 
 ```cpp
 #include <array>

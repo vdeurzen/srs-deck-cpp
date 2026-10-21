@@ -11,21 +11,21 @@ choices:
   c1: ["chain[bucket(k)]", "chain[k]", "chain[0]", "chain[bucket(k) + 1]"]
 compile:
   harness: |
-    constexpr void Table::insert(int k) { if (!contains(k)) chain[bucket(k)].push_back(k); }
     constexpr bool run() {
       Table t;
-      for (int k : {3, 10, 15, 24}) t.insert(k);
+      for (int k : {3, 10, 15, 24}) t.chain[t.bucket(k)].push_back(k);
       return t.contains(10) && t.contains(24) && t.contains(15)
           && !t.contains(17) && !t.contains(5);
     }
     static_assert(run());
     int main() {}
+elaborate: What happens to this lookup's cost if every key lands in the same bucket, and what input could force that?
 refs:
   - Cormen, Leiserson, Rivest, Stein, Introduction to Algorithms, 4th ed., §11.2
 ---
 
 A hash table with 7 buckets, each holding a list (chain) of its keys.
-Complete the lookup.
+Insert appends a new key to its bucket's chain. Complete the lookup.
 
 ```cpp
 #include <vector>
@@ -34,7 +34,6 @@ struct Table {
   static constexpr int m = 7;
   std::vector<int> chain[m];
   constexpr int bucket(int k) const { return k % m; }
-  constexpr void insert(int k);   // appends k to its bucket's chain, unless present
   constexpr bool contains(int k) const {
     for (int x : {{c1::chain[bucket(k)]}}) if (x == k) return true;
     return false;

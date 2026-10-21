@@ -20,6 +20,7 @@ compile:
 requires:
   - interview-essentials/graph-dfs-discovery-finish-trace
   - interview-essentials/graph-topo-order
+elaborate: Where would you use this order in practice, as for build steps or course prerequisites, and what does a back edge tell you there?
 refs:
   - https://en.wikipedia.org/wiki/Topological_sorting#Depth-first_search
   - https://doi.org/10.1137/0201010
@@ -33,8 +34,7 @@ edge `a → b`, a comes first.
 #include <array>
 struct Dag {
   std::array<std::array<int, 2>, 5> adj;          // out-neighbours, -1 = none
-  std::array<bool, 5> seen{};
-  std::array<int, 5> order{}; int n = 0;
+  std::array<bool, 5> seen{};  std::array<int, 5> order{};  int n = 0;
   constexpr void dfs(int u) {
     seen[u] = true;
     for (int v : adj[u]) if (v >= 0 && !seen[v]) dfs(v);

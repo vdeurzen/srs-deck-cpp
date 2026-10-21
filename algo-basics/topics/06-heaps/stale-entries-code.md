@@ -14,8 +14,12 @@ choices:
 compile:
   harness: |
     // node 1 improved 5 -> 2, node 2 improved 7 -> 3: the old entries stayed
-    static_assert(settle_order({{5, 1}, {2, 1}, {3, 2}, {7, 2}, {4, 3}}, {0, 2, 3, 4})
-                  == std::vector<int>{1, 2, 3});
+    #include <utility>
+    using Q = std::vector<std::pair<int, int>>;
+    using V = std::vector<int>;
+    static_assert(settle_order(Q{{2, 1}, {3, 2}, {4, 3}, {5, 1}, {7, 2}}, V{0, 2, 3, 4})
+                  == V{1, 2, 3});
+    static_assert(settle_order(Q{{1, 2}, {2, 1}, {6, 2}}, V{0, 2, 1}) == V{2, 1});
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/container/priority_queue
@@ -23,24 +27,16 @@ refs:
 ---
 
 A shortest-path search keeps a min-queue of `(distance, node)` entries.
-`std::priority_queue` cannot lower an entry's key, so when the search
-finds a shorter distance to a node it pushes a second entry and leaves
-the old one in the queue. `dist[u]` is the best distance known for u.
-Complete the condition so `order` lists each node once, nearest first.
+`std::priority_queue` cannot lower a key, so a shorter distance is
+pushed as a second entry and the old one stays. `popped` lists the
+entries in pop order; `dist[u]` is u's best distance. Complete the
+condition so `order` lists each node once.
 
 ```cpp
-#include <algorithm>
-#include <functional>
-#include <utility>
 #include <vector>
-
-constexpr std::vector<int> settle_order(std::vector<std::pair<int, int>> pq,
-                                        const std::vector<int>& dist) {
+constexpr std::vector<int> settle_order(const auto& popped, const auto& dist) {
   std::vector<int> order;
-  std::ranges::make_heap(pq, std::greater<>());
-  for (; !pq.empty(); pq.pop_back()) {
-    std::ranges::pop_heap(pq, std::greater<>());
-    const auto [d, u] = pq.back();
+  for (const auto& [d, u] : popped) {
     if ({{c1::d != dist[u]}}) continue;
     order.push_back(u);
   }

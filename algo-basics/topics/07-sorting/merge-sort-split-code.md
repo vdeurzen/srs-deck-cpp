@@ -13,6 +13,7 @@ choices:
     - "merge_sort(a, mid, hi - 1);"
 compile:
   harness: |
+    #include <algorithm>
     constexpr void merge_runs(Arr& a, int lo, int mid, int hi) {
       Arr t{};
       std::merge(a.begin() + lo, a.begin() + mid, a.begin() + mid, a.begin() + hi, t.begin());
@@ -25,6 +26,7 @@ compile:
 requires:
   - interview-essentials/sort-merge-runs-trace
   - interview-essentials/sort-merge-idea
+elaborate: Where else does a half-open range `[lo, hi)` save you a `+ 1` or `- 1`, as with iterators `begin()` and `end()`?
 refs:
   - https://algs4.cs.princeton.edu/22mergesort/
   - https://en.wikipedia.org/wiki/Merge_sort
@@ -35,7 +37,6 @@ refs:
 recursive call.
 
 ```cpp
-#include <algorithm>
 #include <array>
 using Arr = std::array<int, 6>;
 constexpr void merge_runs(Arr& a, int lo, int mid, int hi);

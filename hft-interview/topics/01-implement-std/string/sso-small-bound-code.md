@@ -28,10 +28,9 @@ refs:
 elaborate: Your buffer grows to 24 bytes to fill the padding. Which number in your code has to change, and which stays a derived expression?
 ---
 
-The interviewer: "Write the constructor of a small-string type." Like
-libstdc++'s, `p` always holds the data pointer and aims at `buf` for a
-short string. Complete the test that decides when `buf` is used. The
-harness runs in a constant expression, which rejects out-of-bounds writes.
+The interviewer: "Write the constructor of a small-string type." `p`
+always holds the data pointer and aims at `buf` for a short string.
+Complete the test that decides when `buf` is used.
 
 ```cpp
 #include <algorithm>

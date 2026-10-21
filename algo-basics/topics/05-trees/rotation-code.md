@@ -36,12 +36,14 @@ compile:
     static_assert(rotated().root == 2 && rotated().rootLeft == 1);
     static_assert(rotated().yLeft == 2);
     int main() {}
+elaborate: Where else must you save a link before overwriting it, as when reversing a linked list in place?
 refs:
   - https://en.wikipedia.org/wiki/Tree_rotation
 ---
 
 Rotate right at `y`: its left child `x` becomes the subtree's root, as in
-the drawing. Complete the missing link.
+the drawing. `t[v].left` and `t[v].right` are child indices, -1 for none;
+the function returns the new root's index. Complete the missing link.
 
 ```cpp
 //        y                x
@@ -49,8 +51,6 @@ the drawing. Complete the missing link.
 //      x   C    ==>     A   y
 //     / \                  / \
 //    A   B                B   C
-// t[v].left, t[v].right: child indices, -1 for none.
-// Returns the index of the subtree's new root.
 constexpr int rotate_right(auto& t, int y) {
   const int x = t[y].left;
   {{c1::t[y].left = t[x].right;}}

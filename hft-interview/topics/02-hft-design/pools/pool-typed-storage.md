@@ -47,8 +47,7 @@ elaborate: A caller releases the same order twice. What happens to the free list
 The interviewer: "Write a typed object pool for orders." It allocates
 `N` slots once and threads a free list of slot indices through `next`
 (`N` ends the list). `make` copies an object into a free slot. Complete
-`release` so the pool can hand that slot out again. The test runs in a
-constant expression.
+`release` so the pool can hand that slot out again.
 
 ```cpp
 #include <memory>

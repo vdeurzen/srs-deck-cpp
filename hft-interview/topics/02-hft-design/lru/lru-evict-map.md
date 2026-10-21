@@ -13,6 +13,10 @@ choices:
     - "slot[key[s]] = 0;"
 compile:
   harness: |
+    constexpr void Lru::touch(int s) {
+      n[p[s]] = n[s];  p[n[s]] = p[s];
+      n[s] = n[0];  p[s] = 0;  p[n[0]] = s;  n[0] = s;
+    }
     constexpr bool consistent(const Lru& c) {    // exactly 3 keys cached, each where it says
       int cached = 0;
       for (int k = 0; k < 10; ++k)
@@ -41,17 +45,15 @@ elaborate: In the `std::list` + `unordered_map` LRU, which line makes the same c
 ---
 
 The interviewer: "Now the miss path, with the cache full." A
-three-entry LRU keeps its recency ring in fixed arrays and stores each
-slot's key; a key → slot table stands in for the hash map. The miss reuses the
-least recently used slot in place. Complete `miss`.
+three-entry LRU keeps its recency ring in fixed arrays; `slot` stands in
+for the key → slot hash map. Complete `miss`.
 
 ```cpp
 #include <array>
 struct Lru {                                  // slot 0: sentinel; slots 1-3 hold entries
   std::array<int, 4> n{}, p{}, key{};         // links, and the key cached in each slot
   std::array<int, 10> slot{};                 // key -> its slot; 0 = not cached
-  constexpr void touch(int s) { n[p[s]] = n[s]; p[n[s]] = p[s];
-                                n[s] = n[0]; p[s] = 0; p[n[0]] = s; n[0] = s; }
+  constexpr void touch(int s);                // move slot s to the front
   constexpr void miss(int k) {                // pre: slot[k] == 0, slots 1-3 in use
     const int s = p[0];                       // the least recently used slot
     {{c1::slot[key[s]] = 0; key[s] = k;}}
@@ -66,5 +68,4 @@ struct Lru {                                  // slot 0: sentinel; slots 1-3 hol
 holds, then overwrite that key.** Overwriting first loses the victim's
 key, so its entry survives and a later lookup "hits" another key's
 slot. The invariant to keep: every mapped key sits in the slot it maps
-to. No allocation either way: the victim's slot is the new entry's slot.
-With an open-addressed map, this erase leaves a tombstone.
+to. No allocation: the victim's slot becomes the new entry's slot.

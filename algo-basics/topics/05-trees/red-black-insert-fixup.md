@@ -7,24 +7,23 @@ tags: [trees, red-black, rotations, invariants]
 requires:
   - tree-red-black-invariant
   - tree-rotation
+elaborate: Say in one sentence, as to an interviewer, why the red-uncle case can move the problem up the tree while the black-uncle case always ends it.
 refs:
   - https://doi.org/10.1109/SFCS.1978.3
   - https://docs.kernel.org/core-api/rbtree.html
 ---
 
 ```
-          20B                  20B           B = black, R = red
-         /   \                 /
-       10R    30R            10R
-       /                     /
-     5    <- new           5    <- new
-    uncle 30 is red       uncle is an empty link: black
+       20B        B = black, R = red
+      /   \
+    10R    30R    <- the uncle
+    /
+   5   <- new
 ```
 
-A red-black insert colours the new node {{c1::red::a colour}}, so no
-path gains a black node; the only rule it can break involves its
-parent's colour. If the parent's sibling (the uncle) is red, as on the left, a
-{{c2::recolouring::a change that moves no node}} fixes it: parent and
-uncle turn black, the grandparent red, and the check moves two levels up.
-If the uncle is black, as on the right, one or two {{c3::rotations::a local restructuring}}
-plus a colour fix-up finish the repair there.
+An insert colours the new node {{c1::red::a colour}}, so no path gains a
+black node. If its parent and uncle (the parent's sibling) are both red,
+as here, a {{c2::recolouring::a change that moves no node}}
+fixes it and moves the check two levels up. If the uncle is black (an
+empty link counts as black), one or two {{c3::rotations::a local restructuring}}
+end the repair.

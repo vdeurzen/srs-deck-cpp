@@ -20,6 +20,7 @@ compile:
     }
     static_assert(drains_sorted());
     int main() {}
+elaborate: When would you keep this unsorted vector instead of a heap, given how often you insert compared with how often you extract?
 refs:
   - https://xlinux.nist.gov/dads/HTML/priorityque.html
   - https://en.cppreference.com/w/cpp/container/vector/pop_back
@@ -30,14 +31,12 @@ A min-priority queue kept as an **unsorted** vector: insert is
 line that removes it.
 
 ```cpp
-#include <cstddef>
 #include <utility>
 #include <vector>
 
 constexpr int extract_min(std::vector<int>& a) {
-  std::size_t m = 0;
-  for (std::size_t i = 1; i < a.size(); ++i)
-    if (a[i] < a[m]) m = i;
+  int m = 0;
+  for (int i = 1; i < int(a.size()); ++i) if (a[i] < a[m]) m = i;
   const int min = a[m];
   {{c1::a[m] = a.back();}}
   a.pop_back();

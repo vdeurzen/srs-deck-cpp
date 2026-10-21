@@ -41,12 +41,10 @@ refs:
 elaborate: Without the sentinel, which two cases need a branch, and which one would the front order of the queue hit?
 ---
 
-The interviewer: "make cancel O(1)." The id map already turned the
-order id into a handle `{slot, generation}`. Orders live in pool slots;
-a price level threads them as a circular FIFO through `n` and `p`.
-Slot 0 is the level's sentinel: a dummy node that is never an order,
-so the ring is never empty (`n[0]` is the front, `p[0]` the back).
-Complete `cancel`.
+The interviewer: "make cancel O(1)." An order is found by its handle
+`{slot, generation}`. A price level threads its orders as a circular
+FIFO through `n` and `p`; slot 0 is a sentinel, a dummy node that is
+never an order. Complete `cancel`.
 
 ```cpp
 #include <array>

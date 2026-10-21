@@ -1,7 +1,7 @@
 ---
 id: heap-index-trace
 kind: trace
-version: 1
+version: 2
 level: 1
 tags: [heaps, arrays, tracing]
 requires:
@@ -11,23 +11,18 @@ requires:
 elaborate: Where else does an index formula stand in for pointers, such as a 2-D grid stored in one flat array?
 probes:
   1: { l: "30", r: "50" }
-  2: { p: "80" }
+  2: { p: "90" }
 refs:
   - https://en.wikipedia.org/wiki/Binary_heap#Heap_implementation
   - https://en.cppreference.com/w/cpp/algorithm/make_heap
 ---
 
 ```cpp
-//          90
-//        /    \
-//       70     80
-//      /  \   /
-//     30  50 60
-std::array<int, 6> h{90, 70, 80, 30, 50, 60};   // level order, root at 0
+std::array<int, 5> h{90, 70, 80, 30, 50};   // a max-heap in level order, root at 0
 
 std::size_t i = 1;
 int l = h[2 * i + 1], r = h[2 * i + 2];   // @1
-i = 5;
+i = 2;
 int p = h[(i - 1) / 2];                   // @2
 ```
 
@@ -35,8 +30,8 @@ int p = h[(i - 1) / 2];                   // @2
 
 Level order numbers the slots so that node i's children are 2i + 1 and
 2i + 2: 70 at slot 1 has its children at slots 3 and 4, holding 30 and
-50. Going up inverts that: the parent of 60 at slot 5 is (5 − 1) / 2 = 2,
-which holds 80. Integer division makes both children map to the same parent.
+50. Going up inverts that: the parent of 80 at slot 2 is (2 − 1) / 2 = 0,
+the root, 90. Integer division maps both children of a node to it.
 
 Completeness is what makes this work: no gaps, so the formulas never
 point at a missing node in the middle of the array.

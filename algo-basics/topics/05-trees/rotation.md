@@ -7,6 +7,7 @@ tags: [trees, rotations, invariants]
 requires:
   - interview-essentials/tree-balance-families
   - tree-traversal-trace
+elaborate: Say in one sentence, as to an interviewer, why a balanced tree repairs itself with rotations rather than by rebuilding the subtree.
 refs:
   - https://doi.org/10.1109/SFCS.1978.3
   - https://en.wikipedia.org/wiki/Tree_rotation
@@ -22,7 +23,6 @@ refs:
 
 A right rotation at y lifts its left child x into y's place. Subtree B
 moves from x's right to {{c1::y's left::a new parent and side}}.
-Afterwards an in-order walk still reads A x B y C, so the rotation keeps
-the {{c2::BST ordering::what an in-order walk would check}} while A rises
-a level and C sinks one. In a tree of n nodes one rotation costs
-{{c3::O(1)::a complexity}}.
+An in-order walk still reads A x B y C, so the rotation keeps the
+{{c2::BST ordering::what an in-order walk would check}}; A rises a level.
+One rotation costs {{c3::O(1)::a complexity}}.

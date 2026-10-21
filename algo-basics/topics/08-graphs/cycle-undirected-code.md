@@ -9,15 +9,16 @@ choices:
   c1: ["v == from", "u == from", "seen[v]", "v == u"]
 compile:
   harness: |
-    constexpr bool cyclic(std::array<std::array<int, 2>, 4> adj) {
-      Graph g{adj};
-      return g.has_cycle(0, -1);
+    constexpr bool cyclic(Adj adj) {
+      std::array<bool, 4> seen{};
+      return has_cycle(adj, seen, 0, -1);
     }
     static_assert(!cyclic({{{1, -1}, {0, 2}, {1, 3}, {2, -1}}}));   // path 0-1-2-3
     static_assert(cyclic({{{1, 3}, {0, 2}, {1, 3}, {2, 0}}}));      // square 0-1-2-3-0
     int main() {}
 requires:
   - interview-essentials/graph-cycle-directed-grey
+elaborate: Say in one sentence, as to an interviewer, why the parent check is enough here but not in a directed graph.
 refs:
   - https://en.wikipedia.org/wiki/Cycle_(graph_theory)#Cycle_detection
 ---
@@ -27,18 +28,15 @@ must be skipped, so that a seen neighbour means "cycle".
 
 ```cpp
 #include <array>
-struct Graph {
-  std::array<std::array<int, 2>, 4> adj;          // undirected, -1 = none
-  std::array<bool, 4> seen{};
-  constexpr bool has_cycle(int u, int from) {
-    seen[u] = true;
-    for (int v : adj[u]) {
-      if (v < 0 || {{c1::v == from}}) continue;
-      if (seen[v] || has_cycle(v, u)) return true;
-    }
-    return false;
+using Adj = std::array<std::array<int, 2>, 4>;   // undirected, -1 = none
+constexpr bool has_cycle(const Adj& adj, std::array<bool, 4>& seen, int u, int from) {
+  seen[u] = true;
+  for (int v : adj[u]) {
+    if (v < 0 || {{c1::v == from}}) continue;
+    if (seen[v] || has_cycle(adj, seen, v, u)) return true;
   }
-};
+  return false;
+}
 ```
 
 ---

@@ -10,8 +10,6 @@ choices:
     - "t - cached_head_ == N"
     - "t == cached_head_"
     - "(t & (N - 1)) == (cached_head_ & (N - 1))"
-    - "t - cached_head_ == N - 1"
-    - "true"
 compile:
   harness: |
     struct FakeAtomic {               // constexpr stand-in for std::atomic: counts loads
@@ -36,15 +34,15 @@ compile:
 requires:
   - interview-essentials/seq-ring-buffer-mask
   - algo-systems/ll-spsc-cached-index
+elaborate: The consumer falls behind for a burst. How often does the producer now pay the cross-core read, and what would you change if that showed up in a profile?
 refs:
   - https://rigtorp.se/ringbuffer/
   - https://lmax-exchange.github.io/disruptor/disruptor.html
 ---
 
-The interviewer: "Write `try_push` for a single-producer, single-consumer
-ring." `head_` and `tail_` count items ever popped and pushed;
-`cached_head_` is the producer's last read of `head_`. Complete the
-condition so the producer re-reads `head_` only when it has to.
+An SPSC ring: `head_` and `tail_` count items ever popped and pushed;
+`cached_head_` is the producer's last read of `head_`. Complete the test
+so `head_` is re-read only when needed.
 
 ```cpp
 #include <atomic>
@@ -64,15 +62,9 @@ template <class T, std::size_t N, class A = std::atomic<std::size_t>> struct Sps
 ---
 
 **Refresh exactly when the stale copy says full: `N` items in flight.**
-`head_` only grows, so a stale copy can make the ring look fuller, never
-emptier, and that error is safe. A refresh costs a cross-core read of
-the consumer's line, so it should happen only when the stale copy
-actually blocks the push.
+`head_` only grows, so a stale copy errs towards full, which is safe. A
+refresh is a cross-core read of the consumer's line, so do it only when
+the stale copy blocks the push.
 
-Both blanks are the same test: before the refresh and after it. The
-test counts `head_` loads. `true` refreshes on every push, which is what
-the cache exists to prevent (Rigtorp measured roughly 20× more items/s
-with the cache, on his machine), and then reports full. Masked indices are equal when
-the ring is empty as well as full, so they refresh needlessly.
-`t == cached_head_` is the *empty* test. `N - 1` refreshes one push
-early.
+Both blanks are the same test, before and after the refresh. Masked
+indices are also equal when the ring is empty. `t == cached_head_` is the *empty* test.

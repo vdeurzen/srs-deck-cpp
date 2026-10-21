@@ -11,10 +11,13 @@ choices:
   c1: ["!todo.empty()", "todo.size() > 1", "sum == 0", "todo.back() != -1"]
 compile:
   harness: |
-    static_assert(tree_sum({{1, 1, 2}, {2, -1, -1}, {3, -1, -1}}) == 6);
-    static_assert(tree_sum({{1, 1, -1}, {2, 2, -1}, {4, -1, -1}}) == 7);  // a chain
-    static_assert(tree_sum({{5, -1, -1}}) == 5);
+    struct Node { int value, left, right; };
+    using T = std::vector<Node>;
+    static_assert(tree_sum(T{{1, 1, 2}, {2, -1, -1}, {3, -1, -1}}) == 6);
+    static_assert(tree_sum(T{{1, 1, -1}, {2, 2, -1}, {4, -1, -1}}) == 7);  // a chain
+    static_assert(tree_sum(T{{5, -1, -1}}) == 5);
     int main() {}
+elaborate: Which recursive function you have written could meet input deep enough to overflow the stack, and what would this rewrite cost you?
 refs:
   - https://en.wikipedia.org/wiki/Depth-first_search#Pseudocode
   - https://en.cppreference.com/w/cpp/container/vector
@@ -22,18 +25,15 @@ refs:
 
 A recursive tree walk overflows the stack on a tree a million levels
 deep. This version keeps its pending work in a `std::vector` on the heap
-instead. Complete the loop condition.
+instead. Node `t[i]` has a `value` and child indices `left` and `right`,
+-1 for none. Complete the loop condition.
 
 ```cpp
 #include <vector>
-struct Node { int value, left, right; };  // child indices, -1 = none
-
-constexpr int tree_sum(const std::vector<Node>& t) {
-  std::vector<int> todo{0};               // the root is pending
-  int sum = 0;
+constexpr int tree_sum(const auto& t) {
+  std::vector<int> todo{0};  int sum = 0;   // the root is pending
   while ({{c1::!todo.empty()}}) {
-    int i = todo.back(); todo.pop_back();
-    sum += t[i].value;
+    int i = todo.back();  todo.pop_back();  sum += t[i].value;
     if (t[i].left != -1) todo.push_back(t[i].left);
     if (t[i].right != -1) todo.push_back(t[i].right);
   }

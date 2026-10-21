@@ -6,6 +6,7 @@ level: 3
 tags: [trees, red-black, invariants]
 requires:
   - interview-essentials/tree-balance-families
+elaborate: Which C++ standard containers are usually built on this tree, and what guarantee do they get from its height bound?
 refs:
   - https://doi.org/10.1109/SFCS.1978.3
   - https://docs.kernel.org/core-api/rbtree.html
@@ -19,10 +20,8 @@ refs:
      3B    7B
 ```
 
-A red-black tree colours each node, with a black root, and keeps two
-rules. A red node never has a {{c1::red child::a colour constraint}}.
-Every path from a node down to an empty link passes the same number of
-{{c2::black nodes::what is counted}} (counting the starting node and not the empty link: two on every path from 10 here).
-Together the two rules mean no path from a node down to an empty link is
-more than {{c3::twice::a ratio}} as long as another, so the height stays
-O(log n).
+A red-black tree has a black root and two rules. A red node never has a
+{{c1::red child::a colour constraint}}. Every path from a node down to an
+empty link passes the same number of {{c2::black nodes::what is counted}}
+(two from 10 here, counting 10). So no such path is more than
+{{c3::twice::a ratio}} as long as another: height O(log n).

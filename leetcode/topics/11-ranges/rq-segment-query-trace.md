@@ -17,13 +17,12 @@ elaborate: Which `[l, r)` on these eight leaves makes the loop take the most nod
 ---
 
 Range Sum Query - Mutable (LC 307) asks for `sumRange(1, 6)`, both ends
-included: `[1, 7)` here. `t` is the bottom-up tree over `a`: leaves
-`t[8..16)`, `t[v] = t[2v] + t[2v + 1]`. The leaf level has already
+included: `[1, 7)` here. `t` is the bottom-up tree over
+`a` = 5 2 6 1 3 4 7 0: leaves `t[8..16)`, `t[v] = t[2v] + t[2v + 1]`. The leaf level has already
 taken `a[1]` and `a[6]` (s = 9) and moved both ends up a level.
 `level` is the next turn of the query loop.
 
 ```cpp
-int a[8] = {5, 2, 6, 1, 3, 4, 7, 0};
 int t[16];   // t[5] = a[2] + a[3] = 7, t[6] = a[4] + a[5] = 7
 int l = 5, r = 7, s = 9;
 

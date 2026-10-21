@@ -34,13 +34,9 @@ TreeNode* cur;              // points at 4
 int next() {
   while (cur) { st.push(cur); cur = cur->left; }
   TreeNode* n = st.top(); st.pop();
-  cur = n->right;
-  return n->val;
+  cur = n->right;  return n->val;
 }
-
-int main() {
-  int got = next();   // @1
-}
+int got = next();   // @1
 ```
 
 ---

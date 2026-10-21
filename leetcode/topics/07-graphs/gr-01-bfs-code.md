@@ -61,13 +61,11 @@ refs:
 elaborate: Minimum Cost to Make at Least One Valid Path in a Grid (LC 1368) lets you follow a cell's arrow or pay 1 to go another way. Which moves get `w = 0`, and what would Dijkstra cost here instead?
 ---
 
-Minimum Obstacle Removal to Reach Corner (LC 2290): in a grid of `0`
-(empty) and `1` (obstacle) cells, moving up, down, left or right, find
-the fewest obstacles to remove to walk from the top-left to the
-bottom-right cell. Entering a cell costs its value. `g[u]` lists
-`{v, w}` edges with `w` 0 or 1, `d` starts all infinite, and `q`
-arrives as an empty `std::deque<int>`. Complete what is done with `v`
-once its distance improves.
+Minimum Obstacle Removal to Reach Corner (LC 2290): fewest obstacle
+cells (`1`) to remove to cross a grid corner to corner. `g[u]` lists
+`{v, w}` edges, `w` the entered cell's value. `q` is an empty
+`std::deque<int>`. Complete what happens to a `v` whose distance
+improved.
 
 ```cpp
 constexpr void bfs01(const auto& g, auto& d, int s, auto q) {
@@ -85,11 +83,10 @@ constexpr void bfs01(const auto& g, auto& d, int s, auto q) {
 ---
 
 **0-1 BFS: a free edge goes to the front, a cost-1 edge to the back.**
-The deque then holds at most two distances, `D` in front and `D + 1`
-behind, so the front is always a nearest cell, as in Dijkstra's heap,
-at O(1) per push: O(V + E).
+The deque then holds only distances `D` (front) and `D + 1` (back), so
+the front is always a nearest cell, as with Dijkstra's heap, at O(1) per
+push: O(V + E).
 
 The distractors still converge, since every improvement is queued
 again, but cells are expanded before their distance is final and then
-re-expanded: on example 1, 10 or 11 expansions instead of 9, and far
-more on larger grids.
+re-expanded: on a 3×3 grid, 10 or 11 expansions instead of 9.

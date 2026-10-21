@@ -32,9 +32,8 @@ elaborate: Range Sum Query - Mutable (LC 307) is 0-indexed and gives `update(ind
 ---
 
 A Fenwick tree keeps point updates and prefix sums O(log n) in one
-array `t[1..n]`: each `t[i]` holds the sum of one block of `a` ending
-at index `i`. `prefix` walks down through the blocks to the left.
-Complete the step that walks `add` up to every block that covers `i`.
+array `t[1..n]`: `t[i]` sums one block of `a` ending at `i`. Complete
+the step that walks `add` up to every block that covers `i`.
 
 ```cpp
 #include <vector>

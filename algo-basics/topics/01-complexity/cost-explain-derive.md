@@ -9,32 +9,24 @@ requires:
   - complexity-cost-trace-triangular
   - complexity-cost-trace-doubling
   - complexity-cost-trace-merge-recurrence
+elaborate: Where in code you have written could a loop hidden inside a recursive call have turned n log n into n²?
 refs:
   - https://en.wikipedia.org/wiki/Analysis_of_algorithms
   - https://en.wikipedia.org/wiki/Recursion_tree
 ---
 
-Derive how the cost of `f` grows with n, part by part, and say which
-part decides it.
+Derive `f`'s cost part by part: which part decides it? `fold` recurses
+on both halves of its range, then loops over the range once.
 
 ```cpp
-int fold(const int* a, int lo, int hi) {      // works on a[lo, hi)
-  if (hi - lo <= 1) return 0;
-  int mid = (lo + hi) / 2;
-  int r = fold(a, lo, mid) + fold(a, mid, hi);
-  for (int i = lo; i < hi; ++i) r += a[i];
-  return r;
-}
 int f(const int* a, int n) {
   int hits = 0;
   for (int i = 0; i < n; ++i)
-    for (int j = 0; j < i; ++j)
-      if (a[i] == a[j]) ++hits;
+    for (int j = 0; j < i; ++j) if (a[i] == a[j]) ++hits;
   for (int w = 1; w < n; w *= 2) ++hits;
   return hits + fold(a, 0, n);
 }
 ```
-
 ---
 
 - [ ] The three parts of `f` run one after another, so their costs add and the fastest-growing one decides
