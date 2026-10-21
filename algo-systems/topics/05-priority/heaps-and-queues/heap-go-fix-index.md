@@ -1,50 +1,66 @@
 ---
 id: heap-go-fix-index
 kind: code
-version: 1
+version: 2
 level: 3
 requires:
-  - heap-go-container-heap
-  - heap-decrease-key-handle
-tags: [go, heaps, interfaces]
+  - heap-indexed-decrease-key
+tags: [heaps, invariants, graphs]
 input: chips
-compile: null
 choices:
   c1:
-    - "q[i].idx, q[j].idx = i, j"
-    - "q[i].idx, q[j].idx = j, i"
-    - "q[i].idx = i"
-    - "q[j].idx, q[i].idx = i, j"
+    - "pos[v] = n"
+    - "pos[n] = v"
+    - "pos[v] = n + 1"
+    - "pos[v] = 0"
+compile:
+  harness: |
+    constexpr void sift_up(IndexedHeap& q, std::size_t i) {
+      for (; i > 0 && q.key[q.h[(i - 1) / 2]] > q.key[q.h[i]]; i = (i - 1) / 2)
+        q.swap_slots(i, (i - 1) / 2);
+    }
+    constexpr IndexedHeap build() {       // vertices 1, 2, 3, 4, 0 with keys 10..50
+      IndexedHeap q;
+      const int vs[5] = {1, 2, 3, 4, 0};
+      for (int i = 0; i < 5; ++i) { q.append(vs[i], 10 * (i + 1)); sift_up(q, q.n - 1); }
+      return q;
+    }
+    constexpr int top_after_decrease() {
+      IndexedHeap q = build();
+      q.key[0] = 1;                       // vertex 0, last appended, now smallest
+      sift_up(q, q.pos[0]);
+      return q.h[0];
+    }
+    static_assert(build().pos == std::array<std::size_t, 5>{4, 0, 1, 2, 3});
+    static_assert(top_after_decrease() == 0);
+    int main() {}
+elaborate: Say which operations on an indexed heap must write `pos`, and what a `decrease_key` does if any one of them forgets.
 refs:
-  - https://pkg.go.dev/container/heap#Fix
-  - https://pkg.go.dev/container/heap#example-package-PriorityQueue
+  - https://en.cppreference.com/w/cpp/algorithm/push_heap
+  - https://en.wikipedia.org/wiki/Binary_heap#Insert
 ---
 
-A Go order queue must reprice a resting order with `heap.Fix(&q, o.idx)`.
-Complete `Swap` so every order always knows its own slot.
+An indexed min-heap of vertex ids: `pos[v]` is vertex `v`'s slot in `h`.
+`append` places a new vertex in the first free slot; the caller then
+sifts it up. Complete `append` so `pos` holds from the start.
 
-```go
-type Order struct{ px float64; idx int }
-type Queue []*Order
-
-func (q Queue) Len() int           { return len(q) }
-func (q Queue) Less(i, j int) bool { return q[i].px > q[j].px }
-func (q Queue) Swap(i, j int) {
-    q[i], q[j] = q[j], q[i]
-    {{c1::q[i].idx, q[j].idx = i, j}}
-}
+```cpp
+#include <array>
+#include <utility>
+struct IndexedHeap {
+  std::array<int, 5> key{}, h{};
+  std::array<std::size_t, 5> pos{}; std::size_t n = 0;
+  constexpr void swap_slots(std::size_t i, std::size_t j) {
+    std::swap(h[i], h[j]); pos[h[i]] = i; pos[h[j]] = j;
+  }
+  constexpr void append(int v, int k) { key[v] = k; h[n] = v; {{c1::pos[v] = n}}; ++n; }
+};
 ```
 
 ---
 
-After the element swap, `q[i]` is the order that just arrived at slot
-`i`, so it records `i`; likewise `j`. `heap.Fix(h, i)` then re-sifts in
-O(log n), the same work as `heap.Remove` plus `heap.Push` but cheaper —
-and it is only correct if `i` is that order's current slot. Updating one
-side leaves the other order's `idx` stale; crossing the indices
-(either spelling) writes each order the slot it just *left*.
-
-`Push` must also set `idx = len(*q)` before appending. This is the
-package's own `PriorityQueue` example. Not compile-checked: the Deck's
-compile service builds C++, so Go is graded by whitespace-normalised
-equality.
+**The new vertex `v` sits at slot `n`, so `pos[v] = n`.** `swap_slots`
+keeps `pos` right only for entries that move; a vertex that never moves
+keeps whatever `append` wrote. `pos[n] = v` stores the forward map,
+`n + 1` is one past its slot, and `0` points it at the root: each makes a
+later `decrease_key` sift the wrong slot.

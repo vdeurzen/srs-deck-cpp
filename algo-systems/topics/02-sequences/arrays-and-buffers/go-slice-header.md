@@ -1,29 +1,34 @@
 ---
 id: seq-go-slice-header
 kind: basic
-version: 1
+version: 2
 level: 2
 requires:
-  - interview-essentials/linear-dynamic-array-growth
-tags: [go, slices]
+  - cpp-essentials/strings-string-view-intro
+  - cpp-essentials/iter-array-fixed-size
+tags: [buffers, views, zero-copy]
 refs:
-  - https://go.dev/blog/slices-intro
-  - https://go.dev/ref/spec#Appending_and_copying_slices
-elaborate: Where does your code keep a slice returned by a function that may still append to it?
+  - https://en.cppreference.com/w/cpp/string/basic_string_view
+  - https://en.cppreference.com/w/cpp/container/array
+elaborate: In a parser you know, which views into the read buffer are still in use when the next message is read into it?
 ---
 
-## What does `t` hold after this `append`?
+A parser reads every message into one reused buffer and hands out
+views into it, copying nothing.
 
-```go
-s := make([]int, 2, 8)   // len 2, cap 8
-t := append(s, 7)
+```cpp
+std::array<char, 64> buf;
+read_msg(buf);                          // buf now starts "alice..."
+std::string_view name(buf.data(), 5);
+read_msg(buf);                          // buf now starts "bobby..."
 ```
 
+## What does `name` hold after the second `read_msg`?
+
 ---
 
-**Same backing array as `s`, `len 3`, `cap 8`: `7` went into slot 2 in place.**
+**`"bobby"`: the view holds only a pointer and length into `buf`.**
 
-A slice is a header `(ptr, len, cap)` over an array. While `len < cap`,
-`append` writes the next slot and returns a header with a larger `len`;
-only when full does it allocate and copy. `s` is
-unchanged: still `len 2`.
+The second read overwrote the same five bytes, and the view reads
+whatever is there now. Zero-copy views are valid only until their
+buffer is refilled; anything kept longer must be copied out first.

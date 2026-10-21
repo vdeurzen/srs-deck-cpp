@@ -1,24 +1,24 @@
 ---
 id: sort-go-slice-swapper
 kind: basic
-version: 1
+version: 2
 level: 4
-tags: [go, sorting, reflection]
+tags: [sorting, move-semantics, memory]
 requires:
-  - sort-go-dispatch
-elaborate: Before replacing a `sort.Slice` with `slices.SortFunc` in your code, what would you check about the element type?
+  - cpp-essentials/move-vs-copy-intro
+  - sort-introsort
+elaborate: Which element type you sort is large and has no cheap move, and what would you sort instead of the elements themselves?
 refs:
-  - https://go.dev/src/internal/reflectlite/swapper.go
-  - https://pkg.go.dev/slices#SortFunc
+  - https://en.cppreference.com/w/cpp/algorithm/sort
+  - https://en.cppreference.com/w/cpp/string/basic_string/basic_string
 ---
 
-## Go 1.27.1, 2²⁰ elements. On `[]int`, `sort.Slice` (~117 ms) beats generic `slices.SortFunc` (~146 ms). On a 32-byte struct it loses, ~199 ms to ~116 ms. What flips it?
+## `std::sort` reorders a `std::vector<std::string>` of 10⁶ strings, each 1 KB long. With libstdc++, what does moving one element during the sort copy?
 
 ---
 
-**`sort.Slice`'s reflection-built swapper: a typed swap for 8-byte elements, three `typedmemmove` calls otherwise.**
+**The 32-byte `std::string` object; its 1 KB of characters never move.**
 
-`reflectlite.Swapper` fast-paths element sizes 1, 2, 4 and 8, so for
-`[]int` each swap is cheap. Wider elements take the generic copy path,
-while `SortFunc`'s instantiation moves them directly. "Generic is
-faster" depends on the element.
+`std::sort` moves elements, and a long string's move takes over the
+heap pointer, size and capacity. A type with no cheap move, such as a
+1 KB array inside a struct, copies all its bytes on every move.

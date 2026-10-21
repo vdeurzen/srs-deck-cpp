@@ -9,15 +9,16 @@ requires:
 elaborate: A query plan tracks which orderings each operator already produces ("interesting orders"). Where is that the same insight?
 refs:
   - https://github.com/orlp/pdqsort
-  - https://go.dev/src/sort/zsortinterface.go
+  - https://github.com/python/cpython/blob/main/Objects/listsort.txt
 ---
 
 ## Real data is rarely random — it is already sorted, reversed, or concatenated from sorted pieces. What do modern sorts do about it?
 
 ---
 
-**Detect existing order and exploit it: sorted or reversed input costs about one pass.**
+**Detect existing order and exploit it: already-ordered input costs about one pass.**
 
-Go's pdqsort reverses a descending range and finishes an ascending one
-with a bounded insertion sort; Timsort merges the natural runs it finds.
+pdqsort finishes a range its partition left untouched with a bounded
+insertion sort; Timsort finds the natural runs, reverses descending ones
+and merges them.
 So benchmarks on random input understate the gap on real data.

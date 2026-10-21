@@ -5,9 +5,11 @@ version: 1
 level: 4
 requires:
   - interview-essentials/foundations-cache-cost-model
+  - interview-essentials/foundations-prefetch-scan-vs-chase
   - interview-essentials/complexity-amortised-single-call
   - cpp-essentials/containers-reference-invalidated-by-growth
 tags: [complexity, cost-model, interview]
+elaborate: Name a hot path you know where the structure with the better big-O would lose on cache misses per operation.
 refs:
   - https://en.algorithmica.org/hpc/
   - https://dl.acm.org/doi/10.1145/48529.48535

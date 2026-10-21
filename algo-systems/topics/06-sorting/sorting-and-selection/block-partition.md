@@ -9,6 +9,7 @@ choices:
   c1: ["!(a[i] < pivot)", "a[i] < pivot", "a[i] > pivot", "1u"]
 compile:
   harness: |
+    #include <utility>
     constexpr std::array<int, 8> kA{5, 9, 1, 7, 3, 8, 2, 6};
     constexpr auto kRun = [] {
       std::array<std::size_t, 8> off{};
@@ -34,8 +35,6 @@ the counter update so the recording loop has no data-dependent branch.
 
 ```cpp
 #include <array>
-#include <cstddef>
-#include <utility>
 constexpr std::size_t right_offsets(const std::array<int, 8>& a, int pivot,
                                     std::array<std::size_t, 8>& off) {
   std::size_t n = 0;

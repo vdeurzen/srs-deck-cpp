@@ -1,29 +1,36 @@
 ---
 id: str-go-strings-and-bytes
 kind: basic
-version: 2
+version: 3
 level: 3
-tags: [go, strings, memory]
-elaborate: A lookup's key aliases `tok`; a sub-slice kept as a value pins the whole input (see `ll-go-substring-retention`). Which of your hot-path conversions is a lookup, and which a store?
+tags: [strings, hashing, memory]
+elaborate: Which hot-path lookup in your code builds a temporary key just to search, and what does that cost when the key is longer than 15 characters?
 requires:
-  - seq-go-slice-aliasing
+  - cpp-essentials/strings-string-view-intro
+  - cpp-essentials/map-unordered-map-intro
 refs:
-  - https://go.dev/blog/strings
-  - https://pkg.go.dev/testing#AllocsPerRun
+  - https://en.cppreference.com/w/cpp/container/unordered_map/find
+  - https://wg21.link/p0919r3
 ---
 
-## A Go tokenizer holds `tok`, a 64-byte `[]byte`, and `kw`, `counts` of type `map[string]int`, with `tok`'s key already present in both. Which line allocates on every call?
+A tokenizer looks up each token in `std::unordered_map<std::string, int> kw`.
+`tok` is a `std::string_view` into the input.
 
-```go
-if id, ok := kw[string(tok)]; ok { use(id) }   // A
-counts[string(tok)]++                          // B
+```cpp
+auto it = kw.find(tok);               // does not compile
+auto it = kw.find(std::string(tok));  // compiles, builds a string per lookup
 ```
 
+## In C++20, what lets `kw.find(tok)` compile and search without building a `std::string`?
+
 ---
 
-**Only B: it may store the key, so it must build a real string.**
+**A hash and an equality that declare `is_transparent`: heterogeneous lookup.**
 
-A read never keeps its key, so the compiler lets `string(tok)` alias
-the bytes. `++` may insert, so it copies even when the key exists.
-Hot path: map to `*int` and do `*p++` after a lookup. Measured with
-`testing.AllocsPerRun`, Go 1.27: A 0, B 1.
+```cpp
+struct StrHash { using is_transparent = void;
+  size_t operator()(std::string_view s) const { return std::hash<std::string_view>{}(s); } };
+std::unordered_map<std::string, int, StrHash, std::equal_to<>> kw;
+```
+
+`find` then hashes and compares the view directly; no allocation.

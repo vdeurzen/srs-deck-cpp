@@ -1,7 +1,7 @@
 ---
 id: parsons-union-find
 kind: parsons
-version: 1
+version: 2
 level: 4
 tags: [union-find, amortised, compilers]
 distractors:
@@ -9,16 +9,22 @@ distractors:
   - "parent[a] = b;"
 compile:
   harness: |
-    constexpr DisjointSet built() {
-      DisjointSet d{};
-      d.unite(0, 1);
-      d.unite(2, 3);
-      d.unite(0, 2);
-      return d;
+    #include <array>
+    constexpr int find(const int* parent, int x) {
+      while (parent[x] != x) x = parent[x];
+      return x;
     }
-    static_assert(built().connected(1, 3));
-    static_assert(!built().connected(1, 4));
-    static_assert(built().size[built().find(3)] == 4);
+    struct Sets { std::array<int, 8> parent{0, 1, 2, 3, 4, 5, 6, 7}, size{1, 1, 1, 1, 1, 1, 1, 1}; };
+    constexpr Sets built() {
+      Sets s;
+      unite(s.parent.data(), s.size.data(), 0, 1);
+      unite(s.parent.data(), s.size.data(), 2, 3);
+      unite(s.parent.data(), s.size.data(), 0, 2);
+      return s;
+    }
+    static_assert(find(built().parent.data(), 1) == find(built().parent.data(), 3));
+    static_assert(find(built().parent.data(), 1) != find(built().parent.data(), 4));
+    static_assert(built().size[find(built().parent.data(), 3)] == 4);
     static_assert(built().size[1] == 1);   // an absorbed root's count is left alone
     int main() {}
 requires:
@@ -28,52 +34,26 @@ refs:
   - https://en.wikipedia.org/wiki/Disjoint-set_data_structure
 ---
 
+Union by size over `parent` and `size` arrays; `find` returns the root
+of `x`'s tree. *Find both roots*, *stop if equal*, *orient small under
+large*, *link*, *update the size*: order the lines.
+
 ```cpp
-#include <array>
-#include <cstddef>
-#include <utility>
-struct DisjointSet {
-  std::array<std::size_t, 8> parent{0, 1, 2, 3, 4, 5, 6, 7};
-  std::array<std::size_t, 8> size{1, 1, 1, 1, 1, 1, 1, 1};
-  constexpr std::size_t find(std::size_t x) const {
-    while (parent[x] != x) x = parent[x];
-    return x;
-  }
-  constexpr bool connected(std::size_t a, std::size_t b) const {
-    return find(a) == find(b);
-  }
-  constexpr void unite(std::size_t a, std::size_t b) {
-    a = find(a);
-    b = find(b);
-    if (a == b) return;
-    if (size[a] < size[b]) std::swap(a, b);
-    parent[b] = a;
-    size[a] += size[b];
-  }
-};
+constexpr int find(const int* parent, int x);
+constexpr void unite(int* parent, int* size, int a, int b) {
+  a = find(parent, a); b = find(parent, b);
+  if (a == b) return;
+  if (size[a] < size[b]) { const int t = a; a = b; b = t; }
+  parent[b] = a;
+  size[a] += size[b];
+}
 ```
 
 ---
 
-Union by size, with the pieces in the only order that works: resolve
-both arguments to their **roots** first (uniting the arguments
-themselves would build a chain and lose the existing sets), bail out if
-they are already together, then orient the merge so the smaller tree
-hangs under the larger, and finally maintain the size of the new root.
-
-The `find` calls must also run *before* the size comparison: comparing
-the sizes of non-roots orients the merge on meaningless counts.
-
-The distractors are the size update on the wrong node
-(`size[b] += size[a];`, which leaves the new root's count stale) and the merge oriented the wrong way
-round (`parent[a] = b;`), which still compiles and still connects the
-right vertices, but hangs the larger tree under the smaller and
-maintains `size` on a node that is no longer a root — it shows up only
-in the size the Harness asserts on.
-
-Note that `find` here is the plain version, without path compression,
-because it is `const`: the compressing variant is the subject of its
-own Card. Union by size alone still bounds the depth at O(log n).
-
-The Harness evaluates the result at compile time, so an ordering that
-compiles but computes the wrong sets still fails (SPEC §4.8).
+**Union by size: roots, stop if equal, orient, link, update the size.**
+Uniting the arguments rather than their roots builds chains and loses
+the existing sets; comparing non-roots' sizes orients on meaningless
+counts. `size[b] += size[a]` leaves the new root's count stale;
+`parent[a] = b` hangs the larger tree under the smaller. Union by size
+alone bounds the depth at O(log n).

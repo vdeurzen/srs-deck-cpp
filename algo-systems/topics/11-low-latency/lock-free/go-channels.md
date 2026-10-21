@@ -1,23 +1,23 @@
 ---
 id: ll-go-channels
 kind: basic
-version: 1
+version: 2
 level: 4
-tags: [go, concurrency, queues, low-latency]
-elaborate: In a Go service you know, which channel is on the hot path, and does its other side usually keep up or usually park?
+tags: [concurrency, queues, low-latency]
+elaborate: In a service you know, which queue is on the hot path, and does its consumer usually keep up or usually sleep?
 requires:
   - ll-go-blocking-basics
 refs:
-  - https://go.dev/src/runtime/chan.go
-  - https://go.dev/doc/effective_go#channels
+  - https://sourceware.org/git/?p=glibc.git;a=blob;f=nptl/pthread_cond_signal.c
+  - https://en.cppreference.com/w/cpp/thread/condition_variable/notify_one
 ---
 
-## A producer and a consumer both keep up with a buffered Go channel, so its buffer is never empty or full. What does each send cost?
+## A producer pushes into a `std::mutex` + `std::condition_variable` queue. The consumer always keeps up, so it is almost never asleep and the two rarely meet on the lock. What does each push cost?
 
 ---
 
-**A mutex lock/unlock and one value copy — no scheduler work.**
-`chansend` takes `hchan`'s lock, then hands the value to a parked receiver
-or copies it into the ring. Only when the other side has actually parked
-(empty buffer, or full) does a send pay a goroutine park/unpark: hundreds
-of nanoseconds and often a cross-core wake-up (Go 1.27 `runtime/chan.go`).
+**An uncontended lock and unlock, one copy, and a `notify_one` that finds no waiter.**
+
+With nobody waiting, glibc's `notify_one` returns without a system call.
+Only when the consumer is actually asleep on an empty queue does a push
+pay a wake-up in the kernel: a system call and often a cross-core wake-up.

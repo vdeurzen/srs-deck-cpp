@@ -1,21 +1,24 @@
 ---
 id: hash-go-map-growth
 kind: basic
-version: 1
+version: 2
 level: 4
 requires:
-  - hash-swiss-table-metadata
-tags: [go, hashing, low-latency]
+  - interview-essentials/hashing-load-factor
+  - interview-essentials/complexity-amortised-single-call
+tags: [hashing, low-latency, tail-latency]
+elaborate: For a hot-path map whose final size you cannot know, what would you do instead of hoping the stall lands somewhere harmless?
 refs:
-  - https://go.dev/blog/swisstable
+  - https://en.cppreference.com/w/cpp/container/unordered_map/rehash
+  - https://en.cppreference.com/w/cpp/container/unordered_map/reserve
 ---
 
-## A Go 1.24+ map holds 10 million entries. Why does the insert that triggers growth copy at most about a thousand entries, not 10 million?
+## A `std::unordered_map<int, int>` grows to 10 million entries. Inserts average about 300 ns, but one takes about 400 ms. What happened on that insert?
 
 ---
 
-**The map is split into tables of at most 1024 slots; only the full one grows.**
+**It pushed the load factor past `max_load_factor`: the map rehashed every entry at once.**
 
-Upper hash bits pick the table through a directory (extendible hashing),
-so a growing table splits on its own and the others are untouched. A C++
-flat table rehashes everything at once unless you `reserve` up front.
+Growth is amortised O(1), not O(1) each: the slow insert relinks all
+~6 million nodes into about twice as many buckets. `reserve(n)` up front
+removes it. Measured with GCC 16.2, `-O2`.

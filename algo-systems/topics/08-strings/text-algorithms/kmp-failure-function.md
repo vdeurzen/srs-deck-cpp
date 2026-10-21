@@ -35,9 +35,7 @@ disagree.
 
 ```cpp
 #include <array>
-#include <cstddef>
 #include <string_view>
-
 constexpr std::array<std::size_t, 7> failure_of(std::string_view p) {
   std::array<std::size_t, 7> f{};
   std::size_t k = 0;                       // length of the current border
@@ -57,7 +55,5 @@ border of that prefix is `f[k−1]`. `f[k]` is the classic off-by-one: it
 describes a prefix one character longer. `k − 1` guesses instead of
 walking the border chain, and `0` throws borders away; the two-step
 harness patterns catch both.
-
-The table is KMP run on the pattern against itself; the search runs the
-same loop against the text, never moving the text pointer backwards,
-which is what lets it scan a stream.
+The search runs the same loop against the text and never moves the text
+pointer backwards.

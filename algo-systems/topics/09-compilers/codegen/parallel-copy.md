@@ -9,6 +9,7 @@ choices:
   c1: ["readers == 0", "true", "readers > 0", "src[src[d]] == src[d]", "readers == 0 || src[src[d]] == src[d]"]
 compile:
   harness: |
+    using Regs = std::array<int, 4>;
     constexpr Regs kStart{10, 11, 12, 13};
     static_assert(parallel_copy({0, 0, 1, 3}, kStart) == Regs{10, 10, 11, 13});  // r2<-r1<-r0
     static_assert(parallel_copy({1, 2, 3, 3}, kStart) == Regs{11, 12, 13, 13});  // r0<-r1<-r2<-r3
@@ -22,15 +23,13 @@ refs:
 elaborate: Where else does a simultaneous assignment get lowered to sequential moves — tuple assignment, a state machine's next-state update?
 ---
 
-The φs at the top of a block form one **parallel copy**: every
-`r[d] = r[src[d]]` reads its source before any of them writes. This one
-contains no cycles. Complete the test that makes a move safe to emit.
+A block's φs form one **parallel copy**: every `r[d] = r[src[d]]` reads
+before any writes; `src[d] == d` is no copy. No cycles here. Complete the
+test that makes a move safe to emit.
 
 ```cpp
 #include <array>
-using Regs = std::array<int, 4>;
-
-constexpr Regs parallel_copy(std::array<int, 4> src, Regs r) {  // src[d] == d: no copy
+constexpr std::array<int, 4> parallel_copy(std::array<int, 4> src, std::array<int, 4> r) {
   for (int round = 0; round < 4; ++round)
     for (int d = 0; d < 4; ++d) {
       int readers = 0;
@@ -47,7 +46,6 @@ constexpr Regs parallel_copy(std::array<int, 4> src, Regs r) {  // src[d] == d: 
 That drains every chain from its far end: in `r2 ← r1 ← r0`, `r2` is
 written first, while `r1` still holds the value it needs.
 
-Emitting in declaration order (`true`) is the naive φ lowering, and it
-overwrites `r1` before `r2` reads it. Checking the *source* instead of
-the destination lets a move clobber a value someone else still needs,
-and allowing that as an alternative (`||`) lets the same clobber through.
+`true` (declaration order) overwrites `r1` before `r2` reads it.
+Testing the *source* instead lets a move clobber a value another copy
+still needs, and `||` lets the same clobber through.

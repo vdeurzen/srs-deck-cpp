@@ -1,22 +1,24 @@
 ---
 id: ll-go-blocking-basics
 kind: cloze
-version: 1
+version: 2
 level: 1
-tags: [go, concurrency, channels]
+tags: [concurrency, blocking, queues]
+requires:
+  - cpp-essentials/conc-condition-variable-intro
+elaborate: Say in one sentence, as to an interviewer, which thread is responsible for releasing each of these two waits in a worker pool you have built.
 refs:
-  - https://go.dev/ref/spec#Send_statements
-  - https://pkg.go.dev/sync#WaitGroup
+  - https://en.cppreference.com/w/cpp/thread/condition_variable/wait
+  - https://en.cppreference.com/w/cpp/thread/latch
 ---
 
-In Go, a send on an unbuffered channel `ch <- v` blocks until
-{{c1::a receiver takes the value::who must act}}. A
-`sync.WaitGroup` is a counter: `Add` raises it, `Done` lowers it, and
-`Wait` blocks until {{c2::it reaches zero}}.
+A consumer blocked in `cv.wait(lk, pred)` wakes for good only when
+{{c1::another thread makes `pred` true under the mutex and notifies::who must act}}.
+A `std::latch done(n)` (C++20, a one-shot counter) has `count_down()`
+lower the count, and `done.wait()` blocks until {{c2::the count reaches zero}}.
 
 ---
 
-Both are blocking points, and every Go concurrency bug in this Topic is
-one of them never being released: a send nobody receives, a channel
-nobody closes, a `Wait` whose counter never reaches zero. A buffered
-channel blocks a sender only when its buffer is full.
+Both are blocking points, and every shutdown bug in this topic is one of
+them never being released: a queue nobody closes, a notify that changes
+no state, a latch whose count never reaches zero.

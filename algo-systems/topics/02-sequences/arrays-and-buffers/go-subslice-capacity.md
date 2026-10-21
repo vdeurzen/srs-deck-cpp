@@ -1,21 +1,34 @@
 ---
 id: seq-go-subslice-capacity
 kind: basic
-version: 1
+version: 2
 level: 3
-tags: [go, slices, aliasing]
+tags: [buffers, views, hashing, lifetime]
 requires:
-  - seq-go-slice-aliasing
+  - seq-go-slice-header
+  - cpp-essentials/map-unordered-map-intro
+elaborate: If copying every key were too slow, what would you make own the key bytes instead, and how long would it live?
 refs:
-  - https://go.dev/ref/spec#Slice_expressions
-  - https://go.dev/blog/slices-intro
+  - https://en.cppreference.com/w/cpp/string/basic_string_view
+  - https://en.cppreference.com/w/cpp/container/unordered_map
 ---
 
-## `log` holds 20 entries. A helper takes `head := log[:10]` and does `head = append(head, e)`. What happens to `log`?
+A zero-copy parser counts symbols across many messages. Each message's
+buffer is freed once that message is parsed.
+
+```cpp
+std::unordered_map<std::string_view, int> counts;   // lives all day
+void on_message(std::string_view sym) {             // sym points into the buffer
+    ++counts[sym];
+}
+```
+
+## What goes wrong after the first buffer is freed?
 
 ---
 
-**`log[10]` is overwritten with `e`.** `log[:10]` keeps the whole
-capacity of `log`, so `append` finds room and writes in place: no copy,
-no error. A full slice expression `log[0:10:10]` caps the capacity and
-forces the append to allocate.
+**The stored keys dangle: later lookups hash and compare freed memory.**
+
+A map stores its keys by value, and a `string_view`'s value is only a
+pointer and a length. Keys that outlive their buffer must own their
+bytes: `std::string`, or views into storage that lives as long as the map.

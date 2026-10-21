@@ -31,17 +31,13 @@ parent index so a push climbs the right path.
 
 ```cpp
 #include <array>
-#include <cstddef>
 #include <utility>
-
 constexpr std::size_t D = 4;
-
 constexpr void sift_up(std::array<int, 9>& h, std::size_t i) {
-  while (i > 0) {
-    const std::size_t p = {{c1::(i - 1) / D}};
+  for (std::size_t p; i > 0; i = p) {
+    p = {{c1::(i - 1) / D}};
     if (h[p] >= h[i]) return;
     std::swap(h[p], h[i]);
-    i = p;
   }
 }
 ```

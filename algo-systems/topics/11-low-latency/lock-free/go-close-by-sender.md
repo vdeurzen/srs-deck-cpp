@@ -1,22 +1,34 @@
 ---
 id: ll-go-close-by-sender
 kind: basic
-version: 1
+version: 2
 level: 2
-tags: [go, concurrency, channels]
+tags: [concurrency, queues, shutdown]
 requires:
   - ll-go-blocking-basics
+  - cpp-essentials/threads-cv-wait-needs-predicate
+  - cpp-essentials/lambda-amp-capture-intro
+elaborate: With three producer threads, who should set `done`, and what goes wrong if the first producer to finish sets it?
 refs:
-  - https://go.dev/ref/spec#Close
-  - https://go.dev/doc/effective_go#channels
+  - https://en.cppreference.com/w/cpp/thread/condition_variable/wait
+  - https://en.cppreference.com/w/cpp/thread/condition_variable/notify_all
 ---
 
-## A consumer calls `close(jobs)` to tell the producers to stop. What happens at a producer's next `jobs <- j`?
+The consumer pops jobs like this:
+
+```cpp
+std::unique_lock lk(m);
+cv.wait(lk, [&] { return !q.empty(); });
+Job j = q.front();
+q.pop_front();
+```
+
+## The producer has pushed its last job and is about to exit. What must it do so the consumer does not sleep forever on an empty queue?
 
 ---
 
-**It panics: `send on closed channel`.** Closing says "no more values",
-so only the sending side may close, and only once every sender is done.
+**Set `done = true` under the lock, `notify_all`, and make the predicate `!q.empty() || done`.**
 
-To stop producers from the receiving side, close a separate `done`
-channel (or cancel a `context`) that the producers `select` on.
+A notify that changes no state is lost or rejected by the predicate;
+"closed" must be state the waiter can test. The consumer then drains
+what is left and returns when the queue is empty and `done` is set.

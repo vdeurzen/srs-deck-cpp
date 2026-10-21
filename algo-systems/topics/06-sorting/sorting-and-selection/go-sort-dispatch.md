@@ -1,24 +1,32 @@
 ---
 id: sort-go-dispatch
 kind: basic
-version: 2
+version: 3
 level: 3
-tags: [go, sorting, generics]
-elaborate: In your own Go code, where would switching from `sort.Slice` to `slices.Sort` change a profile — and where would it change nothing?
+tags: [sorting, inlining, templates]
+elaborate: Where in your own code does a hot loop call a function it receives as a pointer or callback, and could it take the callable's type instead?
 requires:
   - cpp-essentials/staticpoly-static-vs-dynamic
 refs:
-  - https://pkg.go.dev/slices#Sort
-  - https://pkg.go.dev/sort#Slice
-  - https://go.dev/src/sort/zsortinterface.go
+  - https://en.cppreference.com/w/cpp/algorithm/qsort
+  - https://en.cppreference.com/w/cpp/algorithm/sort
 ---
 
-## Go's `sort.Sort`, `sort.Slice` and `slices.SortFunc` all run pdqsort. What does each pay per comparison that `slices.Sort` on `[]int` does not?
+Both sort 2²⁰ random `int`s, GCC 16.2 `-O2`: `qsort` takes about 98 ms,
+`std::sort` about 51 ms. (`const void*` points to an object of unknown type.)
+
+```cpp
+int cmp(const void* a, const void* b);   // returns <0, 0 or >0
+std::qsort(v.data(), v.size(), sizeof(int), cmp);
+std::sort(v.begin(), v.end());
+```
+
+## Both are O(n log n). What does `qsort` pay on every comparison that `std::sort` does not?
 
 ---
 
-**An indirect call: an interface method, a closure, or a `func` value; `slices.Sort` inlines `<`.**
+**An opaque call to `cmp`, which `qsort`'s precompiled loop cannot inline.**
 
-Go 1.27.1, 2²⁰ random ints, mean of 3 runs (amd64): `slices.Sort` ~98 ms,
-`sort.Sort` ~108, `sort.Slice` ~117, `slices.SortFunc` ~146. Same
-algorithm, so the whole spread is dispatch.
+`qsort` is compiled once for every type and reaches `cmp` through a
+pointer. `std::sort` is instantiated for `int` and `<`, so the
+comparison is one inlined instruction in the partition loop.

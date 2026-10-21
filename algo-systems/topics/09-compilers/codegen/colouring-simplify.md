@@ -13,6 +13,17 @@ choices:
     - "std::popcount(g[n] & left) >= K"
 compile:
   harness: |
+    constexpr std::array<int, 6> simplify(const Graph& g, int K) {
+      std::array<int, 6> order{};
+      unsigned left = 0b111111;
+      for (int& out : order) {
+        out = std::countr_zero(left);               // stuck: push one optimistically
+        for (int n = 0; n < 6; ++n)
+          if ((left >> n & 1) && removable(g, left, n, K)) { out = n; break; }
+        left &= ~(1u << out);
+      }
+      return order;
+    }
     // select: pop in reverse, give each node the lowest colour no neighbour has
     constexpr bool coloured(const Graph& g, int K) {
       const auto order = simplify(g, K);
@@ -44,25 +55,17 @@ refs:
 elaborate: Every graph here is colourable with K colours, yet a wrong removal order spills. What does that say about blaming the register count for spills?
 ---
 
-Simplify returns the order in which nodes leave the interference graph;
-select will colour them in reverse. Complete the test for a node that
-is safe to remove now.
+Simplify removes nodes from the interference graph one at a time,
+taking any node that is safe to remove (and, when none is, one
+optimistically); select then colours them in reverse removal order.
+Complete the test for a node that is safe to remove now.
 
 ```cpp
 #include <array>
 #include <bit>
 using Graph = std::array<unsigned, 6>;          // bit m of g[n]: n, m interfere
-
-constexpr std::array<int, 6> simplify(const Graph& g, int K) {
-  std::array<int, 6> order{};
-  unsigned left = 0b111111;                     // nodes still in the graph
-  for (int& out : order) {
-    out = std::countr_zero(left);               // stuck: push one optimistically
-    for (int n = 0; n < 6; ++n)
-      if ((left >> n & 1) && {{c1::std\::popcount(g[n] & left) < K}}) { out = n; break; }
-    left &= ~(1u << out);
-  }
-  return order;
+constexpr bool removable(const Graph& g, unsigned left, int n, int K) {  // left: still in graph
+  return {{c1::std\::popcount(g[n] & left) < K}};
 }
 ```
 

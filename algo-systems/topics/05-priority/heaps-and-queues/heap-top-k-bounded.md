@@ -11,6 +11,13 @@ choices:
   c1: ["x > h.front()", "x < h.front()", "x > h.back()", "x > h[1]"]
 compile:
   harness: |
+    constexpr std::array<int, 3> top3(const std::array<int, 8>& in) {
+      std::array<int, 3> h{in[0], in[1], in[2]};
+      std::ranges::make_heap(h, std::greater{});
+      for (std::size_t i = 3; i < in.size(); ++i) offer(h, in[i]);
+      std::ranges::sort_heap(h, std::greater{});
+      return h;
+    }
     static_assert(top3({5, 1, 9, 3, 7, 2, 8, 6}) == std::array<int, 3>{9, 8, 7});
     static_assert(top3({4, 6, 5, 9, 1, 8, 7, 3}) == std::array<int, 3>{9, 8, 7});
     int main() {}
@@ -19,25 +26,20 @@ refs:
   - https://en.cppreference.com/w/cpp/algorithm/ranges/sort_heap
 ---
 
-`top3` reads its input once and keeps the three largest values in a
-min-heap `h`. Complete the test that decides whether `x` gets in.
+`top3` reads its input once and keeps the three largest values seen so
+far in `h`, a min-heap (`std::greater`). Complete the test in `offer`
+that decides whether `x` gets in.
 
 ```cpp
 #include <algorithm>
 #include <array>
 #include <functional>
-
-constexpr std::array<int, 3> top3(const std::array<int, 8>& in) {
-  std::array<int, 3> h{in[0], in[1], in[2]};
-  std::ranges::make_heap(h, std::greater{});
-  for (std::size_t i = 3; i < in.size(); ++i)
-    if (const int x = in[i]; {{c1::x > h.front()}}) {
-      std::ranges::pop_heap(h, std::greater{});
-      h.back() = x;
-      std::ranges::push_heap(h, std::greater{});
-    }
-  std::ranges::sort_heap(h, std::greater{});
-  return h;
+constexpr void offer(std::array<int, 3>& h, int x) {
+  if ({{c1::x > h.front()}}) {
+    std::ranges::pop_heap(h, std::greater{});
+    h.back() = x;
+    std::ranges::push_heap(h, std::greater{});
+  }
 }
 ```
 
@@ -51,5 +53,4 @@ it is overwritten; `push_heap` sifts the newcomer into place: O(log k).
 `h.back()` and `h[1]` are leaves, only known to be no smaller than the
 root, so testing them rejects a newcomer that beats the minimum but not
 that leaf. `x < h.front()` keeps
-the smallest. `sort_heap` with `std::greater` leaves the result
-descending.
+the smallest.

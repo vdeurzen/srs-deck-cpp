@@ -28,7 +28,7 @@ requires:
 elaborate: Sorting a column with a handful of distinct values (a status flag, a country code) — what does a two-way partition do to it?
 refs:
   - https://www.cs.utexas.edu/~EWD/ewd03xx/EWD398.PDF
-  - https://go.dev/src/sort/zsortinterface.go
+  - https://github.com/orlp/pdqsort
 ---
 
 Three-way partition: afterwards `[0, lt)` is `< pivot`, `[lt, gt)` is
@@ -37,16 +37,14 @@ greater than the pivot.
 
 ```cpp
 #include <array>
-#include <cstddef>
 #include <utility>
 struct Bounds { std::size_t lt, gt; };
 constexpr Bounds partition3(std::array<int, 10>& a, int pivot) {
   std::size_t lt = 0, i = 0, gt = a.size();   // [i, gt) is unexamined
-  while (i < gt) {
+  while (i < gt)
     if (a[i] < pivot) std::swap(a[lt++], a[i++]);
     else if (a[i] > pivot) {{c1::std\::swap(a[i], a[--gt]);}}
     else ++i;
-  }
   return {lt, gt};
 }
 ```
@@ -59,5 +57,4 @@ skips it, and a large value can stay in the middle. `gt` starts one past
 the end, so `gt--` swaps with `a[10]`. On the low side, `a[lt]` is
 already examined, so `i++` there is right. With all keys equal, every
 element lands in the middle in one pass, where a two-way partition
-recurses into quadratic time; pdqsort's `partitionEqual` serves the same
-purpose.
+recurses into quadratic time.

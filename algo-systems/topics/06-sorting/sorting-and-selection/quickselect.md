@@ -9,6 +9,16 @@ choices:
   c1: ["lo = p + 1;", "hi = p;", "hi = p + 1;", "lo = k;"]
 compile:
   harness: |
+    #include <utility>
+    constexpr std::size_t partition(std::array<int, 8>& a, std::size_t lo,
+                                    std::size_t hi) {       // pivot is a[hi]
+      const int pivot = a[hi];
+      std::size_t store = lo;
+      for (std::size_t i = lo; i < hi; ++i)
+        if (a[i] < pivot) { std::swap(a[i], a[store]); ++store; }
+      std::swap(a[store], a[hi]);
+      return store;
+    }
     constexpr std::array<int, 8> kData{5, 3, 9, 1, 7, 2, 8, 6};
     static_assert(quickselect(kData, 0) == 1);
     static_assert(quickselect(kData, 1) == 2);
@@ -26,24 +36,13 @@ refs:
   - https://en.wikipedia.org/wiki/Quickselect
 ---
 
-Quickselect is quicksort that recurses into **one** side. Complete the
-step taken when the target is to the right of the pivot.
+Quickselect: quicksort that continues into **one** side. `partition`
+returns the pivot's final index in `[lo, hi]`. Complete the step for a
+target right of the pivot.
 
 ```cpp
 #include <array>
-#include <cstddef>
-#include <utility>
-
-constexpr std::size_t partition(std::array<int, 8>& a, std::size_t lo,
-                                std::size_t hi) {           // pivot is a[hi]
-  const int pivot = a[hi];
-  std::size_t store = lo;
-  for (std::size_t i = lo; i < hi; ++i)
-    if (a[i] < pivot) { std::swap(a[i], a[store]); ++store; }
-  std::swap(a[store], a[hi]);
-  return store;
-}
-
+constexpr std::size_t partition(std::array<int, 8>& a, std::size_t lo, std::size_t hi);
 constexpr int quickselect(std::array<int, 8> a, std::size_t k) {
   std::size_t lo = 0, hi = a.size() - 1;
   while (lo < hi) {
@@ -58,11 +57,9 @@ constexpr int quickselect(std::array<int, 8> a, std::size_t k) {
 
 ---
 
-After partitioning, the pivot sits at its final sorted position `p`:
-everything left is smaller, everything right is not. So the answer
-lies entirely on one side, and the loop narrows to it: expected Θ(n),
-not Θ(n log n). The invariant is "the k-th element is in `[lo, hi]`".
-`lo = p + 1` keeps it and shrinks the range every step; `hi = p` (or
-`hi = p + 1`) discards the half holding the answer, and the loop
-returns a neighbouring element — a wrong value, not a crash, which is
-why the harness pins every `k`.
+**The pivot is at its sorted index `p`, so the answer is right of it.**
+Invariant: the k-th element is in `[lo, hi]`. `lo = p + 1` keeps it and
+shrinks the range: expected Θ(n), not Θ(n log n). `hi = p` or
+`hi = p + 1` discards the side holding the answer and returns a
+neighbouring value, not a crash, which is why the harness pins every
+`k`. `lo = k` drops candidates between `p` and `k`.

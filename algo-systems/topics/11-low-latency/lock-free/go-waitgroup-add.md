@@ -1,27 +1,35 @@
 ---
 id: ll-go-waitgroup-add
 kind: basic
-version: 1
+version: 2
 level: 2
-tags: [go, concurrency]
+tags: [concurrency, threads]
 requires:
   - ll-go-blocking-basics
+  - cpp-essentials/conc-atomic-int-intro
+  - cpp-essentials/conc-jthread-joins-itself
+elaborate: Say where else a counter must be raised before the work it counts is handed to another thread.
 refs:
-  - https://pkg.go.dev/sync#WaitGroup
-  - https://go.dev/ref/mem
+  - https://en.cppreference.com/w/cpp/thread/latch
+  - https://en.cppreference.com/w/cpp/atomic/atomic
 ---
 
-## Why must `wg.Add(1)` run before `go work()`, not as the goroutine's first line?
+```cpp
+std::atomic<int> pending = 0;
+void work() { ++pending; run_one_job(); --pending; }
 
----
-
-```go
-wg.Add(1)                          // here, in the spawning goroutine
-go func() { defer wg.Done(); work() }()
-wg.Wait()
+void run_batch(std::vector<std::jthread>& pool) {
+    for (int i = 0; i < 4; ++i) pool.push_back(std::jthread(work));
+    while (pending.load() != 0) {}   // wait for the batch
+}
 ```
 
-**Otherwise `Wait` can run first, see a zero counter and return before
-the work starts.** Nothing orders the new goroutine's first line before
-the spawner's `Wait`. Since Go 1.25, `wg.Go(work)` does the `Add`, the
-`go` and the `Done` in one call.
+## Why can the wait loop finish before any job has run?
+
+---
+
+**Nothing orders any worker's `++pending` before the loop's first load, so it may read 0.**
+
+Raise the count in the spawning thread before starting each worker, or
+construct a `std::latch` with the job count up front and have each
+worker `count_down()`.

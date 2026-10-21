@@ -1,38 +1,51 @@
 ---
 id: seq-go-slice-window
 kind: code
-version: 1
+version: 2
 level: 3
 requires:
   - seq-go-subslice-capacity
-tags: [go, slices, aliasing]
+  - cpp-essentials/constexpr-fn-static-assert
+tags: [buffers, views, lifetime]
 input: chips
-compile: null
 choices:
-  c1: ["off + n", "off + n - 1", "off + n + 1", "cap(buf)", "len(buf)"]
+  c1: ["std::string", "std::string_view", "const char*", "std::span<const char>"]
+compile:
+  harness: |
+    constexpr bool check() {
+      Session s;
+      {
+        std::string buf = "AB12 and a message body past the small buffer";
+        keep_id(s, buf);
+      }                                   // buf is freed here
+      return s.id == "AB12";
+    }
+    static_assert(check());
+    int main() {}
+elaborate: Say what this copy costs per session, and why it is still cheaper than keeping the message buffer alive.
 refs:
-  - https://go.dev/ref/spec#Slice_expressions
-  - https://go.dev/blog/slices-intro
+  - https://en.cppreference.com/w/cpp/string/basic_string
+  - https://en.cppreference.com/w/cpp/string/basic_string_view
 ---
 
-`buf` is a scratch buffer reused for every message. Complete the full
-slice expression so the window handed to the caller cannot grow into the
-bytes that follow it.
+`keep_id` stores a session's 4-byte id from a message whose buffer is
+freed right after the call. Complete the member type so `s.id` stays
+readable afterwards.
 
-```go
-// Window returns the message body at [off, off+n) of the shared buffer.
-// Callers may append to it; that must never clobber the rest of buf.
-func Window(buf []byte, off, n int) []byte {
-    return buf[off : off+n : {{c1::off + n}}]
+```cpp
+#include <string>
+#include <string_view>
+struct Session {
+    {{c1::std\::string}} id;
+};
+constexpr void keep_id(Session& s, std::string_view msg) {
+    s.id = msg.substr(0, 4);
 }
 ```
 
 ---
 
-`s[low:high:max]` gives capacity `max − low`, so with `max == high` the
-window is full: the caller's first `append` must copy to a new array and
-`buf` is untouched. Any larger `max` lets `append` overwrite the bytes
-after the window in place; `off + n - 1` is below `high` and panics. The window still aliases `buf`, so recycling
-`buf` early remains the caller's hazard.
-
-Go, so graded by text rather than compiled.
+**Only `std::string` owns a copy of the bytes.** A `string_view` or
+`span` member keeps a pointer into the freed buffer, so reading `s.id`
+later is undefined behaviour (a compile error inside this constant
+evaluation); `const char*` cannot be assigned from a `string_view` at all.

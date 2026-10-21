@@ -6,7 +6,7 @@ level: 5
 tags: [binary-search, branchless, memory-hierarchy, low-latency]
 requires:
   - ordered-branchless-lower-bound
-  - interview-essentials/foundations-cache-cost-model
+  - interview-essentials/foundations-prefetch-scan-vs-chase
 refs:
   - https://en.algorithmica.org/hpc/data-structures/binary-search/
 ---

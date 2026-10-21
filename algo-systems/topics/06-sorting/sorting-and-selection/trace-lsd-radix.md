@@ -16,16 +16,11 @@ elaborate: What would the second pass's result be if it were not stable, and whi
 ---
 
 `pass(v, div)` is one stable bucket pass on the digit `x / div % 10`:
-buckets in digit order, each filled in `v`'s order.
+it returns `v`'s elements grouped by that digit, 0 to 9, each group in
+`v`'s order.
 
 ```cpp
-std::vector<int> pass(const std::vector<int>& v, int div) {
-  std::vector<int> out;
-  for (int d = 0; d < 10; ++d)
-    for (int x : v)
-      if (x / div % 10 == d) out.push_back(x);
-  return out;
-}
+std::vector<int> pass(const std::vector<int>& v, int div);
 std::vector<int> a{23, 31, 13, 21};
 a = pass(a, 1);    // @1 ones digit
 a = pass(a, 10);   // @2 tens digit

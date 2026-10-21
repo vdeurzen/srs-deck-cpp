@@ -32,11 +32,9 @@ cells ends with some tile of length `len`.
 
 ```cpp
 #include <algorithm>
-#include <array>
-
 constexpr int kCost[4] = {0, 4, 5, 7};   // kCost[len]
 constexpr int min_cover(int n) {
-  std::array<int, 32> best{};            // best[i]: first i cells
+  int best[32] = {};                     // best[i]: first i cells
   for (int i = 1; i <= n; ++i) {
     best[i] = 1 << 20;
     for (int len = 1; len <= 3 && len <= i; ++len)

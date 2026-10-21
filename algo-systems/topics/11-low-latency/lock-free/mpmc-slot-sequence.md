@@ -14,7 +14,7 @@ choices:
 compile:
   harness: |
     constexpr bool push(Ring& r, int v) {
-      std::uint32_t t = r.tail; std::uint32_t& s = r.seq[t % Ring::kCap];
+      unsigned t = r.tail; unsigned& s = r.seq[t % Ring::kCap];
       if (s != t) return false;          // previous lap not yet consumed
       r.tail = t + 1; r.val[t % Ring::kCap] = v; s = t + 1;
       return true;
@@ -37,23 +37,18 @@ refs:
   - https://www.1024cores.net/home/lock-free-algorithms/queues/bounded-mpmc-queue
 ---
 
-Vyukov's bounded MPMC ring: slot `i` starts with sequence `i`; a producer
-with ticket `t` may write only when its slot's sequence equals `t`, and
-publishes `t + 1`. The atomics are modelled as plain integers so the
-harness can run it at compile time. Complete what a consumer leaves
-behind.
+Vyukov's bounded MPMC ring, atomics as plain integers. A producer with
+ticket `t` writes only when its slot's sequence is `t`, then publishes
+`t + 1`. Complete what a consumer leaves behind.
 
 ```cpp
-#include <array>
-#include <cstdint>
 struct Ring {
-  static constexpr std::uint32_t kCap = 4;
-  std::array<std::uint32_t, kCap> seq{0, 1, 2, 3};
-  std::array<int, kCap> val{};
-  std::uint32_t tail = 0, head = 0;
+  static constexpr unsigned kCap = 4;
+  unsigned seq[kCap] = {0, 1, 2, 3}; int val[kCap] = {};
+  unsigned tail = 0, head = 0;
 };
 constexpr bool pop(Ring& r, int& out) {
-  std::uint32_t h = r.head; std::uint32_t& s = r.seq[h % Ring::kCap];
+  unsigned h = r.head; unsigned& s = r.seq[h % Ring::kCap];
   if (s != h + 1) return false;      // not yet published
   r.head = h + 1; out = r.val[h % Ring::kCap]; s = {{c1::h + Ring\::kCap}};
   return true;
@@ -62,11 +57,9 @@ constexpr bool pop(Ring& r, int& out) {
 
 ---
 
-**The ticket of this slot's next producer: one lap later.** The producer
-of ticket `h + kCap` waits for exactly that value, so each slot is handed
-producer → consumer → next-lap producer by its own sequence, with no
-global "committed" counter and no holes. `h + 1` would leave the slot
-looking still full; the next lap's push would fail forever.
-
-In the real queue, `tail`/`head` are claimed by CAS and `s` is a release
-store read by an acquire load.
+**The ticket of this slot's next producer: one lap later.** That
+producer waits for exactly `h + kCap`, so each slot passes from producer
+to consumer to next-lap producer by its own sequence, with no global
+counter. `h + 1` leaves the slot looking full, so the next lap's push
+fails forever. In the real queue, tickets are claimed by CAS and `s` is
+a release store read by an acquire load.

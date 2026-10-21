@@ -37,8 +37,7 @@ Complete where the walk stops. Block 0 is the entry, with
 struct Edge { int p, m; };
 using Sets = std::array<unsigned, 6>;   // bit m of df[n]: m is in DF(n)
 
-template <std::size_t E>
-constexpr Sets frontiers(const std::array<Edge, E>& cfg, const std::array<int, 6>& idom) {
+constexpr Sets frontiers(const std::array<Edge, 7>& cfg, const std::array<int, 6>& idom) {
   Sets df{};
   for (auto [p, m] : cfg)
     for (int run = p; run != {{c1::idom[m]}}; run = idom[run])

@@ -1,29 +1,33 @@
 ---
 id: hash-go-map-semantics
 kind: basic
-version: 2
+version: 3
 level: 3
 requires:
-  - interview-essentials/hash-chaining-vs-open-addressing
-tags: [go, hashing, containers]
-elaborate: Where in your C++ do you hold a pointer into an `unordered_map`? What would you write instead in Go?
+  - interview-essentials/hash-unordered-map-is-chained
+tags: [hashing, containers, lifetime]
+elaborate: Where in your C++ do you hold a pointer into a hash map, and what would you store instead if the map became a flat table?
 refs:
-  - https://go.dev/ref/spec#Address_operators
-  - https://go.dev/blog/swisstable
+  - https://abseil.io/docs/cpp/guides/container
+  - https://abseil.io/about/design/swisstables
 ---
 
-## Why does Go reject this, when `&m[k]` is fine on a C++ `std::unordered_map`?
+`absl::flat_hash_map` is an open-addressing table: elements sit in its
+slot array.
 
-```go
-m := map[string]Order{"a": {}}
-p := &m["a"]        // compile error
-m["a"].Qty = 7      // compile error too
+```cpp
+absl::flat_hash_map<std::string, Order> book;
+Order* p = &book["a"];
+for (int i = 0; i < 10'000; ++i) book[std::to_string(i)];
+p->qty = 7;
 ```
 
+## What happens on the last line?
+
 ---
 
-**The map may move entries as it grows, so Go gives no element address.**
+**Undefined behaviour: growing rehashed into a new slot array, so `p` dangles.**
 
-A pointer would dangle after the next insert. Store `map[K]*V` (the map
-moves only the pointer), or read the value, modify it, and assign it
-back. `std::unordered_map` promises stable nodes instead.
+A flat table moves elements when it grows, unlike `std::unordered_map`'s
+separately allocated nodes. Keep stable addresses by storing
+`std::unique_ptr<Order>` (or `absl::node_hash_map`), or hold the key.

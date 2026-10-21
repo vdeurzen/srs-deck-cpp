@@ -1,23 +1,32 @@
 ---
 id: str-go-range-runes
 kind: basic
-version: 1
+version: 2
 level: 2
-tags: [go, strings, unicode]
+tags: [strings, unicode]
 requires:
-  - str-go-strings-and-bytes
+  - cpp-essentials/string-basics
+  - cpp-essentials/iter-range-for-intro
 refs:
-  - https://go.dev/blog/strings
-  - https://go.dev/ref/spec#For_range
-elaborate: Where does your code index a string by `s[i]` and assume it got a character?
+  - https://en.cppreference.com/w/cpp/string/basic_string
+  - https://www.rfc-editor.org/rfc/rfc3629
+elaborate: Where would a Go habit of `for range` decoding characters make a C++ loop over a string miscount, or split a character in two?
 ---
 
-## In Go, `s := "héllo"`. What are `len(s)` and the number of iterations of `for range s`?
+The source file is UTF-8.
+
+```cpp
+std::string s = "héllo";
+int n = 0;
+for (char c : s) ++n;
+```
+
+## What is `n` after the loop?
 
 ---
 
-**6 and 5: `len` counts UTF-8 bytes, `range` decodes runes.**
+**6: a `std::string` holds UTF-8 bytes, and the loop visits bytes, not characters.**
 
-`é` is two bytes in UTF-8. `s[i]` indexes bytes and `range` steps rune
-by rune, so mixing the two is the classic text off-by-one. Checked
-with Go 1.27.
+`é` is two bytes in UTF-8, so `s.size()` is 6 as well. Indexing or
+iterating a `std::string` never decodes; counting or splitting
+characters needs a UTF-8 decoder. Checked with GCC 16.2.

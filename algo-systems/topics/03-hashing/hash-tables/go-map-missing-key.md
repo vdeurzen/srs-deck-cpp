@@ -1,23 +1,33 @@
 ---
 id: hash-go-map-missing-key
 kind: basic
-version: 1
+version: 2
 level: 2
 requires:
-  - cpp-core/containers-map-subscript-inserts
-tags: [go, hashing, containers]
-elaborate: In your C++, which `m[k]` reads would you turn into `find` or `contains` if you were porting them from Go?
+  - cpp-essentials/iter-map-subscript-inserts
+tags: [hashing, containers]
+elaborate: In your C++, which reads use `m[k]` only to look, and would a Go habit of reading a missing key as zero have put them there?
 refs:
-  - https://go.dev/ref/spec#Index_expressions
-  - https://go.dev/blog/maps
+  - https://en.cppreference.com/w/cpp/container/unordered_map/operator_at
+  - https://en.cppreference.com/w/cpp/container/unordered_map/find
 ---
 
-## `v := stock["pear"]` on a Go map without `"pear"`. How many entries does `stock` hold afterwards, compared with C++'s `stock["pear"]`?
+Two ways to count a word `w` in `std::unordered_map<std::string, int> counts`:
+
+```cpp
+++counts[w];                                         // A
+
+auto it = counts.find(w);                            // B
+if (it == counts.end()) counts.insert({w, 1});
+else ++it->second;
+```
+
+## `w` is not in `counts` yet. How many hash lookups does each do?
 
 ---
 
-**Go's map is unchanged; C++'s `operator[]` inserts `"pear"`.**
+**A does one; B does two, the failed `find` and then `insert`.**
 
-A Go index read returns the zero value and never grows the map (only an
-assignment such as `stock["pear"]++` does). To tell absent from zero,
-use the comma-ok form, `v, ok := stock["pear"]`: Go's `find() != end()`.
+`operator[]` looks the key up once and, on a miss, inserts a
+`0` in the slot it found, which `++` makes 1. B's
+`insert` hashes and searches again. Use `[]` to count, `find` to read.

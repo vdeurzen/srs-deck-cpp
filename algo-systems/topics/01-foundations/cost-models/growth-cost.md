@@ -31,16 +31,13 @@ new capacity.
 
 ```cpp
 #include <algorithm>
-
 constexpr long total_moves(long n, long num, long den, long cap = 1) {
-  long size = 0, moves = 0;
-  while (size < n) {
+  long moves = 0;
+  for (long size = 0; size < n; ++size)
     if (size == cap) {
       moves += size;                                  // copy into the new block
       cap = std::max(cap + 1, {{c1::cap * num / den}});
     }
-    ++size;
-  }
   return moves;
 }
 ```

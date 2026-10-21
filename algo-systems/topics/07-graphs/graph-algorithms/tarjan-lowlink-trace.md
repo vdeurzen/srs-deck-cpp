@@ -28,15 +28,12 @@ std::vector<int> st{0};
 void dfs(int u) {
   idx[u] = counter; low[u] = counter; ++counter;
   st.push_back(u); on[u] = true;
-  for (int v : adj[u]) {
+  for (int v : adj[u])
     if (idx[v] < 0) { dfs(v); low[u] = std::min(low[u], low[v]); }
     else if (on[v]) low[u] = std::min(low[u], idx[v]);
-  }
   if (low[u] != idx[u]) return;       // not a root: stay on the stack
-  while (true) {                      // a root: pop its component
-    const int v = st.back(); st.pop_back(); on[v] = false;
-    if (v == u) break;
-  }
+  while (st.back() != u) { on[st.back()] = false; st.pop_back(); }
+  on[u] = false; st.pop_back();       // a root: its component is popped
 }
 int main() { dfs(2); }   // @1
 ```

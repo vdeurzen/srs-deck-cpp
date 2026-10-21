@@ -28,17 +28,13 @@ Complete the loop so it returns the first index whose element is **not
 less than** `key` — the `lower_bound` contract.
 
 ```cpp
-#include <cstddef>
 #include <span>
-
 constexpr std::size_t lower_index(std::span<const int> a, int key) {
   std::size_t lo = 0, hi = a.size();
   while (lo < hi) {
     const std::size_t mid = lo + (hi - lo) / 2;
-    if (a[mid] < key)
-      {{c1::lo = mid + 1;}}
-    else
-      hi = mid;
+    if (a[mid] < key) {{c1::lo = mid + 1;}}
+    else hi = mid;
   }
   return lo;
 }
@@ -46,26 +42,13 @@ constexpr std::size_t lower_index(std::span<const int> a, int key) {
 
 ---
 
-The invariant is the whole card: **`[0, lo)` is known to be less than
-`key`, and `[hi, n)` is known to be not less than it**, so the answer is
-always in `[lo, hi]` and the loop ends when the range is empty. Once
-that is stated, each branch writes itself — `a[mid] < key` proves
-`mid` belongs to the left region, so `lo` moves *past* it; otherwise
-`mid` might itself be the answer, so `hi = mid` keeps it in range.
+**`a[mid] < key` puts `mid` in the left region, so `lo` moves past it.**
+The invariant: `[0, lo)` is less than `key` and `[hi, n)` is not, so
+the answer stays in `[lo, hi]` and the loop ends when the range is
+empty. Otherwise `mid` may be the answer, so `hi = mid` keeps it.
 
-The two classic bugs are both visible in the invariant. `lo = mid` does
-not shrink the range when `hi == lo + 1` and loops forever; `hi = mid −
-1` discards a candidate and returns an index one too *small* for some
-inputs (key 3 gives 0, not 1) — and when `mid` is 0 it wraps `hi` round
-to `SIZE_MAX`, sending the next probe out of bounds. And `mid = lo + (hi − lo) / 2` rather than `(lo + hi) / 2`
-avoids overflow — famously the bug that sat in the JDK's binary search
-for nine years.
-
-Three details worth keeping. The result is where the key **would be
-inserted**, so it doubles as an insertion point and needs a separate
-`a[i] == key` check to answer "is it present". `upper_bound` is the same
-loop with `!(key < a[mid])` as the condition. And the standard library's
-version takes the comparison as a parameter and works on any forward
-range, at the cost of O(n) *steps* (though still O(log n) comparisons)
-on non-random-access iterators — which is why `std::set::find` exists
-rather than calling `std::lower_bound` on a `set`.
+`lo = mid` does not shrink the range when `hi == lo + 1` and loops
+forever. `hi = mid - 1` discards a candidate (key 3 gives 0, not 1),
+and at `mid == 0` wraps to `SIZE_MAX`. `hi = mid + 1` is in the wrong
+branch entirely. `lo + (hi - lo) / 2` avoids the overflow of
+`(lo + hi) / 2`.

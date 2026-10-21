@@ -9,12 +9,18 @@ choices:
   c1: ["live & ~(1u << d)", "live", "uses", "live | uses"]
 compile:
   harness: |
+    using Graph = std::array<unsigned, 4>;
+    constexpr Graph mirror(Graph g) {
+      for (int u = 0; u < 4; ++u)
+        for (int v = 0; v < 4; ++v) if (g[u] >> v & 1) g[v] |= 1u << u;
+      return g;
+    }
     // v0 = ...; v1 = v0 + 1; v2 = v1 * 2; v3 = v1 + v2;  live out: v3
     constexpr std::array<Ins, 4> kChain{{{0, 0}, {1, 0b0001}, {2, 0b0010}, {3, 0b0110}}};
-    static_assert(interference(kChain, 0b1000) == Graph{0, 0b0100, 0b0010, 0});
+    static_assert(mirror(interference(kChain, 0b1000)) == Graph{0, 0b0100, 0b0010, 0});
     // v0 = ...; v1 = v0 * 3; v2 = v1 + 1; v3 = v0 + v2;  v0 lives across both
     constexpr std::array<Ins, 4> kLong{{{0, 0}, {1, 0b0001}, {2, 0b0010}, {3, 0b0101}}};
-    static_assert(interference(kLong, 0b1000) == Graph{0b0110, 0b0001, 0b0001, 0});
+    static_assert(mirror(interference(kLong, 0b1000)) == Graph{0b0110, 0b0001, 0b0001, 0});
     int main() {}
 requires:
   - compiler-liveness-interference
@@ -26,20 +32,16 @@ elaborate: Chaitin leaves out the edge between `d` and `s` for a copy `d = s`. W
 ---
 
 Build one block's interference graph, walking backwards with the live
-set. Complete the values that the definition of `d` interferes with.
+set (the caller adds each edge's mirror image). Complete the values that the definition of `d` interferes with.
 
 ```cpp
 #include <array>
 struct Ins { int def; unsigned uses; };         // bit v of uses: reads v
-using Graph = std::array<unsigned, 4>;          // bit v of g[u]: u, v interfere
-
-constexpr Graph interference(const std::array<Ins, 4>& block, unsigned live) {
-  Graph g{};
+constexpr std::array<unsigned, 4> interference(const std::array<Ins, 4>& block, unsigned live) {
+  std::array<unsigned, 4> g{};                  // bit v of g[u]: u, v interfere
   for (int i = 3; i >= 0; --i) {                // live: after block[i]
     const int d = block[i].def;
-    const unsigned others = {{c1::live & ~(1u << d)}};
-    g[d] |= others;
-    for (int v = 0; v < 4; ++v) if (others >> v & 1) g[v] |= 1u << d;
+    g[d] |= {{c1::live & ~(1u << d)}};
     live = (live & ~(1u << d)) | block[i].uses;
   }
   return g;

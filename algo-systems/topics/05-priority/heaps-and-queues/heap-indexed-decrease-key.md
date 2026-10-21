@@ -16,6 +16,11 @@ choices:
     - "pos[i] = i; pos[j] = j;"
 compile:
   harness: |
+    constexpr void sift_up(IndexedHeap& q, std::size_t i) {
+      for (; i > 0 && q.key[q.h[(i - 1) / 2]] > q.key[q.h[i]]; i = (i - 1) / 2)
+        q.swap_slots(i, (i - 1) / 2);
+    }
+    constexpr void decrease_key(IndexedHeap& q, int v, int k) { q.key[v] = k; sift_up(q, q.pos[v]); }
     constexpr int pop(IndexedHeap& q) {
       const int top = q.h[0];
       q.swap_slots(0, --q.n);
@@ -26,19 +31,19 @@ compile:
       }
       return top;
     }
-    constexpr IndexedHeap make() {        // vertices 0..4, keys 50, 40, …, 10
+    constexpr IndexedHeap make() {        // vertices 0..4, keys 50, 40, ..., 10
       IndexedHeap q;
       for (int v = 0; v < 5; ++v) {
         q.key[v] = 50 - 10 * v;
         q.h[q.n] = v; q.pos[v] = q.n;
-        q.sift_up(q.n++);
+        sift_up(q, q.n++);
       }
       return q;
     }
     constexpr std::array<int, 5> order() {
       IndexedHeap q = make();
-      q.decrease_key(0, 15);              // 0 climbs part way…
-      q.decrease_key(0, 1);               // …then from wherever pos says it is
+      decrease_key(q, 0, 15);             // 0 climbs part way...
+      decrease_key(q, 0, 1);              // ...then from wherever pos says it is
       std::array<int, 5> out{};
       for (int& v : out) v = pop(q);
       return out;
@@ -48,30 +53,23 @@ compile:
     int main() {}
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/push_heap
-  - https://pkg.go.dev/container/heap#Fix
+  - https://en.cppreference.com/w/cpp/container/priority_queue
 ---
 
 A min-heap of vertex ids with `decrease_key` in O(log n): `pos[v]` is the
-slot where vertex `v` sits in `h`. Complete the swap so that stays true.
+slot where vertex `v` sits in `h`, and every sift moves entries only
+through `swap_slots`. Complete the swap so `pos` stays true.
 
 ```cpp
 #include <array>
-#include <cstddef>
 #include <utility>
-
 struct IndexedHeap {
   std::array<int, 5> key{}, h{};
-  std::array<std::size_t, 5> pos{};
-  std::size_t n = 0;
+  std::array<std::size_t, 5> pos{}; std::size_t n = 0;
   constexpr void swap_slots(std::size_t i, std::size_t j) {
     std::swap(h[i], h[j]);
     {{c1::pos[h[i]] = i; pos[h[j]] = j;}}
   }
-  constexpr void sift_up(std::size_t i) {
-    for (; i > 0 && key[h[(i - 1) / 2]] > key[h[i]]; i = (i - 1) / 2)
-      swap_slots(i, (i - 1) / 2);
-  }
-  constexpr void decrease_key(int v, int k) { key[v] = k; sift_up(pos[v]); }
 };
 ```
 
@@ -84,8 +82,7 @@ slot. Writing only one leaves the other vertex's `pos` pointing at a slot
 it no longer holds; `pos[i] = h[i]` stores the forward map again. Either
 way a later `decrease_key` sifts the wrong slot, and the pop order breaks.
 
-This is the "handle" `std::priority_queue` hides and Go's `heap.Fix`
-expects you to keep in `Swap`. It costs a second array and two stores per
+This is the "handle" `std::priority_queue` hides. It costs a second array and two stores per
 swap; in exchange `decrease_key`, arbitrary removal and update are all
 O(log n) — what Dijkstra, Prim and an event scheduler with reschedules
 need when lazy deletion's garbage is too much.

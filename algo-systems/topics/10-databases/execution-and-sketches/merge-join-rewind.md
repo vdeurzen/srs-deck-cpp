@@ -9,6 +9,7 @@ choices:
   c1: ["j = k", "j = k + 1", "k = j", "--j"]
 compile:
   harness: |
+    #include <array>
     static_assert(merge_join(std::array{1, 2, 2, 4}, std::array{2, 2, 3, 4}) == 5);
     static_assert(merge_join(std::array{3, 3, 3}, std::array{3, 3}) == 6);
     static_assert(merge_join(std::array{1, 5}, std::array{2, 5, 5}) == 2);
@@ -25,18 +26,17 @@ A merge join over two sorted inputs counts its output rows. Complete
 what happens when the next outer row repeats the key just matched.
 
 ```cpp
-#include <array>
+#include <cstddef>
 constexpr int merge_join(const auto& r, const auto& s) {
   int out = 0; std::size_t i = 0, j = 0;
-  while (i < r.size() && j < s.size()) {
+  while (i < r.size() && j < s.size())
     if (r[i] < s[j]) ++i;
     else if (r[i] > s[j]) ++j;
     else {
-      const std::size_t k = j;
+      const std::size_t k = j;                     // start of s's matching group
       while (j < s.size() && s[j] == r[i]) { ++out; ++j; }
       if (++i < r.size() && r[i] == s[k]) {{c1::j = k}};
     }
-  }
   return out;
 }
 ```
@@ -44,7 +44,6 @@ constexpr int merge_join(const auto& r, const auto& s) {
 ---
 
 **Rewind the inner cursor to the start of its matching group.** With
-duplicates on both sides, every outer copy must meet every inner copy.
-Without the rewind each group is matched once and rows are silently
-lost. So the merge is linear only when one side's key is unique; with
-duplicates on both its cost is |R| + |S| + |output|.
+duplicates on both sides, every outer copy must meet every inner copy;
+without the rewind rows are silently lost. So the merge is linear only
+when one side's key is unique; otherwise it costs |R| + |S| + |output|.

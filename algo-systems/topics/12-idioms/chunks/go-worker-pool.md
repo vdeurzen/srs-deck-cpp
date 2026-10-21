@@ -1,36 +1,37 @@
 ---
 id: chunks-go-worker-pool
 kind: chunk
-version: 1
+version: 2
 level: 3
-tags: [idioms, go, concurrency]
-expose_ms: 7000
+tags: [idioms, concurrency, queues]
+expose_ms: 11000
 compile: null
 requires:
+  - ll-go-close-by-sender
   - ll-go-waitgroup-add
+  - cpp-essentials/vocab-optional-maybe-value
+elaborate: Say what decides `n` for a CPU-bound pool and for one that mostly waits on I/O.
 refs:
-  - https://pkg.go.dev/sync#WaitGroup.Go
-  - https://go.dev/doc/effective_go#channels
+  - https://en.cppreference.com/w/cpp/thread/jthread
+  - https://en.cppreference.com/w/cpp/utility/optional
 ---
 
-```go
-for range workers {
-	wg.Go(func() {
-		for job := range jobs {
-			results <- process(job)
-		}
-	})
-}
+`jobs.pop()` blocks, then returns a `std::optional<Job>` that is empty
+once the queue is closed and drained; `while (auto job = …)` loops while
+it holds a value.
+
+```cpp
+std::vector<std::jthread> pool;
+for (int i = 0; i < n; ++i)
+    pool.push_back(std::jthread([&] {
+        while (auto job = jobs.pop())
+            run(*job);
+    }));
 ```
 
 ---
 
-The Go **worker pool**: a fixed number of goroutines draining one jobs
-channel. `wg.Go` (Go 1.25) does the `Add(1)` before the goroutine
-starts and the `Done` when it returns — the ordering that hand-written
-`wg.Add(1); go func() { defer wg.Done(); … }()` must get right.
-`for range jobs` ends each worker when the producer closes `jobs`.
-
-Not compile-checked: the compile service builds C++, so this Go
-snippet is graded by whitespace-normalised equality. It was built and
-vetted with Go 1.27.
+**The worker pool**: a fixed number of threads draining one queue.
+*Start* `n` threads; each *drains* the queue until `pop` reports it
+closed, then returns. The pool vector owns the threads, so destroying it
+joins them. Not a whole program, so graded by text.

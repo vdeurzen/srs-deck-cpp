@@ -9,11 +9,16 @@ choices:
   c1: ["parent[parent[x]]", "parent[x]", "x", "find(parent[x])"]
 compile:
   harness: |
+    constexpr void unite(DisjointSet& d, std::size_t a, std::size_t b) {
+      a = d.find(a);
+      b = d.find(b);
+      if (a != b) d.parent[b] = a;         // equal sizes throughout
+    }
     constexpr DisjointSet built() {
       DisjointSet d{};
-      d.unite(0, 1); d.unite(2, 3); d.unite(0, 2);
-      d.unite(4, 5); d.unite(6, 7); d.unite(4, 6);
-      d.unite(0, 4);                       // 7 -> 6 -> 4 -> 0
+      unite(d, 0, 1); unite(d, 2, 3); unite(d, 0, 2);
+      unite(d, 4, 5); unite(d, 6, 7); unite(d, 4, 6);
+      unite(d, 0, 4);                      // 7 -> 6 -> 4 -> 0
       return d;
     }
     constexpr DisjointSet halved() {
@@ -39,27 +44,12 @@ second pass, and the path it walks gets roughly half as long.
 
 ```cpp
 #include <array>
-#include <cstddef>
-
 struct DisjointSet {
   std::array<std::size_t, 8> parent{0, 1, 2, 3, 4, 5, 6, 7};
-  std::array<std::size_t, 8> size{1, 1, 1, 1, 1, 1, 1, 1};
-
   constexpr std::size_t find(std::size_t x) {
-    while (parent[x] != x) {
+    for (; parent[x] != x; x = parent[x])
       parent[x] = {{c1::parent[parent[x]]}};
-      x = parent[x];
-    }
     return x;
-  }
-
-  constexpr void unite(std::size_t a, std::size_t b) {
-    a = find(a);
-    b = find(b);
-    if (a == b) return;
-    if (size[a] < size[b]) { const std::size_t t = a; a = b; b = t; }
-    parent[b] = a;                       // union by size
-    size[a] += size[b];
   }
 };
 ```

@@ -13,14 +13,15 @@ choices:
     - "c[r][h(r, key)]"
 compile:
   harness: |
-    constexpr CountMin s = [] {
-      CountMin s;
-      for (int k : {7, 7, 7, 7, 7, 1, 2, 5, 9, 9}) s.add(k);
-      return s;
+    constexpr Counters s = [] {
+      Counters c{};
+      for (int k : {7, 7, 7, 7, 7, 1, 2, 5, 9, 9})
+        for (int r = 0; r < 3; ++r) ++c[r][h(r, k)];
+      return c;
     }();
-    static_assert(s.estimate(7) == 5);
-    static_assert(s.estimate(1) == 2);    // seen once: inflated, never deflated
-    static_assert(s.estimate(0) == 0);    // never seen, and certain of it
+    static_assert(estimate(s, 7) == 5);
+    static_assert(estimate(s, 1) == 2);   // seen once: inflated, never deflated
+    static_assert(estimate(s, 0) == 0);   // never seen, and certain of it
     int main() {}
 requires:
   - db-count-min-sketch
@@ -28,23 +29,21 @@ refs:
   - http://dimacs.rutgers.edu/~graham/pubs/papers/cm-full.pdf
 ---
 
-A count-min sketch with 3 rows of 4 counters, one hash per row. Complete
-the query.
+A count-min sketch with 3 rows of 4 counters, one hash per row:
+`add(key)` increments `c[r][h(r, key)]` in every row `r`. Complete the
+query.
 
 ```cpp
 #include <algorithm>
 #include <array>
 constexpr std::array A{3, 5, 7}, B{1, 4, 2};
 constexpr int h(int r, int key) { return (key * A[r] + B[r]) % 11 % 4; }
-struct CountMin {
-  std::array<std::array<int, 4>, 3> c{};
-  constexpr void add(int key) { for (int r = 0; r < 3; ++r) ++c[r][h(r, key)]; }
-  constexpr int estimate(int key) const {
-    int best = c[0][h(0, key)];
-    for (int r = 1; r < 3; ++r) best = {{c1::std\::min(best, c[r][h(r, key)])}};
-    return best;
-  }
-};
+using Counters = std::array<std::array<int, 4>, 3>;
+constexpr int estimate(const Counters& c, int key) {
+  int best = c[0][h(0, key)];
+  for (int r = 1; r < 3; ++r) best = {{c1::std\::min(best, c[r][h(r, key)])}};
+  return best;
+}
 ```
 
 ---

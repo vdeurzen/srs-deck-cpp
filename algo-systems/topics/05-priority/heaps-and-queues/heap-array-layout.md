@@ -11,6 +11,11 @@ choices:
   c1: ["2 * i + 1", "2 * i", "2 * i - 1", "i / 2"]
 compile:
   harness: |
+    #include <utility>
+    constexpr void sift_down(std::array<int, 7>& h, std::size_t i) {
+      for (std::size_t c; (c = larger_child(h, i)) < h.size() && h[c] > h[i]; i = c)
+        std::swap(h[i], h[c]);
+    }
     constexpr std::array<int, 7> heapify(std::array<int, 7> a) {
       for (std::size_t i = a.size() / 2; i-- > 0;) sift_down(a, i);
       return a;
@@ -23,26 +28,17 @@ refs:
   - https://en.wikipedia.org/wiki/Binary_heap
 ---
 
-A binary heap is a complete tree stored in an array, with no pointers at
-all. Complete the child index.
+A binary max-heap is a complete tree stored in a 0-based array, with no
+pointers at all. Sift-down swaps a node with its larger child; complete
+the child index.
 
 ```cpp
 #include <array>
 #include <cstddef>
-#include <utility>
 
-constexpr void sift_down(std::array<int, 7>& h, std::size_t i) {
-  const std::size_t n = h.size();
-  while (true) {
-    std::size_t largest = i;
-    const std::size_t left = {{c1::2 * i + 1}};
-    const std::size_t right = left + 1;
-    if (left < n && h[left] > h[largest]) largest = left;
-    if (right < n && h[right] > h[largest]) largest = right;
-    if (largest == i) return;
-    std::swap(h[i], h[largest]);
-    i = largest;
-  }
+constexpr std::size_t larger_child(const std::array<int, 7>& h, std::size_t i) {
+  const std::size_t left = {{c1::2 * i + 1}};
+  return left + 1 < h.size() && h[left + 1] > h[left] ? left + 1 : left;
 }
 ```
 

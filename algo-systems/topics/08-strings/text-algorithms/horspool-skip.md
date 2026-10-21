@@ -9,9 +9,17 @@ choices:
   c1: ["shift[(unsigned char)t[i + m - 1]]", "shift[(unsigned char)t[i]]", "shift[(unsigned char)p[m - 1]]", "shift[(unsigned char)t[i + m]]"]
 compile:
   harness: |
+    using Shift = std::array<std::size_t, 256>;
+    constexpr Shift make_shift(std::string_view p) {
+      const std::size_t m = p.size();
+      Shift shift;
+      shift.fill(m);
+      for (std::size_t j = 0; j + 1 < m; ++j) shift[(unsigned char)p[j]] = m - 1 - j;
+      return shift;
+    }
     constexpr std::array<int, 2> run(std::string_view t, std::string_view p) {
       int tries = 0;
-      const int at = horspool(t, p, tries);
+      const int at = horspool(t, p, make_shift(p), tries);
       return {at, tries};
     }
     static_assert(run("here is a simple example", "example") == std::array<int, 2>{17, 5});
@@ -32,11 +40,9 @@ alignments.
 ```cpp
 #include <array>
 #include <string_view>
-constexpr int horspool(std::string_view t, std::string_view p, int& tries) {
+constexpr int horspool(std::string_view t, std::string_view p,
+                       const std::array<std::size_t, 256>& shift, int& tries) {
   const std::size_t m = p.size();
-  std::array<std::size_t, 256> shift;
-  shift.fill(m);
-  for (std::size_t j = 0; j + 1 < m; ++j) shift[(unsigned char)p[j]] = m - 1 - j;
   for (std::size_t i = 0; i + m <= t.size(); i += {{c1::shift[(unsigned char)t[i + m - 1]]}}) {
     ++tries;
     if (t.substr(i, m) == p) return static_cast<int>(i);

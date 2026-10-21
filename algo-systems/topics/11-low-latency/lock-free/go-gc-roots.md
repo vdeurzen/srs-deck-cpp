@@ -1,23 +1,33 @@
 ---
 id: ll-go-gc-roots
 kind: basic
-version: 1
+version: 2
 level: 2
-tags: [go, gc, memory, concurrency]
+tags: [concurrency, threads, shutdown]
 requires:
   - ll-go-blocking-basics
+  - cpp-essentials/conc-jthread-joins-itself
+  - cpp-essentials/lambda-amp-capture-intro
+elaborate: Which thread in code you know waits on something that a shutdown never signals, and what would its owner's destructor do?
 refs:
-  - https://go.dev/doc/gc-guide
-  - https://go.dev/blog/pipelines
+  - https://en.cppreference.com/w/cpp/thread/jthread/~jthread
+  - https://en.cppreference.com/w/cpp/thread/condition_variable_any/wait
 ---
 
-## Go's GC frees what is unreachable. Why is a goroutine blocked forever on a channel never freed?
+A `std::jthread` worker is blocked here, and nothing will ever push to
+`q` again:
+
+```cpp
+std::unique_lock lk(m);
+cv.wait(lk, [&] { return !q.empty(); });   // cv is a std::condition_variable
+```
+
+## The worker's owner now destroys the `jthread`. What happens?
 
 ---
 
-**A live goroutine's stack is a GC root, and blocked is not dead.** The
-runtime keeps every goroutine that has not returned, and everything its
-stack references stays reachable with it.
+**The destructor hangs: it joins, and this `wait` never sees the stop request.**
 
-So a goroutine that can never be unblocked is a leak of its stack *and*
-of whatever it holds: the GC answers "reachable?", not "still needed?".
+`request_stop()` only sets a flag; a plain `condition_variable::wait`
+does not watch it, so the worker stays blocked and `join()` waits
+forever. Blocked is not finished: shutdown must wake every waiter.

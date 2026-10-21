@@ -1,56 +1,49 @@
 ---
 id: ordered-go-sort-search
 kind: code
-version: 1
+version: 2
 level: 3
 requires:
   - ordered-lower-bound-loop
-tags: [go, binary-search, invariants]
+  - interview-essentials/search-first-true-predicate
+tags: [binary-search, invariants]
 input: chips
-compile: null
 choices:
-  c1: ["a[i] >= key", "a[i] > key", "a[i] == key", "a[i] < key"]
+  c1: ["o.px < limit", "o.px <= limit", "o.px >= limit", "o.px == limit"]
+compile:
+  harness: |
+    constexpr std::array<Order, 6> book{{{10, 1}, {20, 1}, {20, 2}, {20, 3}, {30, 1}, {40, 1}}};
+    constexpr long at(int limit) { return first_at_or_above(book, limit) - book.begin(); }
+    static_assert(at(20) == 1);   // first of a run of duplicates
+    static_assert(at(40) == 5);   // the last element
+    static_assert(at(5) == 0);    // below every price
+    static_assert(at(50) == 6);   // above every price: end
+    static_assert(at(25) == 4);   // absent, between prices
+    int main() {}
+elaborate: Name a yes/no question in your own work, about something other than an array element, that you could binary-search with `partition_point`.
 refs:
-  - https://pkg.go.dev/sort#Search
-  - https://pkg.go.dev/slices#BinarySearch
+  - https://en.cppreference.com/w/cpp/algorithm/partition_point
+  - https://en.cppreference.com/w/cpp/algorithm/lower_bound
 ---
 
-`sort.Search(n, f)` returns the smallest `i` in `[0, n)` for which
-`f(i)` is true, assuming `f` is false then true. Complete the predicate
-so `LowerBound` matches C++'s `std::lower_bound`.
+`std::partition_point(first, last, pred)` needs `pred` true for a prefix
+and false after it, and returns the first element where it is false.
+`book` is sorted by `px`. Complete the predicate so the call returns the
+first order with `px >= limit`.
 
-```go
-// LowerBound returns the lower bound of key in the sorted slice a.
-func LowerBound(a []int, key int) int {
-    return sort.Search(len(a), func(i int) bool { return {{c1::a[i] >= key}} })
+```cpp
+#include <algorithm>
+#include <array>
+struct Order { int px; int qty; };
+constexpr auto first_at_or_above(const std::array<Order, 6>& book, int limit) {
+    return std::partition_point(book.begin(), book.end(),
+        [&](const Order& o) { return {{c1::o.px < limit}}; });
 }
 ```
 
 ---
 
-Go inverts the usual interface: instead of handing the algorithm a
-comparator and letting it drive, you hand it a **monotone predicate**
-and it finds the boundary. The precondition is exactly that monotonicity
-— false for a prefix, true for the rest — and it is the caller's job.
-`a[i] == key` is not monotone, so it is not merely wrong on some inputs,
-it is outside the contract and the result is meaningless. `a[i] > key`
-is monotone and gives `upper_bound` instead, and `a[i] < key` is
-monotone the wrong way round (true then false), so the result is
-whatever the halving happens to land on: 0 only in the degenerate case
-where `key` exceeds every element, and otherwise something unrelated to
-the answer — `LowerBound([]int{1, 10, 20, 30}, 5)` returns 4.
-
-The predicate form is more general than it looks: the array need not be
-in memory at all. `sort.Search(1e9, func(i int) bool { return cost(i) >=
-budget })` binary-searches an abstract answer space — the "binary search
-on the answer" idiom — which is awkward to express with a comparator.
-
-Since Go 1.21 the direct equivalents exist in the `slices` package:
-`slices.BinarySearch(a, key)` returns `(index, found)` where `index` is
-exactly this lower bound, and `slices.BinarySearchFunc` takes a
-comparison function. Prefer those for the common case, and keep
-`sort.Search` for the abstract-space searches.
-
-This Card is not compile-checked: the Deck's compile service builds C++
-(SPEC §9), so Go snippets are graded by whitespace-normalised equality
-(SPEC §4.5).
+**`o.px < limit` is true exactly on the prefix before the answer.** The
+predicate names the part to skip, so it is the negation of the target.
+`<=` also skips equal prices (upper bound); `>=` is false-then-true,
+breaking the precondition; `==` is not a prefix at all.

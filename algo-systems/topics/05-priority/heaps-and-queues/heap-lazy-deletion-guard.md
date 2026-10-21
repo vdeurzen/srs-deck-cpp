@@ -11,6 +11,26 @@ choices:
   c1: [">", "<", ">=", "=="]
 compile:
   harness: |
+    #include <array>
+    using Graph = std::array<std::vector<std::pair<int, int>>, 4>;  // (to, w)
+    struct Result { std::array<int, 4> dist; int scans; };
+    constexpr Result dijkstra(const Graph& g) {
+      Result r{{0, 1000, 1000, 1000}, 0};
+      std::vector<std::pair<int, int>> pq{{0, 0}};
+      while (!pq.empty()) {
+        const int v = pop_live(pq, r.dist.data());
+        if (v < 0) continue;
+        for (auto [u, w] : g[v]) {
+          ++r.scans;
+          if (r.dist[v] + w < r.dist[u]) {
+            r.dist[u] = r.dist[v] + w;
+            pq.push_back({r.dist[u], u});
+            std::ranges::push_heap(pq, std::greater{});
+          }
+        }
+      }
+      return r;
+    }
     constexpr Result run() {          // s=0, a=1, b=2, c=3
       Graph g;
       g[0] = {{1, 4}, {2, 1}};        // s→a 4, s→b 1
@@ -26,49 +46,31 @@ refs:
   - https://en.cppreference.com/w/cpp/algorithm/push_heap
 ---
 
-Dijkstra over a binary heap with no `decrease_key`. Complete the test
-that throws away stale entries without ever skipping a live one.
+Dijkstra without `decrease_key`: an improved `dist[v]` pushes a new
+`(d, v)` and leaves the old entry in the heap. Complete the test that
+drops stale entries but never a live one.
 
 ```cpp
 #include <algorithm>
-#include <array>
 #include <functional>
 #include <utility>
 #include <vector>
-
-using Graph = std::array<std::vector<std::pair<int, int>>, 4>;  // (to, w)
-struct Result { std::array<int, 4> dist; int scans; };
-
-constexpr Result dijkstra(const Graph& g) {
-  Result r{{0, 1000, 1000, 1000}, 0};
-  std::vector<std::pair<int, int>> pq{{0, 0}};                   // (d, v)
-  while (!pq.empty()) {
-    std::ranges::pop_heap(pq, std::greater{});
-    auto [d, v] = pq.back(); pq.pop_back();
-    if (d {{c1::>}} r.dist[v]) continue;
-    for (auto [u, w] : g[v]) {
-      ++r.scans;
-      if (d + w < r.dist[u]) {
-        r.dist[u] = d + w;
-        pq.push_back({d + w, u}); std::ranges::push_heap(pq, std::greater{});
-      }
-    }
-  }
-  return r;
+constexpr int pop_live(std::vector<std::pair<int, int>>& pq, const int* dist) {
+  std::ranges::pop_heap(pq, std::greater{});
+  auto [d, v] = pq.back(); pq.pop_back();
+  if (d {{c1::>}} dist[v]) return -1;              // -1: skip this entry
+  return v;
 }
 ```
 
 ---
 
-`dist[v]` only ever decreases, and every entry was pushed carrying the
-`dist[v]` of its moment, so a popped `d` is never below `dist[v]`: equal
-means live, greater means a later push superseded it. Here `a` is pushed
-at 4, then again at 2 via `b`; the `(4, a)` entry pops last and must be
-dropped.
+**Stale means `d > dist[v]`: a later push superseded this entry.**
+`dist[v]` only decreases and each entry carried the `dist[v]` of its
+moment, so equal means live. Here `a` is pushed at 4, then at 2 via
+`b`; `(4, a)` pops last and is dropped.
 
-`>=` drops the live entries too — even the source — and every distance
-stays at 1000; `==` keeps only the stale ones. `<` is never true, so
-nothing is dropped: the distances still come out right, but the stale
-`(4, a)` rescans `a`'s edge, and `scans` is 5. That is why the harness
-counts work, not just answers — lazy deletion without its guard is
-correct and quietly does extra relaxations, up to one per stale entry.
+`>=` drops live entries, even the source. `==` keeps only stale ones.
+`<` drops nothing: distances stay right, but `(4, a)` rescans `a`'s
+edge (`scans` 5): lazy deletion without its guard silently does extra
+work.
