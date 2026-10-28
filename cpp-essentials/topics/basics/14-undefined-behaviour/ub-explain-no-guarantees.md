@@ -21,4 +21,4 @@ Answer them, aloud, as you would in a code review.
 - [ ] Mechanism: the optimiser assumes it never happens, so an overflow check written after the addition can be deleted
 - [ ] Example: reading through a pointer after `delete` is undefined, even when it still yields the old value
 - [ ] Limit: tools catch only what runs (the sanitizer flags) or is constant-evaluated (a `static_assert`)
-- [ ] Pitfall: testing cannot fix it; remove the operation, for example check the bound before adding
+- [ ] Fix: more testing cannot make it safe; remove the operation, for example check the bound before adding

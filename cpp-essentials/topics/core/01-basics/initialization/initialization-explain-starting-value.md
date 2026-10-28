@@ -20,7 +20,7 @@ struct starts with. Answer them.
 
 ---
 
-- [ ] Problem: reading an uninitialised local `int` is undefined behaviour
+- [ ] Problem: a local `int` declared without an initialiser has no defined value; reading it is undefined behaviour
 - [ ] Mechanism: empty braces value-initialise a scalar, so it starts at zero
 - [ ] Example: braces on a struct without constructors zero every member they give no value
 - [ ] Cost: zeroing costs a store, so skip the braces only where the next line assigns

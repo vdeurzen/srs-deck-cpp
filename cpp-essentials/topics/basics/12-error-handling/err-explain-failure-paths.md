@@ -1,7 +1,7 @@
 ---
 id: err-explain-failure-paths
 kind: explain
-version: 2
+version: 3
 level: 2
 tags: [exceptions, error-handling]
 requires:
@@ -14,7 +14,8 @@ refs:
 elaborate: Which failure in code you have written would you now report with `throw`, and which with a return value?
 ---
 A colleague new to C++ asks how a failure reported with `throw` reaches
-the code that handles it. Explain it to them as you would in an interview.
+the code that handles it, and when to report a failure some other way.
+Explain it to them as you would in an interview.
 ---
 - [ ] Problem: report a failure to a handler many calls up, with no new code in the functions between
 - [ ] Mechanism: `throw` abandons each function on the way to the nearest `try` whose `catch` type matches
