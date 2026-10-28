@@ -24,6 +24,7 @@ requires:
   - search-lower-bound-meaning
   - cpp-essentials/structured-bindings-basics
   - cpp-essentials/constexpr-fn-static-assert
+  - cpp-essentials/srch-upper-vs-lower
 refs:
   - https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/
   - https://leetcode.com/problems/find-target-indices-after-sorting-array/
