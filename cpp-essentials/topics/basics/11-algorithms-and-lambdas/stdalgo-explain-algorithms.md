@@ -1,7 +1,7 @@
 ---
 id: stdalgo-explain-algorithms
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [algorithms, iterators]
 requires:
@@ -14,9 +14,10 @@ refs:
 elaborate: Find a raw loop in your own code that searches, sorts or removes; which standard algorithm would replace it?
 ---
 
-An interviewer asks why you call `std::find_if(v.begin(), v.end(), test)`
-instead of writing the loop yourself. Explain how the standard algorithms
-work.
+An interviewer sees `std::find_if(v.begin(), v.end(), test)` in your code
+and asks why you use standard algorithms such as `std::find_if` and
+`std::sort` rather than your own loops, and how to call them correctly.
+Explain it to them.
 
 ---
 

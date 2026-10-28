@@ -22,6 +22,6 @@ walks an array in C++. Talk them through it.
 
 - [ ] Problem: code must reach each element of a contiguous array from one starting point
 - [ ] Mechanism: `p + i` moves `i` elements, not bytes; the compiler scales by the element size
-- [ ] Example: `p[i]` means `*(p + i)`, counted from where `p` currently points
+- [ ] Example: `p[2]` means `*(p + 2)`, the element two past wherever `p` currently points
 - [ ] Cost: an array passed to a function decays to a pointer, so the length must travel separately
 - [ ] Pitfall: arithmetic beyond one past the last element is undefined behaviour

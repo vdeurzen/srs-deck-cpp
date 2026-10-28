@@ -1,7 +1,7 @@
 ---
 id: atomics-explain-publish-with-flag
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [concurrency, atomics, memory-model]
 requires:
@@ -18,7 +18,8 @@ elaborate: Where else have you handed data from one thread to another, and which
 A writer sets a plain `int payload = 42`, then calls `ready.store(true,
 release)`; a reader spins (loops re-reading `ready`) on
 `ready.load(acquire)`, then reads `payload`. Explain to an interviewer
-why the reader is guaranteed to get the writer's value.
+why the reader is guaranteed to get the writer's value, and why these two
+memory orders rather than others.
 ---
 - [ ] Problem: two threads touch plain `payload`, one writing; without ordering that is a data race
 - [ ] Mechanism: the acquire load that reads the release store's value synchronizes with that store

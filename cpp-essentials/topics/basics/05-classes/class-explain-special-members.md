@@ -21,5 +21,5 @@ An interviewer points at a class whose constructors carry `= default`,
 - [ ] Problem: the compiler writes some constructors itself and converts silently; the class author must control which calls compile
 - [ ] Mechanism: `= default` asks for the compiler-written version; `= delete` makes every call a compile error
 - [ ] Example: deleting the copy constructor makes copying a one-of-a-kind ticket a compile error
-- [ ] Cost: `explicit` stops silent conversions, so callers must name the type, as in `Celsius{21.5}`
+- [ ] Trade-off: `explicit` stops silent conversions, at the price of callers naming the type: `Celsius{21.5}`
 - [ ] Pitfall: declaring any constructor removes the compiler-written no-argument one until you default it back

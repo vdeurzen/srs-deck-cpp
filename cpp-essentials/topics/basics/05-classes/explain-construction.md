@@ -1,7 +1,7 @@
 ---
 id: class-explain-construction
 kind: explain
-version: 1
+version: 2
 level: 2
 tags: [classes, constructors, initialization, invariants]
 requires:
@@ -14,9 +14,9 @@ refs:
   - https://en.cppreference.com/w/cpp/language/constructor
   - https://en.cppreference.com/w/cpp/language/data_members#Member_initialization
 ---
-An interviewer asks what a constructor such as
-`Car(int hp) : engine_(hp) { /* body */ }` does for the object it builds.
-Explain it to them.
+An interviewer shows you `Car(int hp) : engine_(hp) { /* body */ }` and
+asks what a constructor is for and where each member of the new object
+gets its starting value. Explain it to them.
 ---
 - [ ] Problem: a constructor establishes the class invariant before any other code can use the object
 - [ ] Mechanism: every member is constructed before the body runs, from its list entry if it has one

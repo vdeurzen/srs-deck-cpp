@@ -1,7 +1,7 @@
 ---
 id: strings-explain-string-view
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [strings, string-view, lifetime]
 requires:
@@ -15,7 +15,8 @@ elaborate: Find a `const std::string&` parameter in your own code; would a `std:
 ---
 
 A reviewer asks why your new read-only function takes a `std::string_view`
-rather than a `const std::string&`. Answer them.
+rather than a `const std::string&`, and what a view makes you careful
+about. Answer them.
 
 ---
 

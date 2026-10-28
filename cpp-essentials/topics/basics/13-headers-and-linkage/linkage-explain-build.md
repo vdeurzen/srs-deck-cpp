@@ -1,7 +1,7 @@
 ---
 id: linkage-explain-build
 kind: explain
-version: 2
+version: 3
 level: 2
 tags: [linkage, headers, build]
 requires:
@@ -13,7 +13,8 @@ refs:
 elaborate: Say which of the two link errors, `undefined reference` or `multiple definition`, you would expect first in a new project, and why.
 ---
 A teammate's program is `main.cpp` plus `util.cpp`, sharing `util.h`.
-Walk them through how it is built into one executable.
+Walk them through how the files become one executable, and what may go
+in `util.h` without breaking the link.
 ---
 - [ ] Problem: each `.cpp` compiles alone, so a header shares the declarations every file needs
 - [ ] Mechanism: each `.cpp` file, with its headers pasted in, compiles to an object file the linker joins

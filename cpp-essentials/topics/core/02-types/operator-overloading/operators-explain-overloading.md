@@ -1,7 +1,7 @@
 ---
 id: operators-explain-overloading
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [operators, classes]
 requires:
@@ -16,7 +16,7 @@ elaborate: Which type in your own code would read better with `+` or `==`, and w
 ---
 
 An interviewer asks how `a + b` can compile when `a` and `b` are structs
-you defined. Explain it to them.
+you defined, and how you would write that `+`. Explain it to them.
 
 ---
 
