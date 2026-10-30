@@ -14,8 +14,8 @@ refs:
 elaborate: Where in your own code does a brace-initialized container take two integers, and which constructor did you mean?
 ---
 
-`std::initializer_list<int>` is the parameter type that receives a brace
-list such as `{2, 3}` as a sequence of `int`s.
+`std::initializer_list<int>` is a parameter type holding a read-only
+sequence of `int`s; a list of `int`s in braces can initialize one.
 
 ```cpp
 struct Grid {

@@ -13,8 +13,13 @@ refs:
   - https://eel.is/c++draft/dcl.ptr
 ---
 
-Read a pointer declaration right to left, starting from the name; each
-`const` applies to what is immediately to its left (or, at the far left,
-to what follows it). In `const int* p`, the read-only part is
+Read a pointer declaration right to left, starting from the name. In
+`const int* p`, the read-only part is
 {{c1::the `int` it points to::which object?}}. In
 `int* const s`, it is {{c2::the pointer `s` itself::which object?}}.
+
+---
+
+**Each `const` applies to what is immediately to its left** (or, at the
+far left, to what follows it). So `p` is a pointer to a `const int`, and
+`s` is a `const` pointer to a writable `int`.

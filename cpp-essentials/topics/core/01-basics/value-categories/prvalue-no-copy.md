@@ -3,7 +3,7 @@ id: value-categories-prvalue-no-copy
 kind: basic
 version: 1
 level: 2
-tags: [value-categories, copy-elision]
+tags: [value-categories]
 requires:
   - value-categories-categories-cloze
   - move-vs-copy-intro

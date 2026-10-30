@@ -37,5 +37,5 @@ void count_hit() { ++hits; }
 **On `std::atomic<int>`, `++hits` is one indivisible step**, so no
 increment is lost. A plain `int` races. `volatile` keeps every load and
 store but still does them as separate steps, so it races too.
-`std::atomic<bool>` has no `++`. (Real code includes `<atomic>`; here
-libstdc++'s `<thread>` brings it in, so the header can't name the answer.)
+`std::atomic<bool>` has no `++`. (Write `#include <atomic>` yourself:
+that libstdc++'s `<thread>` happens to bring it in is not portable.)

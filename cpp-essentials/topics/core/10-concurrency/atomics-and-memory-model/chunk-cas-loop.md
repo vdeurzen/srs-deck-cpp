@@ -33,5 +33,5 @@ current value, so the loop body is empty: the retry recomputes from the
 refreshed snapshot. `weak` may also fail when the values match (a
 spurious failure); it is cheaper on some CPUs, and the loop retries
 anyway.
-The grader only checks that your reproduction compiles, so a plain
-`v.store(old * 2)` is rated Hard, not Again; it loses concurrent updates.
+A plain `v.store(old * 2)` compiles too, but it overwrites any update
+another thread made between the `load` and the `store`.

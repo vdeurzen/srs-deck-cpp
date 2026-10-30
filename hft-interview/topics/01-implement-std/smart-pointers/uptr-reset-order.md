@@ -34,8 +34,8 @@ refs:
 ---
 
 You're implementing `unique_ptr::reset(q)`. Complete it so it stays
-correct even when deleting the old object destroys `*this` (the harness
-resets a `Session` that owns itself).
+correct even when deleting the old object destroys `*this` (as when a
+`Session` owns itself).
 
 ```cpp
 #include <memory>

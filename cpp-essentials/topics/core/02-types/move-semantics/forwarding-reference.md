@@ -13,7 +13,7 @@ refs:
   - https://eel.is/c++draft/temp.deduct.call
 ---
 
-A reference to a reference collapses to a single reference, and `&` wins: `Widget& &&` is `Widget&`.
+A reference to a reference collapses to a single reference, and `&` wins: `int& &&` is `int&`.
 
 ## For a class `Widget`, `f(w)` compiles for an lvalue `w` and `g(w)` does not. What makes `T&&` different from `Widget&&`?
 

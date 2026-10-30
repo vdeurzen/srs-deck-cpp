@@ -40,7 +40,7 @@ first iteration.
 
 constexpr int max_of(const int* a, int n) {
   int m = {{c1::std\::numeric_limits<int>\::min()}};
-  for (int i = 0; i < n; ++i)   // m: largest of a[0] ... a[i - 1]; none yet: max(m, y) == y
+  for (int i = 0; i < n; ++i)   // m: largest of a[0] ... a[i - 1]
     if (a[i] > m) m = a[i];
   return m;
 }

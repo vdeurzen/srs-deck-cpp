@@ -38,8 +38,3 @@ frame that `op` points into — so everything that touches `op` or `cqe`
 must happen first. `cqe->res` follows the kernel convention: at least
 zero is a byte count, negative is `-errno`, which `await_resume`
 translates into an exception or a `std::expected`.
-
-This Deck cannot compile-check this Card — `liburing` is not part of
-the standard library and is not available to the Compiler Explorer
-configuration the Deck targets — so reproduction is graded by
-whitespace-normalised equality (SPEC §4.7).

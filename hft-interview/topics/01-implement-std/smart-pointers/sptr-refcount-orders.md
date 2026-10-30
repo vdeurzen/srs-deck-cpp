@@ -71,5 +71,5 @@ sequence*, so the final decrement synchronizes with every earlier one.
 
 Boost.Atomic's example writes `release` plus an `acquire` fence inside
 the `if`, paying for acquire only once; libc++ and libstdc++ both use
-`acq_rel` here. The harness's `FakeAtomic` records the order, since
-`std::atomic` is not usable in constant evaluation.
+`acq_rel` here. The `A` parameter lets a constexpr stand-in replace
+`std::atomic`, which is not usable in constant evaluation.

@@ -61,5 +61,5 @@ constexpr int quickselect(std::array<int, 8> a, std::size_t k) {
 Invariant: the k-th element is in `[lo, hi]`. `lo = p + 1` keeps it and
 shrinks the range: expected Θ(n), not Θ(n log n). `hi = p` or
 `hi = p + 1` discards the side holding the answer and returns a
-neighbouring value, not a crash, which is why the harness pins every
+neighbouring value, not a crash, which is why a test must check every
 `k`. `lo = k` drops candidates between `p` and `k`.

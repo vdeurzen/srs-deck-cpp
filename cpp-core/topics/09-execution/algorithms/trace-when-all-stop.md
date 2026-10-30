@@ -40,8 +40,7 @@ token already says `stop_requested()`, but a stop is only a *request*:
 `then` never checks it, so `c`'s lambda still runs and records that it
 saw the request.
 
-GCC 14 has no `std::execution`, so this Card is not compiled. The
-values were produced by running this snippet against NVIDIA's `stdexec`
+GCC 14 has no `std::execution`; the values above were produced by running this snippet against NVIDIA's `stdexec`
 reference implementation (`stdexec::` in place of the `std::`
 namespaces), compiled with GCC 16.2
 (`g++ -std=c++23`), with a clean `-fsanitize=address,undefined` run.

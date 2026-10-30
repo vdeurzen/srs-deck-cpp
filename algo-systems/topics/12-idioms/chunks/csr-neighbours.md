@@ -47,5 +47,4 @@ span, so the loop streams and prefetches; the extra `offset[V]` entry
 is why the last vertex needs no special case.
 
 This is the shape of every traversal over a frozen graph: BFS,
-Dijkstra, PageRank, dataflow over a CFG. Compile-checked: the harness
-runs Dijkstra's relaxations over a five-edge graph.
+Dijkstra, PageRank, dataflow over a CFG.

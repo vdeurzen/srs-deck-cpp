@@ -26,5 +26,5 @@ int main() { return area(1.0) > 3.0 ? 0 : 1; }
 The smallest module: an interface unit that names the module and exports a
 function, and a client that imports it. `export module` declares the unit;
 `export` on `area` makes it visible; `import` makes it usable without any
-header. Graded by text: the compile service builds a single file, and a
-module's interface must be built before its importer.
+header. The interface unit must be compiled before any file that
+imports it.

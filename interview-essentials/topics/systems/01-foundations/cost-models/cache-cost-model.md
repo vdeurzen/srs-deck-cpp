@@ -14,6 +14,9 @@ refs:
 
 On modern hardware the unit of cost that matters for a data structure is
 rarely the instruction — it is the {{c1::cache miss::a hardware event}}.
+
+---
+
 Memory moves between levels in fixed blocks (cache lines), so touching
 one byte pays for the whole line, and a structure that packs eight useful
 values into one line does eight times the work per line loaded as one

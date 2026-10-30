@@ -37,6 +37,4 @@ constexpr void quick_sort(int* first, int* last) {
 Quicksort with the last element as pivot: `std::partition` moves every
 key smaller than the pivot to the front (Lomuto's loop), `iter_swap`
 drops the pivot at `mid`, its final slot, and both sides are sorted
-without it, so each call shrinks the range. No merge step. Compile-
-checked: the harness sorts two arrays, one full of duplicates, at
-compile time.
+without it, so each call shrinks the range. No merge step.

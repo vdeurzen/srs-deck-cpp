@@ -33,7 +33,6 @@ fail. `close()` stops new associations, and `join()` waits for the
 count to reach zero, so `~scope` is legal. `handle(req)` must complete
 with no values.
 
-GCC 14 has no `std::execution`, so this snippet is graded by text
-(`compile: null`). It was checked against NVIDIA's `stdexec` with
-GCC 16.2: it runs, and dropping `upon_error`, or the `noexcept` on
+GCC 14 has no `std::execution`; against NVIDIA's `stdexec` with
+GCC 16.2 the snippet runs, and dropping `upon_error`, or the `noexcept` on
 `log_error`, fails `spawn`'s "cannot fail" static assertion.

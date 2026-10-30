@@ -27,5 +27,4 @@ try {
 exception, and every well-behaved user one, derives from `std::exception`,
 so this one handler sees them all. `const&` binds to the thrown object
 without copying or slicing it, so `what()` returns the message the
-`throw` site wrote. It is graded by text (`compile: null`) because
-`run_job` and the includes belong to the surrounding program.
+`throw` site wrote.

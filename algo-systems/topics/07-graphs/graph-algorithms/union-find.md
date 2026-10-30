@@ -62,6 +62,6 @@ recursion or second pass. `find(parent[x])` is full compression (more
 flattening, but recursive); plain `parent[x]` compresses nothing and
 quietly loses the bound; `x` cuts the node loose as its own root.
 
-Three of the four return the same roots, so the harness asserts the rewired
-`parent` array: a structure invariant is the only observable difference
+Three of the four return the same roots, so the rewired `parent` array,
+a structure invariant, is the only observable difference
 between the right answer and a slow one.

@@ -29,5 +29,4 @@ double to_fahrenheit(double celsius) { return celsius * 9 / 5 + 32; }
 **The header/source pair.** The header holds only the declaration, which
 every caller needs, and `#pragma once` stops it being pasted twice into
 one file. The `.cpp` includes its own header first, so a mismatch with
-the declaration shows up there, and holds the single definition. Graded
-by text (`compile: null`): it spans two files.
+the declaration shows up there, and holds the single definition.

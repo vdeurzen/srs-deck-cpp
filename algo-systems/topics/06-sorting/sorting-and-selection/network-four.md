@@ -48,6 +48,6 @@ constexpr std::array<int, 4> sort4(std::array<int, 4> a) {
 
 After layer 2 the minimum is at 0 and the maximum at 3, so only the
 middle pair can still be out of order. `cx(a, 2, 1)` orders it
-backwards; the other two touch pairs already in order. The harness uses
-the **0-1 principle**: a network that sorts every 0/1 input sorts every
-input, so 16 cases prove it for all of them.
+backwards; the other two touch pairs already in order. The **0-1
+principle** settles it: a network that sorts every 0/1 input sorts every
+input, so 16 cases cover all of them.

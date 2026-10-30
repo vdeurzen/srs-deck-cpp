@@ -15,13 +15,13 @@ refs:
 Rows arrive as `(Ann, fail) (Bob, ok) (Cat, fail) (Dan, ok)`. They must
 be split with the "ok" rows first, and Bob arrived before Dan.
 
-## `std::partition` may give `Dan Bob Cat Ann`. `std::partition` or `std::stable_partition`: which guarantees Bob stays before Dan?
+## `std::partition` or `std::stable_partition`: which guarantees Bob stays before Dan?
 
 ---
 
 **`std::stable_partition`: it keeps the input order within each group.**
 
 That is what *stable* means. `partition` promises only the groups, and
-its swaps may reorder inside one; libstdc++ gives the order above.
+its swaps may reorder inside one; libstdc++ gives `Dan Bob Cat Ann`.
 `stable_partition` may allocate a buffer and costs more, and it isn't
 `constexpr` before C++26.

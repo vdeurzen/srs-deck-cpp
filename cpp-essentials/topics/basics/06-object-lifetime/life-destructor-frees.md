@@ -34,9 +34,9 @@ refs:
 ---
 
 `IntBuf` gets its array from the heap in its constructor (`constexpr`
-only lets the compiler run both members inside a check). Complete the
+lets both members also run at compile time). Complete the
 destructor so that every `IntBuf` gives the array back when it dies,
-whichever path its function returns by.
+however the function holding it returns.
 
 ```cpp
 struct IntBuf {

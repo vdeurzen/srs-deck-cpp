@@ -41,5 +41,3 @@ contiguous cache lines. `lower_bound` returns the insertion point, not a
 match — so `*it == key` is required — and that same iterator is where
 `insert` goes, so the search is never repeated. Lookup O(log n), insert
 an O(n) `memmove`.
-
-Compile-checked: the harness runs it on a `std::vector` at compile time.

@@ -30,4 +30,4 @@ The canonical arithmetic pair, written inside `struct Vec2 { int x, y; };`.
 `+` is a hidden friend (a non-member defined in the class, found only
 through its `Vec2` arguments) that takes its left operand **by value**:
 that copy is the result, so `+` reuses `+=` and the logic lives in one
-place. (Graded by text: the lines sit inside a class.)
+place.

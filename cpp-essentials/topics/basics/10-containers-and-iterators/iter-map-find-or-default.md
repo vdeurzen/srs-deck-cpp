@@ -38,5 +38,5 @@ int price_of(const std::unordered_map<int, int>& prices, int item) {
 
 **On a `const` map, look up with `find` and compare with `end()`.**
 `prices[item]` may insert a missing key, so a `const` map has no `[]`:
-both chips using it fail to compile, even after `contains`. `it` is an
+both answers using it fail to compile, even after `contains`. `it` is an
 iterator to the key/value pair, so the value is `it->second`.

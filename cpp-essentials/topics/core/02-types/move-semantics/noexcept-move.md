@@ -22,8 +22,8 @@ refs:
 ---
 
 `std::vector<Widget>` copies every element whenever it reallocates,
-although `Widget` has a move constructor. Change that declaration so the
-vector moves them instead.
+although `Widget` has a move constructor. Complete `Widget`'s move
+constructor so the vector moves them instead.
 
 ```cpp
 #include <type_traits>

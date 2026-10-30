@@ -16,9 +16,9 @@ refs:
 ---
 
 ```cpp
-int mix(int copy, int& ref) {
-    ref += 5;
-    return copy;
+int mix(int first, int& second) {
+    second += 5;
+    return first;
 }
 
 int main() {
@@ -29,9 +29,9 @@ int main() {
 
 ---
 
-`a` is passed twice, two ways. `int copy` is a **new local object**
+`a` is passed twice, two ways. `int first` is a **new local object**
 initialised from `a` at the call, so it holds 10 and nothing done to `a`
-later reaches it. `int& ref` is **another name for `a` itself**, so
-`ref += 5` changes `a` to 15. Which one you get is decided by the
+later reaches it. `int& second` is **another name for `a` itself**, so
+`second += 5` changes `a` to 15. Which one you get is decided by the
 parameter's type; the call site looks the same. Verified by running an
 instrumented copy under GCC 16.2 (`g++ -std=c++23`).

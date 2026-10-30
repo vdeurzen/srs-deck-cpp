@@ -55,4 +55,4 @@ the cost is the other's length, `i + j`.
 
 `+ 1` charges a replace twice, as delete plus insert: "horse" → "ros"
 gives 4. The `max` is the LCS habit; inside a `min` it never lowers the result, so
-replace drops out with the same effect.
+it is as if replace were not allowed.

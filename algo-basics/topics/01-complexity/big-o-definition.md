@@ -40,4 +40,4 @@ constexpr bool bounded_from(long start) {  // f(n) <= 4·n² for every n checked
 (at n = 100, f is 40 007 against 40 000). Any c above 3 works with a
 large enough n₀; that freedom is why big-O can ignore both the lower
 terms and the leading 3. The definition never asks for the *smallest*
-n₀: the harness does, to pin one answer.
+n₀; the question does, so that one answer is right.

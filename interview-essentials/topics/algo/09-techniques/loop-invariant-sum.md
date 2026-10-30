@@ -20,7 +20,7 @@ for (int i = 0; i < n; ++i)
 Before the first iteration `i == 0`, so the claim says `s` is
 {{c1::0, the sum of no elements::a number}}. If the
 claim holds at the top of an iteration, then right after `s += a[i]`
-(before `++i`), `s` equals `a[0] + ... +` {{c2::`a[i]`::the old `i`}};
+(before `++i`), `s` equals `a[0] + ... +` {{c2::`a[i]`::an element of `a`}};
 the `++i` turns that back into the claim. At exit `i == n`: the whole sum.
 
 ---

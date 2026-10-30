@@ -55,8 +55,8 @@ multiply and one shift.
 The constant is the 64-bit approximation of the golden ratio's
 reciprocal. Any large odd constant mixes; φ is the choice with the best
 equidistribution for *consecutive* keys, which is the common case for
-ids — the harness pins the other one, keys that differ only in bits the
-mask would have thrown away.
+ids, and it also separates keys that differ only in bits the mask would
+have thrown away.
 
 Two caveats. This is a **bucket index**, not a hash: it is fast mixing,
 not avalanche in both directions, and it is trivially invertible, so it

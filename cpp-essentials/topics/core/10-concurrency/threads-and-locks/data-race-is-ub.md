@@ -3,7 +3,7 @@ id: threads-data-race-is-ub
 kind: basic
 version: 1
 level: 1
-tags: [concurrency, threads, memory-model, undefined-behaviour]
+tags: [concurrency, threads, memory-model]
 requires:
   - ub-definition
   - conc-data-race-one-writer

@@ -33,6 +33,6 @@ int area(int w, int h){{c1::;}}
 `int area(int w, int h);` is a **declaration**: it tells each translation
 unit that the function exists and how to call it. The **definition**, the
 body, is written once, in `rect.cpp`. A body in the header is a second
-definition inside `rect.cpp` (the harness's `redefinition` error) and a
+definition inside `rect.cpp`, so `area` would be defined twice there, and a
 duplicate in every other includer, which the linker rejects. A trailing
 `const` is only for member functions; on a free function it does not compile.

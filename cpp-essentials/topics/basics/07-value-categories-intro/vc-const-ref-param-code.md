@@ -44,5 +44,5 @@ constexpr bool is_short({{c1::const std\::string&}} s) {
 
 **`const std::string&` binds lvalues and temporaries alike, without a copy.**
 `std::string&` refuses the temporary from `make()`; `std::string&&`
-refuses the named `named`, an lvalue. Plain `std::string` would accept
+refuses a named `std::string`, an lvalue. Plain `std::string` would accept
 both, but copies every call.

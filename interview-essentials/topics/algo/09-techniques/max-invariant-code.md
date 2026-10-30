@@ -29,9 +29,8 @@ refs:
 ---
 
 `max_of` returns the largest of the `n` ints at `a`, `n` at least 1 (`constexpr`
-lets the compiler run it, so the checks happen while compiling). Pick
-the start value of `m` that makes the comment true before the first
-iteration.
+lets the compiler run it). Pick the start value of `m` that makes the
+comment true before the first iteration.
 
 ```cpp
 constexpr int max_of(const int* a, int n) {   // pre: n >= 1

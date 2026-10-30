@@ -29,5 +29,4 @@ for (auto& t : pool)
 **Pool shutdown: close, then join.** `close()` sets the queue's done
 flag and wakes every waiter, so each worker's `pop` returns empty once
 the queue is drained and the thread ends. Joining first would deadlock:
-the workers stay blocked in `pop` on a queue nobody will close. Not a
-whole program, so graded by text.
+the workers stay blocked in `pop` on a queue nobody will close.

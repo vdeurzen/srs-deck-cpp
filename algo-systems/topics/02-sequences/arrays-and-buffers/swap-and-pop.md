@@ -51,6 +51,6 @@ copy instead of shifting the tail. `data[size--]` reads one past the last
 element; `data[size - 1]` forgets to shrink; `shift_left` keeps order at
 O(n) cost — what `std::erase_if` does when order matters.
 
-The cost is in the harness: index 1 named 20 and now names 40, and
-index 3 names nothing. Anyone holding a plain index sees a different
+The cost is in the indices: removing index 1 from `{10, 20, 30, 40}`
+leaves index 1, which named 20, naming 40, and index 3 naming nothing. Anyone holding a plain index sees a different
 element with no error — the bug generation counters exist to catch.

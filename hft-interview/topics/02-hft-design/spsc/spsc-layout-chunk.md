@@ -48,6 +48,6 @@ owner touches it.
 Without `alignas` on `head_`, the two indices share a line that bounces
 on every push and pop. Without it on `buf_`, slot 0 can share the
 consumer's line, so each producer write hits the line the consumer
-spins on. Rigtorp's queue gives all four members a line each; the
-harness accepts that too. 64 is the x86-64 line, but Intel's
+spins on. Rigtorp's queue gives all four members a line each, which
+also works. 64 is the x86-64 line, but Intel's
 adjacent-line prefetcher and Apple silicon effectively want 128.

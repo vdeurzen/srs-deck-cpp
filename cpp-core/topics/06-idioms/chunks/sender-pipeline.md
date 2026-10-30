@@ -36,8 +36,5 @@ Read the first four lines as pure description — nothing has run when
 comes into existence on this thread's stack and the work actually
 starts.
 
-This Deck cannot compile-check this Card: `std::execution` is C++26
-(P2300) and is not implemented by the Compiler Explorer configuration
-the Deck targets, so reproduction is graded by whitespace-normalised
-equality (SPEC §4.7). The equivalent against the reference
-implementation, `stdexec`, differs only in the namespace.
+`std::execution` is C++26 (P2300). The same pipeline written against
+the reference implementation, `stdexec`, differs only in the namespace.

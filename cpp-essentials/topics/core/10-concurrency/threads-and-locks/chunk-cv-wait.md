@@ -30,4 +30,4 @@ shared `std::vector<int> q` guarded by `m` and `cv`: *lock* with a
 `unique_lock` (never `lock_guard`, because `wait` must release it),
 *wait* with the real condition as the predicate (so spurious wake-ups
 and early notifies cannot break it), then *take* the job while the lock
-is still held. Graded by text, so write the predicate exactly as shown.
+is still held.

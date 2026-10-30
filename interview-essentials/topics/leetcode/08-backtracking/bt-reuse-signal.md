@@ -20,7 +20,7 @@ Distinct values `c`, reusable any number of times. Each call loops
 `for (int j = start; j < n; ++j)`: it appends `c[j]`, recurses, then
 removes it. To list every *ordered* sequence that sums to `target`,
 where [1, 2] and [2, 1] both count, every recursive call passes as
-`start` the literal value {{c1::0::a number}}.
+`start` {{c1::0::an index}}.
 
 ---
 
