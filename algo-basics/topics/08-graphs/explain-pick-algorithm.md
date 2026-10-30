@@ -1,30 +1,26 @@
 ---
 id: graph-explain-pick-algorithm
 kind: explain
-version: 1
-level: 3
-tags: [graphs, judgement]
+version: 2
+level: 4
+tags: [graphs, interview, judgement]
 requires:
+  - interview-essentials/graph-dijkstra-why-nonnegative
   - interview-essentials/graph-bellman-ford-rounds
-  - interview-essentials/graph-topo-order
-  - graph-mst-cut-property
-elaborate: If the toll network in job (3) had a cycle of rebates summing below zero, what would "cheapest route" even mean, and how would Bellman-Ford tell you?
+  - graph-bellman-ford-negative-cycle
+elaborate: If the one-way roads could never lead back to a depot already passed, which faster method would still handle the rebates, and why?
 refs:
-  - https://doi.org/10.1007/BF01386390
   - https://doi.org/10.1090/qam/102435
-  - https://doi.org/10.1145/368996.369025
-  - https://doi.org/10.1090/S0002-9939-1956-0078686-7
+  - https://doi.org/10.1007/BF01386390
+  - https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
 ---
-An interviewer asks, for each job, which graph algorithm you would use
-and which property of the input decides it. (1) Fewest hops between two users of a
-social network. (2) Fastest drive between two cities, from travel times.
-(3) Cheapest route through a toll network where some links pay you a
-rebate. (4) An order to compile 300 modules that import other modules, with no
-import cycles.
-(5) The least cable that connects every building on a campus.
+A teammate routes trucks between depots on one-way roads. Each road
+charges a toll, but some roads pay the driver a rebate instead. They
+need the cheapest route from the home depot to every other depot, and
+ask which algorithm you would pick, and why.
 ---
-- [ ] (1) BFS, because the edges are unweighted and the queue reaches vertices in hop order
-- [ ] (2) Dijkstra, because travel times are never negative, so a popped vertex is final
-- [ ] (3) Bellman-Ford, because a rebate is a negative edge, which breaks Dijkstra
-- [ ] (4) Topological sort, because "imports" is a dependency order on a directed graph
-- [ ] (5) A minimum spanning tree (Kruskal or Prim), because it minimises total cable, not any one route
+- [ ] Bellman-Ford from the home depot: relax every road, in any order, V − 1 times
+- [ ] A rebate is a negative weight, which breaks Dijkstra's rule that a popped depot's cost is final
+- [ ] V − 1 rounds suffice: a cheapest route repeats no depot, so uses at most V − 1 roads
+- [ ] It costs O(V · E): every road is relaxed once in each of the V − 1 rounds
+- [ ] If one extra round still lowers a cost, a loop of rebates sums below 0: no cheapest route exists

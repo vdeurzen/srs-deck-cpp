@@ -1,33 +1,27 @@
 ---
 id: sort-choose-explain
 kind: explain
-version: 1
-level: 3
-tags: [sorting, trade-offs]
+version: 2
+level: 4
+tags: [sorting, interview, trade-offs]
 requires:
-  - interview-essentials/sort-merge-stable-code
-  - interview-essentials/sort-pivot-choice
+  - interview-essentials/sort-counting-idea
+  - sort-lower-bound
   - interview-essentials/sort-compare-properties
-  - sort-insertion-shift-count
-  - interview-essentials/sort-heap-sort
-elaborate: Which of these five cases is closest to data you sort at work, and would `std::sort` or `std::stable_sort` already be the right pick?
+  - sort-counting-code
+elaborate: If the readings were 32-bit, how could a few stable passes, each over a few bits of the key, still sort them in linear time?
 refs:
-  - https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms
+  - https://en.wikipedia.org/wiki/Counting_sort
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html
 ---
 
-An interviewer asks which sort you would pick for each case, and which
-property decides it.
-(a) 40 elements, only a few out of place. (b) Orders already sorted by
-customer, re-sorted by date with customers kept in order within a date.
-(c) 10 million 12-bit sensor readings. (d) Firmware with no spare
-memory and a hard worst-case time limit. (e) A general array of
-doubles in RAM where average speed matters and stability does not.
+A teammate must sort 10 million readings from a sensor that reports
+12-bit values, 0 to 4 095. They ask which sort you would pick, and why.
 
 ---
 
-- [ ] (a) Insertion sort, because its cost is Θ(n + inversions) and a few misplaced elements make few inversions
-- [ ] (b) Merge sort, because it is stable: ties on date keep the earlier customer order
-- [ ] (c) Counting sort, because 12-bit keys need only k = 4096 counters, so O(n + k) beats n log n
-- [ ] (d) Heap sort, because it guarantees O(n log n) in the worst case with O(1) extra space
-- [ ] (e) Quicksort with a random pivot: in place, expected n log n, and no input is reliably slow
+- [ ] Counting sort: count how often each of the 4 096 values occurs, then write them out in order
+- [ ] 12-bit keys allow only k = 4 096 distinct values, so one counter per value is cheap
+- [ ] It never compares two keys, so the n log₂ n lower bound for comparison sorts does not apply
+- [ ] About n + k ≈ 10⁷ steps, against roughly 2.3 · 10⁸ comparisons for an n log₂ n sort
+- [ ] It needs O(n + k) extra memory, and 32-bit keys would need over 4 · 10⁹ counters
