@@ -27,5 +27,5 @@ auto b = read_config(path)
 not a value.**
 
 `let_value` connects and starts the returned sender and completes with
-its result. With `then`, `s` would be a sender *of a sender*: the inner
+its result. With `then`, `b` would be a sender *of a sender*: the inner
 work described, never started.

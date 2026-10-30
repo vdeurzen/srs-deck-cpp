@@ -18,7 +18,7 @@ elaborate: A small leaf function uses only caller-saved registers. Why does it n
 
 **Only callee-saved ones.**
 
-The call clobbers every caller-saved register. LLVM models this as a
-register mask on the call instruction, so each caller-saved register
-interferes with every range live across the call. Callee-saved ones
-cost a save in the prologue instead.
+The call clobbers every caller-saved register, so each one interferes
+with every range live across the call. Callee-saved ones (on x86-64
+System V the six `rbx`, `rbp`, `r12`–`r15`) cost one save in the
+prologue instead.

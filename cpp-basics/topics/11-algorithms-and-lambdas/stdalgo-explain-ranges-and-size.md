@@ -8,12 +8,14 @@ requires:
   - cpp-essentials/iter-end-one-past
   - cpp-essentials/stdalgo-transform-back-inserter
   - cpp-essentials/stdalgo-erase-if
+elaborate: Where in your own code does an algorithm write into a container you never sized?
 refs:
   - https://en.cppreference.com/w/cpp/algorithm
   - https://en.cppreference.com/w/cpp/container/vector/erase2
 ---
-Explain how standard algorithms such as `transform` and `remove_if` see a
-container, and what that means for its size.
+A colleague's `std::remove_if` call left their `std::vector` the same
+size, and their `std::transform` into an empty `std::vector` wrote past its
+end. Explain to them what went wrong.
 ---
 - [ ] They receive a half-open range `[begin, end)`: `begin` is included, `end` is one past the last element
 - [ ] They reach elements only through iterators, so they can never add or remove a container's elements

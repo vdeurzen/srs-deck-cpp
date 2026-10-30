@@ -3,7 +3,7 @@ id: str-interning-unbounded
 kind: basic
 version: 1
 level: 4
-tags: [strings, memory]
+tags: [strings]
 requires:
   - str-string-interning
 refs:

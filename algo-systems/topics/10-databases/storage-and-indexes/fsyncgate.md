@@ -3,7 +3,7 @@ id: db-fsyncgate
 kind: basic
 version: 1
 level: 4
-tags: [databases, durability, linux, misconception]
+tags: [databases, durability, linux]
 requires:
   - db-wal-and-commit
 refs:

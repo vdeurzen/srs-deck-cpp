@@ -47,5 +47,4 @@ constexpr void keep_id(Session& s, std::string_view msg) {
 
 **Only `std::string` owns a copy of the bytes.** A `string_view` or
 `span` member keeps a pointer into the freed buffer, so reading `s.id`
-later is undefined behaviour (a compile error inside this constant
-evaluation); `const char*` cannot be assigned from a `string_view` at all.
+later is undefined behaviour; `const char*` cannot be assigned from a `string_view` at all.

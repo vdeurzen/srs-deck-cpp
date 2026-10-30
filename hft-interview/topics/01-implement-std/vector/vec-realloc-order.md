@@ -75,8 +75,8 @@ commit comes last, so `v` describes the new buffer only once it is
 complete.
 
 The new element goes in *before* the relocation because `x` may refer
-into `v.b`: the test pushes `w.b[0]`, and relocating first would copy a
-moved-from string. libstdc++ orders its growth path the same way for the
+into `v.b`: in `v.push_back(v.b[0])` on a full vector, relocating first
+would copy a moved-from string. libstdc++ orders its growth path the same way for the
 same reason. The first distractor is that relocate-first order. The
 second counts the new element as if it were already in `v.b`, and
 destroys one slot past the old buffer.

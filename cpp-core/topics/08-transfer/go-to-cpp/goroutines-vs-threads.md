@@ -15,9 +15,15 @@ refs:
 ---
 
 A `std::jthread` is exactly one
-{{c1::OS thread}}, with no runtime in between to multiplex it. Spawn
+{{c1::OS thread}}. Spawn
 100k of them for 100k requests and system limits (`threads-max`, a
 cgroup's `pids.max`) and scheduling cost stop you long before memory
 does: on a 64-bit system each stack is mostly uncommitted address space.
 CPU-bound per-request work in C++ is a fixed number of `jthread`s,
 about {{c2::one per core}}, draining a task queue.
+
+---
+
+Go's runtime multiplexes many goroutines onto a few OS threads; C++ has
+no runtime in between, so each `jthread` is one kernel-scheduled thread
+with its own stack.

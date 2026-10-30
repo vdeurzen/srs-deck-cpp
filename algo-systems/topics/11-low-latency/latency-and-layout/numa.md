@@ -3,7 +3,7 @@ id: ll-numa
 kind: basic
 version: 1
 level: 4
-tags: [low-latency, numa, memory-hierarchy, os]
+tags: [low-latency, memory-hierarchy, os]
 requires:
   - ll-prefault
 refs:

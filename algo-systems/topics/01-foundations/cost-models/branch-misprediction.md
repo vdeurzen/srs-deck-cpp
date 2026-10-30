@@ -5,7 +5,7 @@ version: 1
 level: 3
 requires:
   - interview-essentials/foundations-latency-scale
-tags: [cost-model, branchless, low-latency]
+tags: [cost-model, low-latency]
 refs:
   - https://en.algorithmica.org/hpc/pipelining/branching/
   - https://www.agner.org/optimize/

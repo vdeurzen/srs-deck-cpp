@@ -3,7 +3,7 @@ id: dp-bitmask-signal
 kind: basic
 version: 1
 level: 4
-tags: [dynamic-programming, bitmask-dp, recognition, lc-847, lc-943]
+tags: [dynamic-programming, recognition, lc-847, lc-943]
 requires:
   - interview-essentials/technique-dp-state
   - interview-essentials/foundations-bits-trace

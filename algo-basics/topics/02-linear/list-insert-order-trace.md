@@ -3,7 +3,7 @@ id: linear-list-insert-order-trace
 kind: trace
 version: 2
 level: 2
-tags: [foundations, linked-lists, tracing, misconception]
+tags: [foundations, linked-lists, tracing]
 requires:
   - linear-list-insert-held
 probes:
@@ -14,9 +14,8 @@ refs:
   - https://en.cppreference.com/w/cpp/container/forward_list/insert_after
 ---
 
-Many expect the order of the two pointer writes in a list insertion not
-to matter. Node `n` (value 20) is inserted between node `a` (10) and node
-`c` (30) with these two writes.
+Node `n` (value 20) is inserted between node `a` (10) and node `c` (30)
+with these two writes.
 
 ```cpp
 struct Node { int value; Node* next; };

@@ -12,7 +12,7 @@ refs:
 ---
 
 `int samples[8]` names eight `int`s stored contiguously, and with a 4-byte
-`int` `sizeof(samples)` is {{c1::32::all the elements, not a pointer}}.
+`int` `sizeof(samples)` is {{c1::32::in bytes}}.
 Pass it to `void f(int* p)` and it undergoes array-to-pointer conversion:
 `f` receives {{c2::a pointer to the first element::what `f` sees}} and
 nothing else. A `std::span<int>` over the same storage holds

@@ -53,5 +53,4 @@ constexpr int find(const std::array<Slot, 8>& t, int key) {
 **Stop only at `Empty`: a tombstone still belongs to someone's probe run.**
 19 was inserted when 11 occupied slot 4, so it sits beyond it; stopping
 at `Deleted` (or at "not `Full`") reports 19 missing. Probing until the
-key turns up walks past `Empty` too: an absent key never stops, which is
-not a constant expression.
+key turns up walks past `Empty` too: an absent key loops forever.

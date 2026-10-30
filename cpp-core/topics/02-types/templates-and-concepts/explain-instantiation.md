@@ -8,16 +8,16 @@ requires:
   - templates-lazy-member-instantiation
   - templates-two-phase-lookup
   - templates-typename-disambiguator
+elaborate: What would change for your users if a template you wrote checked every member function body for every `T`?
 refs:
   - https://en.cppreference.com/w/cpp/language/template_instantiation
   - https://en.cppreference.com/w/cpp/language/dependent_name
 ---
-Explain to a colleague how the compiler turns a template into code: when
-code is generated, what is checked as soon as the template is defined,
-and what waits.
+A colleague asks when the compiler checks the code inside a template.
+Explain it to them.
 ---
-- [ ] A template is not code: each distinct set of template arguments, first used where a definition is needed (a call, a complete object), is implicitly instantiated into a specialization
-- [ ] Implicitly instantiating a class template instantiates its member declarations only; a member function body is instantiated when used, so a type that cannot support one member still works with the rest
-- [ ] Non-dependent names are looked up at the template's definition, so a call to an undeclared non-dependent function is an error even if the template is never used
-- [ ] Dependent names such as `t.flush()` wait for instantiation, because what they name can differ for every `T`
-- [ ] A dependent qualified name such as `C::value_type` is assumed to name a value until `typename` says it is a type
+- [ ] A template is not code; each distinct set of template arguments, when used, is instantiated into a specialization
+- [ ] Non-dependent names are looked up at the definition, so an undeclared non-dependent call errors even if unused
+- [ ] Names that depend on `T`, such as `t.flush()`, are looked up only at instantiation, since they differ per `T`
+- [ ] A class template's member function bodies are instantiated only when used, so a type that breaks one member still works
+- [ ] A dependent qualified name like `C::value_type` is parsed as a value until `typename` marks it a type

@@ -23,13 +23,13 @@ struct NameEq {
   bool operator()(const std::string& a, const std::string& b) const { return lower(a) == lower(b); }
 };
 std::unordered_set<std::string, NameHash, NameEq> s{"Bob"};
-s.contains("bob");   // false with GCC 16: buckets 4 and 11 of 13
+s.contains("bob");   // false
 ```
 
 ---
 
 **Equal keys must hash equally; these two don't, so the lookup searches the wrong bucket.**
 
-The table compares keys only inside the bucket the hash picks. Breaking
-the rule is undefined behaviour, so a lucky shared bucket may even
-"work". The fix: hash `lower(s)`, so the hash sees what `NameEq` sees.
+The table compares keys only inside the bucket the hash picks (with
+GCC 16, buckets 4 and 11 of 13). Breaking the rule is undefined
+behaviour, so a lucky shared bucket may even "work". The fix: hash `lower(s)`, so the hash sees what `NameEq` sees.

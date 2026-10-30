@@ -60,5 +60,4 @@ other timer: the wheel's advantage over a heap.
 
 `delay & (N - 1)` forgets the cursor, so timers fire early or late once
 `now` is past 0. `% (N - 1)` uses a modulus the cursor does not. The
-unmasked sum indexes past the array: undefined behaviour, which constant
-evaluation rejects. Delays ≥ N need a rounds count or a coarser wheel.
+unmasked sum indexes past the array: undefined behaviour. Delays ≥ N need a rounds count or a coarser wheel.

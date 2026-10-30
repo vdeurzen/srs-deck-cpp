@@ -3,7 +3,7 @@ id: db-hll-intersection
 kind: basic
 version: 1
 level: 5
-tags: [databases, sketches, probabilistic, misconception]
+tags: [databases, sketches, probabilistic]
 requires:
   - db-hll-merge
   - db-hll-size-error

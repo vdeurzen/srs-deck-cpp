@@ -3,7 +3,7 @@ id: staticpoly-type-erasure
 kind: basic
 version: 1
 level: 3
-tags: [polymorphism, type-erasure]
+tags: [polymorphism]
 requires:
   - cpp-essentials/staticpoly-static-vs-dynamic
   - cpp-essentials/lambda-store-std-function

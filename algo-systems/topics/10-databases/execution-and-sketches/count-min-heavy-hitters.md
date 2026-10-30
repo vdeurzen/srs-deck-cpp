@@ -3,7 +3,7 @@ id: db-count-min-heavy-hitters
 kind: basic
 version: 1
 level: 4
-tags: [databases, sketches, streaming, heaps]
+tags: [databases, sketches, streaming]
 requires:
   - db-count-min-sketch
   - heap-top-k

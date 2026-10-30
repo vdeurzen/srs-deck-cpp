@@ -3,7 +3,7 @@ id: bucket-truncation
 kind: basic
 version: 1
 level: 4
-tags: [hft, rate-limit, token-bucket, integers, misconception]
+tags: [hft, rate-limit, token-bucket, misconception]
 requires:
   - interview-essentials/bucket-refill
 refs:

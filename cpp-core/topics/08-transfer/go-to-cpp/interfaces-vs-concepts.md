@@ -13,7 +13,11 @@ refs:
 ---
 
 A C++20 `concept` such as `Drawable` names the operations a type must
-support, but it is a compile-time predicate on a template argument, not a
-type. So `std::vector<Drawable>` {{c1::does not compile}}. One container
+support. `std::vector<Drawable>` {{c1::does not compile}}. One container
 of different concrete types, each call dispatched at run time, needs
 virtual functions or {{c2::type erasure}}.
+
+---
+
+A concept is a compile-time predicate on a template argument, not a
+type, so there is no `Drawable` object for the vector to hold.

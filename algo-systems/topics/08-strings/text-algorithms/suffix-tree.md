@@ -3,7 +3,7 @@ id: str-suffix-tree
 kind: basic
 version: 1
 level: 4
-tags: [strings, indexing, tries]
+tags: [strings, indexing]
 requires:
   - ordered-radix-trie
 refs:

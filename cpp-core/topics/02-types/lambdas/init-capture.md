@@ -3,7 +3,7 @@ id: lambda-init-capture
 kind: code
 version: 1
 level: 3
-tags: [lambdas, move-semantics]
+tags: [lambdas, smart-pointers]
 requires:
   - cpp-essentials/lambda-capture-trace
   - cpp-essentials/smart-pointers-unique-ptr-ownership
@@ -20,7 +20,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Lambda_capture
 ---
 
-Complete the capture so the returned lambda owns the `int` and is safe
+Complete the capture so the returned closure object owns the `int` and is safe
 to call after `make_reader` returns.
 
 ```cpp

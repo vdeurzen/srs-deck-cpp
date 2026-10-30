@@ -1,23 +1,23 @@
 ---
 id: exceptions-explain-error-channels
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [exceptions, error-handling]
 requires:
   - exceptions-far-away-failure
   - vocab-optional-vs-expected
   - strings-from-chars
+elaborate: Pick a function in your own code that can fail; which channel does it use now, and would you change it?
 refs:
   - https://en.cppreference.com/w/cpp/language/exceptions
   - https://en.cppreference.com/w/cpp/utility/expected
 ---
-A function can fail. Survey C++23's ways to report it (an exception,
-`std::expected`, `std::optional`, an error code) by what the caller must do,
-and say when you'd pick each.
+An interviewer asks how you decide the way a C++23 function reports failure
+to its caller. Explain it to them.
 ---
-- [ ] Exception: intermediate callers write nothing; the failure travels to a distant `catch`
-- [ ] `std::expected<T, E>`: every caller must check, and the signature names the error type
-- [ ] `std::optional<T>`: the caller must check but learns only "no value", which fits absence that isn't an error
-- [ ] Error code (`std::errc` from `from_chars`, or a `bool` plus out-parameter): the caller must check and can silently forget unless it is `[[nodiscard]]`
-- [ ] Picks by distance and frequency: exceptions for rare failures handled far away, value channels for expected ones handled by the caller
+- [ ] An exception suits a rare failure handled far away: no caller in between writes anything
+- [ ] `std::expected<T, E>` suits failure the direct caller handles: it must check, and the signature names the error
+- [ ] `std::optional<T>` suits absence that is not an error, such as a cache miss, with no reason to report
+- [ ] An error code, like `from_chars`'s `std::errc`, also reports at the call, without throwing or allocating
+- [ ] So the deciding questions are how far away the failure is handled, and how often it happens

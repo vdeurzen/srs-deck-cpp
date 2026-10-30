@@ -47,10 +47,8 @@ elaborate: Which other read-modify-write in your code (a high-water mark, a satu
 
 Several threads record the highest price seen with `store_max`. Complete
 the loop condition so `a` ends up holding the larger of its value and `x`,
-whatever other threads store meanwhile. `Atomic` is `std::atomic<int>` in
-production; as a template it also takes a constexpr stand-in with the
-same `load` and `compare_exchange_weak`, because real atomics cannot
-run inside the compiler.
+whatever other threads store meanwhile. `Atomic` is `std::atomic<int>`,
+or any type with the same `load` and `compare_exchange_weak`.
 
 ```cpp
 template <class Atomic>

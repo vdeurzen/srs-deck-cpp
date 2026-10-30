@@ -5,7 +5,7 @@ version: 1
 level: 3
 requires:
   - hash-quality-low-bits
-tags: [hashing, avalanche]
+tags: [hashing, mixing]
 refs:
   - https://en.wikipedia.org/wiki/Avalanche_effect
   - https://github.com/aappleby/smhasher/blob/master/src/MurmurHash3.cpp

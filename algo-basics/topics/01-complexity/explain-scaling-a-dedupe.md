@@ -8,6 +8,8 @@ requires:
   - interview-essentials/complexity-feasible-n
   - interview-essentials/complexity-amortised-single-call
   - complexity-master-compare
+  - cpp-essentials/uniq-unsorted-misconception
+elaborate: If the records could not be reordered, which structure would let one pass find the duplicates, and what would it cost in memory?
 refs:
   - https://en.wikipedia.org/wiki/Big_O_notation
   - https://dl.acm.org/doi/10.1145/1008861.1008865
@@ -21,6 +23,6 @@ through what will happen and what to change.
 ---
 - [ ] Predicts ~17 minutes: comparing all pairs is Θ(n²), so 100× the records is 10 000× the time
 - [ ] Rules out any quadratic fix: at ~10⁸ steps/s, a million records needs n log n or better
-- [ ] Proposes sort, then one pass comparing neighbours: Θ(n log n), merge sort's recurrence being a master-theorem tie
+- [ ] Proposes sorting, so duplicates become neighbours, then one pass: Θ(n log n), merge sort's master-theorem tie
 - [ ] Warns that one `push_back` may copy the whole vector, since amortised O(1) bounds only the total; `reserve(n)` removes it
 - [ ] Estimates the fix: 10⁶ · log₂ 10⁶ ≈ 2·10⁷ comparisons, a fraction of a second at 10⁸ steps/s

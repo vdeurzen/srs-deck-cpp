@@ -1,22 +1,23 @@
 ---
 id: ub-explain-optimiser-contract
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [undefined-behaviour, optimisation]
 requires:
   - cpp-essentials/ub-null-check-after-use
+  - cpp-essentials/ub-definition
   - types-signed-overflow-ub
-  - ub-constexpr-rejects-ub
   - ub-chunk-precondition-assert
+elaborate: Where else in your own code does a check come after the operation it is meant to guard?
 refs:
   - https://en.cppreference.com/w/cpp/language/ub
   - https://timsong-cpp.github.io/cppwp/n4950/intro.abstract#5
 ---
-A new teammate has just watched the compiler delete their null check. Explain why that is allowed and what the team does about it.
+A new teammate has just watched `-O2` delete their null check, written after the dereference. Explain to them why the compiler may do that.
 ---
-- [ ] Undefined behaviour means the standard places no requirement on the whole execution, not just the faulting operation, and no diagnostic is owed
-- [ ] The optimiser reasons from "undefined behaviour never happens": a dereference proves `p != nullptr`, a signed `+` proves no overflow, so a check those facts contradict is dead code
-- [ ] That contract is why correct code pays nothing for the cases the standard rules out: no overflow test on every add, counters live in registers
-- [ ] Practice: the check goes before the use, and an operation's precondition is written as an `assert` on the line that needs it
-- [ ] Detection: constant evaluation must reject core-language undefined behaviour, so `static_assert` tests of `constexpr` code catch it at compile time, and sanitizers (`-fsanitize=undefined,address`) catch the rest at run time
+- [ ] A null dereference is undefined behaviour, and the standard then guarantees nothing about the whole execution
+- [ ] The optimiser assumes undefined behaviour never happens, so once `*p` has run, `p` cannot be null
+- [ ] A null test after that dereference can never be true, so it is dead code and removed
+- [ ] Signed overflow works the same way: GCC folds `x + 1 > x` to `true` for `int`
+- [ ] The fix states the precondition before the dereference: test `p`, or `assert(p != nullptr)`, first

@@ -1,25 +1,25 @@
 ---
 id: templates-explain-concepts
 kind: explain
-version: 2
+version: 3
 level: 4
 tags: [templates, concepts]
 requires:
   - templates-explain-instantiation
   - templates-explain-constraints
   - ranges-range-categories
+elaborate: Which template in your own code would you constrain first, and which concept would name what its body needs?
 refs:
   - https://en.cppreference.com/w/cpp/language/constraints
   - https://en.cppreference.com/w/cpp/ranges/input_range
 ---
 A library ships
 `template<class C> auto total(const C& c) { typename C::value_type s{}; for (auto& x : c) s += x; return s; }`.
-`total(42)` produces a wall of errors from inside the body. Walk through
-why the errors look that way, how you would redesign `total`, and how you
-would add a faster path for contiguous containers.
+`total(42)` produces a wall of errors from inside the body. An interviewer
+asks how you would use concepts to improve `total`. Explain it to them.
 ---
-- [ ] `total(42)` errors inside the body, not at the call: the unconstrained template is chosen, and only instantiation substitutes `int` into `C::value_type`
-- [ ] The constraint must name what the body needs of `C`, being traversable: `std::ranges::input_range<C>`, not merely "has a `value_type`", which would let a non-iterable type through to the same body errors
-- [ ] With that constraint `total(42)` is rejected at the call, during overload resolution, and the error names the unsatisfied concept
-- [ ] An overload on `std::ranges::contiguous_range` wins for `std::vector` without ambiguity because that concept is built from `input_range` and subsumes it
-- [ ] Callers passing a non-contiguous range such as a `std::list` still reach the general overload: the fast one is not viable for them and is never instantiated, so a body using `std::ranges::data(c)` is never checked against a list
+- [ ] Unconstrained, `total` is chosen for `int`, and only instantiation hits `C::value_type`, deep inside the body
+- [ ] The constraint should name what the body needs: `std::ranges::input_range<C>`, a type it can iterate
+- [ ] Then `total(42)` is rejected at the call, during overload resolution, and the error names the unsatisfied concept
+- [ ] A `std::ranges::contiguous_range` overload adds a fast path; it subsumes `input_range`, so `std::vector` picks it unambiguously
+- [ ] A `std::list` still reaches the general overload: the fast one is not viable, so its body is never instantiated

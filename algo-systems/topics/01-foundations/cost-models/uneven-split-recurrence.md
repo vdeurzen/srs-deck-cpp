@@ -13,8 +13,8 @@ refs:
 
 Median-of-medians selection recurses on two subproblems of different
 sizes: `T(n) = T(n/5) + T(7n/10) + n`. The master theorem needs equal
-splits, so it does not apply. A {{c1::recursion tree::draw the calls
-level by level}} shows each level does 9/10 of the work of the one
+splits, so it does not apply. A {{c1::recursion tree::a diagram of the
+calls}} shows each level does 9/10 of the work of the one
 above, so the total is {{c2::Θ(n)::a geometric series}}.
 
 ---

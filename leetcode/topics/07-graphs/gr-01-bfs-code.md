@@ -87,6 +87,6 @@ The deque then holds only distances `D` (front) and `D + 1` (back), so
 the front is always a nearest cell, as with Dijkstra's heap, at O(1) per
 push: O(V + E).
 
-The distractors still converge, since every improvement is queued
-again, but cells are expanded before their distance is final and then
-re-expanded: on a 3×3 grid, 10 or 11 expansions instead of 9.
+Any other placement still ends with the right distances, since every
+improvement is queued again, but a cell can be expanded before its
+distance is final and then expanded again: wasted work.

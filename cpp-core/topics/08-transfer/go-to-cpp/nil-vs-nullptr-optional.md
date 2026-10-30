@@ -13,6 +13,9 @@ refs:
 ---
 
 In C++, `int* p = nullptr;` followed by `*p` is
-{{c1::undefined behaviour}}, not a guaranteed crash or an error you can
-catch, so C++ code checks `p` before the
-dereference instead of recovering after it.
+{{c1::undefined behaviour::which category of behaviour?}}.
+
+---
+
+Not a guaranteed crash, and not an error you can catch: so C++ code
+checks `p` before the dereference instead of recovering after it.

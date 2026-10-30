@@ -3,7 +3,7 @@ id: str-simd-tail
 kind: basic
 version: 1
 level: 4
-tags: [strings, simd, undefined-behaviour]
+tags: [strings, simd]
 requires:
   - str-simd-scanning
 refs:

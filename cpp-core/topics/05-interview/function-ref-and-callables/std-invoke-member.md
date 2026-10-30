@@ -18,7 +18,7 @@ refs:
 ---
 
 Call the member function `shout` on `g` through `std::invoke`, the same
-way you would call a free function or a lambda through it.
+way you would call a free function or a closure object through it.
 
 ```cpp
 #include <functional>
@@ -36,4 +36,4 @@ including a pointer-to-member-function, where ordinary call syntax
 (`f(args...)`) does not work at all — you cannot call `&Greeter::shout`
 directly. This is what makes `std::invoke` the right primitive for
 generic code that receives an arbitrary callable and does not know in
-advance whether it is a function, a lambda, or a member function pointer.
+advance whether it is a function, a closure object, or a member function pointer.

@@ -3,7 +3,7 @@ id: storage-construct-at
 kind: code
 version: 1
 level: 3
-tags: [raw-storage, construct-at, c++20]
+tags: [raw-storage, lifetime, c++20]
 requires:
   - storage-allocate-vs-construct
 input: chips
@@ -34,8 +34,8 @@ refs:
 
 `slot` points into storage from `std::allocator<std::string>::allocate`,
 and no `std::string` lives there yet. Complete `put` so that afterwards
-a `std::string` holding a copy of `s` exists at `slot`. The test runs in
-a constant expression.
+a `std::string` holding a copy of `s` exists at `slot`, and `put` also
+works during constant evaluation.
 
 ```cpp
 #include <memory>

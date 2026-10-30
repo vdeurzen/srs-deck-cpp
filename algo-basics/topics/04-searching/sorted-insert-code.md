@@ -3,7 +3,7 @@ id: search-sorted-insert-code
 kind: code
 version: 1
 level: 2
-tags: [binary-search, lower-bound]
+tags: [searching, sorted-arrays]
 requires:
   - interview-essentials/search-lower-bound-meaning
   - interview-essentials/linear-array-insert-shift

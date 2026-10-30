@@ -3,7 +3,7 @@ id: compiler-ssa-dominance-property
 kind: basic
 version: 1
 level: 4
-tags: [compilers, ssa, dominance, code-motion]
+tags: [compilers, ssa, code-motion]
 requires:
   - compiler-ssa-form
   - compiler-dominance

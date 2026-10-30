@@ -44,7 +44,7 @@ refs:
 `Opt<T>` holds at most one `T` inside the object, never on the heap, and
 an empty `Opt` must not create a `T` at all: `T` may have no default
 constructor. `set` is only called on an empty `Opt`. Complete the
-storage member; the test runs in a constant expression.
+storage member; `Opt` must also work in a constant expression.
 
 ```cpp
 #include <memory>

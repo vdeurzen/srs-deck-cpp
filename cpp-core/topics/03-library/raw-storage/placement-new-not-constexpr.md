@@ -3,7 +3,7 @@ id: storage-placement-new-not-constexpr
 kind: basic
 version: 1
 level: 3
-tags: [raw-storage, construct-at, constexpr, c++20, c++26]
+tags: [raw-storage, constexpr, c++20]
 requires:
   - storage-construct-at
 refs:

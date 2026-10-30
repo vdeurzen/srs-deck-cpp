@@ -8,12 +8,16 @@ requires:
   - interview-essentials/sort-merge-stable-code
   - interview-essentials/sort-pivot-choice
   - interview-essentials/sort-compare-properties
+  - sort-insertion-shift-count
+  - interview-essentials/sort-heap-sort
+elaborate: Which of these five cases is closest to data you sort at work, and would `std::sort` or `std::stable_sort` already be the right pick?
 refs:
   - https://en.wikipedia.org/wiki/Sorting_algorithm#Comparison_of_algorithms
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html
 ---
 
-Pick a sort for each case and name the property that decides it.
+An interviewer asks which sort you would pick for each case, and which
+property decides it.
 (a) 40 elements, only a few out of place. (b) Orders already sorted by
 customer, re-sorted by date with customers kept in order within a date.
 (c) 10 million 12-bit sensor readings. (d) Firmware with no spare
@@ -26,4 +30,4 @@ doubles in RAM where average speed matters and stability does not.
 - [ ] (b) Merge sort, because it is stable: ties on date keep the earlier customer order
 - [ ] (c) Counting sort, because 12-bit keys need only k = 4096 counters, so O(n + k) beats n log n
 - [ ] (d) Heap sort, because it guarantees O(n log n) in the worst case with O(1) extra space
-- [ ] (e) Quicksort with a random pivot, because it sorts in place in expected n log n and no input is reliably slow
+- [ ] (e) Quicksort with a random pivot: in place, expected n log n, and no input is reliably slow

@@ -53,6 +53,5 @@ constexpr int owner_of(std::uint32_t pos, const auto& ring) {
 
 **Past the last token, the ring wraps to the first.** Position 95 belongs
 to the token at 10. Clamping to the last token hands those keys to the
-wrong node, and a bare `it->node` dereferences `end()`, which is not a
-constant expression. The last assertion pins the payoff: when node 1
-leaves, no other node's keys move.
+wrong node, and a bare `it->node` dereferences `end()`: undefined
+behaviour. With the wrap right, node 1 leaving moves only node 1's keys.

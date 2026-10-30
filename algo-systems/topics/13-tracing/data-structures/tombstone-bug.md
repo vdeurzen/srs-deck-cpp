@@ -29,7 +29,7 @@ struct Table {
 int main() {
   Table t{{0, 1, 5, 9}};
   bool before = t.contains(9);
-  t.key[2] = 0;                         // "erase" 5: mark its slot empty
+  t.key[2] = 0;                         // erase 5: mark its slot empty
   bool after = t.contains(9);           // @1
 }
 ```

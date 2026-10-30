@@ -8,16 +8,17 @@ requires:
   - vec-push-back-self-alias
   - vec-relocate-move-if-noexcept
   - vec-realloc-rollback
+elaborate: Which line of your implementation would behave differently if `T`'s move constructor were `noexcept`?
 refs:
   - https://en.cppreference.com/w/cpp/container/vector/push_back
   - https://timsong-cpp.github.io/cppwp/n4950/vector.modifiers#2
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/vector.tcc
 ---
-The interviewer: "Implement `std::vector::push_back(const T&)`." Talk it
-through, from the common case to what happens when a copy throws.
+The interviewer: "Implement `std::vector::push_back(const T&)`." Talk them
+through your implementation.
 ---
-- [ ] Fast path: when `n < cap`, `construct_at` a copy in the next raw slot, then bump `n` (never assign into raw storage)
-- [ ] Slow path order: allocate the bigger buffer, construct the new element first (because `x` may refer into the old buffer: `v.push_back(v[0])`), relocate, destroy, deallocate, commit
-- [ ] States the strong guarantee: if `push_back` throws, the vector is exactly as before, so nothing is committed until every step has succeeded
-- [ ] Relocates with `std::move_if_noexcept`: a move that may throw falls back to a copy, so the old elements survive a failure
-- [ ] On a throw, destroys only what was built in the new buffer, frees it and rethrows; unwinding won't destroy objects made with `construct_at`
+- [ ] With spare capacity, `construct_at` a copy in the next raw slot, then bump `n`; never assign into raw storage
+- [ ] When full, build the new element in the new buffer before relocating, because `x` may refer into the old one
+- [ ] Gives the strong guarantee: nothing is committed until every step has succeeded, so a throw leaves the vector unchanged
+- [ ] Relocates with `std::move_if_noexcept`, so a move that may throw falls back to a copy and the old elements survive
+- [ ] On a throw, destroys only what it built in the new buffer, frees it and rethrows; unwinding won't destroy them

@@ -14,9 +14,8 @@ requires:
 ---
 
 `starts_on(sch, sndr)` transitions to `sch` {{c1::before starting
-sndr::so sndr's own work begins on that context}}. `continues_on(sndr,
-sch)` transitions {{c2::after sndr completes::so everything downstream
-of it runs on the new context}}. Both exist because a completion
+sndr::when, relative to sndr?}}. `continues_on(sndr,
+sch)` transitions {{c2::after sndr completes::when, relative to sndr?}}. Both exist because a completion
 otherwise arrives on {{c3::whichever context the operation happened to
 finish on::which context?}}.
 

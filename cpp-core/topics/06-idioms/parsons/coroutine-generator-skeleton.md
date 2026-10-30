@@ -59,7 +59,7 @@ template <typename T> struct Generator {
 The owning half of a generator: the return type holds the frame's
 `coroutine_handle`, destroys it exactly once, and gives the caller
 `next()` (resume, then report `!done()`) and `value()` (read the
-promise). The promise itself is the one from the `yield_value` Card.
+promise). The promise is the usual one whose `yield_value` stores into `current`.
 
 The move constructor is the line that matters: it nulls the source, so
 only one `Generator` ever calls `destroy()`, and declaring it makes the

@@ -8,14 +8,16 @@ requires:
   - coroutines-generator-dangling-parameter
   - coroutines-generator-elements-of
   - coroutines-generator-element-references
+  - coroutines-generator-is-a-view
+elaborate: Which loop in your own code would you turn into a generator, and which of these traps would you check first?
 refs:
   - https://en.cppreference.com/w/cpp/coroutine/generator
 ---
-An interviewer asks what `std::generator` costs and where it bites.
-Explain the price, the two lifetime traps and the two usage rules.
+An interviewer asks what goes wrong, in speed or in correctness, when
+`std::generator` is used carelessly. Explain it to them.
 ---
-- [ ] One heap allocation for the frame unless HALO elides it, plus a resume per element — measurably slower than filling a `vector` when the whole sequence is wanted anyway
-- [ ] `begin()` does real work: it resumes the body up to the first element and may throw whatever the body throws; call it once
-- [ ] Elements are references to the yielded object, valid until the next increment; storing one for later is a dangling reference
-- [ ] Reference parameters are borrows the caller must outlive; pass by value when the generator outlives the call expression
-- [ ] Recursion needs `co_yield std::ranges::elements_of(sub)` to stay at one resume per element rather than one per level
+- [ ] Each call allocates a frame and each element costs a resume: slower than a `vector` when everything is wanted
+- [ ] `begin()` resumes the body up to the first element, so it does real work and may throw
+- [ ] Each element is a reference into the frame, dangling after the next increment; copy it to keep it
+- [ ] A reference parameter is only a borrow: a temporary argument dies before iteration, so take it by value
+- [ ] A recursive generator yields `std::ranges::elements_of(sub)`: one resume per element instead of one per level

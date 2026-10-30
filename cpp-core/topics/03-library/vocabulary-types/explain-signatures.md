@@ -8,14 +8,15 @@ requires:
   - vocab-expected-and-then
   - cpp-essentials/vocab-span-parameter
   - cpp-essentials/vocab-visit-missing-handler
+elaborate: Pick a function in your own code that returns `-1`, `nullptr` or a `bool` flag; which vocabulary type would its signature use instead?
 refs:
   - https://en.cppreference.com/w/cpp/utility
 ---
-Explain how C++23's vocabulary types let a function signature say what the
-caller gets back or lends. For each, name the bug it prevents.
+A colleague asks how C++23's vocabulary types let a function signature say
+what the caller gets back or lends. Explain it to them.
 ---
-- [ ] `optional<T>`: a value or nothing; replaces sentinels (`-1`, `nullptr`) a caller could mistake for real values
-- [ ] `expected<T, E>`: a value or a typed reason for failure, the error built with `std::unexpected` so it can't pass for a value
-- [ ] `and_then` chains steps that can themselves fail without nested checks; the first error short-circuits the rest
-- [ ] `span<const T>`: borrows any contiguous range without a copy; it owns nothing, so the caller must keep the data alive
-- [ ] `variant<A, B, C>`: one of a closed set, stored in place; `visit` makes an unhandled alternative a compile error
+- [ ] `std::optional<T>` says "a value or nothing", replacing sentinels like `-1` a caller could mistake for data
+- [ ] `std::expected<T, E>` says "a value or a typed error"; the error, built with `std::unexpected`, can't pass for a value
+- [ ] Callers chain `expected`-returning steps with `and_then`, and the first error skips the rest
+- [ ] `std::span<const T>` lends any contiguous range without a copy; it owns nothing, so the caller keeps the data alive
+- [ ] `std::variant<A, B, C>` returns one of a closed set; `std::visit` makes an unhandled alternative a compile error

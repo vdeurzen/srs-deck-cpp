@@ -15,7 +15,7 @@ refs:
 In a linear-probing table at load factor α = 0.9, a successful lookup
 costs about 5.5 probes on average. An unsuccessful one — which every
 {{c1::insert::an operation that must find a free slot}} also pays — costs
-about {{c2::50::compute ½(1 + 1/(1 − α)²)}} probes. At α = 0.5 the same
+about {{c2::50::clustering squares the blow-up}} probes. At α = 0.5 the same
 miss costs {{c3::2.5}} probes.
 
 ---

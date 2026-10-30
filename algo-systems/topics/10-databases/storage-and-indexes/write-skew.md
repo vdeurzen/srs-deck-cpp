@@ -3,7 +3,7 @@ id: db-write-skew
 kind: basic
 version: 1
 level: 4
-tags: [databases, transactions, isolation, misconception]
+tags: [databases, transactions, isolation]
 requires:
   - db-first-updater-wins
 elaborate: Which invariant in a schema you know spans more than one row? Which transaction checks it, and which rows does it write?
