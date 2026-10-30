@@ -1,7 +1,7 @@
 ---
 id: search-explain-choosing
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [searching, recognition]
 requires:
@@ -19,8 +19,8 @@ An interviewer gives you a problem statement. What would make you look
 for a method that rules out candidates in bulk instead of scanning
 them? Answer aloud in about a minute.
 ---
-- [ ] Cue: sorted data, or a yes/no test on candidate answers that switches from false to true only once
-- [ ] Pattern: binary search, which probes the middle and keeps only the half that can still hold the answer
-- [ ] Example: smallest ship capacity that delivers all packages, in their given order, within 5 days
-- [ ] Complexity: about log₂ n probes, since each halves the candidates, so a million need about 20
-- [ ] Look-alike: two values in a sorted array summing to a target, found by moving two indices inward
+- [ ] Sorted data, or a yes/no test on candidate answers that flips from false to true only once
+- [ ] Then binary search probes the middle and keeps only the half that can still hold the answer
+- [ ] Smallest ship capacity within 5 days fits: if a capacity fails, every smaller one fails too
+- [ ] Each probe halves the candidates, so about log₂ n probes: a million candidates need about 20
+- [ ] For a pair with a target sum in sorted data, each inward step of two indices discards one element's pairs

@@ -16,8 +16,8 @@ refs:
 An interviewer asks you to explain how `std::shared_ptr` manages the
 lifetime of its object. Answer aloud in about a minute.
 ---
-- [ ] Problem: several owners share one object, and it must die exactly when the last owner lets go
-- [ ] Mechanism: every copy shares one heap control block that counts the owners
-- [ ] Example: copy a `shared_ptr` into an inner scope; the count is two there, one after its brace
-- [ ] Cost: a separate control-block allocation, which `make_shared` folds into the object's own allocation
-- [ ] Pitfall: two `shared_ptr`s built from one raw pointer make two blocks and delete it twice
+- [ ] Several owners share one object, and it must die exactly when the last owner lets go
+- [ ] Every copy shares one heap control block that counts the owners
+- [ ] Copying into an inner scope makes the count two there, and one again after its brace
+- [ ] The control block is a separate allocation, which `make_shared` folds into the object's own
+- [ ] Two `shared_ptr`s built from one raw pointer make two blocks and delete it twice

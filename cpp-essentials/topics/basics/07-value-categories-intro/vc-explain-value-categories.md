@@ -19,8 +19,8 @@ working programmer should care. Answer them.
 
 ---
 
-- [ ] Problem: a reference must know whether it binds a lasting object or a temporary about to die
-- [ ] Mechanism: an expression is an lvalue when it names an object whose address `&` can take
-- [ ] Example: `n++` is a prvalue, because it yields a copy of the old value rather than `n` itself
-- [ ] Trade-off: a plain `T&` parameter rejects temporaries, so read-only parameters take `const T&`
-- [ ] Pitfall: a temporary bound to a parameter dies at the call's `;`, so returning that reference dangles
+- [ ] An expression is an lvalue when it names an object whose address `&` can take
+- [ ] An rvalue is a temporary value, such as `n++`, which yields a copy of the old value, not `n`
+- [ ] The category decides what a reference may bind: a lasting object or a temporary about to die
+- [ ] A plain `T&` parameter rejects temporaries, so read-only parameters take `const T&`
+- [ ] A temporary bound to a parameter dies at the call's `;`, so returning that reference dangles

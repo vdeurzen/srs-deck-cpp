@@ -18,8 +18,8 @@ elaborate: Which growable buffer in your own code (a log, a message batch) grows
 An interviewer asks you to write your own `std::vector`, and first to
 say aloud what the design must get right. Answer aloud.
 ---
-- [ ] Problem: push_back must be amortised O(1) while all elements stay in one contiguous buffer
-- [ ] Mechanism: three pointers mark the first element, one past the last, and the buffer's end
-- [ ] Example: doubling needs a zero guard, so an empty vector's capacities go 0, 1, 2, 4, 8
-- [ ] Cost: geometric growth makes n pushes O(n) in total, where growing by one slot makes O(n²)
-- [ ] Pitfall: reserving one more slot before every push reallocates on every push
+- [ ] `push_back` must be amortised O(1) while all elements stay in one contiguous buffer
+- [ ] Three pointers mark the first element, one past the last, and the buffer's end
+- [ ] Growth must be geometric: n pushes then cost O(n) in total, where growing by one slot costs O(n²)
+- [ ] Doubling needs a zero guard, so an empty vector's capacities go 0, 1, 2, 4, 8
+- [ ] libstdc++'s `reserve` allocates exactly what is asked, so reserving one more slot per push reallocates every time

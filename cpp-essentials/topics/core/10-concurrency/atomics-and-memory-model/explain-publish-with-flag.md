@@ -21,8 +21,8 @@ release)`; a reader spins (loops re-reading `ready`) on
 why the reader is guaranteed to get the writer's value, and why these two
 memory orders rather than others.
 ---
-- [ ] Problem: two threads touch plain `payload`, one writing; without ordering that is a data race
-- [ ] Mechanism: the acquire load that reads the release store's value synchronizes with that store
-- [ ] Example: the write precedes the store and the read follows the load, so the reader sees 42
-- [ ] Cost: acquire/release is cheaper than the default sequentially consistent order, but the reader waits for the flag
-- [ ] Pitfall: with `relaxed` on either side nothing synchronizes, so reading `payload` is a data race
+- [ ] Two threads touch plain `payload`, one writing; without ordering that would be a data race
+- [ ] The acquire load that reads the release store's value synchronizes with that store
+- [ ] The write precedes the store and the read follows the load, so the reader sees 42
+- [ ] Acquire/release is cheaper than the default sequentially consistent order, and enough for this hand-off
+- [ ] With `relaxed` on either side nothing synchronizes, so reading `payload` is a data race

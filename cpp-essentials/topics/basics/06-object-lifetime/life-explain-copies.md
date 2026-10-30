@@ -18,8 +18,8 @@ of a class you wrote. Explain it to them.
 
 ---
 
-- [ ] Problem: C++ class objects are values, so a copy must build or overwrite a whole object
-- [ ] Mechanism: initialising a new object from another runs the copy constructor, never copy assignment
-- [ ] Example: passing an object by value runs the copy constructor, though no `=` appears
-- [ ] Cost: each by-value parameter or copy-initialisation builds a full new object, copying every member
-- [ ] Pitfall: a raw owning pointer is copied shallowly, so both destructors `delete[]` the same array
+- [ ] A copy either builds a new object or overwrites an existing one, and each runs its own function
+- [ ] Initialising a new object from another runs the copy constructor, never copy assignment
+- [ ] Passing an object by value runs the copy constructor too, though no `=` appears
+- [ ] Unless you write one, the copy the compiler writes copies every member in turn
+- [ ] So a raw owning pointer is copied shallowly, and both destructors `delete[]` the same array

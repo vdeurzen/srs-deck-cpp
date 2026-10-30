@@ -21,8 +21,8 @@ actually go away? Answer them.
 
 ---
 
-- [ ] Problem: nothing collects unused objects, so how an object was created fixes when it ends
-- [ ] Mechanism: a local dies at the closing brace of its block, on every path out, running its destructor
-- [ ] Example: an object declared in a loop body is built and destroyed again on every iteration
-- [ ] Cost: an object from `new` lives on until a matching `delete`, which code must remember to run
-- [ ] Pitfall: an unnamed temporary dies at the end of its full-expression, the `;`, not at the brace
+- [ ] Nothing collects unused objects; how an object was created fixes when it ends
+- [ ] A local dies at the closing brace of its block, on every path out, running its destructor
+- [ ] So an object declared in a loop body is built and destroyed again on every iteration
+- [ ] An object from `new` lives on until a matching `delete`, which the code must remember to run
+- [ ] An unnamed temporary dies at the end of its full-expression, the `;`, not at the brace

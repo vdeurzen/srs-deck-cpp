@@ -18,8 +18,8 @@ refs:
 An interviewer points at a class whose constructors carry `= default`,
 `= delete` and `explicit`, and asks what each one buys. Explain it to them.
 ---
-- [ ] Problem: the compiler writes some constructors itself and converts silently; the class author must control which calls compile
-- [ ] Mechanism: `= default` asks for the compiler-written version; `= delete` makes every call a compile error
-- [ ] Example: deleting the copy constructor makes copying a one-of-a-kind ticket a compile error
-- [ ] Trade-off: `explicit` stops silent conversions, at the price of callers naming the type: `Celsius{21.5}`
-- [ ] Pitfall: declaring any constructor removes the compiler-written no-argument one until you default it back
+- [ ] All three let the class author decide which constructions and conversions compile, rather than the compiler
+- [ ] `= default` asks for the version the compiler would write
+- [ ] `= delete` makes every call a compile error, so copying a one-of-a-kind ticket fails to build
+- [ ] `explicit` stops silent conversions, at the price of callers naming the type: `Celsius{21.5}`
+- [ ] Declaring any constructor removes the compiler-written no-argument one until you default it back

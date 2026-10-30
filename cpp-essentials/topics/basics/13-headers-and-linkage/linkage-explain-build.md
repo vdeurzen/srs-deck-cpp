@@ -16,8 +16,8 @@ A teammate's program is `main.cpp` plus `util.cpp`, sharing `util.h`.
 Walk them through how the files become one executable, and what may go
 in `util.h` without breaking the link.
 ---
-- [ ] Problem: each `.cpp` compiles alone, so a header shares the declarations every file needs
-- [ ] Mechanism: each `.cpp` file, with its headers pasted in, compiles to an object file the linker joins
-- [ ] Example: a function `util.h` declares but no file defines fails at link time with `undefined reference`
-- [ ] Trade-off: `inline` lets a header carry a function's definition, provided every copy is identical
-- [ ] Pitfall: a non-`inline` function defined in a header fails to link with `multiple definition`
+- [ ] Each `.cpp` file, with its headers pasted in, compiles alone into an object file
+- [ ] The linker then joins the object files into one executable
+- [ ] A function `util.h` declares but no file defines fails at link time with `undefined reference`
+- [ ] A non-`inline` function defined in `util.h` is defined in both files, so linking fails with `multiple definition`
+- [ ] `inline` lets the header carry a function's definition, provided every copy is identical

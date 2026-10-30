@@ -17,8 +17,8 @@ refs:
 ---
 Explain to a colleague, in about a minute, what a move is in C++.
 ---
-- [ ] Problem: copying a resource-owning object duplicates its resource, although the source is about to be discarded
-- [ ] Mechanism: `std::move` only casts to an rvalue, so overload resolution picks the move constructor
-- [ ] Example: a handle owner's move constructor takes the handle and sets the source's to "owns nothing"
-- [ ] Cost: the source is left valid but unspecified, so only assign to it or destroy it
-- [ ] Pitfall: naming a `T&& x` parameter gives an lvalue expression, so passing it on as a move needs another `std::move`
+- [ ] Copying a resource-owning object duplicates its resource, although the source is about to be discarded
+- [ ] A move transfers it instead: the move constructor takes the handle and sets the source's to "owns nothing"
+- [ ] `std::move` only casts to an rvalue, so overload resolution picks the move constructor
+- [ ] The source is left valid but unspecified, so only assign to it or destroy it
+- [ ] Naming a `T&& x` parameter gives an lvalue, so passing it on as a move needs another `std::move`

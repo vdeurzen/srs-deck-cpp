@@ -20,8 +20,8 @@ elaborate: Cheapest Flights Within K Stops (LC 787) asks for the cheapest price 
 An interviewer asks how you pick a shortest-path search from a problem
 statement. Answer aloud.
 ---
-- [ ] Cue: fewest steps or least total cost from a source; the cost of one move decides
-- [ ] Pattern: every move costs 1, BFS; moves cost different non-negative amounts, Dijkstra with a heap
-- [ ] Example: shortest clear path in a 0/1 grid, BFS with open cells as vertices
-- [ ] Cost: BFS is O(V + E); Dijkstra with a binary heap is O(E log E)
-- [ ] Look-alike: only "are these connected?" needs no distances: DFS, or union-find as edges arrive
+- [ ] It asks for fewest steps or least total cost from a source, and the cost of one move decides
+- [ ] If every move costs 1, BFS; if moves cost different non-negative amounts, Dijkstra with a heap
+- [ ] Shortest clear path in a 0/1 grid is a BFS, with open cells as vertices
+- [ ] BFS is O(V + E); Dijkstra with a binary heap is O(E log E)
+- [ ] If it asks only "are these connected?", no distances are needed: DFS, or union-find as edges arrive

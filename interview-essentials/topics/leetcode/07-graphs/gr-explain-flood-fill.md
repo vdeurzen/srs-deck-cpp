@@ -1,7 +1,7 @@
 ---
 id: gr-explain-flood-fill
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [graphs, grids, recognition, interview, lc-200, lc-542]
 requires:
@@ -16,8 +16,8 @@ elaborate: Where outside interviews have you seen "paint everything joined to th
 An interviewer hands you a grid of land and water and asks how many
 separate islands it has. Talk it through. Answer aloud.
 ---
-- [ ] Cue: a grid of cells joined up, down, left and right; count or measure the groups
-- [ ] Pattern: scan every cell; each unvisited land cell starts a DFS that marks its whole group visited
-- [ ] Example: on rows 101 over 111, one walk from the top-left reaches all five land cells: one island
-- [ ] Cost: O(rows × cols), since each cell is marked once and checked from at most four neighbours
-- [ ] Look-alike: steps to the nearest 0 from every cell need a BFS seeded with all the 0s
+- [ ] Land cells joined up, down, left or right form one island, so an island is one reachable group
+- [ ] Scan every cell; each land cell not yet visited starts a new walk and adds one island
+- [ ] The walk, a DFS or a BFS, marks every land cell it reaches, so that island is never counted again
+- [ ] On rows 101 over 111, one walk from the top-left reaches all five land cells: one island
+- [ ] That is O(rows × cols), since each cell is marked once and checked from at most four neighbours

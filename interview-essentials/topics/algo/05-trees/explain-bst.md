@@ -1,7 +1,7 @@
 ---
 id: tree-explain-bst
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [trees, bst, invariants]
 requires:
@@ -17,8 +17,8 @@ elaborate: Say in one sentence, as to an interviewer, which input arriving at yo
 Explain binary search trees to a colleague who has only used arrays.
 Answer aloud in about a minute.
 ---
-- [ ] Problem: find a key among n ordered keys without scanning every one
-- [ ] Mechanism: every key in a node's left subtree is smaller, every key in its right subtree larger
-- [ ] Example: searching for 3 from root 8 skips 8's whole right subtree with one comparison
-- [ ] Cost: a lookup costs the tree's height, about log₂ n when the tree is balanced
-- [ ] Pitfall: checking each node only against its children accepts bad trees, because every ancestor bounds a key
+- [ ] It finds a key among n ordered keys without comparing it against every one
+- [ ] Every key in a node's left subtree is smaller than the node's key, every key in its right subtree larger
+- [ ] So one comparison picks a side: searching for 3 from root 8 skips 8's whole right subtree
+- [ ] A lookup costs the tree's height, about log₂ n when the tree is balanced
+- [ ] Sorted inserts build a chain, making lookups O(n); self-balancing trees such as red-black trees prevent that

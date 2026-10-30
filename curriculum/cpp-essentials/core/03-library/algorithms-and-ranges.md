@@ -206,14 +206,12 @@ kept values, plus a permutation check for partition, never an order inside a gro
 ### Capstone (`rearranging`)
 | rung | id | kind | requires | question (one line) | status |
 | --- | --- | --- | --- | --- | --- |
-| 6 | rearr-explain-rearranging | explain | part-parity-code, sel-median-code, uniq-dedupe-code, sel-cost, uniq-unsorted-misconception | An interviewer asks how the standard library rearranges a vector in place without a second container. Explain. | new |
+| 6 | rearr-explain-rearranging | explain | uniq-dedupe-code, uniq-trace, uniq-unsorted-misconception | An interviewer asks why `std::unique` must be followed by `erase` to shrink a `std::vector`. Explain. | v2: narrowed to one question |
 
-Rubric: (1) problem: reorder in place, without extra storage or a full sort; (2)
-mechanism: they rearrange inside `[first, last)` around a boundary iterator and never change
-the size; (3) example: `v.erase(std::unique(…), v.end())` dedupes a sorted vector; (4)
-cost: partition and unique make one pass, and nth_element is linear on average, against
-sort's n·log n; (5) pitfall: unique drops only adjacent duplicates, so sort first and then
-erase the tail.
+Rubric (v2, one question; the partition and nth_element ladders end in their code Cards):
+an algorithm sees only iterators, so it cannot change the size; unique moves keepers forward
+and returns the new logical end; the tail holds unspecified values; `erase(new_end, end())`
+shrinks the vector; only adjacent duplicates go, so sort first.
 
 ### 6. Extremes (`extremes`). Steps: no.
 | rung | id | kind | requires | question (one line) | status |

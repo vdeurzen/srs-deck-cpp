@@ -21,8 +21,8 @@ all. Answer them.
 
 ---
 
-- [ ] Problem: overloads must tell an object still in use from one whose contents may be taken
-- [ ] Mechanism: an xvalue has identity yet may be moved from, so it is both glvalue and rvalue
-- [ ] Example: `std::move(x)` moves nothing; its result is an xvalue naming `x`
-- [ ] Contrast: a prvalue has no identity; it initialises its target directly, so nothing is moved
-- [ ] Pitfall: naming an rvalue-reference parameter gives an lvalue expression, so passing it on picks the `const T&` overload
+- [ ] An xvalue has identity yet may be moved from, so it is both a glvalue and an rvalue
+- [ ] C++ needs it so overloads can tell an object still in use from one whose contents may be taken
+- [ ] `std::move(x)` moves nothing; its result is an xvalue naming `x`
+- [ ] A prvalue has no identity: it initialises its target directly, so nothing is moved
+- [ ] Naming an rvalue-reference parameter gives an lvalue, so passing it on picks the `const T&` overload

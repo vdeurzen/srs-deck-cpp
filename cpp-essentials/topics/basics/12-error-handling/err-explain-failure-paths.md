@@ -17,8 +17,8 @@ A colleague new to C++ asks how a failure reported with `throw` reaches
 the code that handles it, and when to report a failure some other way.
 Explain it to them as you would in an interview.
 ---
-- [ ] Problem: report a failure to a handler many calls up, with no new code in the functions between
-- [ ] Mechanism: `throw` abandons each function on the way to the nearest `try` whose `catch` type matches
-- [ ] Example: unwinding runs every fully constructed local's destructor, so a file-closing object still closes it
-- [ ] Trade-off: an outcome the caller checks at once belongs in the return value, such as `std::optional`
-- [ ] Pitfall: an exception escaping a `noexcept` function calls `std::terminate`, whatever the callers catch
+- [ ] `throw` reports a failure to a handler many calls up, with no new code in the functions between
+- [ ] It abandons each function on the way to the nearest `try` whose `catch` type matches
+- [ ] Unwinding runs every fully constructed local's destructor, so a file-closing object still closes its file
+- [ ] An exception escaping a `noexcept` function calls `std::terminate`, whatever the callers catch
+- [ ] An outcome the caller checks at once belongs in the return value instead, such as `std::optional`

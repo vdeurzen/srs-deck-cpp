@@ -20,8 +20,8 @@ producer adds work. Explain to them how it should wait instead.
 
 ---
 
-- [ ] Problem: a consumer should sleep until the shared state changes, not loop re-checking it
-- [ ] Mechanism: `cv.wait` unlocks the mutex and sleeps; each wake-up relocks it and rechecks the predicate
-- [ ] Example: wait for "queue not empty", then pop while still holding the lock
-- [ ] Trade-off: `wait` needs a `std::unique_lock`, not a `lock_guard`, because it must release and retake the lock
-- [ ] Pitfall: a wait with no predicate can return on a spurious wake-up, queue still empty
+- [ ] The consumer should sleep until the shared state changes, not loop re-checking it
+- [ ] `cv.wait` unlocks the mutex and sleeps; each wake-up relocks it and rechecks the predicate
+- [ ] So wait for "queue not empty", then pop while still holding the lock
+- [ ] `wait` needs a `std::unique_lock`, not a `lock_guard`, because it must release and retake the lock
+- [ ] A wait with no predicate can return on a spurious wake-up, queue still empty

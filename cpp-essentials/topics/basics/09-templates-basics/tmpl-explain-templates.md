@@ -16,8 +16,8 @@ refs:
 ---
 A newcomer asks why `template <typename T> T larger(T a, T b)` exists and what the compiler does with it. Explain function templates to them.
 ---
-- [ ] Problem: one body serves many types, instead of a copy of the function per type
-- [ ] Mechanism: the compiler generates a separate function for each distinct `T` the calls deduce
-- [ ] Example: `larger(1, 2.5)` fails to compile, because `T` would be both `int` and `double`
-- [ ] Cost: the body must be visible where it is used, so template definitions live in headers
-- [ ] Pitfall: without a concept, a type lacking an operation errors deep inside the template's body
+- [ ] One body serves many types, instead of a hand-written copy of the function per type
+- [ ] The compiler generates a separate function for each distinct `T` the calls deduce
+- [ ] `larger(1, 2.5)` fails to compile, because `T` would be both `int` and `double`
+- [ ] The body must be visible where it is used, so template definitions live in headers
+- [ ] Without a concept, a type lacking an operation errors deep inside the template's body

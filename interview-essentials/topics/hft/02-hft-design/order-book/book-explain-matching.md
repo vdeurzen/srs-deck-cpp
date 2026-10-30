@@ -17,8 +17,8 @@ refs:
 An interviewer on a trading team asks how a matching engine handles an
 incoming limit order. Answer aloud.
 ---
-- [ ] Problem: an order whose limit crosses the best opposite price trades now; others rest in the book
-- [ ] Mechanism: trade at the best level while lots remain and it is within the limit, then rest the rest
-- [ ] Example: asks 5 at 3, 2 at 4, 10 at 6; a buy of 9 at 4 fills 7 and rests 2
-- [ ] Cost: levels in an array indexed by price tick are reached directly; empty ticks are stepped over
-- [ ] Pitfall: each fill is at the resting order's price, not at the incoming order's limit
+- [ ] An order whose limit crosses the best opposite price trades at once; what is left rests in the book
+- [ ] It trades at the best level while lots remain and the price is within its limit, then rests the rest
+- [ ] Asks 5 at 3, 2 at 4, 10 at 6: a buy of 9 at 4 fills 7, rests 2
+- [ ] Each fill is at the resting order's price, not at the incoming order's limit
+- [ ] Levels in an array indexed by price tick are reached directly, and empty ticks are stepped over

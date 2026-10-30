@@ -1,7 +1,7 @@
 ---
 id: arr-explain-diff
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [arrays, recognition, lc-1109, lc-370]
 requires:
@@ -18,8 +18,8 @@ An interviewer asks how you would spot, from the statement, a problem
 where updating every element of every range is too slow, and what you
 would do instead. Answer aloud.
 ---
-- [ ] Cue: many updates each add a value to a whole range, and the array is read only at the end
-- [ ] Pattern: add the value at the range's start, subtract it just past its end, then one running sum
-- [ ] Example: seats booked on each flight, from bookings that each cover a range of flights
-- [ ] Complexity: O(1) per update plus one O(n) pass, instead of the range's length per update
-- [ ] Look-alike: a fixed array with many range-sum queries reads ranges, so prefix sums of the input answer it
+- [ ] Many updates each add a value to a whole range, and the array is read only at the end
+- [ ] Instead add the value at the range's start and subtract it just past its end, then take one running sum
+- [ ] +5 on indices 1–3 marks +5 at index 1, −5 at index 4; the running sum is 5 only there
+- [ ] That is O(1) per update plus one O(n) pass, instead of the range's length per update
+- [ ] If the array is fixed and ranges are only read, prefix sums of the input answer the queries instead

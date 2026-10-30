@@ -1,7 +1,7 @@
 ---
 id: arr-explain-kadane
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [arrays, recognition, lc-53]
 requires:
@@ -18,8 +18,8 @@ elaborate: Which running statistic in your own code (a peak load, a longest stre
 An interviewer asks when you would reach for Kadane's algorithm and
 why it works. Answer aloud.
 ---
-- [ ] Cue: the largest sum of a contiguous run of any length, with negative values allowed
-- [ ] Pattern: the best sum ending here either extends the previous best or restarts at this element
-- [ ] Example: buy-and-sell stock: take the daily price changes, then their largest subarray sum
-- [ ] Cost: O(n) time in one pass, O(1) extra space
-- [ ] Look-alike: the largest sum of exactly k consecutive elements is a fixed-size sliding window instead
+- [ ] Reach for it on the largest sum of a contiguous run of any length, with negative values allowed
+- [ ] It keeps the best sum ending at each index, which extends the previous best or restarts at this element
+- [ ] It works because every subarray ends somewhere, so the largest of those per-index bests is the answer
+- [ ] Buy-and-sell stock hides it: take the daily price changes, then their largest subarray sum
+- [ ] It takes O(n) time in one pass and O(1) extra space

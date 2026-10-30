@@ -17,8 +17,8 @@ In a code review you find `template<class T> void f(T&& x)` whose body
 passes `x` on as `inner(std::move(x));`. Explain to the author, aloud, what
 goes wrong and what to write instead.
 ---
-- [ ] Problem: a wrapper must pass its argument on exactly as the caller gave it, lvalue or rvalue
-- [ ] Mechanism: with `T` deduced, `T&&` is a forwarding reference, binding lvalues and rvalues alike
-- [ ] Example: `std::forward<T>(x)` passes `x` on with the caller's value category
-- [ ] Cost: `std::forward<T>(x)` is only a cast, so forwarding itself copies and moves nothing
-- [ ] Pitfall: `std::move(x)` moves the caller's lvalue out from under it, leaving it valid but unspecified
+- [ ] With `T` deduced, `T&&` is a forwarding reference, binding lvalues and rvalues alike
+- [ ] So the wrapper must pass `x` on exactly as the caller gave it, lvalue or rvalue
+- [ ] `std::move(x)` moves a caller's lvalue out from under it, leaving it valid but unspecified
+- [ ] Write `std::forward<T>(x)` instead: it passes `x` on with the caller's value category
+- [ ] `std::forward<T>(x)` is only a cast, so forwarding itself copies and moves nothing

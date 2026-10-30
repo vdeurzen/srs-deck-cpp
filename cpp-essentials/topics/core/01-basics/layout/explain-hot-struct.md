@@ -21,8 +21,8 @@ keep it from regressing.
 
 ---
 
-- [ ] Problem: members sit at multiples of their alignment, so padding makes the struct bigger than its data
-- [ ] Mechanism: declare members in decreasing order of alignment, which removes interior padding
-- [ ] Example: `char, double, char` takes 24 bytes; `double, char, char` takes 16
-- [ ] Cost: `alignas(64)` rounds `sizeof` up to 64, spending padding to give each element its own boundary
-- [ ] Pitfall: a later edit silently adds padding unless a `static_assert` on `sizeof` pins it
+- [ ] Members sit at multiples of their alignment, so padding can make the struct bigger than its data
+- [ ] Declaring members in decreasing order of alignment removes the interior padding
+- [ ] `char, double, char` takes 24 bytes; `double, char, char` takes 16
+- [ ] `alignas(64)` puts each element on its own boundary, rounding `sizeof` up to 64
+- [ ] A `static_assert` on `sizeof` turns a later edit that adds padding into a compile error

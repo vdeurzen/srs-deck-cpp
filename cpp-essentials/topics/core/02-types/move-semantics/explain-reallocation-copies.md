@@ -1,7 +1,7 @@
 ---
 id: move-semantics-explain-reallocation-copies
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [move-semantics, exceptions, containers]
 requires:
@@ -16,8 +16,8 @@ A profiler shows a `std::vector<Widget>` deep-copying every element each
 time it grows, although `Widget` has a move constructor. Explain to the
 team, aloud, why it happens and how to fix it.
 ---
-- [ ] Problem: on reallocation the vector must transfer every element into the new buffer
-- [ ] Mechanism: it moves an element only if the move constructor is `noexcept`, otherwise it copies
-- [ ] Example: a `Widget` whose move constructor lacks `noexcept` is copied on every growth
-- [ ] Trade-off: copying keeps the strong guarantee, since a throw leaves the old buffer intact
-- [ ] Pitfall: a defaulted move constructor is not `noexcept` if any member's move may throw
+- [ ] On reallocation the vector must transfer every element into the new buffer
+- [ ] It moves an element only if the move constructor is `noexcept`, otherwise it copies
+- [ ] Copying keeps the strong guarantee: if a copy throws, the old buffer is still intact
+- [ ] The fix is marking `Widget`'s move constructor `noexcept`, so the vector moves instead
+- [ ] A defaulted move constructor is not `noexcept` if any member's move may throw

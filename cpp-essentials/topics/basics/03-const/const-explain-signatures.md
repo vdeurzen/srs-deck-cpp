@@ -18,8 +18,8 @@ refs:
 A reviewer asks why your code has `const` in so many places. Explain to
 them what `const` buys you.
 ---
-- [ ] Problem: `const` turns an accidental write into a compile error
-- [ ] Mechanism: a `const` object must get its value where it is declared and is never written again
-- [ ] Example: a `const&` parameter lets the callee read the caller's object, uncopied and unchangeable
-- [ ] Cost: `const` spreads: every read-only member function needs a trailing `const`, or `const` callers cannot call it
-- [ ] Contrast: in `int* const p`, the `const` freezes the pointer, not the `int` it points to
+- [ ] `const` turns an accidental write into a compile error
+- [ ] A `const` object gets its value where it is declared and is never written again
+- [ ] A `const&` parameter lets the callee read the caller's object without copying it or changing it
+- [ ] A trailing `const` marks a member function read-only, so it can be called on `const` objects
+- [ ] Where `const` sits says what is frozen: `int* const p` fixes the pointer, not the `int`

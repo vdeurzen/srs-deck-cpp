@@ -17,8 +17,8 @@ refs:
 ---
 An interviewer asks what `std::ranges::sort` gives you over `std::sort`. Explain.
 ---
-- [ ] Problem: you pass one range, not two iterators that could come from different containers.
-- [ ] Mechanism: it takes the range plus an optional comparator and an optional projection.
-- [ ] Example: `ranges::sort(orders, {}, &Order::qty)` sorts by one member with no lambda expression.
-- [ ] Cost: the projection runs on every comparison, so it should be cheap.
-- [ ] Pitfall: on a temporary range the result is `std::ranges::dangling`, a compile error, not a dangling iterator.
+- [ ] You pass one range, not two iterators that could come from different containers
+- [ ] It also takes an optional comparator and an optional projection
+- [ ] A projection such as a pointer to a member sorts by that member, with no lambda expression
+- [ ] The projection runs on every comparison, so it should be cheap
+- [ ] On a temporary range it returns `std::ranges::dangling`, so misuse is a compile error, not a dangling iterator

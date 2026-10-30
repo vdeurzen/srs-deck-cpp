@@ -1,7 +1,7 @@
 ---
 id: dp-explain-grid
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [grids, recognition, lc-64, lc-62]
 requires:
@@ -18,8 +18,8 @@ An interviewer gives you a grid walked from one corner to the opposite
 one and asks how you know a table can be filled for it, and how you
 would fill it. Answer aloud.
 ---
-- [ ] Cue: a corner-to-corner walk through a grid, moving only down or right, for a best sum or a count
-- [ ] Pattern: each cell's answer combines the cell above and the cell to its left, filled row by row
-- [ ] Example: Minimum Path Sum, the smallest sum from top-left to bottom-right moving down or right
-- [ ] Cost: O(mn) time, and one rolling row of n cells is enough memory
-- [ ] Look-alike: moves in all four directions create cycles, so no table fill order exists
+- [ ] Moves go only down or right, so the walk never returns to a cell: the grid has no cycles
+- [ ] So filling row by row, the cells above and to the left are final before a cell reads them
+- [ ] Each cell combines those two: the smaller plus its own number for a best sum, their sum for a count
+- [ ] The first row and column are reachable one way only, so for a path count they all start at 1
+- [ ] It takes O(mn) time, and one rolling row of n cells is enough memory

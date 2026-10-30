@@ -1,7 +1,7 @@
 ---
 id: stdalgo-explain-algorithms
 kind: explain
-version: 3
+version: 4
 level: 3
 tags: [algorithms, iterators]
 requires:
@@ -21,8 +21,8 @@ Explain it to them.
 
 ---
 
-- [ ] Problem: reuse one correct search or sort on any container instead of rewriting the loop
-- [ ] Mechanism: an algorithm takes a half-open iterator range `[first, last)`, often with a callable
-- [ ] Example: `find_if` returns `last` when nothing matches, so compare the result with `end()`
-- [ ] Cost: a search like `find_if` makes one pass, so its time grows with the range's length
-- [ ] Pitfall: a `<=` comparator makes `std::sort` undefined behaviour, because the comparator must be strict
+- [ ] One correct search or sort works on any container, so you never rewrite or re-debug the loop
+- [ ] The name states the intent, so a reader sees "find" or "sort" without decoding a loop
+- [ ] An algorithm takes a half-open iterator range `[first, last)`, often with a callable
+- [ ] `find_if` returns `last` when nothing matches, so compare the result with `end()` before using it
+- [ ] The comparator must be strict: a `<=` comparator makes `std::sort` undefined behaviour

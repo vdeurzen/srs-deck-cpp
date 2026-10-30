@@ -1,7 +1,7 @@
 ---
 id: operators-explain-overloading
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [operators, classes]
 requires:
@@ -20,8 +20,8 @@ you defined, and how you would write that `+`. Explain it to them.
 
 ---
 
-- [ ] Problem: let a class type use the built-in operator syntax
-- [ ] Mechanism: `a + b` calls a function named `operator+`: the member `a.operator+(b)` or a free function
-- [ ] Example: `+` copies its left operand and applies the member `+=` to that copy
-- [ ] Trade-off: a member operator never converts its left operand, so an `int` on the left needs a non-member
-- [ ] Pitfall: a `+=` that returns by value makes `(a += b) += c` update a copy
+- [ ] `a + b` on class types calls a function named `operator+`
+- [ ] That function is either the member `a.operator+(b)` or a free function taking both operands
+- [ ] Write `+` by copying the left operand and applying the member `+=` to that copy
+- [ ] A member operator never converts its left operand, so an `int` on the left needs a non-member
+- [ ] `+=` returns a reference to `*this`; returning by value makes `(a += b) += c` update a copy

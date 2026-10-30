@@ -20,8 +20,8 @@ which one a call runs. Explain it to them.
 
 ---
 
-- [ ] Problem: one name with different parameter types needs a pick for each call
-- [ ] Mechanism: the compiler ranks each argument's conversion to each candidate: exact match, promotion, conversion
-- [ ] Example: a `char` argument picks `print(int)` over `print(double)`, since promotion beats conversion
-- [ ] Cost: adding an overload can silently change which function an existing call picks
-- [ ] Pitfall: two candidates tied at the best rank make the call ambiguous: a compile error
+- [ ] The compiler picks one `print` for each call, at compile time, from the argument types
+- [ ] It ranks each argument's conversion to each candidate: exact match, then promotion, then conversion
+- [ ] A `char` argument picks `print(int)` over `print(double)`, since promotion beats conversion
+- [ ] Two candidates tied at the best rank make the call ambiguous: a compile error
+- [ ] Adding an overload can silently change which function an existing call picks

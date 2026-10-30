@@ -1,7 +1,7 @@
 ---
 id: complexity-explain-big-o
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [complexity, big-o]
 requires:
@@ -19,8 +19,8 @@ A teammate reviewing your pull request asks what your comment "this
 loop is O(n²)" actually claims about the code. Answer aloud in about a
 minute.
 ---
-- [ ] Problem: time varies by machine, so count basic operations as a function of the input size n
-- [ ] Mechanism: keep the dominant term and drop constant factors, so 3n² + 100n + 7 is O(n²)
-- [ ] Example: comparing every pair of n elements once is n(n − 1)/2 steps, which is O(n²)
-- [ ] Cost: it predicts scaling, so 1000× more input makes O(n) 1000× slower and O(n²) a million times
-- [ ] Pitfall: log n outer passes need not mean n log n, since halving inner loops sum to under 2n
+- [ ] It counts basic operations as a function of the input size n, not seconds, so it holds on every machine
+- [ ] It claims the step count stays at most c·n² for some constant c, once n is past some n₀
+- [ ] Constants and lower terms drop out, so a loop doing 3n² + 100n + 7 steps is still O(n²)
+- [ ] It predicts scaling: 1000× more input makes an O(n²) loop up to a million times slower
+- [ ] It is not a running time: hidden constants and small n can let it beat an O(n) loop

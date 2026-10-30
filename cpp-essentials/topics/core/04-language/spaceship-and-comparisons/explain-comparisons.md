@@ -18,8 +18,8 @@ refs:
 An interviewer asks how you make a C++20 type comparable, so it can be
 sorted and tested for equality. Answer them.
 ---
-- [ ] Problem: before C++20 a type needed six hand-written comparison operators, which could disagree
-- [ ] Mechanism: `<=>` returns a value tested against `0`; `<`, `<=`, `>`, `>=` are rewritten through it
-- [ ] Example: `auto operator<=>(const T&) const = default;` gives all six comparisons in one line
-- [ ] Trade-off: a hand-written `<=>` gives no `==`; write `==` too, as equality is often cheaper
-- [ ] Contrast: `!=` is rewritten from `==`, never from `<=>`
+- [ ] Before C++20 a type needed six hand-written comparison operators, which could disagree
+- [ ] Defaulting `operator<=>` as a `const` member gives all six comparisons in one line
+- [ ] `<=>` returns a value tested against `0`; `<`, `<=`, `>`, `>=` are rewritten through it
+- [ ] A hand-written `<=>` gives no `==`; write `==` too, as equality is often cheaper
+- [ ] `!=` is rewritten from `==`, never from `<=>`

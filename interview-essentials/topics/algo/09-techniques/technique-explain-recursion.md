@@ -16,8 +16,8 @@ elaborate: Where in code you have written would a recursion be clearer than a lo
 A junior colleague says they never trust recursive functions. Explain
 to them how one runs. Answer aloud.
 ---
-- [ ] Problem: solve an input by solving a smaller instance of the same problem, such as a shorter prefix
-- [ ] Mechanism: a base case answers directly, and the step calls itself on a smaller input and waits
-- [ ] Example: the sum of the first n elements is a[n − 1] plus the first n − 1 summed
-- [ ] Cost: every pending call keeps its own stack frame, so depth n costs O(n) stack space
-- [ ] Pitfall: a step whose call does not shrink the input never reaches the base case
+- [ ] A recursive function solves its input by solving a smaller instance of the same problem, such as a shorter prefix
+- [ ] A base case answers directly; any other call calls itself on a smaller input and waits for the result
+- [ ] The sum of the first n elements is a[n − 1] plus the sum of the first n − 1
+- [ ] Every pending call keeps its own stack frame, so recursion depth n costs O(n) stack space
+- [ ] A call that does not shrink its input never reaches the base case

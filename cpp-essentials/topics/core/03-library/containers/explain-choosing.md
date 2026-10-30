@@ -15,8 +15,8 @@ refs:
 A colleague asks which standard container to use for a new piece of code.
 Walk through how you decide.
 ---
-- [ ] Cue: lists the operations and guarantees the code needs (scan, index, append, stable references, key order)
-- [ ] Picks `std::vector` by default: contiguous storage makes scans and indexing the cheapest
-- [ ] Example: pointers kept into the sequence while appending rule out `vector`; pick `std::deque`
-- [ ] Cost: `vector` growth reallocates and invalidates every reference, pointer and iterator into it
-- [ ] Look-alike: `std::map` for ordered keys and range queries, else `std::unordered_map` for exact-key lookup
+- [ ] Start from the operations and guarantees the code needs: scan, index, append, stable references, key order
+- [ ] Default to `std::vector`: contiguous storage makes scans and indexing the cheapest
+- [ ] Its growth reallocates and invalidates every reference, pointer and iterator into it
+- [ ] So pointers kept into the sequence while appending rule out `vector`; pick `std::deque`
+- [ ] For keys, `std::map` gives ordered keys and range queries, else `std::unordered_map` for exact-key lookup

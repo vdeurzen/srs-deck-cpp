@@ -19,8 +19,8 @@ elaborate: Say in one sentence, as to an interviewer, where in a system you know
 An interviewer asks you how a binary heap works and why you would
 reach for one. Answer aloud in about a minute.
 ---
-- [ ] Problem: repeatedly take the largest (or smallest) key from a set that keeps changing
-- [ ] Mechanism: every parent ≥ its children, so the maximum is the root
-- [ ] Example: a push appends at the end, then swaps with its parent while that parent is smaller
-- [ ] Cost: the tree is complete, so a push or pop walks at most ⌊log₂ n⌋ + 1 levels: O(log n)
-- [ ] Contrast: siblings are unordered, so unlike a balanced search tree it needs O(n) to find an arbitrary key
+- [ ] It suits repeatedly taking the largest (or smallest) key from a set that keeps changing
+- [ ] Heap order makes every parent ≥ its children, so the maximum is always the root
+- [ ] A push appends at the end, then swaps with its parent while that parent is smaller
+- [ ] The tree is complete, so a push or pop walks at most ⌊log₂ n⌋ + 1 levels: O(log n)
+- [ ] Siblings are unordered, so unlike a balanced search tree it needs O(n) to find an arbitrary key

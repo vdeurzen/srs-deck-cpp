@@ -1,7 +1,7 @@
 ---
 id: exceptions-explain-safety
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [exceptions, exception-safety]
 requires:
@@ -20,8 +20,8 @@ to be exception-safe. Answer them.
 
 ---
 
-- [ ] Problem: a throw halfway through an update can leave an object partly changed
-- [ ] Mechanism: unwinding runs the destructor of every fully built local, in reverse order of construction
-- [ ] Example: a loop of `push_back`s that throws keeps the earlier elements: the basic guarantee
-- [ ] Cost: the strong guarantee pays for a full copy, and its allocation, on every call
-- [ ] Contrast: basic keeps invariants and leaks nothing; strong leaves the state exactly as before the call
+- [ ] At least the basic guarantee: after a throw, invariants still hold and nothing has leaked
+- [ ] The strong guarantee adds that the state is exactly as before the call: commit or roll back
+- [ ] Strong is usually got by doing the work on a copy, then committing with a swap
+- [ ] That commit must never throw, which is why a container's `swap` is `noexcept`
+- [ ] Unwinding runs each fully built local's destructor, so owning objects free their resources and nothing leaks
