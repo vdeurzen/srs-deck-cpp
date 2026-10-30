@@ -18,8 +18,8 @@ refs:
 ---
 An interviewer asks how you search a sorted `std::vector` with the standard library. Explain.
 ---
-- [ ] Problem: find a position or a count in sorted data without scanning every element.
-- [ ] Mechanism: `lower_bound` halves the range, returning the first element not less than x.
-- [ ] Example: membership checks the result isn't `end()` and holds x; lower_bound never reports "absent".
-- [ ] Cost: about log₂ n comparisons, 20 for a million, against `find`'s pass over all n.
-- [ ] Pitfall: unsorted input breaks the precondition, which is undefined behaviour, not "not found".
+- [ ] Sorted order lets the search halve the range at each step rather than scan every element
+- [ ] `lower_bound` returns the first element not less than x
+- [ ] That takes about log₂ n comparisons, 20 for a million, against `find`'s pass over all n
+- [ ] It never reports "absent": membership checks the result isn't `end()` and holds x
+- [ ] Unsorted input breaks the precondition, which is undefined behaviour, not "not found"

@@ -1,7 +1,7 @@
 ---
 id: dp-explain-grid
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [grids, recognition, lc-64, lc-62]
 requires:
@@ -14,12 +14,13 @@ refs:
   - https://doi.org/10.1090/S0002-9904-1954-09848-8
 elaborate: Edit distance's table is also a grid filled from the top-left. Which moves in that grid play the roles of "down" and "right", and what is the third move?
 ---
-An interviewer gives you a grid walked from one corner to the opposite
-one and asks how you know a table can be filled for it, and how you
-would fill it. Answer aloud.
+An interviewer gives you a grid of non-negative numbers and asks for
+the smallest sum along a path from the top-left to the bottom-right
+cell, moving only down or right. Explain how you would fill a table for
+it, and why that order works. Answer aloud.
 ---
-- [ ] Cue: a corner-to-corner walk through a grid, moving only down or right, for a best sum or a count
-- [ ] Pattern: each cell's answer combines the cell above and the cell to its left, filled row by row
-- [ ] Example: Minimum Path Sum, the smallest sum from top-left to bottom-right moving down or right
-- [ ] Cost: O(mn) time, and one rolling row of n cells is enough memory
-- [ ] Look-alike: moves in all four directions create cycles, so no table fill order exists
+- [ ] Moves go only down or right, so the walk never returns to a cell: the grid has no cycles
+- [ ] So filling row by row, the cells above and to the left are final before a cell reads them
+- [ ] Each cell holds its own number plus the smaller of the best sums above it and to its left
+- [ ] Cells outside the grid act as walls that never win the minimum, except the way in at the corner
+- [ ] It takes O(mn) time, and one rolling row of n cells is enough memory

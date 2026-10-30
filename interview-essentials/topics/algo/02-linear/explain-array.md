@@ -17,8 +17,8 @@ elaborate: Say in one sentence, as to an interviewer, which operation in a syste
 A new hire asks you why a plain array, or `std::vector`, is the default
 container for a sequence. Answer aloud in about a minute.
 ---
-- [ ] Problem: reach any element by its position in one step, without walking from the start
-- [ ] Mechanism: elements sit side by side, so element i starts at base + i × element size
-- [ ] Example: ints of 4 bytes starting at address 1000 put a[6] at 1024
-- [ ] Cost: inserting in the middle shifts every later element one slot right, O(n) in the worst case
-- [ ] Contrast: a linked list needs i hops to reach index i, so its O(1) insert first pays that walk
+- [ ] Any element is reached by its position in one step, without walking from the start
+- [ ] Elements sit side by side, so element i starts at the base address + i × element size
+- [ ] With 4-byte ints starting at address 1000, a[6] sits at 1024
+- [ ] The price is that inserting in the middle shifts every later element one slot right, O(n) at worst
+- [ ] A linked list needs i hops to reach index i, so its O(1) insert first pays that walk

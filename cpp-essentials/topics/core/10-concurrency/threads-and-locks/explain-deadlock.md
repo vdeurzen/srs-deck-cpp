@@ -17,8 +17,8 @@ elaborate: Pick two mutexes your own code takes in different functions; say whic
 An interviewer asks how two threads can deadlock on mutexes in C++, and
 how you prevent it. Answer them.
 ---
-- [ ] Problem: each thread holds one mutex and waits for the other's, so neither ever continues
-- [ ] Mechanism: `lock()` blocks until the holder unlocks, and a cycle of holders never unlocks
-- [ ] Example: `transfer(a, b)` and `transfer(b, a)` each lock their first argument first
-- [ ] Trade-off: `std::scoped_lock` locks both safely in one place; one fixed lock order also works across functions
-- [ ] Pitfall: one `lock_guard` per mutex, in argument order, still deadlocks
+- [ ] Each thread holds one mutex and blocks on the other's; a cycle of holders never unlocks
+- [ ] `transfer(a, b)` and `transfer(b, a)` deadlock when each locks its first argument first
+- [ ] One `lock_guard` per mutex, in argument order, still deadlocks
+- [ ] `std::scoped_lock` locks both mutexes together, so argument order stops mattering
+- [ ] One fixed lock order for every thread also prevents it, even across separate functions

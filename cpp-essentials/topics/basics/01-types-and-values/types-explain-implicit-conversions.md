@@ -1,7 +1,7 @@
 ---
 id: types-explain-implicit-conversions
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [types, integers, conversions, interview]
 requires:
@@ -22,8 +22,8 @@ when arithmetic types mix.
 
 ---
 
-- [ ] Problem: C++ converts mixed arithmetic operands silently; the code compiles, at most with a warning
-- [ ] Mechanism: operands narrower than `int` promote to `int`, then both convert to one common type
-- [ ] Example: an `int` meeting an `unsigned` of its width converts, so `-5 < 10u` is false
-- [ ] Cost: the wrong result shows up only at run time; GCC's `-Wall` sign-compare warning is the one clue
-- [ ] Contrast: brace initialisation rejects a narrowing conversion that `=` performs silently
+- [ ] It compiles silently; at most GCC's `-Wall` sign-compare warning hints at the wrong run-time result
+- [ ] Operands narrower than `int` are first promoted to `int`
+- [ ] Then both operands convert to one common type; a signed and an unsigned of equal width become unsigned
+- [ ] So a negative `balance` becomes a huge unsigned value: `-5 < 10u` is false
+- [ ] The fix is giving both operands one signedness yourself, for example a `std::size_t` index

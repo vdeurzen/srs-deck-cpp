@@ -1,7 +1,7 @@
 ---
 id: mono-explain-stack
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [stacks, recognition, lc-739]
 requires:
@@ -20,8 +20,8 @@ An interviewer says: for each of up to 10^5 daily temperatures, report
 how many days you wait until a warmer one. Talk it through as you would
 in the interview. Answer aloud.
 ---
-- [ ] Cue: for every element, the next or previous element that is greater, or smaller
-- [ ] Pattern: each new element pops and answers every waiting index on the stack that it beats
-- [ ] Example: Largest Rectangle in Histogram uses the same stack to find each bar's nearest shorter bars
-- [ ] Cost: O(n), because each index is pushed once and popped at most once
-- [ ] Look-alike: the maximum of every k-element window also expires old indices from the front, so it needs a deque
+- [ ] Scanning forward from every day is O(n²), about 5·10⁹ steps for 10⁵ days: too slow
+- [ ] Keep a stack of the indices of days still waiting; their temperatures never rise from bottom to top
+- [ ] Each new day pops every colder day on top, and a popped day's answer is today's index minus its own
+- [ ] Then today's index is pushed; days still on the stack at the end keep the answer 0
+- [ ] That is O(n) in total, because each index is pushed once and popped at most once

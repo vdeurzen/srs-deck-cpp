@@ -1,7 +1,7 @@
 ---
 id: technique-explain-loop-invariant
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [invariants]
 requires:
@@ -16,8 +16,8 @@ elaborate: Pick a loop you wrote recently and say aloud the claim that holds at 
 A code reviewer asks how you know your loop is correct for every input,
 not just the ones you tested. Answer aloud.
 ---
-- [ ] Problem: tracing a few runs cannot show a loop is right for every input
-- [ ] Mechanism: a claim true before the first iteration, kept by every iteration, gives the answer at exit
-- [ ] Example: s sums a[0] to a[i − 1], so when i reaches n, s is the total
-- [ ] Trade-off: writing the claim costs a sentence per loop but proves it for every input
-- [ ] Pitfall: starting the maximum at 0 returns 0 on all-negative input such as −5, −2, −9
+- [ ] Tests show only the inputs tried, so state a claim that holds at the top of every iteration
+- [ ] Check it holds before the first iteration: when i is 0, s is 0, the sum of no elements
+- [ ] Check each iteration keeps it: adding a[i], then incrementing i, keeps s the sum of a[0] to a[i − 1]
+- [ ] At exit i equals n, which it reaches by growing one each pass, so s is the total
+- [ ] The start check catches what tests miss: a maximum started at 0 returns 0 on −5, −2, −9

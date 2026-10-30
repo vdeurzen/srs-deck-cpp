@@ -1,7 +1,7 @@
 ---
 id: ptr-explain-dangling
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [references, pointers, lifetime]
 requires:
@@ -20,8 +20,8 @@ to use. Explain.
 
 ---
 
-- [ ] Problem: a reference or pointer never keeps its object alive; it dangles once that object's lifetime ends
-- [ ] Mechanism: a temporary dies at the end of the full-expression that created it, the `;`
-- [ ] Example: a `const` reference bound directly to a temporary extends it; one a function returns does not
-- [ ] Cost: going through a dangling pointer is undefined behaviour that no check of its value detects
-- [ ] Contrast: a pointer to a deleted object, or to an ended local, dangles the same way
+- [ ] A reference or pointer never keeps its object alive; it dangles once that object's lifetime ends
+- [ ] Returning a pointer or reference to a local dangles, because the local dies when the function returns
+- [ ] After `delete p`, `p` and every copy of it dangle; reading or deleting through them is undefined
+- [ ] A temporary dies at the end of the full-expression that created it, the `;`
+- [ ] A `const` reference bound directly to a temporary extends it; one bound to a function's returned reference does not

@@ -1,7 +1,7 @@
 ---
 id: lru-explain-cache
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [hft, lru, caching, design]
 requires:
@@ -18,8 +18,8 @@ elaborate: Which cache or table in a system you know evicts by recency, and woul
 An interviewer on a low-latency team asks you to design an LRU cache
 that every request will go through. Answer aloud.
 ---
-- [ ] Problem: a fixed-capacity cache that, when full, evicts the key unused for longest, found without a scan
-- [ ] Mechanism: a list in recency order plus a hash map from each key to its list node
-- [ ] Example: capacity 2: put 1, put 2, get 1, then put 3 evicts 2, since the get refreshed 1
-- [ ] Cost: every operation is O(1), but with std::list and unordered_map each miss allocates twice
-- [ ] Contrast: slot arrays linked by index, with a sentinel slot, reuse the victim's slot, so a miss allocates nothing
+- [ ] A hash map alone cannot find the oldest key; a list alone cannot find a key without walking it
+- [ ] Keep a list in recency order plus a hash map from each key to its list node
+- [ ] With capacity 2: put 1, put 2, get 1, then put 3 evicts 2, because the get refreshed 1
+- [ ] Every operation is then O(1), but with std::list and unordered_map each miss allocates twice
+- [ ] Slot arrays linked by index, with a sentinel slot, reuse the victim's slot, so a miss allocates nothing

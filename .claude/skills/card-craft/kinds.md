@@ -341,18 +341,24 @@ refs:
 <The question, naming the listener ("An interviewer asks…"). Never list the
 rubric's topics or their order.>
 ---
-- [ ] <(1) concept: the problem it solves | choosing: the cue>
-- [ ] <(2) the mechanism | the pattern it selects>
-- [ ] <(3) a concrete example | a one-line example problem>
-- [ ] <(4) the cost or trade-off | the complexity>
-- [ ] <(5) a pitfall or contrast | the look-alike and how to tell it apart>
+- [ ] <a claim that answers the question, with no "Problem:"-style label>
+- [ ] <the next claim, in the order a good spoken answer takes>
+- [ ] <…>
+- [ ] <…>
+- [ ] <the fifth claim; every one answers the question on the front>
 ````
 
+Write the question first, then its answer as five plain claims. Use problem →
+mechanism → example → cost → pitfall (or cue → pattern → complexity →
+look-alike) only as a checklist for what the answer may be missing. A fact
+that is true but answers a different question goes in `elaborate`. A front
+naming a concrete problem is graded on that problem's solution.
+
 Exactly 5 items, each one claim a listener can tick from speech alone,
-≤ 20 words, no code to spell out, each taught by a Card in the closure. Use
-the concept order for a language or library feature, the choosing order for
-a pattern a problem statement must trigger, and both Cards for something
-that is both.
+≤ 20 words, no code to spell out, each taught by a Card in the closure. A
+language or library feature gets a "how/why does it work" question, a
+pattern a problem statement must trigger gets a "which would you pick, and
+why" question, and something that is both gets both Cards.
 
 ## mixed recognition: after ≥ 2 patterns have recognition Cards
 

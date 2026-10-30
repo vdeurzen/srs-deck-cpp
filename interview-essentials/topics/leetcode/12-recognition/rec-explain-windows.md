@@ -1,7 +1,7 @@
 ---
 id: rec-explain-windows
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [arrays, recognition, lc-3, lc-560]
 requires:
@@ -19,8 +19,8 @@ elaborate: Where else have you met a "stretch until it breaks, then shrink from 
 An interviewer asks how you tell, from a problem statement alone, that
 a sliding window will solve it. Answer aloud.
 ---
-- [ ] Cue: a contiguous subarray or substring, and once a window breaks the rule every longer one does too
-- [ ] Pattern: `hi` adds one element per step; `lo` moves right until the window is valid again
-- [ ] Example: longest substring of `s` with no repeated character
-- [ ] Cost: O(n), because `lo` and `hi` each move right at most n times
-- [ ] Look-alike: subarray sum equals `k` with negatives; a sum can recover, so use prefix sums plus a hash map
+- [ ] It asks for a contiguous subarray or substring, and once a window breaks the rule every longer one does too
+- [ ] The right edge adds one element per step; the left edge moves right until the window is valid again
+- [ ] Longest substring with no repeated character fits: a window holding a repeat keeps it however far it grows
+- [ ] That is O(n), because each edge moves right at most n times
+- [ ] Subarray sum equals `k` with negatives does not: a sum can recover, so use prefix sums plus a hash map

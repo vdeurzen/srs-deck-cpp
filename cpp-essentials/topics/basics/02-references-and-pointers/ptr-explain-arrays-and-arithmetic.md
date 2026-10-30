@@ -20,8 +20,8 @@ walks an array in C++. Talk them through it.
 
 ---
 
-- [ ] Problem: code must reach each element of a contiguous array from one starting point
-- [ ] Mechanism: `p + i` moves `i` elements, not bytes; the compiler scales by the element size
-- [ ] Example: `p[2]` means `*(p + 2)`, the element two past wherever `p` currently points
-- [ ] Cost: an array passed to a function decays to a pointer, so the length must travel separately
-- [ ] Pitfall: arithmetic beyond one past the last element is undefined behaviour
+- [ ] An array's elements sit side by side, so a pointer to the first can reach every other one
+- [ ] `p + i` moves `i` elements, not bytes; the compiler scales by the element size
+- [ ] `p[i]` means `*(p + i)`, the element `i` past wherever `p` currently points
+- [ ] An array passed to a function decays to a pointer to its first element, so `n` must carry the length
+- [ ] Arithmetic beyond one past the last element is undefined behaviour, so the walk stops at `p + n`

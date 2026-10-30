@@ -28,10 +28,9 @@ both essentials Decks were rebuilt foundations-first:
   elements, ≤ 4 changing values, ≤ 3 probes, about a minute. A count or bound is
   asked as reasoning, not simulated. Every algorithm trace has a **worked example**
   Card first: it shows you the full step table and asks *why* one step happens.
-- **Every topic ends in a capstone** you answer aloud, in a fixed order you'll reuse
-  in interviews: the problem it solves → how it works → an example → its cost → the
-  pitfall. "Which pattern?" topics use: the cue → the pattern → an example → the
-  complexity → the look-alike.
+- **Every topic ends in a capstone** you answer aloud: one clear question, graded on
+  five plain claims that each answer it. No fixed slots: the order is the one a good
+  spoken answer takes.
 - **Mixed recognition** Cards make you choose between patterns from different
   topics, which is the real interview skill.
 - Every Card is self-contained: problems are stated, never "LC 209".

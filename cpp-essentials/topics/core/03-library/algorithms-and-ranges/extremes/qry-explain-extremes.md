@@ -1,7 +1,7 @@
 ---
 id: qry-explain-extremes
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [algorithms, extremes, interview]
 requires:
@@ -15,8 +15,8 @@ refs:
 ---
 An interviewer asks why `std::max_element` returns an iterator rather than the largest value. Explain.
 ---
-- [ ] Problem: callers often need both the largest value and where it sits.
-- [ ] Mechanism: one pass over the range, returning an iterator to the first largest element.
-- [ ] Example: dereferencing gives the value; subtracting `v.begin()` gives its index.
-- [ ] Cost: one pass; `minmax_element` finds both the smallest and the largest in that same single pass.
-- [ ] Pitfall: an empty range returns `end()`, and dereferencing that is undefined behaviour.
+- [ ] An iterator gives the position as well as the value: dereference it, or subtract `begin()` for the index
+- [ ] An empty range has no largest value to return, so it returns `end()`; dereferencing that is undefined
+- [ ] Through the iterator you can change the element in place, inside the container itself
+- [ ] No copy of the element is made, which matters for large elements such as strings
+- [ ] A position, like `find`'s result, can be handed straight to other calls that take iterators

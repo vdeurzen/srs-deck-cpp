@@ -17,8 +17,8 @@ elaborate: Where would a fixed-capacity queue fit in a system you know, and what
 An interviewer for a low-latency team asks you to explain the ring
 buffer. Answer aloud.
 ---
-- [ ] Problem: a queue that pops by erasing its front shifts every element, O(n) per pop
-- [ ] Mechanism: head and tail indices advance through a fixed array and wrap to 0, so elements never move
-- [ ] Example: with 8 slots, sequence number 9 lands in slot 9 & 7, which is 1
-- [ ] Cost: with wrapped indices one slot always stays empty, so a 16-slot ring holds 15
-- [ ] Contrast: counters that only increase make tail − head the size, so all N slots are usable
+- [ ] A queue that pops by erasing its front shifts every element, O(n) per pop
+- [ ] Head and tail indices advance through a fixed array and wrap to 0, so elements never move
+- [ ] With 8 slots, sequence number 9 lands in slot 9 & 7, which is 1
+- [ ] With wrapped indices one slot must stay empty to tell full from empty, so a 16-slot ring holds 15
+- [ ] Counters that only increase make tail − head the size, so all N slots are usable

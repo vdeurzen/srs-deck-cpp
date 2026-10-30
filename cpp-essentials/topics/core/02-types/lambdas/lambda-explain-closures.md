@@ -1,7 +1,7 @@
 ---
 id: lambda-explain-closures
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [lambdas, callables]
 requires:
@@ -20,8 +20,8 @@ An interviewer asks what a C++ lambda expression really creates. Explain it to t
 
 ---
 
-- [ ] Problem: hand a small piece of behaviour, with the local values it needs, to an algorithm or callback
-- [ ] Mechanism: the compiler makes an unnamed class whose data members are the captures
-- [ ] Example: `[n]` copies `n` when the closure object is created, so later changes to `n` go unseen
-- [ ] Cost: storing closure objects of different types together needs `std::function`, which may allocate on the heap
-- [ ] Pitfall: a reference capture extends no lifetime, so returning such a closure from a function dangles
+- [ ] It creates an object of a unique, unnamed class the compiler writes: the closure object
+- [ ] Each capture becomes a data member of that class, and the body becomes its `operator()`
+- [ ] `[n]` copies `n` when the lambda expression is evaluated, so later changes to `n` go unseen
+- [ ] Closure objects of different types stored together need `std::function`, which may allocate on the heap
+- [ ] A reference capture extends no lifetime, so returning such a closure from a function dangles

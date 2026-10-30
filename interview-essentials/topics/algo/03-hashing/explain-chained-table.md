@@ -19,8 +19,8 @@ A set of a million 64-bit ids must answer "is id k present?" in
 constant time on average. Explain to an interviewer how a hash table
 with chaining achieves that.
 ---
-- [ ] Problem: an array indexed by the id itself needs 2⁶⁴ slots, so direct addressing is out
-- [ ] Mechanism: keep m buckets and send id k to bucket h(k) mod m, whose chain holds it
-- [ ] Example: with m = 8, ids 42 and 50 both land in bucket 2 and share its chain
-- [ ] Cost: a lookup scans one chain, about n / m ids, so growing m with n keeps it O(1)
-- [ ] Pitfall: ids that all hash to one bucket turn every lookup into a scan of all n
+- [ ] An array indexed by the id itself would need 2⁶⁴ slots, so direct addressing is out
+- [ ] Keep m buckets and send id k to bucket h(k) mod m, whose chain holds it
+- [ ] With m = 8, ids 42 and 50 both land in bucket 2 and share its chain
+- [ ] A lookup scans one chain of about n / m ids, so growing m with n keeps it O(1)
+- [ ] That is only an average: ids that all hash to one bucket make every lookup scan all n

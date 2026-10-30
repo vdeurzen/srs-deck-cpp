@@ -1,7 +1,7 @@
 ---
 id: list-explain-cycle
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [linked-lists, interview, lc-141]
 requires:
@@ -18,8 +18,8 @@ whether following `next` ever comes back to a node already seen. Then
 they ask you to do it without memory that grows with the list. Talk it
 through. Answer aloud.
 ---
-- [ ] Cue: following `next` from a start might revisit a node, and memory must stay constant
-- [ ] Pattern: slow moves one node, fast two; they meet inside a loop, fast reaches null otherwise
-- [ ] Example: on 1 → 2 → 3 → 4 with 4 linking back to 2, they meet at 4 after three steps
-- [ ] Cost: O(n) time, O(1) space: inside the loop the gap shrinks by one per step
-- [ ] Look-alike: a visited set of nodes also finds the loop, but costs O(n) memory
+- [ ] Start two pointers at the head: each step, slow moves one node and fast moves two
+- [ ] With no loop, fast reaches null, so the answer is no
+- [ ] Once both are inside a loop, fast gains one node per step, so the gap closes and they meet
+- [ ] On 1 → 2 → 3 → 4, with 4 linking to 2, they meet at 4 after three steps
+- [ ] That is O(n) time and O(1) space; a set of visited nodes also works but costs O(n) memory

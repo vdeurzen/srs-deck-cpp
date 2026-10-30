@@ -20,8 +20,8 @@ Four threads each add 1 000 to a plain global `int` with `++`, and the
 total `main` prints is sometimes below 4 000. Talk the teammate who
 wrote it through this, aloud.
 ---
-- [ ] Problem: `++` is a load, an add and a store, so two threads can interleave them and lose updates
-- [ ] Mechanism: a `std::mutex` lets one thread at a time past `lock()`, so those three steps cannot interleave
-- [ ] Example: here, a named `std::lock_guard` on one shared mutex around the `++` makes the total always 4 000
-- [ ] Trade-off: for one counter, `std::atomic<int>` makes `++` one indivisible step, with no lock to wait on
-- [ ] Pitfall: the original is not just lossy: unordered writes to a plain `int` are a data race, undefined behaviour
+- [ ] `++` is a load, an add and a store, so two threads can interleave them and lose updates
+- [ ] It is worse than lossy: unordered writes to a plain `int` are a data race, undefined behaviour
+- [ ] A `std::mutex` lets one thread at a time past `lock()`, so those three steps cannot interleave
+- [ ] A named `std::lock_guard` on one shared mutex around the `++` makes the total always 4 000
+- [ ] For one counter, `std::atomic<int>` makes `++` one indivisible step, with no lock to wait on
