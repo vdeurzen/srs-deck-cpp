@@ -13,9 +13,6 @@ refs:
   - https://eel.is/c++draft/range.dangling
 ---
 
-The `std::ranges::` algorithms check at compile time whether their range
-argument is a temporary.
-
 ```cpp
 std::vector<int> load();   // returns a new vector by value
 

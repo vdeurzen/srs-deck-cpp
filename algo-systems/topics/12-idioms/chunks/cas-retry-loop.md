@@ -30,7 +30,3 @@ void push(Node* n) {   // head is std::atomic<Node*>
 The node is private until the CAS succeeds, so writing `n->next` needs
 no atomics. The CAS's default `seq_cst` (release would do) publishes
 the node's contents to the thread that pops the node.
-
-Graded by whitespace-normalised equality: atomic operations are not
-constant expressions, so no compile-time harness can tell a working
-loop from a broken one.

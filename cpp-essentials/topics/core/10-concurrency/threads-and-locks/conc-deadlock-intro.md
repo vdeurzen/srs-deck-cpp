@@ -3,7 +3,7 @@ id: conc-deadlock-intro
 kind: basic
 version: 1
 level: 1
-tags: [concurrency, threads, mutex, deadlock]
+tags: [concurrency, threads, mutex]
 requires:
   - conc-mutex-takes-turns
 refs:

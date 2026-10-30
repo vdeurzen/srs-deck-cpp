@@ -65,5 +65,4 @@ newcomer dominates (older *and* not larger — dead forever), line 4 drops
 the front once it leaves the window, so the front is the maximum.
 
 Indices, so the window test is arithmetic; `<=`, so equal values do not
-pile up. Each index is pushed and popped once. Compile-checked: the
-harness supplies a constexpr deque, since `std::deque` is not constexpr.
+pile up. Each index is pushed and popped once.

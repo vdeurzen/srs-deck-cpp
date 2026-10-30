@@ -43,7 +43,7 @@ usual pattern: the frame outlives the `co_return` because
 the handle can still read `handle.promise().result` before destroying
 the frame.
 
-Note what makes this Card compile at all: a promise with only
+Note what makes this code compile at all: a promise with only
 `return_void` rejects `co_return 42;`, and a promise declaring *both*
 `return_value` and `return_void` is ill-formed. One coroutine type
 produces one kind of ending.

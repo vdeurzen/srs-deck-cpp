@@ -25,7 +25,7 @@ void consumer() {
 }
 ```
 
-## B's loop has exited. What does the standard say about `int x = data;`?
+## `consumer`'s loop has exited. What does the standard say about `int x = data;`?
 
 ---
 

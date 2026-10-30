@@ -41,4 +41,4 @@ member; the loop step `word &= word - 1` clears it. `base` is
 Without the idiom, `for (i = 0; i < 64; ++i) if (word >> i & 1)` runs
 64 iterations with an unpredictable branch each, however sparse the set.
 This is the inner loop of dataflow passes, BFS frontiers and bitmap
-indexes. Compile-checked: the harness sums member indices.
+indexes.

@@ -54,5 +54,5 @@ constexpr std::array<unsigned, 4> interference(const std::array<Ins, 4>& block, 
 itself.** Keeping `d`'s own bit puts a self-loop in the graph, which no
 colouring can satisfy. Using the operands instead is the tempting
 mistake: in `v1 = v0 + 1` the operand `v0` dies, so `v0` and `v1` may
-share a register, while in the second harness case `v0`, read again at
-the end, interferes with both `v1` and `v2`.
+share a register, while in `v1 = v0 * 3; v2 = v1 + 1; v3 = v0 + v2`
+`v0`, read again at the end, interferes with both `v1` and `v2`.

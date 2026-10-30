@@ -3,7 +3,7 @@ id: stl-binding-auto-copies
 kind: basic
 version: 1
 level: 2
-tags: [stl, structured-bindings, misconception, lc-49]
+tags: [stl, structured-bindings, lc-49]
 requires:
   - cpp-essentials/iter-range-for-const-auto-ref
   - cpp-essentials/structured-bindings-basics
@@ -18,7 +18,7 @@ elaborate: Where in your own loops does `auto [a, b]` copy something that owns d
 Group Anagrams (LC 49): group the words that are anagrams of each
 other. A solution keys each group on its sorted letters and, before
 returning, sorts each group (`std::ranges::sort(v)` sorts the whole
-container `v`). Many expect the loop to sort the groups inside the map:
+container `v`):
 
 ```cpp
 std::map<std::string, std::vector<std::string>> groups;

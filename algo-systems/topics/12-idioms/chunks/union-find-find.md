@@ -43,5 +43,4 @@ as full compression. Without the rewiring line, chains stay long and the
 bound is lost.
 
 It turns up far from its textbook home: type unification, register
-coalescing, e-graph congruence closure. Compile-checked: the harness
-asserts the halved `parent` array, not only the root.
+coalescing, e-graph congruence closure.

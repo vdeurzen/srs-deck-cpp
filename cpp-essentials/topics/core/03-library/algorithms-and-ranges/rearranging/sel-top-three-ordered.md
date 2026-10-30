@@ -20,7 +20,7 @@ auto desc = [](int a, int b) { return a > b; };
 std::nth_element(s.begin(), s.begin() + 2, s.end(), desc);
 ```
 
-This puts the 3 best scores of `s` in `s[0]` to `s[2]`, but a leaderboard
+This puts the 3 best scores of `s` in `s[0]` to `s[2]`. A leaderboard
 must show them best first.
 
 ## Which call fits the leaderboard, `nth_element` or `partial_sort`?

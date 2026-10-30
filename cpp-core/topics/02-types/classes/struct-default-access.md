@@ -21,8 +21,8 @@ refs:
 ---
 
 `Rgb` is a plain bundle of three independent channels with no invariant.
-Pick the class-key so the harness can brace-initialise it and read its
-members, with no access specifier written.
+Pick the class-key so code outside `Rgb` can brace-initialise it and read
+its members, with no access specifier written.
 
 ```cpp
 {{c1::struct}} Rgb {

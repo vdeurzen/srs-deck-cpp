@@ -42,8 +42,7 @@ inside `start`, which `sync_wait` calls on `main`: `t1` is `main`.
 later, is still there because nothing moved it again; only
 `continues_on(ui)` makes `@3` run on `ui`.
 
-GCC 14 has no `std::execution`, so this Card is not compiled. The
-values were produced by running this snippet against NVIDIA's `stdexec`
+GCC 14 has no `std::execution`; the values above were produced by running this snippet against NVIDIA's `stdexec`
 reference implementation (`stdexec::` in place of the `std::`
 namespaces, two one-thread `exec::static_thread_pool`s as `pool` and
 `ui`), compiled with GCC 16.2 (`g++ -std=c++23`).

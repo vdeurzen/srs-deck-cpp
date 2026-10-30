@@ -53,7 +53,6 @@ constexpr std::array<std::size_t, 7> failure_of(std::string_view p) {
 `k` is the length of the border matched so far, so the next shorter
 border of that prefix is `f[k−1]`. `f[k]` is the classic off-by-one: it
 describes a prefix one character longer. `k − 1` guesses instead of
-walking the border chain, and `0` throws borders away; the two-step
-harness patterns catch both.
+walking the border chain, and `0` throws borders away.
 The search runs the same loop against the text and never moves the text
 pointer backwards.

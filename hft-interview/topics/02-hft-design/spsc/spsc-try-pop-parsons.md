@@ -94,6 +94,5 @@ which makes the slot's contents visible.
 The read has to wait until an acquire has covered slot `h`, so it comes
 after the refresh and after the empty check. It also has to come before
 the `head_` store, because that store hands the slot back to a producer
-that may overwrite it at once. The harness's `Slots` checks both on
-every read. A `relaxed` load of `tail_` drops the visibility guarantee.
+that may overwrite it at once. A `relaxed` load of `tail_` drops the visibility guarantee.
 A `relaxed` store of `head_` lets the read drift after it.

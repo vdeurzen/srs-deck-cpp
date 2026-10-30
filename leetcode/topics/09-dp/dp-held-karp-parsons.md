@@ -49,6 +49,6 @@ a bit makes a smaller number, so every mask `d[m][v]` reads is already
 final. Masks outermost: a node loop outside them would read cells that
 later masks still improve.
 
-`w[v][u]` walks the edge backwards; the harness's costs are not
-symmetric, so it gives wrong lengths. Reading `d[m][u]` keeps `v` in
+`w[v][u]` walks the edge backwards; when costs are not symmetric, it
+gives wrong lengths. Reading `d[m][u]` keeps `v` in
 the mask, so a path may "visit" `v` twice.

@@ -3,7 +3,7 @@ id: complexity-log2-count
 kind: basic
 version: 1
 level: 1
-tags: [foundations, complexity, logarithms]
+tags: [foundations, complexity, halving]
 refs:
   - https://en.wikipedia.org/wiki/Binary_logarithm
 ---

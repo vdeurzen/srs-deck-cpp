@@ -37,6 +37,6 @@ struct Conn {
 
 **`= 3` in the declaration is a default member initialiser.** Any
 constructor whose list leaves `retries` out starts it at 3. Plain
-`int retries;` leaves it indeterminate, so `b` is not a constant. A
+`int retries;` leaves it indeterminate, not 3. A
 member declaration cannot take parentheses (`retries(3)`): inside a
 class that is a syntax error.

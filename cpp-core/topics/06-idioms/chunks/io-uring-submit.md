@@ -33,8 +33,3 @@ is what makes a completion-to-coroutine bridge allocation-free. Note
 the one line with a hidden failure mode: `io_uring_get_sqe` returns
 null when the submission ring is full, so production code either
 submits and retries or caps the number of operations in flight.
-
-This Deck cannot compile-check this Card — `liburing` is not part of
-the standard library and is not available to the Compiler Explorer
-configuration the Deck targets — so reproduction is graded by
-whitespace-normalised equality (SPEC §4.7).

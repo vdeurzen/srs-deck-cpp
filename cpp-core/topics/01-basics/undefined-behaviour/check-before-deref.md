@@ -43,8 +43,8 @@ The guard has to be evaluated *before* the operation it protects, and
 has to cover every case that would make that operation undefined: here
 both "no pointer" and "no elements". Checking `n` alone trusts a count
 the pointer contradicts; `*p == 0` dereferences before testing; `&&` lets
-a null pointer with a stale count through. The harness can tell them
-apart because a null dereference is core-language undefined behaviour,
-and an evaluation that would hit core-language undefined behaviour is not
-a constant expression, so each wrong guard fails a `static_assert` at
-compile time.
+a null pointer with a stale count through. In a `constexpr` function the
+compiler catches each of them: a null dereference is core-language
+undefined behaviour, and an evaluation that would hit core-language
+undefined behaviour is not a constant expression, so a constant-evaluated
+call with a null pointer fails to compile.

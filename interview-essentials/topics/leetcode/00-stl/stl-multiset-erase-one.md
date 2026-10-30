@@ -3,7 +3,7 @@ id: stl-multiset-erase-one
 kind: basic
 version: 1
 level: 2
-tags: [stl, sliding-window, misconception, lc-480]
+tags: [stl, sliding-window, lc-480]
 requires:
   - std-multiset-keeps-dupes
   - cpp-essentials/iter-end-one-past
@@ -15,8 +15,7 @@ elaborate: If the value might be absent, what must the fix check?
 
 Sliding Window Median (LC 480): return the median of every window of `k`
 consecutive values. A solution keeps the window in a
-`std::multiset<int>`. The value 5 leaves the window, and many expect
-`erase(5)` to drop it the way it entered, as one element:
+`std::multiset<int>`. One of its two 5s leaves the window:
 
 ```cpp
 std::multiset<int> window{2, 5, 5, 7};

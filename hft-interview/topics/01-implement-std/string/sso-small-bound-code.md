@@ -54,7 +54,7 @@ hold 15 characters.** The constructor writes `len + 1` chars.
 - `len <= sizeof buf` puts a 16-char string inline and writes its `'\0'`
   at `buf[16]`, one past the end.
 - `len < sizeof buf - 1` is safe but wastes a byte: a 15-char string
-  goes to the heap, which the harness checks.
+  goes to the heap.
 - `sizeof(Str)` is the whole object, 32 bytes on x86-64, not the
   buffer: a 16-char string overflows `buf`.
 

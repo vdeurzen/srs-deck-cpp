@@ -33,6 +33,6 @@ it away from hot code, and `[[likely]]` lays the fast branch out as the
 fall-through.
 
 libstdc++ has the same shape: an inline fast path and an out-of-line
-growth member. The GCC attributes are this Card's choice, not the
-standard's. The snippet is two members of a `Vec<T>` class (`b`, `n`,
-`cap`), so it is graded by text, not compiled: line order counts.
+growth member. The GCC attributes are an implementation choice, not
+the standard's. The snippet is two members of a `Vec<T>` class (`b`,
+`n`, `cap`).

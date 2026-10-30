@@ -34,4 +34,4 @@ for (int i = 0; i < n; ++i)
 **The worker pool**: a fixed number of threads draining one queue.
 *Start* `n` threads; each *drains* the queue until `pop` reports it
 closed, then returns. The pool vector owns the threads, so destroying it
-joins them. Not a whole program, so graded by text.
+joins them.

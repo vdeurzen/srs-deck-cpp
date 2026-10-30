@@ -50,7 +50,3 @@ wrapper class. A wrapper with an inline buffer gives its table a destroy
 entry that calls `std::destroy_at` instead of `delete`. libstdc++'s
 `std::function` is similar: it keeps an invoker pointer and a manager
 pointer in the object itself.
-
-The harness checks the table's types and that each `F` gets its own
-table, not what the lambdas do: a wrong body such as `return x;` still
-compiles and is not caught.

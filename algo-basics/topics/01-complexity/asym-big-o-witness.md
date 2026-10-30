@@ -39,5 +39,5 @@ constexpr bool holds(long cc) {   // f(n) <= cc·n for every n >= n0 checked
 first n, n₀ = 5: c ≥ 4. The two constants trade off: c = 3 works from
 n₀ = 10, and any c above the slope 2 works from some n₀. `2` is the
 slope alone and fails for every n; `12` works but is not the smallest.
-The definition asks only for *some* pair; the harness asks for the
-smallest to pin one answer.
+The definition asks only for *some* pair; the question asks for the
+smallest so that one answer is right.

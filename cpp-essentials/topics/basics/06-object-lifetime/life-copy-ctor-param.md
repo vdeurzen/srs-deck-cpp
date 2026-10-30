@@ -28,8 +28,8 @@ refs:
 ---
 
 `Tally` counts how many times a value has been copied. Complete the
-parameter of its copy constructor so that `Tally duplicate = original;`
-compiles and counts one copy.
+parameter of its copy constructor so that `Tally duplicate = original;`,
+with `original` a `const Tally`, compiles and counts one copy.
 
 ```cpp
 struct Tally {

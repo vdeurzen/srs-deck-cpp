@@ -40,5 +40,3 @@ operation that can throw (allocating, copying each string) happens on `tmp`
 while `dst` is untouched; `swap` only exchanges pointers and is `noexcept`.
 That gives the strong guarantee. A plain `dst = src;` may reuse `dst`'s
 storage and fail halfway, leaving it partly overwritten: the basic one only.
-It also compiles, so the grader rates it Hard, not
-Again: it is still the wrong answer.

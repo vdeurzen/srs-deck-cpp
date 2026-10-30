@@ -33,4 +33,4 @@ invalidates `it` itself, so `++it` after it would be undefined behaviour;
 header has no increment because each branch advances exactly once. The
 same shape works for every standard container. When the body does nothing
 but test and erase, C++20's `std::erase_if(stock, pred)` says it in one
-call. The snippet is part of a function, so it is graded by text.
+call.

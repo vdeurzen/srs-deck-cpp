@@ -44,4 +44,3 @@ The loop is that formula in incremental form: after `i` additions, `h1`
 *is* `h1 + i·h2`, so no multiply. `| 1` makes `h2` odd, coprime with a
 power-of-two size, or the probes cover only part of the bits.
 Production filters also confine all `k` bits to one cache line.
-Compile-checked: the harness asserts the exact bits set.

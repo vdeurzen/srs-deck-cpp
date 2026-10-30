@@ -15,8 +15,7 @@ elaborate: Say in one sentence, as to an interviewer, what a sorted array would 
 
 A priority queue (it always hands out its largest key first) built on a
 binary heap of n elements: reading the
-maximum costs {{c1::O(1)::a complexity}}, because heap order puts it at
-the root. Push and pop each walk one root-to-leaf path, and because the
+maximum costs {{c1::O(1)::a complexity}}. Push and pop each walk one root-to-leaf path, and because the
 shape is complete that path has only ⌊log₂ n⌋ + 1 levels, so each costs
 O(log n). With a million elements that is {{c2::20::a number of levels}}
 levels.

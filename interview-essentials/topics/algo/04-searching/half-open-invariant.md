@@ -15,7 +15,7 @@ refs:
 A binary search over `a[0..n)` (index 0 included, n excluded) keeps `lo` and `hi` so that every element
 in `a[0..lo)` is {{c1::less than `key`::compared with the key}}, every
 element in `a[hi..n)` fails that test, and `a[lo..hi)` is not yet
-classified. When `a[mid] < key`, it sets
+classified. When `a[mid]` passes that test, it sets
 {{c2::`lo = mid + 1`::which bound, and to what?}}. It stops when `lo == hi`,
 because then every element has been classified.
 
