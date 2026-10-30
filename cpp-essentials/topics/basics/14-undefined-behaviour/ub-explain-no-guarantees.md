@@ -20,5 +20,5 @@ Answer them, aloud, as you would in a code review.
 - [ ] The standard requires nothing of a run containing undefined behaviour, so passing tests prove nothing
 - [ ] The optimiser assumes it never happens, so an overflow check written after the addition can be deleted
 - [ ] Reading through a pointer after `delete` is undefined, even when it still yields the old value
-- [ ] Tools catch only what runs, with the sanitizer flags, or what is constant-evaluated, in a `static_assert`
-- [ ] More testing cannot make it safe; remove the operation, for example check the bound before adding
+- [ ] Tools catch it only on paths actually evaluated, in a sanitizer run or a `static_assert`
+- [ ] The real fix removes the operation, for example checking the bound before the addition rather than after it

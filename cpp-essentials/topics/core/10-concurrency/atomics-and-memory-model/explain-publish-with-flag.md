@@ -1,7 +1,7 @@
 ---
 id: atomics-explain-publish-with-flag
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [concurrency, atomics, memory-model]
 requires:
@@ -18,11 +18,10 @@ elaborate: Where else have you handed data from one thread to another, and which
 A writer sets a plain `int payload = 42`, then calls `ready.store(true,
 release)`; a reader spins (loops re-reading `ready`) on
 `ready.load(acquire)`, then reads `payload`. Explain to an interviewer
-why the reader is guaranteed to get the writer's value, and why these two
-memory orders rather than others.
+why the reader is guaranteed to get the writer's value.
 ---
 - [ ] Two threads touch plain `payload`, one writing; without ordering that would be a data race
 - [ ] The acquire load that reads the release store's value synchronizes with that store
-- [ ] The write precedes the store and the read follows the load, so the reader sees 42
-- [ ] Acquire/release is cheaper than the default sequentially consistent order, and enough for this hand-off
+- [ ] A load that still reads the old `false` pairs with nothing, which is why the reader spins until `true`
+- [ ] So everything before the store happens before everything after the load: the reader sees 42
 - [ ] With `relaxed` on either side nothing synchronizes, so reading `payload` is a data race

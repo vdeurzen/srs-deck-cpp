@@ -1,7 +1,7 @@
 ---
 id: rng-explain-range-algorithms
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [algorithms, ranges, interview]
 requires:
@@ -18,7 +18,7 @@ refs:
 An interviewer asks what `std::ranges::sort` gives you over `std::sort`. Explain.
 ---
 - [ ] You pass one range, not two iterators that could come from different containers
-- [ ] It also takes an optional comparator and an optional projection
+- [ ] It also takes a projection: a function applied to each element before comparing, so the comparator sees only the key
 - [ ] A projection such as a pointer to a member sorts by that member, with no lambda expression
 - [ ] The projection runs on every comparison, so it should be cheap
 - [ ] On a temporary range it returns `std::ranges::dangling`, so misuse is a compile error, not a dangling iterator

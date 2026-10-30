@@ -19,6 +19,6 @@ An interviewer asks how you would find the k-th largest of n numbers with the st
 ---
 - [ ] Only one position of sorted order is wanted, and the order of the rest doesn't matter
 - [ ] So call `nth_element` with the position n − k, then read the element there
-- [ ] For k = 1, the largest, that position is n − 1, the last slot of ascending order
+- [ ] `nth_element` rearranges the numbers, so copy them first if the original order matters
 - [ ] It works only on the side holding that position: linear on average, against n·log n for sort
 - [ ] Use `partial_sort` instead when the top k must also come out in order

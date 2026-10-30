@@ -19,4 +19,4 @@ An interviewer asks why `std::unique` must be followed by `erase` to shrink a `s
 - [ ] `unique` moves each kept value forward over the adjacent duplicates and returns the new logical end
 - [ ] The elements from that end to `v.end()` are still there, holding unspecified values
 - [ ] `erase(new_end, v.end())` removes that tail, so the size drops to the number of kept values
-- [ ] It drops only adjacent duplicates, so an unsorted vector must be sorted first
+- [ ] The `erase` needs both iterators: `erase(new_end)` alone removes one element and leaves the rest of the tail

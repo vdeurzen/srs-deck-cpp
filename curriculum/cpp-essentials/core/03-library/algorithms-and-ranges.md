@@ -147,11 +147,10 @@ position.
 | --- | --- | --- | --- | --- | --- |
 | 6 | srch-explain-sorted-search | explain | srch-count-at-most-code, srch-contains-code, srch-cost, srch-unsorted-input, srch-lower-bound-worked | An interviewer asks how you search a sorted `std::vector` with the standard library. Explain. | new |
 
-Rubric, in concept order: (1) problem: find a position or count in sorted data without
-scanning it; (2) mechanism: lower_bound halves the range and returns the first element not
-less than x; (3) example: membership is `it != end() && *it == x`; (4) cost: about log₂ n
-comparisons, 20 for a million, against find's one pass; (5) pitfall: unsorted input breaks
-the precondition, which is UB, not "not found".
+Rubric (answers the question; no fixed slots): sorted order lets the search halve the range;
+lower_bound returns the first element not less than x; about log₂ n comparisons, 20 for a
+million, against find's n; it never says "absent", so membership checks `!= end()` and the
+value; unsorted input breaks the precondition, which is UB, not "not found".
 
 ### 3. partition (`rearranging`). Steps: yes.
 | rung | id | kind | requires | question (one line) | status |
@@ -211,7 +210,8 @@ kept values, plus a permutation check for partition, never an order inside a gro
 Rubric (v2, one question; the partition and nth_element ladders end in their code Cards):
 an algorithm sees only iterators, so it cannot change the size; unique moves keepers forward
 and returns the new logical end; the tail holds unspecified values; `erase(new_end, end())`
-shrinks the vector; only adjacent duplicates go, so sort first.
+shrinks the vector; `erase(new_end)` alone removes one element. Sort-first is taught by
+uniq-unsorted-misconception.
 
 ### 6. Extremes (`extremes`). Steps: no.
 | rung | id | kind | requires | question (one line) | status |
@@ -223,10 +223,9 @@ shrinks the vector; only adjacent duplicates go, so sort first.
 
 Skipped rungs: 2 and 4. The concept is one pass returning one position, with no steps the
 caller follows. The pass is the same as find_if's, already met in `basics/11`.
-Rubric: (1) problem: get the largest element's value *and* where it is; (2) mechanism: one
-pass, returning an iterator to the first largest; (3) example: `max_element(…) - v.begin()`
-is its index; (4) cost: one pass (n − 1 comparisons), and minmax_element finds both ends in
-one pass; (5) pitfall: on an empty range it returns `end()`, and dereferencing that is UB.
+Rubric (v2, answers "why an iterator"): it gives the position as well as the value; an
+empty range returns `end()`, and dereferencing that is UB; the element can be changed in
+place; no copy of the element is made; a position can be handed to other iterator calls.
 
 ### 7. Projections (`range-algorithms`). Steps: no.
 | rung | id | kind | requires | question (one line) | status |
@@ -253,12 +252,10 @@ Skipped rungs: 2 and 4. There are no steps: the result's type is decided at comp
 | --- | --- | --- | --- | --- | --- |
 | 6 | rng-explain-range-algorithms | explain | rng-projection-code, rng-named-range-code, rng-projection-intro, rng-ranges-form-vocab | An interviewer asks what `std::ranges::sort` gives you over `std::sort`. Explain. | new |
 
-Rubric: (1) problem: pass one range, not two iterators that could belong to different
-containers; (2) mechanism: they take a range plus an optional comparator and projection;
-(3) example: `ranges::sort(orders, {}, &Order::qty)` sorts by a member with no lambda; (4)
-cost: the projection runs on every comparison, so keep it cheap; (5) pitfall: on a
-temporary range the result is `std::ranges::dangling`, a compile error rather than a
-dangling iterator.
+Rubric (v2, answers "what it gives over std::sort"): one range instead of two iterators;
+a projection, applied to each element before comparing; a member pointer as projection
+needs no lambda; the projection runs on every comparison, so keep it cheap; on a temporary
+range the result is `std::ranges::dangling`, a compile error rather than a dangling iterator.
 
 ### 9. Views are lazy (`views`). Steps: yes (the pull).
 | rung | id | kind | requires | question (one line) | status |
@@ -269,17 +266,16 @@ dangling iterator.
 | 3 | view-changed-source | basic `misconception` | view-pull-worked | Many expect `r = v \| views::transform(f)` (one clause) to compute every f(x) on that line. `v{1, 2}`, `f = x*10`, then `v[0] = 7;`: what does summing `r` give: 30, 90, or a compile error? (90) | new |
 | 4 | view-pipeline-trace | trace | view-pull-worked, view-changed-source | `v{1, 2, 3, 4, 5} \| drop(1) \| filter(odd) \| transform(sq)` (one clause on drop): @1 the first value the loop sees (9), @2 the sum (34) | new |
 | 5 | view-order-code | code | view-pipeline-trace, constexpr-fn-static-assert | Sum of the squares of the first 3 even positive ints (56). Blank the middle stages. Chips: `filter(is_even) \| std::views::take(3)`, `take(3) \| std::views::filter(is_even)`, `take(3)`. | new |
-| 6 | view-explain-views | explain | view-order-code, view-changed-source, view-intro, view-pull-worked | An interviewer asks what `std::views::filter` does that `std::copy_if` into a new vector does not. Explain. | new |
+| 6 | view-explain-views | explain | view-order-code, view-changed-source, view-intro, view-pull-worked | An interviewer asks what `std::views::filter` does that a loop copying the matches into a new vector does not. Explain. | new |
 
 Skipped rungs: none.
-Rubric: (1) problem: chain filter/transform steps without building intermediate vectors;
-(2) mechanism: a view is a lazy, non-owning range, and each element is pulled through the
-stages when the loop asks for it; (3) example: `iota(1) | filter(even) | take(3)` finishes
-because take stops the pull; (4) cost: building the pipeline does no work and allocates
-nothing, and the work is paid per element during iteration; (5) pitfall: a view refers to
-its source, so if the vector dies first, the view dangles.
-(The front names `std::copy_if` only as the listener's comparison. If the teacher wants
-nothing outside the closure, use "a loop that copies the matches into a new vector".)
+Rubric (answers "what does filter do that copying does not"): a view owns nothing and
+pulls each element through the stages on demand; so chained steps build no intermediate
+vectors; building the pipeline does no work and allocates nothing; `take` stops the pull, so
+`iota(1) | filter(even) | take(3)` finishes; a view refers to its source, so it dangles if
+the vector dies first.
+(The front compares with "a loop copying the matches into a new vector", which needs
+nothing outside the closure.)
 
 ## Recognition Cards (`choosing`)
 | rung | id | kind | requires | question (one line) | status |
@@ -290,11 +286,10 @@ nothing outside the closure, use "a loop that copies the matches into a new vect
 | 6 | algmix-explain-kth-largest | explain (choosing) | algmix-kth-largest, sel-cost, sel-median-code, sel-top-three-ordered | An interviewer asks how you'd find the k-th largest of n numbers with the standard library. Talk through your choice. | new |
 
 The fronts give sizes, never a target complexity (PEDAGOGY §2 rule 14). Each Card requires
-the recognition Card of every algorithm in its answer. Choosing rubric: (1) cue: one order
-statistic is wanted, and the rest of the order is irrelevant; (2) pattern: nth_element at
-position n − k; (3) example: Kth Largest Element in an Array; (4) complexity: linear on
-average, against n·log n for sort; (5) look-alike: partial_sort when the top k must also be
-in order.
+the recognition Card of every algorithm in its answer. Rubric (v2, answers "talk through your choice"): one position of sorted order is wanted,
+the rest's order irrelevant; nth_element at position n − k; it rearranges, so copy first if
+the order matters; linear on average against n·log n for sort; partial_sort when the top k
+must also be in order.
 A fourth mix Card, "count distinct ids in place" (sort + unique), was cut for size. Add it
 if the topic gets room.
 

@@ -23,4 +23,4 @@ minute.
 - [ ] It claims the step count stays at most c·n² for some constant c, once n is past some n₀
 - [ ] Constants and lower terms drop out, so a loop doing 3n² + 100n + 7 steps is still O(n²)
 - [ ] It predicts scaling: 1000× more input makes an O(n²) loop up to a million times slower
-- [ ] It is not a running time: hidden constants and small n can let it beat an O(n) loop
+- [ ] It is not a running time: constants are dropped, so it cannot say which of two O(n²) loops is faster

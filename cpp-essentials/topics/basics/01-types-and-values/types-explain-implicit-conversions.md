@@ -22,7 +22,7 @@ when arithmetic types mix.
 
 ---
 
-- [ ] It compiles silently; GCC's `-Wall` sign-compare warning is the only clue before a wrong run-time result
+- [ ] It compiles silently; at most GCC's `-Wall` sign-compare warning hints at the wrong run-time result
 - [ ] Operands narrower than `int` are first promoted to `int`
 - [ ] Then both operands convert to one common type; a signed and an unsigned of equal width become unsigned
 - [ ] So a negative `balance` becomes a huge unsigned value: `-5 < 10u` is false

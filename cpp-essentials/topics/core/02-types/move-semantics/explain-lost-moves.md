@@ -20,4 +20,4 @@ the author, aloud, what that line really does.
 - [ ] A local returned by plain name may be built in the caller's slot (NRVO), else it is moved
 - [ ] So plain `return result;` costs zero or one move, never a copy
 - [ ] `std::move(result)` is no longer a plain name, so elision is lost and one move is forced
-- [ ] The line therefore costs a move it meant to save: return the plain name instead
+- [ ] GCC warns that the cast prevents elision; the fix is deleting the `std::move`

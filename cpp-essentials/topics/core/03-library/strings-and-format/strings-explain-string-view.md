@@ -1,7 +1,7 @@
 ---
 id: strings-explain-string-view
 kind: explain
-version: 2
+version: 3
 level: 3
 tags: [strings, string-view, lifetime]
 requires:
@@ -22,6 +22,6 @@ about. Answer them.
 
 - [ ] A `const std::string&` parameter given a literal builds a temporary string, copying every character
 - [ ] A `string_view` is just a pointer and a length into characters that someone else owns
-- [ ] Even `substr` on a view copies nothing; the result points into the same characters
+- [ ] So a `string_view` parameter binds a literal or a `std::string` alike, copying neither
 - [ ] A view owns nothing, so returning one into a local `std::string` dangles
 - [ ] A view's `data()` need not be null-terminated, so code reading to a `'\0'` runs past its end

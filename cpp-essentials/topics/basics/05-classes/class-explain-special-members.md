@@ -1,7 +1,7 @@
 ---
 id: class-explain-special-members
 kind: explain
-version: 1
+version: 2
 level: 4
 tags: [classes, special-members, constructors, interview]
 requires:
@@ -18,8 +18,8 @@ refs:
 An interviewer points at a class whose constructors carry `= default`,
 `= delete` and `explicit`, and asks what each one buys. Explain it to them.
 ---
-- [ ] All three let the class author decide which constructions and conversions compile, rather than the compiler
-- [ ] `= default` asks for the version the compiler would write
+- [ ] `= default` brings back a compiler-written constructor, such as the no-argument one any other constructor removes
+- [ ] That defaulted constructor still applies the default member initialisers, such as `int w = 0`
 - [ ] `= delete` makes every call a compile error, so copying a one-of-a-kind ticket fails to build
-- [ ] `explicit` stops silent conversions, at the price of callers naming the type: `Celsius{21.5}`
-- [ ] Declaring any constructor removes the compiler-written no-argument one until you default it back
+- [ ] Without `explicit`, a one-argument constructor converts silently: a `double` passed where a `Celsius` is expected builds a temporary
+- [ ] `explicit` turns that silent conversion into a compile error, so callers must name the type: `Celsius{21.5}`

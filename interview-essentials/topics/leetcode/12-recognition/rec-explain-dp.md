@@ -1,7 +1,7 @@
 ---
 id: rec-explain-dp
 kind: explain
-version: 2
+version: 3
 level: 4
 tags: [recognition, lc-72, lc-518, lc-39]
 requires:
@@ -23,5 +23,5 @@ and set it up. Answer aloud.
 - [ ] It asks for an optimum or a count over choices, where different orders of choices reach the same subproblem
 - [ ] Set up the state as the least information that fixes the best rest of the answer
 - [ ] For edit distance the state is `(i, j)`, a prefix length of each word
-- [ ] The cost is the number of states times the work per state, so edit distance is O(mn)
+- [ ] Write the recurrence as a case split on the last decision: for edit distance, insert, delete or replace
 - [ ] Listing every solution instead of counting them needs backtracking, since the output itself is exponential

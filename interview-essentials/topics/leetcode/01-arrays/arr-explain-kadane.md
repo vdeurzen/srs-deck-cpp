@@ -22,4 +22,4 @@ why it works. Answer aloud.
 - [ ] It keeps the best sum ending at each index, which extends the previous best or restarts at this element
 - [ ] It works because every subarray ends somewhere, so the largest of those per-index bests is the answer
 - [ ] Buy-and-sell stock hides it: take the daily price changes, then their largest subarray sum
-- [ ] It takes O(n) time in one pass and O(1) extra space
+- [ ] Not for exactly k consecutive elements: that fixed length calls for a sliding window sum instead

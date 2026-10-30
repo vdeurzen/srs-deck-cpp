@@ -1,7 +1,7 @@
 ---
 id: sort-explain-quicksort
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [sorting, choosing]
 requires:
@@ -18,7 +18,7 @@ elaborate: Which array you have sorted at work would you hand to quicksort, and 
 An interviewer asks when you would pick quicksort to sort an array, and
 when you would not. Answer aloud.
 ---
-- [ ] Pick it to sort an array in place, with only O(log n) extra memory for the call stack
+- [ ] Pick it to sort an array in place: recursing into the smaller side first keeps the stack O(log n)
 - [ ] It partitions around a pivot, which lands in its final slot, then sorts each side on its own
 - [ ] Partitioning 3 7 1 5 4 around 4 gives 3 1 4 5 7, and no merge step follows
 - [ ] Its expected time is Θ(n log n) with a random pivot, but Θ(n²) when every pivot is an extreme

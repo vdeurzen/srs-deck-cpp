@@ -17,8 +17,8 @@ elaborate: Which problem from your own work asked for a best total built from sm
 An interviewer asks how you tell, from a problem statement alone, that
 dynamic programming will solve it. Answer aloud.
 ---
-- [ ] The statement asks for a best count, minimum or maximum built from best answers to smaller, recurring subproblems
+- [ ] The statement asks for a fewest, most or count over a sequence of choices, like coins paying an amount
+- [ ] The best answer contains best answers to smaller pieces: after the last coin, the rest is paid optimally
 - [ ] Fewest coins for 6 from coins 4, 3, 1 is 1 plus the fewest for 2, 3 or 5
-- [ ] Then one table cell per subproblem, filled so that every cell it reads is already filled
-- [ ] The cost is distinct subproblems times work per subproblem: amount × coins for coin change
+- [ ] Those smaller pieces recur: fewest for 6 and fewest for 5 both need fewest for 2
 - [ ] Greedy commits to one choice instead and can lose: it pays 6 with coins 4, 1, 1

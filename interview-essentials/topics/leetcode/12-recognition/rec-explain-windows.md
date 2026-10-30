@@ -20,7 +20,7 @@ An interviewer asks how you tell, from a problem statement alone, that
 a sliding window will solve it. Answer aloud.
 ---
 - [ ] It asks for a contiguous subarray or substring, and once a window breaks the rule every longer one does too
-- [ ] `hi` adds one element per step; `lo` moves right until the window is valid again
+- [ ] The right edge adds one element per step; the left edge moves right until the window is valid again
 - [ ] Longest substring with no repeated character fits: a window holding a repeat keeps it however far it grows
-- [ ] That is O(n), because `lo` and `hi` each move right at most n times
+- [ ] That is O(n), because each edge moves right at most n times
 - [ ] Subarray sum equals `k` with negatives does not: a sum can recover, so use prefix sums plus a hash map

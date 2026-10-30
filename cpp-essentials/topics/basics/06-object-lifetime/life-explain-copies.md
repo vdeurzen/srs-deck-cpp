@@ -1,7 +1,7 @@
 ---
 id: life-explain-copies
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [lifetime, copy, special-members]
 requires:
