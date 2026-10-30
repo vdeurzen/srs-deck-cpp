@@ -5,7 +5,7 @@ version: 1
 level: 2
 tags: [classes, special-members, constructors, misconception]
 requires:
-  - class-default-ctor-restore
+  - smf-price-cents-only
   - smf-pipe-six-lines
 elaborate: Look at a class of yours that declares only a copy constructor; which places that build it with no arguments would stop compiling?
 refs:
