@@ -3,7 +3,7 @@ id: storage-launder
 kind: basic
 version: 1
 level: 5
-tags: [raw-storage, lifetime, launder, c++17]
+tags: [raw-storage, lifetime, c++17]
 requires:
   - storage-construct-at
 refs:

@@ -3,7 +3,7 @@ id: db-vectorised-batch
 kind: basic
 version: 1
 level: 4
-tags: [databases, execution, memory-hierarchy]
+tags: [databases, execution]
 requires:
   - db-vectorised-execution
 refs:

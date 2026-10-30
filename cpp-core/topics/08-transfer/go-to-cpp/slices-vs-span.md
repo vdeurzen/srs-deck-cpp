@@ -14,7 +14,7 @@ refs:
 ---
 
 Many expect a view returned from a function to keep the elements it
-views alive. A `std::span` is a pointer and a length.
+views alive.
 
 ```cpp
 std::span<const int> evens() {

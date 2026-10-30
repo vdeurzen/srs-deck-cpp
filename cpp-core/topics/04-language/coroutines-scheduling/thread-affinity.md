@@ -14,7 +14,7 @@ refs:
 
 The code after a `co_await` runs on {{c1::whichever thread resumed the
 handle::which thread?}}, and nothing but the keyword marks that
-boundary. So a {{c2::held lock::any RAII lock guard}} must never span a
+boundary. So a {{c2::held lock::an RAII object}} must never span a
 `co_await`, and anything cached from {{c3::thread_local storage::a
 storage duration}} before the suspension is stale afterwards.
 

@@ -3,7 +3,7 @@ id: db-hash-join
 kind: basic
 version: 2
 level: 3
-tags: [databases, joins, memory-hierarchy]
+tags: [databases, joins]
 requires:
   - interview-essentials/hash-chaining-vs-open-addressing
   - interview-essentials/foundations-cache-cost-model

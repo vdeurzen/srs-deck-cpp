@@ -7,6 +7,7 @@ tags: [heaps, complexity, capstone]
 requires:
   - heap-heapify-linear
   - interview-essentials/heap-vs-bst
+elaborate: Jobs can also be cancelled by id while pending. What would you add to this structure to find a job without an O(n) scan?
 refs:
   - https://doi.org/10.1145/512274.512284
   - https://doi.org/10.1145/355588.365103
@@ -14,11 +15,11 @@ refs:
 ---
 A job scheduler holds about 10⁶ pending jobs and always runs the most
 urgent next. At startup it loads all saved jobs at once; afterwards jobs
-arrive and finish continuously. Explain the structure you would use and
-what each operation costs.
+arrive and finish continuously. Explain to a colleague the structure you
+would use and what each operation costs.
 ---
-- [ ] A binary heap in one array: complete shape, so slot i's children are 2i + 1 and 2i + 2 and its parent (i − 1) / 2, no pointers
-- [ ] The most urgent job is at the root by heap order: peeking costs O(1), with no search
-- [ ] A new job is appended and sifted up past less urgent parents: O(log n), about 20 levels for 10⁶
-- [ ] Running the next job moves the last element into the root and sifts it down, swapping with the more urgent child: O(log n)
-- [ ] Startup uses bottom-up heapify, O(n), not 10⁶ pushes, because each node sifts down at most its height and most nodes are near the bottom
+- [ ] A binary heap in one array: slot i's children are 2i + 1 and 2i + 2, so no pointers
+- [ ] The most urgent job sits at the root by heap order: peeking costs O(1), with no search
+- [ ] A new job is appended and sifted up past less urgent parents: O(log n), about 20 levels
+- [ ] Running the next job moves the last one into the root and sifts it down: O(log n)
+- [ ] Startup uses bottom-up heapify, O(n): each node sifts down at most its height, mostly tiny

@@ -8,14 +8,14 @@ requires:
   - cpp-essentials/types-brace-checks-constant
   - types-constexpr-catches-uninit
   - types-double-to-int-trace
+elaborate: Find a local in your own code declared without an initializer; what would writing `{}` change?
 refs:
   - https://en.cppreference.com/w/cpp/language/initialization
   - https://en.cppreference.com/w/cpp/language/list_initialization
 ---
 
 A colleague asks how to declare and initialise a local number in C++ so
-that it cannot quietly hold the wrong value. Explain what can go wrong and
-what you would write.
+that it cannot quietly hold the wrong value. What do you tell them?
 ---
 - [ ] A local with no initializer is indeterminate; reading it is undefined behaviour
 - [ ] `=` from a `double` truncates toward zero without complaint

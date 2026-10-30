@@ -1,22 +1,26 @@
 ---
 id: threads-explain-worker-shutdown
 kind: explain
-version: 1
+version: 2
 level: 3
 tags: [concurrency, threads, condition-variable, design]
+elaborate: Say why the worker should run each job only after releasing the lock, and what would stall if it ran the job while holding it.
 requires:
-  - cpp-essentials/threads-chunk-cv-wait
+  - parsons-jthread-stop-token
   - threads-trace-join-and-count
+  - cpp-essentials/threads-chunk-cv-wait
+  - cpp-essentials/conc-condition-variable-intro
+  - threads-owner-destroys-waiting-worker
 refs:
   - https://en.cppreference.com/w/cpp/thread/condition_variable_any/wait
   - https://en.cppreference.com/w/cpp/thread/jthread
 ---
-Design a worker thread that consumes jobs from a shared queue and shuts
-down cleanly when its owner goes out of scope. Name each piece and the
-bug it prevents.
+A teammate needs a worker thread that consumes jobs from a shared queue
+and stops cleanly when its owner is destroyed. Explain to them how you
+would build it.
 ---
-- [ ] The worker is a `std::jthread` taking a `std::stop_token`, so the owner's destructor requests stop and joins; a `std::thread` would terminate or need manual plumbing
-- [ ] The queue is touched only with the mutex held, by producer and consumer alike — a plain `std::deque` accessed from two threads is a data race, not "a little stale"
-- [ ] The consumer waits with `condition_variable_any::wait(lk, stoken, pred)` on a `unique_lock`, predicate "queue not empty", so spurious wake-ups, early notifies and a stop request all resolve correctly
-- [ ] The producer pushes under the lock and then calls `notify_one()`; notifying with nobody waiting is harmless because the waiter re-checks the predicate
-- [ ] The job is popped under the lock and *run after the lock is released*, so unknown code never executes while holding the mutex and the producer is not blocked for the job's duration
+- [ ] The worker is a `std::jthread` whose function takes a `std::stop_token`; its destructor requests stop, then joins
+- [ ] Producer and consumer touch the queue only with the mutex held; unguarded access is a data race
+- [ ] The consumer waits on a condition variable with a `unique_lock` and the predicate "queue not empty"
+- [ ] The producer pushes under the lock, then calls `notify_one()` to wake the waiting consumer
+- [ ] The wait must also end on a stop request: `condition_variable_any::wait` takes the stop token with the predicate

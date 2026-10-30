@@ -3,7 +3,7 @@ id: db-lsm-read-path
 kind: basic
 version: 1
 level: 4
-tags: [databases, storage, lsm, sketches]
+tags: [databases, storage, lsm]
 requires:
   - db-lsm-write-path
   - db-bloom-filter

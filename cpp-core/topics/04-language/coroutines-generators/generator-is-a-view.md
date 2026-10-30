@@ -16,6 +16,7 @@ refs:
 traversal is impossible and algorithms that need multiple passes will
 not compile against it. It is also {{c2::move-only::a copy/move
 property}}, because it owns the coroutine frame — pass it by value or by
-`auto&&`. And calling {{c3::begin()::which resumes the coroutine far
-enough to produce the first element}} does real work — it may throw
-whatever the body throws — and may be called only once per generator.
+`auto&&`. And calling {{c3::begin()::a range member
+function}} does real work: it resumes the body up to the first element,
+may throw whatever the body throws, and may be called only once per
+generator.

@@ -41,6 +41,5 @@ descending. The other three are all `<=` in disguise, and they are not
 "a different order for equal elements" — they are undefined behaviour. libstdc++'s `__unguarded_partition` scans
 `while (comp(*first, *pivot)) ++first;` with no bounds check, relying on
 the comparator to stop at an element not less than the pivot; with
-`<=` the pivot itself never stops it. GCC 16.2 evaluating this at
-compile time reports "array subscript value '40' is outside the bounds
-of array": at run time it is an out-of-bounds read.
+`<=` the pivot itself never stops it, and the scan reads past the end
+of the array.

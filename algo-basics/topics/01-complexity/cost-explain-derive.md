@@ -15,8 +15,9 @@ refs:
   - https://en.wikipedia.org/wiki/Recursion_tree
 ---
 
-Derive `f`'s cost part by part: which part decides it? `fold` recurses
-on both halves of its range, then loops over the range once.
+An interviewer asks how `f`'s cost grows with n. Derive it aloud.
+`fold` recurses on both halves of its range, then loops over the range
+once.
 
 ```cpp
 int f(const int* a, int n) {
@@ -30,7 +31,7 @@ int f(const int* a, int n) {
 ---
 
 - [ ] The three parts of `f` run one after another, so their costs add and the fastest-growing one decides
-- [ ] The pair loop's inner count is i, so it is 0 + 1 + … + (n − 1) = n(n − 1)/2, quadratic, not n·n
+- [ ] The pair loop's inner loop runs i times, so 0 + 1 + … + (n − 1) = n(n − 1)/2 in total
 - [ ] The doubling loop runs about log₂ n passes, since w multiplies by 2 until it reaches n
 - [ ] `fold` is T(n) = 2T(n/2) + n: log₂ n levels × n work per level = n log n
 - [ ] The total grows like n²: the pair loop dominates the sum

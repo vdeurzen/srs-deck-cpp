@@ -8,15 +8,16 @@ requires:
   - templates-concepts-vs-sfinae
   - templates-subsumption-overload
   - templates-conditionally-trivial
+elaborate: Where in code you know would a more-constrained overload replace an `enable_if` or tag-dispatch trick?
 refs:
   - https://en.cppreference.com/w/cpp/language/constraints
   - https://en.cppreference.com/w/cpp/language/overload_resolution
 ---
-Explain to a colleague how a C++20 constraint takes part in choosing an
-overload, and what that gives you over `enable_if`.
+A colleague asks what a C++20 constraint gives them over `enable_if` when
+the compiler chooses between overloads. Explain it to them.
 ---
-- [ ] An `enable_if` drops a candidate as a side effect of substitution failure, so the error can only say substitution failed; an unsatisfied concept is named in the error
-- [ ] As filters they are equivalent: an unsatisfied constraint makes a candidate non-viable, just as a substitution failure does
-- [ ] Between viable candidates that otherwise tie, the more constrained one wins (subsumption); `enable_if` has no such ranking, so overlapping conditions are ambiguous
-- [ ] Subsumption sees only through concepts built from other concepts; the same test written as a conjunction of raw traits is ambiguous again
-- [ ] Constraints also choose between non-template members of a class template, such as a trivial defaulted destructor for trivially destructible `T` beside a user-provided one; SFINAE cannot, since there is nothing to substitute
+- [ ] As filters they are equivalent: an unsatisfied constraint makes a candidate non-viable, like a substitution failure
+- [ ] But the error names the unsatisfied concept, where `enable_if` can only report a substitution failure
+- [ ] Between viable candidates that otherwise tie, the more constrained one wins; overlapping `enable_if` conditions stay ambiguous
+- [ ] Subsumption sees only through concept names; the same test as a conjunction of raw traits is ambiguous again
+- [ ] Constraints also choose between non-template members, such as two destructors of a class template; SFINAE cannot

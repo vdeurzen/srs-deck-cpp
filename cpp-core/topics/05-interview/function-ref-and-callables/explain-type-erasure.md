@@ -1,12 +1,13 @@
 ---
 id: callables-explain-type-erasure
 kind: explain
-version: 2
+version: 3
 level: 4
 tags: [callables, type-erasure]
 requires:
   - callables-explain-function-storage
   - callables-explain-function-costs
+elaborate: Where in code you know is a `std::function` stored, and where is one only called during the call?
 refs:
   - https://en.cppreference.com/w/cpp/utility/functional/function
   - https://en.cppreference.com/w/cpp/utility/functional/move_only_function
@@ -15,11 +16,12 @@ An event bus stores subscribers in a
 `std::vector<std::function<void(const Event&)>>` and calls each one per
 event. `subscribe(f)` stores a copy of `f` in that vector, and a
 `for_each_subscriber(cb)` query, also taking a `std::function`, calls
-`cb` synchronously on each subscriber before it returns. Reason through
-what this design buys and where it bites.
+`cb` synchronously on each subscriber before it returns. An interviewer
+asks whether `std::function` is the right type in both places. Explain it
+to them.
 ---
-- [ ] Because each subscriber is erased behind `void(const Event&)`, lambdas, functors and bound members sit in one vector: the reason erasure is right here, where a template parameter could store only one type
-- [ ] Because `std::function` must be copyable, subscribing a lambda that captures a `unique_ptr` fails to compile; `std::move_only_function` accepts it, and then the subscriber vector, and the bus, become move-only
-- [ ] Because every dispatch is an indirect call the optimiser cannot see through, each event pays one non-inlinable call per subscriber: fine at event rates, wrong for a per-pixel inner loop, which wants a template parameter
-- [ ] Because `subscribe` stores its own copy of each closure, a subscriber capturing a large object by value pays that copy, and possibly a heap allocation, at every `subscribe`, and again whenever the bus itself is copied
-- [ ] A `for_each_subscriber(cb)` query that runs `cb` only during the call needs no ownership, so taking it as `std::function` may allocate for nothing: a template parameter (or `std::function_ref` in C++26) fits
+- [ ] For stored subscribers, yes: erasure lets closure objects and functors of different types share one vector
+- [ ] A template parameter could store only one callable type, so it cannot replace that vector
+- [ ] `subscribe` stores its own copy of each closure object, so large captures cost a copy, possibly a heap allocation
+- [ ] Each dispatch is an indirect, non-inlinable call: fine at event rates, wrong for a per-element inner loop
+- [ ] `for_each_subscriber` only calls `cb` during the call, so `std::function` may allocate for nothing; a template parameter fits

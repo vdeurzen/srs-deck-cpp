@@ -3,7 +3,7 @@ id: compiler-gvn-dominance
 kind: basic
 version: 1
 level: 5
-tags: [compilers, ssa, optimisation, dominance]
+tags: [compilers, ssa, optimisation]
 requires:
   - compiler-gvn-hash-consing
   - compiler-ssa-dominance-property

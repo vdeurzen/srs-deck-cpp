@@ -3,7 +3,7 @@ id: ll-c-states
 kind: basic
 version: 1
 level: 4
-tags: [low-latency, os, power]
+tags: [low-latency, os]
 requires:
   - ll-busy-polling
 refs:

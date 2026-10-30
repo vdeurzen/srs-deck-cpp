@@ -16,7 +16,7 @@ cache (fully associative, optimal replacement, "tall": `M = Ω(B²)`) whose
 block size `B` and fast-memory size `M` are {{c1::unknown to the
 algorithm::what the code may assume about B and M}}. If
 it is optimal for every `B` and `M`, it is optimal at {{c2::every level
-of the hierarchy at once::L1/L2, L2/L3, RAM/disk}}, with no tuning
+of the hierarchy at once::where it is optimal}}, with no tuning
 constant. Van Emde Boas tree layouts and funnelsort are the standard
 examples.
 

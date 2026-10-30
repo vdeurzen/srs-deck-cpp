@@ -13,11 +13,10 @@ refs:
   - https://en.cppreference.com/w/cpp/memory/unique_ptr
 elaborate: How can your move assignment reuse `reset` and `release`, so it neither leaks nor double-deletes?
 ---
-The interviewer: "Implement `std::unique_ptr`." Talk through what it
-stores, why it can't be copied, how `reset` is written, and what
-changes for arrays.
+The interviewer: "Implement `std::unique_ptr`." Talk them through your
+design.
 ---
-- [ ] Stores the deleter beside the `T*`, so a stateful deleter widens every `unique_ptr` (an empty one costs nothing, via EBO or `[[no_unique_address]]`)
+- [ ] Stores the deleter beside the `T*`: an empty deleter costs no bytes, a stateful one widens every `unique_ptr`
 - [ ] Deletes the copy constructor and copy assignment, because a second owner would delete the object twice
 - [ ] Adds no `p != q` guard to `reset`, as the standard specifies none, so `reset(get())` is the caller's double-delete bug
 - [ ] `reset(q)` stores `q` before calling the deleter on the old pointer, because the deleter may destroy `*this`

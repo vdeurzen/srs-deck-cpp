@@ -3,7 +3,7 @@ id: storage-transparent-replacement
 kind: basic
 version: 1
 level: 5
-tags: [raw-storage, lifetime, launder, c++20]
+tags: [raw-storage, lifetime, c++20]
 elaborate: Your `optional`-like type destroys and re-creates its value in place. Which pointers into it stay valid after `emplace`?
 requires:
   - storage-construct-at

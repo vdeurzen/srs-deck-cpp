@@ -11,12 +11,13 @@ requires:
 refs:
   - https://google.github.io/tcmalloc/design.html
   - https://www.kernel.org/doc/html/latest/admin-guide/mm/hugetlbpage.html
+elaborate: Which `std::pmr` resource would you hand a per-message parser, and which a book's orders?
 ---
-Explain how you keep allocation and page faults out of a microsecond hot
-path.
+An interviewer asks how you keep allocation and page faults out of a
+microsecond hot path. Answer aloud.
 ---
-- [ ] No allocator call on the path, because the allocator's slow path (central lock, `mmap`, page fault) has an unbounded worst case even though its fast path is tens of nanoseconds
-- [ ] Objects freed one at a time come from a fixed-size free-list pool; objects whose lifetimes end together (one message's scratch) come from an arena reset all at once
-- [ ] The pool's memory is pre-faulted at startup (touch each page or `MAP_POPULATE`) and `mlock`ed, because `mmap` only reserves address space and each page faults on first touch
-- [ ] The pre-faulting is done by a thread on the NUMA node that will use the memory, because Linux places each page on the node of the CPU that first touches it
-- [ ] Huge pages are reserved at boot rather than taken from THP, whose synchronous compaction and `khugepaged` collapses stall threads unpredictably
+- [ ] No allocator call on the path: its fast path takes tens of nanoseconds, but its slow path is unbounded
+- [ ] Objects freed one by one come from a fixed-size pool; scratch whose lifetimes end together, from an arena
+- [ ] The pool is pre-faulted at startup and `mlock`ed, since `mmap` only reserves addresses and pages fault on first touch
+- [ ] A thread on the NUMA node that uses the memory does the pre-faulting, since first touch places each page
+- [ ] Huge pages are reserved at boot, not taken from THP, whose compaction and `khugepaged` collapses stall threads unpredictably

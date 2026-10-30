@@ -8,14 +8,15 @@ requires:
   - interview-essentials/graph-bellman-ford-rounds
   - interview-essentials/graph-topo-order
   - graph-mst-cut-property
+elaborate: If the toll network in job (3) had a cycle of rebates summing below zero, what would "cheapest route" even mean, and how would Bellman-Ford tell you?
 refs:
   - https://doi.org/10.1007/BF01386390
   - https://doi.org/10.1090/qam/102435
   - https://doi.org/10.1145/368996.369025
   - https://doi.org/10.1090/S0002-9939-1956-0078686-7
 ---
-For each job, name the graph algorithm you would use and the property
-of the input that decides it. (1) Fewest hops between two users of a
+An interviewer asks, for each job, which graph algorithm you would use
+and which property of the input decides it. (1) Fewest hops between two users of a
 social network. (2) Fastest drive between two cities, from travel times.
 (3) Cheapest route through a toll network where some links pay you a
 rebate. (4) An order to compile 300 modules that import other modules, with no

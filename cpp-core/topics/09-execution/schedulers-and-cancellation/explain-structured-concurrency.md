@@ -16,11 +16,11 @@ A server `spawn`s one pipeline per request into a `counting_scope`;
 each runs `when_all(fetch_user(id), fetch_orders(id))`, borrowing `id`
 from request state the pipeline owns. At shutdown, `main` calls
 `scope.request_stop()`, then `scope.close()`, then
-`sync_wait(scope.join())`. Walk through what each design choice buys,
-as cause and consequence.
+`sync_wait(scope.join())`. Walk a reviewer through what each design
+choice buys, as cause and consequence.
 ---
-- [ ] `fetch_orders` failing makes `when_all` request stop on `fetch_user` and wait for it, so nothing still reads `id` once the pipeline completes and its state is freed
-- [ ] `spawn` would not compile until each pipeline handles its errors (e.g. `upon_error` with a `noexcept` handler), so a failed request is logged instead of vanishing in detached work
-- [ ] `request_stop()` reaches every leaf as a stop request through each pipeline's environment; in-flight I/O is told to cancel and still completes, with `set_stopped`, so nothing is freed under the kernel
-- [ ] A request arriving after `close()` is dropped: its `spawn` fails to associate and its pipeline never starts, so the server needs its own reply path for refused requests while `join()` drains the rest
-- [ ] `join()` completes only when the count of in-flight pipelines is zero, so the scope is a complete inventory of detached work and destroying it after `join` is legal; a thread pool with detached futures keeps no such count to wait on
+- [ ] When `fetch_orders` fails, `when_all` requests stop on `fetch_user` and waits, so nothing reads `id` once freed
+- [ ] `spawn` compiles only once each pipeline handles its errors, so a failed request is logged, not silently lost
+- [ ] `request_stop()` reaches every leaf through the environment; in-flight I/O cancels but still completes, so nothing is freed early
+- [ ] After `close()`, a new request's `spawn` never starts its pipeline, so the server must refuse it another way
+- [ ] `join()` completes only when no pipeline is in flight, so destroying the scope afterwards is safe

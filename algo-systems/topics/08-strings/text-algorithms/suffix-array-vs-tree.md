@@ -3,7 +3,7 @@ id: str-suffix-array-vs-tree
 kind: basic
 version: 1
 level: 5
-tags: [strings, indexing, memory-hierarchy]
+tags: [strings, indexing]
 requires:
   - str-suffix-array
   - str-suffix-tree

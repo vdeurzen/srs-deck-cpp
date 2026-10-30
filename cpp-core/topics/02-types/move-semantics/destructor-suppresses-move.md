@@ -20,10 +20,10 @@ refs:
   - https://en.cppreference.com/w/cpp/types/is_move_constructible
 ---
 
-Without its second constructor, this `Buffer` fails
-`static_assert(std::is_move_constructible_v<Buffer>)`. Complete that
-declaration so the assertion passes, `Buffer` stays non-copyable and its
-move is non-throwing.
+Without its second constructor, every move of this `Buffer` silently
+runs the implicit copy constructor. Complete that declaration so `Buffer`
+has a real move constructor, stays non-copyable, and its move is
+non-throwing.
 
 ```cpp
 #include <type_traits>
@@ -37,9 +37,10 @@ struct Buffer {
 ---
 
 The user-declared `~Buffer()` means no move constructor is implicitly
-declared, so the assertion fails and every attempted move would fall
-back to copying (or fail, once copying is unavailable). `= default` asks
-for the member-wise move the compiler would otherwise have generated,
+declared: `std::move(b)` binds the implicit copy constructor's
+`const Buffer&` instead, and once copying is unavailable the move fails.
+`= default` asks for the member-wise move the compiler would otherwise
+have generated,
 and it is `noexcept` because the (absent) members are. `= delete`
 declares a move that cannot be called; `{}` is a user-provided move that
 moves nothing and is not `noexcept`; `noexcept(false) = default` is a

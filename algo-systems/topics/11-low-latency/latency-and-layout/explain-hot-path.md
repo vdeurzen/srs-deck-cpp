@@ -1,7 +1,7 @@
 ---
 id: ll-explain-hot-path
 kind: explain
-version: 2
+version: 3
 level: 5
 tags: [low-latency, hft, interview]
 requires:
@@ -11,13 +11,15 @@ requires:
 refs:
   - https://en.algorithmica.org/hpc/
   - https://dl.acm.org/doi/10.1145/2408776.2408794
+elaborate: The p99.9 spikes persist after every fix here. What would you measure next, and on which core?
 ---
 A market-data-to-order path has a 4 µs median but a 60 µs p99.9, and the
-first order after a quiet minute takes ~200 µs. Walk through what you
-would suspect, how you would confirm each suspicion, and the fix.
+first order after a quiet minute takes ~200 µs. An interviewer asks what
+most likely causes each of these, and how you would remove it. Answer
+aloud.
 ---
-- [ ] First trust the measurement: an open-loop load generator and a p99.9 read from histograms, so the 60 µs is real and not an artefact of coordinated omission
-- [ ] The ~200 µs first order is a cold path: a deep C-state exit plus caches, TLB and predictor filled by other work; confirmed by correlating with idle gaps, fixed by capping C-states and warming the path
-- [ ] Spikes from preemption or interrupts show as context switches and IRQ counts on the hot core; fixed by isolating and pinning the core, `nohz_full`, and steering IRQs away
-- [ ] Spikes from page faults or allocator slow paths show in `perf` fault counts and allocation tracing; fixed by pre-faulted, `mlock`ed, NUMA-local pools
-- [ ] Spikes that coincide with THP compaction (`khugepaged`, compaction stalls in `/proc/vmstat`) are fixed by huge pages reserved at boot and THP set to `madvise` or `never`
+- [ ] First trust the numbers: open-loop load and histogram percentiles rule out coordinated omission behind the 60 µs
+- [ ] The ~200 µs first order after quiet is a deep C-state exit: cap C-states and keep the thread busy-polling
+- [ ] That order also finds caches, TLB and predictor cold, so warm the path with periodic dummy messages
+- [ ] Spikes from preemption, the timer tick or interrupts go with an isolated, pinned core, `nohz_full` and IRQs steered away
+- [ ] Spikes from page faults, allocator slow paths or THP compaction go with pre-faulted, `mlock`ed pools and boot-reserved huge pages

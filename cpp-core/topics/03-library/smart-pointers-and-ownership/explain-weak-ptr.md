@@ -8,14 +8,14 @@ requires:
   - cpp-essentials/smart-pointers-shared-ptr-cycle-leaks
   - cpp-essentials/smart-pointers-weak-ptr-breaks-cycles
   - cpp-essentials/smart-pointers-weak-ptr-lock
+elaborate: Where in a design you know does one object point back at its owner, and which pointer type does that link use?
 refs:
   - https://en.cppreference.com/w/cpp/memory/weak_ptr
 ---
-Explain what `std::weak_ptr` is for: the leak it exists to prevent, and
-how it is used safely.
+A colleague asks what `std::weak_ptr` is for. Explain it to them.
 ---
-- [ ] Two objects owning each other through `shared_ptr` form a cycle: each strong count stays at one after every outside owner is gone, so neither is ever destroyed
-- [ ] Reference counting cannot see the cycle; the fix is structural: the owner points down with `shared_ptr`, the owned points back up with `weak_ptr`
-- [ ] A `weak_ptr` observes without owning: it does not touch the strong count, so it never keeps the object alive — it only keeps the control block alive (the weak count)
-- [ ] It cannot be dereferenced; `lock()` returns a `shared_ptr` that is empty if the object is gone and otherwise owns it for the duration of use
-- [ ] The other use is an observer or cache that must not keep objects alive: it holds `weak_ptr`s, the owner deletes freely, and the cache learns of the deletion at its next `lock()` instead of dangling
+- [ ] Two objects owning each other through `shared_ptr` keep both counts at one, so neither is ever destroyed
+- [ ] Making the back-pointer a `weak_ptr` breaks that cycle: the owner points down, the owned points back up weakly
+- [ ] A `weak_ptr` observes without adding to the owner count, so it never keeps the object alive
+- [ ] It cannot be dereferenced; `lock()` returns a `shared_ptr` that is empty if the object is gone
+- [ ] A cache or observer holds `weak_ptr`s, so the owner deletes freely and the next `lock()` reports it

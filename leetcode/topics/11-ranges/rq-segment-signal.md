@@ -3,7 +3,7 @@ id: rq-segment-signal
 kind: basic
 version: 1
 level: 2
-tags: [segment-tree, fenwick-tree, range-queries, recognition, lc-307]
+tags: [range-queries, recognition, lc-307]
 requires:
   - interview-essentials/linear-prefix-sum-range
 refs:

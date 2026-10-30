@@ -1,22 +1,26 @@
 ---
 id: foundations-explain-workload-first
 kind: explain
-version: 1
+version: 2
 level: 4
 requires:
   - interview-essentials/complexity-big-o-scaling
-  - foundations-amdahl
+  - interview-essentials/complexity-amortised-single-call
+  - foundations-latency-line-bounce
+  - foundations-amdahl-speedup
+  - foundations-utilisation-knee
 tags: [complexity, cost-model, interview]
+elaborate: Once you know the workload, how would you settle the choice — on what data, by which metric, against which baseline?
 refs:
   - https://en.algorithmica.org/hpc/
   - https://doi.org/10.1145/1465482.1465560
 ---
-Before comparing two data structures for a hot path, what do you need
-to know about the workload, and how will you settle the question in the
-end?
+An interviewer asks what you need to find out about a hot path's
+workload before you compare two data structures for it. What do you
+tell them?
 ---
-- [ ] The operation mix and sizes: read/write ratio, how often each operation runs, how big `n` really gets — and which operations sit on the critical path rather than in the background
-- [ ] Big-O as a filter only: rule out what is quadratic at the real `n`, then stop treating asymptotics as the answer
-- [ ] What is shared and written by more than one core, since every such write moves a cache line between cores
-- [ ] Whether the structure forces a lock on the common path: that serial fraction caps scaling (Amdahl)
-- [ ] A measurement plan: representative data, the metric that matters (throughput or p99), and the simplest baseline (usually a sorted `vector`)
+- [ ] How large n really gets, since big-O only rules out what is too slow at that size
+- [ ] Whether the latency target is a mean or a tail: an amortised bound hides single slow calls
+- [ ] Whether several cores write the same data: each such write moves the cache line between cores
+- [ ] Whether the common path takes a lock: that serial fraction s caps speedup at 1/s
+- [ ] How close to saturation it runs: queueing wait grows as ρ/(1−ρ), exploding near full utilisation

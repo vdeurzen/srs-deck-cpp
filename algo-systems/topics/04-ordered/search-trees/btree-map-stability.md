@@ -3,7 +3,7 @@ id: ordered-btree-map-stability
 kind: basic
 version: 1
 level: 3
-tags: [trees, containers, invalidation]
+tags: [trees, containers]
 requires:
   - ordered-rbtree-vs-btree
 refs:

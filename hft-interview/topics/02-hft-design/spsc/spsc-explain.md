@@ -11,12 +11,13 @@ refs:
   - https://rigtorp.se/ringbuffer/
   - https://lmax-exchange.github.io/disruptor/disruptor.html
   - https://en.cppreference.com/w/cpp/atomic/memory_order
+elaborate: The strategy thread now wants to hand back acknowledgements. Would you reuse this ring or add a second one, and why?
 ---
 The interviewer: "Implement the queue between our feed-handler thread
 and the strategy thread. Walk me through each choice you make."
 ---
-- [ ] Names a power-of-two capacity with free-running indices masked by `N - 1`, because `tail_ - head_` then tells full from empty and indexing costs one AND
-- [ ] Names one writer per index (producer `tail_`, consumer `head_`), because then plain atomic loads and stores suffice: no CAS and no shared count
-- [ ] Names a `release` store after writing the slot, paired with an `acquire` load on the other side, because that makes the plain slot write visible before the index
-- [ ] Names a private cached copy of the other side's index, refreshed only when the ring looks full or empty, because each refresh is a cross-core cache miss
-- [ ] Names one cache line per writer with the slots on separate lines, because two cores writing one line bounce it on every operation
+- [ ] Names a power-of-two capacity with free-running indices masked by `N - 1`, so `tail_ - head_` tells full from empty
+- [ ] Names one writer per index, producer `tail_` and consumer `head_`, so plain atomic loads and stores suffice
+- [ ] Names a `release` index store after the slot write, paired with an `acquire` load, so the slot shows first
+- [ ] Names caching the other side's index, refreshed only when full or empty, since each refresh is a cross-core miss
+- [ ] Names one cache line per writer, slots apart, because two cores writing one line bounce it on every operation

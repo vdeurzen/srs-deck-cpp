@@ -3,7 +3,7 @@ id: str-regex-redos
 kind: basic
 version: 1
 level: 4
-tags: [strings, automata, security, misconception]
+tags: [strings, security, misconception]
 requires:
   - str-dfa-lexing
 refs:

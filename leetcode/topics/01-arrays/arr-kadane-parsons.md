@@ -44,7 +44,7 @@ constexpr int max_sub_array(const std::vector<int>& nums) {
 **Kadane: extend or restart at `x`, then record.** `cur` must be updated
 before `best` reads it, or the last element's subarray is never seen.
 
-The distractor resets `cur` at 0, which allows the empty subarray:
-`{-3, -1, -2}` then returns 0 instead of −1.
+The line `cur = std::max(0, cur + x);` floors `cur` at 0, which allows
+the empty subarray: `{-3, -1, -2}` then returns 0 instead of −1.
 `best = nums[0]` is safe here because Maximum Subarray guarantees
 `nums` is non-empty.

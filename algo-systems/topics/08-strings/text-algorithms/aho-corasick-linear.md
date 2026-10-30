@@ -3,7 +3,7 @@ id: str-aho-corasick-linear
 kind: basic
 version: 1
 level: 4
-tags: [strings, automata, amortised]
+tags: [strings, automata]
 requires:
   - str-aho-corasick
 refs:

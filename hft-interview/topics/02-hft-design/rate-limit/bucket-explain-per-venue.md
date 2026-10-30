@@ -18,8 +18,8 @@ The interviewer: "Our gateway sends orders to several venues, and each
 venue caps how many orders we may send per second. Add the check to
 the order path." Walk through the design.
 ---
-- [ ] Names one token bucket per venue, its state only credit and `last`, refilled on demand at each check, because then the order path needs no timer thread
-- [ ] Names sizing each bucket so capacity + rate × T ≤ the venue's limit for its window T, because a full bucket admits its burst plus the refill in any span
+- [ ] Names one token bucket per venue, holding only credit and `last`, refilled at each check, so no timer thread
+- [ ] Names capacity + rate × T ≤ the venue's limit for window T, since a full bucket bursts, then refills
 - [ ] Rejects a counter reset at fixed window boundaries, because it admits twice the limit across a boundary whatever the count
-- [ ] Names credit kept as integer nano-tokens with no division, because whole tokens truncate a frequent check's earnings to 0 and the bucket never refills
-- [ ] Names a monotonic clock for `now`, because a wall clock set back makes the elapsed time negative and blocks orders until the lost credit is earned back
+- [ ] Names credit kept in integer nano-tokens, since whole tokens truncate a frequent check's earnings to 0
+- [ ] Names a monotonic clock, since a wall clock set back makes elapsed time negative and blocks orders

@@ -3,7 +3,7 @@ id: packet-reinterpret-ub
 kind: basic
 version: 1
 level: 3
-tags: [packets, undefined-behaviour, strict-aliasing, lifetime, misconception]
+tags: [packets, misconception]
 requires:
   - cpp-essentials/ub-definition
   - cpp-basics/types-cstyle-reinterprets

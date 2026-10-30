@@ -45,6 +45,5 @@ constexpr int change(int amount, const std::vector<int>& coins) {
 inner loop needs `c`, so it must be inside the coin loop, and `dp[0] = 1`
 must come before any pass reads it.
 
-The distractor starts `a` at 1, so `dp[a - c]` indexes below 0 whenever
-`a < c`: out of bounds, rejected at compile time here, undefined
-behaviour on LeetCode.
+Starting `a` at 1 makes `dp[a - c]` index below 0 whenever `a < c`:
+out of bounds, undefined behaviour.

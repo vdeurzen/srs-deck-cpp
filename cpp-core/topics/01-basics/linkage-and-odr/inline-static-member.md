@@ -3,10 +3,10 @@ id: linkage-inline-static-member
 kind: code
 version: 1
 level: 2
-tags: [linkage, inline, classes]
+tags: [linkage, classes]
 input: chips
 choices:
-  c1: ["inline", "const", "constexpr"]
+  c1: ["inline", "const", "constexpr", "constinit", "thread_local"]
 compile:
   harness: |
     int main() { raise_limit(); }
@@ -36,4 +36,5 @@ declaration a definition that may appear in every translation unit and
 still names one object. Before C++17 you wrote `static int limit;` here
 and `int Config::limit = 8;` in exactly one `.cpp`. `const`/`constexpr`
 would allow the in-class initializer too, but `raise_limit` could no
-longer assign.
+longer assign; `constinit` and `thread_local` leave the member non-inline,
+so its in-class initializer is still an error.

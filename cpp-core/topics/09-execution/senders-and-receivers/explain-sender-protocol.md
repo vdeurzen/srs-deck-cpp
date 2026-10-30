@@ -13,12 +13,11 @@ requires:
   - execution-start-may-complete-inline
   - execution-op-state-destroyed-early
 ---
-Explain the sender/receiver protocol to a colleague who knows callbacks
-and `std::future`: the three roles, the two calls, and the one object
-they produce.
+A colleague who knows callbacks and `std::future` asks how a sender's
+work actually gets run and delivers its result. Explain it to them.
 ---
-- [ ] A **sender** describes work that has not started; building one runs nothing and allocates nothing
-- [ ] A **receiver** is where the result goes, with three channels, `set_value`, `set_error`, `set_stopped`; exactly one is signalled, exactly once
-- [ ] All three completion functions are `noexcept`, so work that throws catches and reports on `set_error`
-- [ ] `connect(sndr, rcvr)` yields an **operation state**; `start(op)` launches it once, is `noexcept`, and the completion may arrive before it returns
-- [ ] The operation state is never copied or moved (ill-formed for library senders), nests its children, and must live until a completion is delivered: one object the caller places, like an async stack frame
+- [ ] A sender only describes work; building one runs nothing and allocates nothing
+- [ ] `connect(sender, receiver)` produces an operation state, and `start(op)` launches the work
+- [ ] The receiver then gets exactly one completion, once: `set_value`, `set_error` or `set_stopped`
+- [ ] Completions are `noexcept`, so work that throws catches the exception and reports it on `set_error`
+- [ ] The operation state must stay alive and in place until the completion, which may arrive before `start` returns

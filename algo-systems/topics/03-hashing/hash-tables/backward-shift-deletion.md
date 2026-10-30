@@ -1,23 +1,24 @@
 ---
 id: hash-backward-shift
 kind: basic
-version: 1
+version: 2
 level: 4
 requires:
   - hash-robin-hood
   - hash-tombstone-fix
 tags: [hashing, open-addressing]
+elaborate: A delete-heavy cache never rehashes to clear tombstones. Why would it pick this erase over the tombstone one?
 refs:
   - https://programming.guide/robin-hood-hashing.html
   - https://cs.uwaterloo.ca/research/tr/1986/CS-86-14.pdf
 ---
 
-## How does a Robin Hood table erase a key without leaving a tombstone?
+## A Robin Hood table erases a key by moving each following key back one slot, leaving no tombstone. Where must that shifting stop?
 
 ---
 
-**Backward shift: move each following key back one slot until an empty slot or PSL 0.**
+**At an empty slot or at a key with PSL 0, which is already home.**
 
-Each shifted key gets one step closer to home, so the invariant still
-holds and no probe run has a hole. The table stays tombstone-free, so
-delete-heavy traffic never degrades it. It needs linear probing.
+Moving a PSL-0 key back would put it before its home slot, where no
+lookup for it starts. Every key shifted gets one step closer to home, so
+the invariant holds and no probe run has a hole. It needs linear probing.

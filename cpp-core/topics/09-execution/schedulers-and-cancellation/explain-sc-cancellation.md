@@ -12,13 +12,13 @@ requires:
   - execution-stop-still-completes
   - execution-when-all
   - execution-spawn-vs-spawn-future
+  - execution-sync-wait
 ---
-Explain where failure and cancellation go in a `std::execution`
-program: how a stop request travels, how it is answered, and why an
-error cannot get lost.
+A colleague asks how a `std::execution` program makes sure that neither
+a cancellation nor a failure is silently lost. Explain it to them.
 ---
-- [ ] A stop request flows down through the receiver's environment: operations ask `get_stop_token` and register a callback, with no global and no extra argument
-- [ ] It is answered by a completion, not a kill: the operation still finishes exactly once, usually with `set_stopped`, and is waited for
-- [ ] `when_all` turns one child's failure into a stop request to its siblings, then waits for them before reporting the error
-- [ ] An error has a destination: it completes the parent on `set_error`, and at the edge `sync_wait` rethrows it in the caller
-- [ ] Detached work cannot drop an error silently: `spawn` accepts only senders that complete with `set_value()` or `set_stopped()`, so failures must be handled before the call compiles
+- [ ] A stop request travels down through each receiver's environment, as a stop token the operation asks for
+- [ ] A stopped operation still completes exactly once, usually with `set_stopped`, and is waited for
+- [ ] `when_all` turns one child's failure into a stop request to its siblings, then waits for them
+- [ ] An error completes the parent on `set_error`, and at the edge `sync_wait` rethrows it in the caller
+- [ ] `spawn` accepts only senders completing with `set_value()` or `set_stopped()`, so detached work must handle errors first

@@ -1,23 +1,29 @@
 ---
 id: foundations-explain-choosing-a-structure
 kind: explain
-version: 2
+version: 3
 level: 4
 requires:
   - foundations-explain-workload-first
   - foundations-explain-cost-per-operation
+  - ordered-rbtree-vs-btree
+  - hash-swiss-table-metadata
+  - ordered-eytzinger-layout
 tags: [complexity, cost-model, interview]
+elaborate: How would you confirm the choice — which benchmark, on what data, against which baseline?
 refs:
   - https://en.algorithmica.org/hpc/
   - https://dl.acm.org/doi/10.1145/48529.48535
+  - https://abseil.io/about/design/swisstables
 ---
-A compiler pass builds a symbol table of about 10 000 names per
-function: all inserts first, then millions of lookups by name, single
-threaded. A colleague proposes `std::map`; you have a flat hash map and
-a sorted `std::vector` in mind. Decide, and say how you would confirm it.
+An interviewer asks: a compiler pass builds a symbol table of about
+10 000 names per function — all inserts first, then millions of lookups
+by name, single threaded. A colleague proposes `std::map`; you have a
+flat hash map and a sorted `std::vector` in mind. Which do you pick,
+and why?
 ---
-- [ ] Splits the workload into a build phase and a query phase, so the structure can be built one way and queried another (append, then sort once)
-- [ ] Counts misses per lookup: `std::map` makes ~14 dependent node hops (log₂ 10⁴), the flat hash map ~1–2, binary search over a contiguous vector ~14 probes with its top levels cached
-- [ ] Prices the string keys: a hash map hashes the name once and compares one or two candidates, while `std::map` and binary search do ~14 string comparisons, each of which may walk a shared prefix
-- [ ] Notes that stability does not matter here: nothing holds a reference across the build, so a flat table's rehash or a vector's reallocation is harmless (and `reserve` removes it)
-- [ ] Gives a verdict — the flat hash map for point lookups, the sorted vector only if the pass also needs names in order — and confirms it by benchmarking on real function sizes against the sorted-vector baseline
+- [ ] Picks the flat hash map: the pass needs only point lookups by name, never names in order
+- [ ] `std::map` makes ~14 dependent node hops per lookup (log₂ 10⁴), each a likely cache miss
+- [ ] The flat hash map filters a whole group by its control bytes, so a lookup usually compares one key
+- [ ] A sorted vector is contiguous, but binary search still probes ~14 distant cache lines per lookup
+- [ ] Single threaded, so no shared-line or lock costs separate them: misses per lookup decide

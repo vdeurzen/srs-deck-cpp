@@ -3,7 +3,7 @@ id: ll-go-select-random
 kind: basic
 version: 2
 level: 3
-tags: [concurrency, locks, fairness]
+tags: [concurrency, locks]
 requires:
   - cpp-essentials/conc-mutex-takes-turns
 elaborate: Where would a starved thread hurt you, and what would you put in place of the mutex to give it a turn?

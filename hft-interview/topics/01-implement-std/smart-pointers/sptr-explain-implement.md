@@ -8,16 +8,16 @@ requires:
   - sptr-relaxed-increment
   - sptr-weak-plus-one
   - sptr-aliasing-ctor
+elaborate: Which object in your own code is shared between threads, and where would its last owner run the destructor?
 refs:
   - https://en.cppreference.com/w/cpp/memory/shared_ptr
   - https://timsong-cpp.github.io/cppwp/n4950/util.smartptr.shared
   - https://github.com/gcc-mirror/gcc/blob/master/libstdc%2B%2B-v3/include/bits/shared_ptr_base.h
 ---
-The interviewer: "Implement `std::shared_ptr`." Talk through its layout,
-the counts and their atomics, and what happens when the last owner and
-the last `weak_ptr` go.
+The interviewer: "Implement `std::shared_ptr`." Talk them through your
+design.
 ---
-- [ ] A `shared_ptr` holds two pointers, stored object and control block, because the aliasing constructor lets them name different objects (a member and its owner)
+- [ ] Holds two pointers, object and control block, because the aliasing constructor lets them name different objects
 - [ ] Copying increments the strong count, and that increment may be `relaxed` (libc++; libstdc++ uses `acq_rel`)
 - [ ] The strong-count decrement is `acq_rel`, so every owner's writes happen before the destructor runs
 - [ ] When the strong count reaches 0 the object is destroyed at once, however long the control block lives on

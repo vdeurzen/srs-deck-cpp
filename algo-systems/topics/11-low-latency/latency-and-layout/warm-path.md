@@ -3,7 +3,7 @@ id: ll-warm-path
 kind: basic
 version: 1
 level: 4
-tags: [low-latency, hft, memory-hierarchy]
+tags: [low-latency, hft]
 requires:
   - ll-busy-polling
 refs:

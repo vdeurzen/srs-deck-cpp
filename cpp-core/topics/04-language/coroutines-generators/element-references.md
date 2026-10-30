@@ -13,5 +13,5 @@ refs:
 `std::generator<T>`'s iterator hands out each yielded object as
 {{c1::a reference::what `operator*` returns}} — the object itself
 usually lives in the coroutine frame. Read it in the loop body; one kept
-across `++it` is {{c2::dangling::the body has resumed and moved on}}, so
+across `++it` is {{c2::dangling::a state of the reference}}, so
 initialise a `T` from it whenever a value must outlive the step.

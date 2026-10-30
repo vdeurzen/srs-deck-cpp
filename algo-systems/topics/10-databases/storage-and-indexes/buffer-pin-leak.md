@@ -3,7 +3,7 @@ id: db-buffer-pin-leak
 kind: basic
 version: 1
 level: 3
-tags: [databases, caching, raii]
+tags: [databases, caching]
 requires:
   - db-buffer-pool
   - cpp-essentials/raii-owner-in-destructor

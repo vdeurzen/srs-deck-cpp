@@ -49,5 +49,5 @@ constexpr int select(std::span<const Node> t, int k) {   // 0-based
 Going right skips the whole left subtree **and** the current node, so k
 drops by L + 1. Forgetting the node (`k -= L`) returns the next key up
 (asking for 50 gives 60); `k -= 1` forgets the subtree and walks off a
-leaf, which constant evaluation rejects as an out-of-bounds read. The
+leaf into an out-of-bounds read. The
 invariant: k is always the rank wanted *within the subtree at i*.

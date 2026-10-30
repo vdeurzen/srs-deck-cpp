@@ -3,7 +3,7 @@ id: err-noexcept-marks-function
 kind: code
 version: 1
 level: 2
-tags: [exceptions, noexcept]
+tags: [exceptions]
 requires:
   - cpp-essentials/err-noexcept-broken-promise
 input: chips

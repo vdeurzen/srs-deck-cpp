@@ -1,23 +1,23 @@
 ---
 id: execution-explain-context-and-contract
 kind: explain
-version: 1
+version: 2
 level: 5
 tags: [execution, async, c++26, scheduling]
+elaborate: Besides where it runs, what does a sender's type already promise about how it can complete, and when is a receiver that cannot take one of those completions rejected?
 refs:
   - https://eel.is/c++draft/exec.sched
-  - https://eel.is/c++draft/exec.getcomplsigs
-  - https://eel.is/c++draft/exec.sync.wait
+  - https://eel.is/c++draft/exec.starts.on
+  - https://eel.is/c++draft/exec.continues.on
 requires:
   - execution-starts-on-vs-continues-on
-  - execution-completion-signatures
-  - execution-sync-wait
+  - execution-trace-continuation-thread
 ---
-Explain how a `std::execution` pipeline says *where* its work runs and
-*what* it can complete with, and how ordinary code gets the result out.
+A colleague used to thread pools asks how a `std::execution` pipeline
+decides which thread runs each of its steps. Explain it to them.
 ---
-- [ ] A **scheduler** is a cheap, copyable handle to an execution context, not the context itself
-- [ ] `schedule(sch)` is a sender completing with no values on that context, so "go there" composes like any other work
-- [ ] `starts_on` picks where work begins and `continues_on` where everything after it runs; without them a continuation runs wherever its predecessor finished
-- [ ] **Completion signatures** make the contract a compile-time type: a receiver that cannot take a listed completion fails at `connect`
-- [ ] `std::this_thread::sync_wait` blocks the calling thread and returns `optional<tuple<Vals...>>`: values engaged, errors rethrown, stopped as `nullopt`
+- [ ] A scheduler is a cheap, copyable handle to an execution context, passed in like any other argument
+- [ ] `schedule(sch)` is a sender completing on that context, so "go there" composes like any other work
+- [ ] `starts_on(sch, sndr)` moves to `sch` before `sndr` starts, so `sndr`'s own work begins there
+- [ ] `continues_on(sndr, sch)` moves after `sndr` completes, so everything downstream runs on `sch`
+- [ ] Without such a hop, each step runs wherever its predecessor completed, even inline on the starting thread

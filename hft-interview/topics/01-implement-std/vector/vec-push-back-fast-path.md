@@ -5,7 +5,7 @@ version: 1
 level: 4
 tags: [vector, low-latency, inlining, implement-std]
 expose_ms: 9000
-compile: null # two members out of a class: graded by text, see below
+compile: null
 requires:
   - vec-realloc-order
 refs:

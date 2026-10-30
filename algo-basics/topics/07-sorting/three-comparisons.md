@@ -3,7 +3,7 @@ id: sort-three-comparisons
 kind: basic
 version: 1
 level: 1
-tags: [sorting, lower-bound, puzzle]
+tags: [sorting, comparisons, puzzle]
 refs:
   - https://www-cs-faculty.stanford.edu/~knuth/taocp.html
   - https://en.wikipedia.org/wiki/Comparison_sort#Number_of_comparisons_required_to_sort_a_list

@@ -3,7 +3,7 @@ id: packet-start-lifetime-as
 kind: basic
 version: 1
 level: 4
-tags: [packets, lifetime, alignment, c++23]
+tags: [packets, lifetime, c++23]
 requires:
   - packet-reinterpret-ub
   - cpp-essentials/layout-alignment
@@ -15,7 +15,7 @@ elaborate: The IP header behind a 14-byte Ethernet header has the same problem; 
 ---
 
 ```cpp
-struct Ip { std::uint32_t w0, w1, w2, src, dst; };      // alignof(Ip) == 4 on x86-64
+struct Ip { std::uint32_t w0, w1, w2, src, dst; };
 alignas(64) unsigned char frame[2048];                 // filled by recv()
 const Ip* ip = std::start_lifetime_as<Ip>(frame + 14);   // after the Ethernet header
 ```

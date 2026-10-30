@@ -3,7 +3,7 @@ id: tmpl-misconception-no-conversion
 kind: basic
 version: 1
 level: 2
-tags: [templates, deduction, misconception]
+tags: [templates, deduction]
 requires:
   - cpp-essentials/tmpl-deduction-conflict
 elaborate: A plain function `void put(double&, double)` accepts the same call. When would you rather have that than the template?
@@ -11,7 +11,7 @@ refs:
   - https://en.cppreference.com/w/cpp/language/template_argument_deduction
 ---
 
-## `put` should behave like `void put(double&, double)` when given a `double`, and `1` converts to `double`. What happens on the last line?
+## What happens on the last line?
 
 ```cpp
 template <typename T>

@@ -26,4 +26,4 @@ The `head` load is `acquire`, pairing with the consumer's release of
 Relaxed suffices for your own counter: you are its only writer, and
 coherence makes your own last store visible to you. Two release/acquire
 pairs in all, one per direction, each carrying the data written just
-before it. (c2: "load" is the same answer.) The consumer is the mirror image.
+before it. The consumer is the mirror image.

@@ -63,12 +63,11 @@ struct ScheduleOn {
 **A never-ready awaiter whose `void` `await_suspend` publishes the
 handle.** `co_await ScheduleOn{pool};` means "everything after this line
 runs from the pool's worker loop rather than here". The three hooks may
-sit in any order; the compile check accepts each.
+be declared in any order.
 
-The distractors are the tempting wrong turns. An `await_ready()` that
+Two tempting wrong turns: an `await_ready()` that
 returns `true` skips the hand-off, so the coroutine never reaches the
 pool. An `await_suspend` that returns the handle it was given uses
 symmetric transfer to resume the same coroutine at once, the opposite of
 scheduling (a `void` `await_suspend` that calls `h.resume()` has the same
 flaw, and nests one `resume()` inside another).
-the shape changes.

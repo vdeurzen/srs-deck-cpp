@@ -3,7 +3,7 @@ id: const-constexpr-const-not-constant
 kind: basic
 version: 1
 level: 2
-tags: [const-constexpr-consteval, misconception]
+tags: [const-constexpr-consteval]
 requires:
   - cpp-essentials/const-constexpr-const-vs-constexpr-cloze
   - cpp-basics/const-double-not-constant
@@ -13,7 +13,7 @@ refs:
   - https://timsong-cpp.github.io/cppwp/n4950/expr.const#4
 ---
 
-## "`n` is `const`, so it is a compile-time constant." What happens here?
+## What happens when this is compiled?
 
 ```cpp
 int read_count();
@@ -26,7 +26,6 @@ void fill() {
 ---
 
 **Compile error: `n` is not usable in a constant expression.** A `const`
-integer counts as a constant only when its *initializer* is one; the
-belief comes from `const int k = 4;`, which does qualify. `const` says "not
-modified", nothing about when the value is known. `constexpr int n = ...`
-states the intent and fails at the declaration instead.
+integer counts as a constant only when its *initializer* is one, as in
+`const int k = 4;`. `const` says "not modified", nothing about when the
+value is known; `constexpr int n = ...` would fail at the declaration.
