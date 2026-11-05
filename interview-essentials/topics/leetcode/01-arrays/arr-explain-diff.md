@@ -19,7 +19,7 @@ where updating every element of every range is too slow, and what you
 would do instead. Answer aloud.
 ---
 - [ ] Many updates each add a value to a whole range, and the array is read only at the end
-- [ ] Instead add the value at the range's start and subtract it just past its end, then take one running sum
-- [ ] +5 on indices 1–3 marks +5 at index 1, −5 at index 4; the running sum is 5 only there
-- [ ] That is O(1) per update plus one O(n) pass, instead of the range's length per update
-- [ ] If the array is fixed and ranges are only read, prefix sums of the input answer the queries instead
+- [ ] Add the value at the range's start, subtract it just past its end, then take one running sum
+- [ ] Each range update costs O(1), plus one O(n) pass at the end, not the range's length per update
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

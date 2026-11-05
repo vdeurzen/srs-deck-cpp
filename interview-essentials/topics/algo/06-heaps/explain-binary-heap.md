@@ -19,8 +19,8 @@ elaborate: Say in one sentence, as to an interviewer, where in a system you know
 An interviewer asks you how a binary heap works and why you would
 reach for one. Answer aloud in about a minute.
 ---
-- [ ] It suits repeatedly taking the largest (or smallest) key from a set that keeps changing
+- [ ] A binary heap suits repeatedly taking the largest (or smallest) key from a set that keeps changing
 - [ ] Heap order makes every parent ≥ its children, so the maximum is always the root
 - [ ] A push appends at the end, then swaps with its parent while that parent is smaller
 - [ ] A pop moves the last element to the root, then swaps it down with its larger child until order holds
-- [ ] The tree is complete, so a push or pop walks at most ⌊log₂ n⌋ + 1 levels: O(log n)
+- [ ] A complete tree makes a push or pop walk at most ⌊log₂ n⌋ + 1 levels: O(log n)

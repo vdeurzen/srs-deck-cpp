@@ -20,6 +20,6 @@ that every request will go through. Answer aloud.
 ---
 - [ ] A hash map alone cannot find the oldest key; a list alone cannot find a key without walking it
 - [ ] Keep a list in recency order plus a hash map from each key to its list node
-- [ ] With capacity 2: put 1, put 2, get 1, then put 3 evicts 2, because the get refreshed 1
-- [ ] Every operation is then O(1), but with std::list and unordered_map each miss allocates twice
-- [ ] Slot arrays linked by index, with a sentinel slot, reuse the victim's slot, so a miss allocates nothing
+- [ ] A list plus hash map makes every operation O(1), but `std::list` and `unordered_map` allocate twice per miss
+- [ ] Slot arrays linked by index, with a sentinel slot, reuse the evicted key's slot, so a miss allocates no node
+- [ ] (empty: tick this)

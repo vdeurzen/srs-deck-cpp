@@ -23,5 +23,5 @@ in the interview. Answer aloud.
 - [ ] Scanning forward from every day is O(n²), about 5·10⁹ steps for 10⁵ days: too slow
 - [ ] Keep a stack of the indices of days still waiting; their temperatures never rise from bottom to top
 - [ ] Each new day pops every colder day on top, and a popped day's answer is today's index minus its own
-- [ ] Then today's index is pushed; days still on the stack at the end keep the answer 0
-- [ ] That is O(n) in total, because each index is pushed once and popped at most once
+- [ ] Each day's index is pushed after its pops; days still on the stack at the end keep the answer 0
+- [ ] The whole scan is O(n), because each index is pushed once and popped at most once

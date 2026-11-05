@@ -19,8 +19,8 @@ elaborate: Where else have you met a "stretch until it breaks, then shrink from 
 An interviewer asks how you tell, from a problem statement alone, that
 a sliding window will solve it. Answer aloud.
 ---
-- [ ] It asks for a contiguous subarray or substring, and once a window breaks the rule every longer one does too
-- [ ] The right edge adds one element per step; the left edge moves right until the window is valid again
+- [ ] The statement asks for a contiguous run, and any window containing a rule-breaking window breaks the rule
 - [ ] Longest substring with no repeated character fits: a window holding a repeat keeps it however far it grows
-- [ ] That is O(n), because each edge moves right at most n times
-- [ ] Subarray sum equals `k` with negatives does not: a sum can recover, so use prefix sums plus a hash map
+- [ ] Subarray sum equals `k` with negatives does not fit: a sum can recover, so use prefix sums
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

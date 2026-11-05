@@ -19,7 +19,7 @@ they ask you to do it without memory that grows with the list. Talk it
 through. Answer aloud.
 ---
 - [ ] Start two pointers at the head: each step, slow moves one node and fast moves two
-- [ ] With no loop, fast reaches null, so the answer is no
-- [ ] Once both are inside a loop, fast gains one node per step, so the gap closes and they meet
-- [ ] On 1 → 2 → 3 → 4, with 4 linking to 2, they meet at 4 after three steps
-- [ ] That is O(n) time and O(1) space; a set of visited nodes also works but costs O(n) memory
+- [ ] With no loop, the fast pointer reaches null, so the answer is no
+- [ ] Once both pointers are inside a loop, fast gains one node per step, so the gap closes and they meet
+- [ ] Two pointers take O(n) time and O(1) space, where a set of visited nodes costs O(n) memory
+- [ ] (empty: tick this)

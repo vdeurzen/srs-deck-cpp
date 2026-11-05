@@ -19,6 +19,6 @@ DFS.
 ---
 - [ ] Without marks, a cycle, or the way back along any undirected edge, re-adds vertices forever
 - [ ] A visited mark, set when a vertex is first reached, lets each vertex be processed once
-- [ ] On triangle 0–1–2, BFS from 0 marks 1 and 2 when pushing them, so 1 later skips both
-- [ ] With adjacency lists that is V vertex visits plus 2E edge scans (the degree sum): O(V + E)
-- [ ] With a matrix each vertex scans a whole row of V cells, giving O(V²) whatever E is
+- [ ] With marks, a walk over adjacency lists scans each vertex once and each stored edge entry once: O(V + E)
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

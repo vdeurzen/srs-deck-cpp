@@ -19,6 +19,6 @@ dynamic programming will solve it. Answer aloud.
 ---
 - [ ] The statement asks for a fewest, most or count over a sequence of choices, like coins paying an amount
 - [ ] The best answer contains best answers to smaller pieces: after the last coin, the rest is paid optimally
-- [ ] Fewest coins for 6 from coins 4, 3, 1 is 1 plus the fewest for 2, 3 or 5
-- [ ] Those smaller pieces recur: fewest for 6 and fewest for 5 both need fewest for 2
-- [ ] Greedy commits to one choice instead and can lose: it pays 6 with coins 4, 1, 1
+- [ ] Smaller pieces recur: fewest coins for 6 and for 5 both need fewest for 2, given coins 4, 3, 1
+- [ ] A greedy rule losing on small cases is a cue: coins 4, 3, 1 pay 6 as 4+1+1, not 3+3
+- [ ] (empty: tick this)

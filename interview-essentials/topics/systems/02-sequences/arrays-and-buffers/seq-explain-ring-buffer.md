@@ -19,6 +19,6 @@ buffer. Answer aloud.
 ---
 - [ ] A queue that pops by erasing its front shifts every element, O(n) per pop
 - [ ] Head and tail indices advance through a fixed array and wrap to 0, so elements never move
-- [ ] With 8 slots, sequence number 9 lands in slot 9 & 7, which is 1
+- [ ] A power-of-two capacity lets a mask, `i & (N - 1)`, do the wrap
 - [ ] With wrapped indices one slot must stay empty to tell full from empty, so a 16-slot ring holds 15
-- [ ] Counters that only increase make tail − head the size, so all N slots are usable
+- [ ] Head and tail counters that only increase make tail − head the size, so all N slots are usable

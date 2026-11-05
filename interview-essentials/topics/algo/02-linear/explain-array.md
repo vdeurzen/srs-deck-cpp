@@ -6,7 +6,6 @@ level: 3
 tags: [arrays, linked-lists, complexity]
 requires:
   - linear-array-index-contiguity
-  - linear-array-insert-shift
   - linear-cost-table
   - linear-list-insert-misconception
 refs:
@@ -19,6 +18,6 @@ container for a sequence. Answer aloud in about a minute.
 ---
 - [ ] Any element is reached by its position in one step, without walking from the start
 - [ ] Elements sit side by side, so element i starts at the base address + i × element size
-- [ ] With 4-byte ints starting at address 1000, a[6] sits at 1024
-- [ ] The price is that inserting in the middle shifts every later element one slot right, O(n) at worst
 - [ ] A linked list needs i hops to reach index i, so its O(1) insert first pays that walk
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

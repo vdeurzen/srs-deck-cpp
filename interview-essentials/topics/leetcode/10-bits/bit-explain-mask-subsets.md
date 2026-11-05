@@ -20,6 +20,6 @@ it calls for enumerating subsets as bitmasks. Answer aloud.
 ---
 - [ ] Every subset of the items must be tried, for example to total or test something over each one
 - [ ] n is small, at most about 20: 2²⁰ is about a million subsets, which fits the time budget
-- [ ] Count a mask from 0 to 2ⁿ − 1; bit i set means item i is in that subset
-- [ ] It costs O(n · 2ⁿ): 2ⁿ masks with n bit tests each
-- [ ] Backtracking lists the same 2ⁿ subsets by recursion; the mask loop is flat, with no undo step
+- [ ] A subset fits in one integer, with bit i set meaning item i is in it
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

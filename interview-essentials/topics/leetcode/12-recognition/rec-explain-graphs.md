@@ -20,8 +20,8 @@ elaborate: Say aloud what must join the city in the search state when the cheape
 An interviewer asks how you pick a shortest-path search from a problem
 statement. Answer aloud.
 ---
-- [ ] It asks for fewest steps or least total cost from a source, and the cost of one move decides
+- [ ] The statement asks for the fewest steps or least total cost from a source
 - [ ] If every move costs 1, BFS; if moves cost different non-negative amounts, Dijkstra with a heap
 - [ ] For the distance to the nearest of many sources, seed one BFS queue with all of them at 0
-- [ ] BFS is O(V + E); Dijkstra with a binary heap is O(E log E)
-- [ ] If it asks only "are these connected?", no distances are needed: DFS, or union-find as edges arrive
+- [ ] A statement asking only "are these connected?" needs no distances: DFS, or union-find as edges arrive
+- [ ] (empty: tick this)

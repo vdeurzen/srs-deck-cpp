@@ -20,8 +20,8 @@ elaborate: Take a DP you have written. Could its state drop one dimension by kee
 An interviewer asks how you recognise a dynamic-programming problem
 and set it up. Answer aloud.
 ---
-- [ ] It asks for an optimum or a count over choices, where different orders of choices reach the same subproblem
+- [ ] The statement asks for an optimum or a count over choices, where different choice sequences reach one remaining subproblem
 - [ ] Set up the state as the least information that fixes the best rest of the answer
 - [ ] For edit distance the state is `(i, j)`, a prefix length of each word
 - [ ] Write the recurrence as a case split on the last decision: for edit distance, insert, delete or replace
-- [ ] Listing every solution instead of counting them needs backtracking, since the output itself is exponential
+- [ ] A statement asking to list every solution needs backtracking: DP counts or optimises, it doesn't enumerate

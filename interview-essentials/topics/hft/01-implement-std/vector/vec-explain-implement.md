@@ -21,5 +21,5 @@ say what the design must get right. Answer aloud.
 - [ ] `push_back` must be amortised O(1) while all elements stay in one contiguous buffer
 - [ ] Three pointers mark the first element, one past the last, and the buffer's end
 - [ ] Growth must be geometric: n pushes then cost O(n) in total, where growing by one slot costs O(n²)
-- [ ] Doubling needs a zero guard, so an empty vector's capacities go 0, 1, 2, 4, 8
+- [ ] Doubling needs a zero guard, since 0 doubled stays 0: an empty vector's capacities go 0, 1, 2, 4, 8
 - [ ] Growing allocates a bigger buffer, moves the elements over and frees the old one, so old pointers dangle

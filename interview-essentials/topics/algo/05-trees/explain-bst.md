@@ -17,8 +17,8 @@ elaborate: Say in one sentence, as to an interviewer, which input arriving at yo
 Explain binary search trees to a colleague who has only used arrays.
 Answer aloud in about a minute.
 ---
-- [ ] It finds a key among n ordered keys without comparing it against every one
+- [ ] A BST finds a key among n ordered keys without comparing it against every one
 - [ ] Every key in a node's left subtree is smaller than the node's key, every key in its right subtree larger
-- [ ] So one comparison picks a side: searching for 3 from root 8 skips 8's whole right subtree
+- [ ] One comparison picks a side: a key smaller than the node's never visits the right subtree
 - [ ] A lookup costs the tree's height, about log₂ n when the tree is balanced
-- [ ] Sorted inserts build a chain, making lookups O(n); self-balancing trees such as red-black trees prevent that
+- [ ] Sorted inserts build a chain with O(n) lookups; self-balancing trees such as red-black trees prevent that

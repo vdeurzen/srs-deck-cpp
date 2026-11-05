@@ -26,7 +26,7 @@ from cards import FENCE, Deck, clozes, in_topic  # noqa: E402
 MAX_WORDS, MAX_BLANKS, MAX_RUBRIC = 60, 3, 5
 EMPTY_ITEM = "(empty: tick this)"
 MIN_REAL = 3
-BACKREF = re.compile(r"^(So|Then|That|This|These|Those|It|Its|They|Their|Either|Also|Thus|Hence|Therefore|Which|Both)\b|\b(too|also|as above|previous)\b")
+BACKREF = re.compile(r"^(So|Then|That|This|These|Those|It|Its|They|Their|Either|Also|Thus|Hence|Therefore|Which|Both)\b|\btoo\b(?=[.,;:!?]|$)|\b(also|as above|the previous item)\b")
 JOINED = re.compile(r"[,;]?\s+and\s+(why|when|how|what|which|where)\b", re.I)
 
 

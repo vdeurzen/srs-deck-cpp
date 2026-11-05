@@ -17,7 +17,7 @@ A junior colleague says they never trust recursive functions. Explain
 to them how one runs. Answer aloud.
 ---
 - [ ] A base case answers directly; every other call calls itself on a smaller input, such as a shorter prefix
-- [ ] The caller pauses at that call and resumes only when the smaller call returns its value
-- [ ] Summing 4, 1: calls open down to the empty prefix's 0, then return 4, then 5
+- [ ] A caller pauses at its recursive call and resumes only when the smaller call returns its value
 - [ ] Every waiting call keeps its own stack frame, so recursion depth n costs O(n) stack space
-- [ ] A call that does not shrink its input never reaches the base case
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

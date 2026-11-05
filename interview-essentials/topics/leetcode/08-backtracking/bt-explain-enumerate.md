@@ -19,7 +19,7 @@ An interviewer says: return every ordering of these distinct integers.
 Talk it through as you would in the interview. Answer aloud.
 ---
 - [ ] Build each ordering one position at a time, depth-first: pick an unused item, mark it used, recurse
-- [ ] After the call returns, unmark the item and remove it from the path, so the next choice starts clean
-- [ ] Any position may take any remaining item, so a used mark, not a subsets-style start index, tracks what is taken
-- [ ] Only a full-length path is an ordering, so copy it out there and return
+- [ ] After each recursive call returns, undo the choice: unmark the item and drop it from the partial ordering
+- [ ] Once all n items are placed, copy the ordering into the results and return
 - [ ] There are n! orderings, each copied in O(n): O(n · n!), so only small n is viable
+- [ ] (empty: tick this)

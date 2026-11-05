@@ -5,7 +5,6 @@ version: 2
 level: 2
 tags: [foundations, chaining, capstone]
 requires:
-  - hashing-direct-address-limit
   - hashing-chain-lookup-code
   - hashing-index-mod-trace
   - hashing-load-factor
@@ -19,8 +18,8 @@ A set of a million 64-bit ids must answer "is id k present?" in
 constant time on average. Explain to an interviewer how a hash table
 with chaining achieves that.
 ---
-- [ ] An array indexed by the id itself would need 2⁶⁴ slots, so direct addressing is out
-- [ ] Keep m buckets and send id k to bucket h(k) mod m, whose chain holds it
-- [ ] With m = 8, ids 42 and 50 both land in bucket 2 and share its chain
-- [ ] A lookup scans one chain of about n / m ids, so growing m with n keeps it O(1)
-- [ ] That is only an average: ids that all hash to one bucket make every lookup scan all n
+- [ ] Keep m buckets and send id k to bucket h(k) mod m
+- [ ] Ids landing in one bucket share its chain, which a lookup searches for k
+- [ ] A lookup scans one chain of about n / m ids
+- [ ] Growing m with n keeps n / m constant, so a lookup is O(1) on average
+- [ ] (empty: tick this)

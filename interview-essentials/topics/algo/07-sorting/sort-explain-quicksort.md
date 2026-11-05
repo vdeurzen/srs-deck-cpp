@@ -18,8 +18,8 @@ elaborate: Which array you have sorted at work would you hand to quicksort, and 
 An interviewer asks when you would pick quicksort to sort an array, and
 when you would not. Answer aloud.
 ---
-- [ ] Pick it to sort an array in place: recursing into the smaller side first keeps the stack O(log n)
-- [ ] It partitions around a pivot, which lands in its final slot, then sorts each side on its own
-- [ ] Partitioning 3 7 1 5 4 around 4 gives 3 1 4 5 7, and no merge step follows
-- [ ] Its expected time is Θ(n log n) with a random pivot, but Θ(n²) when every pivot is an extreme
-- [ ] Not when equal keys must keep their input order: merge sort does, at the cost of a Θ(n) buffer
+- [ ] Pick quicksort to sort an array in place: recursing into the smaller side first keeps the stack O(log n)
+- [ ] Pick quicksort for speed: with a random pivot its expected time is Θ(n log n)
+- [ ] Avoid quicksort when the worst case matters: every pivot being an extreme gives Θ(n²)
+- [ ] Avoid quicksort when equal keys must keep their input order: merge sort does, at the cost of a Θ(n) buffer
+- [ ] (empty: tick this)

@@ -17,7 +17,7 @@ An interviewer hands you a grid of land and water and asks how many
 separate islands it has. Talk it through. Answer aloud.
 ---
 - [ ] Scan every cell; each land cell not yet visited starts a new walk and adds one island
-- [ ] The walk, a DFS or BFS, follows land up, down, left and right, marking each cell so it counts once
+- [ ] A DFS or BFS from a land cell follows land in four directions, marking cells so each counts once
 - [ ] Mark a cell before walking on from it, or two neighbours keep re-adding each other forever
-- [ ] On rows 101 over 111, one walk from the top-left reaches all five land cells: one island
-- [ ] That is O(rows × cols), since each cell is marked once and checked from at most four neighbours
+- [ ] The count takes O(rows × cols), since each cell is marked once and checked from at most four neighbours
+- [ ] (empty: tick this)

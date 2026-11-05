@@ -19,6 +19,6 @@ big-O can differ tenfold in running time. Answer aloud.
 ---
 - [ ] Big-O counts every memory read as one step, but the hardware does not charge reads equally
 - [ ] Memory moves in 64-byte cache lines, so the unit of cost that matters is the cache miss
-- [ ] An in-order int scan misses once per 16 reads, a shuffled one on nearly every read
+- [ ] An in-order int scan misses once per 16 reads; a shuffled scan of a large array nearly every read
 - [ ] A random main-memory read is about 100 times slower than an L1 hit
-- [ ] Pointer chasing pays a full miss per node, where a sequential scan gets hardware prefetching
+- [ ] Chasing pointers to scattered nodes can miss on every node, where a sequential scan gets hardware prefetching

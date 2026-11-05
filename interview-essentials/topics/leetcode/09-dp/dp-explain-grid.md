@@ -20,7 +20,7 @@ cell, moving only down or right. Explain how you would fill a table for
 it, and why that order works. Answer aloud.
 ---
 - [ ] Moves go only down or right, so the walk never returns to a cell: the grid has no cycles
-- [ ] So filling row by row, the cells above and to the left are final before a cell reads them
+- [ ] Filling row by row, the cells above and to the left are final before a cell reads them
 - [ ] Each cell holds its own number plus the smaller of the best sums above it and to its left
-- [ ] Cells outside the grid act as walls that never win the minimum, except the way in at the corner
-- [ ] It takes O(mn) time, and one rolling row of n cells is enough memory
+- [ ] First-row and first-column cells have one neighbour to read; the top-left cell is just its own number
+- [ ] (empty: tick this)

@@ -19,8 +19,8 @@ An interviewer gives you a problem statement. What would make you look
 for a method that rules out candidates in bulk instead of scanning
 them? Answer aloud in about a minute.
 ---
-- [ ] Sorted data, or a yes/no test on candidate answers that flips from false to true only once
-- [ ] Then binary search probes the middle and keeps only the half that can still hold the answer
-- [ ] Smallest ship capacity within 5 days fits: if a capacity fails, every smaller one fails too
-- [ ] Each probe halves the candidates, so about log₂ n probes: a million candidates need about 20
-- [ ] For a pair with a target sum in sorted data, each inward step of two indices discards one element's pairs
+- [ ] Sorted data lets one probe in the middle rule out half the candidates
+- [ ] A yes/no test on candidate answers that flips only once lets one probe rule out half of them
+- [ ] Smallest ship capacity within 5 days fits: if a capacity fails, every smaller one fails
+- [ ] A pair with a target sum in sorted data fits: moving either end inward discards one element's pairs
+- [ ] (empty: tick this)

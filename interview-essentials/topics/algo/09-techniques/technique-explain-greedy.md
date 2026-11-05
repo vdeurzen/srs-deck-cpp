@@ -16,8 +16,8 @@ elaborate: Say aloud what the earliest-end schedule costs to run, the sort plus 
 An interviewer asks how you decide that a greedy algorithm is safe for
 a problem, rather than something slower. Answer aloud.
 ---
-- [ ] Greedy keeps each locally best choice for good and never revisits it, so one bad pick cannot be undone
-- [ ] So it is safe only when that choice can be argued never to hurt, whatever is chosen after it
-- [ ] For the most non-overlapping talks in one room, earliest end is safe: it leaves the most time for the rest
-- [ ] Before trusting a rule, try small counterexamples: earliest start, on 0–10, 1–2, 3–4, loses both short talks
-- [ ] When no rule survives, as with coins 4, 3, 1 paying 6, use DP, which tries every choice
+- [ ] Greedy is safe only when the choice can be argued never to hurt, whatever is chosen after it
+- [ ] Earliest end is safe for the most non-overlapping talks in one room: it leaves the most time for the rest
+- [ ] Try small counterexamples before trusting a rule: earliest start, on 0–10, 1–2, 3–4, loses both short talks
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)
