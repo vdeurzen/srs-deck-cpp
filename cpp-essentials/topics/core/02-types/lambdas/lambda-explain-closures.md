@@ -7,7 +7,6 @@ tags: [lambdas, callables]
 requires:
   - lambda-closure-type
   - lambda-capture-trace
-  - lambda-store-std-function
   - lambda-dangling-reference
 refs:
   - https://en.cppreference.com/w/cpp/language/lambda#Closure_type
@@ -20,8 +19,8 @@ An interviewer asks what a C++ lambda expression really creates. Explain it to t
 
 ---
 
-- [ ] It creates an object of a unique, unnamed class the compiler writes: the closure object
-- [ ] Each capture becomes a data member of that class, and the body becomes its `operator()`
-- [ ] `[n]` copies `n` when the lambda expression is evaluated, so later changes to `n` go unseen
-- [ ] Closure objects of different types stored together need `std::function`, which may allocate on the heap
-- [ ] A reference capture extends no lifetime, so returning such a closure from a function dangles
+- [ ] A lambda expression creates an object of a unique, unnamed class the compiler writes: the closure object
+- [ ] Each capture becomes a data member of the closure's class, and the body becomes its `operator()`
+- [ ] A by-value capture `[n]` stores a copy of `n` as a member, made when the lambda expression runs
+- [ ] A reference capture `[&n]` stores a reference to the original `n`, not a copy
+- [ ] (empty: tick this)

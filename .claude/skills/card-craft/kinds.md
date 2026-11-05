@@ -345,16 +345,20 @@ rubric's topics or their order.>
 - [ ] <the next claim, in the order a good spoken answer takes>
 - [ ] <…>
 - [ ] <…>
-- [ ] <the fifth claim; every one answers the question on the front>
+- [ ] <a claim; every one answers the question on the front and stands alone>
+- [ ] (empty: tick this)
 ````
 
-Write the question first, then its answer as five plain claims. Use problem →
+Write the question first, then its answer as 3 to 5 plain claims. Use problem →
 mechanism → example → cost → pitfall (or cue → pattern → complexity →
 look-alike) only as a checklist for what the answer may be missing. A fact
 that is true but answers a different question goes in `elaborate`. A front
 naming a concrete problem is graded on that problem's solution.
 
-Exactly 5 items, each one claim a listener can tick from speech alone,
+Five lines: 3 to 5 real items, as the question needs, and each unused line
+exactly `(empty: tick this)`. Each real item is one claim a listener can tick
+from speech alone, makes sense without its neighbours (no "So", "That", "It",
+"too", "also" pointing at another item),
 ≤ 20 words, no code to spell out, each taught by a Card in the closure. A
 language or library feature gets a "how/why does it work" question, a
 pattern a problem statement must trigger gets a "which would you pick, and

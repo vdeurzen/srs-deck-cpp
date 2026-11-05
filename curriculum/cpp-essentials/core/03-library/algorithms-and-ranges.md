@@ -145,7 +145,7 @@ position.
 ### Capstone (`sorted-search`)
 | rung | id | kind | requires | question (one line) | status |
 | --- | --- | --- | --- | --- | --- |
-| 6 | srch-explain-sorted-search | explain | srch-count-at-most-code, srch-contains-code, srch-cost, srch-unsorted-input, srch-lower-bound-worked | An interviewer asks how you search a sorted `std::vector` with the standard library. Explain. | new |
+| 6 | srch-explain-sorted-search | explain | srch-count-at-most-code, srch-contains-code, srch-cost, srch-lower-bound-worked | An interviewer asks how you search a sorted `std::vector` with the standard library. Explain. | new |
 
 Rubric (answers the question; no fixed slots): sorted order lets the search halve the range;
 lower_bound returns the first element not less than x; about log₂ n comparisons, 20 for a
@@ -266,7 +266,7 @@ range the result is `std::ranges::dangling`, a compile error rather than a dangl
 | 3 | view-changed-source | basic `misconception` | view-pull-worked | Many expect `r = v \| views::transform(f)` (one clause) to compute every f(x) on that line. `v{1, 2}`, `f = x*10`, then `v[0] = 7;`: what does summing `r` give: 30, 90, or a compile error? (90) | new |
 | 4 | view-pipeline-trace | trace | view-pull-worked, view-changed-source | `v{1, 2, 3, 4, 5} \| drop(1) \| filter(odd) \| transform(sq)` (one clause on drop): @1 the first value the loop sees (9), @2 the sum (34) | new |
 | 5 | view-order-code | code | view-pipeline-trace, constexpr-fn-static-assert | Sum of the squares of the first 3 even positive ints (56). Blank the middle stages. Chips: `filter(is_even) \| std::views::take(3)`, `take(3) \| std::views::filter(is_even)`, `take(3)`. | new |
-| 6 | view-explain-views | explain | view-order-code, view-changed-source, view-intro, view-pull-worked | An interviewer asks what `std::views::filter` does that a loop copying the matches into a new vector does not. Explain. | new |
+| 6 | view-explain-views | explain | view-order-code, view-intro, view-pull-worked | An interviewer asks what `std::views::filter` does that a loop copying the matches into a new vector does not. Explain. | new |
 
 Skipped rungs: none.
 Rubric (answers "what does filter do that copying does not"): a view owns nothing and
@@ -283,7 +283,7 @@ nothing outside the closure.)
 | 3 mix | algmix-kth-largest | basic | sel-top-three-ordered | 10⁵ scores: return the 5th largest; the order of the rest doesn't matter. Which call? (nth_element. Look-alikes: sort, from basics/11, and partial_sort.) | new |
 | 3 mix | algmix-count-in-range | basic | srch-upper-vs-lower, srch-cost | A sorted vector of 10⁶ prices; 10⁵ queries each ask how many prices lie in [a, b]. What does one query compute? (`upper_bound(b) − lower_bound(a)`. Look-alike: a find_if/loop per query, from basics/11.) | new |
 | 3 mix | algmix-failed-to-back | basic | part-keep-order, container-erase-if-intro | Orders: move the rejected ones to the back, keep both groups in arrival order, and keep the rejected ones. Which call? (stable_partition. Look-alikes: erase_if, from basics/11, deletes them; sort orders by key.) | new |
-| 6 | algmix-explain-kth-largest | explain (choosing) | algmix-kth-largest, sel-cost, sel-median-code, sel-top-three-ordered | An interviewer asks how you'd find the k-th largest of n numbers with the standard library. Talk through your choice. | new |
+| 6 | algmix-explain-kth-largest | explain (choosing) | algmix-kth-largest, sel-cost, sel-median-code | An interviewer asks how you'd find the k-th largest of n numbers with the standard library. Talk through your choice. | new |
 
 The fronts give sizes, never a target complexity (PEDAGOGY §2 rule 14). Each Card requires
 the recognition Card of every algorithm in its answer. Rubric (v2, answers "talk through your choice"): one position of sorted order is wanted,

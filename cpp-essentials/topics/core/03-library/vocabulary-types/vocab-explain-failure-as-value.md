@@ -22,6 +22,6 @@ nothing or failed. Answer them.
 
 - [ ] A sentinel such as `-1` is an ordinary value the caller can forget to check
 - [ ] `std::optional<T>` holds a `T` in place or nothing, so "maybe absent" is in the type
-- [ ] `std::expected` holds the value or an error saying why, such as a parser's port or `PortError`
-- [ ] Either way the caller must check the result before using the value, and the type shows it
-- [ ] Use `throw` instead when only code many calls up can react to the failure
+- [ ] `std::expected<T, E>` holds either the value or an error `E` saying why it failed
+- [ ] `optional` and `expected` put possible failure in the return type, so the needed check is visible
+- [ ] `throw` fits better when only code many calls up can react to the failure

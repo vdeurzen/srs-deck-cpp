@@ -21,7 +21,7 @@ all. Answer them.
 ---
 
 - [ ] An xvalue has identity yet may be moved from, so it is both a glvalue and an rvalue
-- [ ] C++ needs it so overloads can tell an object still in use from one whose contents may be taken
+- [ ] C++ needs xvalues so overloads can tell an object still in use from one whose contents may be taken
 - [ ] `std::move(x)` moves nothing: it is a cast to `T&&` whose result is an xvalue naming `x`
 - [ ] Overload resolution binds an xvalue to `T&&` before `const T&`, so the move constructor is chosen
-- [ ] Without it, naming an object always gives an lvalue, so that object could only be copied
+- [ ] (empty: tick this)

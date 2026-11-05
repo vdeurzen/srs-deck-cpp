@@ -21,7 +21,7 @@ struct starts with. Answer them.
 
 ---
 
-- [ ] A local `int` declared without an initialiser has an indeterminate value; reading it is undefined behaviour
+- [ ] A local `int`, or a struct's `int` member, with no initialiser is indeterminate; reading it is undefined behaviour
 - [ ] Empty braces value-initialise a scalar, so `int n{};` starts at zero
 - [ ] Braces on a struct without constructors zero every member they give no value
 - [ ] A default constructor with your own body stops empty braces zeroing its members

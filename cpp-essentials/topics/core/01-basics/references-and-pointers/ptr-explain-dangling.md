@@ -20,8 +20,8 @@ to use. Explain.
 
 ---
 
-- [ ] A reference or pointer never keeps its object alive; it dangles once that object's lifetime ends
+- [ ] A reference or pointer stops being safe once its object's lifetime ends
 - [ ] Returning a pointer or reference to a local dangles, because the local dies when the function returns
 - [ ] After `delete p`, `p` and every copy of it dangle; reading or deleting through them is undefined
-- [ ] A temporary dies at the end of the full-expression that created it, the `;`
+- [ ] A reference to a temporary stops being safe at the end of the full-expression that created it, the `;`
 - [ ] A `const` reference bound directly to a temporary extends it; one bound to a function's returned reference does not

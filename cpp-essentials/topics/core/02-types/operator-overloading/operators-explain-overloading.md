@@ -21,7 +21,7 @@ you defined, and how you would write that `+`. Explain it to them.
 ---
 
 - [ ] `a + b` on class types calls a function named `operator+`
-- [ ] That function is either the member `a.operator+(b)` or a free function taking both operands
+- [ ] `operator+` is either the member `a.operator+(b)` or a free function taking both operands
 - [ ] Write `+` by copying the left operand and applying the member `+=` to that copy
-- [ ] A member operator never converts its left operand, so an `int` on the left needs a non-member
-- [ ] `+=` returns a reference to `*this`; returning by value makes `(a += b) += c` update a copy
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

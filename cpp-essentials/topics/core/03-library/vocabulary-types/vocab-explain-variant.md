@@ -19,8 +19,8 @@ it works. Answer aloud in about a minute.
 
 ---
 
-- [ ] Its value is exactly one of a fixed list of types, known when the code is written
+- [ ] A `std::variant` value is exactly one of a fixed list of types, known when the code is written
 - [ ] `std::variant<A, B, C>` stores one alternative in place and remembers which is active
 - [ ] Assigning a string to a `variant<int, std::string>` holding 3 destroys the `int` and stores the string
-- [ ] The set is closed, so a new alternative breaks every `std::visit` lacking its handler, at compile time
-- [ ] A virtual base class is open instead: anyone adds derived types, so nothing checks a handler covers all
+- [ ] A fixed list lets the compiler check handlers: a new alternative breaks every `std::visit` lacking one
+- [ ] (empty: tick this)

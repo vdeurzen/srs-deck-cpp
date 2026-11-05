@@ -8,7 +8,6 @@ requires:
   - algmix-kth-largest
   - sel-cost
   - sel-median-code
-  - sel-top-three-ordered
 elaborate: Say how your answer changes if the numbers arrive one at a time and you must answer after each.
 refs:
   - https://en.cppreference.com/w/cpp/algorithm/nth_element
@@ -18,7 +17,7 @@ refs:
 An interviewer asks how you would find the k-th largest of n numbers with the standard library. Talk through your choice.
 ---
 - [ ] Only one position of sorted order is wanted, and the order of the rest doesn't matter
-- [ ] So call `nth_element` with the position n − k, then read the element there
+- [ ] `nth_element` at position n − k puts the k-th largest there, ready to read
 - [ ] `nth_element` rearranges the numbers, so copy them first if the original order matters
-- [ ] It works only on the side holding that position: linear on average, against n·log n for sort
-- [ ] Use `partial_sort` instead when the top k must also come out in order
+- [ ] `nth_element` works only on the side holding that position: linear on average, against n·log n for sort
+- [ ] (empty: tick this)

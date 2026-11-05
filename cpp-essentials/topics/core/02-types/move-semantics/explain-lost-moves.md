@@ -17,7 +17,7 @@ and ends with `return std::move(result);` "so it isn't copied". Explain to
 the author, aloud, what that line really does.
 ---
 - [ ] `std::move` is only a cast to an xvalue; it never moves anything itself
-- [ ] A local returned by plain name may be built in the caller's slot (NRVO), else it is moved
-- [ ] So plain `return result;` costs zero or one move, never a copy
-- [ ] `std::move(result)` is no longer a plain name, so elision is lost and one move is forced
-- [ ] GCC warns that the cast prevents elision; the fix is deleting the `std::move`
+- [ ] `std::move(result)` is no longer a plain name, so NRVO is lost and one move is forced
+- [ ] `std::move` gains nothing here: plain `return result;` is already built in place (NRVO) or moved, never copied
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

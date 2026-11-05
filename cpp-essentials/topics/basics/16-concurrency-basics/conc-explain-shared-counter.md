@@ -17,11 +17,11 @@ refs:
   - https://en.cppreference.com/w/cpp/atomic/atomic
 ---
 Four threads each add 1 000 to a plain global `int` with `++`, and the
-total `main` prints is sometimes below 4 000. Talk the teammate who
-wrote it through this, aloud.
+total `main` prints is sometimes below 4 000. Explain to the teammate who
+wrote it, aloud, why that happens and how to fix it.
 ---
 - [ ] `++` is a load, an add and a store, so two threads can interleave them and lose updates
-- [ ] It is worse than lossy: unordered writes to a plain `int` are a data race, undefined behaviour
-- [ ] A `std::mutex` lets one thread at a time past `lock()`, so those three steps cannot interleave
-- [ ] A named `std::lock_guard` on one shared mutex around the `++` makes the total always 4 000
-- [ ] For one counter, `std::atomic<int>` makes `++` one indivisible step, with no lock to wait on
+- [ ] Unordered writes to a plain `int` are a data race: undefined behaviour, not only a wrong count
+- [ ] A named `std::lock_guard` on one shared `std::mutex` around the `++` makes the total always 4 000
+- [ ] `std::atomic<int>` makes `++` one indivisible step, with no lock to wait on
+- [ ] (empty: tick this)

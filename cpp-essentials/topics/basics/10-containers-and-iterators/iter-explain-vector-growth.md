@@ -16,7 +16,7 @@ An interviewer asks how a `std::vector` makes room when you call
 `push_back`. Explain it to them.
 ---
 - [ ] Every element lives side by side in one buffer, so appending needs free room at its end
-- [ ] While size is below capacity, `push_back` writes into the same buffer, as after `reserve(4)`
-- [ ] When size equals capacity, `push_back` allocates a bigger buffer and transfers every element into it
-- [ ] That one `push_back` takes time proportional to the size
-- [ ] The reallocation leaves every iterator, pointer and reference into the old buffer dangling
+- [ ] While size is below capacity, `push_back` writes the new element into the same buffer
+- [ ] When size equals capacity, `push_back` allocates a bigger buffer, transfers every element into it and frees the old one
+- [ ] (empty: tick this)
+- [ ] (empty: tick this)

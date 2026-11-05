@@ -23,6 +23,6 @@ actually go away? Answer them.
 
 - [ ] Nothing collects unused objects; how an object was created fixes when it ends
 - [ ] A local dies at the closing brace of its block, on every path out, running its destructor
-- [ ] So an object declared in a loop body is built and destroyed again on every iteration
 - [ ] An object from `new` lives on until a matching `delete`, which the code must remember to run
 - [ ] An unnamed temporary dies at the end of its full-expression, the `;`, not at the brace
+- [ ] (empty: tick this)

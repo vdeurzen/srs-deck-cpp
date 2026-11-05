@@ -5,9 +5,7 @@ version: 2
 level: 3
 tags: [exceptions, exception-safety]
 requires:
-  - exceptions-unwinding-destroys-locals
   - exceptions-which-guarantee
-  - exceptions-commit-by-swap
   - exceptions-strong-vs-basic
 refs:
   - https://en.cppreference.com/w/cpp/language/exceptions#Exception_safety
@@ -20,8 +18,8 @@ to be exception-safe. Answer them.
 
 ---
 
-- [ ] At least the basic guarantee: after a throw, invariants still hold and nothing has leaked
-- [ ] Unwinding runs each fully built local's destructor, so owning objects free their resources and nothing leaks
-- [ ] The strong guarantee adds that the state is exactly as before the call: commit or roll back
-- [ ] Strong is usually got by doing the work on a copy, then committing with a swap
-- [ ] That commit must never throw, which is why a container's `swap` is `noexcept`
+- [ ] The basic guarantee is the minimum: after a throw, invariants still hold and nothing has leaked
+- [ ] A single `push_back` on a `std::vector<int>` is strong: if growing the buffer throws, the vector is unchanged
+- [ ] The strong guarantee is that a throw leaves the state exactly as before the call: commit or roll back
+- [ ] `push_back` in a loop is only basic: elements appended before a throw stay
+- [ ] (empty: tick this)

@@ -17,6 +17,6 @@ Walk through how you decide.
 ---
 - [ ] Start from the operations and guarantees the code needs: scan, index, append, stable references, key order
 - [ ] Default to `std::vector`: contiguous storage makes scans and indexing the cheapest
-- [ ] Its growth reallocates and invalidates every reference, pointer and iterator into it
-- [ ] So pointers kept into the sequence while appending rule out `vector`; pick `std::deque`
+- [ ] Pick `std::deque` when references into the sequence must survive appends, since `vector` growth invalidates them
 - [ ] For keys, `std::map` gives ordered keys and range queries, else `std::unordered_map` for exact-key lookup
+- [ ] (empty: tick this)

@@ -9,7 +9,6 @@ requires:
   - atomics-synchronizes-with
   - atomics-trace-message-passing
   - atomics-default-order
-  - atomics-handoff-relaxed-store
 refs:
   - https://eel.is/c++draft/intro.races
   - https://en.cppreference.com/w/cpp/atomic/memory_order
@@ -20,8 +19,8 @@ release)`; a reader spins (loops re-reading `ready`) on
 `ready.load(acquire)`, then reads `payload`. Explain to an interviewer
 why the reader is guaranteed to get the writer's value.
 ---
-- [ ] Two threads touch plain `payload`, one writing; without ordering that would be a data race
+- [ ] Without ordering, a write and a read of plain `payload` in two threads would be a data race
 - [ ] The acquire load that reads the release store's value synchronizes with that store
 - [ ] A load that still reads the old `false` pairs with nothing, which is why the reader spins until `true`
-- [ ] So everything before the store happens before everything after the load: the reader sees 42
-- [ ] With `relaxed` on either side nothing synchronizes, so reading `payload` is a data race
+- [ ] Synchronizes-with makes everything before the store happen before everything after the load, so the reader sees 42
+- [ ] (empty: tick this)

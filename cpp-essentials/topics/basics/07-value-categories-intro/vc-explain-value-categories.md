@@ -5,13 +5,13 @@ version: 1
 level: 3
 tags: [value-categories, references, temporaries]
 requires:
+  - vc-rvalue-ref-binds-temporaries
+  - vc-plain-ref-rejects-temporary
   - vc-classify-cloze
-  - vc-const-ref-param-code
-  - vc-param-binding-no-extension
 refs:
   - https://en.cppreference.com/w/cpp/language/value_category
   - https://en.cppreference.com/w/cpp/language/reference_initialization
-elaborate: Say which of your own functions take a `T&` that a caller might want to pass a temporary to, and what you would change.
+elaborate: Recall a compiler error that mentioned an lvalue or rvalue; which expression had the wrong category, and how did you change it?
 ---
 
 An interviewer asks what "lvalue" and "rvalue" mean in C++ and why a
@@ -19,8 +19,8 @@ working programmer should care. Answer them.
 
 ---
 
-- [ ] An expression is an lvalue when it names an object whose address `&` can take
-- [ ] An rvalue is a temporary value, such as `n++`, which yields a copy of the old value, not `n`
-- [ ] The category decides what a reference may bind: a lasting object or a temporary about to die
-- [ ] A plain `T&` parameter rejects temporaries, so read-only parameters take `const T&`
-- [ ] A temporary bound to a parameter dies at the call's `;`, so returning that reference dangles
+- [ ] An lvalue is an expression naming an object with identity, so `&` can take its address
+- [ ] An rvalue only yields a value, such as `n + 1` or `n++`, with no lasting object to point at
+- [ ] The category explains compile errors: `&(n + 1)` is rejected because `n + 1` is not an lvalue
+- [ ] The category warns about lifetime: a temporary dies at its statement's end, so a pointer kept past it dangles
+- [ ] The category shows what may be moved: a temporary won't be used again, so its contents can be taken

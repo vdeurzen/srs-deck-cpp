@@ -15,8 +15,8 @@ refs:
 ---
 An interviewer asks why `std::unique` must be followed by `erase` to shrink a `std::vector`. Explain.
 ---
-- [ ] An algorithm sees only two iterators, never the container, so it cannot change the vector's size
-- [ ] `unique` moves each kept value forward over the adjacent duplicates and returns the new logical end
-- [ ] The elements from that end to `v.end()` are still there, holding unspecified values
-- [ ] `erase(new_end, v.end())` removes that tail, so the size drops to the number of kept values
-- [ ] The `erase` needs both iterators: `erase(new_end)` alone removes one element and leaves the rest of the tail
+- [ ] An algorithm sees only two iterators, never the container, so `unique` cannot change the vector's size
+- [ ] `unique` moves each kept value forward over adjacent duplicates and returns the new logical end
+- [ ] Elements after the position `unique` returns are still in the vector, holding unspecified values
+- [ ] `v.erase(returned, v.end())` drops the size to the number of kept values
+- [ ] (empty: tick this)

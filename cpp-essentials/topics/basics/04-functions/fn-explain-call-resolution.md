@@ -5,8 +5,8 @@ version: 2
 level: 4
 tags: [functions, overloading, interview]
 requires:
-  - fn-overload-ranking
   - fn-overload-add-changes-call
+  - fn-overload-ranking
   - fn-overload-integer-belief
 refs:
   - https://en.cppreference.com/w/cpp/language/overload_resolution
@@ -21,7 +21,7 @@ which one a call runs. Explain it to them.
 ---
 
 - [ ] The compiler picks one `print` for each call, at compile time, from the argument types
-- [ ] It ranks each argument's conversion to each candidate: exact match, then promotion, then conversion
+- [ ] The compiler ranks each argument's conversion to each candidate: exact match, then promotion, then conversion
 - [ ] A `char` argument picks `print(int)` over `print(double)`, since promotion beats conversion
 - [ ] Two candidates tied at the best rank make the call ambiguous: a compile error
-- [ ] Adding an overload can silently change which function an existing call picks
+- [ ] (empty: tick this)

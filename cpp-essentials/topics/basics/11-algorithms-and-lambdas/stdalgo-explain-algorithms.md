@@ -21,8 +21,8 @@ Explain it to them.
 
 ---
 
-- [ ] An algorithm takes positions, not the container: a half-open iterator range `[first, last)`, `last` excluded
-- [ ] Seeing only positions, it never changes the container's size; `remove_if` leaves a tail to erase
-- [ ] `find_if` returns `last` when nothing matches, so compare the result with `end()` before using it
-- [ ] The test or ordering is passed as a callable, usually a lambda, that the algorithm calls on elements
-- [ ] The comparator must be strict: a `<=` comparator makes `std::sort` undefined behaviour
+- [ ] Pass a half-open iterator range `[first, last)`: `last` itself is excluded
+- [ ] Erase what `remove_if` leaves: an algorithm sees only positions, so it never changes the container's size
+- [ ] Compare `find_if`'s result with `end()` before using it, since it returns `last` when nothing matches
+- [ ] Give `std::sort` a strict comparator: a `<=` comparator is undefined behaviour
+- [ ] (empty: tick this)

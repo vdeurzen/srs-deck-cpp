@@ -15,8 +15,8 @@ elaborate: Say which of the two link errors, `undefined reference` or `multiple 
 A teammate's program is `main.cpp` plus `util.cpp`, sharing `util.h`.
 Walk them through what may go in `util.h` without breaking the link.
 ---
-- [ ] `util.h` is pasted into each `.cpp`, and each `.cpp` then compiles alone into an object file
-- [ ] The linker joins the object files and must find exactly one body for each non-`inline` function used
-- [ ] So `util.h` holds declarations; a function it declares but no file defines fails with `undefined reference`
-- [ ] A non-`inline` function defined in `util.h` is defined in both files, so linking fails with `multiple definition`
-- [ ] `inline` lets the header carry a function's definition, provided every copy is identical
+- [ ] `util.h` is pasted into both `.cpp` files, so whatever it holds ends up in both object files
+- [ ] Function declarations are safe: the linker needs only one body for each, here in `util.cpp`
+- [ ] A non-`inline` function defined in `util.h` is defined twice, so linking fails with `multiple definition`
+- [ ] An `inline` function may be defined in `util.h`, provided every copy is identical
+- [ ] A global variable goes in as `extern int x;`, with its one definition in a `.cpp` file

@@ -22,8 +22,8 @@ when arithmetic types mix.
 
 ---
 
-- [ ] It compiles silently; at most GCC's `-Wall` sign-compare warning hints at the wrong run-time result
+- [ ] Mixing arithmetic types is legal: C++ converts them implicitly, at most with a `-Wall` sign-compare warning
 - [ ] Operands narrower than `int` are first promoted to `int`
-- [ ] Then both operands convert to one common type; a signed and an unsigned of equal width become unsigned
-- [ ] So a negative `balance` becomes a huge unsigned value: `-5 < 10u` is false
-- [ ] The fix is giving both operands one signedness yourself, for example a `std::size_t` index
+- [ ] Operands of different types convert to one common type; a signed and an unsigned of equal width become unsigned
+- [ ] A negative `int` converted to `unsigned` becomes a huge value, so `-5 < 10u` is false
+- [ ] (empty: tick this)

@@ -21,5 +21,5 @@ gets its starting value. Explain it to them.
 - [ ] A constructor establishes the class invariant before any other code can use the object
 - [ ] Every member is constructed before the body runs, from its list entry if it has one
 - [ ] A member missing from the list uses its default member initialiser, such as `int retries = 3`
-- [ ] Assigning a member in the body is a second write to an object already built
+- [ ] A class-type member with neither a list entry nor a default is built by its default constructor
 - [ ] An `int` member with neither a list entry nor a default holds an indeterminate value

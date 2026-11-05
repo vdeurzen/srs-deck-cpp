@@ -21,8 +21,8 @@ them through how you decide how the function should take it.
 
 ---
 
-- [ ] Take a small, cheap type like `int` by value; copying it costs nothing
-- [ ] A reference parameter is another name for the caller's object, not a copy
-- [ ] So `T&` is for changing it: a `bump(int&)` raises the caller's counter, called plainly as `bump(x)`
-- [ ] `const T&` reads a big object without the copy that taking `T` would make
-- [ ] `T*` admits `nullptr`, so the function must test for null before using it
+- [ ] Take a small, cheap type like `int` by value when only reading it; the copy costs nothing
+- [ ] Take `T&` to change the caller's object: the parameter is another name for it, not a copy
+- [ ] Take `const T&` to read a big object without the copy that taking `T` would make
+- [ ] Take `T*` when "no object" is allowed: it admits `nullptr`, which the function must test first
+- [ ] (empty: tick this)

@@ -5,7 +5,6 @@ version: 2
 level: 3
 tags: [move-semantics]
 requires:
-  - value-categories-std-move-cloze
   - raii-move-steals-handle
   - move-semantics-moved-from-state
   - move-vs-copy-intro
@@ -17,8 +16,8 @@ refs:
 ---
 Explain to a colleague, in about a minute, what a move is in C++.
 ---
-- [ ] Copying a resource-owning object duplicates its resource, although the source is about to be discarded
-- [ ] A move transfers it instead: the move constructor takes the handle and sets the source's to "owns nothing"
-- [ ] No element is copied, only the handle changes hands, so a move costs the same whatever the size
-- [ ] `std::move` only casts to an rvalue, so overload resolution picks the move constructor
-- [ ] The source is left valid but unspecified, so only assign to it or destroy it
+- [ ] A move avoids duplicating the resource of an object that is about to be discarded
+- [ ] The move constructor takes the source's handle and sets the source's to "owns nothing"
+- [ ] Moving a `vector` copies no elements: only the pointer changes hands, in constant time
+- [ ] A moved-from source stays a valid object, but its value is unspecified
+- [ ] (empty: tick this)

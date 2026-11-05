@@ -18,8 +18,8 @@ of a class you wrote. Explain it to them.
 
 ---
 
-- [ ] A copy either builds a new object or overwrites an existing one, and each runs its own function
 - [ ] Initialising a new object from another runs the copy constructor, never copy assignment
-- [ ] Passing an object by value runs the copy constructor too, though no `=` appears
-- [ ] Unless you write one, the copy the compiler writes copies every member in turn
-- [ ] So a raw owning pointer is copied shallowly, and both destructors `delete[]` the same array
+- [ ] Passing an object by value runs the copy constructor, though no `=` appears
+- [ ] `=` on an object that already exists runs copy assignment
+- [ ] Unless you write one, the compiler-written copy copies every member in turn
+- [ ] A compiler-written copy of a raw pointer member copies the address, so both objects point at the same data

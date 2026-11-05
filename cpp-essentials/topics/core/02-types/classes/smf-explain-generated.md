@@ -25,5 +25,5 @@ functions for you, and when doesn't it? Answer them.
 - [ ] The default constructor is written only if the class declares no constructor at all, a copy constructor included
 - [ ] Copy constructor and copy assignment are written unless a move operation is declared; then they are deleted
 - [ ] Move operations are written only if no copy operation, destructor or other move is declared; otherwise moves silently copy
-- [ ] Writing `= default` still counts as declaring it, so a defaulted destructor also suppresses the moves
-- [ ] A written operation is deleted when a member cannot do it: a `unique_ptr` cannot copy, a `const` member cannot be assigned
+- [ ] Writing `= default` counts as declaring the member, so a defaulted destructor suppresses the moves
+- [ ] A written operation is deleted when a member cannot do it: `unique_ptr` cannot copy, a `const` member cannot be assigned

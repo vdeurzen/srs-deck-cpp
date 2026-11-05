@@ -16,8 +16,8 @@ elaborate: Which callback in your current code runs after the function that crea
 A lambda expression inside a function yields a closure object that is
 called after that function returns. Explain to a code reviewer when its captures are safe.
 ---
-- [ ] The closure object stores each capture as a member: `[&x]` a reference, `[x]` a copy
-- [ ] A copy capture is safe after the function returns: a snapshot that costs a copy
-- [ ] A by-reference capture dangles once the captured variable's scope ends
-- [ ] So a closure kept in a `std::function`, holding a `&` capture of a local, later reads a dead local
+- [ ] A copy capture `[x]` is safe after the function returns: a snapshot that costs a copy
+- [ ] A by-reference capture `[&x]` dangles once `x`'s scope ends
+- [ ] A `std::function` holding the closure keeps only the closure, not the locals its references name
 - [ ] Inside a member function `[=]` copies `this`, not the members, so member reads can dangle
+- [ ] (empty: tick this)
