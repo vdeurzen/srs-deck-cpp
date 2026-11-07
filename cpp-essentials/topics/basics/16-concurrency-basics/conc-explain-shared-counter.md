@@ -24,4 +24,3 @@ wrote it, aloud, why that happens and how to fix it.
 - [ ] Unordered writes to a plain `int` are a data race: undefined behaviour, not only a wrong count
 - [ ] A named `std::lock_guard` on one shared `std::mutex` around the `++` makes the total always 4 000
 - [ ] `std::atomic<int>` makes `++` one indivisible step, with no lock to wait on
-- [ ] (empty: tick this)

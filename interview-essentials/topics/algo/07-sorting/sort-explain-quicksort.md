@@ -22,4 +22,3 @@ when you would not. Answer aloud.
 - [ ] Pick quicksort for speed: with a random pivot its expected time is Θ(n log n)
 - [ ] Avoid quicksort when the worst case matters: every pivot being an extreme gives Θ(n²)
 - [ ] Avoid quicksort when equal keys must keep their input order: merge sort does, at the cost of a Θ(n) buffer
-- [ ] (empty: tick this)

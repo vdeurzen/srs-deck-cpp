@@ -20,4 +20,3 @@ Explain to a colleague, in about a minute, what a move is in C++.
 - [ ] The move constructor takes the source's handle and sets the source's to "owns nothing"
 - [ ] Moving a `vector` copies no elements: only the pointer changes hands, in constant time
 - [ ] A moved-from source stays a valid object, but its value is unspecified
-- [ ] (empty: tick this)

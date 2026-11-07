@@ -19,5 +19,3 @@ container for a sequence. Answer aloud in about a minute.
 - [ ] Any element is reached by its position in one step, without walking from the start
 - [ ] Elements sit side by side, so element i starts at the base address + i × element size
 - [ ] A linked list needs i hops to reach index i, so its O(1) insert first pays that walk
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

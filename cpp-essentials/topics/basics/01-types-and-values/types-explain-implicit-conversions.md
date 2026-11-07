@@ -26,4 +26,3 @@ when arithmetic types mix.
 - [ ] Operands narrower than `int` are first promoted to `int`
 - [ ] Operands of different types convert to one common type; a signed and an unsigned of equal width become unsigned
 - [ ] A negative `int` converted to `unsigned` becomes a huge value, so `-5 < 10u` is false
-- [ ] (empty: tick this)

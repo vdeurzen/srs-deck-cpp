@@ -1,6 +1,6 @@
 # Deck format
 
-Exported from the srs app at 6e2c0da+uncommitted by `tools/export_deck_kit.sh`. Do not
+Exported from the srs app at b7c1016+uncommitted by `tools/export_deck_kit.sh`. Do not
 edit: rerun the export instead. Section numbers (§) refer to the app's SPEC,
 of which only the parts an author needs are reproduced here.
 
@@ -51,7 +51,7 @@ defaults: # optional, merged into every card's front matter
 ```yaml
 ---
 id: value-categories-prvalue # required, stable within the deck, [a-z0-9-]+
-kind: basic | cloze | code | explain | chunk | parsons | trace # required
+kind: basic | cloze | code | explain | chunk | parsons | trace | tree # required
 version: 1 # required, bump to reset scheduling
 tags: [c++17, value-categories] # optional
 level: 1 # optional, 1 = basics ... 5 = interview depth
@@ -150,7 +150,7 @@ Rules:
 
 ### 4.6 `explain` (free recall against a rubric)
 
-Front: a question to answer aloud. Back: a Markdown checklist rubric. The app shows the question and a timer, then the rubric with checkboxes. Suggested rating from the fraction ticked: ≥90 % Easy, ≥70 % Good, ≥40 % Hard, else Again. Overridable.
+Front: a question to answer aloud. Back: a Markdown checklist rubric. The app shows the question and a timer, then the rubric with checkboxes. A rubric has as many points as the answer has, one at the least. Suggested rating from the fraction ticked: ≥90 % Easy, ≥70 % Good, ≥40 % Hard, else Again; on a total of three, whose steps would otherwise skip Good, 2 of 3 is Good and 1 of 3 Hard. Overridable.
 
 ```markdown
 ---
@@ -167,8 +167,16 @@ Explain move semantics to a senior interviewer. Cover motivation, mechanism, and
 - [ ] Implicit move on return; `return std::move(x)` pessimises
 - [ ] Rule of five / zero
 - [ ] Pitfall: `const` members block moves
-- [ ] Pitfall: forwarding reference vs rvalue reference in templates
+- [ ] Pitfall: forwarding reference vs rvalue reference in templates <!-- hint: templates -->
 ````
+
+Each rubric line is a **Rubric Point** (ADR-0010), identified by a **key**: the first 12 hex characters of the SHA-256 of its text, trimmed, with every run of whitespace collapsed to one space and any trailing hint comment removed. Case and Markdown are kept. Its Item Id is `<deck-id>/<card-id>#p<key>`.
+
+- Reordering the rubric keeps every point's key and so its history. Rewording a point gives it a new key; the old one is Orphaned with its history kept, and comes back if the wording is reverted.
+- Two lines with the same key in one rubric are a parse error for the Card, like a duplicate id.
+- A **hint** is a trailing `<!-- hint: ... -->` on a rubric line. It is not part of the text or the key, is never rendered as part of the point, and must not refer to the point's order or position. An empty hint, or a line that is only a hint, is a parse error. A hint is shown only for a point being drilled (§10.2).
+
+When an `explain` answer is rated, the app records which points were ticked (§6 `rubric_marks`). A point missed in at least 2 of the last 3 reviews that ticked at least half the rubric is a **Weak Point**; Browse and Stats show them (§10.4, §10.5). The point of a one-point rubric never is one: missing it ticks none of the rubric, and the card is already the drill. A Weak Point is reviewed on its own as a **Drill** (§7, §10.2): ordinary review events on the point's item id, which give it its own FSRS state. For evidence a drill rated Again is a miss and any other rating a hit. A point is retired after a run of hits weighing 3 with at least one a parent tick; a parent tick after its hint was revealed weighs 0.5, a drill hit always 1, since a drill's event records no hint (ADR-0010).
 
 ### 4.7 `chunk` (recall a snippet after brief exposure)
 
@@ -260,6 +268,33 @@ If a card has `elaborate`, it is shown after the answer and the rubric, as a dis
 
 - **The loader**, per card, rejecting the card as it rejects a bad `kind`: a malformed entry, a self-reference, a bare id that names no card in this deck, a qualified id whose deck is not in `relations`, and any cycle wholly inside this deck.
 - **The catalogue**, once every deck is loaded, resolving qualified ids against the cards actually installed. It cannot reject anything — the referenced deck may legitimately be absent — so it classifies instead. A prerequisite whose deck is not installed, is removed, is paused, or whose card is missing or orphaned is **dangling** and is ignored. A cycle that only exists across decks has every edge in it dropped. Both are listed in Diagnostics (§10.8); neither is ever allowed to lock a card permanently. See ADR-0007.
+
+### 4.12 `tree` (insert into a balanced tree)
+
+Insertion into a search tree is an algorithm, and the way to learn an algorithm is to run it by hand. A `tree` card draws a tree, names a key, and the user performs the insert step by step. See ADR-0011. Front matter:
+
+```yaml
+kind: tree
+structure: red-black       # bst | avl | red-black
+start: "20b(10r,30r)"      # the tree before the insert, in tree notation
+insert: 5                  # the key to insert; an integer not already in start
+```
+
+**Tree notation**: `key`, then — red-black only, and there required — a colour letter `r` or `b`, then optionally `(left,right)`; `_` is an empty subtree, and a bare `key` is a leaf. `20b(10r,_)` is a black 20 with a red left child 10. Keys are integers and unique. Whitespace is ignored.
+
+Body: optional Prose shown above the tree; then, after a `---` line, an optional explanation revealed with the answer. A body without `---` is all prompt.
+
+Nothing about the answer is authored. The app computes the reference by running the structure's own algorithm on `start`: for `bst` the placement alone; for `avl`, the single or double rotation at the lowest unbalanced ancestor; for `red-black`, CLRS's RB-INSERT-FIXUP, recolour by recolour. The loader therefore rejects a `start` that already breaks one of the structure's invariants — the algorithm's output on an invalid tree answers nothing — as well as an unknown `structure`, malformed notation, an empty `start`, colours on a structure that has none or missing on red-black, duplicate keys, and an `insert` that is not an integer or is already present.
+
+Flow:
+
+1. **Place.** Every empty child slot is drawn as a target; the user taps the one the new key belongs in. A red-black node is placed red.
+2. **Rebalance.** The user taps a node to select it and applies *Rotate left*, *Rotate right* or — red-black only — *Recolour* (a colour flip). *Undo* steps back through every move, past the placement too. A move count is shown. `bst` has no rebalance controls.
+3. **Check.** Grading verifies the submitted tree's invariants, each listed with the nodes that break it, which are also ringed on the tree: search order for every structure (rotations preserve in-order, so a wrong placement always shows here); every node's subtree heights within 1 for `avl`; a black root, no red node with a red child, and equal black height on every path for `red-black`. The tree the algorithm builds is drawn beside the attempt with its steps.
+
+A tree too wide for the screen at its smallest hittable size scrolls sideways, keeping one node or slot in view: before the placement the root, or after undoing the placement the slot undone — the user's own choice, never one made by knowing where the key belongs; after the placement the selected node, else the new key; with the answer the new key if it is ringed, else the ringed node nearest it in the drawing, else the new key. The algorithm's tree keeps the new key in view. A tree starts centred on that node or slot, already in its first frame; after that it scrolls only when the node or slot would be out of sight — judged where a scroll under way will end — so the user's own scrolling otherwise stands, a narrower screen included. A button laid over the tree's top-right corner, so the tree does not move as it comes and goes, toggles a whole-tree overview scaled to fit, and is announced as on or off and by which tree it belongs to; there a pointer tap zooms back in centred where it landed rather than placing or selecting, and the button zooms back in centred afresh. Screen-reader actions work in both views.
+
+Suggested rating: any invariant broken, Again; every invariant held but not the algorithm's tree (same shape, keys and colours), Hard; the algorithm's tree, by rotations and recolours beyond the algorithm's — undone ones count — with `parsons`'s thresholds but never below Hard, since a valid tree is never Again: 0 extra Easy, up to 2 Good, more Hard. "I don't know" reveals the reference with Again suggested. Nothing is compiled; grading is synchronous, like `trace`.
 
 
 ### 7.1 Prerequisites and the learning curve
@@ -388,9 +423,11 @@ gotten wrong by an author.
 ### `explain`
 
 A question, then `---`, then a Markdown checklist rubric (`- [ ] ...`
-items). This Deck's convention is **at least five rubric items** per
-`explain` Card — enough that the suggested-Rating thresholds (§4.6) mean
-something.
+items). Give a rubric as many items as the answer has distinct points, and
+never pad one to reach a count: a short answer gets a short rubric, and the
+suggested Rating (§4.6) is graded for its size. A single item leaves only
+Easy or Again and can never become a Drill, so a one-item rubric is usually
+better written as a `basic` Card.
 
 ### `chunk`
 

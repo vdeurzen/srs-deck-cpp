@@ -22,4 +22,3 @@ through. Answer aloud.
 - [ ] With no loop, the fast pointer reaches null, so the answer is no
 - [ ] Once both pointers are inside a loop, fast gains one node per step, so the gap closes and they meet
 - [ ] Two pointers take O(n) time and O(1) space, where a set of visited nodes costs O(n) memory
-- [ ] (empty: tick this)

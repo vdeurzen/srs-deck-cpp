@@ -23,4 +23,3 @@ never used it. Answer aloud in about a minute.
 - [ ] Each set is a tree in `parent[]`: find walks up to the root; union joins one root under the other
 - [ ] Hanging the shorter tree under the taller root keeps every tree at most log₂ n tall
 - [ ] Pointing walked nodes straight at the root (path compression) makes later finds nearly one step
-- [ ] (empty: tick this)

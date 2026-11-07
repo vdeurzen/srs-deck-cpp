@@ -23,5 +23,3 @@ you defined, and how you would write that `+`. Explain it to them.
 - [ ] `a + b` on class types calls a function named `operator+`
 - [ ] `operator+` is either the member `a.operator+(b)` or a free function taking both operands
 - [ ] Write `+` by copying the left operand and applying the member `+=` to that copy
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

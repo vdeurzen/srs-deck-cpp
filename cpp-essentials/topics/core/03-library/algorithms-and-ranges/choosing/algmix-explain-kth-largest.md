@@ -20,4 +20,3 @@ An interviewer asks how you would find the k-th largest of n numbers with the st
 - [ ] `nth_element` at position n − k puts the k-th largest there, ready to read
 - [ ] `nth_element` rearranges the numbers, so copy them first if the original order matters
 - [ ] `nth_element` works only on the side holding that position: linear on average, against n·log n for sort
-- [ ] (empty: tick this)

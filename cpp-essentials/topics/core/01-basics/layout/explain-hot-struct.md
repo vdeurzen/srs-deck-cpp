@@ -25,4 +25,3 @@ keep it from regressing.
 - [ ] Declaring members in decreasing alignment removes interior padding: `double, char, char` takes 16 bytes, `char, double, char` 24
 - [ ] `alignas(64)` puts each element on its own boundary, rounding `sizeof` up to 64
 - [ ] A `static_assert` on `sizeof` turns a later edit that adds padding into a compile error
-- [ ] (empty: tick this)

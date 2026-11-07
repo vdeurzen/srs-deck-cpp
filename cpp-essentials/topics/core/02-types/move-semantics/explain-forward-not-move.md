@@ -20,5 +20,3 @@ goes wrong and what to write instead.
 - [ ] With `T` deduced, `T&&` is a forwarding reference, so `x` can name a caller's lvalue
 - [ ] `std::move(x)` lets `inner` move a caller's lvalue out from under it, leaving it valid but unspecified
 - [ ] Write `std::forward<T>(x)`: it passes `x` on with the caller's value category
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

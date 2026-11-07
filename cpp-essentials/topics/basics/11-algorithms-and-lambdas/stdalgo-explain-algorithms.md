@@ -25,4 +25,3 @@ Explain it to them.
 - [ ] Erase what `remove_if` leaves: an algorithm sees only positions, so it never changes the container's size
 - [ ] Compare `find_if`'s result with `end()` before using it, since it returns `last` when nothing matches
 - [ ] Give `std::sort` a strict comparator: a `<=` comparator is undefined behaviour
-- [ ] (empty: tick this)

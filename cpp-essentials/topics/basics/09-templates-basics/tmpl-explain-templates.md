@@ -19,4 +19,3 @@ A newcomer asks why `template <typename T> T larger(T a, T b)` exists and what t
 - [ ] The compiler generates a separate function for each distinct `T` the calls deduce
 - [ ] Deduction must agree: `larger(1, 2.5)` fails to compile, because `T` would be both `int` and `double`
 - [ ] Each generated function is checked for its `T`: calling `larger` on a type without `<` fails to compile
-- [ ] (empty: tick this)

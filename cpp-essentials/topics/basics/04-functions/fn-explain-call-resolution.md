@@ -24,4 +24,3 @@ which one a call runs. Explain it to them.
 - [ ] The compiler ranks each argument's conversion to each candidate: exact match, then promotion, then conversion
 - [ ] A `char` argument picks `print(int)` over `print(double)`, since promotion beats conversion
 - [ ] Two candidates tied at the best rank make the call ambiguous: a compile error
-- [ ] (empty: tick this)

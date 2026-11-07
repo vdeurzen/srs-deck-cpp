@@ -21,4 +21,3 @@ in about a minute.
 - [ ] Dijkstra repeatedly pops the unpopped vertex with the smallest `dist`, then relaxes that vertex's out-edges
 - [ ] A min-heap that skips stale entries gives O(E log E), which is about O(E log V)
 - [ ] A negative edge breaks "popped means final", because a later path can still lower a popped vertex's `dist`
-- [ ] (empty: tick this)

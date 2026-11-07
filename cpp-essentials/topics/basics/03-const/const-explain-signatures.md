@@ -21,4 +21,3 @@ them what `const` buys you.
 - [ ] A `const` object keeps the value it was declared with, so readers need not hunt for later writes
 - [ ] A `const&` parameter lets the callee read the caller's object without copying it or changing it
 - [ ] A trailing `const` marks a member function read-only, so it can be called on `const` objects
-- [ ] (empty: tick this)

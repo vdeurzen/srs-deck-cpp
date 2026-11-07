@@ -22,4 +22,3 @@ Talk it through as you would in the interview. Answer aloud.
 - [ ] After each recursive call returns, undo the choice: unmark the item and drop it from the partial ordering
 - [ ] Once all n items are placed, copy the ordering into the results and return
 - [ ] There are n! orderings, each copied in O(n): O(n · n!), so only small n is viable
-- [ ] (empty: tick this)

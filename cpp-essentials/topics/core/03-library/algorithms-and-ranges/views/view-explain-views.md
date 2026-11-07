@@ -21,4 +21,3 @@ matches into a new vector does not. Explain.
 - [ ] Chained filter and transform steps build no intermediate vector for each step
 - [ ] Building the pipeline does no work and allocates nothing; work is paid per element while iterating
 - [ ] `iota(1) | filter(even) | take(3)` finishes, because `take` stops the pull from an endless source
-- [ ] (empty: tick this)

@@ -18,5 +18,3 @@ An interviewer asks how a `std::vector` makes room when you call
 - [ ] Every element lives side by side in one buffer, so appending needs free room at its end
 - [ ] While size is below capacity, `push_back` writes the new element into the same buffer
 - [ ] When size equals capacity, `push_back` allocates a bigger buffer, transfers every element into it and frees the old one
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

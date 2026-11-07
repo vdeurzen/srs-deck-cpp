@@ -22,4 +22,3 @@ incoming limit order. Answer aloud.
 - [ ] An incoming order trades level by level from the best price while lots remain and its limit allows
 - [ ] Each fill is at the resting order's price, not at the incoming order's limit
 - [ ] Best price fills first, and at one price the oldest resting order fills first
-- [ ] (empty: tick this)

@@ -24,4 +24,3 @@ statement. Answer aloud.
 - [ ] If every move costs 1, BFS; if moves cost different non-negative amounts, Dijkstra with a heap
 - [ ] For the distance to the nearest of many sources, seed one BFS queue with all of them at 0
 - [ ] A statement asking only "are these connected?" needs no distances: DFS, or union-find as edges arrive
-- [ ] (empty: tick this)

@@ -21,5 +21,3 @@ it calls for enumerating subsets as bitmasks. Answer aloud.
 - [ ] Every subset of the items must be tried, for example to total or test something over each one
 - [ ] n is small, at most about 20: 2²⁰ is about a million subsets, which fits the time budget
 - [ ] A subset fits in one integer, with bit i set meaning item i is in it
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

@@ -19,5 +19,3 @@ a problem, rather than something slower. Answer aloud.
 - [ ] Greedy is safe only when the choice can be argued never to hurt, whatever is chosen after it
 - [ ] Earliest end is safe for the most non-overlapping talks in one room: it leaves the most time for the rest
 - [ ] Try small counterexamples before trusting a rule: earliest start, on 0–10, 1–2, 3–4, loses both short talks
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

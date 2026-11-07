@@ -24,4 +24,3 @@ all. Answer them.
 - [ ] C++ needs xvalues so overloads can tell an object still in use from one whose contents may be taken
 - [ ] `std::move(x)` moves nothing: it is a cast to `T&&` whose result is an xvalue naming `x`
 - [ ] Overload resolution binds an xvalue to `T&&` before `const T&`, so the move constructor is chosen
-- [ ] (empty: tick this)

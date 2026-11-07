@@ -21,4 +21,3 @@ Answer them, aloud, as you would in a code review.
 - [ ] The optimiser assumes it never happens, so a signed-overflow check written after the addition can be deleted
 - [ ] Reading through a pointer after `delete` is undefined, even when it still yields the old value
 - [ ] Sanitizers catch it only on paths a test actually runs, so an untested path hides it
-- [ ] (empty: tick this)

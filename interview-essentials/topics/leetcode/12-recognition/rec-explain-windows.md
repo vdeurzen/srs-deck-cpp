@@ -22,5 +22,3 @@ a sliding window will solve it. Answer aloud.
 - [ ] The statement asks for a contiguous run, and any window containing a rule-breaking window breaks the rule
 - [ ] Longest substring with no repeated character fits: a window holding a repeat keeps it however far it grows
 - [ ] Subarray sum equals `k` with negatives does not fit: a sum can recover, so use prefix sums
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

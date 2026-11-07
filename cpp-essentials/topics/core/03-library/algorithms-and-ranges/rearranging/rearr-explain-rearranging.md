@@ -19,4 +19,3 @@ An interviewer asks why `std::unique` must be followed by `erase` to shrink a `s
 - [ ] `unique` moves each kept value forward over adjacent duplicates and returns the new logical end
 - [ ] Elements after the position `unique` returns are still in the vector, holding unspecified values
 - [ ] `v.erase(returned, v.end())` drops the size to the number of kept values
-- [ ] (empty: tick this)

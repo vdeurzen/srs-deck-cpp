@@ -22,4 +22,3 @@ sorted and tested for equality. Answer them.
 - [ ] `<=>` returns a value tested against `0`; `<`, `<=`, `>`, `>=` are rewritten through it
 - [ ] A hand-written `<=>` gives no `==`; write `==` separately, as equality is often cheaper
 - [ ] A `==` is all `!=` needs: `!=` is rewritten from `==`, never from `<=>`
-- [ ] (empty: tick this)

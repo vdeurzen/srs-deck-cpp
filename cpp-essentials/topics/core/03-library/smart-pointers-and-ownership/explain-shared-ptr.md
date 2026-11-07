@@ -19,5 +19,3 @@ lifetime of its object. Answer aloud in about a minute.
 - [ ] Every copy shares one heap control block that counts the owners
 - [ ] Copying a `shared_ptr` adds an owner; destroying one or setting it to `nullptr` removes one
 - [ ] The owner that takes the count to zero deletes the object, whoever created it
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

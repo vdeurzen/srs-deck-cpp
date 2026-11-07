@@ -23,4 +23,3 @@ it, and why that order works. Answer aloud.
 - [ ] Filling row by row, the cells above and to the left are final before a cell reads them
 - [ ] Each cell holds its own number plus the smaller of the best sums above it and to its left
 - [ ] First-row and first-column cells have one neighbour to read; the top-left cell is just its own number
-- [ ] (empty: tick this)

@@ -20,4 +20,3 @@ that owns one `std::FILE*`. Talk them through it.
 - [ ] The destructor calls `fclose`: the single release point, run on every path out of scope
 - [ ] Copying is deleted, so the type is move-only and one handle never has two owners
 - [ ] A move must leave the source owning nothing, or both destructors `fclose` the same handle
-- [ ] (empty: tick this)

@@ -22,4 +22,3 @@ heap, and how does the code make sure that happens? Answer them.
 - [ ] Modern code gives the object an owner: a `std::unique_ptr`, whose destructor deletes it on every path out of scope
 - [ ] With `std::shared_ptr`, each copy adds an owner, and the last owner to let go deletes the object
 - [ ] A `unique_ptr` is move-only, so exactly one owner exists at any moment
-- [ ] (empty: tick this)

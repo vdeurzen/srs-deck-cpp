@@ -21,4 +21,3 @@ how you prevent it. Answer them.
 - [ ] Two threads locking the same two mutexes in opposite orders can deadlock, even with `lock_guard`s
 - [ ] `std::scoped_lock` locks both mutexes together, so lock order stops mattering
 - [ ] One fixed lock order for every thread prevents it, even across separate functions
-- [ ] (empty: tick this)

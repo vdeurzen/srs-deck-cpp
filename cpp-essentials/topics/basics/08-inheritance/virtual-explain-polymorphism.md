@@ -18,5 +18,3 @@ of shape's own code. Explain to them how C++ does this.
 - [ ] Declare `area` `virtual` in `Shape` and override it in each derived shape
 - [ ] A function taking `Shape&` accepts any derived shape, and a call runs the object's dynamic type's version
 - [ ] Passing a `Shape` by value slices off the derived part and runs the base version, so take a reference
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

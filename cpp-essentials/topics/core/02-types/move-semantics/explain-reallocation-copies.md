@@ -20,4 +20,3 @@ team, aloud, why it happens and how to fix it.
 - [ ] The vector moves an element only if the move constructor is `noexcept`; otherwise it copies
 - [ ] Copying keeps the strong guarantee: if a copy throws, the old buffer is still intact
 - [ ] The fix is marking `Widget`'s move constructor `noexcept`, which lets the vector move
-- [ ] (empty: tick this)

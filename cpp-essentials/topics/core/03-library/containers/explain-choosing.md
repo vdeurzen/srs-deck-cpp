@@ -19,4 +19,3 @@ Walk through how you decide.
 - [ ] Default to `std::vector`: contiguous storage makes scans and indexing the cheapest
 - [ ] Pick `std::deque` when references into the sequence must survive appends, since `vector` growth invalidates them
 - [ ] For keys, `std::map` gives ordered keys and range queries, else `std::unordered_map` for exact-key lookup
-- [ ] (empty: tick this)

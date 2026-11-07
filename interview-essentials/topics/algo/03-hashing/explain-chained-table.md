@@ -22,4 +22,3 @@ with chaining achieves that.
 - [ ] Ids landing in one bucket share its chain, which a lookup searches for k
 - [ ] A lookup scans one chain of about n / m ids
 - [ ] Growing m with n keeps n / m constant, so a lookup is O(1) on average
-- [ ] (empty: tick this)

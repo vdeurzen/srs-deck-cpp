@@ -19,5 +19,3 @@ to them how one runs. Answer aloud.
 - [ ] A base case answers directly; every other call calls itself on a smaller input, such as a shorter prefix
 - [ ] A caller pauses at its recursive call and resumes only when the smaller call returns its value
 - [ ] Every waiting call keeps its own stack frame, so recursion depth n costs O(n) stack space
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

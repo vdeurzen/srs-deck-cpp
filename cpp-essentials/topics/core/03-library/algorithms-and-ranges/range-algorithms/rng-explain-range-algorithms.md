@@ -21,4 +21,3 @@ An interviewer asks what `std::ranges::sort` gives you over `std::sort`. Explain
 - [ ] `ranges::sort` takes a projection: a function applied to each element before comparing, so the comparator sees only the key
 - [ ] A projection can be a pointer to a member, which sorts by that member with no lambda expression
 - [ ] Sorting a temporary range returns `std::ranges::dangling`, so using that result as an iterator is a compile error
-- [ ] (empty: tick this)

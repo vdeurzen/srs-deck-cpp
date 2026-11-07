@@ -21,5 +21,3 @@ would do instead. Answer aloud.
 - [ ] Many updates each add a value to a whole range, and the array is read only at the end
 - [ ] Add the value at the range's start, subtract it just past its end, then take one running sum
 - [ ] Each range update costs O(1), plus one O(n) pass at the end, not the range's length per update
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

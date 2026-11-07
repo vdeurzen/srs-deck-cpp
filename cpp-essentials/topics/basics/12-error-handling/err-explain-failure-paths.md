@@ -20,4 +20,3 @@ A colleague new to C++ asks what happens between a `throw` and the
 - [ ] Functions in between need no error-handling code of their own
 - [ ] Unwinding runs every fully constructed local's destructor, so a file-closing object still closes its file
 - [ ] An exception escaping a `noexcept` function on the way calls `std::terminate`, whatever the callers catch
-- [ ] (empty: tick this)

@@ -21,4 +21,3 @@ An interviewer asks how you search a sorted `std::vector` with the standard libr
 - [ ] `lower_bound` returns the first element not less than x
 - [ ] `lower_bound` takes about log₂ n comparisons, 20 for a million, against up to n for `find`
 - [ ] `lower_bound` never reports "absent": membership checks the result isn't `end()` and holds x
-- [ ] (empty: tick this)

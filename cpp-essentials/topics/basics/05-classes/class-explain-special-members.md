@@ -21,5 +21,3 @@ An interviewer points at a class whose constructors carry `= default`,
 - [ ] `= default` brings back a compiler-written constructor, such as the no-argument one, still applying default member initialisers
 - [ ] `= delete` makes any use of that function a compile error, so copying a one-of-a-kind ticket fails to build
 - [ ] `explicit` stops a one-argument constructor converting silently, so passing a `double` where a `Celsius` is expected fails to compile
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

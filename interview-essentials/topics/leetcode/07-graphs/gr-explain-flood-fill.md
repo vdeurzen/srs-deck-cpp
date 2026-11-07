@@ -20,4 +20,3 @@ separate islands it has. Talk it through. Answer aloud.
 - [ ] A DFS or BFS from a land cell follows land in four directions, marking cells so each counts once
 - [ ] Mark a cell before walking on from it, or two neighbours keep re-adding each other forever
 - [ ] The count takes O(rows × cols), since each cell is marked once and checked from at most four neighbours
-- [ ] (empty: tick this)

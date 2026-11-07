@@ -19,4 +19,3 @@ not just the ones you tested. Answer aloud.
 - [ ] The claim must hold before the first iteration: for a sum loop, s is 0 when i is 0
 - [ ] Each iteration must keep the claim: adding a[i] and incrementing i keeps s the sum of the first i elements
 - [ ] The claim at loop exit must give the answer: when i reaches n, s is the total
-- [ ] (empty: tick this)

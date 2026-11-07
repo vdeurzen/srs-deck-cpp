@@ -23,4 +23,3 @@ them? Answer aloud in about a minute.
 - [ ] A yes/no test on candidate answers that flips only once lets one probe rule out half of them
 - [ ] Smallest ship capacity within 5 days fits: if a capacity fails, every smaller one fails
 - [ ] A pair with a target sum in sorted data fits: moving either end inward discards one element's pairs
-- [ ] (empty: tick this)

@@ -25,4 +25,3 @@ actually go away? Answer them.
 - [ ] A local dies at the closing brace of its block, on every path out, running its destructor
 - [ ] An object from `new` lives on until a matching `delete`, which the code must remember to run
 - [ ] An unnamed temporary dies at the end of its full-expression, the `;`, not at the brace
-- [ ] (empty: tick this)

@@ -23,4 +23,3 @@ it works. Answer aloud in about a minute.
 - [ ] `std::variant<A, B, C>` stores one alternative in place and remembers which is active
 - [ ] Assigning a string to a `variant<int, std::string>` holding 3 destroys the `int` and stores the string
 - [ ] A fixed list lets the compiler check handlers: a new alternative breaks every `std::visit` lacking one
-- [ ] (empty: tick this)

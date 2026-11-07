@@ -19,4 +19,3 @@ what that machinery means for your code. Answer in about a minute.
 - [ ] A `virtual` call indexes the object's vtable, so a `Dog` through an `Animal&` runs `Dog`'s override
 - [ ] The vptr adds one hidden pointer per object, however many virtual functions, so `sizeof` grows
 - [ ] A `virtual` call is indirect through the vtable, so the compiler usually cannot inline it
-- [ ] (empty: tick this)

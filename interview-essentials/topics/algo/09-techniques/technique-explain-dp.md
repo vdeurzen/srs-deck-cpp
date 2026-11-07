@@ -21,4 +21,3 @@ dynamic programming will solve it. Answer aloud.
 - [ ] The best answer contains best answers to smaller pieces: after the last coin, the rest is paid optimally
 - [ ] Smaller pieces recur: fewest coins for 6 and for 5 both need fewest for 2, given coins 4, 3, 1
 - [ ] A greedy rule losing on small cases is a cue: coins 4, 3, 1 pay 6 as 4+1+1, not 3+3
-- [ ] (empty: tick this)

@@ -56,8 +56,8 @@ talk about them confidently)? You do not edit Cards.
      lines, ≤ 1 `#include`; a `chunk` is a real idiom within the §4 chunk
      limits and `expose_ms`; `code` ≤ 10 lines, distractors are real mistakes
      and all fail; `trace` within the §3.1 budget; an `explain` rubric is
-     5 lines: 3 to 5 distinct checkable claims, the rest exactly
-     `(empty: tick this)`; unlabelled, each standing alone and answering the
+     as many distinct checkable claims as the answer has, at most 5, with no
+     padding (flag a single-item rubric as a likely `basic`); unlabelled, each standing alone and answering the
      question the front asks (§4); flag any item that answers a different one.
    - Misconception Cards: would a competent engineer actually believe the
      front? No strawmen. Self-contained (§2 rule 13)?

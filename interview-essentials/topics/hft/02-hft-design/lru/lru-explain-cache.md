@@ -22,4 +22,3 @@ that every request will go through. Answer aloud.
 - [ ] Keep a list in recency order plus a hash map from each key to its list node
 - [ ] A list plus hash map makes every operation O(1), but `std::list` and `unordered_map` allocate twice per miss
 - [ ] Slot arrays linked by index, with a sentinel slot, reuse the evicted key's slot, so a miss allocates no node
-- [ ] (empty: tick this)

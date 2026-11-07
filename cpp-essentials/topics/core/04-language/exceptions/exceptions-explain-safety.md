@@ -22,4 +22,3 @@ to be exception-safe. Answer them.
 - [ ] A single `push_back` on a `std::vector<int>` is strong: if growing the buffer throws, the vector is unchanged
 - [ ] The strong guarantee is that a throw leaves the state exactly as before the call: commit or roll back
 - [ ] `push_back` in a loop is only basic: elements appended before a throw stay
-- [ ] (empty: tick this)

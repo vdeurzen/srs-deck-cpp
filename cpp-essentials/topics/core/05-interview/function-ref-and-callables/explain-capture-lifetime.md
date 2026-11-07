@@ -20,4 +20,3 @@ called after that function returns. Explain to a code reviewer when its captures
 - [ ] A by-reference capture `[&x]` dangles once `x`'s scope ends
 - [ ] A `std::function` holding the closure keeps only the closure, not the locals its references name
 - [ ] Inside a member function `[=]` copies `this`, not the members, so member reads can dangle
-- [ ] (empty: tick this)

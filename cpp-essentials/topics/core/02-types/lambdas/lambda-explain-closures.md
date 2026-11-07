@@ -23,4 +23,3 @@ An interviewer asks what a C++ lambda expression really creates. Explain it to t
 - [ ] Each capture becomes a data member of the closure's class, and the body becomes its `operator()`
 - [ ] A by-value capture `[n]` stores a copy of `n` as a member, made when the lambda expression runs
 - [ ] A reference capture `[&n]` stores a reference to the original `n`, not a copy
-- [ ] (empty: tick this)

@@ -20,5 +20,3 @@ or `T&&` accepts. Answer them.
 - [ ] `T&` accepts only lvalues, so passing a temporary is a compile error
 - [ ] `const T&` accepts lvalues and temporaries alike without a copy, so read-only parameters usually take it
 - [ ] `T&&` accepts only rvalues, so passing a named variable is a compile error
-- [ ] (empty: tick this)
-- [ ] (empty: tick this)

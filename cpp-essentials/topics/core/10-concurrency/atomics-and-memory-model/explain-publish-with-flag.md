@@ -23,4 +23,3 @@ why the reader is guaranteed to get the writer's value.
 - [ ] The acquire load that reads the release store's value synchronizes with that store
 - [ ] A load that still reads the old `false` pairs with nothing, which is why the reader spins until `true`
 - [ ] Synchronizes-with makes everything before the store happen before everything after the load, so the reader sees 42
-- [ ] (empty: tick this)

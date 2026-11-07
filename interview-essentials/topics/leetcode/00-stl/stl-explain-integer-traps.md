@@ -21,4 +21,3 @@ correct solutions to coding problems. Answer aloud.
 - [ ] `accumulate` sums in its initial value's type, so a 10¹⁰ total needs a `long long` zero
 - [ ] A container's size is unsigned, so size minus one on an empty container wraps to 2⁶⁴ − 1
 - [ ] Negating the smallest `int` overflows, because 2³¹ does not fit in an `int`
-- [ ] (empty: tick this)
