@@ -44,14 +44,17 @@ every second a Card costs is paid on every review (§2).
 A Card's cost is its review time × the number of reviews over its life,
 roughly 10 or more. A 3-minute trace costs about half an hour; a 15-second
 `basic`, two or three minutes. PEDAGOGY §4 sets the time to answer for
-each Kind. `scripts/estimate-time` checks Cards against it, with a few
-seconds allowed for reading the front and checking the back:
+each Kind. `scripts/estimate-time` checks Cards against it, with time
+allowed for reading the front and the back. Budgets for `basic` and `chunk`
+were raised on 2026-11-07 to fit real review times (median `basic` 31 s):
 
 | Kind | PEDAGOGY §4 answer time | estimate-time budget (whole review) |
 | --- | --- | --- |
-| `basic`, `cloze` (per blank) | ~15 s | 30 s (reading an example of up to 8 lines included) |
+| `basic` | ~15 s | 45 s (reading an example of up to 8 lines included) |
+| `cloze` (per blank) | ~15 s | 30 s |
 | `basic` tagged `worked-example` | ≤ 60 s | 75 s |
-| `code` (one blank), `chunk` | ≤ 30 s | 45 s |
+| `code` (one blank) | ≤ 30 s | 45 s |
+| `chunk` | ≤ 30 s | 60 s |
 | `code` with several blanks, `parsons`, `trace` | ≤ 60 s | 75 s |
 | `explain` | ~60 s aloud | 90 s |
 | any Card tagged `stretch` (§3) | — | 180 s |

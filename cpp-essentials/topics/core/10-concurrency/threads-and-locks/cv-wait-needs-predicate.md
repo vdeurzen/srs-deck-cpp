@@ -12,8 +12,8 @@ refs:
 elaborate: Say in one sentence, as to an interviewer, why "it worked in every test" says nothing about a wait with no predicate.
 ---
 
-`cv.notify_one()` wakes one thread blocked in `cv.wait(lk)`. A producer
-adds a job with `++jobs` under `m`, then calls `cv.notify_one()`.
+A producer adds a job with `++jobs` under `m`, then calls
+`cv.notify_one()`.
 
 ```cpp
 std::unique_lock<std::mutex> lk(m);

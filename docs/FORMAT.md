@@ -1,6 +1,6 @@
 # Deck format
 
-Exported from the srs app at b7c1016+uncommitted by `tools/export_deck_kit.sh`. Do not
+Exported from the srs app at 0764b72+uncommitted by `tools/export_deck_kit.sh`. Do not
 edit: rerun the export instead. Section numbers (§) refer to the app's SPEC,
 of which only the parts an author needs are reproduced here.
 
@@ -522,4 +522,86 @@ a future with a working `.then()`"). Each carries an `elaborate` prompt
 pointing the correction back at the reader's own code. Filtering Browse on
 the tag is then "the things I am most likely to be wrong about", which is
 worth more than keeping the tag exclusive to one Topic.
+
+
+# Feedback Export (the file the app hands back)
+
+**Feedback**: noting a problem with a card while studying it, and handing what was noted to the deck's author as a file (ADR-0012). The app's git stays read-only; feedback leaves the device only as a Feedback Export.
+
+**Capture.** "Feedback" on a card — Review's app-bar menu, a Browse row's menu, and the card preview's app bar — opens a dialog: one reason chip (Wrong, Unclear, Too easy, Too hard, Typo, Other) and an optional note. Save needs a reason other than Other, or a non-blank note; a note with no reason is saved as `other`. Saving writes one `card_feedback` row (§6) and says so in a snackbar. It writes no review event and moves nothing in the queue: noticing a problem with a card is not an answer to it.
+
+**Export.** On the Decks screen (§10.3), a deck row with pending feedback offers "Export feedback (N)", and one with no feedback pending but with cards to report in `cards` offers "Export feedback"; a checkout header holding more than one deck offers the same for all of them at once, N summed, one file — a single-deck checkout's row already offers it. Either asks for a route: **Share file** writes `feedback-<name>-<yyyyMMdd-HHmm>.json` (UTC; `<name>` the deck id, or for a checkout the last segment of its remote without `.git`, else the checkout id) to the cache directory and hands it to the share sheet; **Copy to clipboard** puts the same JSON on the clipboard. Exactly the feedback rows in the file are marked exported, and only once the share completed or the copy succeeded — a dismissed sheet leaves them pending. `cards` is a snapshot with nothing to mark: every export carries it afresh. Feedback on a card since orphaned is exported like any other; a removed deck's is kept and not offered.
+
+**Format.** The contract with deck authors and the agents working for them, versioned by `format`; this build writes 1. Adding an optional field is not a format change; renaming, removing or changing the meaning of one is. Two-space indented, keys in the order below, a trailing newline. One shape for a deck export and a checkout export: `decks` has one entry or several.
+
+```json
+{
+  "format": 1,
+  "kind": "srs-deck-feedback",
+  "checkout": {"remote": "https://github.com/u/decks.git", "commit": "<sha>"},
+  "exportedAt": "2026-10-19T07:05:30Z",
+  "decks": [
+    {
+      "deck": "cpp-core",
+      "path": "decks/cpp-core",
+      "items": [
+        {
+          "card": "rvo-mandatory",
+          "file": "decks/cpp-core/topics/01-basics/rvo-mandatory.md",
+          "cardKind": "basic",
+          "version": 2,
+          "commit": "<sha>",
+          "reason": "unclear",
+          "note": "Which standard made it mandatory?",
+          "createdAt": "2026-10-18T09:00:00Z",
+          "stats": {"reviews": 4, "again": 2, "gaveUp": 0}
+        }
+      ],
+      "cards": [
+        {
+          "card": "rvo-mandatory",
+          "file": "decks/cpp-core/topics/01-basics/rvo-mandatory.md",
+          "cardKind": "basic",
+          "version": 2,
+          "reviews": 3,
+          "again": 1,
+          "hard": 1,
+          "good": 1,
+          "easy": 0,
+          "gaveUp": 0,
+          "medianMs": 12400,
+          "p90Ms": 31000,
+          "lastReviewedAt": "2026-10-18T08:58:00Z"
+        },
+        {
+          "card": "explain-move-semantics",
+          "file": "decks/cpp-core/topics/02-types/explain-move-semantics.md",
+          "cardKind": "explain",
+          "version": 1,
+          "reviews": 2,
+          "again": 0,
+          "hard": 1,
+          "good": 1,
+          "easy": 0,
+          "gaveUp": 0,
+          "medianMs": 74000,
+          "p90Ms": 91000,
+          "lastReviewedAt": "2026-10-17T08:30:00Z",
+          "points": [
+            {"key": "3fa9c1d27b04", "text": "Rule of five / zero", "shown": 2, "ticked": 1, "hinted": 0}
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+- `checkout`: the checkout's remote and its pin at the time of the export. Either is omitted when unknown (a plain directory has neither), and the object with them when both are.
+- `exportedAt`, `createdAt`: ISO-8601 UTC, to the second.
+- `decks`: ordered by `deck`; a deck with neither pending feedback nor `cards` is left out. `path` is the deck's directory relative to the repository root, `""` at the root (§6 `decks.path`).
+- `items`: ordered by `card`, then `createdAt`. `card` is the front matter `id`, not the qualified id. `file` is the card's file relative to the **repository** root and `cardKind` its kind, both as the catalogue last read them — so they describe the card at `checkout.commit`. `version` and `commit` are the card's version and the checkout's pin **when the feedback was given**; `commit` is omitted for a plain directory. `note` is omitted when there is none. `stats` counts the card's own review events at export time, every version, practice answers, resets and drills excluded: `reviews` all of them, `again` those rated Again, `gaveUp` those that were a Give Up.
+- `cards`: optional, ordered by `card`; how each reviewed card is going, whether or not it has feedback, omitted when the deck has none. It counts the review events of the card's own items at its **current** `version`, practice answers, resets and drills excluded; a card with no such event, or an orphaned one, is left out. A reset does not clear the counts: it restarts a schedule, and the answers before it still say how the card went. A cloze card's items are summed, so `reviews` counts answers, not cards, and told apart in `clozes`. `again`, `hard`, `good` and `easy` count the confirmed ratings, and `gaveUp` those that were a Give Up, which are also counted under their rating. `medianMs` and `p90Ms` are the nearest-rank percentiles of the answers' `ms` (§6), which a phone left lying on a card would swamp a mean with.
+- `clozes`: on a cloze card, ordered by `cloze`, the number in `{{cN::...}}`: the same counts and times for that item alone. Left out for a number with no answer.
+- `points`: on an `explain` card, one per live Rubric Point with a mark (§6 `rubric_marks`) from a counted event, in the order the latest review showed them: `key` (§4.6), `text` the point's wording, omitted when the app cannot read it from the deck, `shown` the reviews that showed it, `ticked` those that ticked it, hinted ticks included, and `hinted` those that opened its hint. A drill's answers are not counted here, as they are not above. A reworded point is a new point (§4.6), so its counts start over.
 

@@ -9,6 +9,10 @@ rebuilding: read the front, solve, check the back. It is a coarse model
 cell or rubric item), good for ranking and for catching outliers, not a
 stopwatch. A cloze is timed per item, since each blank is reviewed alone.
 
+The `basic`, `cloze` and `chunk` constants are fitted to real review times from
+a cpp-essentials feedback export (2026-11-07). `code` and `trace` already matched
+within 10%. `explain` matches on the median but barely ranks Cards (r = 0.25).
+
 Structural flags check the trace budget (PEDAGOGY.md §3.1) directly, because the time
 model can't see how many iterations a loop runs:
 
@@ -35,13 +39,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cards import FENCE, Deck, clozes, in_topic  # noqa: E402
 
 # Seconds per review, by Kind (TEACHING.md §2).
-BUDGET = {"basic": 30, "cloze": 30, "code": 45, "chunk": 45,
+BUDGET = {"basic": 45, "cloze": 30, "code": 45, "chunk": 60,
           "parsons": 75, "trace": 75, "explain": 90}
 WORKED = 75
 STRETCH = 180
 MAX_LINES = {"code": 10, "chunk": 7, "parsons": 9, "trace": 15}
 
 WORD_S, LINE_S, CHECK_S = 0.25, 2.0, 0.05   # reading prose, reading code, skimming the back
+BACK_S = 0.3                                # a basic or cloze back gets read, not skimmed
 BRACE_LIST = re.compile(r"\{([^{}]*)\}")
 LOOP = re.compile(r"\b(for|while)\s*\(")
 
@@ -92,15 +97,15 @@ def estimate(card):
         flags.append(f"long-snippet {lines} lines")
 
     if kind == "basic":
-        t = read + 4 + check
+        t = read + 7 + prose_words(back) * BACK_S
     elif kind == "cloze":
-        t = read + 4 + check
+        t = read + 2 + prose_words(back) * BACK_S
     elif kind == "code":
         blanks = {c[2] for c in clozes(code)}
         chips = sum(len(v) for v in (fm.get("choices") or {}).values())
         t = read + 6 * len(blanks) + 1.0 * chips + check
     elif kind == "chunk":
-        t = (fm.get("expose_ms") or 8000) / 1000 + 3 * lines + 3
+        t = (fm.get("expose_ms") or 8000) / 1000 + 7 * lines + 3
     elif kind == "parsons":
         t = read + 3 * lines + 4 * len(fm.get("distractors") or []) + check
     elif kind == "trace":

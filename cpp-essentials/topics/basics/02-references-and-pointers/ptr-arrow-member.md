@@ -17,10 +17,9 @@ refs:
 struct Rect { int w, h; };
 Rect box{3, 4};
 Rect* r = &box;
-int b = r->h;
 ```
 
-## `r` is a `Rect*`. Which of `r.h`, `*r.h` and `(*r).h` means the same as `r->h`?
+## Which of `r.h`, `*r.h` and `(*r).h` means the same as `r->h`?
 
 ---
 

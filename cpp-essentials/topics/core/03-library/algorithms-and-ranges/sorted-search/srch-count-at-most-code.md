@@ -21,6 +21,7 @@ compile:
     int main() {}
 requires:
   - srch-lower-bound-trace
+  - srch-upper-vs-lower
   - constexpr-fn-static-assert
 elaborate: Say how you would count the values of a sorted vector that lie in [a, b] with two such calls.
 refs:
